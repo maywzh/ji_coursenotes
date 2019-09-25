@@ -1,5 +1,7 @@
 .ipynb_checkpoints
 *.ipynb
+.vscode
+
 # ---> Linux
 *~
 
