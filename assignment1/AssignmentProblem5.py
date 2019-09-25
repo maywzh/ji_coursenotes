@@ -37,7 +37,7 @@ def dectect_key(ciphertext_list):
 
         # Loop through all positions where a space character was possible in the current_index cipher
         for i, val in list(counter.items()):
-            # assume position occur no less than 6 times of this situation as space.
+            # assume position with this situation occuring no less than 6 times as space.
             if val >= 6:
                 possible_space_idxs.append(i)
         # print knownSpaceIndexes # Shows all the positions where we now know the key!
