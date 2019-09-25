@@ -7,8 +7,6 @@ def str_xor(a, b):     # xor two strings (trims the longer input)
     return "".join([chr(ord(x) ^ ord(y)) for (x, y) in zip(a, b)])
 
 # Initialize the ciphertexts list and targetciphertext
-
-
 def read_ciphertexts(ciphertextpath, targetciphertextpath):
     cyphertext_list = []
     target_ciphertext = ""
@@ -16,15 +14,15 @@ def read_ciphertexts(ciphertextpath, targetciphertextpath):
         lines = f.readlines()
         for line in lines:
             cyphertext_list.append(line.strip('\n'))
-    with open(ciphertextpath) as f:
+    with open(targetciphertextpath) as f:
         target_ciphertext = f.readline().strip('\n')
     return cyphertext_list, target_ciphertext
 
 # Gusee key by the space
-
-
 def dectect_key(ciphertext_list):
     # For each ciphertext
+    final_key = [None]*150
+    possible_space_idxs = []
     for i, cti in enumerate(ciphertext_list):
         counter = collections.Counter()
         for j, ctj in enumerate(ciphertext_list):
@@ -34,39 +32,29 @@ def dectect_key(ciphertext_list):
                         # space(0x20) ^ letter == letter
                         # the kth position are likely to be the space
                         counter[k] += 1
-        possible_space_idxs = []
-
-        # Loop through all positions where a space character was possible in the current_index cipher
+        
         for i, val in list(counter.items()):
             # assume position with this situation occuring no less than 6 times as space.
             if val >= 6:
                 possible_space_idxs.append(i)
-        # print knownSpaceIndexes # Shows all the positions where we now know the key!
-        final_key = [None]*150
-        # Now Xor the current_index with spaces, and at the knownSpaceIndexes positions we get the key back!
+        
+        # This is core idea: XOR the current ciphertext with spaces, we can get key in these positions.
         space_xor_test = str_xor(cti, ' '*150)
         for i in possible_space_idxs:
-            # Store the key's value at the correct position
             final_key[i] = space_xor_test[i]
-            # Record that we known the key at this position
             possible_space_idxs.add(i)
-        return final_key, possible_space_idxs
+    return final_key, possible_space_idxs
 
 
 def run(target):
     ciphertext_list, target_ciphertext = read_ciphertexts(
         "./ciphertext.txt", "./target_ciphertext.txt")
-    # To store the final key
-    # To store the positions we know are broken
     final_key,possible_space_idxs = dectect_key(ciphertext_list)
-    # Construct a hex key from the currently known key, adding in '00' hex chars where we do not know (to make a complete hex string)
     final_key_hex = ''.join(
         [val if val is not None else '00' for val in final_key])
-    # Xor the currently known key with the target cipher
     output = str_xor(target_ciphertext, final_key_hex)
-    # Print the output, printing a * if that character is not known yet
     print(''.join(
         [char if index in possible_space_idxs else '*' for index, char in enumerate(output)]))
-
+    print(str_xor(final_key_hex, target_ciphertext))
 if __name__ == "__main__":
     run()

@@ -1,0 +1,384 @@
+\documentclass{article}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{listings} 
+\usetikzlibrary{automata,positioning}
+
+\usepackage{color}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb,
+  language=Python,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass\: \hmwkTitle}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Problem \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Due date
+%   - Class
+%   - Section/Time
+%   - Instructor
+%   - Author
+%
+
+\newcommand{\hmwkTitle}{Homework\ \#1}
+\newcommand{\hmwkDueDate}{September 25, 2019}
+\newcommand{\hmwkClass}{CSCI971 Advance Computer Security}
+\newcommand{\hmwkClassTime}{Assignment 1}
+\newcommand{\hmwkClassInstructor}{Chen Jiageng}
+\newcommand{\hmwkAuthorName}{\textbf{Mei Wangzhihui}}
+\newcommand{\hmwkAuthorNum}{\textbf{2019124044}}
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+    % \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at 3:10pm}\\
+    % \vspace{0.1in}\large{\textit{\hmwkClassInstructor\ \hmwkClassTime}}
+    \vspace{3in}
+}
+
+\author{\hmwkAuthorName\ \hmwkAuthorNum}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+
+% Alias for the Solution section header
+\newcommand{\solution}{\textbf{\large Solution}}
+
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\E}{\mathrm{E}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+
+\begin{document}
+
+\maketitle
+
+\pagebreak
+
+\begin{homeworkProblem}
+    \textbf{Solution}
+    \\
+    \textbf{1.}
+    $G^{\prime}$ is composing PRG so $G^{\prime}$ is secure. \\
+    \textbf{2.}
+    As algorithm G is an efficient deterministic algorithm, so the $msb(G(0))$ is either 0 or 1, we assume that $msb(G(0))=1)$.\\
+    We define a statistical test $A(x)$ as :\\
+    \centerline{if $[msb(x)]$ output "$1$" else output $0$} 
+    As the $G$ is a secure PRG, so the probability of the \(\) 
+    \[
+        \begin{split}
+            Adv_{PRG}[A,G]&=|Pr(A(G(0)=1)-Pr(A(r)=1)|\\ &=1/2
+        \end{split}
+    \]
+    It is not negligible. So $G^{\prime}(k)$ is not secure PRG.\\   
+    \textbf{3.}
+    As $G(k)$ is secure PRG, the $G^{\prime}(k)$ is secure PRG. \\
+    \textbf{4.}
+    We can find that: \\
+    \centerline{\(k\oplus1^{s}=\bar{k}\)} 
+    because $k\gets\{0,1\}^{s}$ so $\bar{k}\gets\{0,1\}^{s}$, thus: \\
+    \[
+        \begin{split}
+            Adv_{PRG}[A,G^{\prime}]&=|Pr(A(G(\bar{k})=1)-Pr(A(r)=1)|\\
+            &= |Pr(A(G(k)=1)-Pr(A(r)=1)|
+        \end{split}
+    \]
+    $G$ is secure so $G^{\prime}$ is secure.\\
+
+    \textbf{5.}
+    \[
+        \begin{split}
+            Adv_{PRG}[A,G^{\prime}]&=|Pr(A(reserver(G(k))=1 )-Pr(A(r)=1)|\\
+            &= |Pr(A(G(k)=1)-Pr(A(r)=1)|
+        \end{split}
+    \]
+        $G$ is secure so $G^{\prime}$ is secure.\\
+
+
+\end{homeworkProblem}
+
+
+\begin{homeworkProblem}
+    \textbf{Solution}
+    \[
+        \begin{split}
+            Pr(lsb(G^{\prime}(k_{1},k_{2}))=1)&=Pr(lsb(G(k_{1}))=1)\times Pr(lsb(G(k_{2}))=1) \\
+            &=1/4
+        \end{split}
+    \]
+    so
+    \[
+        \begin{split}
+             Adv_{PRG}[A,G^{\prime}]&=|Pr(A((lsb(G^{\prime}(k_{1},k_{2}))=1)-Pr(A(r)=1)|\\
+            &= 1/4
+        \end{split}
+    \]
+
+
+\end{homeworkProblem}
+
+
+\begin{homeworkProblem}
+    \textbf{Solution} \\
+    \textbf{1.}
+    The \(E^{\prime}\left(\left(k, k^{\prime}\right), m\right)=E(k, m) \| E\left(k^{\prime}, m\right)\) assume an Attacker game. We have:
+    \[
+    Adv_{SS}(A,E^{\prime})=2Adv_{SS}(A.E) 
+    \]
+    $E^{\prime}$ is semantically secure.
+
+    \textbf{2.}
+    As the $k$ is fixed , the $c_{1}$ and $c_{2}$ is fixed too. The $Adv_{SS}=1$
+    So it is not semantically secure.
+
+    \textbf{3.}
+    The $k$ from the $E_{\prime}$ leak the key. The adversary can encrypt the $m_{0}$ $m_{1}$ to get the ciphertext $c_{0}$ $c_{1}$, then the $Adv_{SS}=1$
+    So it is not semantically secure.
+    
+    \textbf{4.}
+    A can deduce $b$ from the $LSB(m)$ part of $E^{\prime}(k,m)$, if $LSB(m_{0})\neq LSB(m_{1})$ the $Adv_{SS}$ is not negligible,So it is not semantically secure.
+
+
+
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+    \textbf{Solution}
+    We can know that:\\
+    \centerline{$c_{1}=m_{1}\oplus k$} \\
+    then: \\ e$
+    \centerline{$k=c_{1}\oplus m_{1}$} \\ 
+    so: 
+$
+    \[
+        \begin{split}
+            c_{2}&=m_{2}\oplus k \\
+            &= m2 \oplus c_{1} \oplus m{1}
+            \\&=6c73d5240a948c86981bc2808548
+        \end{split}
+    \]
+
+    the program code are here:
+    \begin{lstlisting}
+from functools import reduce
+
+
+def ByteToHex(bins):
+    return ''.join(["%02x" % x for x in bins]).strip()
+
+
+def BytesXor(b1, b2):
+    return [a ^ b for a, b in zip(b1, b2)]
+
+
+m1 = "attack at dawn".encode('ascii')
+m2 = "attack at dusk".encode('ascii')
+c1 = bytes.fromhex("6c73d5240a948c86981bc294814d")
+c2 = reduce(BytesXor, [m1, m2, c1])
+print(ByteToHex(c2))
+
+    \end{lstlisting}
+
+
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+    \textbf{Solution}
+    We can know that:\\
+    $$c_{x}\oplus c_{y}=m_{x}\oplus m_{y} $$
+    and another fact:
+    the ASCII of space is 32 so for the plaintext:
+    $$X\oplus 32 = x $$
+    $$x\oplus 32 = X$$
+    x denote the lower letter whose ASCII is between 97-122 and X denote upper letter whose ASCII is between 65-90. \\
+    we can conclude that if two A xor B is still letter, then either A or B is space. That is:\\
+    \centerline{$A\oplus B =C, C\in Z_{space} \Rightarrow $ either A or B is space}
+    so, first we can find certain spaces from point 2.\\
+    for the jth char of ith ciphertext $C_{i,j}$, $\forall j\in[1,10]$ and $j\neq i$, if $C_{i,t}\oplus C_{j,t}=X$, if $X$ is letter then $C_{i,t}$ is space.\\
+    then from point 1 we can get $K_{space}$
+    $$K_{space}=C_{space}\oplus P_{space}$$
+    then we can use the $K_{space}$ to decrypt the letter in ciphertext in the same position with space. Then we can guess the plaintext $P_{part}$ from the text. and find the $K_{rest}$. Loop until find all key $K_{all}$.\\
+    Finally, we can use the $K_{all}$ to decrypt the target ciphertext $C_{target}$
+    the program code are here:
+    \begin{lstlisting}
+import collections
+import string
+
+
+# XORs two string
+def str_xor(a, b):     # xor two strings (trims the longer input)
+    return "".join([chr(ord(x) ^ ord(y)) for (x, y) in zip(a, b)])
+
+# Initialize the ciphertexts list and targetciphertext
+def read_ciphertexts(ciphertextpath, targetciphertextpath):
+    cyphertext_list = []
+    target_ciphertext = ""
+    with open(ciphertextpath) as f:
+        lines = f.readlines()
+        for line in lines:
+            cyphertext_list.append(line.strip('\n'))
+    with open(targetciphertextpath) as f:
+        target_ciphertext = f.readline().strip('\n')
+    return cyphertext_list, target_ciphertext
+
+# Gusee key by the space
+def dectect_key(ciphertext_list):
+    # For each ciphertext
+    final_key = [None]*150
+    possible_space_idxs = []
+    for i, cti in enumerate(ciphertext_list):
+        counter = collections.Counter()
+        for j, ctj in enumerate(ciphertext_list):
+            if i != j:  # Just dont compare with itself
+                for k, char in enumerate(str_xor(cti, ctj)):
+                    if char in string.printable and char.isalpha():
+                        # space(0x20) ^ letter == letter
+                        # the kth position are likely to be the space
+                        counter[k] += 1
+        
+        for i, val in list(counter.items()):
+            # assume position with this situation occuring no less than 6 times as space.
+            if val >= 6:
+                possible_space_idxs.append(i)
+        
+        # This is core idea: XOR the current ciphertext with spaces, we can get key in these positions.
+        space_xor_test = str_xor(cti, ' '*150)
+        for i in possible_space_idxs:
+            final_key[i] = space_xor_test[i]
+            possible_space_idxs.add(i)
+    return final_key, possible_space_idxs
+
+
+def run(target):
+    ciphertext_list, target_ciphertext = read_ciphertexts(
+        "./ciphertext.txt", "./target_ciphertext.txt")
+    final_key,possible_space_idxs = dectect_key(ciphertext_list)
+    final_key_hex = ''.join(
+        [val if val is not None else '00' for val in final_key])
+    output = str_xor(target_ciphertext, final_key_hex)
+    print(''.join(
+        [char if index in possible_space_idxs else '*' for index, char in enumerate(output)]))
+    print(str_xor(final_key_hex, target_ciphertext))
+if __name__ == "__main__":
+    run()
+    \end{lstlisting}
+    We get the final Key:\\
+    $K=$66396e89c9dbd8cc9874352acd6395102eafce78aa7fed28a0\\
+    7f6bc98d29c5 0b69b0339a19f8aa401a9c6d708f80c066c763fef\\
+    0123148cdd8e802d05ba98777335daefcecd59c433a6b268b60bf4\\
+    ef03c9a611098bb3e9a3161edc7b804a33522cfd202d2c68c57376\\
+    edba8c2ca50027c61246e2a12b0c4502175010c0a1ba4625786d91\\
+    1100797d8a47e98b0204c4ef06c867a950f11ac989dea88fd1dbf1\\6748749ed4c6f45b34c9d96c4 \\ 
+    $M_{target}=$  When using a stream cipher, never use the key more than once
+\end{homeworkProblem}
+
+
+\end{document}
