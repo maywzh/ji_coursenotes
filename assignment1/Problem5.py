@@ -13,10 +13,11 @@ def read_ciphertexts(ciphertextpath, targetciphertextpath):
     cyphertext_list = []
     target_ciphertext = ""
     with open(ciphertextpath) as f:
-        for line in f:
-            cyphertext_list.append(line)
+        lines = f.readlines()
+        for line in lines:
+            cyphertext_list.append(line.strip('\n'))
     with open(ciphertextpath) as f:
-        target_ciphertext = f.readline()
+        target_ciphertext = f.readline().strip('\n')
     return cyphertext_list, target_ciphertext
 
 # Gusee key by the space
