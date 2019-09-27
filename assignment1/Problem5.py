@@ -46,7 +46,7 @@ def dectect_key(ciphertext_list):
     return final_key, possible_space_idxs
 
 
-def run(target):
+def run():
     ciphertext_list, target_ciphertext = read_ciphertexts(
         "./ciphertext.txt", "./target_ciphertext.txt")
     final_key,possible_space_idxs = dectect_key(ciphertext_list)
