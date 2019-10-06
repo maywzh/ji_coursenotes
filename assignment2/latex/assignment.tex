@@ -198,12 +198,12 @@
             \node[draw,rectangle] (a) [right=of s] {Alice};
             \path[->]
             (b)
-              edge node {Step1: \(r\xleftarrow{R}Z_p,\ x_b=r(b+k_0)+k_1\)} (s)
+              edge node {Step1: \(r\xleftarrow{R}\mathbb Z_p,\ x_b=r(b+k_0)+k_1\)} (s)
             (a)
-              edge node {Step2: $x_a=a+k_0$} (s)
+              edge [bend left] node {Step2: $x_a=a+k_0$} (s)
               edge [loop above] node {Step4: $\Delta=x+k_1$} (a)
             (s)
-              edge node {Step3: $x=rx_a-x_b$} (a);           
+              edge [bend right=-30] node {Step3: $x=rx_a-x_b$} (a);           
         \end{tikzpicture}
         \caption{The protocol procedure}
         \label{fig:1}
@@ -211,7 +211,57 @@
     \\
     As $\Delta=x+k_1=r(a-b)$ so we get the condition that $r\neq0$
     \\
-    if $(k_0,k_1)$ are used for more than once, Sam can known that:
+    if $(k_0,k_1)$ are used for more than once. 
+    We assume it was tested if $a=b$ and $a^\prime=b^\prime$\\
+    For Sam:
+    \[
+      \begin{cases}
+        x_a=a+k_0\\
+        x_b=r(b+k_0)+k_1
+      \end{cases}
+    \]
+    \[
+      \begin{cases}
+        x_a^\prime=a^\prime+k_0\\
+        x_b^\prime=r^\prime(b^\prime+k_0)+k_1
+      \end{cases}
+    \]
+    So Sam learned that $a^\prime-a=x_a^\prime-x_a$. \\
+    For Alice:
+    \[
+      \begin{cases}
+        x=r(a-b)-k_1\\
+        x^\prime=r^\prime(a^\prime-b^\prime)-k_1
+      \end{cases}
+    \]
+    Alice learned ration of $(a-b)/(a^\prime-b^\prime)$ which reveal $b/b^\prime$\\
+
+    \textbf{Bugfix}\\
+    the core of the issue was the reusing of the $(k_0,k_1)$, so we should generate new indenpendent key from it by PRF. We define a secure PRF F defined at $\{K, \mathbb Z_b,\mathbb Z_p^2\}$ 
+    we can derive the key-pair $(k_p,k_q)$ from $F$ and initial seed key $k$ as:
+    $F(k, n)=(k_p,k_q)$ and $n$ is value of counter.\\
+    We should let Alice and Bob get the value of counter synchronically for the syncronicity of key-pair. each time Alice and Bob finish the comparison, they increase the their counter by 1. 
+    so they get the syncronical key-pair.
+    \begin{figure}[h]
+        \centering
+        \begin{tikzpicture}[shorten >=1pt,node distance=7cm,on grid,auto]
+            \node[draw,rectangle] (b) {Bob};
+            \node[draw,circle] (s) [right=of b] {Sam};
+            \node[draw,rectangle] (a) [right=of s] {Alice};
+            \path[->]
+            (b)
+              edge node {Step1: \(r\xleftarrow{R}\mathbb Z_p,\ x_b=r(b+k_0)+k_1\)} (s)
+              edge [loop above] node {Step0: $n\leftarrow n+1$} (a)
+            (a)
+              edge [bend left] node {Step2: $x_a=a+k_0$} (s)
+              edge [loop above] node {Step4: $\Delta=x+k_1$} (a)
+              edge [loop below] node {Step5: $n\leftarrow n+1$} (a)
+            (s)
+              edge [bend right=-30] node {Step3: $x=rx_a-x_b$} (a);           
+        \end{tikzpicture}
+        \caption{The fixed protocol procedure}
+        \label{fig:2}
+    \end{figure}
     
 \end{homeworkProblem}
 \end{document}
