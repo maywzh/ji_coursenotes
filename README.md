@@ -1,6 +1,8 @@
-# cryptography_assignments
+# JI Courses
 
-## stream cipher
+## CSCI971 cryptography_assignments
+
+### stream cipher
 
 - perfect security
 
@@ -8,9 +10,9 @@
 
 - attack game
 
-## block cipher
+### block cipher
 
-- security 
+- security
 
 - DES/AES
 
