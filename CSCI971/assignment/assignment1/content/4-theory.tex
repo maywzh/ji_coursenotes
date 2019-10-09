@@ -1,0 +1,45 @@
+%---------------------------------------------------------------------------------
+% Theory
+%---------------------------------------------------------------------------------
+
+\section{Theory}
+
+If you want to add mathematical equations, this may be done either this way: $a +  b \neq \frac{a}{b}$. You may also add Greek letters like this: $\alpha$.\\ 
+
+\blindtext % Some blind text
+
+% Including figures
+\begin{figure}[htpb!] % Defines figure environment
+    \centering % Centers your figure
+\includegraphics[scale=0.8]{figure/figure.png} % Includes your figure and defines the size
+    \caption{A circle} % For your caption
+    \label{fig:my_label} % If you want to label your figure for in-text references
+\end{figure}
+
+\blindtext % Some blind text
+
+% Including tables
+%   Simple table
+\begin{table}[] % Add htpb! to make sure that table is where it should be
+    \centering
+    \begin{tabular}{c|c}
+        Saturday & Sunday \\
+        12 & 18
+    \end{tabular}
+    \caption{Overview of the weekend}% Caption for tables
+    \label{tab:weekend} % Reference for in-line referencing
+\end{table}
+
+%   Table with table generator
+\begin{table}[] % Add htpb! to make sure that table is where it should be
+    \centering
+\begin{tabular}{@{}lll@{}}
+\toprule
+  & A   & B \\ \midrule
+C & 100 & 2 \\
+D & 3   & 5 \\ \bottomrule
+\end{tabular}
+    \caption{Random numbers} % Caption for tables
+    \label{tab:numbers} % Reference for in-line referencing
+\end{table}
+

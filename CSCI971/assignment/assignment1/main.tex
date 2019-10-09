@@ -1,0 +1,50 @@
+% Credits are indicated where needed. The general idea is based on a template by Vel (vel@LaTeXTemplates.com) and Frits Wenneker.
+
+\documentclass[11pt, a4paper]{article} % General settings in the beginning (defines the document class of your paper)
+% 11pt = is the font size
+% A4 is the paper size
+% “article” is your document class
+
+\input{general.tex} % Loads required packages from the separate file 
+
+%---------------------------------------------------------------------------------
+%	General information
+%---------------------------------------------------------------------------------
+\title{TITLE} % Adds your title
+\author{
+FIRSTNAME LASTNAME % Add your first and last name
+    %\thanks{} % Adds a footnote to your title
+    %\institution{YOUR INSTITUTION} % Adds your institution
+  }
+
+\date{\small \today} % Adds the current date to your “cover” page; leave empty if you do not want to add a date
+
+
+%---------------------------------------------------------------------------------
+%	Define what’s in your document
+%---------------------------------------------------------------------------------
+
+\begin{document}
+
+% If you want a cover page, uncomment "\input{content/0A-coverpage}" and comment "\maketitle" as well as "\input{content/0B-disclaimer}"
+
+\maketitle % Print your title, author name and date; comment if you want a cover page 
+%\input{content/0A-coverpage} % Adds a cover page; uncomment if you want a cover page
+\input{content/0B-disclaimer} % Gives you the word count; comment if you want a cover page 
+%\input{content/0C-toc} % Adds a table of content; uncomment if required
+
+\input{content/1-abstract} % Adds your abstract
+\input{content/2-introduction} % Adds your introduction
+\input{content/3-litreview} % Adds your literature review
+\input{content/4-theory} % Adds your theory section 
+\input{content/5-researchdesign} % Adds your research design
+\input{content/6-analysis} % Adds your analysis
+\input{content/7-conclusion} % Adds your conclusion
+\input{content/8-bibliography} % Adds your references
+\input{content/9A-appendix}% Adds an appendix
+\input{content/9B-declaration} % Adds your declaration
+
+
+%---------------------------------------------------------------------------------
+
+\end{document}
