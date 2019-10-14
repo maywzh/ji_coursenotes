@@ -162,7 +162,37 @@
 \pagebreak
 
 \begin{homeworkProblem}
-  
+  \textbf{Solution}
+  \\
+  We know:
+  \[
+     m[j] \leftarrow D(k,c[j+1]) \oplus c[j]     
+  \]
+  As we miss $c[50]$ so $m[49] \leftarrow D(k,c[50]) \oplus c[49]$ and $m[50] \leftarrow D(k,c[51]) \oplus c[50]$ will be corrupted. 
 \end{homeworkProblem}
 
+\begin{homeworkProblem}
+  \textbf{Solution}
+  \\
+  \begin{figure}[h]
+    \centering
+    \begin{tikzpicture}[shorten >=1pt,node distance=7cm,on grid,auto]
+        \node[draw,rectangle] (b) {Bob};
+        \node[draw,circle] (s) [right=of b] {Sam};
+        \node[draw,rectangle] (a) [right=of s] {Alice};
+        \path[->]
+        (b)
+          edge node {Step1: \(r\xleftarrow{R}\mathbb Z_p,\ x_b=r(b+k_0)+k_1\)} (s)
+          edge [loop above] node {Step0: $n\leftarrow n+1$} (a)
+        (a)
+          edge [bend left] node {Step2: $x_a=a+k_0$} (s)
+          edge [loop above] node {Step4: $\Delta=x+k_1$} (a)
+          edge [loop below] node {Step5: $n\leftarrow n+1$} (a)
+        (s)
+          edge [bend right=-30] node {Step3: $x=rx_a-x_b$} (a);           
+    \end{tikzpicture}
+    \caption{The fixed protocol procedure}
+    \label{fig:2}
+\end{figure}
+\end{homeworkProblem}
 \end{document}
