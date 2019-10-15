@@ -7,20 +7,40 @@ from Crypto.Cipher import AES
 from Crypto.Util import Counter
 from Crypto import Random
 
-# XOR two hex string.
 def strxor(a, b):
+    """XOR two hex strings like "3eab" and "fef1"
+
+    :Parameters:
+      a : hex string
+        the first parameter
+      b : hex string
+        the second parameter
+    :Returns:
+      hex format of a ^ b.
+    """
     return "".join([chr(ord(x) ^ ord(y)) for (x, y) in zip(a[: len(b)], b[: len(a)])])
-    
+
 def run():
+    """
+    main process
+    """
+    keys = [
+        "140b41b22a29beb4061bda66b6747e14",
+        "140b41b22a29beb4061bda66b6747e14",
+        "36f18357be4dbd77f050515c73fcf9f2",
+        "36f18357be4dbd77f050515c73fcf9f2"
+    ]
+    cipherTexts = [
+        "4ca00ff4c898d61e1edbf1800618fb2828a226d160dad07883d04e008a7897ee2e4b7465d5290d0c0e6c6822236e1daafb94ffe0c5da05d9476be028ad7c1d81",
+        "5b68629feb8606f9a6667670b75b38a5b4832d0f26e1ab7da33249de7d4afc48e713ac646ace36e872ad5fb8a512428a6e21364b0c374df45503473c5242a253",
+        "69dda8455c7dd4254bf353b773304eec0ec7702330098ce7f7520d1cbbb20fc388d1b0adb5054dbd7370849dbf0b88d393f252e764f1f5f7ad97ef79d59ce29f5f51eeca32eabedd9afa9329",
+        "770b80259ec33beb2561358a9f2dc617e46218c0a53cbeca695ae45faa8952aa0e311bde9d4e01726d3184c34451"
+    ]
     blockSize = 16  # 16-byte encryption
-    q1 = cbcDecrypt("140b41b22a29beb4061bda66b6747e14",
-                    "4ca00ff4c898d61e1edbf1800618fb2828a226d160dad07883d04e008a7897ee2e4b7465d5290d0c0e6c6822236e1daafb94ffe0c5da05d9476be028ad7c1d81", blockSize)
-    q2 = cbcDecrypt("140b41b22a29beb4061bda66b6747e14",
-                    "5b68629feb8606f9a6667670b75b38a5b4832d0f26e1ab7da33249de7d4afc48e713ac646ace36e872ad5fb8a512428a6e21364b0c374df45503473c5242a253", blockSize)
-    q3 = ctrDecrypt("36f18357be4dbd77f050515c73fcf9f2",
-                    "69dda8455c7dd4254bf353b773304eec0ec7702330098ce7f7520d1cbbb20fc388d1b0adb5054dbd7370849dbf0b88d393f252e764f1f5f7ad97ef79d59ce29f5f51eeca32eabedd9afa9329", blockSize)
-    q4 = ctrDecrypt("36f18357be4dbd77f050515c73fcf9f2",
-                    "770b80259ec33beb2561358a9f2dc617e46218c0a53cbeca695ae45faa8952aa0e311bde9d4e01726d3184c34451", blockSize)
+    q1 = cbcDecrypt(keys[0], cipherTexts[0], blockSize)
+    q2 = cbcDecrypt(keys[1], cipherTexts[1], blockSize)
+    q3 = ctrDecrypt(keys[2], cipherTexts[2], blockSize)
+    q4 = ctrDecrypt(keys[3], cipherTexts[3], blockSize)
 
     print("\n\nAnswers:")
     print("Q1. ", q1)
@@ -28,32 +48,12 @@ def run():
     print("Q3. ", q3)
     print("Q4. ", q4)
 
-    # Result
-    # CBC decryption of key/cypher 140b41b22a29beb4061bda66b6747e14  /  4ca00ff4c898d61e1edbf1800618fb2828a226d160dad07883d04e008a7897ee2e4b7465d5290d0c0e6c6822236e1daafb94ffe0c5da05d9476be028ad7c1d81
-    # 1:  Basic CBC mode encryption needs padding.
-    # 2:  Basic CBC mode encryption needs padding.
-
-    # CBC decryption of key/cypher 140b41b22a29beb4061bda66b6747e14  /  5b68629feb8606f9a6667670b75b38a5b4832d0f26e1ab7da33249de7d4afc48e713ac646ace36e872ad5fb8a512428a6e21364b0c374df45503473c5242a253
-    # 1:  Our implementation uses rand. IV
-    # 2:  Our implementation uses rand. IV
-
-    # CTR decryption of key/cypher 36f18357be4dbd77f050515c73fcf9f2  /  69dda8455c7dd4254bf353b773304eec0ec7702330098ce7f7520d1cbbb20fc388d1b0adb5054dbd7370849dbf0b88d393f252e764f1f5f7ad97ef79d59ce29f5f51eeca32eabedd9afa9329
-    # 1:  CTR mode lets you build a stream cipher from a block cipher.
-    # 2:  ?
-
-    # CTR decryption of key/cypher 36f18357be4dbd77f050515c73fcf9f2  /  770b80259ec33beb2561358a9f2dc617e46218c0a53cbeca695ae45faa8952aa0e311bde9d4e01726d3184c34451
-    # 1:  Always avoid the two time pad!
-    # 2:  ?
-
-    # Answers:
-    # Q1.  Basic CBC mode encryption needs padding.
-    # Q2.  Our implementation uses rand. IV
-    # Q3.  CTR mode lets you build a stream cipher from a block cipher.
-    # Q4.  Always avoid the two time pad!
-
 
 # Do 2 variants of CTR decryption
 def ctrDecrypt(key, cypherText, blockSize):
+    """
+    decrypt CTR cyphertext
+    """
     print("\nCTR decryption of key/cypher", key, " / ", cypherText)
     res1 = ctrDecrypt1(key, cypherText, blockSize)
     res2 = ctrDecrypt2(key, cypherText, blockSize)
@@ -156,5 +156,5 @@ def cbcDecrypt2(key, cypherText, blockSize):
 # xor two strings of different lengths
 
 
-if __name__=="__main__":
+if __name__ == "__main__":
     run()
