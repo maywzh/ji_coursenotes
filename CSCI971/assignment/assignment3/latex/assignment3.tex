@@ -175,18 +175,30 @@
 \begin{homeworkProblem}
   \textbf{Solution}
   \\
-  The challenger selects $k \xleftarrow{R} K$,As the nonce are looped with the period of 100times. so we assume the adversary query $m_{i,0},m_{i,1}$ and $m_{i,0}= m_{i,1}$ in the ith round. After that, he query $m_{i+100,0},m_{i+100,1}$ and $m_{i+100,0} \neq m_{i+100,1}$ in the (i+100)th round and $m_{i,0}=m_{i+100,0}$, $ n_i=n_{i+100}$. \\
-  \[\because c_{i} \leftarrow E\left(k, m_{i b}, \mathcal{N}_{i}\right) ) \\ 
+  The challenger selects $k \xleftarrow{R} K$,As the nonce are looped with the period of 100times. \\
+  We assume the adversary query $m_{i,0},m_{i,1}$ and $m_{i,0}= m_{i,1}$ in the ith round. \\
+  After that, he query $m_{i+100,0},m_{i+100,1}$ and $m_{i+100,0} \neq m_{i+100,1}$, \\
+  In the (i+100)th round and $m_{i,0}=m_{i+100,0}$, $ n_i=n_{i+100}$. \\
+  \[
+    \because c_{i} \leftarrow E\left(k, m_{i b}, \mathcal{N}_{i}\right) ) 
   \]
   \[
     \therefore c_{i,0}=c_{i,1}=c_{i+100,0}\neq c_{i+100,1} 
   \]
-  the adversary $\mathcal{A}$ check the $c_i$ and $c_{i+100}$ and can deduce the $b$ directly: if $c_i\neq c_{i+100}$ the $\mathcal{A}$ output 1 else output 0.
+  the adversary $\mathcal{A}$ check the $c_i$ and $c_{i+100}$ and can deduce the $b$ directly: \\
+  if $c_i\neq c_{i+100}$ the $\mathcal{A}$ output 1 else output 0. \\
   so the $Adv_{nCPA}[\mathcal{A},\mathcal{E}]=|Pr[W_0]-Pr[W_1]|=1$ is not negligible. \\
   So according to the the \textbf{Definition 5.3}, this encryption is not semantic secure under CPA attack.
 \end{homeworkProblem}
 
 \begin{homeworkProblem}
-    
+   the result
+   Answers:
+   \begin{itemize}
+     \item Q1.  Basic CBC mode encryption needs padding.
+     \item Q2.  Our implementation uses rand. IV
+     \item Q3.  CTR mode lets you build a stream cipher from a block cipher.
+     \item Q4.  Always avoid the two time pad!
+   \end{itemize}
 \end{homeworkProblem}
 \end{document}
