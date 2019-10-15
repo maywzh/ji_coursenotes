@@ -7,6 +7,7 @@ from Crypto.Cipher import AES
 from Crypto.Util import Counter
 from Crypto import Random
 
+
 def strxor(a, b):
     """XOR two hex strings like "3eab" and "fef1"
 
@@ -19,6 +20,15 @@ def strxor(a, b):
       hex format of a ^ b.
     """
     return "".join([chr(ord(x) ^ ord(y)) for (x, y) in zip(a[: len(b)], b[: len(a)])])
+
+
+def BytesXor(b1, b2):
+    return [a ^ b for a, b in zip(b1, b2)]
+
+
+def ByteToHex(bins):
+    return ''.join(["%02x" % x for x in bins]).strip()
+
 
 def run():
     """
@@ -54,14 +64,11 @@ def ctrDecrypt(key, cypherText, blockSize):
     """
     decrypt CTR cyphertext
     """
-    print("\nCTR decryption of key/cypher", key, " / ", cypherText)
     res1 = ctrDecrypt1(key, cypherText, blockSize)
     res2 = ctrDecrypt2(key, cypherText, blockSize)
     print("1: ", res1)
     print("2: ", res2)
     return res1
-
-# CTR decryption variant 1 (use AES.MODE_CBC mode),
 
 
 def ctrDecrypt1(key, cypherText, blockSize):
@@ -72,10 +79,8 @@ def ctrDecrypt1(key, cypherText, blockSize):
     ctr = Counter.new(blockSize*8, initial_value=int(iv.encode('hex'), 16))
     obj = AES.new(k, AES.MODE_CTR, counter=ctr)
     paddedStr = obj.decrypt(ct1)
-    #paddingAmount = ord(paddedStr[len(paddedStr)-1:])
+    # paddingAmount = ord(paddedStr[len(paddedStr)-1:])
     return paddedStr  # [:-paddingAmount]
-
-# CTR decryption variant 2
 
 
 def ctrDecrypt2(key, cypherText, blockSize):
@@ -92,10 +97,10 @@ def ctrDecrypt2(key, cypherText, blockSize):
 
     i = 0
     for c in cypherTextBlocksDecoded:
-        ctr = hex(iv+i << 64)[2:(2*blockSize)+2]
+        ctr = hex(iv+i << 64)[2:(2*blockSize)+2] 
         # print ctr
         encIV = AES.new(k, AES.MODE_ECB).encrypt(ctr)
-        plaintext = strxor(encIV, c)
+        plaintext = BytesXor(encIV, c)
         # print plaintext
         i = i + 1
         pt = plaintext + pt
@@ -134,7 +139,7 @@ def cbcDecrypt2(key, cypherText, blockSize):
                         for i in range(0, len(cypherText), (blockSize*2))]
     cypherTextBlocksDecoded = list(
         map(methodcaller("decode", "hex"), cypherTextBlocks))
-    #iv =  cypherTextBlocksDecoded.pop(0)
+    # iv =  cypherTextBlocksDecoded.pop(0)
     k = key.decode('hex')
 
     pt = ""
