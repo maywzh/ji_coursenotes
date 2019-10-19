@@ -1,13 +1,15 @@
 %!TEX program = xelatex
 % 完整编译: xelatex -> bibtex -> xelatex -> xelatex
 \documentclass[lang=cn,11pt,a4paper]{elegantpaper}
-
+%\usepackage{showframe}
+\usepackage{multirow}
 \title{工程伦理的未来研究方向：微观伦理学，宏观伦理学和专业协会的角色}
 \author{Joseph R. Herkert}
 \institute{North Carolina State University, USA}
 
 \version{}
 \date{}
+
 
 \begin{document}
 
@@ -26,11 +28,43 @@
 作为一名工程师，McLean在讨论工程伦理学时运用了三个范畴:处理工程师技术决策的技术伦理;处理经理、工程师和雇主之间的关系的职业伦理和处理与技术相关的社会政治决策的社会伦理。McLean的职业道德概念比Ladd更狭隘，只包含了Ladd所描述的微观道德的那些维度。与此同时，McLean对与工程相关的道德领域有一个比Ladd更广泛的总体概念，因为他包括个人和社会两个方面。
 
 另一位工程师Vanderburg虽然使用了与Ladd类似的术语，
-在区分“个体技术或从业者”的“微观层面”分析和“整体技术”的“宏观层面”分析时，似乎完全忽视了职业道德
-类别。范德堡的分类与另一位工程师德文相似，
-世界卫生组织提出了一种新的工程伦理范式，他称之为“社会伦理”，包括与技术相关的“专业知识的社会关系”
-管理和决策，而不是关注个人。
-\subsection{模板介绍}
+在区分“个体技术或从业者”的“微观层面”分析和“整体技术”的“宏观层面”分析时，似乎完全忽视了职业道德类别。范德堡的分类与另一位工程师Devon相似，他提出了一种新的工程伦理范式，他称之为“社会伦理”，包括与技术相关的“专业知识的社会关系”管理和决策，而不是关注个人。
+
+De George是一位伦理学家，他对“工程伦理学”和“伦理学”进行了区分工程。前者关注的是个人的行为，而后者关注的是专业内部的关系和工程专业对社会的责任。De George的“工程伦理”概念因此融合了Ladd的微观和宏观维度。此外，“工程伦理”还具体包括专业工程学会。
+
+如表1所示，在梳理工程伦理的这些不同方面时，出现了一个有趣的模式。三个显而易见的参考框架是：个人、专业和社会。结合Ladd和Vanderburg的术语，“微观伦理学”可以被视为包括对个人和工程专业内部关系的关注，而“宏观伦理学”既适用于工程专业的集体社会责任，也适用于关于技术的社会决策。
+\section{研究的问题}
+迄今为止，大多数工程伦理学的研究和教学都有一个微观的焦点，要么是Vanderburg使用的术语，要么是Ladd使用的术语。政治哲学家兰登·温纳(Langdon Winner)对这种情况表示遗憾，他批评工程伦理学过分强调微观伦理困境的案例研究，而忽视了与技术发展相关的更大的问题:
+\begin{quotation}
+  伦理责任……不仅仅是过一种体面的、诚实的、真实的生活，这样的生活当然还是很重要的。当这些选择突然、意外地出现时，它所涉及的远不止是做出明智的选择。我们的道德义务必须……包括愿意让他人参与艰难的工作，以确定技术社会面临的关键选择是什么，以及如何明智地应对这些选择。
+\end{quotation}
+
+% Please add the following required packages to your document preamble:
+% \usepackage{multirow}
+% Please add the following required packages to your document preamble:
+% \usepackage{multirow}
+
+\begin{table}[htbp]
+
+  \centering
+  \caption{工程中的微观伦理和宏观伦理}
+  %\resizebox{\textwidth}{!}{
+ 
+  \begin{tabular}{|l|p{2.5cm}|p{3cm}|p{3cm}|p{2.5cm}|}
+    \hline
+    \multirow{2}{*}{来源} & \multicolumn{2}{l|}{微观伦理} & \multicolumn{2}{l|}{宏观伦理} \\ \cline{2-5} 
+                        & 个体          & \multicolumn{2}{l|}{}     & 社会          \\ \hline
+    Ladd(1980)          &             & 微观伦理——专业人员与客户、同事和雇主之间的专业关系         & 宏观伦理——一个职业的成员作为一个群体所面临的与社会的关系问题（即专业人士的社会责任）          &             \\ \hline
+    McLean(1993)        & 技术伦理——工程师做出的技术决定和判断          & 专业伦理——工程师与其他群体(如经理、工程师、雇主)之间的职业道德互动          &             & 社会伦理——社会层面的技术政策决策          \\ \hline
+    Vanderburg(1995)    & 微观分析——个体技术或从业者的微观层次分析          &             &             & 宏观分析——整体技术的宏观层面分析          \\ \hline
+    Devon(1999)         & 个体伦理          &             &             & 社会伦理——社会伦理与技术管理和决策有关的“专业知识的社会关系”          \\ \hline
+    De George(1993)     & 工程中的伦理——工程师个人工程行为的道德规范          & \multicolumn{2}{p{6cm}|}{工程中的伦理——工程道德工程师在工业和其他组织、专业工程协会中的作用，以及该职业的责任}   &             \\ \hline
+  \end{tabular}
+  %}
+\end{table}
+
+
+最近，学者们开始讨论与工程有关的宏观伦理问题。然而，还有待开发的是整合微观伦理和宏观伦理方法的综合框架。开发这样一个框架的一个方法是把重点放在专业协会的角色在弥合microethical和macroethical问题建议在德乔治的“道德工程”的概念(见表1)。除了颁布伦理准则,工程专业的专业工程协会的作用已经在很大程度上被忽视了。一些作者，包括Layton12和Unger,13已经认真对待专业协会的作用，但他们的工作大部分集中在专业协会如何连接职业道德的内部和社会责任维度(尽管如下所述，Unger也讨论了道德支持)
 
 此模板基于 \LaTeX{} 的标准文类 article 设计，所以 article 文类的选项也能传递给本模板，比如 \lstinline{a4paper, 11pt} 等等。本模板支持 \hologo{pdfLaTeX} 和 \hologo{XeLaTeX} 编译。
 
