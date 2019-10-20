@@ -1,0 +1,58 @@
+%!TEX program = xelatex
+% 完整编译: xelatex -> bibtex -> xelatex -> xelatex
+\documentclass[lang=cn,11pt,a4paper,twocolumn]{elegantpaper}
+
+\title{RoBERTa：鲁棒优化的BERT预训练方法}
+\author{Yinhan Liu$^{\S}$ \and Myle Ott$^{\S}$ \and Naman Goyal$^{\S}$ \and Jingfei Du$^{*\S}$ \and Mandar Joshi{$^\dag$} \and Danqi Chen$^\S$ \and Omer Levy$^\S$ \and Mike Lewis$^\S$ \and Luke Zettlemoyer$^{\dag\S}$ \and Veselin Stoyanov$^\S$}
+\institute{$^\dag$Paul G. Allen School of Computer Science \& Engineering,\\ University of Washington, Seattle, WA\\ $^\S$Facebook AI}
+
+\version{}
+\date{}
+
+\begin{document}
+\maketitle
+\begin{abstract}
+  语言模型的预训练带来了显着的性能提升，但是不同方法之间的仔细比较却具有挑战性。 训练的计算量很大，这通常是在不同大小的私有数据集上进行，而且正如我们将要表明的，超参数的选择对最终结果有重大影响。 我们提出了BERT预训练的再研究（Devlin等，2019），该研究仔细衡量了许多关键超参数和训练数据量的影响。 我们发现BERT的训练不足，并且可以匹配或超过其发布的每个模型的性能。 我们最好的模型在GLUE，RACE和SQuAD上获得了最优的结果。 这些结果突出了以前被忽视的设计的重要性，并引起了人们对最近报道改进的来源的质疑。 我们发布我们的模型和代码。
+% \keywords{Elegant\LaTeX{}，工作论文，模板}
+\end{abstract}
+
+\section{介绍}
+自训练方法，例如ELMo（Peters等，2018），GPT（Radford等，2018），BERT（Devlin等，2019），XLM（Lample和Conneau，2019）和XLNet（Yang等，2019年）取得了显着的性能提升，但要确定方法的哪些方面贡献最大可能是具有挑战性的。训练在计算上是代价较大的，限制了可以完成的调整量，并且经常使用大小不同的私有训练数据来进行，从而限制了我们衡量建模优化效果的能力。
+
+我们提出了BERT预训练的再研究（Devlin等，2019），其中包括对超参数调整和训练集大小的影响的仔细评估。 我们发现BERT的训练不足，并提出了一种改进的方法来训练BERT模型（我们称为RoBERTa），该模型可以匹敌或超过所有后BERT方法的性能。我们的修改很简单，其中包括：（1）在更多数据上以更大的批次训练模型更长的时间；（2）删除下一句预测目标；（3）对更长序列的训练；（4）动态改变应用于训练数据的遮罩模式。 我们还收集了一个与其他私有数据集大小相当的大型新数据集（CC-NEWS），以更好地控制训练集大小的效果。
+
+当控制训练数据时，我们改进的训练程序会改进GLUE和SQuAD上已发布的BERT结果。经过更多数据训练后，我们的模型在GLUE公开排行榜上得分为88.5，于Yang等人得分为88.4的报告（2019）匹敌。  我们的模型针对9个GLUE任务中的4个建立了新的最新技术：MNLI，QNLI，RTE和STS-B。 我们还将SQuAD和RACE上的最新结果进行匹配。总体而言，我们重新确定了BERT的掩蔽语言模型训练目标可与最近提出的其他训练目标（例如受干扰的自回归语言建模（Yang等人，2019）））竞争。
+
+总而言之，本文的贡献是：（1）提出了一组重要的BERT设计和训练策略，并介绍了可以改善下游任务性能的替代方法； （2）我们使用新的数据集CC-NEWS，并确认使用更多数据进行预训练可进一步提高下游任务的性能； （3）我们的训练改进表明，在正确的设计选择下，遮罩语言模型预训练与所有其他最近发布的方法相比具有竞争力。 我们发布了我们的模型，在PyTorch中实现了预训练和微调代码（Paszke等，2017）。
+
+\section{背景}
+在本节中，我们简要概述了BERT（Devlin等人，2019）的预训练方法以及我们将在下一节中通过实验测试的一些训练选择。
+\subsection{配置}
+BERT将两个段（令牌序列）$x_1,...,x_N$和$y_1,...,y_M$的串联作为输入。段通常包含一个以上的自然句子。这两个段作为单个输入序列呈现给BERT，并用特殊的记号分隔它们：$[CLS],x_1,...,x_N,[SEP],y_1,...,y_M,[EOS]$。$M$和$N$被约束为$M+N<T$，其中$T$是控制训练期间最大序列长度的参数。
+
+该模型首先在庞大的无标签文本语料库上进行了预训练，然后使用最终任务标记的数据进行了微调。
+
+\subsection{架构}
+BERT使用了如今无处不在的变换器架构（Vaswani等，2017），我们将不对其进行详细介绍。 我们使用具有$L$层的变换器架构。 每个块都使用$A$自感知头和隐藏维$H$。
+
+\subsection{训练目标}
+在预训练期间，BERT使用两个目标：遮罩语言建模和下一句预测。
+\subsubsection{遮罩语言模型（MLM）}
+选择输入序列中令牌的随机样本，并将其替换为特殊令牌$[MASK]$。 MLM的目标是预测掩盖令牌时的交叉熵损失。 BERT统一选择15\%的输入令牌以进行替换。 在所选令牌中，有80\%被替换为$[MASK]$，10\%则保持不变，还有10\%被随机选择的词典令牌代替。
+
+在最初的实现中，随机遮罩和替换从头开始执行一次，并在训练期间保存，尽管在实践中，数据是重复的，所以每个训练语句的遮罩并不总是相同的（参见第4.1节）。
+\subsubsection{下句预测（NSP）}
+NSP是二进制分类损失，用于预测原始文本中两个段是否紧随其后。正样例是通过从文本语料库中选取连续的句子来创建的。负样例是通过将不同文档中的句段配对而创建的。 正样本和负样本均以相同的概率采样。
+
+\subsection{优化}
+
+\subsection{数据}
+
+\section{实验配置}
+
+\subsection{实现}
+
+\nocite{*}
+\bibliography{wpref}
+
+\end{document}
