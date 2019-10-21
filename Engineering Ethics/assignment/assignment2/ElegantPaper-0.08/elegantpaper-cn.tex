@@ -1,6 +1,8 @@
 \documentclass[lang=cn,11pt,a4paper,twocolumn]{elegantpaper}
+\usepackage{fancyhdr}
 
-\title{RoBERTa：鲁棒优化的BERT预训练方法}
+
+\title{RoBERTa：鲁棒优化的BERT预训练方法\\ 翻译自：RoBERTa: A Robustly Optimized BERT Pretraining Approach}
 \author{Yinhan Liu$^{\S}$ \and Myle Ott$^{\S}$ \and Naman Goyal$^{\S}$ \and Jingfei Du$^{*\S}$ \and Mandar Joshi{$^\dag$} \and Danqi Chen$^\S$ \and Omer Levy$^\S$ \and Mike Lewis$^\S$ \and Luke Zettlemoyer$^{\dag\S}$ \and Veselin Stoyanov$^\S$}
 \institute{$^\dag$Paul G. Allen School of Computer Science \& Engineering,\\ University of Washington, Seattle, WA\\ $^\S$Facebook AI}
 
@@ -9,10 +11,17 @@
 
 \begin{document}
 \maketitle
+\thispagestyle{fancy}         %更改plain状态
+\fancyhead{}                     %清除以前的命令
+\lhead{\textbf{学号：2019124044}}          %左上角添加
+\chead{\textbf{姓名：梅王智汇}}
+\rhead{\textbf{学院：伍伦贡联合研究院}}
+\lfoot{}
+\cfoot{\thepage}  %current page number
+\rfoot{}
+\renewcommand{\headrulewidth}{0pt}      %把页眉线的宽度设为零，即去掉页眉线
+\renewcommand{\footrulewidth}{0pt}
 
-%去除页码
-\thispagestyle{empty}
-\pagestyle{empty}
 \begin{abstract}
   语言模型的预训练带来了显着的性能提升，但是不同方法之间的仔细比较却具有挑战性。训练的计算量很大，这通常是在不同大小的私有数据集上进行，而且正如我们将要表明的，超参数的选择对最终结果有重大影响。我们提出了BERT预训练的复研究（Devlin等，2019），该研究仔细衡量了许多关键超参数和训练数据量的影响。我们发现BERT的训练不足，并且可以匹配或超过其发布的每个模型的性能。我们最好的模型在GLUE，RACE和SQuAD上获得了最优的结果。这些结果突出了以前被忽视的设计的重要性，并引起了人们对最近报道改进的来源的质疑。我们发布我们的模型和代码。
 % \keywords{Elegant\LaTeX{}，工作论文，模板}
