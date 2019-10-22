@@ -1,5 +1,8 @@
-(let 
-    (
-        (x 2)
-        (y 1)) 
-    (+ x y) (* x y))
+
+(defmacro setTo10
+    (num)
+    (setq num 10)
+    (print num))
+(setq x 25)
+(print x)
+(setTo10 x)
