@@ -83,7 +83,7 @@
 %	TITLE PAGE
 %----------------------------------------------------------------------------------------
 
-\title[Short title]{General Game playing AI based on machine learning} % The short title appears at the bottom of every slide, the full title is only on the title page
+\title[GAI based on ML]{General Game AI Based On Machine Learning} % The short title appears at the bottom of every slide, the full title is only on the title page
 
 \author{maywzh} % Your name
 \institute[JI] % Your institution as it will appear on the bottom of every slide, may be shorthand to save space
@@ -110,141 +110,206 @@ CCNU-UOW JI \\ % Your institution for the title page
 %----------------------------------------------------------------------------------------
 
 %------------------------------------------------
-\section{Related Works} % Sections can be created in order to organize your presentation into discrete blocks, all sections and subsections are automatically printed in the table of contents as an overview of the talk
+\section{Problem} % Sections can be created in order to organize your presentation into discrete blocks, all sections and subsections are automatically printed in the table of contents as an overview of the talk
 %------------------------------------------------
 
-\subsection{Subsection Example} % A subsection can be created just before a set of slides with a common theme to further break down your presentation into chunks
+\subsection{Introduction} % A subsection can be created just before a set of slides with a common theme to further break down your presentation into chunks
 
 \begin{frame}
 \frametitle{Introduction}
+Tradationally, Game artificial intelligence (AI) refers to pre-defined automation programs generating adaptive or certain behaviors in fixed pattern for Non-player characters (NPCs) to simulate the reality in a real world.\cite{1}
 
+Recently, the merge between academia and industry introduce machine learning algorithms and methods to video game AI development.\cite{2} This trend enhanced the AI capability to a large extent and can be positive for creating comparative adaptive and intelligent Game AI agents including NPC, intelligent machine players or even powerful General Video Game Playing AI (GVGAI), etc. 
 \end{frame}
 
 %------------------------------------------------
-
+\subsection{Game AI Aims}
 \begin{frame}
-\frametitle{Bullet Points}
+\frametitle{Game AI Aims}
 \begin{itemize}
-\item Reasoning
-\item Aliquam blandit faucibus nisi, sit amet dapibus enim tempus eu
-\item Nulla commodo, erat quis gravida posuere, elit lacus lobortis est, quis porttitor odio mauris at libero
-\item Nam cursus est eget velit posuere pellentesque
-\item Vestibulum faucibus velit a augue condimentum quis convallis nulla gravida
+\item play certain or uncertain games as a player
+\item without any human intervention
+\item learn automatically to get better performance
 \end{itemize}
 \end{frame}
 
 %------------------------------------------------
-
+\subsection{Flagships}
 \begin{frame}
-\frametitle{Blocks of Highlighted Text}
-\begin{block}{Block 1}
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer lectus nisl, ultricies in feugiat rutrum, porttitor sit amet augue. Aliquam ut tortor mauris. Sed volutpat ante purus, quis accumsan dolor.
+\frametitle{Flagships\cite{2}}
+\begin{block}{Player Experience Modeling\cite{3}}
+  Player experience modeling (PEM) is the study and use of
+  AI techniques for the construction of computational models
+  of experience of players. 
 \end{block}
 
-\begin{block}{Block 2}
-Pellentesque sed tellus purus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Vestibulum quis magna at risus dictum tempor eu vitae velit.
+\begin{block}{Procedural Content Generation\cite{4}}
+  Generate playable, smooth, superior environment or game objects for game.
 \end{block}
 
-\begin{block}{Block 3}
-Suspendisse tincidunt sagittis gravida. Curabitur condimentum, enim sed venenatis rutrum, ipsum neque consectetur orci, sed blandit justo nisi ac lacus.
+
+\begin{block}{Massive-Scale Game Data Mining\cite{5,6}}
+  Data mining for player data to track these things:how. why , what do players play? To offer data analysis for game playing.
+\end{block}
+
+\begin{block}{NPC AI\cite{7,8,9}}
+  Enhance the NPC capabilities and apply difficulty scaling techniques to this to improve the playing experience.
+
 \end{block}
 \end{frame}
 
-%------------------------------------------------
 
+%------------------------------------------------
+\subsection{Game AI Learning problems}
 \begin{frame}
-\frametitle{Multiple Columns}
+\frametitle{Game AI Learning problems}
 \begin{columns}[c] % The "c" option specifies centered vertical alignment while the "t" option is used for top vertical alignment
 
 \column{.45\textwidth} % Left column and width
-\textbf{Heading}
+\textbf{Learning for Game AI\cite{10}}
 \begin{enumerate}
-\item Statement
-\item Explanation
-\item Example
+\item Learning to play the game
+\item Learning about players
+\item Behavior capture of players
+\item Model selection and stability
+\item Optimizing for adaptivity
+\item Model interpretation
+\item Performance
 \end{enumerate}
 
 \column{.5\textwidth} % Right column and width
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer lectus nisl, ultricies in feugiat rutrum, porttitor sit amet augue. Aliquam ut tortor mauris. Sed volutpat ante purus, quis accumsan dolor.
-
+\begin{figure}
+  \includegraphics[width=0.8\linewidth]{figure/alphago}
+  \caption{AlphaGo vs Fan Hui, Game 5}
+\end{figure}
 \end{columns}
 \end{frame}
 
 %------------------------------------------------
-\section{Second Section}
+\section{Applications}
 %------------------------------------------------
-
+\subsection{AlphaGo}
 \begin{frame}
-\frametitle{Table}
-\begin{table}
-\begin{tabular}{l l l}
-\toprule
-\textbf{Treatments} & \textbf{Response 1} & \textbf{Response 2}\\
-\midrule
-Treatment 1 & 0.0003262 & 0.562 \\
-Treatment 2 & 0.0015681 & 0.910 \\
-Treatment 3 & 0.0009271 & 0.296 \\
-\bottomrule
-\end{tabular}
-\caption{Table caption}
-\end{table}
+  \frametitle{AlphaGo - Neural Network and Tree Search}
+  Sliver et.al. \cite{11} introduce a new approach to computer Go that uses ‘value networks’ to evaluate board positions and ‘policy networks’ to select moves.
+  \begin{figure}
+    \includegraphics[width=1\linewidth]{figure/gosearch}
+    \caption{ Monte Carlo tree search in AlphaGo}
+  \end{figure}
 \end{frame}
 
-%------------------------------------------------
-
+\subsection{StarCraft}
 \begin{frame}
-\frametitle{Theorem}
-\begin{theorem}[Mass--energy equivalence]
-$E = mc^2$
-\end{theorem}
+  \frametitle{Reinforcement Learning Applied to StarCraft}
+  Wender and Watson did some research \cite{12} on applying reinforcement learning (RL) to tiny scale combat in StarCraft, aiming to design an agent performing unsupervised learning in complex environment. The result showed the viability of RL algorithms in SC.
+  \begin{figure}
+    \includegraphics[width=0.6\linewidth]{figure/sc}
+    \caption{ Initial unit positioning for the experimental evaluation}
+  \end{figure}
 \end{frame}
 
-%------------------------------------------------
-
-\begin{frame}[fragile] % Need to use the fragile option when verbatim is used in the slide
-\frametitle{Verbatim}
-\begin{example}[Theorem Slide Code]
-\begin{verbatim}
+\subsection{Atari Games}
 \begin{frame}
-\frametitle{Theorem}
-\begin{theorem}[Mass--energy equivalence]
-$E = mc^2$
-\end{theorem}
-\end{frame}\end{verbatim}
-\end{example}
+  \frametitle{Deep Reinforcement Learning Applied to Atari Games}
+  Mnih et.al \cite{13} applied convolutional neural network trained with a variant of Q-learning to seven Atari 2600 games from the Arcade Learning Environment. The AI reached the expert level of human-like player.
+  \begin{figure}
+    \includegraphics[width=1\linewidth]{figure/atari}
+    \caption{  Screen shots from five Atari 2600 Games: (Left-to-right) Pong, Breakout, Space Invaders, Seaquest, Beam Rider}
+  \end{figure}
 \end{frame}
+%------------------------------------------------
+
+
 
 %------------------------------------------------
 
-\begin{frame}
-\frametitle{Figure}
-Uncomment the code on this slide to include your own image from the same directory as the template .TeX file.
-%\begin{figure}
-%\includegraphics[width=0.8\linewidth]{test}
-%\end{figure}
-\end{frame}
-
-%------------------------------------------------
-
-\begin{frame}[fragile] % Need to use the fragile option when verbatim is used in the slide
-\frametitle{Citation}
-An example of the \verb|\cite| command to cite within the presentation:\\~
-
-This statement requires citation \cite{p1}.
-\end{frame}
-
-%------------------------------------------------
-
-\begin{frame}
+\begin{frame}[allowframebreaks]
 \frametitle{References}
 \footnotesize{
-\begin{thebibliography}{99} % Beamer does not support BibTeX so references must be inserted manually as below
-\bibitem[Smith, 2012]{p1} John Smith (2012)
-\newblock Title of the publication
-\newblock \emph{Journal Name} 12(3), 45 -- 678.
+\begin{thebibliography}{0} % Beamer does not support BibTeX so references must be inserted manually as below
+
+\bibitem{1}
+Geogios~N Yannakakis.
+\newblock Game ai revisited.
+\newblock In {\em Proceedings of the 9th conference on Computing Frontiers},
+  pages 285--292. ACM, 2012.
+\bibitem{2}
+Diego Perez-Liebana, Spyridon Samothrakis, Julian Togelius, Tom Schaul, and
+  Simon~M Lucas.
+\newblock General video game ai: Competition, challenges and opportunities.
+\newblock In {\em Thirtieth AAAI Conference on Artificial Intelligence}, 2016.
+
+\bibitem{3}
+J. Juul.
+\newblock A Casual Revolution: Reinventing Video Games and Their Players.
+\newblock MIT Press, 2009.
+
+\bibitem{4}
+G. N. Yannakakis and J. Togelius.
+\newblock Experience-Driven Procedural Content Generation.
+\newblock In {\em IEEE Transactions on Affective Computing}, 2:147–161, 2011.
+
+\bibitem{5}
+  David Silver, Julian Schrittwieser, Karen Simonyan, Ioannis Antonoglou, Aja
+    Huang, Arthur Guez, Thomas Hubert, Lucas Baker, Matthew Lai, Adrian Bolton,
+    et~al.
+  \newblock Mastering the game of go without human knowledge.
+  \newblock {\em Nature}, 550(7676):354, 2017.
+  
+\bibitem{6}
+Mark~Owen Riedl and Alexander Zook.
+\newblock Ai for game production.
+\newblock In {\em 2013 IEEE Conference on Computational Inteligence in Games
+  (CIG)}, pages 1--8. IEEE, 2013.
+  
+\bibitem{7}
+Alexander Nareyek.
+\newblock Ai in computer games.
+\newblock {\em Queue}, 1(10):58, 2004.
+  
+\bibitem{8}
+Mark~Owen Riedl and Alexander Zook.
+\newblock Ai for game production.
+\newblock In {\em 2013 IEEE Conference on Computational Inteligence in Games
+  (CIG)}, pages 1--8. IEEE, 2013
+
+\bibitem{9}
+David Conroy, Peta Wyeth, and Daniel Johnson.
+\newblock Modeling player-like behavior for game ai design.
+\newblock In {\em Proceedings of the 8th International Conference on Advances
+  in Computer Entertainment Technology}, page~9. ACM, 2011.
+
+\bibitem{10}
+Michael Bowling, Johannes F{\"u}rnkranz, Thore Graepel, and Ron Musick.
+\newblock Machine learning and games.
+\newblock {\em Machine learning}, 63(3):211--215, 2006.
+
+
+\bibitem{11}
+David Silver, Aja Huang, Chris~J Maddison, Arthur Guez, Laurent Sifre, George
+  Van Den~Driessche, Julian Schrittwieser, Ioannis Antonoglou, Veda
+  Panneershelvam, Marc Lanctot, et~al.
+\newblock Mastering the game of go with deep neural networks and tree search.
+\newblock {\em nature}, 529(7587):484, 2016.
+
+\bibitem{12}
+S.~{Wender} and I.~{Watson}.
+\newblock Applying reinforcement learning to small scale combat in the
+  real-time strategy game starcraft:broodwar.
+\newblock In {\em 2012 IEEE Conference on Computational Intelligence and Games (CIG)}, pages 402--408, Sep. 2012.
+
+\bibitem{13}
+Volodymyr Mnih, Koray Kavukcuoglu, David Silver, Alex Graves, Ioannis
+  Antonoglou, Daan Wierstra, and Martin Riedmiller.
+\newblock Playing atari with deep reinforcement learning, 2013.
+
+
 \end{thebibliography}
 }
+
+
 \end{frame}
+
 
 %------------------------------------------------
 
