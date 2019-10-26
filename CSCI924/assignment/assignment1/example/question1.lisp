@@ -38,8 +38,7 @@
             (even 
                 (car lis)) 
             (even 
-                (cdr lis))))
-)
+                (cdr lis)))))
 
 (defun flatten
     (lis)
@@ -59,8 +58,8 @@
 (defun SumIfNot
     (lis0 lis1)
     (let 
-    (
-        (mysumv 0))
+        (
+            (mysumv 0))
         (loop for i in 
             (flatten lis1) do
             (if 
@@ -68,5 +67,4 @@
                     (flatten lis0) never 
                     (= i j)) 
                 (setq mysumv
-                    (+ mysumv i)))) mysumv)
-)
+                    (+ mysumv i)))) mysumv))
