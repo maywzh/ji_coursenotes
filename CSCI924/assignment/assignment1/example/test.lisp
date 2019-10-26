@@ -1,2 +1,3 @@
-(load "power.lisp")
-(print (power 2 3))
+(load "question1.lisp")
+(print (flatten '(1 8 (2)) ))
+(print (flatten '(1 (3 (8)) 8 9)))

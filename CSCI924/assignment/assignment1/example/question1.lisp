@@ -1,45 +1,56 @@
+
 (defun IsPrime 
-	(p)
-	(cond 
-		(
-			(= 1 p) 0) 
-		(t 
-			(if 
-				(loop for i from 2 to 
-					(sqrt p) never 
-					(= 0 
-						(mod p i))) 1 0))))
+    (p)
+    (cond 
+        (
+            (= 1 p) 0) 
+        (t 
+            (if 
+                (loop for i from 2 to 
+                    (sqrt p) never 
+                    (= 0 
+                        (mod p i))) 1 0))))
 
 (defun NumberOfPrimes 
-	(lis)
-	(if 
-		(atom lis) 
-		(if 
-			(not lis) 0 
-			(IsPrime lis))
-		(+ 	
-			(NumberOfPrimes 
-				(car lis)) 
-			(NumberOfPrimes 
-				(cdr lis)))))
+    (lis)
+    (if 
+        (atom lis) 
+        (if 
+            (not lis) 0 
+            (IsPrime lis))
+        (+ 	
+            (NumberOfPrimes 
+                (car lis)) 
+            (NumberOfPrimes 
+                (cdr lis)))))
 
 (defun even 
-	(lis)
-	(setq ans nil)
-	(if 
-		(atom lis) 
-		(if 
-			(lis) 
-			;(when (= 0 (mod lis 2)) (setq ans (append ans lis)) )
-			(cons ans lis)
-		)
-		(+ 	
-			(even 
-				(car lis)) 
-			(even 
-				(cdr lis)))) (ans))
+    (lis)
+    (if (atom lis) (if (null lis) lis (if (= 0 (mod lis 2)) (list lis) nil)) (append (even (car lis)) (even (cdr lis))))
+)
 
-;(nth-value 1 (floor 4 3))
-;(multiple-value-bind (quot rem)
+(defun flatten
+    (lis)
+    (if (atom lis) (if (null lis) lis (list lis)) (append (flatten (car lis)) (flatten  (cdr lis))))
+)
+
+
+
+(defun SumIfNot
+    (lis0 lis1)
+    (progn
+        (setq mysum 0)
+        (loop for i in (flatten lis1) do
+            (if (loop for j in (flatten lis0) never (= i j)) (+ mysum i))
+        )
+        (mysum)
+    )
+    
+)
+
+;(nth-value 1 
+;    (floor 4 3))
+;(multiple-value-bind 
+;    (quot rem)
 ;    (floor 4 3)
-;  (format t "The remainder is ~f~%" rem))
+;    (format t "The remainder is ~f~%" rem))
