@@ -6,4 +6,4 @@
 (print (even '(1 2 (3 4) -4)) )
 
 (print "Question1.c")
-(print (SumIfNot '(1 8 (2)) ‘(1 (3 (8)) 8 9))
+(print (SumIfNot '(1 8 (2)) '(1 (3 (8)) 8 9)))

@@ -26,31 +26,47 @@
 
 (defun even 
     (lis)
-    (if (atom lis) (if (null lis) lis (if (= 0 (mod lis 2)) (list lis) nil)) (append (even (car lis)) (even (cdr lis))))
+    (if 
+        (atom lis) 
+        (if 
+            (null lis) lis 
+            (if 
+                (= 0 
+                    (mod lis 2)) 
+                (list lis) nil)) 
+        (append 
+            (even 
+                (car lis)) 
+            (even 
+                (cdr lis))))
 )
 
 (defun flatten
     (lis)
-    (if (atom lis) (if (null lis) lis (list lis)) (append (flatten (car lis)) (flatten  (cdr lis))))
-)
+    (if 
+        (atom lis) 
+        (if 
+            (null lis) lis 
+            (list lis)) 
+        (append 
+            (flatten 
+                (car lis)) 
+            (flatten  
+                (cdr lis)))))
 
 
 
 (defun SumIfNot
     (lis0 lis1)
-    (progn
-        (setq mysum 0)
-        (loop for i in (flatten lis1) do
-            (if (loop for j in (flatten lis0) never (= i j)) (+ mysum i))
-        )
-        (mysum)
-    )
-    
+    (let 
+    (
+        (mysumv 0))
+        (loop for i in 
+            (flatten lis1) do
+            (if 
+                (loop for j in 
+                    (flatten lis0) never 
+                    (= i j)) 
+                (setq mysumv
+                    (+ mysumv i)))) mysumv)
 )
-
-;(nth-value 1 
-;    (floor 4 3))
-;(multiple-value-bind 
-;    (quot rem)
-;    (floor 4 3)
-;    (format t "The remainder is ~f~%" rem))
