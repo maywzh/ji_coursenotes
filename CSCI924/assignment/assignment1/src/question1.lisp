@@ -1,4 +1,3 @@
-
 (defun IsPrime 
     (p)
     (cond 
