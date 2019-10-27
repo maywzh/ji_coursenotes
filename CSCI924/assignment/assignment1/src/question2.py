@@ -20,6 +20,7 @@ def readDataset(filepath):
         datalines = f.readlines()
         for dataline in datalines:
             datalist.append(dataline.split())
+    featurelist.pop()        
     return featurelist, datalist
 
 def splitDataset(dataSet, featureIdx, v):
@@ -53,32 +54,29 @@ def getEntropy(dataSet):
             ent -= p * log(p, 2)
     return ent
 
-def majorityCnt(dataClassList):
+def getMajorClass(dataClassList):
     """
     Sort by category quantity after classification
     """
-    classCount = {}
-    for vote in dataClassList:
-        if vote not in classCount.keys():
-            classCount[vote] = 0
-        classCount[vote] += 1
-    sortedClassCount = sorted(
-        classCount.items(), key=operator.itemgetter(1), reverse=True)
-    print(sortedClassCount)
-    return sortedClassCount[0][0]
+    counts = Counter()
+    for dataClass in dataClassList:
+        counts[dataClass] += 1        
+    return counts.most_common(1)[0][0]
 
 def createTree(dataSet, labels):
     """
     Core Function: ID3 Algorithm Implementation
     """
-    dataClassList = [dataInstance[-1] for dataInstance in dataSet]
-    
+    # get the last colomn (the class) of dataset
+    dataClassList = [dataInstance[-1] for dataInstance in dataSet] 
+    # if purity is 100% ==> all dataclass in the dataclasslist is the same
     if dataClassList.count(dataClassList[0]) == len(dataClassList):
-        return ' ('+dataClassList[0]+')'
-    if len(dataSet[0]) == 1:
-        return ' ('+majorityCnt(dataClassList)+')'
+        return ' (' + dataClassList[0] + ')'
+    # if only one label left the get the major class
+    elif len(dataSet[0]) == 1:
+        return ' ('+getMajorClass(dataClassList)+')'
     # Index for selecting the best feature
-    bestFeat = chooseBestFeatureToSplit(dataSet)
+    bestFeat = getBestFeature(dataSet)
     bestFeatLabel = labels[bestFeat]
     rs = ''
     # The classification results are saved in the form of dictionaries
@@ -94,11 +92,12 @@ def createTree(dataSet, labels):
     return rs
 
 
-def chooseBestFeatureToSplit(dataSet):
+def getBestFeature(dataSet):
     """
     Choose Best Feature for classification
     """
-    numFeatures = len(dataSet[0]) - 1          # Number of features obtained
+    # the last one is the class so -1
+    numFeatures = len(dataSet[0]) - 1
     BasedEntropy = getEntropy(dataSet)     # Primitive information entropy
     BestInfoGain = 0
     BestFeatures = -1
