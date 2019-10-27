@@ -27,10 +27,29 @@ def getMajorClass(dataClassList):
         counts[dataClass] += 1        
     return counts.most_common(1)[0][0]
 
+def getEntropy(dataSet):
+    """
+    calculate Entropy for dataset
+    """
+    dataSetSize = len(dataSet)
+    if dataSetSize <= 1:
+        return 0
+    counts = Counter()
+    for data in dataSet:
+        counts[data[-1]] += 1
+    probs = [float(c) / dataSetSize for c in counts.values()]
+    ent = 0
+    for p in probs:
+        if p > 0.:
+            ent -= p * log(p, 2)
+    return ent
+
+
 labels, dataSet = readDataset('data.txt') 
-print(labels)
-print(dataSet)
+# print(labels)
+# print(dataSet)
 
-dataClassList = [dataInstance[-1] for dataInstance in dataSet]
+# dataClassList = [dataInstance[-1] for dataInstance in dataSet]
 
-print(getMajorClass(dataClassList))
+# print(getEntropy(dataSet))
+print()

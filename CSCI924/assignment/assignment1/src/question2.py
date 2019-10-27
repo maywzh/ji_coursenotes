@@ -10,7 +10,7 @@ from collections import Counter
 
 def readDataset(filepath):
     """
-    Read dataset from data.txt
+    Read dataSet from data.txt
     """
     datalist = []
     featurelist = []
@@ -20,8 +20,37 @@ def readDataset(filepath):
         datalines = f.readlines()
         for dataline in datalines:
             datalist.append(dataline.split())
-    featurelist.pop()        
+    featurelist.pop()
     return featurelist, datalist
+
+
+def getEntropy(dataSet):
+    """
+    calculate Entropy for dataSet
+    """
+    dataSetSize = len(dataSet)
+    if dataSetSize <= 1:
+        return 0
+    counts = Counter()
+    for data in dataSet:
+        counts[data[-1]] += 1
+    probs = [float(c) / dataSetSize for c in counts.values()]
+    ent = 0
+    for p in probs:
+        if p > 0.:
+            ent -= p * log(p, 2)
+    return ent
+
+
+def getMajorClass(dataClassList):
+    """
+    get the dominant classification
+    """
+    counts = Counter()
+    for dataClass in dataClassList:
+        counts[dataClass] += 1
+    return counts.most_common(1)[0][0]
+
 
 def splitDataset(dataSet, featureIdx, v):
     """
@@ -37,100 +66,115 @@ def splitDataset(dataSet, featureIdx, v):
 
     return retDataSet
 
-def getEntropy(dataSet):
+def getSubDataset(dataSet, colIndex, value):
     """
-    calculate Entropy for dataset
+    split subset 
     """
-    dataSetSize = len(dataSet)
-    if dataSetSize <= 1:
-        return 0
-    counts = Counter()
-    for data in dataSet:
-        counts[data[-1]] += 1
-    probs = [float(c) / dataSetSize for c in counts.values()]
-    ent = 0
-    for p in probs:
-        if p > 0.:
-            ent -= p * log(p, 2)
-    return ent
+    subDataset = []
+    for rowVector in dataSet:
+        if rowVector[colIndex] == value:
+            subRowVector = rowVector[:colIndex]
+            subRowVector.extend(rowVector[colIndex + 1:])
+            subDataset.append(subRowVector)
+    return subDataset
 
-def getMajorClass(dataClassList):
-    """
-    Sort by category quantity after classification
-    """
-    counts = Counter()
-    for dataClass in dataClassList:
-        counts[dataClass] += 1        
-    return counts.most_common(1)[0][0]
 
-def createTree(dataSet, labels):
+def getSubDataset_Fixed(dataSet, colIndex, value):
     """
-    Core Function: ID3 Algorithm Implementation
+    split subset bug fix
     """
-    # get the last colomn (the class) of dataset
-    dataClassList = [dataInstance[-1] for dataInstance in dataSet] 
-    # if purity is 100% ==> all dataclass in the dataclasslist is the same
+    subDataset = []
+    for rowVector in dataSet:
+        if rowVector[colIndex] == value:
+            subDataset.append(rowVector)
+    return subDataset
+
+
+def getSplitFeature(dataSet):
+    """
+    Choose best feature for classification
+    """
+    numFeature = len(dataSet[0]) - 1
+    baseEntropy = getEntropy(dataSet)
+    bestInfoGain = 0.0
+    bestFeature = -1
+    for i in range(numFeature):
+        feat_i_values = [dataInstance[i] for dataInstance in dataSet]
+        uniqueValues = set(feat_i_values)
+        feat_i_entropy = 0.0
+        for value in uniqueValues:
+            subDataset = getSubDataset_Fixed(dataSet, i, value)
+            prob_i = len(subDataset) / float(len(dataSet))
+            feat_i_entropy += prob_i * getEntropy(subDataset)
+        infoGain_i = baseEntropy - feat_i_entropy
+        if (infoGain_i > bestInfoGain):
+            bestInfoGain = infoGain_i
+            bestFeature = i
+    return bestFeature
+
+
+def createTree(dataSet, featureLabels):
+    """
+    Core Function: ID3 Algorithm Implementation 
+    """
+    # get the last colomn (the class) of dataSet
+    dataclassList = [dataInstance[-1] for dataInstance in dataSet]
+    # if there are only one class  => class
+    if dataclassList.count(dataclassList[0]) == len(dataclassList):
+        return dataclassList[0]
+    # get dominant class
+    if len(dataSet[0]) == 1:
+        return getMajorClass(dataclassList)
+    # get feature to split set
+    bestFeature = getSplitFeature(dataSet)
+
+    # getthe label
+    bestFeatureLabel = featureLabels[bestFeature]
+    # get tree
+    myTree = {bestFeatureLabel: {}}
+    # delete that lable
+    del (featureLabels[bestFeature])
+    # get best candidate value
+    bestFeatureValues = [dataInstance[bestFeature] for dataInstance in dataSet]
+
+    uniqueBestFeatureValues = set(bestFeatureValues)
+    for value in uniqueBestFeatureValues:
+        subDataset = getSubDataset(dataSet, bestFeature, value)
+        subLabels = featureLabels[:]
+        # recursively create subtree
+        myTree[bestFeatureLabel][value] = createTree(subDataset, subLabels)
+    return myTree
+
+
+def printTree(dataSet, featureLabels):
+    """
+    compatible to LISP
+    """
+    dataClassList = [dataInstance[-1] for dataInstance in dataSet]
+    # 
     if dataClassList.count(dataClassList[0]) == len(dataClassList):
-        return ' (' + dataClassList[0] + ')'
-    # if only one label left the get the major class
-    elif len(dataSet[0]) == 1:
+        return ' ('+dataClassList[0]+')'
+    if len(dataSet[0]) == 1:
         return ' ('+getMajorClass(dataClassList)+')'
-    # Index for selecting the best feature
-    bestFeat = getBestFeature(dataSet)
-    bestFeatLabel = labels[bestFeat]
-    rs = ''
-    # The classification results are saved in the form of dictionaries
+    bestFeat = getSplitFeature(dataSet)
+    bestFeatLabel = featureLabels[bestFeat]
+    ans = ''
     myTree = {bestFeatLabel: {}}
-    del (labels[bestFeat])
+    del (featureLabels[bestFeat])
     featValues = [dataInstance[bestFeat] for dataInstance in dataSet]
     Uvals = set(featValues)
     for value in Uvals:
-        rs1 = '('+str(bestFeatLabel)+' '+str(value)
-        subLabels = labels[:]
-        rs1 = rs1+createTree(splitDataset(dataSet, bestFeat, value), subLabels)
-        rs = rs+rs1+')'
-    return rs
-
-
-def getBestFeature(dataSet):
-    """
-    Choose Best Feature for classification
-    """
-    # the last one is the class so -1
-    numFeatures = len(dataSet[0]) - 1
-    BasedEntropy = getEntropy(dataSet)     # Primitive information entropy
-    BestInfoGain = 0
-    BestFeatures = -1
-    for i in range(numFeatures):              # Ergodic two features
-        featList = [dataInstance[i] for dataInstance in dataSet]
-        uniqueVals = set(featList)            # Introduction set
-        NewEntropy = 0
-
-        for value in uniqueVals:
-            # Data set classified according to a feature
-            subDataSet = splitDataset(dataSet, i, value)
-            prob = len(subDataSet) / float(len(dataSet))
-            # Conditional empirical entropy after feature classification
-            NewEntropy += prob * getEntropy(subDataSet)
-        # The difference between the original entropy and the entropy classified according to the feature is the information gain divided according to the feature.
-        INFOGain = BasedEntropy - NewEntropy
-        # If the entropy decreases the most after a feature is divided, then the sub feature is the optimal classification feature.
-        if (INFOGain > BestInfoGain):
-            bestInfoGain = INFOGain
-            BestFeatures = i
-    # The index of the optimal feature is returned
-    return BestFeatures
+        tmpstr = '('+str(bestFeatLabel)+' '+str(value)
+        subLabels = featureLabels[:]
+        tmpstr = tmpstr + \
+            printTree(getSubDataset(dataSet, bestFeat, value), subLabels)
+        ans = ans+tmpstr+')'
+    return ans
 
 
 if __name__ == '__main__':
-    labels, dataSet = readDataset('data.txt')  # Create presentation data
-    labels2 = labels.copy()
-    d = createTree(dataSet, labels)  # Output decision tree model results
-    attribute = []
-    for i in range(len(labels2)):
-        attribute.append([])
-        for j in dataSet:
-            if j[i] not in attribute[i]:
-                attribute[i].append(j[i])
-    d = '('+d+')'
-    print(d)
+    featureLabels, dataSet = readDataset(
+        './data.txt')
+    numLabels = len(featureLabels)
+    ans = '(' + printTree(dataSet, featureLabels) + ")"
+    print(ans)
