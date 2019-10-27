@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 # Name : Wangzhihui Mei
 # Number: 6603385(uow) / 2019124044(ccnu)
 # Time: Oct. 20, 2019
@@ -24,17 +22,17 @@ def readDataset(filepath):
             datalist.append(dataline.split())
     return featurelist, datalist
 
-def splitDataset(dataSet, t, v):
+def splitDataset(dataSet, featureIdx, v):
     """
     Dataset Classfication
     """
     retDataSet = []
-    for featVec in dataSet:
-        if featVec[t] == v:
-            reducedFeatVec = featVec[:t]
+    for featureVector in dataSet:
+        if featureVector[featureIdx] == v:
+            reducedFeatureVector = featureVector[:featureIdx]
             # The operation of these two steps does not include the divided feature attribute
-            reducedFeatVec.extend(featVec[t + 1:])
-            retDataSet.append(reducedFeatVec)
+            reducedFeatureVector.extend(featureVector[featureIdx + 1:])
+            retDataSet.append(reducedFeatureVector)
 
     return retDataSet
 
@@ -55,12 +53,12 @@ def getEntropy(dataSet):
             ent -= p * log(p, 2)
     return ent
 
-def majorityCnt(classList):
+def majorityCnt(dataClassList):
     """
     Sort by category quantity after classification
     """
     classCount = {}
-    for vote in classList:
+    for vote in dataClassList:
         if vote not in classCount.keys():
             classCount[vote] = 0
         classCount[vote] += 1
@@ -69,16 +67,16 @@ def majorityCnt(classList):
     print(sortedClassCount)
     return sortedClassCount[0][0]
 
-# Build decision tree (ID3 decision tree)
-
-
 def createTree(dataSet, labels):
-    classList = [example[-1] for example in dataSet]
-    # Return the same category in the final leaf node
-    if classList.count(classList[0]) == len(classList):
-        return ' ('+classList[0]+')'
+    """
+    Core Function: ID3 Algorithm Implementation
+    """
+    dataClassList = [dataInstance[-1] for dataInstance in dataSet]
+    
+    if dataClassList.count(dataClassList[0]) == len(dataClassList):
+        return ' ('+dataClassList[0]+')'
     if len(dataSet[0]) == 1:
-        return ' ('+majorityCnt(classList)+')'
+        return ' ('+majorityCnt(dataClassList)+')'
     # Index for selecting the best feature
     bestFeat = chooseBestFeatureToSplit(dataSet)
     bestFeatLabel = labels[bestFeat]
@@ -86,7 +84,7 @@ def createTree(dataSet, labels):
     # The classification results are saved in the form of dictionaries
     myTree = {bestFeatLabel: {}}
     del (labels[bestFeat])
-    featValues = [example[bestFeat] for example in dataSet]
+    featValues = [dataInstance[bestFeat] for dataInstance in dataSet]
     Uvals = set(featValues)
     for value in Uvals:
         rs1 = '('+str(bestFeatLabel)+' '+str(value)
@@ -94,16 +92,18 @@ def createTree(dataSet, labels):
         rs1 = rs1+createTree(splitDataset(dataSet, bestFeat, value), subLabels)
         rs = rs+rs1+')'
     return rs
-# Choose the best classification feature
 
 
 def chooseBestFeatureToSplit(dataSet):
+    """
+    Choose Best Feature for classification
+    """
     numFeatures = len(dataSet[0]) - 1          # Number of features obtained
     BasedEntropy = getEntropy(dataSet)     # Primitive information entropy
     BestInfoGain = 0
     BestFeatures = -1
     for i in range(numFeatures):              # Ergodic two features
-        featList = [example[i] for example in dataSet]
+        featList = [dataInstance[i] for dataInstance in dataSet]
         uniqueVals = set(featList)            # Introduction set
         NewEntropy = 0
 
