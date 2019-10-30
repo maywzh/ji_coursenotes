@@ -1,17 +1,12 @@
-(write (atom 'abcd))
-(terpri)
-(write (equal 'a 'b))
-(terpri)
-(write (evenp 10))
-(terpri)
-(write (evenp 7 ))
-(terpri)
-(write (oddp 7 ))
-(terpri)
-(write (zerop 0.0000000001))
-(terpri)
-(write (eq 3 3.0 ))
-(terpri)
-(write (equal 3 3.0 ))
-(terpri)
-(write (null nil ))
+
+(defun show-squares 
+    (i end)
+    (if 
+        (> i end) 'done
+        (progn
+            (format t "~A ~A~%" i 
+                (* i i))
+            (show-squares 
+                (+ i 1) end))))
+
+(show-squares 1 9)
