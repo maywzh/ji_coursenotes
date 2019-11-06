@@ -21,5 +21,7 @@ def print_table(map, bitnum):
         print('\r\n')
 
 if __name__ == "__main__":
-    print_table(dif_table(sb3, 3), 3)
-    print_table(dif_table(sb5, 5), 5)
+    # print_table(dif_table(sb3, 3), 3)
+    # print_table(dif_table(sb5, 5), 5)
+    for i in range(32):
+        print("%#x" % i,end=", ")

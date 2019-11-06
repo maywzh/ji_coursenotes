@@ -6,7 +6,7 @@ UTF-8
 #include <stdlib.h>
 #include <string.h>
 
-
+//Generate 
 unsigned int **df_Sbox(unsigned int *Sbox, int Sbox_bit)
 {
 	int i, j;
@@ -14,10 +14,10 @@ unsigned int **df_Sbox(unsigned int *Sbox, int Sbox_bit)
 	unsigned int **map = (unsigned int **)malloc(Sbox_size * sizeof(unsigned int *));
 	for (i = 0; i < Sbox_size; i++)
 		map[i] = (unsigned int *)malloc(Sbox_size * sizeof(unsigned int));
-	// for (i = 0; i < Sbox_size; i++)
-	// 	for (j = 0; j < Sbox_size; j++)
-	// 		map[i][j] = 0;
-	memset(map, 0, Sbox_size * Sbox_size * sizeof(unsigned int));
+	for (i = 0; i < Sbox_size; i++)
+		for (j = 0; j < Sbox_size; j++)
+			map[i][j] = 0;
+	// memset(map, 0, sizeof(map));
 	for (i = 0; i < Sbox_size; i++)
 		for (j = 0; j < Sbox_size; j++)
 			map[i ^ j][Sbox[i] ^ Sbox[j]] += 1;
@@ -41,23 +41,29 @@ int main(void)
 	unsigned int Sbox_2[32] = {0x00, 0x05, 0x0a, 0x0b, 0x14, 0x11, 0x16, 0x17, 0x09, 0x0c, 0x03, 0x02, 0x0d, 0x08, 0x0f, 0x0e, 0x12, 0x15, 0x18, 0x1b, 0x06, 0x01, 0x04, 0x07, 0x1a, 0x1d, 0x10, 0x13, 0x1e, 0x19, 0x1c, 0x1f};
 	unsigned int **df_Sbox3 = df_Sbox(Sbox_1, 3);
 	unsigned int **df_Sbox5 = df_Sbox(Sbox_2, 5);
-	for ( i = 0; i < 8; i++)
-    {
-        for ( j = 0; j < 8; j++)
-        {
-            printf("%d ", df_Sbox3[i][j]);
-        }
-        printf("\r\n");
-    }
+	for (i = 0; i < 8; i++)
+	{
+		for (j = 0; j < 8; j++)
+		{
+			if (j < 7)
+				printf("%d, ", df_Sbox3[i][j]);
+			else
+				printf("%d", df_Sbox3[i][j]);
+		}
+		printf("\r\n");
+	}
 	for (i = 0; i < 32; i++)
-    {
-        for ( j = 0; j < 32; j++)
-        {
-            printf("%d ", df_Sbox5[i][j]);
-        }
-        printf("\r\n");
-    }
-	
+	{
+		for (j = 0; j < 32; j++)
+		{
+			if (j < 31)
+				printf("%d, ", df_Sbox5[i][j]);
+			else
+				printf("%d", df_Sbox5[i][j]);;
+		}
+		printf("\r\n");
+	}
+
 	free_df_Sbox(df_Sbox3, 3);
 	free_df_Sbox(df_Sbox5, 5);
 	return 0;
