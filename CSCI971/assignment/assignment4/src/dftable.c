@@ -6,7 +6,7 @@ UTF-8
 #include <stdlib.h>
 #include <string.h>
 
-//Generate 
+//Generate differential table
 unsigned int **df_Sbox(unsigned int *Sbox, int Sbox_bit)
 {
 	int i, j;
@@ -25,6 +25,7 @@ unsigned int **df_Sbox(unsigned int *Sbox, int Sbox_bit)
 	return map;
 }
 
+//free df table pointer
 void free_df_Sbox(unsigned int **map, int Sbox_bit)
 {
 	int row_num = 1 << Sbox_bit;

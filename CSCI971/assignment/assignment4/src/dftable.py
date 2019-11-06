@@ -17,11 +17,12 @@ def print_table(map, bitnum):
     d = 0x1 << bitnum
     for i in range(d):
         for j in range(d):
-            print("%d " % map[i][j], end="")
-        print('\r\n')
+            if j==d-1:
+                print("%d " % map[i][j], end="")
+            else:
+                print("%d, " % map[i][j], end="")
+        print('')
 
 if __name__ == "__main__":
-    # print_table(dif_table(sb3, 3), 3)
-    # print_table(dif_table(sb5, 5), 5)
-    for i in range(32):
-        print("%#x" % i,end=", ")
+    print_table(dif_table(sb3, 3), 3)
+    print_table(dif_table(sb5, 5), 5)
