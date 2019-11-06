@@ -1,10 +1,11 @@
 /*
-@AUTHOR Raindrop Team
+@AUTHOR maywzh
 UTF-8
 */
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
 
 unsigned int **df_Sbox(unsigned int *Sbox, int Sbox_bit)
 {
