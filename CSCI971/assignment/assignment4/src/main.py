@@ -3,25 +3,23 @@ sb3 = [0x00, 0x05, 0x03, 0x02, 0x06, 0x01, 0x04, 0x07]
 sb5 = [0x00, 0x05, 0x0a, 0x0b, 0x14, 0x11, 0x16, 0x17, 0x09, 0x0c, 0x03, 0x02, 0x0d, 0x08, 0x0f, 0x0e, 0x12, 0x15, 0x18, 0x1b, 0x06, 0x01, 0x04, 0x07, 0x1a, 0x1d, 0x10, 0x13, 0x1e, 0x19, 0x1c, 0x1f]
 
 
-def dif_table(s3, s5):  # compute each differential table
-    dt3 = numpy.zeros((8, 8))
-    dt5 = numpy.zeros((32, 32))
-    for i in range(8):
-        for j in range(8):
-            dt3[i ^ j][s3[i] ^ s3[j]] += 1
-    for i in range(32):
-        for j in range(32):
-            dt5[i ^ j][s5[i] ^ s5[j]] += 1
-
+def dif_table(s, bitnum):  # compute each differential table
+    d = 0x1 << bitnum
+    dt = numpy.zeros((d, d))
+    for i in range(d):
+        for j in range(d):
+            dt[i ^ j][s[i] ^ s[j]] += 1
     # convert numpy.float64 to numpy.int
-    return dt3.astype(int), dt5.astype(int)
+    return dt.astype(int)
 
 
-def print_table(map, dimention):
-    for i in range(dimention):
-        for j in range(dimention):
-            print("%d" % map[i][j])
-        print("\r\n")
+def print_table(map, bitnum):
+    d = 0x1 << bitnum
+    for i in range(d):
+        for j in range(d):
+            print("%d " % map[i][j], end="")
+        print('\r\n')
 
 if __name__ == "__main__":
-    print(dif_table(sb3, sb5))
+    print_table(dif_table(sb3, 3), 3)
+    print_table(dif_table(sb5, 5), 5)

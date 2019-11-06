@@ -14,9 +14,10 @@ unsigned int **df_Sbox(unsigned int *Sbox, int Sbox_bit)
 	unsigned int **map = (unsigned int **)malloc(Sbox_size * sizeof(unsigned int *));
 	for (i = 0; i < Sbox_size; i++)
 		map[i] = (unsigned int *)malloc(Sbox_size * sizeof(unsigned int));
-	for (i = 0; i < Sbox_size; i++)
-		for (j = 0; j < Sbox_size; j++)
-			map[i][j] = 0;
+	// for (i = 0; i < Sbox_size; i++)
+	// 	for (j = 0; j < Sbox_size; j++)
+	// 		map[i][j] = 0;
+	memset(map, 0, Sbox_size * Sbox_size * sizeof(unsigned int));
 	for (i = 0; i < Sbox_size; i++)
 		for (j = 0; j < Sbox_size; j++)
 			map[i ^ j][Sbox[i] ^ Sbox[j]] += 1;
