@@ -165,8 +165,9 @@
 \begin{homeworkProblem}
 
 %#TODO: Assignment 4 Raindrop Attack
-First, generate differential table for 3-bit Sbox \ref{table1} and 5-bit Sbox \ref{table2};
-\begin{table}[h]
+First, generate differential table for 3-bit Sbox Table \ref{tab:Table1} and 5-bit Sbox Table \ref{tab:Table2};
+
+\begin{table}[ht]
     \centering
     \begin{tabular}{l|llllllll}
       & 0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 \\ \hline
@@ -179,10 +180,15 @@ First, generate differential table for 3-bit Sbox \ref{table1} and 5-bit Sbox \r
     6 & 0 & 0 & 2 & 2 & 2 & 2 & 0 & 0 \\
     7 & 0 & 2 & 2 & 0 & 2 & 0 & 0 & 2
     \end{tabular}
-    \caption{Differential distribution table for 3-bit Sbox \label{table1}}
+    \caption{Differential distribution table for 3-bit Sbox}
+    \label{tab:Table1}
 \end{table}
 
-\begin{table}[h]
+Then, set plaintext pair as:\\
+
+
+
+\begin{table}[ht]
     \centering
     \setlength{\tabcolsep}{0.9mm}{
     \begin{tabular}{l|llllllllllllllllllllllllllllllll}
@@ -220,7 +226,8 @@ First, generate differential table for 3-bit Sbox \ref{table1} and 5-bit Sbox \r
     30 & 0  & 0 & 2 & 2 & 2 & 2 & 0 & 0 & 0 & 0 & 2  & 2  & 2  & 2  & 0  & 0  & 0  & 0  & 2  & 2  & 2  & 2  & 0  & 0  & 0  & 0  & 2  & 2  & 2  & 2  & 0  & 0  \\
     31 & 0  & 2 & 2 & 0 & 2 & 0 & 0 & 2 & 2 & 0 & 0  & 2  & 0  & 2  & 2  & 0  & 2  & 0  & 0  & 2  & 0  & 2  & 2  & 0  & 0  & 2  & 2  & 0  & 2  & 0  & 0  & 2 
     \end{tabular}}
-    \caption{Differential distribution table for 5-bit Sbox \label{table2}}
+    \caption{Differential distribution table for 5-bit Sbox}
+    \label{tab:Table2}
     
 \end{table}
 
