@@ -119,7 +119,7 @@ void Enc_128_128(unsigned int Plaintext[2][16], unsigned int Ciphertext[2][16], 
 	{
 		//StatePrintf
 		printf("Round=%d:\n", round + 1);
-		printf("LeftState:              RightState:             KeyState:\n");
+		printf("LeftState:              RightState:\n");
 		for (int i = 0; i < 4; i++)
 		{
 			for (int j = 0; j < 4; j++)
@@ -131,18 +131,7 @@ void Enc_128_128(unsigned int Plaintext[2][16], unsigned int Ciphertext[2][16], 
 			{
 				printf("0x%02x ", Plaintext[1][4 * i + j]);
 			}
-			printf("    ");
-			for (int j = 0; j < 4; j++)
-			{
-				if (j == 3)
-				{
-					printf("0x%02x\n", RoundKey[16 * round + 4 * i + j]);
-				}
-				else
-				{
-					printf("0x%02x ", RoundKey[16 * round + 4 * i + j]);
-				}
-			}
+			printf("    \n");
 		}
 		printf("\n");
 
@@ -161,7 +150,6 @@ void Enc_128_128(unsigned int Plaintext[2][16], unsigned int Ciphertext[2][16], 
 		}
 
 		//printf("Sbox\n");
-		// //Sbox
 		// for (int pos = 0; pos<4; pos++)
 		// {
 		// 	tmpState[pos] = Sbox_1[Plaintext[0][pos]];
@@ -212,18 +200,7 @@ void Enc_128_128(unsigned int Plaintext[2][16], unsigned int Ciphertext[2][16], 
 			{
 				printf("0x%02x ", Plaintext[1][4 * i + j]);
 			}
-			printf("    ");
-			for (int j = 0; j < 4; j++)
-			{
-				if (j == 3)
-				{
-					printf("0x%02x\n", RoundKey[16 * round + 4 * i + j]);
-				}
-				else
-				{
-					printf("0x%02x ", RoundKey[16 * round + 4 * i + j]);
-				}
-			}
+			printf("    \n");
 		}
 		printf("\n");
 
@@ -353,10 +330,9 @@ int Crypt_Enc_Block(unsigned char *input, int in_len, unsigned char *output, int
 
 int main(void)
 {
-	//test Encryption of Raindrop-128-128
-#if 1
-	printf("Proceeding the encryption test of Raindrop-128-128 ...\n");
-	unsigned char Plaintext[16] = { 0x00,0x00,0x10,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00};
+	printf("Proceeding the encryption test of Raindrop-128-128 ...\n");\
+	//Set p0 as 1, we assert it has the highest probiblity to keep its df value
+	unsigned char Plaintext[16] = { 0x20,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00};
 	unsigned char Ciphertext[16] = { 0x00 };
 	unsigned char Seedkey[16] = { 0x00,0x10,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00 };
 	int plaintext_length = 128;
@@ -372,6 +348,5 @@ int main(void)
 	{
 		printf("Error in Encryption!\n");
 	}
-#endif
 	return 0;
 }

@@ -188,13 +188,14 @@ We set Table 1 as T1, Table 2 as T2:
 
 We can find some extremum value point. T1(1,1), T1(2,2), T1(4,4), T2(1,1), T2(2,2), T2(4,4), T2(8,8), T2(16,16) with the Probability 1/4 to maintain its input differential value.
 
-Because only Sbox can contribute to changes to differential value based on probability, the MixRow and BitRot change the differential value in a fixed mode (with the probibility of 1). We can just take Sbox into concern. 
+Because only Sbox can contribute to changes to differential value based on probability, the MixRow and BitRot change the differential value in a fixed mode (with the probibility of 1). We can just take Sbox into concern.
 
 We can enumerate the input differential value 0x01, 0x02, 0x04, 0x08, 0x10 to the Sbox to get the best probibility path.
 
 Then we can find when the $p_0$ of plaintext is $0x20$, we can attack as much as round. The plaintext = {0x20 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 }.
 
-\textbf{We assume Sbox keep its differential value.}
+In the First Round:\\
+See figure \ref{Round1}.
 
 \textbf{Round1}\\
 \begin{figure}
@@ -205,7 +206,7 @@ Then we can find when the $p_0$ of plaintext is $0x20$, we can attack as much as
 \end{figure}
 After entering the Sbox, the $p_0$ state has the probibility of $2/8=2^{-2}$ to maintain 0x01. 
 
-Maintain value probability $P_1= 1/4=  2^{-2}$
+Maintain value probability $P_2=1/4=  2^{-2}$
 
 \textbf{Round2}\\
 \begin{figure}
@@ -215,79 +216,8 @@ Maintain value probability $P_1= 1/4=  2^{-2}$
     \label{Round2} %用于文内引用的标签
 \end{figure}
 We have 0x02 0x10 and 0x01.\\
-Maintain value probability $P_2=1/4 * 1/4 = 2^{-4}$
+Maintain value probability $P_2=1/4 * 1/4 * 1/4 = 2^{-6}$
  
-\textbf{Round3}\\
-\begin{figure}
-    \centering %图片居中
-    \includegraphics[width=1.0\textwidth]{Round3} %插入图片，[]中设置图片大小，{}中是图片文件名
-    \caption{Round 3} %最终文档中希望显示的图片标题
-    \label{Round3} %用于文内引用的标签
-\end{figure}
-We have 0x01 0x02 0x04 0x04 0x10 0x02.\\
-Maintain value probability $P_3=1/4 * 1/4 * 1/4 *1/4 = 2^{-8}$
-
-\textbf{Round4}\\
-\begin{figure}
-    \centering %图片居中
-    \includegraphics[width=1.0\textwidth]{Round4} %插入图片，[]中设置图片大小，{}中是图片文件名
-    \caption{Round 4} %最终文档中希望显示的图片标题
-    \label{Round4} %用于文内引用的标签
-\end{figure}
-We have 0x04 0x04 0x01 0x08 0x03=>0x02.\\
-Maintain value probability $P_4=1/4 * 1/4 * 1/4 *1/4 * 1/4 * 1/4 = 2^{-10}$
-
-\textbf{Round5}\\
-\begin{figure}
-    \centering %图片居中
-    \includegraphics[width=1.0\textwidth]{Round5} %插入图片，[]中设置图片大小，{}中是图片文件名
-    \caption{Round 5} %最终文档中希望显示的图片标题
-    \label{Round5} %用于文内引用的标签
-\end{figure}
-We have 0x01 0x0a=>0x01 0x03 0x04 0x1c=>0x02 0x02 0x02 0x02 0x02 0x08 0x02\\
-Maintain value probability $P_5=1/4 * 1/8 * 1/8 *1/4 * 1/8 * (1/4)^4 = 2^{-21}$
-
-\textbf{Round6}\\
-\begin{figure}
-    \centering %图片居中
-    \includegraphics[width=1.0\textwidth]{Round6} %插入图片，[]中设置图片大小，{}中是图片文件名
-    \caption{Round 6} %最终文档中希望显示的图片标题
-    \label{Round6} %用于文内引用的标签
-\end{figure}
-We have 0x10 0x02 0x04 0x02 0x01 0x10 x014=>0x13 0x01 0x03=>0x01 0x02\\
-Maintain value probability $P_6=1/4 * 1/4 * 1/4 * 1/4 * 1/4 * 1/4 * 1/8 *1/4 *1/8*1/4= 2^{-24}$
-
-\textbf{Round7}\\
-\begin{figure}
-    \centering %图片居中
-    \includegraphics[width=1.0\textwidth]{Round7} %插入图片，[]中设置图片大小，{}中是图片文件名
-    \caption{Round 7} %最终文档中希望显示的图片标题
-    \label{Round7} %用于文内引用的标签
-\end{figure}
-We have 0x09=>0x07 0x07=>0x07 0x02 0x19=>0x19 0x06=>0x02 0x06=>0x02 0x01 0x02 0x0a=>0x01 0x09=>0x0a 0x08=>0x08\\
-Maintain value probability $P_7= 1/8 * 1/16 * 1/4 * 1/16 * 1/8 * 1/8  *1/4 * 1/4 * 1/8 *1/8 *1/4 = 2^{-31}$
-
-\textbf{Round8}\\
-\begin{figure}
-    \centering %图片居中
-    \includegraphics[width=1.0\textwidth]{Round8} %插入图片，[]中设置图片大小，{}中是图片文件名
-    \caption{Round 8} %最终文档中希望显示的图片标题
-    \label{Round8} %用于文内引用的标签
-\end{figure}
-Maintain value probability $P_8= 1/4 *1/4 * 1/8 * 1/8 *1/4 *1/4 * 1/8 = 2^{-17}$
-
-\textbf{Round9}\\
-\begin{figure}
-    \centering %图片居中
-    \includegraphics[width=1.0\textwidth]{Round9} %插入图片，[]中设置图片大小，{}中是图片文件名
-    \caption{Round 9} %最终文档中希望显示的图片标题
-    \label{Round9} %用于文内引用的标签
-\end{figure}
-Maintain value probability $P_8= 1/4 *1/16 * 1/8 * 1/16 *1/8 *1/8 *1/4 *1/16 *1/8 *1/8 *1/8 * 1/8 *1/4 = 2^{-39}$
-
-Accumulate Round1 - Round 9  less than $2^{-128}$.
-
-So we get to Round 9
 
 \begin{table}[ht]
     \centering
