@@ -2,18 +2,8 @@
 
 ## CSCI971 cryptography_assignments
 
-### stream cipher
+## CSCI924 
 
-- perfect security
+## CSCI927
 
-- semantically security
-
-- attack game
-
-### block cipher
-
-- security
-
-- DES/AES
-
-- network
+## CSIT940
