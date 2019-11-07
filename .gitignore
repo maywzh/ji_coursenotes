@@ -4,6 +4,7 @@
 materials/*.pdf
 *.dSYM
 *.o
+*.exe
 # ---> Linux
 *~
 
