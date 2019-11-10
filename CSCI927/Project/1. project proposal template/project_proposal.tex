@@ -34,17 +34,17 @@ Our goal is to build a software system integrating GTD, Q\&A, record and virtual
 \begin{itemize}
     \item User profile service: User can edit profiles. They can fetch various personal data.
     \item Report service: User or Administer can fetch data report through this serviuce. Feed flows are also generated in this service.
-    \item Attendance service: User can record their attendance in stydy room service. 
+    \item Attendance service: Students Clock/automatically cleared out/display statistics report. 
     \item Push service: Subscriber can subscribe to certain events, Pusher push notification to subscriber.
     \item Follow service: Follower automatically subscribe to followed topics or users.
     \item Message Service: User can send message privately to each other, this is based on push service.
     \item Calendar service: User can create their learning canlendar. 
-    \item Task service: User can add/delete/modify learning task. It notify users through push services. Task report can be generated through report service.
+    \item Learning Task service: Students make daily plan/cleared out/summarize results/check progress.
     \item Network disk service: User manage learning materials with online disk based on permission.
-    \item Self-study room service: User create online study room. It can interact with Calendar services and Task service.
+    \item Self-study room service: Room creator create/update/delete/put online/offline/submit room, agree/reject application.Students apply/report room.Administrator offline/agrees/reject.
     \item Search Service: User can search for other user, study room, material, question, answer based on input data type and keyword.
     \item Question Service: User can add/modify/remove questions with several topics/tags. Questions can also be follower through follow service.
-    \item Answer Service: Users can add/modify/remove their answers and comment/vote other users' answers.
+    \item Answer Service: Users can add/modify/remove answers and comment/vote others' answers.
     % \item Exercise Service: Exercise creator create/update/delete/submit/withdraw exercise doing. Self-study room creator agree/return exercise doing. Book participants join exercise doing/learning timing/summarize learning results/grade the exercise/view learning progress/exercise summary/evaluation. System automatically rank exercise.
     
 \end{itemize}
@@ -54,14 +54,12 @@ Our goal is to build a software system integrating GTD, Q\&A, record and virtual
     \item Friend service: User can build/remove friend relation with other user.
     \item Dynamic service: User can watch friends' dynamics.
     \item Data service: Service provider can analyse big data to generate data analisis report.
-    \item Course service: Course creator create/update/delete/submit/withdraw courses taking. Course participants join courses/learning timing/summarize learning results/grade the course/view learning progress/course summary/evaluation. System automatically rank courses.
-    \item Book service: Book participants join book reading/learning timing/summarize learning results/grade the book/view learning progress/book summary/evaluation. System automatically rank books.
-    
+    \item Taking Course service: Course creator create/update/delete/submit/withdraw courses taking. Course participants join /summarize results/grade/view progress/summary/evaluation.
 \end{itemize}
 
 \section*{Techniques}
-TODO
-
+We use the data flow graph to indicate how the data is transformed when it moves in the system and we use BPMN, CMMN and DMN  together to enable end to end modeling of our operations.
+We use down-top design to build our system, dividing our system into 2 layers: basic service layer (BSL) and application logic service layer (ALL). Basic service contains basic services such as push services, search services and so on. Application services in ALL are based on basic services to offer more complicated functionalities such as follow services, user services, etc. We can also use WSDL for describe for service description and UDDI for service discovery. We use XML as data exchange format among services and SOAP as standard communication protocol.
 \clearpage
 \begin{flushleft}
     \huge{\textbf{Appendix}}
