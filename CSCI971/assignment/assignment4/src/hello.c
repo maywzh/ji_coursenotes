@@ -1,7 +1,11 @@
 #include <stdio.h>
-int main()
+
+int main(void)
 {
-    int i = 1;
-    int j = 2;
-    printf("hello world\n");
+	int a = 21;
+	int b = 4;
+	int c = a % b;
+
+	printf("%d mod %d = %d\n", a, b, c);
+	return 0;
 }
