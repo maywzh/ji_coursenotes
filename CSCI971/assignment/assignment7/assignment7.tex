@@ -170,6 +170,27 @@ For the first cipher, assume an attacker who can perform CPA. He intercept the c
 
 For the second cipher, attacker can intercept the ciphertext $(c,H_2(c))$, so he can learn the mapping model of $H_2$ function. So in CI attack game, Adversary $\mathcal{A}$ can easily generate an valid ciphertext-tag pair $(c_{atk}, H_2(c_{atk}))$. Then Decryptor $D_2(k, (c_{ack},H_2(c_{ack}))) \neq \perp$. So $Adv_{CI}(\mathcal{A},\mathcal{E})$ is not negligible. Cipher1 does not safisfy CI, so it's not AE-secure.
 
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+    
+Addition $\mathcal{Z}_6^*$ is a cyclic group. 
+
+$\mathcal{Z}_6^*=\{0,1,2,3,4,5,6\}$ 
+
+0 generate \{0\},
+
+1 generate \{0,1,2,3,4,5\}
+
+2 generate \{0,2,4\}
+
+3 generate \{0,3\}
+
+4 generate \{0,4\}
+
+5 generate \{5,4,3,2,1,0\}
+
+So the generators of $\mathcal{Z}_6^*$ is 0 and 5. 
 
 
 
@@ -181,12 +202,22 @@ For the second cipher, attacker can intercept the ciphertext $(c,H_2(c))$, so he
 
 
 \end{homeworkProblem}
-
-\begin{homeworkProblem}
-
+Group under multiplication $\mathcal{Z}_{13}^*$ is a cyclic group.
 
 
+    <0> = \{0\} \\
+    <1> = \{1\} \\
+    <2> = \{1 2 4 8 3 6 12 11 9 5 10 7\} \\ 
+    <3> = \{1 3 9\} \\
+    <4> = \{1 4 3 12 9 10 1 4 3 12 9 10\} \\ 
+    <5> = \{1 5 12 8\} \\
+    <6> = \{1 6 10 8 9 2 12 7 3 5 4 11\} \\
+    <7> = \{1 7 10 5 9 11 12 6 3 8 4 2\} \\ 
+    <8> = \{1 8 12 5 \} \\
+    <9> = \{1 9 3 \} \\
+    <10> = \{1 10 9 12 3 4\} \\
+    <11> = \{1 11 4 5 3 7 12 2 9 8 10 6\} \\ 
+    <12> = \{1 12 1 \}
 
-\end{homeworkProblem}
-
+subgroup is {2,4,6,7,11}.
 \end{document}
