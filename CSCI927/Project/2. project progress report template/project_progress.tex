@@ -47,20 +47,21 @@
 
 %-----------Please write the content of your research proposal from here.---------------
 \noindent %peng muzhe
-\section{Progress}
+\section*{Progress}
+\subsection*{}
 In order to better description the service, the model is further designed according to the proposal. The must-have modules have finished designing, which includes Updates Issue module, Search module and Message Processing Module. The technology of Business Process Modeling Notation(BPMN) and corresponding Extensive Markup Language(XML) are used to denote well-organized and predictable process, Case Management Model and Notation(CMMN) is used to describe the unpredictable process. More details are included in the appendix. 
 \\Slight adjustment is made to make the function of the service more appropriate, which is:
 \\Deleting the Updates Searching module in the Search service. Because the online study lounge system should focus more on helping users form good habits for study, however it seems unnecessary to search for a certain updates, this module will divert users’ attention more on friends making. 
 
-\section{Next plan}
-1.Design the good-to-have services
-\\2.Try to apply more technology.
+
 \subsection*{Q\&A Module} %maywzh
 \noindent
 For Q\&A module, We have developed Question Service and Answer Service along with interaction with Follow Service, Push Service. Down-top design was used to build the system, dividing the application into two layer: basic layer and business logic layer. The SOA pattern was referred in building the System, dividing Question Services and Answer Services into atomic services. BPMN model was used to describe the business process model of the Q\&A module in the view of users. Also, We use CMMN model to describe the case model of the moduel. The according xml files are offered.
 Generating Question Services consists search question service, add/edit/follow question services and follow question service, we considered the general business model of the service and combined them into a whold model. In CMMN Model, We connected Question Service and Answer Service, to show the whole service chain.
 
-
+\section*{Next plan}
+1.Design the good-to-have services
+\\2.Try to apply more technology.
 
 \clearpage
 \begin{flushleft}
@@ -78,7 +79,7 @@ Generating Question Services consists search question service, add/edit/follow q
 	\textbf{Question Service BPMN Model and XML}\\
 	\begin{figure}
 		\centering %图片居中
-		\includegraphics[width=1.0\textwidth]{questionservice} %插入图片，[]中设置图片大小，{}中是图片文件名
+		\includegraphics[width=1.0\textwidth]{figure/mwzh/questionservice} %插入图片，[]中设置图片大小，{}中是图片文件名
 		\caption{Question Service} %最终文档中希望显示的图片标题
 		\label{questionservice} %用于文内引用的标签
 	\end{figure}
@@ -218,7 +219,7 @@ Generating Question Services consists search question service, add/edit/follow q
 	\textbf{Answer Service BPMN Model and XML}\\
 	\begin{figure}
 		\centering %图片居中
-		\includegraphics[width=1.0\textwidth]{answerservice} %插入图片，[]中设置图片大小，{}中是图片文件名
+		\includegraphics[width=1.0\textwidth]{figure/mwzh/answerservice} %插入图片，[]中设置图片大小，{}中是图片文件名
 		\caption{Answer Service} %最终文档中希望显示的图片标题
 		\label{answerservice} %用于文内引用的标签
 	\end{figure}
@@ -304,17 +305,1056 @@ Generating Question Services consists search question service, add/edit/follow q
 	\textbf{Q\&A Service CMMN Model and XML}\\
 	\begin{figure}
 		\centering %图片居中
-		\includegraphics[width=1.0\textwidth]{cmmnmodel} %插入图片，[]中设置图片大小，{}中是图片文件名
+		\includegraphics[width=1.0\textwidth]{figure/mwzh/cmmnmodel} %插入图片，[]中设置图片大小，{}中是图片文件名
 		\caption{Q\&A Service CMMN Model} %最终文档中希望显示的图片标题
 		\label{qaservice} %用于文内引用的标签
     \end{figure}   
     
     %pengmuzhe
-    
-    %heyueyue
-    
-    %lvliting
+	\noindent 
+\textbf{Message Processing Service BPMN Model and XML}
 
+\begin{figure}
+  \centering
+  \includegraphics[width=1\textwidth]{figure/pmz/MessageManagement.png}
+  \caption{Message Management}
+\end{figure}
+\begin{lstlisting}[language={XML}]]
+<bpmn:process id="Process_1" isExecutable="true">
+	<bpmn:startEvent id="StartEvent">
+        <bpmn:outgoing>SequenceFlow_1</bpmn:outgoing>
+        <bpmn:messageEventDefinition/>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_1" sourceRef="StartEvent" targetRef="Task_1" />
+    <bpmn:task id="Task_1" name="View the message">
+        <bpmn:incoming>SequenceFlow_1</bpmn:incoming>
+        <bpmn:outgoing>SequenceFlow_2</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="SequenceFlow_2" sourceRef="Task_1" targetRef="ExclusiveGateway_1" />
+    <bpmn:exclusiveGateway id="ExclusiveGateway_1" name="Process message?">
+        <bpmn:incoming>SequenceFlow_2</bpmn:incoming>
+        <bpmn:outgoing>SequenceFlow_3</bpmn:outgoing>
+        <bpmn:outgoing>SequenceFlow_4</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="SequenceFlow_3" sourceRef="ExclusiveGateway_1" targetRef="EndEvent"/>
+        <bpmn:conditionExpression 
+        xsi:type="bpmn:tFormalExpression">N</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+     <bpmn:sequenceFlow id="SequenceFlow_4" sourceRef="ExclusiveGateway_1"
+    targetRef="ExclusiveGateway_2" />
+        <bpmn:conditionExpression 
+        xsi:type="bpmn:tFormalExpression">Y</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+     <bpmn:exclusiveGateway id="ExclusiveGateway_2" name="Block message?">
+        <bpmn:incoming>SequenceFlow_4</bpmn:incoming>
+        <bpmn:outgoing>SequenceFlow_5</bpmn:outgoing>
+        <bpmn:outgoing>SequenceFlow_6</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="SequenceFlow_5" sourceRef="ExclusiveGateway_2" targetRef="Task_2" />
+        <bpmn:conditionExpression 
+        xsi:type="bpmn:tFormalExpression">Y</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="SequenceFlow_6" sourceRef="ExclusiveGateway_2" targetRef="Task_3" />
+        <bpmn:conditionExpression 
+        xsi:type="bpmn:tFormalExpression">N</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:task id="Task_2" name="Block user's message">
+        <bpmn:incoming>SequenceFlow_5</bpmn:incoming>
+        <bpmn:outgoing>SequenceFlow_7</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Task_3" name="Reply the message">
+        <bpmn:incoming>SequenceFlow_6</bpmn:incoming>
+        <bpmn:outgoing>SequenceFlow_8</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="SequenceFlow_7" sourceRef="Task_2" targetRef="EndEvent" />
+    <bpmn:sequenceFlow id="SequenceFlow_8" sourceRef="Task_3" targetRef="EndEvent" />
+    <bpmn:endEvent id="EndEvent">
+        <bpmn:ingoing>SequenceFlow_3</bpmn:ingoing>
+        <bpmn:ingoing>SequenceFlow_7</bpmn:ingoing>
+        <bpmn:ingoing>SequenceFlow_8</bpmn:ingoing>
+    </bpmn:endEvent> 
+</bpmn:process>
+\end{lstlisting}
+\textbf{Issue Updates Service BPMN Model and XML}
+\begin{figure}
+  \centering
+  \includegraphics[width=1\textwidth]{figure/pmz/UpdatesIssueManagement.png}
+  \caption{Updates Issue Management}
+\end{figure}
+\begin{lstlisting}[language={XML}]
+<bpmn:process id="Process_3" isExecutable="true">
+	<bpmn:startEvent id="StartEvent">
+        <bpmn:outgoing>SequenceFlow_1</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_1" sourceRef="StartEvent" targetRef="InclusiveGateway" />
+    <bpmn:inclusiveGateway id="InclusiveGateway">
+        <bpmn:incoming>SequenceFlow_1</bpmn:incoming>
+        <bpmn:outgoing>SequenceFlow_2</bpmn:outgoing>
+        <bpmn:outgoing>SequenceFlow_3</bpmn:outgoing>
+        <bpmn:outgoing>SequenceFlow_4</bpmn:outgoing>
+    </bpmn:inclusiveGateway>
+    <bpmn:sequenceFlow id="SequenceFlow_2" sourceRef="InclusiveGateway" targetRef="Task_1" />
+    <bpmn:sequenceFlow id="SequenceFlow_3" sourceRef="InclusiveGateway" targetRef="Task_2" />
+    <bpmn:sequenceFlow id="SequenceFlow_4" sourceRef="InclusiveGateway" targetRef="Task_3" />
+    <bpmn:task id="Task_1" name="Edit Personal updates">
+    	<bpmn:ingoing>SequenceFlow_2</bpmn:ingoing>
+    	<bpmn:outgoing>SequenceFlow_5</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Task_2" name="Send studyroom invitation">
+    	<bpmn:ingoing>SequenceFlow_3</bpmn:ingoing>
+    	<bpmn:outgoing>SequenceFlow_6</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Task_3" name="Issue question">
+    	<bpmn:ingoing>SequenceFlow_4</bpmn:ingoing>
+    	<bpmn:outgoing>SequenceFlow_7</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="SequenceFlow_5" sourceRef="Task_1" targetRef="Task_4" />
+    <bpmn:sequenceFlow id="SequenceFlow_6" sourceRef="Task_2" targetRef="EndEvent" />
+    <bpmn:sequenceFlow id="SequenceFlow_7" sourceRef="Task_3" targetRef="EndEvent" />
+    <bpmn:task id="Task_4" name="Set updates visibility permission">
+    	<bpmn:ingoing>SequenceFlow_5</bpmn:ingoing>
+    	<bpmn:outgoing>EndEvent</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="SequenceFlow_8" sourceRef="Task_4" targetRef="EndEvent" />
+    <bpmn:endEvent id="StartEvent">
+        <bpmn:ingoing>SequenceFlow_6</bpmn:ingoing>
+        <bpmn:ingoing>SequenceFlow_7</bpmn:ingoing>
+        <bpmn:ingoing>SequenceFlow_8</bpmn:ingoing>
+    </bpmn:endEvent>
+</bpmn:process>
+\end{lstlisting}
+\textbf{Search Service BPMN Model and XML}
+\begin{figure}
+  \centering
+  \includegraphics[width=1\textwidth]{figure/pmz/SearchManagement.png}
+  \caption{Search Management}
+\end{figure}
+\begin{lstlisting}[language={XML}]]
+<bpmn:process id="Process_2" isExecutable="true">
+	<bpmn:startEvent id="StartEvent">
+        <bpmn:outgoing>SequenceFlow_1</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_1" sourceRef="StartEvent" targetRef="InclusiveGateway_1" />
+    <bpmn:inclusiveGateway id="InclusiveGateway_1">
+        <bpmn:incoming>SequenceFlow_1</bpmn:incoming>
+        <bpmn:outgoing>SequenceFlow_2</bpmn:outgoing>
+        <bpmn:outgoing>SequenceFlow_3</bpmn:outgoing>
+        <bpmn:outgoing>SequenceFlow_4</bpmn:outgoing>
+    </bpmn:inclusiveGateway>
+    <bpmn:sequenceFlow id="SequenceFlow_2" sourceRef="InclusiveGateway_1" targetRef="Task_1" />
+    <bpmn:sequenceFlow id="SequenceFlow_3" sourceRef="InclusiveGateway_1" targetRef="Task_2" />
+    <bpmn:sequenceFlow id="SequenceFlow_4" sourceRef="InclusiveGateway_1" targetRef="Task_3" />
+    <bpmn:task id="Task_1" name="Search related studyroom">
+        <bpmn:incoming>SequenceFlow_2</bpmn:incoming>
+        <bpmn:outgoing>SequenceFlow_5</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Task_2" name="Search for a user">
+        <bpmn:incoming>SequenceFlow_3</bpmn:incoming>
+        <bpmn:outgoing>SequenceFlow_6</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Task_3" name="Search related question">
+        <bpmn:incoming>SequenceFlow_4</bpmn:incoming>
+        <bpmn:outgoing>SequenceFlow_7</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="SequenceFlow_5" sourceRef="Task_1" targetRef="Task_4" />
+    <bpmn:sequenceFlow id="SequenceFlow_6" sourceRef="Task_2" targetRef="Task_5" />
+    <bpmn:sequenceFlow id="SequenceFlow_7" sourceRef="Task_3" targetRef="Task_5" />
+    <bpmn:task id="Task_4" name="Join in the studyroom">
+        <bpmn:incoming>SequenceFlow_5</bpmn:incoming>
+        <bpmn:outgoing>SequenceFlow_9</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Task_5" name="View personal information">
+        <bpmn:incoming>SequenceFlow_6</bpmn:incoming>
+        <bpmn:outgoing>SequenceFlow_10</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Task_6" name="View the question">
+        <bpmn:incoming>SequenceFlow_7</bpmn:incoming>
+        <bpmn:outgoing>SequenceFlow_11</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="SequenceFlow_9" sourceRef="Task_4" targetRef="EndEvent_3" />
+    <bpmn:sequenceFlow id="SequenceFlow_10" sourceRef="Task_5" targetRef="Task_7" />
+    <bpmn:sequenceFlow id="SequenceFlow_11" sourceRef="Task_6" targetRef="InclusiveGateway_2" />
+    <bpmn:boundaryEvent id="BoundaryEvent_1" name="Invitation rejection" attachedToRef="Task_4">
+        <bpmn:outgoing>SequenceFlow_8</bpmn:outgoing>
+        <bpmn:conditionalEventDefinition />
+    </bpmn:boundaryEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_8" sourceRef="BoundaryEvent_1" targetRef="EndEvent_1" />
+    <bpmn:endEvent id="EndEvent_1" name="Receive invitation rejection">
+        <bpmn:ingoing>SequenceFlow_8</bpmn:ingoing>
+        <bpmn:messageEventDefinition/>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_12" sourceRef="InclusiveGateway_2" targetRef="Task_8" />
+    <bpmn:sequenceFlow id="SequenceFlow_13" sourceRef="InclusiveGateway_2" targetRef="Task_9" />
+    <bpmn:sequenceFlow id="SequenceFlow_14" sourceRef="InclusiveGateway_2" targetRef="Task_10" />
+    <bpmn:sequenceFlow id="SequenceFlow_15" sourceRef="Task_7" targetRef="EndEvent_3" />
+    <bpmn:task id="Task_7" name="Add user as friend">
+        <bpmn:incoming>SequenceFlow_10</bpmn:incoming>
+        <bpmn:outgoing>SequenceFlow_15</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Task_8" name="Answer the question">
+        <bpmn:incoming>SequenceFlow_12</bpmn:incoming>
+        <bpmn:outgoing>SequenceFlow_17</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Task_9" name="Add the question to favorites">
+        <bpmn:incoming>SequenceFlow_13</bpmn:incoming>
+        <bpmn:outgoing>SequenceFlow_18</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Task_10" name="View answerer's information">
+        <bpmn:incoming>SequenceFlow_14</bpmn:incoming>
+        <bpmn:outgoing>SequenceFlow_19</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:boundaryEvent id="BoundaryEvent_2" name="Invitation rejection" attachedToRef="Task_7">
+        <bpmn:outgoing>SequenceFlow_16</bpmn:outgoing>
+        <bpmn:conditionalEventDefinition />
+    </bpmn:boundaryEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_16" sourceRef="BoundaryEvent_2" targetRef="EndEvent_2" />
+    <bpmn:endEvent id="EndEvent_2" name="Receive invitation rejection">
+        <bpmn:ingoing>SequenceFlow_16</bpmn:ingoing>
+        <bpmn:messageEventDefinition/>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_17" sourceRef="Task_8" targetRef="EndEvent_3" />
+    <bpmn:sequenceFlow id="SequenceFlow_18" sourceRef="Task_9" targetRef="EndEvent_3" />
+    <bpmn:sequenceFlow id="SequenceFlow_19" sourceRef="Task_10" targetRef="Task_11" />
+    <bpmn:task id="Task_11" name="Send message">
+        <bpmn:incoming>SequenceFlow_14</bpmn:incoming>
+        <bpmn:outgoing>SequenceFlow_20</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="SequenceFlow_20" sourceRef="Task_11" targetRef="EndEvent_3" />
+    <bpmn:endEvent id="EndEvent_3">
+        <bpmn:ingoing>SequenceFlow_9</bpmn:outgoing>
+        <bpmn:ingoing>SequenceFlow_15</bpmn:outgoing>
+        <bpmn:ingoing>SequenceFlow_17</bpmn:outgoing>
+        <bpmn:ingoing>SequenceFlow_18</bpmn:outgoing>
+        <bpmn:ingoing>SequenceFlow_20</bpmn:outgoing>
+    </bpmn:endEvent>
+</bpmn:process>
+\end{lstlisting}
+\textbf{Message Replying Service CMMN Model and XML}
+\begin{figure}
+  \centering
+  \includegraphics[width=1\textwidth]{figure/pmz/interactioncmmn}
+  \caption{Reply a Message}
+\end{figure}
+	
+	
+    %heyueyue
+    \textbf{Login Management Service BPMN Model and XML}\\
+
+    \begin{figure}
+       \centering %图片居中
+       \includegraphics[width=1.0\textwidth]{figure/hyy/loginmanagement} %插入图片，[]中设置图片大小，{}中是图片文件名
+       \caption{Login Service} %最终文档中希望显示的图片标题
+       \label{Login Service} %用于文内引用的标签
+   \end{figure}
+
+    \noindent 
+    \begin{lstlisting}[language={XML}]
+        <bpmn:process id="Process_3" isExecutable="true">
+	<bpmn:task id="Task_1" name="Fill in personal information">
+		<bpmn:incoming>SequenceFlow_3</bpmn:incoming>
+		<bpmn:outgoing>SequenceFlow_4</bpmn:outgoing>
+	</bpmn:task>
+	<bpmn:startEvent id="StartEvent">
+		<bpmn:outgoing>SequenceFlow_1</bpmn:outgoing>
+	</bpmn:startEvent>
+	<bpmn:sequenceFlow id="SequenceFlow_1" sourceRef="StartEvent"
+		targetRef="ExclusiveGateway_1" />
+	<bpmn:sequenceFlow id="SequenceFlow_2" sourceRef="ExclusiveGateway_1"
+		targetRef="ExclusiveGateway_2" >
+	<bpmn:conditionExpression
+		xsi:type="bpmn:tFormalExpression">N</bpmn:conditionExpression>
+	</bpmn:sequenceFlow>
+	<bpmn:exclusiveGateway id="ExclusiveGateway_1" name="Wether to register">
+		<bpmn:incoming>SequenceFlow_1</bpmn:incoming>
+		<bpmn:outgoing>SequenceFlow_2</bpmn:outgoing>
+		<bpmn:outgoing>SequenceFlow_8</bpmn:outgoing>
+	</bpmn:exclusiveGateway>
+	<bpmn:sequenceFlow id="SequenceFlow_4" sourceRef="Task_1"
+		targetRef="Task_2" />
+	<bpmn:exclusiveGateway id="ExclusiveGateway_2" name="Wether have registered">
+		<bpmn:incoming>SequenceFlow_2</bpmn:incoming>
+		<bpmn:outgoing>SequenceFlow_3</bpmn:outgoing>
+		<bpmn:outgoing>SequenceFlow_6</bpmn:outgoing>
+	</bpmn:exclusiveGateway>
+	<bpmn:sequenceFlow id="SequenceFlow_3" sourceRef="ExclusiveGateway_2"
+		targetRef="Task_1" >
+		<bpmn:conditionExpression
+			xsi:type="bpmn:tFormalExpression">Y</bpmn:conditionExpression>
+	</bpmn:sequenceFlow>
+	<bpmn:task id="Task_2" name="Bind e-mail or mobile phone">
+		<bpmn:incoming>SequenceFlow_4</bpmn:incoming>
+		<bpmn:outgoing>SequenceFlow_5</bpmn:outgoing>
+	</bpmn:task>
+	<bpmn:sequenceFlow id="SequenceFlow_5" sourceRef="Task_2"
+		targetRef="EndEvent"/>
+	<bpmn:endEvent id="EndEvent">
+		<bpmn:incoming>SequenceFlow_5</bpmn:incoming>
+		<bpmn:incoming>SequenceFlow_7</bpmn:incoming>
+		<bpmn:incoming>SequenceFlow_12</bpmn:incoming>
+		<bpmn:incoming>SequenceFlow_17</bpmn:incoming>
+		<bpmn:incoming>SequenceFlow_21</bpmn:incoming>
+		<bpmn:incoming>SequenceFlow_22</bpmn:incoming>
+	</bpmn:endEvent>
+	<bpmn:sequenceFlow id="SequenceFlow_6" sourceRef="ExclusiveGateway_2"
+		targetRef="Task_3">
+		<bpmn:conditionExpression
+			xsi:type="bpmn:tFormalExpression">N</bpmn:conditionExpression>
+	</bpmn:sequenceFlow>
+	<bpmn:task id="Task_3" name="Remind users">
+		<bpmn:incoming>SequenceFlow_6</bpmn:incoming>
+		<bpmn:outgoing>SequenceFlow_7</bpmn:outgoing>
+	</bpmn:task>
+	<bpmn:sequenceFlow id="SequenceFlow_7" sourceRef="Task_3"
+		targetRef="EndEvent"/>
+	<bpmn:sequenceFlow id="SequenceFlow_8" sourceRef="ExclusiveGateway_1"
+		targetRef="Task_4">
+		<bpmn:conditionExpression
+			xsi:type="bpmn:tFormalExpression">Y</bpmn:conditionExpression>
+	</bpmn:sequenceFlow>
+	<bpmn:task id="Task_4" name="Login">
+		<bpmn:incoming>SequenceFlow_8</bpmn:incoming>
+		<bpmn:outgoing>SequenceFlow_11</bpmn:outgoing>
+	</bpmn:task>
+	<bpmn:sequenceFlow id="SequenceFlow_11" sourceRef="Task_4"
+		targetRef="Task_5" />
+	<bpmn:task id="Task_5" name="Enter the App">
+		<bpmn:incoming>SequenceFlow_11</bpmn:incoming>
+		<bpmn:outgoing>SequenceFlow_12</bpmn:outgoing>
+	</bpmn:task>
+	<bpmn:sequenceFlow id="SequenceFlow_12" sourceRef="Task_5"
+		targetRef="EndEvent" />
+	<bpmn:boundaryEvent id="BoundaryEvent_1" attachedToRef="Task_4">
+		<bpmn:outgoing>SequenceFlow_9</bpmn:outgoing>
+		<bpmn:errorEventDefinition />
+	</bpmn:boundaryEvent>
+	<bpmn:sequenceFlow id="SequenceFlow_9" sourceRef="BoundaryEvent_1"
+		targetRef="Task_6" >
+		<bpmn:conditionExpression
+			xsi:type="bpmn:tFormalExpression">Incorrect password or username</bpmn:conditionExpression>
+	</bpmn:sequenceFlow>
+	<bpmn:task id="Task_6" name="Inform the user">
+		<bpmn:incoming>SequenceFlow_9</bpmn:incoming>
+		<bpmn:outgoing>SequenceFlow_22</bpmn:outgoing>
+	</bpmn:task>
+	<bpmn:sequenceFlow id="SequenceFlow_22" sourceRef="Task_6"
+		targetRef="EndEvent" />
+	<bpmn:boundaryEvent id="BoundaryEvent_2" attachedToRef="Task_4">
+		<bpmn:outgoing>SequenceFlow_10</bpmn:outgoing>
+		<bpmn:signalEventDefinition />
+	</bpmn:boundaryEvent>
+	<bpmn:sequenceFlow id="SequenceFlow_10" sourceRef="BoundaryEvent_2"
+		targetRef="Task_7" >
+		<bpmn:conditionExpression
+			xsi:type="bpmn:tFormalExpression">retrieve password</bpmn:conditionExpression>
+	</bpmn:sequenceFlow>
+	<bpmn:task id="Task_7" name="Select authentication method">
+		<bpmn:incoming>SequenceFlow_10</bpmn:incoming>
+		<bpmn:outgoing>SequenceFlow_13</bpmn:outgoing>
+	</bpmn:task>
+	<bpmn:sequenceFlow id="SequenceFlow_13" sourceRef="Task_7"
+		targetRef="ExclusiveGateway_3" />
+	<bpmn:exclusiveGateway id="ExclusiveGateway_3">
+		<bpmn:incoming>SequenceFlow_13</bpmn:incoming>
+		<bpmn:outgoing>SequenceFlow_14</bpmn:outgoing>
+		<bpmn:outgoing>SequenceFlow_18</bpmn:outgoing>
+	</bpmn:exclusiveGateway>
+	<bpmn:sequenceFlow id="SequenceFlow_14" sourceRef="ExclusiveGateway_3"
+		targetRef="Task_8" >
+		<bpmn:conditionExpression
+			xsi:type="bpmn:tFormalExpression">Mobile</bpmn:conditionExpression>
+	</bpmn:sequenceFlow>
+	<bpmn:task id="Task_8" name="Receive verification message">
+		<bpmn:incoming>SequenceFlow_14</bpmn:incoming>
+		<bpmn:outgoing>SequenceFlow_15</bpmn:outgoing>
+	</bpmn:task>
+	<bpmn:sequenceFlow id="SequenceFlow_15" sourceRef="Task_8"
+		targetRef="Task_9" />
+	<bpmn:task id="Task_9" name="Fill in the verification code">
+		<bpmn:incoming>SequenceFlow_15</bpmn:incoming>
+		<bpmn:outgoing>SequenceFlow_16</bpmn:outgoing>
+	</bpmn:task>
+	<bpmn:sequenceFlow id="SequenceFlow_16" sourceRef="Task_9"
+		targetRef="Task_10" />
+	<bpmn:task id="Task_10" name="Change and save password">
+		<bpmn:incoming>SequenceFlow_16</bpmn:incoming>
+		<bpmn:outgoing>SequenceFlow_17</bpmn:outgoing>
+	</bpmn:task>
+	<bpmn:sequenceFlow id="SequenceFlow_17" sourceRef="Task_10"
+		targetRef="EndEvent" />
+	<bpmn:sequenceFlow id="SequenceFlow_18" sourceRef="ExclusiveGateway_3"
+		targetRef="Task_11" >
+		<bpmn:conditionExpression       xsi:type="bpmn:tFormalExpression">Mail</bpmn:conditionExpression>
+	</bpmn:sequenceFlow>
+	<bpmn:task id="Task_11" name="Receive verification mail">
+		<bpmn:incoming>SequenceFlow_18</bpmn:incoming>
+		<bpmn:outgoing>SequenceFlow_19</bpmn:outgoing>
+	</bpmn:task>
+	<bpmn:sequenceFlow id="SequenceFlow_19" sourceRef="Task_11"
+		targetRef="Task_12" />
+	<bpmn:task id="Task_12" name="Fill in the verification code">
+		<bpmn:incoming>SequenceFlow_19</bpmn:incoming>
+		<bpmn:outgoing>SequenceFlow_20</bpmn:outgoing>
+	</bpmn:task>
+	<bpmn:sequenceFlow id="SequenceFlow_20" sourceRef="Task_12"
+		targetRef="Task_13" />
+	<bpmn:task id="Task_13" name="Change and save password">
+		<bpmn:incoming>SequenceFlow_20</bpmn:incoming>
+		<bpmn:outgoing>SequenceFlow_21</bpmn:outgoing>
+	</bpmn:task>
+	<bpmn:sequenceFlow id="SequenceFlow_21" sourceRef="Task_13"
+		targetRef="EndEvent" />
+	</bpmn:process>
+    
+	\end{lstlisting}
+
+
+
+    \clearpage
+    \textbf{Study Plan Management Service BPMN Model and XML}\\
+   \begin{figure}
+       \centering %图片居中
+      \includegraphics[width=1.0\textwidth]{figure/hyy/studyplanmanagement} %插入图片，[]中设置图片大小，{}中是图片文件名
+       \caption{Study Plan Service} %最终文档中希望显示的图片标题
+      % \label{Study Plan service} %用于文内引用的标签
+   \end{figure}
+
+    \begin{lstlisting}[language={XML}]
+        <bpmn:process id="Process_2" isExecutable="true">
+<bpmn:task id="Task_1" name="Fill in the plan">
+    <bpmn:incoming>SequenceFlow_2</bpmn:incoming>
+    <bpmn:outgoing>SequenceFlow_3</bpmn:outgoing>
+</bpmn:task>
+<bpmn:startEvent id="StartEvent">
+    <bpmn:outgoing>SequenceFlow_1</bpmn:outgoing>
+</bpmn:startEvent>
+<bpmn:sequenceFlow id="SequenceFlow_1" sourceRef="StartEvent"
+    targetRef="ExclusiveGateway_1" />
+<bpmn:sequenceFlow id="SequenceFlow_2" sourceRef="ExclusiveGateway_1"
+    targetRef="Task_1">
+    <bpmn:conditionExpression
+        xsi:type="bpmn:tFormalExpression">New plan</bpmn:conditionExpression>
+</bpmn:sequenceFlow>
+<bpmn:exclusiveGateway id="ExclusiveGateway_1">
+    <bpmn:incoming>SequenceFlow_1</bpmn:incoming>
+    <bpmn:outgoing>SequenceFlow_2</bpmn:outgoing>
+    <bpmn:outgoing>SequenceFlow_7</bpmn:outgoing>
+</bpmn:exclusiveGateway>
+<bpmn:sequenceFlow id="SequenceFlow_3" sourceRef="Task_1"
+    targetRef="Task_2" />
+<bpmn:sequenceFlow id="SequenceFlow_7" sourceRef="ExclusiveGateway_1"
+    targetRef="ExclusiveGateway_2">
+    <bpmn:conditionExpression
+        xsi:type="bpmn:tFormalExpression">Modify existing plans</bpmn:conditionExpression>
+</bpmn:sequenceFlow>
+<bpmn:task id="Task_2" name="Set reminder time">
+    <bpmn:incoming>SequenceFlow_3</bpmn:incoming>
+    <bpmn:outgoing>SequenceFlow_4</bpmn:outgoing>
+</bpmn:task>
+<bpmn:sequenceFlow id="SequenceFlow_4" sourceRef="Task_2"
+    targetRef="IntermediateCatchEvent"/>
+<bpmn:intermediateCatchEvent id="IntermediateCatchEvent">
+    <bpmn:incoming>SequenceFlow_4</bpmn:incoming>
+    <bpmn:outgoing>SequenceFlow_5</bpmn:outgoing>
+    <bpmn:timeEventDefinition />
+</bpmn:intermediateCatchEvent>
+<bpmn:sequenceFlow id="SequenceFlow_5" sourceRef="IntermediateCatchEvent"
+    targetRef="Task_3"/>
+<bpmn:task id="Task_3" name="Remind users">
+    <bpmn:incoming>SequenceFlow_5</bpmn:incoming>
+    <bpmn:outgoing>SequenceFlow_6</bpmn:outgoing>
+</bpmn:task>
+<bpmn:sequenceFlow id="SequenceFlow_6" sourceRef="Task_3"
+    targetRef="EndEvent"/>
+<bpmn:endEvent id="EndEvent">
+    <bpmn:incoming>SequenceFlow_6</bpmn:incoming>
+    <bpmn:incoming>SequenceFlow_10</bpmn:incoming>
+    <bpmn:incoming>SequenceFlow_12</bpmn:incoming>
+</bpmn:endEvent>
+<bpmn:exclusiveGateway id="ExclusiveGateway_2">
+    <bpmn:incoming>SequenceFlow_7</bpmn:incoming>
+    <bpmn:outgoing>SequenceFlow_8</bpmn:outgoing>
+    <bpmn:outgoing>SequenceFlow_11</bpmn:outgoing>
+</bpmn:exclusiveGateway>
+<bpmn:sequenceFlow id="SequenceFlow_8" sourceRef="ExclusiveGateway_2"
+    targetRef="Task_4" />
+<bpmn:task id="Task_4" name="Modify the plan">
+    <bpmn:incoming>SequenceFlow_8</bpmn:incoming>
+    <bpmn:outgoing>SequenceFlow_9</bpmn:outgoing>
+</bpmn:task>
+<bpmn:sequenceFlow id="SequenceFlow_9" sourceRef="Task_4"
+    targetRef="Task_5" />
+<bpmn:task id="Task_5" name="Modify the time">
+    <bpmn:incoming>SequenceFlow_9</bpmn:incoming>
+    <bpmn:outgoing>SequenceFlow_10</bpmn:outgoing>
+</bpmn:task>
+<bpmn:sequenceFlow id="SequenceFlow_10" sourceRef="Task_5"
+    targetRef="EndEvent" />
+<bpmn:sequenceFlow id="SequenceFlow_11" sourceRef="ExclusiveGateway_2"
+    targetRef="Task_6" />
+<bpmn:task id="Task_6" name="Delete the plan">
+    <bpmn:incoming>SequenceFlow_11</bpmn:incoming>
+    <bpmn:outgoing>SequenceFlow_12</bpmn:outgoing>
+</bpmn:task>
+<bpmn:sequenceFlow id="SequenceFlow_12" sourceRef="Task_6"
+    targetRef="EndEvent" />
+<bpmn:textAnnotation id="TextAnnotation_1">
+    <bpmn:text>Wait until the specified time</bpmn:text>
+</bpmn:textAnnotation>
+<bpmn:association id="Association_1" sourceRef="IntermediateCatchEvent"
+    targetRef="TextAnnotation_1" />
+</bpmn:process>
+	\end{lstlisting}
+	
+    \clearpage
+     \textbf{Personal data management Service BPMN Model and XML}\\
+    \begin{figure}
+        \centering %图片居中
+        \includegraphics[width=1.0\textwidth]{figure/hyy/personaldatamanagement} %插入图片，[]中设置图片大小，{}中是图片文件名
+       %\caption{Personal data management Service BPMN Model}\\
+        \label{Personal data management} %用于文内引用的标签
+   \end{figure}
+   \begin{lstlisting}[language={XML}]
+   <bpmn:process id="Process_1" isExecutable="true">
+    <bpmn:task id="Task_1" name="View personal information">
+        <bpmn:incoming>SequenceFlow_1</bpmn:incoming>
+        <bpmn:outgoing>SequenceFlow_2</bpmn:outgoing>
+    </bpmn:task>
+<bpmn:startEvent id="StartEvent">
+        <bpmn:outgoing>SequenceFlow_1</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_1" sourceRef="StartEvent"
+        targetRef="Task_1" />
+    <bpmn:sequenceFlow id="SequenceFlow_2" sourceRef="Task_1"
+        targetRef="ExclusiveGateway_1" />
+    <bpmn:exclusiveGateway id="ExclusiveGateway_1">
+        <bpmn:incoming>SequenceFlow_2</bpmn:incoming>
+        <bpmn:outgoing>SequenceFlow_3</bpmn:outgoing>
+        <bpmn:outgoing>SequenceFlow_6</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:task id="Task_2" name="Change personal information">
+        <bpmn:incoming>SequenceFlow_3</bpmn:incoming>
+        <bpmn:outgoing>SequenceFlow_4</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="SequenceFlow_4" sourceRef="Task_2"
+        targetRef="Task_3" />
+    <bpmn:task id="Task_3" name="Save the information">
+        <bpmn:incoming>SequenceFlow_4</bpmn:incoming>
+        <bpmn:outgoing>SequenceFlow_5</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="SequenceFlow_5" sourceRef="Task_3"
+        targetRef="EndEvent" />
+    <bpmn:endEvent id="EndEvent">
+        <bpmn:incoming>SequenceFlow_5</bpmn:incoming>
+        <bpmn:incoming>SequenceFlow_9</bpmn:incoming>
+        <bpmn:incoming>SequenceFlow_12</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_9" sourceRef="Task_5"
+        targetRef="EndEvent" />
+    <bpmn:sequenceFlow id="SequenceFlow_12" sourceRef="Task_7"
+        targetRef="EndEvent" />
+    <bpmn:sequenceFlow id="SequenceFlow_3" sourceRef="ExclusiveGateway_1"
+        targetRef="Task_2">
+        <bpmn:conditionExpression
+            xsi:type="bpmn:tFormalExpression">Edit personal information</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="SequenceFlow_6" sourceRef="ExclusiveGateway_1"
+        targetRef="ExclusiveGateway_2">
+        <bpmn:conditionExpression
+            xsi:type="bpmn:tFormalExpression">Apply for certification</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:exclusiveGateway id="ExclusiveGateway_2">
+        <bpmn:incoming>SequenceFlow_6</bpmn:incoming>
+        <bpmn:outgoing>SequenceFlow_7</bpmn:outgoing>
+        <bpmn:outgoing>SequenceFlow_10</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="SequenceFlow_7" sourceRef="ExclusiveGateway_2"
+        targetRef="Task_4" />
+    <bpmn:sequenceFlow id="SequenceFlow_10" sourceRef="ExclusiveGateway_2"
+        targetRef="Task_6" />
+    <bpmn:task id="Task_4" name="Personal authentication">
+        <bpmn:incoming>SequenceFlow_7</bpmn:incoming>
+        <bpmn:outgoing>SequenceFlow_8</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Task_6" name="Institution authentication">
+        <bpmn:incoming>SequenceFlow_10</bpmn:incoming>
+        <bpmn:outgoing>SequenceFlow_11</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="SequenceFlow_8" sourceRef="Task_4"
+        targetRef="Task_5" />
+    <bpmn:sequenceFlow id="SequenceFlow_11" sourceRef="Task_6"
+        targetRef="Task_7" />
+    <bpmn:task id="Task_5" name="Submit personal authentication materials">
+        <bpmn:incoming>SequenceFlow_8</bpmn:incoming>
+        <bpmn:outgoing>SequenceFlow_9</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Task_7" name="Submit institution authentication materials">
+        <bpmn:incoming>SequenceFlow_11</bpmn:incoming>
+        <bpmn:outgoing>SequenceFlow_12</bpmn:outgoing>
+    </bpmn:task>
+</bpmn:process>
+   \end{lstlisting}
+    \clearpage
+
+
+    \textbf{Learning Report Service CMMN Model and XML}\\
+    \begin{figure}
+        \centering %图片居中
+        \includegraphics[width=1.0\textwidth]{figure/hyy/CMMN} %插入图片，[]中设置图片大小，{}中是图片文件名
+       \caption{Learning Report Service CMMN Model} %最终文档中希望显示的图片标题
+        \label{Learning Report} %用于文内引用的标签
+   \end{figure}
+   \begin{lstlisting}[language={XML}]
+   <cmmn:case id="Case_1">
+    <cmmn:casePlanModel id="CasePlanModel_1" name="Learning Report">
+        <cmmn:planItem id="PlanItem_1" name="wait for request" definitionRef="TimerEventListener" />
+        <cmmn:humanTask id="HumanTask_1" name="Task A">
+            <cmmn:entryCriterion id="EntryCriterion_1" sentryRef="Sentry_1" />
+            <cmmn:planningTable id="PlanningTable_1">
+                <cmmn:discretionaryItem id="DiscretionaryItem_1" definitionRef="HumanTask_2"/>
+                <cmmn:discretionaryItem id="DiscretionaryItem_2" definitionRef="HumanTask_3"/>
+            </cmmn:planningTable>
+        </cmmn:humanTask>
+        <cmmn:sentry id="Sentry_1">
+            <cmmn:planItemOnPart id="PlanItemOnPart_1" sourceRef="PlanItem_1">
+                <cmmn:standardEvent>complete</cmmn:standardEvent>
+            </cmmn:planItemOnPart>
+        </cmmn:sentry>
+        <cmmn:sentry id="Sentry_2">
+            <cmmn:planItemOnPart id="PlanItemOnPart_1" sourceRef="PlanItem_1">
+                <cmmn:standardEvent>complete</cmmn:standardEvent>
+            </cmmn:planItemOnPart>
+        </cmmn:sentry>
+        <cmmn:sentry id="Sentry_3">
+            <cmmn:planItemOnPart id="PlanItemOnPart_1" sourceRef="PlanItem_1">
+                <cmmn:standardEvent>complete</cmmn:standardEvent>
+            </cmmn:planItemOnPart>
+        </cmmn:sentry>
+        <cmmn:milestone id="Milestone_One" name="Milestone One">
+           <cmmn:entryCriterion id="EntryCriterion_2" sentryRef="Sentry_2" />
+        </cmmn:milestone>
+    </cmmn:casePlanModel>
+    </cmmn:case>
+
+    \end{lstlisting}
+	\clearpage
+	
+    %lvliting
+	\noindent 
+    \begin{lstlisting}[language={XML}]
+        <bpmn:collaboration id="Collaboration_1">
+		<bpmn:participant id="Participant_1" processRef="Process_1"/>
+		<bpmn:participant id="Participant_2" processRef="Process_2"/>
+		<bpmn:messageFlow id="MessageFlow_1" sourceRef="Participant_2" targetRef="Participant_1"/>
+	</bpmn:collaboration>
+	<bpmn:collaboration id="Collaboration_2">
+		<bpmn:participant id="Participant_1" processRef="Process_1"/>
+		<bpmn:participant id="Participant_2" processRef="Process_2"/>
+		<bpmn:messageFlow id="MessageFlow_2" sourceRef="Participant_1" targetRef="Participant_2"/>
+	</bpmn:collaboration>
+	<bpmn:collaboration id="Collaboration_3">
+		<bpmn:participant id="Participant_1" processRef="Process_1"/>
+		<bpmn:participant id="Participant_2" processRef="Process_2"/>
+		<bpmn:messageFlow id="MessageFlow_3" sourceRef="Participant_1" targetRef="Participant_2"/>
+	</bpmn:collaboration>
+	<bpmn:collaboration id="Collaboration_4">
+		<bpmn:participant id="Participant_3" processRef="Process_3"/>
+		<bpmn:participant id="Participant_2" processRef="Process_2"/>
+		<bpmn:messageFlow id="MessageFlow_4" sourceRef="Participant_2" targetRef="Participant_3"/>
+	</bpmn:collaboration>
+	<bpmn:collaboration id="Collaboration_5">
+		<bpmn:participant id="Participant_3" processRef="Process_3"/>
+		<bpmn:participant id="Participant_1" processRef="Process_1"/>
+		<bpmn:messageFlow id="MessageFlow_5" sourceRef="Participant_3" targetRef="Participant_1"/>
+	</bpmn:collaboration>
+	<bpmn:process id="Process_1" isExecutable="true">
+		<bpmn:startEvent id="StartEvent_1">
+	        <bpmn:outgoing>SequenceFlow_1</bpmn:outgoing>
+	    </bpmn:startEvent>
+		<bpmn:task id="Task_1" name="Create self-study room">
+	        <bpmn:incoming>SequenceFlow_1</bpmn:incoming>
+	        <bpmn:outgoing>SequenceFlow_2</bpmn:outgoing>
+	    </bpmn:task>
+		<bpmn:sequenceFlow id="SequenceFlow_1" sourceRef="StartEvent_1"
+	        targetRef="Task_1" />
+		<bpmn:exclusiveGateway id="ExclusiveGateway_1">
+			<bpmn:incoming>SequenceFlow_2</bpmn:incoming>
+			<bpmn:incoming>SequenceFlow_6</bpmn:incoming>
+	        <bpmn:outgoing>SequenceFlow_3</bpmn:outgoing>
+			<bpmn:outgoing>SequenceFlow_5</bpmn:outgoing>
+		</bpmn:exclusiveGateway>
+		<bpmn:sequenceFlow id="SequenceFlow_2" sourceRef="Task_1"
+	        targetRef="ExclusiveGateway_1" />
+		<bpmn:task id="Task_2" name="Delete self-study room">
+	        <bpmn:incoming>SequenceFlow_3</bpmn:incoming>
+	        <bpmn:outgoing>SequenceFlow_4</bpmn:outgoing>
+	    </bpmn:task>
+		<bpmn:sequenceFlow id="SequenceFlow_3" sourceRef="ExclusiveGateway_1"
+			targetRef="Task_2">
+			<bpmn:conditionExpression
+				xsi:type="bpmn:tFormalExpression">Delete</bpmn:conditionExpression>
+		</bpmn:sequenceFlow>
+		<bpmn:endEvent id="EndEvent_1">
+			<bpmn:incoming>SequenceFlow_4</bpmn:incoming>
+		</bpmn:endEvent>
+		<bpmn:sequenceFlow id="SequenceFlow_4" sourceRef="Task_2"
+	        targetRef="EndEvent_1" />
+		<bpmn:task id="Task_3" name="Update self-study room">
+	        <bpmn:incoming>SequenceFlow_5</bpmn:incoming>
+	        <bpmn:outgoing>SequenceFlow_7</bpmn:outgoing>
+	    </bpmn:task>
+		<bpmn:sequenceFlow id="SequenceFlow_5" sourceRef="ExclusiveGateway_1"
+			targetRef="Task_3">
+			<bpmn:conditionExpression
+				xsi:type="bpmn:tFormalExpression">Update</bpmn:conditionExpression>
+		</bpmn:sequenceFlow>
+		<bpmn:task id="Task_4" name="Put self-study room online">
+	        <bpmn:incoming>SequenceFlow_7</bpmn:incoming>
+	        <bpmn:outgoing>SequenceFlow_8</bpmn:outgoing>
+	    </bpmn:task>
+		<bpmn:sequenceFlow id="SequenceFlow_7" sourceRef="Task_3"
+	        targetRef="Task_4" />
+		<bpmn:task id="Task_5" name="Recieve application for joining self-study room">
+	        <bpmn:incoming>SequenceFlow_8</bpmn:incoming>
+			<bpmn:incoming>MessageFlow_1</bpmn:incoming>
+	        <bpmn:outgoing>SequenceFlow_9</bpmn:outgoing>
+	    </bpmn:task>
+		<bpmn:sequenceFlow id="SequenceFlow_8" sourceRef="Task_4"
+	        targetRef="Task_5" />
+		<bpmn:exclusiveGateway id="ExclusiveGateway_2">
+			<bpmn:incoming>SequenceFlow_9</bpmn:incoming>
+	        <bpmn:outgoing>SequenceFlow_10</bpmn:outgoing>
+			<bpmn:outgoing>SequenceFlow_11</bpmn:outgoing>
+		</bpmn:exclusiveGateway>
+		<bpmn:sequenceFlow id="SequenceFlow_9" sourceRef="Task_5"
+	        targetRef="ExclusiveGateway_2" />
+		<bpmn:task id="Task_7" name="Allow student in the self-study room">
+	        <bpmn:incoming>SequenceFlow_10</bpmn:incoming>
+	        <bpmn:outgoing>SequenceFlow_12</bpmn:outgoing>
+	    </bpmn:task>
+		<bpmn:sequenceFlow id="SequenceFlow_10" sourceRef="ExclusiveGateway_2"
+			targetRef="Task_7">
+			<bpmn:conditionExpression
+				xsi:type="bpmn:tFormalExpression">Accepted</bpmn:conditionExpression>
+		</bpmn:sequenceFlow>	
+		<bpmn:task id="Task_6" name="Send a rejected message">
+	        <bpmn:incoming>SequenceFlow_11</bpmn:incoming>
+	        <bpmn:outgoing>MessageFlow_2</bpmn:outgoing>
+	    </bpmn:task>
+		<bpmn:sequenceFlow id="SequenceFlow_11" sourceRef="ExclusiveGateway_2"
+			targetRef="Task_6">
+			<bpmn:conditionExpression
+				xsi:type="bpmn:tFormalExpression">Rejected</bpmn:conditionExpression>
+		</bpmn:sequenceFlow>
+		<bpmn:task id="Task_8" name="Send a accepted message">
+	        <bpmn:incoming>SequenceFlow_12</bpmn:incoming>
+	        <bpmn:outgoing>MessageFlow_3</bpmn:outgoing>
+			<bpmn:outgoing>SequenceFlow_13</bpmn:outgoing>
+	    </bpmn:task>
+		<bpmn:sequenceFlow id="SequenceFlow_12" sourceRef="Task_7"
+	        targetRef="Task_8" />
+		<bpmn:task id="Task_9" name="Receive the offline message">
+	        <bpmn:incoming>SequenceFlow_13</bpmn:incoming>
+	        <bpmn:incoming>MessageFlow_5</bpmn:incoming>
+			<bpmn:outgoing>SequenceFlow_6</bpmn:outgoing>
+	    </bpmn:task>
+		<bpmn:sequenceFlow id="SequenceFlow_13" sourceRef="Task_8"
+	        targetRef="Task_9" />
+		<bpmn:sequenceFlow id="SequenceFlow_6" sourceRef="Task_9"
+	        targetRef="ExclusiveGateway_1" />
+	</bpmn:process>
+	<bpmn:process id="Process_2" isExecutable="true">
+		<bpmn:startEvent id="StartEvent_2">
+	        <bpmn:outgoing>SequenceFlow_14</bpmn:outgoing>
+	    </bpmn:startEvent>
+		<bpmn:task id="Task_10" name="Send application for joining self-study room">
+	        <bpmn:incoming>SequenceFlow_14</bpmn:incoming>
+	        <bpmn:outgoing>SequenceFlow_15</bpmn:outgoing>
+			<bpmn:outgoing>SequenceFlow_17</bpmn:outgoing>
+			<bpmn:outgoing>MessageFlow_1</bpmn:outgoing>
+	    </bpmn:task>
+		<bpmn:sequenceFlow id="SequenceFlow_14" sourceRef="StartEvent_2"
+	        targetRef="Task_10" />
+		<bpmn:task id="Task_11" name="Receive a rejected message">
+	        <bpmn:incoming>SequenceFlow_15</bpmn:incoming>
+			<bpmn:incoming>MessageFlow_2</bpmn:incoming>
+	        <bpmn:outgoing>SequenceFlow_16</bpmn:outgoing>
+	    </bpmn:task>
+		<bpmn:sequenceFlow id="SequenceFlow_15" sourceRef="Task_10"
+	        targetRef="Task_11" />
+		<bpmn:endEvent id="EndEvent_2">
+			<bpmn:incoming>SequenceFlow_16</bpmn:incoming>
+		</bpmn:endEvent>
+		<bpmn:sequenceFlow id="SequenceFlow_15" sourceRef="Task_11"
+	        targetRef="EndEvent_2" />
+		<bpmn:task id="Task_12" name="Receive a accepted message">
+	        <bpmn:incoming>SequenceFlow_17</bpmn:incoming>
+			<bpmn:incoming>MessageFlow_3</bpmn:incoming>
+	        <bpmn:outgoing>SequenceFlow_18</bpmn:outgoing>
+	    </bpmn:task>
+		<bpmn:sequenceFlow id="SequenceFlow_17" sourceRef="Task_10"
+	        targetRef="Task_12" />
+		<bpmn:task id="Task_13" name="Report the self-study room">
+	        <bpmn:incoming>SequenceFlow_18</bpmn:incoming>
+			<bpmn:outgoing>MessageFlow_4</bpmn:outgoing>
+	        <bpmn:outgoing>SequenceFlow_19</bpmn:outgoing>
+	    </bpmn:task>
+		<bpmn:sequenceFlow id="SequenceFlow_18" sourceRef="Task_12"
+	        targetRef="Task_13" />
+		<bpmn:endEvent id="EndEvent_3">
+			<bpmn:incoming>SequenceFlow_19</bpmn:incoming>
+		</bpmn:endEvent>
+		<bpmn:sequenceFlow id="SequenceFlow_19" sourceRef="Task_13"
+	        targetRef="EndEvent_3" />
+	</bpmn:process>
+	<bpmn:process id="Process_3" isExecutable="true">
+		<bpmn:startEvent id="StartEvent_3">
+	        <bpmn:outgoing>SequenceFlow_20</bpmn:outgoing>
+	    </bpmn:startEvent>
+		<bpmn:task id="Task_14" name="Receive the report">
+	        <bpmn:incoming>SequenceFlow_20</bpmn:incoming>
+			<bpmn:incoming>MessageFlow_4</bpmn:incoming>
+			<bpmn:outgoing>SequenceFlow_21</bpmn:outgoing>
+	    </bpmn:task>
+		<bpmn:sequenceFlow id="SequenceFlow_20" sourceRef="StartEvent_3"
+	        targetRef="Task_14" />
+		<bpmn:task id="Task_15" name="Put self-study room offline">
+	        <bpmn:incoming>SequenceFlow_21</bpmn:incoming>
+			<bpmn:outgoing>SequenceFlow_22</bpmn:outgoing>
+	    </bpmn:task>
+		<bpmn:sequenceFlow id="SequenceFlow_21" sourceRef="Task_14"
+	        targetRef="Task_15" />
+		<bpmn:task id="Task_16" name="Send an offline message">
+	        <bpmn:incoming>SequenceFlow_22</bpmn:incoming>
+			<bpmn:outgoing>SequenceFlow_23</bpmn:outgoing>
+	    </bpmn:task>
+		<bpmn:sequenceFlow id="SequenceFlow_22" sourceRef="Task_15"
+	        targetRef="Task_16" />
+		<bpmn:endEvent id="EndEvent_4">
+			<bpmn:incoming>SequenceFlow_23</bpmn:incoming>
+		</bpmn:endEvent>
+		<bpmn:sequenceFlow id="SequenceFlow_23" sourceRef="Task_16"
+	        targetRef="EndEvent_4" />
+	</bpmn:process>
+
+    
+	\end{lstlisting}
+	%\clearpage
+	%\textbf{Answer Service BPMN Model and XML}\\
+	\begin{figure}
+		\centering %图片居中
+		\includegraphics[width=1.0\textwidth]{figure/llt/bpmnselfstudy} %插入图片，[]中设置图片大小，{}中是图片文件名
+		\caption{Self Study Service BPMN Model} %最终文档中希望显示的图片标题
+		\label{bpmnselfstudy} %用于文内引用的标签
+	\end{figure}
+	\begin{lstlisting}[language={XML}]
+	<cmmn:case id="Case_1">
+		<cmmn:casePlanModel id="CasePlanModel_1" name="Report the self-study room">
+		<cmmn:planItem id="PlanItem_3" name="Find problems" definitionRef="UserEventListener_1"/>
+		<cmmn:planItem id="PlanItem_4" definitionRef="Milestone_1"/>
+		<cmmn:stage id="Stage_A" name="Prepare report">
+			<cmmn:planItem id="PlanItem_1" definitionRef="HumanTask_A" />
+			<cmmn:planItem id="PlanItem_2" definitionRef="HumanTask_B" />
+			<cmmn:sentry id="Sentry_1">
+				<cmmn:planItemOnPart id="PlanItemOnPart_1" sourceRef="PlanItem_3">
+					<cmmn:standardEvent>occur</cmmn:standardEvent>
+				</cmmn:planItemOnPart>
+			</cmmn:sentry>
+			<cmmn:exitCriterion id="ExitCriterion_1" sentryRef="Sentry_2" />
+			<cmmn:sentry id="Sentry_2">
+				<cmmn:planItemOnPart id="PlanItemOnPart_2" sourceRef="PlanItem_2">
+					<cmmn:standardEvent>occur</cmmn:standardEvent>
+				</cmmn:planItemOnPart>
+			</cmmn:sentry>
+			<cmmn:humanTask id="HumanTask_A" name="Take evidence" isBlocking="true">
+				<cmmn:planningTable id="PlanningTable_1">
+					<cmmn:discretionaryItem id="DiscretionaryItem_1" definitionRef="Check self-study room management rules" />
+				</cmmn:planningTable>
+			</cmmn:humanTask>
+			<cmmn:humanTask id="HumanTask_B" name="Fill in the report" isBlocking="true" />
+		</cmmn:stage>
+		<cmmn:exitCriterion id="ExitCriterion_2" sentryRef="Sentry_3" />
+		<cmmn:milestone id="Milestone_1" name="Report completed" />
+		<cmmn:sentry id="Sentry_3">
+			<cmmn:planItemOnPart id="PlanItemOnPart_3" sourceRef="Stage_A">
+				<cmmn:standardEvent>complete</cmmn:standardEvent>
+			</cmmn:planItemOnPart>
+		</cmmn:sentry>
+	</cmmn:case>
+
+	\end{lstlisting}
+	%\clearpage
+	%\textbf{Answer Service BPMN Model and XML}\\
+	\begin{figure}
+		\centering %图片居中
+		\includegraphics[width=1.0\textwidth]{figure/llt/selfstudyroombpmn} %插入图片，[]中设置图片大小，{}中是图片文件名
+		\caption{Studyroom Service BPMN} %最终文档中希望显示的图片标题
+		\label{selfstudyroombpmn} %用于文内引用的标签
+	\end{figure}
+	\begin{lstlisting}[language={XML}]
+	<bpmn:process id="Process_2" isExecutable="true">
+		<bpmn:startEvent id="StartEvent_1">
+	        <bpmn:outgoing>SequenceFlow_1</bpmn:outgoing>
+			<bpmn:outgoing>SequenceFlow_5</bpmn:outgoing>
+	    </bpmn:startEvent>
+		<bpmn:exclusiveGateway id="ExclusiveGateway_1">
+			<bpmn:incoming>SequenceFlow_1</bpmn:incoming>
+			<bpmn:incoming>SequenceFlow_4</bpmn:incoming>
+			<bpmn:outgoing>SequenceFlow_2</bpmn:outgoing>
+		</bpmn:exclusiveGateway>
+		<bpmn:sequenceFlow id="SequenceFlow_1" sourceRef="StartEvent_1"
+	        targetRef="ExclusiveGateway_1" />
+		<bpmn:intermediateCatchEvent id="IntermediateCatchEvent_1">
+			<bpmn:incoming>SequenceFlow_2</bpmn:incoming>
+			<bpmn:outgoing>SequenceFlow_3</bpmn:outgoing>
+			<bpmn:timerEventDefinition />
+		</bpmn:intermediateCatchEvent>
+		<bpmn:sequenceFlow id="SequenceFlow_2" sourceRef="ExclusiveGateway_1"
+	        targetRef="IntermediateCatchEvent_1" />
+		<bpmn:task id="Task_1" name="Send Reminder">
+	        <bpmn:incoming>SequenceFlow_3</bpmn:incoming>
+	        <bpmn:outgoing>SequenceFlow_4</bpmn:outgoing>
+	    </bpmn:task>
+		<bpmn:sequenceFlow id="SequenceFlow_3" sourceRef="IntermediateCatchEvent_1"
+	        targetRef="Task_1" />
+		<bpmn:sequenceFlow id="SequenceFlow_4" sourceRef="Task_1"
+	        targetRef="ExclusiveGateway_1" />
+		<bpmn:exclusiveGateway id="ExclusiveGateway_2">
+			<bpmn:incoming>SequenceFlow_5</bpmn:incoming>
+			<bpmn:outgoing>SequenceFlow_6</bpmn:outgoing>
+			<bpmn:outgoing>SequenceFlow_7</bpmn:outgoing>
+		</bpmn:exclusiveGateway>
+		<bpmn:sequenceFlow id="SequenceFlow_5" sourceRef="StartEvent_1"
+	        targetRef="ExclusiveGateway_2" />
+		<bpmn:task id="Task_2" name="Send a message to remove the student from the self-study room">
+	        <bpmn:incoming>SequenceFlow_6</bpmn:incoming>
+	        <bpmn:outgoing>SequenceFlow_8</bpmn:outgoing>
+	    </bpmn:task>
+		<bpmn:sequenceFlow id="SequenceFlow_6" sourceRef="ExclusiveGateway_2"
+			targetRef="Task_2">
+			<bpmn:conditionExpression
+				xsi:type="bpmn:tFormalExpression">Yes</bpmn:conditionExpression>
+		</bpmn:sequenceFlow>
+		<bpmn:endEvent id="EndEvent_1">
+			<bpmn:incoming>SequenceFlow_8</bpmn:incoming>
+		</bpmn:endEvent>
+		<bpmn:sequenceFlow id="SequenceFlow_8" sourceRef="Task_2"
+	        targetRef="EndEvent_1" />
+		<bpmn:task id="Task_3" name="Clock">
+	        <bpmn:incoming>SequenceFlow_7</bpmn:incoming>
+	        <bpmn:outgoing>SequenceFlow_9</bpmn:outgoing>
+	    </bpmn:task>
+		<bpmn:sequenceFlow id="SequenceFlow_7" sourceRef="ExclusiveGateway_2"
+			targetRef="Task_3">
+			<bpmn:conditionExpression
+				xsi:type="bpmn:tFormalExpression">No</bpmn:conditionExpression>
+		</bpmn:sequenceFlow>
+		<bpmn:task id="Task_4" name="Time to learn">
+	        <bpmn:incoming>SequenceFlow_9</bpmn:incoming>
+			<bpmn:incoming>SequenceFlow_11</bpmn:incoming>
+	        <bpmn:outgoing>SequenceFlow_12</bpmn:outgoing>
+	    </bpmn:task>
+		<bpmn:sequenceFlow id="SequenceFlow_9" sourceRef="Task_3"
+	        targetRef="Task_4" />
+		<bpmn:boundaryEvent id="BoundaryEvent_1" attachedToRef="Task_4">
+			<bpmn:outgoing>SequenceFlow_10</bpmn:outgoing>
+			<bpmn:errorEventDefinition />
+		</bpmn:boundaryEvent>
+		<bpmn:task id="Task_5" name="End this study">
+	        <bpmn:incoming>SequenceFlow_10</bpmn:incoming>
+	        <bpmn:outgoing>SequenceFlow_11</bpmn:outgoing>
+	    </bpmn:task>
+		<bpmn:sequenceFlow id="SequenceFlow_10" sourceRef="BoundaryEvent_1"
+	        targetRef="Task_5" />
+		<bpmn:sequenceFlow id="SequenceFlow_11" sourceRef="Task_5"
+	        targetRef="Task_4" />
+		<bpmn:intermediateCatchEvent id="IntermediateCatchEvent_2">
+			<bpmn:incoming>SequenceFlow_12</bpmn:incoming>
+			<bpmn:outgoing>SequenceFlow_13</bpmn:outgoing>
+			<bpmn:timerEventDefinition />
+		</bpmn:intermediateCatchEvent>
+		<bpmn:sequenceFlow id="SequenceFlow_12" sourceRef="Task_4"
+	        targetRef="IntermediateCatchEvent_2" />
+		<bpmn:task id="Task_6" name="Display statistics report">
+	        <bpmn:incoming>SequenceFlow_13</bpmn:incoming>
+	        <bpmn:outgoing>SequenceFlow_14</bpmn:outgoing>
+	    </bpmn:task>
+		<bpmn:sequenceFlow id="SequenceFlow_13" sourceRef="IntermediateCatchEvent_2"
+	        targetRef="Task_6" />
+		<bpmn:endEvent id="EndEvent_2">
+			<bpmn:incoming>SequenceFlow_14</bpmn:incoming>
+		</bpmn:endEvent>
+		<bpmn:sequenceFlow id="SequenceFlow_14" sourceRef="Task_6"
+	        targetRef="EndEvent_2" />
+	</bpmn:process>
+	
+	\end{lstlisting}
+	\clearpage
+	\begin{figure}
+		\centering %图片居中
+		\includegraphics[width=1.0\textwidth]{figure/llt/attendanceservicebpmn} %插入图片，[]中设置图片大小，{}中是图片文件名
+		\caption{Attendance Service BPMN} %最终文档中希望显示的图片标题
+		\label{attendanceservicebpmn} %用于文内引用的标签
+	\end{figure}
+
+	\begin{figure}
+		\centering %图片居中
+		\includegraphics[width=1.0\textwidth]{figure/llt/learningtaskservice} %插入图片，[]中设置图片大小，{}中是图片文件名
+		\caption{Learning Task Service} %最终文档中希望显示的图片标题
+		\label{learningtaskservice} %用于文内引用的标签
+	\end{figure}
+	\begin{lstlisting}[language={XML}]
+	<bpmn:process id="Process_3" isExecutable="true">
+		<bpmn:startEvent id="StartEvent_1">
+	        <bpmn:outgoing>SequenceFlow_1</bpmn:outgoing>
+	    </bpmn:startEvent>
+		<bpmn:exclusiveGateway id="ExclusiveGateway_1">
+			<bpmn:incoming>SequenceFlow_1</bpmn:incoming>
+			<bpmn:outgoing>SequenceFlow_4</bpmn:outgoing>
+			<bpmn:outgoing>SequenceFlow_2</bpmn:outgoing>
+		</bpmn:exclusiveGateway>
+		<bpmn:sequenceFlow id="SequenceFlow_1" sourceRef="StartEvent_1"
+	        targetRef="ExclusiveGateway_1" />
+		<bpmn:task id="Task_1" name="Send a message to remove the student from the self-study room">
+	        <bpmn:incoming>SequenceFlow_2</bpmn:incoming>
+	        <bpmn:outgoing>SequenceFlow_3</bpmn:outgoing>
+	    </bpmn:task>
+		<bpmn:sequenceFlow id="SequenceFlow_2" sourceRef="ExclusiveGateway_1"
+			targetRef="Task_1">
+			<bpmn:conditionExpression
+				xsi:type="bpmn:tFormalExpression">Yes</bpmn:conditionExpression>
+		</bpmn:sequenceFlow>
+		<bpmn:endEvent id="EndEvent_1">
+			<bpmn:incoming>SequenceFlow_3</bpmn:incoming>
+		</bpmn:endEvent>
+		<bpmn:sequenceFlow id="SequenceFlow_3" sourceRef="Task_1"
+	        targetRef="EndEvent_1" />
+		<bpmn:task id="Task_2" name="Make daily plan">
+	        <bpmn:incoming>SequenceFlow_4</bpmn:incoming>
+	        <bpmn:outgoing>SequenceFlow_5</bpmn:outgoing>
+	    </bpmn:task>	
+		<bpmn:sequenceFlow id="SequenceFlow_4" sourceRef="ExclusiveGateway_1"
+	        targetRef="Task_2" />
+		<bpmn:task id="Task_3" name="Summarize daily learning results">
+	        <bpmn:incoming>SequenceFlow_5</bpmn:incoming>
+	        <bpmn:outgoing>SequenceFlow_6</bpmn:outgoing>
+	    </bpmn:task>	
+		<bpmn:sequenceFlow id="SequenceFlow_5" sourceRef="Task_2"
+	        targetRef="Task_3" />
+		<bpmn:task id="Task_4" name="Check the progress of learning task">
+	        <bpmn:incoming>SequenceFlow_6</bpmn:incoming>
+	        <bpmn:outgoing>SequenceFlow_7</bpmn:outgoing>
+	    </bpmn:task>	
+		<bpmn:sequenceFlow id="SequenceFlow_6" sourceRef="Task_3"
+	        targetRef="Task_4" />
+		<bpmn:endEvent id="EndEvent_2">
+			<bpmn:incoming>SequenceFlow_7</bpmn:incoming>
+		</bpmn:endEvent>
+		<bpmn:sequenceFlow id="SequenceFlow_7" sourceRef="Task_4"
+	        targetRef="EndEvent_2" />
+	</bpmn:process>
+
+	\end{lstlisting}
+	
 	\clearpage
 
 \end{document}
