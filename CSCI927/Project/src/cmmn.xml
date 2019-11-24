@@ -1,0 +1,434 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projectFormat connectorLineColor="-16777216" connectorLineModelCap="0" connectorLineModelStrokeNull="false" connectorLineTransparency="0" connectorLineWeight="1.0" defaultCompartmentFontSize="0" defaultCompartmentFontStyle="0" defaultConnectorFontColor="-16777216" defaultConnectorFontName="Dialog" defaultConnectorFontSize="11" defaultConnectorFontStyle="0" defaultFontColor="-16777216" defaultFontName="Dialog" defaultFontSize="11" defaultFontStyle="0" defaultModelElementNameAlignment="9" defaultShapeBackground="-8728587" defaultShapeForeground="-16777216" lineColor="-16777216" lineModelCap="0" lineModelStrokeNull="false" lineTransparency="0" lineWeight="1.0" name="ProjectFormat">
+	<globalFillColorModel baseType="Global" fillColorColor1="-8728587" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+	<globalConnectorFillColorModel baseType="Global" fillColorColor1="-8728587" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+	<lineModelStrokeDashs/>
+	<connectorLineModelStrokeDashs/>
+	<fillColorModels>
+		<projectFillColorModel baseType="DBTable" fillColorColor1="-674182" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="DBView" fillColorColor1="-674182" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="DBViewTable" fillColorColor1="-1" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="ORMContainer" fillColorColor1="-657931" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="JoinNode" fillColorColor1="-16777216" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="ForkNode" fillColorColor1="-16777216" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="InitialNode" fillColorColor1="-16777216" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="ActivityFinalNode" fillColorColor1="-16777216" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="InitialPseudoState" fillColorColor1="-16777216" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="Junction" fillColorColor1="-16777216" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="Fork" fillColorColor1="-16777216" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="Join" fillColorColor1="-16777216" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="FinalState2" fillColorColor1="-16777216" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="RestResource" fillColorColor1="-526345" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="CMMNCasePlanModel" fillColorColor1="-3483458" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="CMMNCaseFileItem" fillColorColor1="-6435664" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="CMMNStage" fillColorColor1="-157590" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="CMMNPlanFragment" fillColorColor1="-6435664" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="CMMNGeneralTask" fillColorColor1="-157590" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="CMMNHumanTask" fillColorColor1="-157590" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="CMMNCaseTask" fillColorColor1="-157590" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="CMMNProcessTask" fillColorColor1="-157590" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="CMMNDecisionTask" fillColorColor1="-157590" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="CMMNMilestone" fillColorColor1="-157590" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="CMMNGeneralEventListener" fillColorColor1="-157590" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="CMMNTimerEventListener" fillColorColor1="-157590" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="CMMNUserEventListener" fillColorColor1="-157590" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="CMMNEntryCriterion" fillColorColor1="-6435664" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="CMMNExitCriterion" fillColorColor1="-16754889" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="CMMNStagePlanItem" fillColorColor1="-6435664" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="CMMNGeneralTaskPlanItem" fillColorColor1="-6435664" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="CMMNHumanTaskPlanItem" fillColorColor1="-6435664" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="CMMNCaseTaskPlanItem" fillColorColor1="-6435664" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="CMMNProcessTaskPlanItem" fillColorColor1="-6435664" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="CMMNDecisionTaskPlanItem" fillColorColor1="-6435664" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="CMMNMilestonePlanItem" fillColorColor1="-6435664" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="CMMNGeneralEventListenerPlanItem" fillColorColor1="-6435664" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="CMMNTimerEventListenerPlanItem" fillColorColor1="-6435664" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="CMMNUserEventListenerPlanItem" fillColorColor1="-6435664" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="CMMNStageDiscretionaryItem" fillColorColor1="-7478816" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="CMMNPlanFragmentDiscretionaryItem" fillColorColor1="-7478816" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="CMMNGeneralTaskDiscretionaryItem" fillColorColor1="-7478816" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="CMMNHumanTaskDiscretionaryItem" fillColorColor1="-7478816" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="CMMNCaseTaskDiscretionaryItem" fillColorColor1="-7478816" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="CMMNProcessTaskDiscretionaryItem" fillColorColor1="-7478816" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="CMMNDecisionTaskDiscretionaryItem" fillColorColor1="-7478816" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="CMMNPlanningTable" fillColorColor1="-6435664" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="CMMNTextAnnotation" fillColorColor1="-723724" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="BPTask" fillColorColor1="-1116806" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="WireflowNode" fillColorColor1="-7960954" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="WireflowDecisionNode" fillColorColor1="-1" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="EPCRole" fillColorColor1="-396859" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="CentralConceptMindMapNode" fillColorColor1="-1" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="BranchMindMapNode" fillColorColor1="-1" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="NodeMindMapNode" fillColorColor1="-1" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="EPCSystem" fillColorColor1="-6760972" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="BPSubProcess" fillColorColor1="-662150" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="BPPool" fillColorColor1="-7873291" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="BPStartEvent" fillColorColor1="-3934854" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="BPIntermediateEvent" fillColorColor1="-670598" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="BPEndEvent" fillColorColor1="-689542" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="BPGroup" fillColorColor1="-723724" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="SubLevelInFlow" fillColorColor1="-7290331" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="SubLevelOutFlow" fillColorColor1="-3407872" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="BPDataObject" fillColorColor1="-39" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="BPDataOutput" fillColorColor1="-39" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="BPDataInput" fillColorColor1="-39" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="BPDataStore" fillColorColor1="-39" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="BPGateway" fillColorColor1="-26322" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="BPTextAnnotation" fillColorColor1="-723724" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="BPLane" fillColorColor1="-7873291" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="BPChoreographyTask" fillColorColor1="-1116806" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="BPChoreographySubProcess" fillColorColor1="-662150" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="BPCallChoreographyActivity" fillColorColor1="-256" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="BPCallActivity" fillColorColor1="-256" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="BPMessage" fillColorColor1="-6556965" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="Requirement" fillColorColor1="-4138559" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="RequirementModel" fillColorColor1="-4138559" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="TestCase" fillColorColor1="-4138559" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="ProcedureContainer" fillColorColor1="-4331895" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="ProcedureResultSet" fillColorColor1="-1841527" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="DFDataStore" fillColorColor1="-726374" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="DFExternalEntity" fillColorColor1="-726374" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="DFProcess" fillColorColor1="-726374" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="DBTriggerContainer" fillColorColor1="-7939355" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="MindMapNode" fillColorColor1="-1" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="Callout" fillColorColor1="-792584" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="Rectangle" fillColorColor1="-792584" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="Polygon" fillColorColor1="-792584" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="Oval" fillColorColor1="-792584" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="EPCEvent" fillColorColor1="-5447584" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="EPCFunction" fillColorColor1="-3023505" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="EPCAndOperator" fillColorColor1="-1471446" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="EPCOrOperator" fillColorColor1="-1471446" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="EPCXOROperator" fillColorColor1="-1471446" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="EPCOrganizationUnit" fillColorColor1="-11102757" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="EPCProcessPath" fillColorColor1="-3023505" fillColorColor2="-5447584" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="EPCInformationResource" fillColorColor1="-1914523" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="PMProcess" fillColorColor1="-3023505" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="PMSend" fillColorColor1="-5447584" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="PMReceive" fillColorColor1="-7873291" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="OCUnit" fillColorColor1="-2979851" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="BSElement" fillColorColor1="-6236711" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="BPMessageFlow" fillColorColor1="-723724" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="DFDataFlow" fillColorColor1="-16777216" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="BPSequenceFlow" fillColorColor1="-16777216" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="Message" fillColorColor1="-16777216" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="Generalization" fillColorColor1="-1" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="DBSequence" fillColorColor1="-3434280" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="AnalysisViewNode" fillColorColor1="-5769862" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="AnalysisViewGroupNode" fillColorColor1="-5769862" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="AnalysisDiagramNode" fillColorColor1="-39" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="AnalysisDiagramGroupNode" fillColorColor1="-39" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="AnalysisModelNode" fillColorColor1="-8728587" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="AnalysisModelGroupNode" fillColorColor1="-8728587" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="ConversationParticipant" fillColorColor1="-7873291" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="ConversationCommunication" fillColorColor1="-3630094" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="SubConversation" fillColorColor1="-3630094" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="CallConversation" fillColorColor1="-3630094" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="ArchiMateBusinessActor" fillColorColor1="-65639" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="ArchiMateBusinessCollaboration" fillColorColor1="-65639" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="PERTLane" fillColorColor1="-1" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="100" fillColorType="1"/>
+		<projectFillColorModel baseType="PERTTask" fillColorColor1="-8728587" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="DocumentationCabinetCabinet" fillColorColor1="-5259328" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="DocumentationCabinetDrawer" fillColorColor1="-1841957" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="ArchiMateTechnologyCollaboration" fillColorColor1="-3276852" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="ArchiMateTechnologyInteraction" fillColorColor1="-3276852" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="ArchiMateTechnologyEvent" fillColorColor1="-3276852" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="ArchiMateTechnologyProcess" fillColorColor1="-3276852" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="ArchiMateApplicationProcess" fillColorColor1="-983041" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="ArchiMateApplicationEvent" fillColorColor1="-983041" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="ArchiMateBusinessEvent" fillColorColor1="-65639" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="ArchiMateBusinessFunction" fillColorColor1="-65639" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="ArchiMateBusinessInteraction" fillColorColor1="-65639" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="ArchiMateBusinessInterface" fillColorColor1="-65639" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="ArchiMateBusinessObject" fillColorColor1="-65639" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="ArchiMateBusinessProcess" fillColorColor1="-65639" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="ArchiMateBusinessRole" fillColorColor1="-65639" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="ArchiMateBusinessService" fillColorColor1="-65639" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="ArchiMateProduct" fillColorColor1="-65639" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="ArchiMateContract" fillColorColor1="-65639" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="ArchiMateMeaning" fillColorColor1="-5394177" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="ArchiMateValue" fillColorColor1="-5394177" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="ArchiMateRepresentation" fillColorColor1="-65639" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="ArchiMateApplicationCollaboration" fillColorColor1="-983041" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="ArchiMateApplicationComponent" fillColorColor1="-983041" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="ArchiMateApplicationFunction" fillColorColor1="-983041" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="ArchiMateApplicationInteraction" fillColorColor1="-983041" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="ArchiMateApplicationInterface" fillColorColor1="-983041" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="ArchiMateApplicationService" fillColorColor1="-983041" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="ArchiMateDataObject" fillColorColor1="-983041" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="ArchiMateDevice" fillColorColor1="-3276852" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="ArchiMateNode" fillColorColor1="-3276852" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="ArchiMateSystemSoftware" fillColorColor1="-3276852" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="ArchiMateInfrastructureInterface" fillColorColor1="-3276852" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="ArchiMateLocation" fillColorColor1="-18061" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="ArchiMateInfrastructureFunction" fillColorColor1="-3276852" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="ArchiMateDriver" fillColorColor1="-5394177" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="ArchiMateStakeholder" fillColorColor1="-5394177" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="ArchiMateOutcome" fillColorColor1="-5394177" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="ArchiMateAssessment" fillColorColor1="-5394177" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="ArchiMateEquipment" fillColorColor1="-3276852" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="ArchiMateFacility" fillColorColor1="-3276852" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="ArchiMateMaterial" fillColorColor1="-3276852" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="ArchiMateDistributionNetworkBox" fillColorColor1="-3276852" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="ArchiMateResource" fillColorColor1="-663894" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="ArchiMateCapability" fillColorColor1="-663894" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="ArchiMateCourseOfAction" fillColorColor1="-663894" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="ArchiMateGoal" fillColorColor1="-5394177" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="ArchiMatePrinciple" fillColorColor1="-5394177" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="ArchiMateRequirement" fillColorColor1="-5394177" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="ArchiMateConstraint" fillColorColor1="-5394177" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="ArchiMatePlateau" fillColorColor1="-2818604" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="ArchiMateGap" fillColorColor1="-2818604" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="ArchiMateDeliverable" fillColorColor1="-142083" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="ArchiMateWorkPackage" fillColorColor1="-142083" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="ArchiMateImplementationEvent" fillColorColor1="-142083" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="ArchiMateInfrastructureService" fillColorColor1="-3276852" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="ArchiMateArtifact" fillColorColor1="-3276852" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="ArchiMateGrouping" fillColorColor1="-1" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="ArchiMateNetwork" fillColorColor1="-3276852" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="ArchiMateNetworkBox" fillColorColor1="-3276852" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="ArchiMateCommunicationPath" fillColorColor1="-3276852" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="ArchiMateCommunicationPathBox" fillColorColor1="-3276852" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="Glossary" fillColorColor1="-10896911" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="FactTypeRoleFactName" fillColorColor1="-10896911" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="BMMAssessment" fillColorColor1="-589" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="BMMBusinessPolicy" fillColorColor1="-8728587" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="BMMGoal" fillColorColor1="-5747" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="BMMMission" fillColorColor1="-1639425" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="BMMRisk" fillColorColor1="-589" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="BMMStrategy" fillColorColor1="-4921361" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="BMMTactic" fillColorColor1="-6101255" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="BMMAsset" fillColorColor1="-1184275" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="BMMLiability" fillColorColor1="-1184275" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="BMMEnd" fillColorColor1="-2424873" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="BMMMeans" fillColorColor1="-332801" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="BMMVision" fillColorColor1="-297" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="BMMPotentialReward" fillColorColor1="-589" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="BMMOrganizationUnit" fillColorColor1="-1184275" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="BMMObjective" fillColorColor1="-11187" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="BMMInternalInfluencer" fillColorColor1="-410113" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="BMMExternalInfluencer" fillColorColor1="-410113" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="BMMInfluencingOrganization" fillColorColor1="-410113" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="BMMBusinessProcess" fillColorColor1="-1184275" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="DMBusinessDecision" fillColorColor1="-26322" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="DMRuleFamily" fillColorColor1="-5327" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="Gate" fillColorColor1="-8728587" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="100" fillColorType="1"/>
+		<projectFillColorModel baseType="DTBDecisionTable" fillColorColor1="-5327" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+	</fillColorModels>
+	<connectorFillColorModels>
+		<projectFillColorModel baseType="DBTable" fillColorColor1="-674182" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="DBView" fillColorColor1="-674182" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="ORMContainer" fillColorColor1="-657931" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="JoinNode" fillColorColor1="-16777216" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="ForkNode" fillColorColor1="-16777216" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="InitialNode" fillColorColor1="-16777216" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="ActivityFinalNode" fillColorColor1="-16777216" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="InitialPseudoState" fillColorColor1="-16777216" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="Junction" fillColorColor1="-16777216" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="Fork" fillColorColor1="-16777216" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="Join" fillColorColor1="-16777216" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="FinalState2" fillColorColor1="-16777216" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="BPSubProcess" fillColorColor1="-662150" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="BPPool" fillColorColor1="-7873291" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="BPStartEvent" fillColorColor1="-3934854" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="BPIntermediateEvent" fillColorColor1="-670598" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="BPEndEvent" fillColorColor1="-689542" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="BPGroup" fillColorColor1="-723724" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="BPDataObject" fillColorColor1="-39" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="BPDataOutput" fillColorColor1="-39" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="BPDataInput" fillColorColor1="-39" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="BPDataStore" fillColorColor1="-39" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="BPGateway" fillColorColor1="-26322" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="BPTextAnnotation" fillColorColor1="-723724" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="BPLane" fillColorColor1="-7873291" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="BPChoreographyTask" fillColorColor1="-1116806" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="BPChoreographySubProcess" fillColorColor1="-662150" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="BPCallChoreographyActivity" fillColorColor1="-256" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="BPCallActivity" fillColorColor1="-256" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="BPMessage" fillColorColor1="-6556965" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="Requirement" fillColorColor1="-4138559" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="RequirementModel" fillColorColor1="-4138559" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="TestCase" fillColorColor1="-4138559" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="ProcedureContainer" fillColorColor1="-4331895" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="ProcedureResultSet" fillColorColor1="-1841527" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="DFDataStore" fillColorColor1="-726374" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="DFExternalEntity" fillColorColor1="-726374" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="DFProcess" fillColorColor1="-726374" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="DBTriggerContainer" fillColorColor1="-7939355" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="MindMapNode" fillColorColor1="-1" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="Callout" fillColorColor1="-792584" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="Rectangle" fillColorColor1="-792584" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="Polygon" fillColorColor1="-792584" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="Oval" fillColorColor1="-792584" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="EPCEvent" fillColorColor1="-5447584" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="EPCFunction" fillColorColor1="-3023505" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="EPCAndOperator" fillColorColor1="-1471446" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="EPCOrOperator" fillColorColor1="-1471446" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="EPCXOROperator" fillColorColor1="-1471446" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="EPCOrganizationUnit" fillColorColor1="-11102757" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="EPCProcessPath" fillColorColor1="-3023505" fillColorColor2="-5447584" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="EPCInformationResource" fillColorColor1="-1914523" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="PMProcess" fillColorColor1="-3023505" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="PMSend" fillColorColor1="-5447584" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="PMReceive" fillColorColor1="-7873291" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="OCUnit" fillColorColor1="-2979851" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="BPMessageFlow" fillColorColor1="-723724" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="DFDataFlow" fillColorColor1="-16777216" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="BPSequenceFlow" fillColorColor1="-16777216" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="WireflowConnector" fillColorColor1="-1" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="PERTDependency" fillColorColor1="-16777216" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="DocumentationCabinetLink" fillColorColor1="-16777216" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="Message" fillColorColor1="-16777216" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="Generalization" fillColorColor1="-1" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="DBSequence" fillColorColor1="-3434280" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="AnalysisViewNode" fillColorColor1="-5769862" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="AnalysisViewGroupNode" fillColorColor1="-5769862" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="AnalysisDiagramNode" fillColorColor1="-39" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="AnalysisDiagramGroupNode" fillColorColor1="-39" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="AnalysisModelNode" fillColorColor1="-8728587" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="AnalysisModelGroupNode" fillColorColor1="-8728587" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="ConversationParticipant" fillColorColor1="-7873291" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="ConversationCommunication" fillColorColor1="-3630094" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="SubConversation" fillColorColor1="-3630094" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="CallConversation" fillColorColor1="-3630094" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="ArchiMateBusinessActor" fillColorColor1="-65639" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="ArchiMateBusinessCollaboration" fillColorColor1="-65639" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="ArchiMateBusinessEvent" fillColorColor1="-65639" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="ArchiMateBusinessFunction" fillColorColor1="-65639" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="ArchiMateBusinessInteraction" fillColorColor1="-65639" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="ArchiMateBusinessInterface" fillColorColor1="-65639" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="ArchiMateBusinessObject" fillColorColor1="-65639" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="ArchiMateBusinessProcess" fillColorColor1="-65639" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="ArchiMateBusinessRole" fillColorColor1="-65639" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="ArchiMateBusinessService" fillColorColor1="-65639" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="ArchiMateProduct" fillColorColor1="-65639" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="ArchiMateContract" fillColorColor1="-65639" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="ArchiMateMeaning" fillColorColor1="-65639" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="ArchiMateValue" fillColorColor1="-65639" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="ArchiMateRepresentation" fillColorColor1="-65639" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="ArchiMateApplicationCollaboration" fillColorColor1="-983041" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="ArchiMateApplicationComponent" fillColorColor1="-983041" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="ArchiMateApplicationFunction" fillColorColor1="-983041" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="ArchiMateApplicationInteraction" fillColorColor1="-983041" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="ArchiMateApplicationInterface" fillColorColor1="-983041" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="ArchiMateApplicationService" fillColorColor1="-983041" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="ArchiMateDataObject" fillColorColor1="-983041" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="ArchiMateDevice" fillColorColor1="-3276852" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="ArchiMateNode" fillColorColor1="-3276852" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="ArchiMateSystemSoftware" fillColorColor1="-3276852" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="ArchiMateInfrastructureInterface" fillColorColor1="-3276852" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="ArchiMateLocation" fillColorColor1="-65639" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="ArchiMateInfrastructureFunction" fillColorColor1="-3276852" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="ArchiMateDriver" fillColorColor1="-2380289" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="ArchiMateAssessment" fillColorColor1="-2380289" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="ArchiMateGoal" fillColorColor1="-5394177" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="ArchiMatePrinciple" fillColorColor1="-5394177" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="ArchiMateRequirement" fillColorColor1="-5394177" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="ArchiMateConstraint" fillColorColor1="-5394177" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="ArchiMatePlateau" fillColorColor1="-2818604" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="ArchiMateGap" fillColorColor1="-2818604" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="ArchiMateDeliverable" fillColorColor1="-142083" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="ArchiMateWorkPackage" fillColorColor1="-142083" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="ArchiMateInfrastructureService" fillColorColor1="-3276852" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="ArchiMateArtifact" fillColorColor1="-3276852" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="ArchiMateGrouping" fillColorColor1="-1" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="Glossary" fillColorColor1="-10896911" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+		<projectFillColorModel baseType="FactTypeRoleFactName" fillColorColor1="-10896911" fillColorColor2="0" fillColorGradientStyle="1" fillColorTransparency="0" fillColorType="1"/>
+	</connectorFillColorModels>
+	<defaultLineModels>
+		<projectDefaultLineModel baseType="Callout" lineColor="-3370015" lineModelCap="0" lineModelStrokeNull="false" lineTransparency="0" lineWeight="1.0">
+			<lineModelStrokeDashs/>
+		</projectDefaultLineModel>
+		<projectDefaultLineModel baseType="Rectangle" lineColor="-3370015" lineModelCap="0" lineModelStrokeNull="false" lineTransparency="0" lineWeight="1.0">
+			<lineModelStrokeDashs/>
+		</projectDefaultLineModel>
+		<projectDefaultLineModel baseType="Polygon" lineColor="-3370015" lineModelCap="0" lineModelStrokeNull="false" lineTransparency="0" lineWeight="1.0">
+			<lineModelStrokeDashs/>
+		</projectDefaultLineModel>
+		<projectDefaultLineModel baseType="CentralConceptMindMapNode" lineColor="-16777216" lineModelCap="0" lineModelStrokeNull="false" lineTransparency="0" lineWeight="4.0">
+			<lineModelStrokeDashs/>
+		</projectDefaultLineModel>
+		<projectDefaultLineModel baseType="BranchMindMapNode" lineColor="-16751426" lineModelCap="0" lineModelStrokeNull="false" lineTransparency="0" lineWeight="4.0">
+			<lineModelStrokeDashs/>
+		</projectDefaultLineModel>
+		<projectDefaultLineModel baseType="NodeMindMapNode" lineColor="-16751426" lineModelCap="0" lineModelStrokeNull="false" lineTransparency="0" lineWeight="2.0">
+			<lineModelStrokeDashs/>
+		</projectDefaultLineModel>
+		<projectDefaultLineModel baseType="Oval" lineColor="-3370015" lineModelCap="0" lineModelStrokeNull="false" lineTransparency="0" lineWeight="1.0">
+			<lineModelStrokeDashs/>
+		</projectDefaultLineModel>
+		<projectDefaultLineModel baseType="RestResource" lineColor="-16777216" lineModelCap="0" lineModelStrokeNull="false" lineTransparency="0" lineWeight="2.0">
+			<lineModelStrokeDashs/>
+		</projectDefaultLineModel>
+		<projectDefaultLineModel baseType="BPGroup" lineColor="-16777216" lineModelCap="1" lineModelStrokeNull="false" lineTransparency="0" lineWeight="1.0">
+			<lineModelStrokeDashs>
+				<strokeDash>12.0</strokeDash>
+				<strokeDash>6.0</strokeDash>
+				<strokeDash>2.0</strokeDash>
+				<strokeDash>6.0</strokeDash>
+			</lineModelStrokeDashs>
+		</projectDefaultLineModel>
+		<projectDefaultLineModel baseType="SubLevelInFlow" lineColor="-9408399" lineModelCap="0" lineModelStrokeNull="false" lineTransparency="0" lineWeight="1.0">
+			<lineModelStrokeDashs/>
+		</projectDefaultLineModel>
+		<projectDefaultLineModel baseType="SubLevelOutFlow" lineColor="-9408399" lineModelCap="0" lineModelStrokeNull="false" lineTransparency="0" lineWeight="1.0">
+			<lineModelStrokeDashs/>
+		</projectDefaultLineModel>
+		<projectDefaultLineModel baseType="Gate" lineColor="-4144960" lineModelCap="0" lineModelStrokeNull="false" lineTransparency="0" lineWeight="1.0">
+			<lineModelStrokeDashs/>
+		</projectDefaultLineModel>
+		<projectDefaultLineModel baseType="PERTTask" lineColor="-14456183" lineModelCap="0" lineModelStrokeNull="false" lineTransparency="0" lineWeight="1.0">
+			<lineModelStrokeDashs/>
+		</projectDefaultLineModel>
+		<projectDefaultLineModel baseType="DBViewTable" lineColor="-12566464" lineModelCap="0" lineModelStrokeNull="false" lineTransparency="0" lineWeight="1.0">
+			<lineModelStrokeDashs/>
+		</projectDefaultLineModel>
+		<projectDefaultLineModel baseType="DocumentationCabinetCabinet" lineColor="-8355712" lineModelCap="0" lineModelStrokeNull="false" lineTransparency="0" lineWeight="6.0">
+			<lineModelStrokeDashs/>
+		</projectDefaultLineModel>
+		<projectDefaultLineModel baseType="WireflowNode" lineColor="-4144960" lineModelCap="0" lineModelStrokeNull="false" lineTransparency="0" lineWeight="1.0">
+			<lineModelStrokeDashs/>
+		</projectDefaultLineModel>
+		<projectDefaultLineModel baseType="WireflowDecisionNode" lineColor="-4144960" lineModelCap="0" lineModelStrokeNull="false" lineTransparency="0" lineWeight="1.0">
+			<lineModelStrokeDashs/>
+		</projectDefaultLineModel>
+	</defaultLineModels>
+	<connectorDefaultLineModels/>
+	<shapeElementFontModels>
+		<ProjectElementFontModel baseType="DBViewTable" color="-12566464" compartmentFontSize="0" compartmentFontStyle="0" fontName="Dialog" fontSize="11" fontStyle="0" modelElementNameAlignment="9"/>
+		<ProjectElementFontModel baseType="CentralConceptMindMapNode" color="-16777216" compartmentFontSize="0" compartmentFontStyle="0" fontName="SansSerif" fontSize="14" fontStyle="1" modelElementNameAlignment="9"/>
+		<ProjectElementFontModel baseType="BranchMindMapNode" color="-16777216" compartmentFontSize="0" compartmentFontStyle="0" fontName="SansSerif" fontSize="12" fontStyle="1" modelElementNameAlignment="9"/>
+		<ProjectElementFontModel baseType="NodeMindMapNode" color="-16777216" compartmentFontSize="0" compartmentFontStyle="0" fontName="SansSerif" fontSize="12" fontStyle="1" modelElementNameAlignment="9"/>
+		<ProjectElementFontModel baseType="WireflowNode" color="-12663041" compartmentFontSize="0" compartmentFontStyle="0" fontName="Dialog" fontSize="11" fontStyle="0" modelElementNameAlignment="9"/>
+		<ProjectElementFontModel baseType="InteractionLifeLine" color="-16777216" compartmentFontSize="0" compartmentFontStyle="0" fontName="Dialog" fontSize="11" fontStyle="0" modelElementNameAlignment="1"/>
+		<ProjectElementFontModel baseType="Activity" color="-16777216" compartmentFontSize="0" compartmentFontStyle="0" fontName="Dialog" fontSize="11" fontStyle="0" modelElementNameAlignment="0"/>
+		<ProjectElementFontModel baseType="ArchiMateContract" color="-16777216" compartmentFontSize="0" compartmentFontStyle="0" fontName="Dialog" fontSize="11" fontStyle="0" modelElementNameAlignment="1"/>
+		<ProjectElementFontModel baseType="ArchiMateProduct" color="-16777216" compartmentFontSize="0" compartmentFontStyle="0" fontName="Dialog" fontSize="11" fontStyle="0" modelElementNameAlignment="1"/>
+		<ProjectElementFontModel baseType="Artifact" color="-16777216" compartmentFontSize="0" compartmentFontStyle="0" fontName="Dialog" fontSize="11" fontStyle="0" modelElementNameAlignment="1"/>
+		<ProjectElementFontModel baseType="BMMAssessment" color="-16777216" compartmentFontSize="0" compartmentFontStyle="0" fontName="Dialog" fontSize="11" fontStyle="0" modelElementNameAlignment="1"/>
+		<ProjectElementFontModel baseType="BMMAsset" color="-16777216" compartmentFontSize="0" compartmentFontStyle="0" fontName="Dialog" fontSize="11" fontStyle="0" modelElementNameAlignment="1"/>
+		<ProjectElementFontModel baseType="BMMBusinessPolicy" color="-16777216" compartmentFontSize="0" compartmentFontStyle="0" fontName="Dialog" fontSize="11" fontStyle="0" modelElementNameAlignment="0"/>
+		<ProjectElementFontModel baseType="BMMEnd" color="-16777216" compartmentFontSize="0" compartmentFontStyle="0" fontName="Dialog" fontSize="11" fontStyle="0" modelElementNameAlignment="0"/>
+		<ProjectElementFontModel baseType="BMMExternalInfluencer" color="-16777216" compartmentFontSize="0" compartmentFontStyle="0" fontName="Dialog" fontSize="11" fontStyle="0" modelElementNameAlignment="0"/>
+		<ProjectElementFontModel baseType="BMMGoal" color="-16777216" compartmentFontSize="0" compartmentFontStyle="0" fontName="Dialog" fontSize="11" fontStyle="0" modelElementNameAlignment="0"/>
+		<ProjectElementFontModel baseType="BMMInfluencingOrganization" color="-16777216" compartmentFontSize="0" compartmentFontStyle="0" fontName="Dialog" fontSize="11" fontStyle="0" modelElementNameAlignment="0"/>
+		<ProjectElementFontModel baseType="BMMInternalInfluencer" color="-16777216" compartmentFontSize="0" compartmentFontStyle="0" fontName="Dialog" fontSize="11" fontStyle="0" modelElementNameAlignment="0"/>
+		<ProjectElementFontModel baseType="BMMMeans" color="-16777216" compartmentFontSize="0" compartmentFontStyle="0" fontName="Dialog" fontSize="11" fontStyle="0" modelElementNameAlignment="0"/>
+		<ProjectElementFontModel baseType="BMMMission" color="-16777216" compartmentFontSize="0" compartmentFontStyle="0" fontName="Dialog" fontSize="11" fontStyle="0" modelElementNameAlignment="0"/>
+		<ProjectElementFontModel baseType="BMMObjective" color="-16777216" compartmentFontSize="0" compartmentFontStyle="0" fontName="Dialog" fontSize="11" fontStyle="0" modelElementNameAlignment="0"/>
+		<ProjectElementFontModel baseType="BMMOrganizationUnit" color="-16777216" compartmentFontSize="0" compartmentFontStyle="0" fontName="Dialog" fontSize="11" fontStyle="0" modelElementNameAlignment="1"/>
+		<ProjectElementFontModel baseType="BMMPotentialReward" color="-16777216" compartmentFontSize="0" compartmentFontStyle="0" fontName="Dialog" fontSize="11" fontStyle="0" modelElementNameAlignment="1"/>
+		<ProjectElementFontModel baseType="BMMRisk" color="-16777216" compartmentFontSize="0" compartmentFontStyle="0" fontName="Dialog" fontSize="11" fontStyle="0" modelElementNameAlignment="1"/>
+		<ProjectElementFontModel baseType="BMMStrategy" color="-16777216" compartmentFontSize="0" compartmentFontStyle="0" fontName="Dialog" fontSize="11" fontStyle="0" modelElementNameAlignment="0"/>
+		<ProjectElementFontModel baseType="BMMTactic" color="-16777216" compartmentFontSize="0" compartmentFontStyle="0" fontName="Dialog" fontSize="11" fontStyle="0" modelElementNameAlignment="0"/>
+		<ProjectElementFontModel baseType="BMMVision" color="-16777216" compartmentFontSize="0" compartmentFontStyle="0" fontName="Dialog" fontSize="11" fontStyle="0" modelElementNameAlignment="0"/>
+		<ProjectElementFontModel baseType="BrainstormNote" color="-16777216" compartmentFontSize="0" compartmentFontStyle="0" fontName="Dialog" fontSize="18" fontStyle="0" modelElementNameAlignment="4"/>
+		<ProjectElementFontModel baseType="Component" color="-16777216" compartmentFontSize="0" compartmentFontStyle="0" fontName="Dialog" fontSize="11" fontStyle="0" modelElementNameAlignment="1"/>
+		<ProjectElementFontModel baseType="ORMContainer" color="-16777216" compartmentFontSize="0" compartmentFontStyle="0" fontName="Dialog" fontSize="11" fontStyle="0" modelElementNameAlignment="1"/>
+		<ProjectElementFontModel baseType="System" color="-16777216" compartmentFontSize="0" compartmentFontStyle="0" fontName="Dialog" fontSize="11" fontStyle="0" modelElementNameAlignment="1"/>
+		<ProjectElementFontModel baseType="Package" color="-16777216" compartmentFontSize="0" compartmentFontStyle="0" fontName="Dialog" fontSize="11" fontStyle="0" modelElementNameAlignment="1"/>
+		<ProjectElementFontModel baseType="Model" color="-16777216" compartmentFontSize="0" compartmentFontStyle="0" fontName="Dialog" fontSize="11" fontStyle="0" modelElementNameAlignment="1"/>
+	</shapeElementFontModels>
+	<connectorElementFontModels/>
+	<shapeDisplayImages/>
+</projectFormat>

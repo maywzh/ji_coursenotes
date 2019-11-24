@@ -1,0 +1,646 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Project Author="maywzh" CommentTableSortAscending="false" CommentTableSortColumn="Date Time" DocumentationType="html" ExportedFromDifferentName="false" ExporterVersion="12.2" Name="QuestionAnswer" TextualAnalysisHighlightOptionCaseSensitive="false" UmlVersion="2.x" Xml_structure="simple">
+	<ProjectInfo>
+		<LogicalView/>
+		<ProjectOptions>
+			<DiagramOptions ActivityDiagramControlFlowDisplayOption="\u0000" ActivityDiagramShowActionCallBehaviorOption="\u0000" ActivityDiagramShowActivityEdgeWeight="true" ActivityDiagramShowObjectNodeType="true" ActivityDiagramShowPartitionHandle="\u0000" AddDataStoresExtEntitiesToDecomposedDFD="\u0002" AlignColumnProperties="true" AllowConfigShowInOutFlowButtonsInDataFlowDiagram="false" AutoGenerateRoleName="false" AutoSetAttributeType="true" AutoSetColumnType="true" AutoSyncRoleName="true" BpdAutoStretchPools="true" BpdConnectGatewayWithFlowObjectInDifferentPool="\u0000" BpdDefaultConnectionPointStyle="\u0001" BpdDefaultConnectorStyle="\u0005" BpdDhowIdOption="\u0000" BpdShowActivitiesTypeIcon="true" BusinessProcessDiagramDefaultLanguage="English" ClassVisibilityStyle="\u0001" ConnectorLabelOrientation="\u0000" CreateOneMessagePerDirection="true" DecisionMergeNodeConnectionPointStyle="\u0000" DefaultAssociationEndNavigable="\u0001" DefaultAssociationEndVisibility="\u0000" DefaultAssociationShowFromMultiplicity="true" DefaultAssociationShowFromRoleName="true" DefaultAssociationShowFromRoleVisibility="true" DefaultAssociationShowStereotypes="true" DefaultAssociationShowToMultiplicity="true" DefaultAssociationShowToRoleName="true" DefaultAssociationShowToRoleVisibility="true" DefaultAttributeMultiplicity="false" DefaultAttributeType="" DefaultAttributeVisibility="\u0001" DefaultClassAttributeMultiplicity="" DefaultClassAttributeMultiplicityOrdered="false" DefaultClassAttributeMultiplicityUnique="true" DefaultClassInterfaceBall="false" DefaultClassVisibility="\u0004" DefaultColumnType="integer(10)" DefaultConnectionPointStyle="\u0000" DefaultConnectorStyle="\u0001" DefaultDiagramBackground="rgb(255, 255, 255)" DefaultDisplayAsRobustnessAnalysisIcon="true" DefaultDisplayAsRobustnessAnalysisIconInSequenceDiagram="true" DefaultDisplayAsStereotypeIcon="false" DefaultFontColor="rgb(0, 0, 0)" DefaultGenDiagramTypeFromScenario="\u0000" DefaultHtmlDocFontColor="rgb(0, 0, 0)" DefaultLineJumps="\u0000" DefaultOperationVisibility="\u0004" DefaultParameterDirection="\u0002" DefaultShowAttributeInitialValue="true" DefaultShowAttributeOption="\u0001" DefaultShowClassMemberStereotype="true" DefaultShowDirection="false" DefaultShowMultiplicityConstraints="false" DefaultShowOperationOption="\u0001" DefaultShowOperationSignature="true" DefaultShowOrderedMultiplicityConstraint="true" DefaultShowOwnedAssociationEndAsAttribute="true" DefaultShowOwner="false" DefaultShowOwnerSkipModelInFullyQualifiedOwnerSignature="true" DefaultShowReceptionOption="\u0001" DefaultShowTemplateParameter="true" DefaultShowTypeOption="\u0001" DefaultShowUniqueMultiplicityConstraint="true" DefaultTypeOfSubProcess="\u0000" DefaultWrapClassMember="false" DrawTextAnnotationOpenRectangleFollowConnectorEnd="true" EnableMinimumSize="true" EntityColumnConstraintsPresentation="\u0002" ErdIndexNumOfDigits="-1" ErdIndexPattern="{table_name}" ErdIndexPatternSyncAutomatically="true" ErdManyToManyJoinTableDelimiter="_" EtlTableDiagramFontSize="14" ExpandedSubProcessDiagramContent="\u0001" ForeignKeyArrowHeadSize="\u0002" ForeignKeyConnectorEndPointAssociatedColumn="false" ForeignKeyNamePattern="{reference_table_name}{reference_column_name}" ForeignKeyNamePatternCaseHandling="0" ForeignKeyRelationshipPattern="{association_name}" FractionalMetrics="true" GeneralizationSetNotation="\u0001" GraphicAntiAliasing="true" GridDiagramFontSize="14" LineJumpSize="\u0000" ModelElementNameAlignment="\u0004" MultipleLineClassName="\u0001" PaintConnectorThroughLabel="false" PointConnectorEndToCompartmentMember="true" PrimaryKeyConstraintPattern="" PrimaryKeyNamePattern="ID" RenameConstructorAfterRenameClass="\u0000" RenameExtensionPointToFollowExtendUseCase="\u0000" ShapeAutoFitSize="false" ShowActivationsInSequenceDiagram="true" ShowActivityStateNodeCaption="524287" ShowArtifactOption="\u0002" ShowAssociatedDiagramNameOfInteraction="false" ShowAssociationRoleStereotypes="true" ShowAttributeGetterSetter="false" ShowBSElementCode="true" ShowClassEmptyCompartments="false" ShowColumnNullable="true" ShowColumnType="true" ShowColumnUniqueConstraintName="false" ShowColumnUserType="false" ShowComponentOption="\u0002" ShowExtraColumnProperties="true" ShowInOutFlowButtonsInDataFlowDiagram="false" ShowInOutFlowsInSubLevelDiagram="true" ShowMessageOperationSignatureForSequenceAndCommunicationDiagram="true" ShowMessageStereotypeInSequenceAndCommunicationDiagram="true" ShowNumberInCollaborationDiagram="true" ShowNumberInSequenceDiagram="true" ShowPackageNameStyle="\u0000" ShowParameterNameInOperationSignature="true" ShowRowGridLineWithinCompClassDiagram="false" ShowRowGridLineWithinCompERD="true" ShowRowGridLineWithinORMDiagram="true" ShowSchemaNameInERD="true" ShowTransitionTrigger="\u0000" ShowUseCaseExtensionPoint="true" ShowUseCaseID="false" StateShowParametersOfInternalActivities="false" StateShowPrePostConditionAndBodyOfInternalActivities="true" StopTargetLifelineOnCreateDestroyMessage="\u0002" SupportHtmlTaggedValue="false" SupportMultipleLineAttribute="true" SuppressImpliedMultiplicityForAttributeAssociationEnd="false" SyncAssociationNameWithAssociationClass="\u0000" SyncAssociationRoleNameWithReferencedAttributeName="true" SyncDocOfInterfaceToSubClass="\u0000" TextAntiAliasing="true" TextualAnalysisGenerateRequirementTextOption="\u0001" TextualAnalysisHighlightOption="\u0000" UnnamedIndexPattern="{table_name}_{column_name}" UseStateNameTab="false" WireflowDiagramDevice="0" WireflowDiagramShowActiveFlowLabel="true" WireflowDiagramTheme="0" WireflowDiagramWireflowShowPreview="true" WireflowDiagramWireflowShowScreenId="true">
+				<DefaultHtmlDocFont Family="Dialog" Size="12" Style="0"/>
+			</DiagramOptions>
+			<GeneralOptions ConfirmSubLevelIdWithDot="true" QuickAddGlossaryTermParentModelId="default"/>
+			<InstantReverseOptions CalculateGeneralizationAndRealization="false" CreateShapeForParentModelOfDraggedClassPackage="false" ReverseGetterSetter="\u0000" ReverseOperationImplementation="false" ShowPackageForNewDiagram="\u0001" ShowPackageOwner="\u0000"/>
+			<ModelQualityOptions EnableModelQualityChecking="false"/>
+			<ORMOptions DecimalPrecision="19" DecimalScale="0" ExportCommentToDatabase="true" FormattedSQL="false" GenerateAssociationWithAttribute="false" GenerateDiagramFromORMWizards="true" GetterSetterVisibility="\u0000" IdGeneratorType="native" MappingFileColumnOrder="\u0000" NumericToClassType="\u0000" QuoteSQLIdentifier="\u0000" RecreateShapeWhenSync="false" SyncToClassDiagramAttributeName="\u0001" SyncToClassDiagramAttributeNamePrefix="" SyncToClassDiagramAttributeNameSuffix="" SyncToClassDiagramClassName="\u0000" SyncToClassDiagramClassNamePrefix="" SyncToClassDiagramClassNameSuffix="" SyncToERDColumnName="\u0000" SyncToERDColumnNamePrefix="" SyncToERDColumnNameSuffix="" SyncToERDTableName="\u0004" SyncToERDTableNamePrefix="" SyncToERDTableNameSuffix="" SynchronizeDefaultValueToColumn="false" SynchronizeName="\u0002" TablePerSubclassFKMapping="\u0000" UpperCaseSQL="true" UseDefaultDecimal="true" WrappingServletRequest="\u0001"/>
+			<RequirementDiagramOptions DefaultWrapMember="true" ShowAttributes="\u0001" SupportHTMLAttribute="false"/>
+			<StateCodeEngineOptions AutoCreateInitialStateInStateDiagram="true" AutoCreateTransitionMethods="true" DefaultInitialStateLocationX="-1" DefaultInitialStateLocationY="-1" GenerateDebugMessage="false" GenerateSample="true" GenerateTryCatch="true" Language="\u0000" RegenerateTransitionMethods="false" SyncTransitionMethods="true"/>
+			<WarningOptions CreateORMClassInDefaultPackage="true"/>
+			<PORepository>
+				<POUserIDFormats>
+					<POUserIDFormat Digits="2" Guid="false" Id="P2PQ2XaD.AAAAQV5" LastNumericValue="80" ModelType="BPMNElement" Prefix="BP" Suffix=""/>
+					<POUserIDFormat Digits="2" Guid="false" Id="v2PQ2XaD.AAAAQV6" LastNumericValue="0" ModelType="Actor" Prefix="AC" Suffix=""/>
+					<POUserIDFormat Digits="2" Guid="false" Id="f2PQ2XaD.AAAAQV7" LastNumericValue="0" ModelType="UseCase" Prefix="UC" Suffix=""/>
+					<POUserIDFormat Digits="3" Guid="false" Id="f2PQ2XaD.AAAAQV8" LastNumericValue="0" ModelType="Requirement" Prefix="REQ" Suffix=""/>
+					<POUserIDFormat Digits="3" Guid="false" Id="f2PQ2XaD.AAAAQV9" LastNumericValue="0" ModelType="BusinessRule" Prefix="BR" Suffix=""/>
+					<POUserIDFormat Digits="-1" Guid="false" Id="f2PQ2XaD.AAAAQV." LastNumericValue="4" ModelType="BusinessProcessDiagram" Prefix="" Suffix=""/>
+				</POUserIDFormats>
+			</PORepository>
+		</ProjectOptions>
+	</ProjectInfo>
+	<Models>
+		<DataType BacklogActivityId="0" Documentation_plain="" Id="PCPQ2XaD.AAAAQBQ" Name="boolean" PmAuthor="maywzh" PmCreateDateTime="2019-11-24T09:34:29.949" PmLastModified="2019-11-24T09:34:47.908" QualityReason_IsNull="true" QualityScore="-1" UserIDLastNumericValue="0" UserID_IsNull="true"/>
+		<DataType BacklogActivityId="0" Documentation_plain="" Id="siPQ2XaD.AAAAQBR" Name="byte" PmAuthor="maywzh" PmCreateDateTime="2019-11-24T09:34:29.965" PmLastModified="2019-11-24T09:34:47.933" QualityReason_IsNull="true" QualityScore="-1" UserIDLastNumericValue="0" UserID_IsNull="true"/>
+		<DataType BacklogActivityId="0" Documentation_plain="" Id="siPQ2XaD.AAAAQBS" Name="char" PmAuthor="maywzh" PmCreateDateTime="2019-11-24T09:34:29.965" PmLastModified="2019-11-24T09:34:47.933" QualityReason_IsNull="true" QualityScore="-1" UserIDLastNumericValue="0" UserID_IsNull="true"/>
+		<DataType BacklogActivityId="0" Documentation_plain="" Id="siPQ2XaD.AAAAQBT" Name="double" PmAuthor="maywzh" PmCreateDateTime="2019-11-24T09:34:29.965" PmLastModified="2019-11-24T09:34:47.933" QualityReason_IsNull="true" QualityScore="-1" UserIDLastNumericValue="0" UserID_IsNull="true"/>
+		<DataType BacklogActivityId="0" Documentation_plain="" Id="ciPQ2XaD.AAAAQBU" Name="float" PmAuthor="maywzh" PmCreateDateTime="2019-11-24T09:34:29.966" PmLastModified="2019-11-24T09:34:47.909" QualityReason_IsNull="true" QualityScore="-1" UserIDLastNumericValue="0" UserID_IsNull="true"/>
+		<DataType BacklogActivityId="0" Documentation_plain="" Id="ciPQ2XaD.AAAAQBV" Name="int" PmAuthor="maywzh" PmCreateDateTime="2019-11-24T09:34:29.966" PmLastModified="2019-11-24T09:34:47.909" QualityReason_IsNull="true" QualityScore="-1" UserIDLastNumericValue="0" UserID_IsNull="true"/>
+		<DataType BacklogActivityId="0" Documentation_plain="" Id="ciPQ2XaD.AAAAQBW" Name="long" PmAuthor="maywzh" PmCreateDateTime="2019-11-24T09:34:29.966" PmLastModified="2019-11-24T09:34:47.909" QualityReason_IsNull="true" QualityScore="-1" UserIDLastNumericValue="0" UserID_IsNull="true"/>
+		<DataType BacklogActivityId="0" Documentation_plain="" Id="8iPQ2XaD.AAAAQBX" Name="short" PmAuthor="maywzh" PmCreateDateTime="2019-11-24T09:34:29.967" PmLastModified="2019-11-24T09:34:47.878" QualityReason_IsNull="true" QualityScore="-1" UserIDLastNumericValue="0" UserID_IsNull="true"/>
+		<DataType BacklogActivityId="0" Documentation_plain="" Id="8iPQ2XaD.AAAAQBY" Name="void" PmAuthor="maywzh" PmCreateDateTime="2019-11-24T09:34:29.967" PmLastModified="2019-11-24T09:34:47.878" QualityReason_IsNull="true" QualityScore="-1" UserIDLastNumericValue="0" UserID_IsNull="true"/>
+		<DataType BacklogActivityId="0" Documentation_plain="" Id="CiPQ2XaD.AAAAQBZ" Name="string" PmAuthor="maywzh" PmCreateDateTime="2019-11-24T09:34:29.968" PmLastModified="2019-11-24T09:34:47.947" QualityReason_IsNull="true" QualityScore="-1" UserIDLastNumericValue="0" UserID_IsNull="true"/>
+		<ModelRelationshipContainer BacklogActivityId="0" Documentation_plain="" Id="uusw2XaD.AAAAQXh" Name="relationships" PmAuthor="maywzh" PmCreateDateTime="2019-11-24T09:35:40.381" PmLastModified="2019-11-24T18:58:17.923" QualityReason_IsNull="true" QualityScore="-1" UserIDLastNumericValue="0" UserID_IsNull="true">
+			<ModelChildren>
+				<ModelRelationshipContainer BacklogActivityId="0" Documentation_plain="" Id="ATjguXaD.AAAAQgM" Name="CMMNPlanItemOnPart" PmAuthor="maywzh" PmCreateDateTime="2019-11-24T18:48:39.296" PmLastModified="2019-11-24T20:04:24.993" QualityReason_IsNull="true" QualityScore="-1" UserIDLastNumericValue="0" UserID_IsNull="true">
+					<ModelChildren>
+						<CMMNPlanItemOnPart BacklogActivityId="0" Documentation_plain="" From="6A1suXaD.AAAAQlp" Id="kkWCuXaD.AAAAQwd" PmAuthor="maywzh" PmCreateDateTime="2019-11-24T19:52:34.633" PmLastModified="2019-11-24T19:54:24.220" QualityReason_IsNull="true" QualityScore="-1" Source="6A1suXaD.AAAAQlp" StandardEvent="complete" To="XIcCuXaD.AAAAQvT" UserIDLastNumericValue="0" UserID_IsNull="true">
+							<MasterView>
+								<CMMNPlanItemOnPart Idref="8kWCuXaD.AAAAQwe"/>
+							</MasterView>
+						</CMMNPlanItemOnPart>
+						<CMMNPlanItemOnPart BacklogActivityId="0" Documentation_plain="" From="6A1suXaD.AAAAQlp" Id="nSIiuXaD.AAAAQzC" PmAuthor="maywzh" PmCreateDateTime="2019-11-24T19:55:27.289" PmLastModified="2019-11-24T19:56:53.895" QualityReason_IsNull="true" QualityScore="-1" Source="6A1suXaD.AAAAQlp" StandardEvent="complete" To="yb3CuXaD.AAAAQyl" UserIDLastNumericValue="0" UserID_IsNull="true">
+							<MasterView>
+								<CMMNPlanItemOnPart Idref="fSIiuXaD.AAAAQzD"/>
+							</MasterView>
+						</CMMNPlanItemOnPart>
+						<CMMNPlanItemOnPart BacklogActivityId="0" Documentation_plain="" From="m.7nOXaD.AAAARls" Id="v79iuXaD.AAAAQ1f" PmAuthor="maywzh" PmCreateDateTime="2019-11-24T19:58:25.789" PmLastModified="2019-11-24T19:58:53.273" QualityReason_IsNull="true" QualityScore="-1" Source="m.7nOXaD.AAAARls" StandardEvent="complete" To="lPYCuXaD.AAAAQu6" UserIDLastNumericValue="0" UserID_IsNull="true">
+							<MasterView>
+								<CMMNPlanItemOnPart Idref="IH9iuXaD.AAAAQ1g"/>
+							</MasterView>
+						</CMMNPlanItemOnPart>
+						<CMMNPlanItemOnPart BacklogActivityId="0" Documentation_plain="" From="2FwCuXaD.AAAAQuk" Id="eSPiuXaD.AAAAQ2E" PmAuthor="maywzh" PmCreateDateTime="2019-11-24T19:59:16.638" PmLastModified="2019-11-24T20:00:23.469" QualityReason_IsNull="true" QualityScore="-1" Source="2FwCuXaD.AAAAQuk" StandardEvent="create" To="j57iuXaD.AAAAQ13" UserIDLastNumericValue="0" UserID_IsNull="true">
+							<MasterView>
+								<CMMNPlanItemOnPart Idref="xSPiuXaD.AAAAQ2F"/>
+							</MasterView>
+						</CMMNPlanItemOnPart>
+						<CMMNPlanItemOnPart BacklogActivityId="0" Documentation_plain="" From="P538uXaD.AAAAQuH" Id="lwuSuXaD.AAAAQ4S" PmAuthor="maywzh" PmCreateDateTime="2019-11-24T20:01:30.857" PmLastModified="2019-11-24T20:03:02.743" QualityReason_IsNull="true" QualityScore="-1" Source="P538uXaD.AAAAQuH" StandardEvent="complete" To="orESuXaD.AAAAQ3A" UserIDLastNumericValue="0" UserID_IsNull="true">
+							<MasterView>
+								<CMMNPlanItemOnPart Idref="9wuSuXaD.AAAAQ4T"/>
+							</MasterView>
+						</CMMNPlanItemOnPart>
+						<CMMNPlanItemOnPart BacklogActivityId="0" Documentation_plain="" From="P538uXaD.AAAAQuH" Id="EDuSuXaD.AAAAQ4W" PmAuthor="maywzh" PmCreateDateTime="2019-11-24T20:01:33.704" PmLastModified="2019-11-24T20:03:02.752" QualityReason_IsNull="true" QualityScore="-1" Source="P538uXaD.AAAAQuH" StandardEvent="complete" To="hP2SuXaD.AAAAQ4J" UserIDLastNumericValue="0" UserID_IsNull="true">
+							<MasterView>
+								<CMMNPlanItemOnPart Idref="cDuSuXaD.AAAAQ4X"/>
+							</MasterView>
+						</CMMNPlanItemOnPart>
+						<CMMNPlanItemOnPart BacklogActivityId="0" Documentation_plain="" From="S19SuXaD.AAAAQ5p" Id="Iq3SuXaD.AAAAQ6M" PmAuthor="maywzh" PmCreateDateTime="2019-11-24T20:03:34.852" PmLastModified="2019-11-24T20:03:49.217" QualityReason_IsNull="true" QualityScore="-1" Source="6.D8uXaD.AAAAQt0" StandardEvent="complete" To="61nSuXaD.AAAAQ6H" UserIDLastNumericValue="0" UserID_IsNull="true">
+							<MasterView>
+								<CMMNPlanItemOnPart Idref="Uq3SuXaD.AAAAQ6N"/>
+							</MasterView>
+						</CMMNPlanItemOnPart>
+						<CMMNPlanItemOnPart BacklogActivityId="0" Documentation_plain="" From="pxTSuXaD.AAAAQ5y" Id="OZoyuXaD.AAAAQ6q" PmAuthor="maywzh" PmCreateDateTime="2019-11-24T20:04:16.924" PmLastModified="2019-11-24T20:04:24.991" QualityReason_IsNull="true" QualityScore="-1" Source="pxTSuXaD.AAAAQ5y" StandardEvent="create" To="LttwuXaD.AAAAQhn" UserIDLastNumericValue="0" UserID_IsNull="true">
+							<MasterView>
+								<CMMNPlanItemOnPart Idref="hZoyuXaD.AAAAQ6r"/>
+							</MasterView>
+						</CMMNPlanItemOnPart>
+					</ModelChildren>
+				</ModelRelationshipContainer>
+				<ModelRelationshipContainer BacklogActivityId="0" Documentation_plain="" Id="fQ_wuXaD.AAAAQiR" Name="CMMNCaseFileItemOnPart" PmAuthor="maywzh" PmCreateDateTime="2019-11-24T18:58:17.918" PmLastModified="2019-11-24T19:39:55.044" QualityReason_IsNull="true" QualityScore="-1" UserIDLastNumericValue="0" UserID_IsNull="true">
+					<ModelChildren>
+						<CMMNCaseFileItemOnPart BacklogActivityId="0" Documentation_plain="" From="PnhwuXaD.AAAAQg4" Id="C1WsuXaD.AAAAQkx" PmAuthor="maywzh" PmCreateDateTime="2019-11-24T19:39:30.384" PmLastModified="2019-11-24T19:39:55.041" QualityReason_IsNull="true" QualityScore="-1" Source="PnhwuXaD.AAAAQg4" StandardEvent="addChild" To="wc6suXaD.AAAAQko" UserIDLastNumericValue="0" UserID_IsNull="true">
+							<MasterView>
+								<CMMNCaseFileItemOnPart Idref="61WsuXaD.AAAAQky"/>
+							</MasterView>
+						</CMMNCaseFileItemOnPart>
+					</ModelChildren>
+				</ModelRelationshipContainer>
+			</ModelChildren>
+		</ModelRelationshipContainer>
+		<CMMNCasePlanModel AutoComplete="true" BacklogActivityId="0" Documentation_plain="" Id="_esE2XaD.AAAAQb8" Name="Case Plan Model" PmAuthor="maywzh" PmCreateDateTime="2019-11-24T09:57:31.199" PmLastModified="2019-11-24T20:03:02.748" QualityReason_IsNull="true" QualityScore="-1" UserIDLastNumericValue="0" UserID_IsNull="true">
+			<MasterView>
+				<CMMNCasePlanModel Idref="TesE2XaD.AAAAQb3" Name="Case Plan Model"/>
+			</MasterView>
+			<ModelChildren>
+				<CMMNStagePlanItem BacklogActivityId="0" Definition="u.7nOXaD.AAAARlu" Documentation_plain="" Id="m.7nOXaD.AAAARls" Name="Add Question" PmAuthor="maywzh" PmCreateDateTime="2019-11-24T18:14:05.529" PmLastModified="2019-11-24T19:58:53.275" QualityReason_IsNull="true" QualityScore="-1" SynchronizeWithDefinition="true" UserIDLastNumericValue="0" UserID_IsNull="true">
+					<FromSimpleRelationships>
+						<CMMNPlanItemOnPart Idref="v79iuXaD.AAAAQ1f" Name=""/>
+					</FromSimpleRelationships>
+					<MasterView>
+						<CMMNStagePlanItem Idref="a.7nOXaD.AAAARlr" Name="Add Question"/>
+					</MasterView>
+					<ModelChildren>
+						<CMMNDecisionTaskPlanItem BacklogActivityId="0" Definition="OaEcuXaD.AAAAQn8" Documentation_plain="" Id="OaEcuXaD.AAAAQn7" Name="Edit Title" PmAuthor="maywzh" PmCreateDateTime="2019-11-24T19:42:37.468" PmLastModified="2019-11-24T19:54:24.227" QualityReason_IsNull="true" QualityScore="-1" SynchronizeWithDefinition="true" UserIDLastNumericValue="0" UserID_IsNull="true">
+							<MasterView>
+								<CMMNDecisionTaskPlanItem Idref="2aEcuXaD.AAAAQn6" Name="Edit Title"/>
+							</MasterView>
+							<ModelChildren>
+								<CMMNEntryCriterion BacklogActivityId="0" Documentation_plain="" Id="XIcCuXaD.AAAAQvT" Name="" PmAuthor="maywzh" PmCreateDateTime="2019-11-24T19:51:45.210" PmLastModified="2019-11-24T19:54:24.223" QualityReason_IsNull="true" QualityScore="-1" UserIDLastNumericValue="0" UserID_IsNull="true">
+									<ToSimpleRelationships>
+										<CMMNPlanItemOnPart Idref="kkWCuXaD.AAAAQwd" Name=""/>
+									</ToSimpleRelationships>
+									<MasterView>
+										<CMMNEntryCriterion Idref="XIcCuXaD.AAAAQvS" Name=""/>
+									</MasterView>
+								</CMMNEntryCriterion>
+							</ModelChildren>
+						</CMMNDecisionTaskPlanItem>
+						<CMMNHumanTaskPlanItem BacklogActivityId="0" Definition="lPJCuXaD.AAAAQxR" Documentation_plain="" Id="FPJCuXaD.AAAAQxQ" Name="Edit Topic" PmAuthor="maywzh" PmCreateDateTime="2019-11-24T19:53:18.888" PmLastModified="2019-11-24T19:55:08.059" QualityReason_IsNull="true" QualityScore="-1" SynchronizeWithDefinition="true" UserIDLastNumericValue="0" UserID_IsNull="true">
+							<MasterView>
+								<CMMNHumanTaskPlanItem Idref="FPJCuXaD.AAAAQxP" Name="Edit Topic"/>
+							</MasterView>
+							<ModelChildren>
+								<CMMNEntryCriterion BacklogActivityId="0" Documentation_plain="" Id="yb3CuXaD.AAAAQyl" Name="" PmAuthor="maywzh" PmCreateDateTime="2019-11-24T19:54:52.691" PmLastModified="2019-11-24T19:56:53.901" QualityReason_IsNull="true" QualityScore="-1" UserIDLastNumericValue="0" UserID_IsNull="true">
+									<ToSimpleRelationships>
+										<CMMNPlanItemOnPart Idref="nSIiuXaD.AAAAQzC" Name=""/>
+									</ToSimpleRelationships>
+									<MasterView>
+										<CMMNEntryCriterion Idref="yb3CuXaD.AAAAQyk" Name=""/>
+									</MasterView>
+								</CMMNEntryCriterion>
+							</ModelChildren>
+						</CMMNHumanTaskPlanItem>
+						<CMMNHumanTaskDiscretionaryItem BacklogActivityId="0" Definition="faG8uXaD.AAAAQs3" Documentation_plain="" Id="3aG8uXaD.AAAAQs2" Name="Edit Detail" PmAuthor="maywzh" PmCreateDateTime="2019-11-24T19:48:05.179" PmLastModified="2019-11-24T19:58:53.271" QualityReason_IsNull="true" QualityScore="-1" SynchronizeWithDefinition="true" UserIDLastNumericValue="0" UserID_IsNull="true">
+							<MasterView>
+								<CMMNHumanTaskDiscretionaryItem Idref="7aG8uXaD.AAAAQs1" Name="Edit Detail"/>
+							</MasterView>
+						</CMMNHumanTaskDiscretionaryItem>
+					</ModelChildren>
+				</CMMNStagePlanItem>
+				<CMMNStage AutoComplete="false" BacklogActivityId="0" DiagramId_IsNull="true" Documentation_plain="" Id="u.7nOXaD.AAAARlu" Name="Add Question" PmAuthor="maywzh" PmCreateDateTime="2019-11-24T18:14:05.533" PmLastModified="2019-11-24T19:58:08.172" QualityReason_IsNull="true" QualityScore="-1" UserIDLastNumericValue="0" UserID_IsNull="true">
+					<ModelChildren>
+						<CMMNHumanTask BacklogActivityId="0" Blocking="true" Documentation_plain="" Id="mA1suXaD.AAAAQlq" Name="Prepare Question Idea" PmAuthor="maywzh" PmCreateDateTime="2019-11-24T19:40:37.273" PmLastModified="2019-11-24T19:52:05.882" QualityReason_IsNull="true" QualityScore="-1" UserIDLastNumericValue="0" UserID_IsNull="true"/>
+						<CMMNDecisionTask BacklogActivityId="0" Blocking="true" DecisionExpression_IsNull="true" Documentation_plain="" Id="OaEcuXaD.AAAAQn8" Name="Edit Title" PmAuthor="maywzh" PmCreateDateTime="2019-11-24T19:42:37.468" PmLastModified="2019-11-24T19:54:24.226" QualityReason_IsNull="true" QualityScore="-1" UserIDLastNumericValue="0" UserID_IsNull="true"/>
+						<CMMNPlanningTable BacklogActivityId="0" Documentation_plain="" Id="hPScuXaD.AAAAQoj" Name="" PmAuthor="maywzh" PmCreateDateTime="2019-11-24T19:43:20.865" PmLastModified="2019-11-24T19:43:35.828" QualityReason_IsNull="true" QualityScore="-1" UserIDLastNumericValue="0" UserID_IsNull="true">
+							<MasterView>
+								<CMMNPlanningTable Idref="BPScuXaD.AAAAQoi" Name=""/>
+							</MasterView>
+						</CMMNPlanningTable>
+						<CMMNHumanTask BacklogActivityId="0" Blocking="true" Documentation_plain="" Id="lPJCuXaD.AAAAQxR" Name="Edit Topic" PmAuthor="maywzh" PmCreateDateTime="2019-11-24T19:53:18.889" PmLastModified="2019-11-24T19:54:24.225" QualityReason_IsNull="true" QualityScore="-1" UserIDLastNumericValue="0" UserID_IsNull="true"/>
+					</ModelChildren>
+				</CMMNStage>
+				<CMMNExitCriterion BacklogActivityId="0" Documentation_plain="" Id="LttwuXaD.AAAAQhn" Name="" PmAuthor="maywzh" PmCreateDateTime="2019-11-24T18:57:06.932" PmLastModified="2019-11-24T20:04:24.991" QualityReason_IsNull="true" QualityScore="-1" UserIDLastNumericValue="0" UserID_IsNull="true">
+					<ToSimpleRelationships>
+						<CMMNPlanItemOnPart Idref="OZoyuXaD.AAAAQ6q" Name=""/>
+					</ToSimpleRelationships>
+					<MasterView>
+						<CMMNExitCriterion Idref="TttwuXaD.AAAAQhm" Name=""/>
+					</MasterView>
+				</CMMNExitCriterion>
+				<CMMNExitCriterion BacklogActivityId="0" Documentation_plain="" Id="wc6suXaD.AAAAQko" Name="" PmAuthor="maywzh" PmCreateDateTime="2019-11-24T19:39:16.230" PmLastModified="2019-11-24T19:39:55.041" QualityReason_IsNull="true" QualityScore="-1" UserIDLastNumericValue="0" UserID_IsNull="true">
+					<ToSimpleRelationships>
+						<CMMNCaseFileItemOnPart Idref="C1WsuXaD.AAAAQkx" Name=""/>
+					</ToSimpleRelationships>
+					<MasterView>
+						<CMMNExitCriterion Idref="wc6suXaD.AAAAQkm" Name=""/>
+					</MasterView>
+				</CMMNExitCriterion>
+				<CMMNHumanTaskPlanItem BacklogActivityId="0" Definition="mA1suXaD.AAAAQlq" Documentation_plain="" Id="6A1suXaD.AAAAQlp" Name="Prepare Question Idea" PmAuthor="maywzh" PmCreateDateTime="2019-11-24T19:40:37.271" PmLastModified="2019-11-24T19:56:53.903" QualityReason_IsNull="true" QualityScore="-1" SynchronizeWithDefinition="true" UserIDLastNumericValue="0" UserID_IsNull="true">
+					<FromSimpleRelationships>
+						<CMMNPlanItemOnPart Idref="kkWCuXaD.AAAAQwd" Name=""/>
+						<CMMNPlanItemOnPart Idref="nSIiuXaD.AAAAQzC" Name=""/>
+					</FromSimpleRelationships>
+					<MasterView>
+						<CMMNHumanTaskPlanItem Idref="6A1suXaD.AAAAQlo" Name="Prepare Question Idea"/>
+					</MasterView>
+				</CMMNHumanTaskPlanItem>
+				<CMMNPlanningTable BacklogActivityId="0" Documentation_plain="" Id="6EicuXaD.AAAAQoa" Name="" PmAuthor="maywzh" PmCreateDateTime="2019-11-24T19:43:13.431" PmLastModified="2019-11-24T20:03:02.746" QualityReason_IsNull="true" QualityScore="-1" UserIDLastNumericValue="0" UserID_IsNull="true">
+					<MasterView>
+						<CMMNPlanningTable Idref="KEicuXaD.AAAAQoZ" Name=""/>
+					</MasterView>
+					<ModelChildren>
+						<CMMNHumanTaskDiscretionaryItem BacklogActivityId="0" Definition="SOsSuXaD.AAAAQ3O" Documentation_plain="" Id="8OsSuXaD.AAAAQ3N" Name="Vote Answer" PmAuthor="maywzh" PmCreateDateTime="2019-11-24T20:00:26.895" PmLastModified="2019-11-24T20:03:02.751" QualityReason_IsNull="true" QualityScore="-1" SynchronizeWithDefinition="true" UserIDLastNumericValue="0" UserID_IsNull="true">
+							<MasterView>
+								<CMMNHumanTaskDiscretionaryItem Idref="8OsSuXaD.AAAAQ3M" Name="Vote Answer"/>
+							</MasterView>
+							<ModelChildren>
+								<CMMNEntryCriterion BacklogActivityId="0" Documentation_plain="" Id="hP2SuXaD.AAAAQ4J" Name="" PmAuthor="maywzh" PmCreateDateTime="2019-11-24T20:01:26.305" PmLastModified="2019-11-24T20:03:02.753" QualityReason_IsNull="true" QualityScore="-1" UserIDLastNumericValue="0" UserID_IsNull="true">
+									<ToSimpleRelationships>
+										<CMMNPlanItemOnPart Idref="EDuSuXaD.AAAAQ4W" Name=""/>
+									</ToSimpleRelationships>
+									<MasterView>
+										<CMMNEntryCriterion Idref="BP2SuXaD.AAAAQ4I" Name=""/>
+									</MasterView>
+								</CMMNEntryCriterion>
+							</ModelChildren>
+						</CMMNHumanTaskDiscretionaryItem>
+					</ModelChildren>
+				</CMMNPlanningTable>
+				<CMMNStagePlanItem BacklogActivityId="0" Definition="G.D8uXaD.AAAAQt1" Documentation_plain="" Id="6.D8uXaD.AAAAQt0" Name="Review Answer" PmAuthor="maywzh" PmCreateDateTime="2019-11-24T19:49:44.023" PmLastModified="2019-11-24T20:03:02.749" QualityReason_IsNull="true" QualityScore="-1" SynchronizeWithDefinition="true" UserIDLastNumericValue="0" UserID_IsNull="true">
+					<MasterView>
+						<CMMNStagePlanItem Idref="6.D8uXaD.AAAAQtz" Name="Review Answer"/>
+					</MasterView>
+					<ModelChildren>
+						<CMMNEntryCriterion BacklogActivityId="0" Documentation_plain="" Id="orESuXaD.AAAAQ3A" Name="" PmAuthor="maywzh" PmCreateDateTime="2019-11-24T20:00:08.005" PmLastModified="2019-11-24T20:03:02.743" QualityReason_IsNull="true" QualityScore="-1" UserIDLastNumericValue="0" UserID_IsNull="true">
+							<ToSimpleRelationships>
+								<CMMNPlanItemOnPart Idref="lwuSuXaD.AAAAQ4S" Name=""/>
+							</ToSimpleRelationships>
+							<MasterView>
+								<CMMNEntryCriterion Idref="IrESuXaD.AAAAQ2_" Name=""/>
+							</MasterView>
+						</CMMNEntryCriterion>
+						<CMMNGeneralTaskPlanItem BacklogActivityId="0" Definition="CHpSuXaD.AAAAQ4." Documentation_plain="" Id="8HpSuXaD.AAAAQ49" Name="Adopt answer" PmAuthor="maywzh" PmCreateDateTime="2019-11-24T20:02:06.991" PmLastModified="2019-11-24T20:03:02.749" QualityReason_IsNull="true" QualityScore="-1" SynchronizeWithDefinition="true" UserIDLastNumericValue="0" UserID_IsNull="true">
+							<MasterView>
+								<CMMNGeneralTaskPlanItem Idref="cHpSuXaD.AAAAQ48" Name="Adopt answer"/>
+							</MasterView>
+						</CMMNGeneralTaskPlanItem>
+						<CMMNExitCriterion BacklogActivityId="0" Documentation_plain="" Id="S19SuXaD.AAAAQ5p" Name="" PmAuthor="maywzh" PmCreateDateTime="2019-11-24T20:02:47.122" PmLastModified="2019-11-24T20:03:49.220" QualityReason_IsNull="true" QualityScore="-1" UserIDLastNumericValue="0" UserID_IsNull="true">
+							<FromSimpleRelationships>
+								<CMMNPlanItemOnPart Idref="Iq3SuXaD.AAAAQ6M" Name=""/>
+							</FromSimpleRelationships>
+							<MasterView>
+								<CMMNExitCriterion Idref="S19SuXaD.AAAAQ5o" Name=""/>
+							</MasterView>
+						</CMMNExitCriterion>
+					</ModelChildren>
+				</CMMNStagePlanItem>
+				<CMMNStage AutoComplete="false" BacklogActivityId="0" DiagramId_IsNull="true" Documentation_plain="" Id="G.D8uXaD.AAAAQt1" Name="Review Answer" PmAuthor="maywzh" PmCreateDateTime="2019-11-24T19:49:44.024" PmLastModified="2019-11-24T20:03:02.754" QualityReason_IsNull="true" QualityScore="-1" UserIDLastNumericValue="0" UserID_IsNull="true">
+					<ModelChildren>
+						<CMMNGeneralTask BacklogActivityId="0" Blocking="true" Documentation_plain="" Id="CHpSuXaD.AAAAQ4." Name="Adopt answer" PmAuthor="maywzh" PmCreateDateTime="2019-11-24T20:02:06.992" PmLastModified="2019-11-24T20:03:02.740" QualityReason_IsNull="true" QualityScore="-1" UserIDLastNumericValue="0" UserID_IsNull="true"/>
+					</ModelChildren>
+				</CMMNStage>
+				<CMMNHumanTaskPlanItem BacklogActivityId="0" Definition="v538uXaD.AAAAQuI" Documentation_plain="" Id="P538uXaD.AAAAQuH" Name="Seek help" PmAuthor="maywzh" PmCreateDateTime="2019-11-24T19:50:29.628" PmLastModified="2019-11-24T20:03:02.752" QualityReason_IsNull="true" QualityScore="-1" SynchronizeWithDefinition="true" UserIDLastNumericValue="0" UserID_IsNull="true">
+					<FromSimpleRelationships>
+						<CMMNPlanItemOnPart Idref="lwuSuXaD.AAAAQ4S" Name=""/>
+						<CMMNPlanItemOnPart Idref="EDuSuXaD.AAAAQ4W" Name=""/>
+					</FromSimpleRelationships>
+					<MasterView>
+						<CMMNHumanTaskPlanItem Idref="P538uXaD.AAAAQuG" Name="Seek help"/>
+					</MasterView>
+					<ModelChildren>
+						<CMMNEntryCriterion BacklogActivityId="0" Documentation_plain="" Id="j57iuXaD.AAAAQ13" Name="" PmAuthor="maywzh" PmCreateDateTime="2019-11-24T19:58:57.521" PmLastModified="2019-11-24T20:00:23.469" QualityReason_IsNull="true" QualityScore="-1" UserIDLastNumericValue="0" UserID_IsNull="true">
+							<ToSimpleRelationships>
+								<CMMNPlanItemOnPart Idref="eSPiuXaD.AAAAQ2E" Name=""/>
+							</ToSimpleRelationships>
+							<MasterView>
+								<CMMNEntryCriterion Idref="D57iuXaD.AAAAQ12" Name=""/>
+							</MasterView>
+						</CMMNEntryCriterion>
+					</ModelChildren>
+				</CMMNHumanTaskPlanItem>
+				<CMMNHumanTask BacklogActivityId="0" Blocking="true" Documentation_plain="" Id="v538uXaD.AAAAQuI" Name="Seek help" PmAuthor="maywzh" PmCreateDateTime="2019-11-24T19:50:29.629" PmLastModified="2019-11-24T19:51:38.481" QualityReason_IsNull="true" QualityScore="-1" UserIDLastNumericValue="0" UserID_IsNull="true"/>
+				<CMMNMilestonePlanItem BacklogActivityId="0" Definition="hFwCuXaD.AAAAQum" Documentation_plain="" Id="2FwCuXaD.AAAAQuk" Name="Problem added" PmAuthor="maywzh" PmCreateDateTime="2019-11-24T19:51:02.427" PmLastModified="2019-11-24T20:00:23.470" QualityReason_IsNull="true" QualityScore="-1" SynchronizeWithDefinition="true" UserIDLastNumericValue="0" UserID_IsNull="true">
+					<FromSimpleRelationships>
+						<CMMNPlanItemOnPart Idref="eSPiuXaD.AAAAQ2E" Name=""/>
+					</FromSimpleRelationships>
+					<MasterView>
+						<CMMNMilestonePlanItem Idref="GFwCuXaD.AAAAQuj" Name="Problem added"/>
+					</MasterView>
+					<ModelChildren>
+						<CMMNEntryCriterion BacklogActivityId="0" Documentation_plain="" Id="lPYCuXaD.AAAAQu6" Name="" PmAuthor="maywzh" PmCreateDateTime="2019-11-24T19:51:16.009" PmLastModified="2019-11-24T19:58:53.276" QualityReason_IsNull="true" QualityScore="-1" UserIDLastNumericValue="0" UserID_IsNull="true">
+							<ToSimpleRelationships>
+								<CMMNPlanItemOnPart Idref="v79iuXaD.AAAAQ1f" Name=""/>
+							</ToSimpleRelationships>
+							<MasterView>
+								<CMMNEntryCriterion Idref="lPYCuXaD.AAAAQu5" Name=""/>
+							</MasterView>
+						</CMMNEntryCriterion>
+					</ModelChildren>
+				</CMMNMilestonePlanItem>
+				<CMMNMilestone BacklogActivityId="0" Documentation_plain="" Id="hFwCuXaD.AAAAQum" Name="Problem added" PmAuthor="maywzh" PmCreateDateTime="2019-11-24T19:51:02.433" PmLastModified="2019-11-24T19:51:38.485" QualityReason_IsNull="true" QualityScore="-1" UserIDLastNumericValue="0" UserID_IsNull="true"/>
+				<CMMNMilestonePlanItem BacklogActivityId="0" Definition="ZxTSuXaD.AAAAQ5z" Documentation_plain="" Id="pxTSuXaD.AAAAQ5y" Name="problem completed" PmAuthor="maywzh" PmCreateDateTime="2019-11-24T20:02:58.917" PmLastModified="2019-11-24T20:04:24.993" QualityReason_IsNull="true" QualityScore="-1" SynchronizeWithDefinition="true" UserIDLastNumericValue="0" UserID_IsNull="true">
+					<FromSimpleRelationships>
+						<CMMNPlanItemOnPart Idref="OZoyuXaD.AAAAQ6q" Name=""/>
+					</FromSimpleRelationships>
+					<MasterView>
+						<CMMNMilestonePlanItem Idref="pxTSuXaD.AAAAQ5x" Name="problem completed"/>
+					</MasterView>
+					<ModelChildren>
+						<CMMNEntryCriterion BacklogActivityId="0" Documentation_plain="" Id="61nSuXaD.AAAAQ6H" Name="" PmAuthor="maywzh" PmCreateDateTime="2019-11-24T20:03:28.087" PmLastModified="2019-11-24T20:03:49.217" QualityReason_IsNull="true" QualityScore="-1" UserIDLastNumericValue="0" UserID_IsNull="true">
+							<ToSimpleRelationships>
+								<CMMNPlanItemOnPart Idref="Iq3SuXaD.AAAAQ6M" Name=""/>
+							</ToSimpleRelationships>
+							<MasterView>
+								<CMMNEntryCriterion Idref="61nSuXaD.AAAAQ6G" Name=""/>
+							</MasterView>
+						</CMMNEntryCriterion>
+					</ModelChildren>
+				</CMMNMilestonePlanItem>
+				<CMMNMilestone BacklogActivityId="0" Documentation_plain="" Id="ZxTSuXaD.AAAAQ5z" Name="problem completed" PmAuthor="maywzh" PmCreateDateTime="2019-11-24T20:02:58.918" PmLastModified="2019-11-24T20:03:49.220" QualityReason_IsNull="true" QualityScore="-1" UserIDLastNumericValue="0" UserID_IsNull="true"/>
+			</ModelChildren>
+		</CMMNCasePlanModel>
+		<CMMNCaseFileItem BacklogActivityId="0" Documentation_plain="" Id="PnhwuXaD.AAAAQg4" Multiplicity="Unspecified" Name="completed question" PmAuthor="maywzh" PmCreateDateTime="2019-11-24T18:56:18.556" PmLastModified="2019-11-24T19:39:55.044" QualityReason_IsNull="true" QualityScore="-1" UserIDLastNumericValue="0" UserID_IsNull="true">
+			<FromSimpleRelationships>
+				<CMMNCaseFileItemOnPart Idref="C1WsuXaD.AAAAQkx" Name=""/>
+			</FromSimpleRelationships>
+			<MasterView>
+				<CMMNCaseFileItem Idref="PnhwuXaD.AAAAQg3" Name="completed question"/>
+			</MasterView>
+		</CMMNCaseFileItem>
+		<CMMNHumanTask BacklogActivityId="0" Blocking="true" Documentation_plain="" Id="faG8uXaD.AAAAQs3" Name="Edit Detail" PmAuthor="maywzh" PmCreateDateTime="2019-11-24T19:48:05.182" PmLastModified="2019-11-24T19:58:08.169" QualityReason_IsNull="true" QualityScore="-1" UserIDLastNumericValue="0" UserID_IsNull="true"/>
+		<CMMNHumanTask BacklogActivityId="0" Blocking="true" Documentation_plain="" Id="SOsSuXaD.AAAAQ3O" Name="Vote Answer" PmAuthor="maywzh" PmCreateDateTime="2019-11-24T20:00:26.898" PmLastModified="2019-11-24T20:03:02.750" QualityReason_IsNull="true" QualityScore="-1" UserIDLastNumericValue="0" UserID_IsNull="true"/>
+	</Models>
+	<Diagrams>
+		<CMMNDiagram AlignToGrid="false" AutoFitShapesSize="false" ConnectionPointStyle="0" ConnectorLabelOrientation="0" ConnectorLineJumps="0" ConnectorLineJumpsSize="0" ConnectorModelElementNameAlignment="4" ConnectorStyle="1" DiagramBackground="rgb(255, 255, 255)" Editable="true" FollowDiagramParentElement="true" GridColor="rgb(192, 192, 192)" GridHeight="10" GridVisible="false" GridWidth="10" Height="806" HideConnectorIfFromToIsHidden="0" HideEmptyTaggedValues="false" Id="8EoE2XaD.AAAAQbU" ImageHeight="0" ImageScale="1.0" ImageWidth="0" InitializeDiagramForCreate="true" Maximized="true" ModelElementNameAlignment="4" Name="CMMN Diagram1" PaintConnectorThroughLabel="1" PmAuthor="maywzh" PmCreateDateTime="2019-11-24T09:56:56.975" PmLastModified="2019-11-24T20:04:22.392" PointConnectorEndToCompartmentMember="true" QualityScore="-1" RequestFitSizeWithPromptUser="false" RequestValidateSnapToGrid="false" ShapePresentationOption="0" ShowActivityStateNodeCaption="524287" ShowAllocatedFrom="true" ShowAllocatedTo="true" ShowCaseFileItemOnPartStandardEvent="2" ShowColorLegend="false" ShowConnectorName="0" ShowConstraints="false" ShowDefaultPackage="false" ShowInformationItemOption="2" ShowPMAuthor="false" ShowPMDifficulty="false" ShowPMDiscipline="false" ShowPMIteration="false" ShowPMPhase="false" ShowPMPriority="false" ShowPMStatus="false" ShowPMVersion="false" ShowPackageNameStyle="0" ShowPlanItemOnPartStandardEvent="2" ShowShapeLegend="false" ShowShapeStereotypeIconName="true" ShowStereotypes="true" ShowTaggedValues="false" TeamworkCreateDateTime="0" TrimmedHeight="0" TrimmedWidth="0" Width="1414" X="0" Y="0" ZoomRatio="1.0" _globalPaletteOption="true">
+			<Shapes>
+				<CMMNCasePlanModel Background="rgb(122, 207, 245)" ConnectToPoint="true" ConnectionPointType="2" CoverConnector="false" Foreground="rgb(0, 0, 0)" Height="579" Id="TesE2XaD.AAAAQb3" MetaModelElement="_esE2XaD.AAAAQb8" Model="_esE2XaD.AAAAQb8" ModelElementNameAlignment="9" Name="Case Plan Model" OverrideAppearanceWithStereotypeIcon="true" ParentConnectorDTheta="0.0" ParentConnectorHeaderLength="40" ParentConnectorLineLength="10" PresentationOption="4" PrimitiveShapeType="0" RequestDefaultSize="false" RequestFitSize="false" RequestFitSizeFromCenter="false" RequestResetCaption="false" RequestResetCaptionFitWidth="false" RequestResetCaptionSize="false" RequestSetSizeOption="0" Selectable="true" ShowAllocatedFrom="0" ShowAllocatedTo="0" ShowStereotypeIconName="0" Width="963" X="160" Y="87" ZOrder="50">
+					<ElementFont Color="rgb(0, 0, 0)" Name="Dialog" Size="11" Style="0"/>
+					<Line Cap="0" Color="rgb(0, 0, 0)" Transparency="0" Weight="1.0">
+						<Stroke/>
+					</Line>
+					<Caption Height="20" InternalHeight="-2147483648" InternalWidth="-2147483648" Side="Center" Visible="true" Width="191" X="8" Y="0"/>
+					<DiagramElementChildren>
+						<CMMNStagePlanItem Background="rgb(122, 207, 245)" ConnectToPoint="true" ConnectionPointType="2" CoverConnector="false" Expanded="false" Foreground="rgb(0, 0, 0)" Height="215" Id="a.7nOXaD.AAAARlr" MetaModelElement="m.7nOXaD.AAAARls" Model="m.7nOXaD.AAAARls" ModelElementNameAlignment="9" Name="Add Question" OverrideAppearanceWithStereotypeIcon="true" ParentConnectorDTheta="0.0" ParentConnectorHeaderLength="40" ParentConnectorLineLength="10" PresentationOption="4" PrimitiveShapeType="0" RequestDefaultSize="false" RequestFitSize="false" RequestFitSizeFromCenter="false" RequestResetCaption="false" RequestResetCaptionFitWidth="false" RequestResetCaptionSize="false" RequestSetSizeOption="0" Selectable="true" ShowAllocatedFrom="0" ShowAllocatedTo="0" ShowStereotypeIconName="0" Width="307" X="346" Y="153" ZOrder="48">
+							<ElementFont Color="rgb(0, 0, 0)" Name="Dialog" Size="11" Style="0"/>
+							<Line Cap="0" Color="rgb(0, 0, 0)" Transparency="0" Weight="1.0">
+								<Stroke/>
+							</Line>
+							<Caption Height="14" InternalHeight="-2147483648" InternalWidth="-2147483648" Side="Center" Visible="true" Width="308" X="0" Y="10"/>
+							<DiagramElementChildren>
+								<CMMNDecisionTaskPlanItem Background="rgb(122, 207, 245)" ConnectToPoint="true" ConnectionPointType="2" CoverConnector="false" Foreground="rgb(0, 0, 0)" Height="49" Id="2aEcuXaD.AAAAQn6" MetaModelElement="OaEcuXaD.AAAAQn7" Model="OaEcuXaD.AAAAQn7" ModelElementNameAlignment="9" Name="Edit Title" OverrideAppearanceWithStereotypeIcon="true" ParentConnectorDTheta="0.0" ParentConnectorHeaderLength="40" ParentConnectorLineLength="10" PresentationOption="4" PrimitiveShapeType="0" RequestDefaultSize="false" RequestFitSize="false" RequestFitSizeFromCenter="false" RequestResetCaption="false" RequestResetCaptionFitWidth="false" RequestResetCaptionSize="false" RequestSetSizeOption="0" Selectable="true" ShowAllocatedFrom="0" ShowAllocatedTo="0" ShowStereotypeIconName="0" Width="87" X="385" Y="195" ZOrder="38">
+									<ElementFont Color="rgb(0, 0, 0)" Name="Dialog" Size="11" Style="0"/>
+									<Line Cap="0" Color="rgb(0, 0, 0)" Transparency="0" Weight="1.0">
+										<Stroke/>
+									</Line>
+									<Caption Height="49" InternalHeight="-2147483648" InternalWidth="-2147483648" Side="Center" Visible="true" Width="66" X="21" Y="0"/>
+									<DiagramElementChildren>
+										<CMMNEntryCriterion Background="rgb(122, 207, 245)" ConnectToPoint="true" ConnectionPointType="2" CoverConnector="false" Foreground="rgb(0, 0, 0)" Height="24" Id="XIcCuXaD.AAAAQvS" MetaModelElement="XIcCuXaD.AAAAQvT" Model="XIcCuXaD.AAAAQvT" ModelElementNameAlignment="9" Name="" OverrideAppearanceWithStereotypeIcon="true" ParentConnectorDTheta="0.0" ParentConnectorHeaderLength="40" ParentConnectorLineLength="10" PresentationOption="4" PrimitiveShapeType="0" RequestDefaultSize="false" RequestFitSize="false" RequestFitSizeFromCenter="false" RequestResetCaption="false" RequestResetCaptionFitWidth="false" RequestResetCaptionSize="false" RequestSetSizeOption="0" Selectable="true" ShowAllocatedFrom="0" ShowAllocatedTo="0" ShowStereotypeIconName="0" Width="16" X="377" Y="206" ZOrder="22">
+											<ElementFont Color="rgb(0, 0, 0)" Name="Dialog" Size="11" Style="0"/>
+											<Line Cap="0" Color="rgb(0, 0, 0)" Transparency="0" Weight="1.0">
+												<Stroke/>
+											</Line>
+											<Caption Height="0" InternalHeight="-2147483648" InternalWidth="-2147483648" Side="None" Visible="true" Width="20" X="375" Y="230"/>
+											<FillColor Color="rgb(157, 204, 176)" Style="1" Transparency="0" Type="1"/>
+										</CMMNEntryCriterion>
+									</DiagramElementChildren>
+									<FillColor Color="rgb(157, 204, 176)" Style="1" Transparency="0" Type="1"/>
+								</CMMNDecisionTaskPlanItem>
+								<CMMNPlanningTable Background="rgb(122, 207, 245)" ConnectToPoint="true" ConnectionPointType="2" CoverConnector="false" Expanded="false" Foreground="rgb(0, 0, 0)" Height="24" Id="BPScuXaD.AAAAQoi" MetaModelElement="hPScuXaD.AAAAQoj" Model="hPScuXaD.AAAAQoj" ModelElementNameAlignment="9" Name="" OverrideAppearanceWithStereotypeIcon="true" ParentConnectorDTheta="0.0" ParentConnectorHeaderLength="40" ParentConnectorLineLength="10" PresentationOption="4" PrimitiveShapeType="0" RequestDefaultSize="false" RequestFitSize="false" RequestFitSizeFromCenter="false" RequestResetCaption="false" RequestResetCaptionFitWidth="false" RequestResetCaptionSize="false" RequestSetSizeOption="0" Selectable="true" ShowAllocatedFrom="0" ShowAllocatedTo="0" ShowStereotypeIconName="0" Width="36" X="518" Y="141" ZOrder="34">
+									<ElementFont Color="rgb(0, 0, 0)" Name="Dialog" Size="11" Style="0"/>
+									<Line Cap="0" Color="rgb(0, 0, 0)" Transparency="0" Weight="1.0">
+										<Stroke/>
+									</Line>
+									<Caption Height="0" InternalHeight="-2147483648" InternalWidth="-2147483648" Side="None" Visible="true" Width="20" X="526" Y="165"/>
+									<FillColor Color="rgb(157, 204, 176)" Style="1" Transparency="0" Type="1"/>
+								</CMMNPlanningTable>
+								<CMMNHumanTaskDiscretionaryItem Background="rgb(122, 207, 245)" ConnectToPoint="true" ConnectionPointType="2" CoverConnector="false" Foreground="rgb(0, 0, 0)" Height="59" Id="7aG8uXaD.AAAAQs1" MetaModelElement="3aG8uXaD.AAAAQs2" Model="3aG8uXaD.AAAAQs2" ModelElementNameAlignment="9" Name="Edit Detail" OverrideAppearanceWithStereotypeIcon="true" ParentConnectorDTheta="0.0" ParentConnectorHeaderLength="40" ParentConnectorLineLength="10" PresentationOption="4" PrimitiveShapeType="0" RequestDefaultSize="false" RequestFitSize="false" RequestFitSizeFromCenter="false" RequestResetCaption="false" RequestResetCaptionFitWidth="false" RequestResetCaptionSize="false" RequestSetSizeOption="0" Selectable="true" ShowAllocatedFrom="0" ShowAllocatedTo="0" ShowStereotypeIconName="0" Width="98" X="527" Y="195" ZOrder="32">
+									<ElementFont Color="rgb(0, 0, 0)" Name="Dialog" Size="11" Style="0"/>
+									<Line Cap="1" Color="rgb(0, 0, 0)" Transparency="0" Weight="1.0">
+										<Stroke>
+											<Dashes>
+												<Dash Value="4.0"/>
+											</Dashes>
+										</Stroke>
+									</Line>
+									<Caption Height="59" InternalHeight="-2147483648" InternalWidth="-2147483648" Side="Center" Visible="true" Width="78" X="20" Y="0"/>
+									<FillColor Color="rgb(141, 225, 224)" Style="1" Transparency="0" Type="1"/>
+								</CMMNHumanTaskDiscretionaryItem>
+								<CMMNHumanTaskPlanItem Background="rgb(122, 207, 245)" ConnectToPoint="true" ConnectionPointType="2" CoverConnector="false" Foreground="rgb(0, 0, 0)" Height="48" Id="FPJCuXaD.AAAAQxP" MetaModelElement="FPJCuXaD.AAAAQxQ" Model="FPJCuXaD.AAAAQxQ" ModelElementNameAlignment="9" Name="Edit Topic" OverrideAppearanceWithStereotypeIcon="true" ParentConnectorDTheta="0.0" ParentConnectorHeaderLength="40" ParentConnectorLineLength="10" PresentationOption="4" PrimitiveShapeType="0" RequestDefaultSize="false" RequestFitSize="false" RequestFitSizeFromCenter="false" RequestResetCaption="false" RequestResetCaptionFitWidth="false" RequestResetCaptionSize="false" RequestSetSizeOption="0" Selectable="true" ShowAllocatedFrom="0" ShowAllocatedTo="0" ShowStereotypeIconName="0" Width="87" X="385" Y="272" ZOrder="20">
+									<ElementFont Color="rgb(0, 0, 0)" Name="Dialog" Size="11" Style="0"/>
+									<Line Cap="0" Color="rgb(0, 0, 0)" Transparency="0" Weight="1.0">
+										<Stroke/>
+									</Line>
+									<Caption Height="48" InternalHeight="-2147483648" InternalWidth="-2147483648" Side="Center" Visible="true" Width="67" X="20" Y="0"/>
+									<DiagramElementChildren>
+										<CMMNEntryCriterion Background="rgb(122, 207, 245)" ConnectToPoint="true" ConnectionPointType="2" CoverConnector="false" Foreground="rgb(0, 0, 0)" Height="24" Id="yb3CuXaD.AAAAQyk" MetaModelElement="yb3CuXaD.AAAAQyl" Model="yb3CuXaD.AAAAQyl" ModelElementNameAlignment="9" Name="" OverrideAppearanceWithStereotypeIcon="true" ParentConnectorDTheta="0.0" ParentConnectorHeaderLength="40" ParentConnectorLineLength="10" PresentationOption="4" PrimitiveShapeType="0" RequestDefaultSize="false" RequestFitSize="false" RequestFitSizeFromCenter="false" RequestResetCaption="false" RequestResetCaptionFitWidth="false" RequestResetCaptionSize="false" RequestSetSizeOption="0" Selectable="true" ShowAllocatedFrom="0" ShowAllocatedTo="0" ShowStereotypeIconName="0" Width="16" X="377" Y="282" ZOrder="18">
+											<ElementFont Color="rgb(0, 0, 0)" Name="Dialog" Size="11" Style="0"/>
+											<Line Cap="0" Color="rgb(0, 0, 0)" Transparency="0" Weight="1.0">
+												<Stroke/>
+											</Line>
+											<Caption Height="0" InternalHeight="-2147483648" InternalWidth="-2147483648" Side="None" Visible="true" Width="20" X="375" Y="306"/>
+											<FillColor Color="rgb(157, 204, 176)" Style="1" Transparency="0" Type="1"/>
+										</CMMNEntryCriterion>
+									</DiagramElementChildren>
+									<FillColor Color="rgb(157, 204, 176)" Style="1" Transparency="0" Type="1"/>
+								</CMMNHumanTaskPlanItem>
+							</DiagramElementChildren>
+							<FillColor Color="rgb(157, 204, 176)" Style="1" Transparency="0" Type="1"/>
+						</CMMNStagePlanItem>
+						<CMMNCaseFileItem Background="rgb(122, 207, 245)" ConnectToPoint="true" ConnectionPointType="2" CoverConnector="false" Foreground="rgb(0, 0, 0)" Height="50" Id="PnhwuXaD.AAAAQg3" MetaModelElement="PnhwuXaD.AAAAQg4" Model="PnhwuXaD.AAAAQg4" ModelElementNameAlignment="9" Name="completed question" OverrideAppearanceWithStereotypeIcon="true" ParentConnectorDTheta="0.0" ParentConnectorHeaderLength="40" ParentConnectorLineLength="10" PresentationOption="4" PrimitiveShapeType="0" RequestDefaultSize="false" RequestFitSize="false" RequestFitSizeFromCenter="false" RequestResetCaption="false" RequestResetCaptionFitWidth="false" RequestResetCaptionSize="false" RequestSetSizeOption="0" Selectable="true" ShowAllocatedFrom="0" ShowAllocatedTo="0" ShowStereotypeIconName="0" Width="40" X="1027" Y="222" ZOrder="46">
+							<ElementFont Color="rgb(0, 0, 0)" Name="Dialog" Size="11" Style="0"/>
+							<Line Cap="0" Color="rgb(0, 0, 0)" Transparency="0" Weight="1.0">
+								<Stroke/>
+							</Line>
+							<Caption Height="14" InternalHeight="-2147483648" InternalWidth="-2147483648" Side="South" Visible="true" Width="126" X="984" Y="272"/>
+							<FillColor Color="rgb(157, 204, 176)" Style="1" Transparency="0" Type="1"/>
+						</CMMNCaseFileItem>
+						<CMMNExitCriterion Background="rgb(122, 207, 245)" ConnectToPoint="true" ConnectionPointType="2" CoverConnector="false" Foreground="rgb(0, 0, 0)" Height="24" Id="TttwuXaD.AAAAQhm" MetaModelElement="LttwuXaD.AAAAQhn" Model="LttwuXaD.AAAAQhn" ModelElementNameAlignment="9" Name="" OverrideAppearanceWithStereotypeIcon="true" ParentConnectorDTheta="0.0" ParentConnectorHeaderLength="40" ParentConnectorLineLength="10" PresentationOption="4" PrimitiveShapeType="0" RequestDefaultSize="false" RequestFitSize="false" RequestFitSizeFromCenter="false" RequestResetCaption="false" RequestResetCaptionFitWidth="false" RequestResetCaptionSize="false" RequestSetSizeOption="0" Selectable="true" ShowAllocatedFrom="0" ShowAllocatedTo="0" ShowStereotypeIconName="0" Width="16" X="1115" Y="510" ZOrder="44">
+							<ElementFont Color="rgb(0, 0, 0)" Name="Dialog" Size="11" Style="0"/>
+							<Line Cap="0" Color="rgb(0, 0, 0)" Transparency="0" Weight="1.0">
+								<Stroke/>
+							</Line>
+							<Caption Height="0" InternalHeight="-2147483648" InternalWidth="-2147483648" Side="None" Visible="true" Width="20" X="1113" Y="534"/>
+							<FillColor Color="rgb(0, 87, 55)" Style="1" Transparency="0" Type="1"/>
+						</CMMNExitCriterion>
+						<CMMNExitCriterion Background="rgb(122, 207, 245)" ConnectToPoint="true" ConnectionPointType="2" CoverConnector="false" Foreground="rgb(0, 0, 0)" Height="24" Id="wc6suXaD.AAAAQkm" MetaModelElement="wc6suXaD.AAAAQko" Model="wc6suXaD.AAAAQko" ModelElementNameAlignment="9" Name="" OverrideAppearanceWithStereotypeIcon="true" ParentConnectorDTheta="0.0" ParentConnectorHeaderLength="40" ParentConnectorLineLength="10" PresentationOption="4" PrimitiveShapeType="0" RequestDefaultSize="false" RequestFitSize="false" RequestFitSizeFromCenter="false" RequestResetCaption="false" RequestResetCaptionFitWidth="false" RequestResetCaptionSize="false" RequestSetSizeOption="0" Selectable="true" ShowAllocatedFrom="0" ShowAllocatedTo="0" ShowStereotypeIconName="0" Width="16" X="1115" Y="239" ZOrder="42">
+							<ElementFont Color="rgb(0, 0, 0)" Name="Dialog" Size="11" Style="0"/>
+							<Line Cap="0" Color="rgb(0, 0, 0)" Transparency="0" Weight="1.0">
+								<Stroke/>
+							</Line>
+							<Caption Height="0" InternalHeight="-2147483648" InternalWidth="-2147483648" Side="None" Visible="true" Width="20" X="1113" Y="263"/>
+							<FillColor Color="rgb(0, 87, 55)" Style="1" Transparency="0" Type="1"/>
+						</CMMNExitCriterion>
+						<CMMNHumanTaskPlanItem Background="rgb(122, 207, 245)" ConnectToPoint="true" ConnectionPointType="2" CoverConnector="false" Foreground="rgb(0, 0, 0)" Height="49" Id="6A1suXaD.AAAAQlo" MetaModelElement="6A1suXaD.AAAAQlp" Model="6A1suXaD.AAAAQlp" ModelElementNameAlignment="9" Name="Prepare Question Idea" OverrideAppearanceWithStereotypeIcon="true" ParentConnectorDTheta="0.0" ParentConnectorHeaderLength="40" ParentConnectorLineLength="10" PresentationOption="4" PrimitiveShapeType="0" RequestDefaultSize="false" RequestFitSize="false" RequestFitSizeFromCenter="false" RequestResetCaption="false" RequestResetCaptionFitWidth="false" RequestResetCaptionSize="false" RequestSetSizeOption="0" Selectable="true" ShowAllocatedFrom="0" ShowAllocatedTo="0" ShowStereotypeIconName="0" Width="85" X="217" Y="194" ZOrder="40">
+							<ElementFont Color="rgb(0, 0, 0)" Name="Dialog" Size="11" Style="0"/>
+							<Line Cap="0" Color="rgb(0, 0, 0)" Transparency="0" Weight="1.0">
+								<Stroke/>
+							</Line>
+							<Caption Height="49" InternalHeight="-2147483648" InternalWidth="-2147483648" Side="Center" Visible="true" Width="65" X="20" Y="0"/>
+							<FillColor Color="rgb(157, 204, 176)" Style="1" Transparency="0" Type="1"/>
+						</CMMNHumanTaskPlanItem>
+						<CMMNPlanningTable Background="rgb(122, 207, 245)" ConnectToPoint="true" ConnectionPointType="2" CoverConnector="false" Expanded="true" Foreground="rgb(0, 0, 0)" Height="24" Id="KEicuXaD.AAAAQoZ" MetaModelElement="6EicuXaD.AAAAQoa" Model="6EicuXaD.AAAAQoa" ModelElementNameAlignment="9" Name="" OverrideAppearanceWithStereotypeIcon="true" ParentConnectorDTheta="0.0" ParentConnectorHeaderLength="40" ParentConnectorLineLength="10" PresentationOption="4" PrimitiveShapeType="0" RequestDefaultSize="false" RequestFitSize="false" RequestFitSizeFromCenter="false" RequestResetCaption="false" RequestResetCaptionFitWidth="false" RequestResetCaptionSize="false" RequestSetSizeOption="0" Selectable="true" ShowAllocatedFrom="0" ShowAllocatedTo="0" ShowStereotypeIconName="0" Width="36" X="498" Y="95" ZOrder="36">
+							<ElementFont Color="rgb(0, 0, 0)" Name="Dialog" Size="11" Style="0"/>
+							<Line Cap="0" Color="rgb(0, 0, 0)" Transparency="0" Weight="1.0">
+								<Stroke/>
+							</Line>
+							<Caption Height="0" InternalHeight="-2147483648" InternalWidth="-2147483648" Side="None" Visible="true" Width="20" X="506" Y="119"/>
+							<FillColor Color="rgb(157, 204, 176)" Style="1" Transparency="0" Type="1"/>
+						</CMMNPlanningTable>
+						<CMMNStagePlanItem Background="rgb(122, 207, 245)" ConnectToPoint="true" ConnectionPointType="2" CoverConnector="false" Expanded="false" Foreground="rgb(0, 0, 0)" Height="136" Id="6.D8uXaD.AAAAQtz" MetaModelElement="6.D8uXaD.AAAAQt0" Model="6.D8uXaD.AAAAQt0" ModelElementNameAlignment="9" Name="Review Answer" OverrideAppearanceWithStereotypeIcon="true" ParentConnectorDTheta="0.0" ParentConnectorHeaderLength="40" ParentConnectorLineLength="10" PresentationOption="4" PrimitiveShapeType="0" RequestDefaultSize="false" RequestFitSize="false" RequestFitSizeFromCenter="false" RequestResetCaption="false" RequestResetCaptionFitWidth="false" RequestResetCaptionSize="false" RequestSetSizeOption="0" Selectable="true" ShowAllocatedFrom="0" ShowAllocatedTo="0" ShowStereotypeIconName="0" Width="313" X="340" Y="455" ZOrder="30">
+							<ElementFont Color="rgb(0, 0, 0)" Name="Dialog" Size="11" Style="0"/>
+							<Line Cap="0" Color="rgb(0, 0, 0)" Transparency="0" Weight="1.0">
+								<Stroke/>
+							</Line>
+							<Caption Height="14" InternalHeight="-2147483648" InternalWidth="-2147483648" Side="Center" Visible="true" Width="313" X="0" Y="10"/>
+							<DiagramElementChildren>
+								<CMMNEntryCriterion Background="rgb(122, 207, 245)" ConnectToPoint="true" ConnectionPointType="2" CoverConnector="false" Foreground="rgb(0, 0, 0)" Height="24" Id="IrESuXaD.AAAAQ2_" MetaModelElement="orESuXaD.AAAAQ3A" Model="orESuXaD.AAAAQ3A" ModelElementNameAlignment="9" Name="" OverrideAppearanceWithStereotypeIcon="true" ParentConnectorDTheta="0.0" ParentConnectorHeaderLength="40" ParentConnectorLineLength="10" PresentationOption="4" PrimitiveShapeType="0" RequestDefaultSize="false" RequestFitSize="false" RequestFitSizeFromCenter="false" RequestResetCaption="false" RequestResetCaptionFitWidth="false" RequestResetCaptionSize="false" RequestSetSizeOption="0" Selectable="true" ShowAllocatedFrom="0" ShowAllocatedTo="0" ShowStereotypeIconName="0" Width="16" X="332" Y="489" ZOrder="14">
+									<ElementFont Color="rgb(0, 0, 0)" Name="Dialog" Size="11" Style="0"/>
+									<Line Cap="0" Color="rgb(0, 0, 0)" Transparency="0" Weight="1.0">
+										<Stroke/>
+									</Line>
+									<Caption Height="0" InternalHeight="-2147483648" InternalWidth="-2147483648" Side="None" Visible="true" Width="20" X="330" Y="513"/>
+									<FillColor Color="rgb(157, 204, 176)" Style="1" Transparency="0" Type="1"/>
+								</CMMNEntryCriterion>
+								<CMMNGeneralTaskPlanItem Background="rgb(122, 207, 245)" ConnectToPoint="true" ConnectionPointType="2" CoverConnector="false" Foreground="rgb(0, 0, 0)" Height="55" Id="cHpSuXaD.AAAAQ48" MetaModelElement="8HpSuXaD.AAAAQ49" Model="8HpSuXaD.AAAAQ49" ModelElementNameAlignment="9" Name="Adopt answer" OverrideAppearanceWithStereotypeIcon="true" ParentConnectorDTheta="0.0" ParentConnectorHeaderLength="40" ParentConnectorLineLength="10" PresentationOption="4" PrimitiveShapeType="0" RequestDefaultSize="false" RequestFitSize="false" RequestFitSizeFromCenter="false" RequestResetCaption="false" RequestResetCaptionFitWidth="false" RequestResetCaptionSize="false" RequestSetSizeOption="0" Selectable="true" ShowAllocatedFrom="0" ShowAllocatedTo="0" ShowStereotypeIconName="0" Width="83" X="535" Y="491" ZOrder="8">
+									<ElementFont Color="rgb(0, 0, 0)" Name="Dialog" Size="11" Style="0"/>
+									<Line Cap="0" Color="rgb(0, 0, 0)" Transparency="0" Weight="1.0">
+										<Stroke/>
+									</Line>
+									<Caption Height="55" InternalHeight="-2147483648" InternalWidth="-2147483648" Side="Center" Visible="true" Width="83" X="0" Y="0"/>
+									<FillColor Color="rgb(157, 204, 176)" Style="1" Transparency="0" Type="1"/>
+								</CMMNGeneralTaskPlanItem>
+								<CMMNExitCriterion Background="rgb(122, 207, 245)" ConnectToPoint="true" ConnectionPointType="2" CoverConnector="false" Foreground="rgb(0, 0, 0)" Height="24" Id="S19SuXaD.AAAAQ5o" MetaModelElement="S19SuXaD.AAAAQ5p" Model="S19SuXaD.AAAAQ5p" ModelElementNameAlignment="9" Name="" OverrideAppearanceWithStereotypeIcon="true" ParentConnectorDTheta="0.0" ParentConnectorHeaderLength="40" ParentConnectorLineLength="10" PresentationOption="4" PrimitiveShapeType="0" RequestDefaultSize="false" RequestFitSize="false" RequestFitSizeFromCenter="false" RequestResetCaption="false" RequestResetCaptionFitWidth="false" RequestResetCaptionSize="false" RequestSetSizeOption="0" Selectable="true" ShowAllocatedFrom="0" ShowAllocatedTo="0" ShowStereotypeIconName="0" Width="16" X="645" Y="509" ZOrder="6">
+									<ElementFont Color="rgb(0, 0, 0)" Name="Dialog" Size="11" Style="0"/>
+									<Line Cap="0" Color="rgb(0, 0, 0)" Transparency="0" Weight="1.0">
+										<Stroke/>
+									</Line>
+									<Caption Height="0" InternalHeight="-2147483648" InternalWidth="-2147483648" Side="None" Visible="true" Width="20" X="643" Y="533"/>
+									<FillColor Color="rgb(0, 87, 55)" Style="1" Transparency="0" Type="1"/>
+								</CMMNExitCriterion>
+							</DiagramElementChildren>
+							<FillColor Color="rgb(157, 204, 176)" Style="1" Transparency="0" Type="1"/>
+						</CMMNStagePlanItem>
+						<CMMNHumanTaskPlanItem Background="rgb(122, 207, 245)" ConnectToPoint="true" ConnectionPointType="2" CoverConnector="false" Foreground="rgb(0, 0, 0)" Height="57" Id="P538uXaD.AAAAQuG" MetaModelElement="P538uXaD.AAAAQuH" Model="P538uXaD.AAAAQuH" ModelElementNameAlignment="9" Name="Seek help" OverrideAppearanceWithStereotypeIcon="true" ParentConnectorDTheta="0.0" ParentConnectorHeaderLength="40" ParentConnectorLineLength="10" PresentationOption="4" PrimitiveShapeType="0" RequestDefaultSize="false" RequestFitSize="false" RequestFitSizeFromCenter="false" RequestResetCaption="false" RequestResetCaptionFitWidth="false" RequestResetCaptionSize="false" RequestSetSizeOption="0" Selectable="true" ShowAllocatedFrom="0" ShowAllocatedTo="0" ShowStereotypeIconName="0" Width="82" X="217" Y="489" ZOrder="28">
+							<ElementFont Color="rgb(0, 0, 0)" Name="Dialog" Size="11" Style="0"/>
+							<Line Cap="0" Color="rgb(0, 0, 0)" Transparency="0" Weight="1.0">
+								<Stroke/>
+							</Line>
+							<Caption Height="57" InternalHeight="-2147483648" InternalWidth="-2147483648" Side="Center" Visible="true" Width="62" X="20" Y="0"/>
+							<DiagramElementChildren>
+								<CMMNEntryCriterion Background="rgb(122, 207, 245)" ConnectToPoint="true" ConnectionPointType="2" CoverConnector="false" Foreground="rgb(0, 0, 0)" Height="24" Id="D57iuXaD.AAAAQ12" MetaModelElement="j57iuXaD.AAAAQ13" Model="j57iuXaD.AAAAQ13" ModelElementNameAlignment="9" Name="" OverrideAppearanceWithStereotypeIcon="true" ParentConnectorDTheta="0.0" ParentConnectorHeaderLength="40" ParentConnectorLineLength="10" PresentationOption="4" PrimitiveShapeType="0" RequestDefaultSize="false" RequestFitSize="false" RequestFitSizeFromCenter="false" RequestResetCaption="false" RequestResetCaptionFitWidth="false" RequestResetCaptionSize="false" RequestSetSizeOption="0" Selectable="true" ShowAllocatedFrom="0" ShowAllocatedTo="0" ShowStereotypeIconName="0" Width="16" X="252" Y="477" ZOrder="16">
+									<ElementFont Color="rgb(0, 0, 0)" Name="Dialog" Size="11" Style="0"/>
+									<Line Cap="0" Color="rgb(0, 0, 0)" Transparency="0" Weight="1.0">
+										<Stroke/>
+									</Line>
+									<Caption Height="0" InternalHeight="-2147483648" InternalWidth="-2147483648" Side="None" Visible="true" Width="20" X="250" Y="501"/>
+									<FillColor Color="rgb(157, 204, 176)" Style="1" Transparency="0" Type="1"/>
+								</CMMNEntryCriterion>
+							</DiagramElementChildren>
+							<FillColor Color="rgb(157, 204, 176)" Style="1" Transparency="0" Type="1"/>
+						</CMMNHumanTaskPlanItem>
+						<CMMNMilestonePlanItem Background="rgb(122, 207, 245)" ConnectToPoint="true" ConnectionPointType="2" CoverConnector="false" Foreground="rgb(0, 0, 0)" Height="40" Id="GFwCuXaD.AAAAQuj" MetaModelElement="2FwCuXaD.AAAAQuk" Model="2FwCuXaD.AAAAQuk" ModelElementNameAlignment="9" Name="Problem added" OverrideAppearanceWithStereotypeIcon="true" ParentConnectorDTheta="0.0" ParentConnectorHeaderLength="40" ParentConnectorLineLength="10" PresentationOption="4" PrimitiveShapeType="0" RequestDefaultSize="false" RequestFitSize="false" RequestFitSizeFromCenter="false" RequestResetCaption="false" RequestResetCaptionFitWidth="false" RequestResetCaptionSize="false" RequestSetSizeOption="0" Selectable="true" ShowAllocatedFrom="0" ShowAllocatedTo="0" ShowStereotypeIconName="0" Width="91" X="835" Y="328" ZOrder="26">
+							<ElementFont Color="rgb(0, 0, 0)" Name="Dialog" Size="11" Style="0"/>
+							<Line Cap="0" Color="rgb(0, 0, 0)" Transparency="0" Weight="1.0">
+								<Stroke/>
+							</Line>
+							<Caption Height="40" InternalHeight="-2147483648" InternalWidth="-2147483648" Side="Center" Visible="true" Width="91" X="0" Y="0"/>
+							<DiagramElementChildren>
+								<CMMNEntryCriterion Background="rgb(122, 207, 245)" ConnectToPoint="true" ConnectionPointType="2" CoverConnector="false" Foreground="rgb(0, 0, 0)" Height="24" Id="lPYCuXaD.AAAAQu5" MetaModelElement="lPYCuXaD.AAAAQu6" Model="lPYCuXaD.AAAAQu6" ModelElementNameAlignment="9" Name="" OverrideAppearanceWithStereotypeIcon="true" ParentConnectorDTheta="0.0" ParentConnectorHeaderLength="40" ParentConnectorLineLength="10" PresentationOption="4" PrimitiveShapeType="0" RequestDefaultSize="false" RequestFitSize="false" RequestFitSizeFromCenter="false" RequestResetCaption="false" RequestResetCaptionFitWidth="false" RequestResetCaptionSize="false" RequestSetSizeOption="0" Selectable="true" ShowAllocatedFrom="0" ShowAllocatedTo="0" ShowStereotypeIconName="0" Width="16" X="879" Y="316" ZOrder="24">
+									<ElementFont Color="rgb(0, 0, 0)" Name="Dialog" Size="11" Style="0"/>
+									<Line Cap="0" Color="rgb(0, 0, 0)" Transparency="0" Weight="1.0">
+										<Stroke/>
+									</Line>
+									<Caption Height="0" InternalHeight="-2147483648" InternalWidth="-2147483648" Side="None" Visible="true" Width="20" X="877" Y="340"/>
+									<FillColor Color="rgb(157, 204, 176)" Style="1" Transparency="0" Type="1"/>
+								</CMMNEntryCriterion>
+							</DiagramElementChildren>
+							<FillColor Color="rgb(157, 204, 176)" Style="1" Transparency="0" Type="1"/>
+						</CMMNMilestonePlanItem>
+						<CMMNHumanTaskDiscretionaryItem Background="rgb(122, 207, 245)" ConnectToPoint="true" ConnectionPointType="2" CoverConnector="false" Foreground="rgb(0, 0, 0)" Height="55" Id="8OsSuXaD.AAAAQ3M" MetaModelElement="8OsSuXaD.AAAAQ3N" Model="8OsSuXaD.AAAAQ3N" ModelElementNameAlignment="9" Name="Vote Answer" OverrideAppearanceWithStereotypeIcon="true" ParentConnectorDTheta="0.0" ParentConnectorHeaderLength="40" ParentConnectorLineLength="10" PresentationOption="4" PrimitiveShapeType="0" RequestDefaultSize="false" RequestFitSize="false" RequestFitSizeFromCenter="false" RequestResetCaption="false" RequestResetCaptionFitWidth="false" RequestResetCaptionSize="false" RequestSetSizeOption="0" Selectable="true" ShowAllocatedFrom="0" ShowAllocatedTo="0" ShowStereotypeIconName="0" Width="107" X="385" Y="491" ZOrder="12">
+							<ElementFont Color="rgb(0, 0, 0)" Name="Dialog" Size="11" Style="0"/>
+							<Line Cap="1" Color="rgb(0, 0, 0)" Transparency="0" Weight="1.0">
+								<Stroke>
+									<Dashes>
+										<Dash Value="4.0"/>
+									</Dashes>
+								</Stroke>
+							</Line>
+							<Caption Height="55" InternalHeight="-2147483648" InternalWidth="-2147483648" Side="Center" Visible="true" Width="87" X="20" Y="0"/>
+							<DiagramElementChildren>
+								<CMMNEntryCriterion Background="rgb(122, 207, 245)" ConnectToPoint="true" ConnectionPointType="2" CoverConnector="false" Foreground="rgb(0, 0, 0)" Height="24" Id="BP2SuXaD.AAAAQ4I" MetaModelElement="hP2SuXaD.AAAAQ4J" Model="hP2SuXaD.AAAAQ4J" ModelElementNameAlignment="9" Name="" OverrideAppearanceWithStereotypeIcon="true" ParentConnectorDTheta="0.0" ParentConnectorHeaderLength="40" ParentConnectorLineLength="10" PresentationOption="4" PrimitiveShapeType="0" RequestDefaultSize="false" RequestFitSize="false" RequestFitSizeFromCenter="false" RequestResetCaption="false" RequestResetCaptionFitWidth="false" RequestResetCaptionSize="false" RequestSetSizeOption="0" Selectable="true" ShowAllocatedFrom="0" ShowAllocatedTo="0" ShowStereotypeIconName="0" Width="16" X="377" Y="515" ZOrder="10">
+									<ElementFont Color="rgb(0, 0, 0)" Name="Dialog" Size="11" Style="0"/>
+									<Line Cap="0" Color="rgb(0, 0, 0)" Transparency="0" Weight="1.0">
+										<Stroke/>
+									</Line>
+									<Caption Height="0" InternalHeight="-2147483648" InternalWidth="-2147483648" Side="None" Visible="true" Width="20" X="375" Y="539"/>
+									<FillColor Color="rgb(157, 204, 176)" Style="1" Transparency="0" Type="1"/>
+								</CMMNEntryCriterion>
+							</DiagramElementChildren>
+							<FillColor Color="rgb(141, 225, 224)" Style="1" Transparency="0" Type="1"/>
+						</CMMNHumanTaskDiscretionaryItem>
+						<CMMNMilestonePlanItem Background="rgb(122, 207, 245)" ConnectToPoint="true" ConnectionPointType="2" CoverConnector="false" Foreground="rgb(0, 0, 0)" Height="48" Id="pxTSuXaD.AAAAQ5x" MetaModelElement="pxTSuXaD.AAAAQ5y" Model="pxTSuXaD.AAAAQ5y" ModelElementNameAlignment="9" Name="problem completed" OverrideAppearanceWithStereotypeIcon="true" ParentConnectorDTheta="0.0" ParentConnectorHeaderLength="40" ParentConnectorLineLength="10" PresentationOption="4" PrimitiveShapeType="0" RequestDefaultSize="false" RequestFitSize="false" RequestFitSizeFromCenter="false" RequestResetCaption="false" RequestResetCaptionFitWidth="false" RequestResetCaptionSize="false" RequestSetSizeOption="0" Selectable="true" ShowAllocatedFrom="0" ShowAllocatedTo="0" ShowStereotypeIconName="0" Width="99" X="827" Y="499" ZOrder="4">
+							<ElementFont Color="rgb(0, 0, 0)" Name="Dialog" Size="11" Style="0"/>
+							<Line Cap="0" Color="rgb(0, 0, 0)" Transparency="0" Weight="1.0">
+								<Stroke/>
+							</Line>
+							<Caption Height="48" InternalHeight="-2147483648" InternalWidth="-2147483648" Side="Center" Visible="true" Width="99" X="0" Y="0"/>
+							<DiagramElementChildren>
+								<CMMNEntryCriterion Background="rgb(122, 207, 245)" ConnectToPoint="true" ConnectionPointType="2" CoverConnector="false" Foreground="rgb(0, 0, 0)" Height="24" Id="61nSuXaD.AAAAQ6G" MetaModelElement="61nSuXaD.AAAAQ6H" Model="61nSuXaD.AAAAQ6H" ModelElementNameAlignment="9" Name="" OverrideAppearanceWithStereotypeIcon="true" ParentConnectorDTheta="0.0" ParentConnectorHeaderLength="40" ParentConnectorLineLength="10" PresentationOption="4" PrimitiveShapeType="0" RequestDefaultSize="false" RequestFitSize="false" RequestFitSizeFromCenter="false" RequestResetCaption="false" RequestResetCaptionFitWidth="false" RequestResetCaptionSize="false" RequestSetSizeOption="0" Selectable="true" ShowAllocatedFrom="0" ShowAllocatedTo="0" ShowStereotypeIconName="0" Width="16" X="819" Y="509" ZOrder="2">
+									<ElementFont Color="rgb(0, 0, 0)" Name="Dialog" Size="11" Style="0"/>
+									<Line Cap="0" Color="rgb(0, 0, 0)" Transparency="0" Weight="1.0">
+										<Stroke/>
+									</Line>
+									<Caption Height="0" InternalHeight="-2147483648" InternalWidth="-2147483648" Side="None" Visible="true" Width="20" X="817" Y="533"/>
+									<FillColor Color="rgb(157, 204, 176)" Style="1" Transparency="0" Type="1"/>
+								</CMMNEntryCriterion>
+							</DiagramElementChildren>
+							<FillColor Color="rgb(157, 204, 176)" Style="1" Transparency="0" Type="1"/>
+						</CMMNMilestonePlanItem>
+					</DiagramElementChildren>
+					<FillColor Color="rgb(202, 216, 190)" Style="1" Transparency="0" Type="1"/>
+				</CMMNCasePlanModel>
+			</Shapes>
+			<Connectors>
+				<CMMNCaseFileItemOnPart Background="rgb(122, 207, 245)" ConnectorLabelOrientation="4" ConnectorLineJumps="4" ConnectorStyle="Follow Diagram" Foreground="rgb(0, 0, 0)" From="PnhwuXaD.AAAAQg3" FromConnectType="0" FromPinType="1" FromShapeXDiff="0" FromShapeYDiff="0" Height="100" Id="61WsuXaD.AAAAQky" MetaModelElement="C1WsuXaD.AAAAQkx" Model="C1WsuXaD.AAAAQkx" ModelElementNameAlignment="9" PaintThroughLabel="2" RequestRebuild="false" RequestRebuildFromEnd="false" RequestRebuildToEnd="false" RequestResetCaption="false" RequestResetCaptionFitWidth="false" RequestResetCaptionSize="false" Selectable="true" ShowConnectorName="2" ShowStandardEvent="0" To="wc6suXaD.AAAAQkm" ToConnectType="0" ToPinType="1" ToShapeXDiff="0" ToShapeYDiff="0" UseFromShapeCenter="true" UseToShapeCenter="true" Width="148" X="1017" Y="202" ZOrder="52">
+					<ElementFont Color="rgb(0, 0, 0)" Name="Dialog" Size="11" Style="0"/>
+					<Line Cap="0" Color="rgb(0, 0, 0)" Transparency="0" Weight="1.0">
+						<Stroke/>
+					</Line>
+					<Caption Height="0" InternalHeight="-2147483648" InternalWidth="-2147483648" Side="None" Visible="true" Width="20" X="1081" Y="252"/>
+					<Points>
+						<Point X="1067.0" Y="252.0"/>
+						<Point X="1115.0" Y="252.0"/>
+					</Points>
+				</CMMNCaseFileItemOnPart>
+				<CMMNPlanItemOnPart Background="rgb(122, 207, 245)" ConnectorLabelOrientation="4" ConnectorLineJumps="4" ConnectorStyle="Follow Diagram" Foreground="rgb(0, 0, 0)" From="6A1suXaD.AAAAQlo" FromConnectType="0" FromPinType="1" FromShapeXDiff="0" FromShapeYDiff="0" Height="100" Id="8kWCuXaD.AAAAQwe" MetaModelElement="kkWCuXaD.AAAAQwd" Model="kkWCuXaD.AAAAQwd" ModelElementNameAlignment="9" PaintThroughLabel="2" RequestRebuild="false" RequestRebuildFromEnd="false" RequestRebuildToEnd="false" RequestResetCaption="false" RequestResetCaptionFitWidth="false" RequestResetCaptionSize="false" Selectable="true" ShowConnectorName="2" ShowStandardEvent="0" To="XIcCuXaD.AAAAQvS" ToConnectType="0" ToPinType="1" ToShapeXDiff="0" ToShapeYDiff="0" UseFromShapeCenter="true" UseToShapeCenter="true" Width="175" X="252" Y="167" ZOrder="54">
+					<ElementFont Color="rgb(0, 0, 0)" Name="Dialog" Size="11" Style="0"/>
+					<Line Cap="0" Color="rgb(0, 0, 0)" Transparency="0" Weight="1.0">
+						<Stroke/>
+					</Line>
+					<Caption Height="0" InternalHeight="-2147483648" InternalWidth="-2147483648" Side="None" Visible="true" Width="20" X="329" Y="217"/>
+					<Points>
+						<Point X="302.0" Y="217.0"/>
+						<Point X="377.0" Y="217.0"/>
+					</Points>
+				</CMMNPlanItemOnPart>
+				<CMMNPlanItemOnPart Background="rgb(122, 207, 245)" ConnectorLabelOrientation="4" ConnectorLineJumps="4" ConnectorStyle="Follow Diagram" Foreground="rgb(0, 0, 0)" From="6A1suXaD.AAAAQlo" FromConnectType="0" FromPinType="1" FromShapeXDiff="0" FromShapeYDiff="0" Height="152" Id="fSIiuXaD.AAAAQzD" MetaModelElement="nSIiuXaD.AAAAQzC" Model="nSIiuXaD.AAAAQzC" ModelElementNameAlignment="9" PaintThroughLabel="2" RequestRebuild="false" RequestRebuildFromEnd="false" RequestRebuildToEnd="false" RequestResetCaption="false" RequestResetCaptionFitWidth="false" RequestResetCaptionSize="false" Selectable="true" ShowConnectorName="2" ShowStandardEvent="0" To="yb3CuXaD.AAAAQyk" ToConnectType="0" ToPinType="1" ToShapeXDiff="0" ToShapeYDiff="0" UseFromShapeCenter="true" UseToShapeCenter="true" Width="218" X="209" Y="193" ZOrder="56">
+					<ElementFont Color="rgb(0, 0, 0)" Name="Dialog" Size="11" Style="0"/>
+					<Line Cap="0" Color="rgb(0, 0, 0)" Transparency="0" Weight="1.0">
+						<Stroke/>
+					</Line>
+					<Caption Height="0" InternalHeight="-2147483648" InternalWidth="-2147483648" Side="None" Visible="true" Width="20" X="282" Y="295"/>
+					<Points>
+						<Point X="259.0" Y="243.0"/>
+						<Point X="259.0" Y="295.0"/>
+						<Point X="377.0" Y="295.0"/>
+					</Points>
+				</CMMNPlanItemOnPart>
+				<CMMNPlanItemOnPart Background="rgb(122, 207, 245)" ConnectorLabelOrientation="4" ConnectorLineJumps="4" ConnectorStyle="Follow Diagram" Foreground="rgb(0, 0, 0)" From="a.7nOXaD.AAAARlr" FromConnectType="0" FromPinType="1" FromShapeXDiff="0" FromShapeYDiff="0" Height="131" Id="IH9iuXaD.AAAAQ1g" MetaModelElement="v79iuXaD.AAAAQ1f" Model="v79iuXaD.AAAAQ1f" ModelElementNameAlignment="9" PaintThroughLabel="2" RequestRebuild="false" RequestRebuildFromEnd="false" RequestRebuildToEnd="false" RequestResetCaption="false" RequestResetCaptionFitWidth="false" RequestResetCaptionSize="false" Selectable="true" ShowConnectorName="2" ShowStandardEvent="0" To="lPYCuXaD.AAAAQu5" ToConnectType="0" ToPinType="1" ToShapeXDiff="0" ToShapeYDiff="0" UseFromShapeCenter="true" UseToShapeCenter="true" Width="333" X="603" Y="236" ZOrder="58">
+					<ElementFont Color="rgb(0, 0, 0)" Name="Dialog" Size="11" Style="0"/>
+					<Line Cap="0" Color="rgb(0, 0, 0)" Transparency="0" Weight="1.0">
+						<Stroke/>
+					</Line>
+					<Caption Height="0" InternalHeight="-2147483648" InternalWidth="-2147483648" Side="None" Visible="true" Width="20" X="775" Y="286"/>
+					<Points>
+						<Point X="653.0" Y="286.0"/>
+						<Point X="886.0" Y="286.0"/>
+						<Point X="886.0" Y="317.0"/>
+					</Points>
+				</CMMNPlanItemOnPart>
+				<CMMNPlanItemOnPart Background="rgb(122, 207, 245)" ConnectorLabelOrientation="4" ConnectorLineJumps="4" ConnectorStyle="Follow Diagram" Foreground="rgb(0, 0, 0)" From="GFwCuXaD.AAAAQuj" FromConnectType="0" FromPinType="1" FromShapeXDiff="0" FromShapeYDiff="0" Height="210" Id="xSPiuXaD.AAAAQ2F" MetaModelElement="eSPiuXaD.AAAAQ2E" Model="eSPiuXaD.AAAAQ2E" ModelElementNameAlignment="9" PaintThroughLabel="2" RequestRebuild="false" RequestRebuildFromEnd="false" RequestRebuildToEnd="false" RequestResetCaption="false" RequestResetCaptionFitWidth="false" RequestResetCaptionSize="false" Selectable="true" ShowConnectorName="2" ShowStandardEvent="0" To="D57iuXaD.AAAAQ12" ToConnectType="0" ToPinType="1" ToShapeXDiff="0" ToShapeYDiff="0" UseFromShapeCenter="true" UseToShapeCenter="true" Width="714" X="209" Y="318" ZOrder="60">
+					<ElementFont Color="rgb(0, 0, 0)" Name="Dialog" Size="11" Style="0"/>
+					<Line Cap="0" Color="rgb(0, 0, 0)" Transparency="0" Weight="1.0">
+						<Stroke/>
+					</Line>
+					<Caption Height="0" InternalHeight="-2147483648" InternalWidth="-2147483648" Side="None" Visible="true" Width="20" X="489" Y="391"/>
+					<Points>
+						<Point X="873.0" Y="368.0"/>
+						<Point X="873.0" Y="391.0"/>
+						<Point X="259.0" Y="391.0"/>
+						<Point X="259.0" Y="478.0"/>
+					</Points>
+				</CMMNPlanItemOnPart>
+				<CMMNPlanItemOnPart Background="rgb(122, 207, 245)" ConnectorLabelOrientation="4" ConnectorLineJumps="4" ConnectorStyle="Follow Diagram" Foreground="rgb(0, 0, 0)" From="P538uXaD.AAAAQuG" FromConnectType="0" FromPinType="1" FromShapeXDiff="0" FromShapeYDiff="0" Height="100" Id="9wuSuXaD.AAAAQ4T" MetaModelElement="lwuSuXaD.AAAAQ4S" Model="lwuSuXaD.AAAAQ4S" ModelElementNameAlignment="9" PaintThroughLabel="2" RequestRebuild="false" RequestRebuildFromEnd="false" RequestRebuildToEnd="false" RequestResetCaption="false" RequestResetCaptionFitWidth="false" RequestResetCaptionSize="false" Selectable="true" ShowConnectorName="2" ShowStandardEvent="0" To="IrESuXaD.AAAAQ2_" ToConnectType="0" ToPinType="1" ToShapeXDiff="0" ToShapeYDiff="0" UseFromShapeCenter="true" UseToShapeCenter="true" Width="133" X="249" Y="450" ZOrder="62">
+					<ElementFont Color="rgb(0, 0, 0)" Name="Dialog" Size="11" Style="0"/>
+					<Line Cap="0" Color="rgb(0, 0, 0)" Transparency="0" Weight="1.0">
+						<Stroke/>
+					</Line>
+					<Caption Height="0" InternalHeight="-2147483648" InternalWidth="-2147483648" Side="None" Visible="true" Width="20" X="305" Y="500"/>
+					<Points>
+						<Point X="299.0" Y="500.0"/>
+						<Point X="332.0" Y="500.0"/>
+					</Points>
+				</CMMNPlanItemOnPart>
+				<CMMNPlanItemOnPart Background="rgb(122, 207, 245)" ConnectorLabelOrientation="4" ConnectorLineJumps="4" ConnectorStyle="Follow Diagram" Foreground="rgb(0, 0, 0)" From="P538uXaD.AAAAQuG" FromConnectType="0" FromPinType="1" FromShapeXDiff="0" FromShapeYDiff="0" Height="100" Id="cDuSuXaD.AAAAQ4X" MetaModelElement="EDuSuXaD.AAAAQ4W" Model="EDuSuXaD.AAAAQ4W" ModelElementNameAlignment="9" PaintThroughLabel="2" RequestRebuild="false" RequestRebuildFromEnd="false" RequestRebuildToEnd="false" RequestResetCaption="false" RequestResetCaptionFitWidth="false" RequestResetCaptionSize="false" Selectable="true" ShowConnectorName="2" ShowStandardEvent="0" To="BP2SuXaD.AAAAQ4I" ToConnectType="0" ToPinType="1" ToShapeXDiff="0" ToShapeYDiff="0" UseFromShapeCenter="true" UseToShapeCenter="true" Width="179" X="249" Y="479" ZOrder="64">
+					<ElementFont Color="rgb(0, 0, 0)" Name="Dialog" Size="11" Style="0"/>
+					<Line Cap="0" Color="rgb(0, 0, 0)" Transparency="0" Weight="1.0">
+						<Stroke/>
+					</Line>
+					<Caption Height="0" InternalHeight="-2147483648" InternalWidth="-2147483648" Side="None" Visible="true" Width="20" X="328" Y="529"/>
+					<Points>
+						<Point X="299.0" Y="529.0"/>
+						<Point X="378.0" Y="529.0"/>
+					</Points>
+				</CMMNPlanItemOnPart>
+				<CMMNPlanItemOnPart Background="rgb(122, 207, 245)" ConnectorLabelOrientation="4" ConnectorLineJumps="4" ConnectorStyle="Follow Diagram" Foreground="rgb(0, 0, 0)" From="S19SuXaD.AAAAQ5o" FromConnectType="0" FromPinType="1" FromShapeXDiff="0" FromShapeYDiff="0" Height="100" Id="Uq3SuXaD.AAAAQ6N" MetaModelElement="Iq3SuXaD.AAAAQ6M" Model="Iq3SuXaD.AAAAQ6M" ModelElementNameAlignment="9" PaintThroughLabel="2" RequestRebuild="false" RequestRebuildFromEnd="false" RequestRebuildToEnd="false" RequestResetCaption="false" RequestResetCaptionFitWidth="false" RequestResetCaptionSize="false" Selectable="true" ShowConnectorName="2" ShowStandardEvent="0" To="61nSuXaD.AAAAQ6G" ToConnectType="0" ToPinType="1" ToShapeXDiff="0" ToShapeYDiff="0" UseFromShapeCenter="true" UseToShapeCenter="true" Width="257" X="611" Y="471" ZOrder="66">
+					<ElementFont Color="rgb(0, 0, 0)" Name="Dialog" Size="11" Style="0"/>
+					<Line Cap="0" Color="rgb(0, 0, 0)" Transparency="0" Weight="1.0">
+						<Stroke/>
+					</Line>
+					<Caption Height="0" InternalHeight="-2147483648" InternalWidth="-2147483648" Side="None" Visible="true" Width="20" X="730" Y="521"/>
+					<Points>
+						<Point X="661.0" Y="521.0"/>
+						<Point X="818.0" Y="521.0"/>
+					</Points>
+				</CMMNPlanItemOnPart>
+				<CMMNPlanItemOnPart Background="rgb(122, 207, 245)" ConnectorLabelOrientation="4" ConnectorLineJumps="4" ConnectorStyle="Follow Diagram" Foreground="rgb(0, 0, 0)" From="pxTSuXaD.AAAAQ5x" FromConnectType="0" FromPinType="1" FromShapeXDiff="0" FromShapeYDiff="0" Height="100" Id="hZoyuXaD.AAAAQ6r" MetaModelElement="OZoyuXaD.AAAAQ6q" Model="OZoyuXaD.AAAAQ6q" ModelElementNameAlignment="9" PaintThroughLabel="2" RequestRebuild="false" RequestRebuildFromEnd="false" RequestRebuildToEnd="false" RequestResetCaption="false" RequestResetCaptionFitWidth="false" RequestResetCaptionSize="false" Selectable="true" ShowConnectorName="2" ShowStandardEvent="0" To="TttwuXaD.AAAAQhm" ToConnectType="0" ToPinType="1" ToShapeXDiff="0" ToShapeYDiff="0" UseFromShapeCenter="true" UseToShapeCenter="true" Width="288" X="876" Y="472" ZOrder="68">
+					<ElementFont Color="rgb(0, 0, 0)" Name="Dialog" Size="11" Style="0"/>
+					<Line Cap="0" Color="rgb(0, 0, 0)" Transparency="0" Weight="1.0">
+						<Stroke/>
+					</Line>
+					<Caption Height="0" InternalHeight="-2147483648" InternalWidth="-2147483648" Side="None" Visible="true" Width="20" X="1010" Y="522"/>
+					<Points>
+						<Point X="926.0" Y="522.0"/>
+						<Point X="1114.0" Y="522.0"/>
+					</Points>
+				</CMMNPlanItemOnPart>
+			</Connectors>
+		</CMMNDiagram>
+	</Diagrams>
+</Project>
