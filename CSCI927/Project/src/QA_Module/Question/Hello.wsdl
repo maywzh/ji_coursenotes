@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <wsdl:definitions
-    targetNamespace="http://com.csci927.xfireDemo/HelloService"
-    xmlns:tns="http://com.csci927.xfireDemo/HelloService"
+    targetNamespace="http://com.csci927.xfireDemo/AddQuestion"
+    xmlns:tns="http://com.csci927.xfireDemo/AddQuestion"
     xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/"
     xmlns:soap12="http://www.w3.org/2003/05/soap-envelope"
     xmlns:xsd="http://www.w3.org/2001/XMLSchema"
@@ -12,7 +12,7 @@
     <wsdl:types>
         <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
             attributeFormDefault="qualified" elementFormDefault="qualified"
-            targetNamespace="http://com.csci927.xfireDemo/HelloService">
+            targetNamespace="http://com.csci927.xfireDemo/AddQuestion">
             <xsd:element name="sayHello">
                 <xsd:complexType>
                     <xsd:sequence>
@@ -37,7 +37,7 @@
     <wsdl:message name="sayHelloRequest">
         <wsdl:part name="parameters" element="tns:sayHello" />
     </wsdl:message>
-    <wsdl:portType name="HelloServicePortType">
+    <wsdl:portType name="AddQuestionPortType">
         <wsdl:operation name="sayHello">
             <wsdl:input name="sayHelloRequest"
                 message="tns:sayHelloRequest" />
@@ -45,8 +45,8 @@
                 message="tns:sayHelloResponse" />
         </wsdl:operation>
     </wsdl:portType>
-    <wsdl:binding name="HelloServiceHttpBinding"
-        type="tns:HelloServicePortType">
+    <wsdl:binding name="AddQuestionHttpBinding"
+        type="tns:AddQuestionPortType">
         <wsdlsoap:binding style="document"
             transport="http://schemas.xmlsoap.org/soap/http" />
         <wsdl:operation name="sayHello">
@@ -59,11 +59,11 @@
             </wsdl:output>
         </wsdl:operation>
     </wsdl:binding>
-    <wsdl:service name="HelloService">
-        <wsdl:port name="HelloServiceHttpPort"
-            binding="tns:HelloServiceHttpBinding">
+    <wsdl:service name="AddQuestion">
+        <wsdl:port name="AddQuestionHttpPort"
+            binding="tns:AddQuestionHttpBinding">
             <wsdlsoap:address
-                location="http://localhost:8080/xfire/services/HelloService" />
+                location="http://localhost:8080/xfire/services/AddQuestion" />
         </wsdl:port>
     </wsdl:service>
 </wsdl:definitions>
