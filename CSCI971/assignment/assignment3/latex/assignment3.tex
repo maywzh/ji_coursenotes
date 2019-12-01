@@ -1,0 +1,292 @@
+\documentclass{article}
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{listings} 
+\usepackage{amssymb}
+\usetikzlibrary{automata,positioning}
+
+\usepackage{color}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb,
+  language=Python,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass\: \hmwkTitle}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Problem \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Due date
+%   - Class
+%   - Section/Time
+%   - Instructor
+%   - Author
+%
+\newcommand{\hmwkNum}{3}
+\newcommand{\hmwkTitle}{Homework\ \#\hmwkNum}
+\newcommand{\hmwkDueDate}{October 13, 2019}
+\newcommand{\hmwkClass}{CSCI971 Advance Computer Security}
+\newcommand{\hmwkClassInstructor}{Chen Jiageng}
+\newcommand{\hmwkAuthorName}{\textbf{Mei Wangzhihui}}
+\newcommand{\hmwkAuthorNum}{\textbf{2019124044}}
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\\ \hmwkTitle}}\\
+    % \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at 3:10pm}\\
+    % \vspace{0.1in}\large{\textit{\hmwkClassInstructor\ \hmwkClassTime}}
+    \vspace{3in}
+}
+
+\author{\hmwkAuthorName\ \\ \hmwkAuthorNum}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+
+% Alias for the Solution section header
+\newcommand{\solution}{\textbf{\large Solution}}
+
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\E}{\mathrm{E}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+
+\begin{document}
+
+\maketitle
+
+\pagebreak
+
+\begin{homeworkProblem}
+  \textbf{Solution}
+  \\
+  We know:
+  \[
+     m[j] \leftarrow D(k,c[j+1]) \oplus c[j]     
+  \]
+  As we miss $c[50]$ so $m[49] \leftarrow D(k,c[50]) \oplus c[49]$ and $m[50] \leftarrow D(k,c[51]) \oplus c[50]$ will be corrupted. 
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+  \textbf{Solution}
+  \\
+  The challenger selects $k \xleftarrow{R} K$,As the nonce are looped with the period of 100times. \\
+  We assume the adversary query $m_{i,0},m_{i,1}$ and $m_{i,0}= m_{i,1}$ in the ith round. \\
+  After that, he query $m_{i+100,0},m_{i+100,1}$ and $m_{i+100,0} \neq m_{i+100,1}$, \\
+  In the (i+100)th round and $m_{i,0}=m_{i+100,0}$, $ n_i=n_{i+100}$. \\
+  \[
+    \because c_{i} \leftarrow E\left(k, m_{i b}, \mathcal{N}_{i}\right) ) 
+  \]
+  \[
+    \therefore c_{i,0}=c_{i,1}=c_{i+100,0}\neq c_{i+100,1} 
+  \]
+  the adversary $\mathcal{A}$ check the $c_i$ and $c_{i+100}$ and can deduce the $b$ directly: \\
+  if $c_i\neq c_{i+100}$ the $\mathcal{A}$ output 1 else output 0. \\
+  so the $Adv_{nCPA}[\mathcal{A},\mathcal{E}]=|Pr[W_0]-Pr[W_1]|=1$ is not negligible. \\
+  So according to the the \textbf{Definition 5.3}, this encryption is not semantic secure under CPA attack.
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+  the program code are here:
+    \begin{lstlisting}
+      import sys
+      import re
+      import numpy
+      from Crypto.Cipher import AES
+      
+      def strxor(a, b):
+          """XOR two hex strings like "3eab" and "fef1"
+      
+          :Parameters:
+            a : hex string
+              the first parameter
+            b : hex string
+              the second parameter
+          :Returns:
+            hex format of a ^ b.
+          """
+          return "".join([chr(ord(x) ^ ord(y)) for (x, y) in zip(a[: len(b)], b[: len(a)])])
+      
+      def decodehex(hexstring):
+          bytes.fromhex(hexstring).decode('utf-8')
+      
+      
+      def AES_CTR_Decrypt(key, ct, blockSize):
+          ctBlocks = [ct[i:i+(blockSize*2)]
+                              for i in range(0, len(ct), (blockSize*2))]
+          iv = int(ctBlocks.pop(0), 16)
+      
+          cypherTextBlocksDecoded = list(
+              map(decodehex, ctBlocks))
+      
+          k = decodehex(key)
+      
+          pt = ""
+      
+          i = 0
+          for c in cypherTextBlocksDecoded:
+              ctr = hex(iv+i << 64)[2:(2*blockSize)+2]
+              encIV = AES.new(k, AES.MODE_ECB).encrypt(ctr)
+              plaintext = strxor(encIV, c)
+              i = i + 1
+              pt = plaintext + pt
+          return pt
+      
+      def AES_CBC_Decrypt(key, ct, blockSize):
+          ctBlocks = [ct[i:i+(blockSize*2)]
+                              for i in range(0, len(ct), (blockSize*2))]
+          ctBlocksDecoded = list(
+              map(decodehex, ctBlocks))
+          k = decodehex(key)
+          pt = ""
+          iter = len(ctBlocksDecoded)
+          for c in reversed(ctBlocksDecoded):
+              iter = iter - 1
+              if(iter > 0):
+                  cipher = AES.new(k, AES.MODE_ECB).decrypt(c)
+                  plaintext = strxor(cipher, ctBlocksDecoded[iter - 1])
+                  pt = plaintext + pt
+      
+          paddingAmount = ord(pt[len(pt)-1:])
+      
+          return pt[:-paddingAmount]
+      
+      def run():
+          """
+          main process
+          """
+          keys = [
+              "140b41b22a29beb4061bda66b6747e14",
+              "140b41b22a29beb4061bda66b6747e14",
+              "36f18357be4dbd77f050515c73fcf9f2",
+              "36f18357be4dbd77f050515c73fcf9f2"
+          ]
+          cipherTexts = [
+              "4ca00ff4c898d61e1edbf1800618fb2828a226d160dad07883d04e008a7897ee2e4b7465d5290d0c0e6c6822236e1daafb94ffe0c5da05d9476be028ad7c1d81",
+              "5b68629feb8606f9a6667670b75b38a5b4832d0f26e1ab7da33249de7d4afc48e713ac646ace36e872ad5fb8a512428a6e21364b0c374df45503473c5242a253",
+              "69dda8455c7dd4254bf353b773304eec0ec7702330098ce7f7520d1cbbb20fc388d1b0adb5054dbd7370849dbf0b88d393f252e764f1f5f7ad97ef79d59ce29f5f51eeca32eabedd9afa9329",
+              "770b80259ec33beb2561358a9f2dc617e46218c0a53cbeca695ae45faa8952aa0e311bde9d4e01726d3184c34451"
+          ]
+          blockSize = 16  # 16-byte encryption
+          q1 = AES_CBC_Decrypt(keys[0], cipherTexts[0], blockSize)
+          q2 = AES_CBC_Decrypt(keys[1], cipherTexts[1], blockSize)
+          q3 = AES_CTR_Decrypt(keys[2], cipherTexts[2], blockSize)
+          q4 = AES_CTR_Decrypt(keys[3], cipherTexts[3], blockSize)
+      
+      if __name__ == "__main__":
+          run()
+    \end{lstlisting}
+   the result:
+   \begin{itemize}
+     \item Basic CBC mode encryption needs padding.
+     \item Our implementation uses rand. IV
+     \item CTR mode lets you build a stream cipher from a block cipher.
+     \item Always avoid the two time pad!
+   \end{itemize}
+\end{homeworkProblem}
+\end{document}
