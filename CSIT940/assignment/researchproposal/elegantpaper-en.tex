@@ -1,0 +1,56 @@
+\documentclass[11pt,en,number]{elegantpaper}
+\newcommand{\upcite}[1]{\textsuperscript{\textsuperscript{\cite{#1}}}}
+
+\title{ Evaluation of AI agent for Game Testing}
+\author{Wangzhihui Mei \\ 2019124044 6603385}
+\institute{UOW-CCNU JI}
+ 
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+% \begin{abstract}
+ 
+% \keywords{ Game AI, Template}
+% \end{abstract}
+
+
+\section{Introduction}
+\noindent
+Game Artificial Intelligence (GAI) has been developed into real Artificial Intelligence rather than pseudo-AI based on the predefined automatic program. The achievement of AlphaGo in 2005 indicated that AI techniques have made greate development, while the game industry benefits little from technology development. There is still a lot of room for exploration. One of these directions is to help Players improve the game experience, such as new game modes between AI players and human players, more realistic NPCs, etc. Another important direction is to help game production improve efficiencies, such as reducing the coding difficulty of rules and behavior trees, game testing, game level generation, etc. In this article, we focus on how AI improves the effectiveness and efficiency of game testing. 
+
+\section{Problem Statement}
+\noindent
+The traditional game development and testing workflow have run efficiently for a long time, but still, fail to meet the challenges of high-speed iterations in today's gaming industry.
+When the scenario that needs to be tested in-game contains more strategic content, the traditional testing method seems to be a little powerless. Conventional automated testing methods can only be used to ensure that the game can run normally, and can not reliably and efficiently test the playability of the game. Also, The game interface animation is quite stochastic and complex, which makes it hard for automated tests as the testing program agents may become over-complex and enormous. Some teams initially use some rule-based test cases or robot-assisted test work, but simple rules often fail to adequately test the game scene or even pass customs. Complex rules can incur huge maintenance costs. As the content of the game is constantly adjusted during development, it is ultimately necessary to rely on a relatively low-cost manual method to complete the test. Not only that, games with more complicated rules, such as card games and war chess games, will generate a huge amount of strategy combinations, and it is extremely difficult to effectively cover all scenes with human resources. The beta test before the game goes online is one of the important links before the game is officially launched. This work is completely dependent on the players involved. Limited by the level of participation in the test of players and a variety of subjective factors, not only the feedback cycle is long, the test benchmarks and results can only be judged by experience. In summary, there is a need for better game testing methods and tools. The widely used AI techniques can be applied in these works. More specifically, the following research questions need to be addressed:
+\begin{itemize}
+    \item What are the general procedures of different types game testing?
+    \item How to apply AI techniques to adequately complete the game testing task?
+    \item What are the current industry practice in game testing based on AI?
+\end{itemize}
+
+\section{Objectives}
+\noindent
+The rapid development of AI technology in recent years has brought new possibilities to solve the dilemma of testing work. The main objective is to evaluate the effectiveness and advantages of game testing based on AI techniques. This includes evaluation of performance, validity, and feasibility of game-testing AI. Also, comprehensive reviews and analyses of techniques of game-testing AI will be conducted. This can reveal the details and principles of game-testing AI. Additionally, several instances of the practical application of game-testing AI will be evaluated. Particularly, the research has the following sub-objectives:
+\begin{itemize}
+    \item To provide a evalutation method for game-testing AI agent;
+    \item To review the technical details and designs of various game-testing AI;
+    \item To currentj industry practices in regards to game-testing AI;
+\end{itemize}
+
+\section{Preliminary Literature Review}
+\noindent
+A lot of past studies focused on optimizing the intelligence or performance of game AI, such as well-known AlphaGo\upcite{silver2017mastering}. There are already some research and attempts on game development and debuging\upcite{8477829} as well as building general game AI evaluation framework\upcite{perezliebana2018general}. While there are still few studies focus on game-testing with AI. Instead, there are some works about game production and measurement assisted by AI\upcite{6633663}. According to some research\upcite{tomai2014adapting}, game-testing includes difficulty scaling. In terms of game difficulty scaling, research on game difficulty scaling provide some \upcite{spronck2004difficulty} relative methods. 
+Basically, what is missing from the past studies is a comprehensive and reasonable evaluation of game-testing AI.
+
+
+\section{Methodology}
+\noindent
+Literature review and instance analysis will be the primary research method. Application scenario analysis and description will be the very first step to introduce the work procedure of game testing based on an AI agent. The study will first focus on different typical application scenarios of game-testing AI. Based on the introduction, the evaluation method of performance and effectiveness of game-testing AI will be identified. Then, we will discuss the technical details and principles of game-testing AI. It will give a better understanding of the connection between game testing and AI. Finally, several practical cases of game-testing AI will be discussed. We will use the aforementioned method to evaluate the effectiveness of the game-testing agents in the cases. 
+The research will be conducted before September 2019
+
+\bibliography{ref}
+
+\end{document}

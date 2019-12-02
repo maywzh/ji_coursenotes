@@ -1,0 +1,91 @@
+\documentclass[runningheads]{llncs}
+\usepackage{graphicx}
+\usepackage[text={150mm,220mm},centering,nohead]{geometry}
+\pagestyle{empty} 
+\begin{document}
+\title{\large{CSCI927 Service-Oriented Software Engineering (Project Proposal)}}
+\author{}
+\institute{}
+\maketitle
+\vspace{-1cm}
+%-----------Please Do NOT change the content above.-----------------
+
+%---------------------------------------------------------------------------------------------------------------------------------
+
+%-----------Please write the project information here.---------------
+
+\begin{center}
+\Large{\textbf{Online study lounge system based on SOA}} \\ % Please write your project tile in here
+\vspace{0.2cm}
+\large{\emph{Group Members (Group number): Liting Lyu (6603324), Yueyue  He (6603671), Muzhe Peng (6603646), Wangzhihui Mei (6603385)}} \\%Please write names of your group members as well as the group number in here
+\vspace{0.3cm}
+\end{center}
+
+%-----------Please write the content of your research proposal from here.---------------
+% \section*{Situation}
+% When students study alone, they encountered many problems, such as distraction, puzzles and lack of sense of achievement. Tradiationally, They use Pomodoro Techniques, GTD software and other tools to help them study and work efficiently. However, a software integrating all these functionalities is required. 
+
+\section*{Design:}
+Our goal is to build a software system integrating GTD, Q\&A, record and virtual study room modules, which aims to assist students in their study. 
+
+\noindent We generally divide our system into four modules --- Personal, Study, Social and Q\&A. Each module contains functional services, which are based on some basic service. We list some must-have services and good-to-have services.
+
+\subsection*{Must-have services}
+\begin{itemize}
+    \item User profile service: User can edit profiles. They can fetch various personal data.
+    \item Report service: User or Administer can fetch data report through this serviuce. Feed flows are also generated in this service.
+    \item Attendance service: Students Clock/automatically cleared out/display statistics report. 
+    \item Push service: Subscriber can subscribe to certain events, Pusher push notification to subscriber.
+    \item Follow service: Follower automatically subscribe to followed topics or users.
+    \item Message Service: User can send message privately to each other, this is based on push service.
+    \item Calendar service: User can create their learning canlendar. 
+    \item Learning Task service: Students make daily plan/cleared out/summarize results/check progress.
+    \item Network disk service: User manage learning materials with online disk based on permission.
+    \item Self-study room service: Room creator create/update/delete/put online/offline/submit room, agree/reject application.Students apply/report room.Administrator offline/agrees/reject.
+    \item Search Service: User can search for other user, study room, material, question, answer based on input data type and keyword.
+    \item Question Service: User can add/modify/remove questions with several topics/tags. Questions can also be follower through follow service.
+    \item Answer Service: Users can add/modify/remove answers and comment/vote others' answers.
+    % \item Exercise Service: Exercise creator create/update/delete/submit/withdraw exercise doing. Self-study room creator agree/return exercise doing. Book participants join exercise doing/learning timing/summarize learning results/grade the exercise/view learning progress/exercise summary/evaluation. System automatically rank exercise.
+    
+\end{itemize}
+\subsection*{Good-to-have services}
+\begin{itemize}
+    \item Log service: system automatically generate logs.
+    \item Friend service: User can build/remove friend relation with other user.
+    \item Dynamic service: User can watch friends' dynamics.
+    \item Data service: Service provider can analyse big data to generate data analisis report.
+    \item Taking Course service: Course creator create/update/delete/submit/withdraw courses taking. Course participants join /summarize results/grade/view progress/summary/evaluation.
+\end{itemize}
+
+\section*{Techniques}
+We use the data flow graph to indicate how the data is transformed when it moves in the system and we use BPMN, CMMN and DMN  together to enable end to end modeling of our operations.
+We use down-top design to build our system, dividing our system into 2 layers: basic service layer (BSL) and application logic service layer (ALL). Basic service contains basic services such as push services, search services and so on. Application services in ALL are based on basic services to offer more complicated functionalities such as follow services, user services, etc. We can also use WSDL for describe for service description and UDDI for service discovery. We use XML as data exchange format among services and SOAP as standard communication protocol.
+\clearpage
+\begin{flushleft}
+    \huge{\textbf{Appendix}}
+    \end{flushleft}
+    \begin{center}
+    \Large{\textbf{Project Title: Online study lounge system based on SOA }} \\*[0.1cm]%Please write names of the project title in here
+    \large{\emph{Group Members (Group number): Liting Lyu (6603324), Yueyue  He (6603671), Muzhe Peng (6603646), Wangzhihui Mei (6603385)}} %Please write names of your group members as well as the group number in here
+    \end{center}
+    %----------------------------------------------------------------------------------------------------------------------------
+   Division of labor among members:
+   \begin{itemize}
+
+   \item Yueyue he:Personal module
+\par The personal module is used to manage the personal information of users, including the functions of modifying personal information, user authentication, data upload, log in and punch in, specifying learning plan, etc. It allows users to understand their own learning process in order to specify a better learning plan.
+ \item Liting Lyu:Self-study module
+\par Self-study module provides a virtual learning platform for students and professionals with learning plans, examination plans and learning objectives. Through self-study room management service, attendance service, etc, it creates a dedicated and efficient learning atmosphere for students, helping students develop good learning habits and enjoy progress with like-minded friends.
+ \item Muzhe Peng: Interaction module
+\par Interaction module is used to allow user interact with others, includes chatting, asking and answering questions, joining the studying room and so on.It enables users to make many like-minded partners and promote learning from each other.
+\item Wangzhihui Mei:Q\&A module
+\par Q\&A module offer question and answer functionalities for users. They can ask a question in question service and add a topic to this question. Other users who subscribe to this topic or see the question in their feed flow can answer the question. The answer can be seen by every user, who can comment or vote the answer. Mei' work is to design question service, answer service, QA search service as well as development of basic services such as push, follow, log, data, report services, etc.
+\end{itemize}
+    
+    %-----------Please write the content of your appendix (diagrams, figures, tables, etc) from here.---------------
+    \noindent 
+
+
+\end{document}
+
+
