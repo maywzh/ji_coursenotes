@@ -210,13 +210,19 @@ Develop methods that can model, respond or reproduce the large variability among
 \subsection{Neural Network}
 \begin{frame}
 \frametitle{NN-based GVGP}
-M. Hausknecht et al. [9] employed evolutionary neural networks to extract higher-dimensional representation forms from the raw game screen.
+M. Hausknecht et al. \cite{5} employed evolutionary neural networks to extract higher-dimensional representation forms from the raw game screen.
+
+All algorithms encode Artificial Neural Networks (ANNs) which are represented by weights and connectivity(topology).
+\begin{figure}
+  \includegraphics[width=1\linewidth]{figures/m1p1}
+  \caption{ANN topology for 3 different state representation}
+\end{figure}
 \end{frame}
 
 \subsection{Reinforcement Learning}
 \begin{frame}
 \frametitle{RL-based GVGP}
-It is a best-first search algorithm that incrementally builds a tree representation of the search space of a problem (e.g., a game) and estimates the values of states by performing simulations.
+Yavar Naddaf use feature vectors generated from the game screen as well as the console RAM to learn to play a given game. The search-based methods use the emulator to simulate the consequence of actions into the future, aiming to play as well as possible by only exploring a very small fraction of the state-space.
 \end{frame}
 
 \subsection{Monte-Carlo Tree Search}
@@ -336,6 +342,10 @@ The parameters of an AI agent can be seen as a vector of integers and doubles. T
     \newblock General general game AI. 
     \newblock In IEEE Conference on Computatonal Intelligence and Games, CIG, 0, 1–8.
 
+    \bibitem{5}
+    Hausknecht, M., Lehman, J., Miikkulainen, R., \& Stone, P. (2014). 
+    \newblock A neuroevolution approach to general atari game playing. 
+    \newblock In IEEE Transactions on Computational Intelligence and AI in Games, 6(4), 355–366.
 
     \bibitem{10}
     R{\'e}mi Coulom.
