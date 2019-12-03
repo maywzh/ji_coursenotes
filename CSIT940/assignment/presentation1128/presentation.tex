@@ -101,15 +101,38 @@ CCNU-UOW JI \\ % Your institution for the title page
 %------------------------------------------------
 \section{Introduction}
 \begin{frame}
-\frametitle{Introduction}
-Video games have long been popular benchmarks for artificial intelligence(AI). Many researches have been done in building a optimal video game playing AI in certain games. Such attempts comprises Chess, Go, Car Racing games, Ms.PacMan, Real-Time Strategy (RTS) games and Super Mario Bros, etc. While the general game playing aims at building an no-human-intervening game-playing agent that is able to playing multiple games refered as General Video Game Playing Artificial Intelligence (GVPAI).
+\frametitle{Video Game Playing AI}
+Video games have long been popular benchmarks for Artificial Intelligence(AI)\cite{1}. Many researches have been done in building a optimal \textbf{Video Game Playing AI(VPAI)}  in certain games. 
+
+Such attempts comprises Chess, Go, Car Racing games, Ms.PacMan, Real-Time Strategy (RTS) games and Super Mario Bros, etc. 
+\end{frame}
+
+\subsection{Research Scope}
+\begin{frame}
+  \frametitle{Research Scope}
+  In this research, we focus on \textbf{General Video Game Playing AI(GVPAI)}.
+
+  GVPAI aims at building an no-human-intervening game-playing agent that is able to playing multiple games rather than specialized VPAI designed for certain one game\cite{1}.
 
 \end{frame}
 
-%------------------------------------------------
-\section{Flagships}
+\subsection{Motivation}
 \begin{frame}
-\frametitle{Flagships of General Game-playing AI}
+  \frametitle{Motivation\cite{2}}
+  The objective of General Video Game Playing (GVGP) is to by-pass the addition of game specific knowledge, especially if the algorithm is tested in games that have not been played before.
+
+  Obviously, algorithms that approach GVGP problems may still count on some kind of domain knowledge, and the questions raised above could still be asked. Indeed, many different algorithms can be employed for GVGP, and chances are that heuristics will still make a big difference. 
+  
+  However, by reducing the game-dependent knowledge, approaches are forced to be more general, and research conducted in this field is closer to the open domain of General Artificial Intelligence.
+  
+\end{frame}
+
+
+
+%------------------------------------------------
+\section{Problem}
+\begin{frame}
+\frametitle{Problem Definition}
 \begin{itemize}
 \item Non-player game-playing
 \item Generality
@@ -118,16 +141,15 @@ Video games have long been popular benchmarks for artificial intelligence(AI). M
 
 %------------------------------------------------
 %[General general game AI]
-\subsection{Non-player game-playing}
+\subsection{Non-human game-playino}
 \begin{frame}
-\frametitle{Non-player game-playing\cite{9}}
+\frametitle{Non-human Game-playing\cite{3}}
 \begin{block}{Game-playing}
-How AI agent playing games is the core problem. This may involve modeling the way human playing games. Some characteristics such as short-term memory, reaction time and perceptual capabilities should be take into concern.
+How AI agent playing games is the core problem. This may involve modeling the way human playing games. Some characteristics such as short-term memory, reaction time and perceptual capabilities should be take into concern to make AI more like a real human player rather than dull Bots.
 \end{block}
 
 \begin{block}{Non-human behavior}
-GVPAI should act like human rather than autonomous machine program, 
-Many games have non-player characters (NPCs), and AI can help in making NPCs believable, human-like, social and expressive.
+GVPAI should act like human rather than autonomous machine program, Many games have non-player characters (NPCs), and AI can help in making NPCs believable, human-like, social and expressive.
 \end{block}
  
 \end{frame}
@@ -136,7 +158,7 @@ Many games have non-player characters (NPCs), and AI can help in making NPCs bel
 %------------------------------------------------
 \subsection{Generality}
 \begin{frame}
-\frametitle{Generality\cite{8}}
+\frametitle{Generality\cite{4}}
 \begin{columns}[c] % The "c" option specifies centered vertical alignment while the "t" option is used for top vertical alignment
 
 \column{.45\textwidth} % Left column and width
@@ -174,34 +196,32 @@ Develop methods that can model, respond or reproduce the large variability among
 
 % \end{frame}
 
-\section{Background}
+\section{Approachs}
 \begin{frame}
-  \frametitle{Background}
+  \frametitle{Approachs}
   \begin{itemize}
-    \item General Video Game Playing AI
-    \item Monte-Carlo Tree Search
-    \item On-line Parameter Tuning
+    \item Neural Network(NN)
+    \item Reinforcement Learning(RL)
+    \item Monte-Carlo Tree Search(MCTS)
   \end{itemize}
-  
-
 \end{frame}
 
 
-\subsection{General Video Game Playing AI}
+\subsection{Neural Network}
 \begin{frame}
-\frametitle{General Video Game Playing AI}
-Aiming at using it as a research and competition framework for studying General Video Game Playing (GVGP). It consists of 5 tracks. Games were defined in Video GAme Description Language (VGDL). It has the advantage of being more extensible, meaning that it is much easier to add new games and variations of those games.
+\frametitle{NN-based GVGP}
+M. Hausknecht et al. [9] employed evolutionary neural networks to extract higher-dimensional representation forms from the raw game screen.
+\end{frame}
+
+\subsection{Reinforcement Learning}
+\begin{frame}
+\frametitle{RL-based GVGP}
+It is a best-first search algorithm that incrementally builds a tree representation of the search space of a problem (e.g., a game) and estimates the values of states by performing simulations.
 \end{frame}
 
 \subsection{Monte-Carlo Tree Search}
 \begin{frame}
-\frametitle{Monte-Carlo Tree Search}
-It is a best-first search algorithm that incrementally builds a tree representation of the search space of a problem (e.g., a game) and estimates the values of states by performing simulations\cite{1}.
-\end{frame}
-
-\subsection{On-line Parameter Tuning}
-\begin{frame}
-\frametitle{On-line Parameter Tuning\cite{10}}
+\frametitle{MCTS-based GVGP\cite{10}}
 The parameters of an AI agent can be seen as a vector of integers and doubles. The tuning of parameters is therefore a problem of searching optimal numerical vector(s) in a given parameter search space. %[On-line parameters tuning for Monte-Carlo tree search in general game playing. In: 6th Workshop on Computer Games (CGW)]
 \end{frame}
 
@@ -296,11 +316,35 @@ The parameters of an AI agent can be seen as a vector of integers and doubles. T
 \footnotesize{
 \begin{thebibliography}{99} % Beamer does not support BibTeX so references must be inserted manually as below
     \bibitem{1}
+    Perez-Liebana, D., Samothrakis, S., Togelius, J., Lucas, S. M., \& Schaul, T. (2016). 
+    \newblock General video game AI: Competition, challenges, and opportunities. 
+    \newblock In 30th AAAI Conference on Artificial Intelligence, AAAI 2016, 4335–4337.
+
+    \bibitem{2}
+    Perez, D., Samothrakis, S., \& Lucas, S. (2014). 
+    \newblock Knowledge-based fast evolutionary MCTS for general video game playing.
+    \newblock IEEE Conference on Computatonal Intelligence and Games, CIG, 1–8.
+
+
+    \bibitem{3}
+    Yannakakis, G. N. (2012). 
+    \newblock Game AI revisited.
+    \newblock In CF ’12 - Proceedings of the ACM Computing Frontiers Conference, 285–292.
+
+    \bibitem{4}
+    Togelius, J., \& Yannakakis, G. N. (2016). 
+    \newblock General general game AI. 
+    \newblock In IEEE Conference on Computatonal Intelligence and Games, CIG, 0, 1–8.
+
+
+    \bibitem{10}
     R{\'e}mi Coulom.
     \newblock Efficient selectivity and backup operators in monte-carlo tree search.
     \newblock In {\em International conference on computers and games}, pages 72--83. Springer, 2006.
 
-    \bibitem{2}
+
+
+    \bibitem{22}
     Simon M. Lucas. 
     \newblock Ms pac-man competition. 
     \newblock In http://cswww.essex.ac.uk/staff/sml/pacman/PacManContest.html, 2012.
@@ -309,6 +353,8 @@ The parameters of an AI agent can be seen as a vector of integers and doubles. T
     Philip Hingston.
     \newblock The 2k botprize.
     \newblock http://botprize.org/, 2012.
+
+
 
     \bibitem{4}
     Diego Perez, David Robles, and Philipp Rohlfshagen. 
@@ -328,16 +374,6 @@ The parameters of an AI agent can be seen as a vector of integers and doubles. T
     \bibitem{7}
     Volodymyr Mnih, Koray Kavukcuoglu, David Silver, Alex Graves, Ioannis Antonoglou, Daan Wierstra, and Martin Riedmiller.
     \newblock Playing atari with deep reinforcement learning, 2013.
-
-    \bibitem{8}
-    Togelius, J., \& Yannakakis, G. N. (2016). 
-    \newblock General general game AI. 
-    \newblock In IEEE Conference on Computatonal Intelligence and Games, CIG, 0, 1–8.
-
-    \bibitem{9}
-    Yannakakis, G. N. (2012). 
-    \newblock Game AI revisited.
-    \newblock In CF ’12 - Proceedings of the ACM Computing Frontiers Conference, 285–292.
 
     \bibitem{10}
     Levine, J., Bates Congdon, C., Bída, M., Ebner, M., Kendall, G., Lucas, S., Thompson, T.
