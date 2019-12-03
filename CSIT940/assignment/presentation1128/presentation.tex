@@ -130,28 +130,54 @@ Such attempts comprises Chess, Go, Car Racing games, Ms.PacMan, Real-Time Strate
 
 
 %------------------------------------------------
-\section{Problem}
+\section{Landscapes}
 \begin{frame}
-\frametitle{Problem Definition}
+\frametitle{Landscapes of GVPAI}
 \begin{itemize}
-\item Non-player game-playing
+\item Knowledge Representation
+\item Search
+\item Planning
+\item Learning
 \item Generality
 \end{itemize}
 \end{frame}
 
 %------------------------------------------------
 %[General general game AI]
-\subsection{Non-human game-playino}
+\subsection{Knowledge Representation}
 \begin{frame}
-\frametitle{Non-human Game-playing\cite{3}}
-\begin{block}{Game-playing}
-How AI agent playing games is the core problem. This may involve modeling the way human playing games. Some characteristics such as short-term memory, reaction time and perceptual capabilities should be take into concern to make AI more like a real human player rather than dull Bots.
-\end{block}
+\frametitle{Knowledge Representation and Reasoning\cite{3}}
+GVPAI requires a formal, symbolic language in which the rules of arbitrary games can be described to a system. The general Game Description Language (GDL) has been developed for that purpose. There are several challenging reasoning problems.
+\begin{itemize}
+  \item Reasoning about actions
+  \item Automated theorem proving
+  \item Other KRR techniques
+\end{itemize}
+\end{frame}
 
-\begin{block}{Non-human behavior}
-GVPAI should act like human rather than autonomous machine program, Many games have non-player characters (NPCs), and AI can help in making NPCs believable, human-like, social and expressive.
-\end{block}
- 
+\subsection{Search\cite{12}}
+\begin{frame}
+  \frametitle{Search}
+  Once a GVPAI system is capable of computing legal moves and position updates from the game rules, it can search through the space of pos- sible ways in which the game can proceed
+  \begin{itemize}
+    \item Monte Carlo Tree Search
+    \item Informed search -- Uses problem-specific knowledge.
+  \end{itemize}
+
+\end{frame}
+
+\subsection{Planning}
+\begin{frame}
+  \frametitle{Planning}
+  Planning is closely related to GVGP, as both are instances of general problem solving, where the specifics of a problem are unknown until runtime.
+\end{frame}
+
+\subsection{Learning}
+\begin{frame}
+  \frametitle{Learning}
+  The very idea of general game playing is to build systems that automatically learn to master arbitrary new games.
+  
+
 \end{frame}
 %------------------------------------------------
 
@@ -231,7 +257,7 @@ Perez et. al. \cite{8} explored the performance of a vanilla Monte Carlo Tree Se
   \caption{ MCTS algorithm steps }
 \end{figure}
 
-Park and Kim propose to use influence map (IM) to solve
+Park and Kim\cite{9} propose to use influence map (IM) to solve
 the MCTS’s horizon effect problem.
 
 \begin{figure}[c]
@@ -239,7 +265,7 @@ the MCTS’s horizon effect problem.
   \caption{ Overview of proposed method (blue is good influence and red is bad influence) }
 \end{figure}
 
-Sironi et.al. designed three Self-Adaptive MCTS (SA-MCTS) agents that optimize the parameters of a standard non-Self-Adaptive MCTS agent of GVGAI. 
+Sironi et.al.\cite{10} designed three Self-Adaptive MCTS (SA-MCTS) agents that optimize the parameters of a standard non-Self-Adaptive MCTS agent of GVPAI. 
 
 The three agents select the parameter values using Naive Monte-Carlo, an Evolutionary Algorithm and an N-Tuple Bandit Evolutionary Algorithm respectively, and are tested on 20 single-player games.
 
@@ -247,89 +273,14 @@ The three agents select the parameter values using Naive Monte-Carlo, an Evoluti
   \includegraphics[width=1\linewidth]{figures/figure1}
   \caption{ Average win rate over 5 levels of each game}
 \end{figure}
-
 \end{frame}
 
-\section{Competitions}
+\section{Conclusion}
 \begin{frame}
-  \frametitle{Competitions}
-  One of the main challenges of General Video Game Playing is to create a software framework that allows for games to be designed and representated and different game-playing agents tested via some form of long-running competition. 
-  \begin{itemize}
-    \item Ms pac-man competition
-    \item The 2k botprize
-    \item The Physical Travelling Salesman Problem
-  \end{itemize}
-  
-\end{frame}
-
-\begin{frame}
-  \frametitle{Ms pac-man competition\cite{2}}
-  This competition is focused on the tasks of programming computer agents to play as either Ms. Pac-Man or as the ghosts.
-  \begin{figure}
-    \includegraphics[width=1\linewidth]{figures/pacman}
-    \caption{Pacman Capture the Flag}
-  \end{figure}
-\end{frame}
-
-\begin{frame}
-  \frametitle{The 2k botprize\cite{3}}
-  In the contest, bots try to convince a panel of expert judges that they are actually human players.
-  \begin{figure}
-    \includegraphics[width=1\linewidth]{figures/botprize}
-    \caption{BotPrize judging protocol}
-  \end{figure}
-\end{frame}
-
-\begin{frame}
-  \frametitle{The physical travelling salesman problem competition\cite{4}}
-  It is a classic algorithmic problem in the field of computer science and operations research. It is focused on optimization.
-  \begin{figure}
-    \includegraphics[width=0.6\linewidth]{figures/salesman}
-    \caption{A salesman wants to visit all cities,A, B, C and D. What is the best way to do this}
-  \end{figure}
-\end{frame}
-%------------------------------------------------
-
-\section{Application}
-
-\begin{frame}
-  \frametitle{Applications}
-  \begin{itemize}
-    \item AlphaGo
-    \item StarCraft
-    \item Atari Games
-  \end{itemize}
+  \frametitle{Conclusion}
+  General game playing is an exciting, still young but on the verge of maturing topic, which touches upon a broad range of aspects of artificial intelligence. it provides a rich source of interesting and challenging problems for many an AI researcher.
   
 
-\end{frame}
-\subsection{AlphaGo}
-\begin{frame}
-  \frametitle{AlphaGo - Neural Network and Tree Search}
-  Sliver et.al. \cite{5} introduce a new approach to computer Go that uses ‘value networks’ to evaluate board positions and ‘policy networks’ to select moves.
-  \begin{figure}
-    \includegraphics[width=1\linewidth]{figures/gosearch}
-    \caption{ Monte Carlo tree search in AlphaGo}
-  \end{figure}
-\end{frame}
-
-\subsection{StarCraft}
-\begin{frame}
-  \frametitle{Reinforcement Learning Applied to StarCraft}
-  Wender and Watson did some research \cite{6} on applying reinforcement learning (RL) to tiny scale combat in StarCraft, aiming to design an agent performing unsupervised learning in complex environment. The result showed the viability of RL algorithms in SC.
-  \begin{figure}
-    \includegraphics[width=0.6\linewidth]{figures/sc}
-    \caption{ Initial unit positioning for the experimental evaluation}
-  \end{figure}
-\end{frame}
-
-\subsection{Atari Games}
-\begin{frame}
-  \frametitle{Deep Reinforcement Learning Applied to Atari Games}
-  Mnih et.al \cite{7} applied convolutional neural network trained with a variant of Q-learning to seven Atari 2600 games from the Arcade Learning Environment. The AI reached the expert level of human-like player.
-  \begin{figure}
-    \includegraphics[width=1\linewidth]{figures/atari}
-    \caption{  Screen shots from five Atari 2600 Games: (Left-to-right) Pong, Breakout, Space Invaders, Seaquest, Beam Rider}
-  \end{figure}
 \end{frame}
 
 
@@ -393,24 +344,10 @@ The three agents select the parameter values using Naive Monte-Carlo, an Evoluti
     \newblock Hyper-heuristic general video game playing. 
     \newblock In IEEE Conference on Computatonal Intelligence and Games, CIG, 0, 1–8.
 
-    \bibitem{22}
-    Simon M. Lucas. 
-    \newblock Ms pac-man competition. 
-    \newblock In http://cswww.essex.ac.uk/staff/sml/pacman/PacManContest.html, 2012.
-
-    
-    \bibitem{16}
-    S.~{Wender} and I.~{Watson}.
-    \newblock Applying reinforcement learning to small scale combat in the real-time strategy game starcraft:broodwar.
-    \newblock In {\em 2012 IEEE Conference on Computational Intelligence and Games (CIG)}, pages 402--408, Sep. 2012.
-
-
-    
-
-    \bibitem{10}
-    Levine, J., Bates Congdon, C., Bída, M., Ebner, M., Kendall, G., Lucas, S., Thompson, T.
-    \newblock General Video Game Playing. 
-    \newblock In Dagstuhl Follow-Up, 6(February 2015).
+    \bibitem{12}
+    Thielscher, M. (2011). 
+    \newblock General game playing in AI research and education. 
+    \newblock In Lecture Notes in Computer Science (Including Subseries Lecture Notes in Artificial Intelligence and Lecture Notes in Bioinformatics), 7006 LNAI, 26–37.
 
     \end{thebibliography}
 }
