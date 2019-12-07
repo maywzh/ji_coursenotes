@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+<definitions name="DeleteFile"
+             targetNamespace="http://csci927.com/deletefile.wsdl"
+             xmlns:tns="http://csci927.com/deletefile.wsdl"
+             xmlns:xsd1="http://csci927.com/deletefile.xsd"
+             xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+             xmlns="http://schemas.xmlsoap.org/wsdl/">
+              
+  
+  <types>
+    <schema targetNamespace="http://csci927.com/deletefile.xsd"
+            xmlns="http://www.w3.org/1999/XMLSchema">
+      <element name="DeleteFileRequest">
+        <complexType>
+          <all>
+            <element name="SessionId" type="string"/>
+            <element name="Filename" type="bytes"/>
+
+          </all>
+        </complexType>
+      </element>
+      <element name="DeleteFileResult">
+        <complexType>
+          <all>
+            <element name="ReturnCode" type="int"/>
+            <element name="ReturnMessage" type="string"/>
+          </all>
+        </complexType>
+      </element>
+    </schema>
+  </types>
+  <message name="DeleteFileInput">
+    <part name="body" element="xsd1:DeleteFileRequest"/>
+  </message>
+  
+  <message name="DeleteFileOutput">
+    <part name="body" element="xsd1:DeleteFileResult"/>
+  </message>
+
+  <portType name="DeleteFilePortType">
+    <operation name="DeleteFile">
+      <input message="tns:DeleteFileInput"/>
+      <output message="tns:DeleteFileOutput"/>
+    </operation>
+  </portType>
+
+  <binding name="DeleteFileBinding" type="tns:DeleteFilePortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http">
+      <operation name="DeleteFile">
+        <soap:operation soapAction="http://csci927.com/deletefile">
+          <input>
+            <soap:body use="literal" namespace="http://csci927.com/deletefile.xsd"
+                       encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+          </input>
+          <output>
+            <soap:body use="literal" namespace="http://csci927.com/deletefile.xsd"
+                       encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+          </output>
+        </soap:operation>
+      </operation>
+    </soap:binding>
+  </binding>
+
+  <service name="DeleteFileService">
+    <documentation>DeleteFile Account Service</documentation> 
+    <port name="DeleteFilePort" binding="tns:DeleteFileBinding">
+    <soap:address location="http://csci927.com/deletefile"/>
+    </port>
+  </service>
+  
+</definitions>

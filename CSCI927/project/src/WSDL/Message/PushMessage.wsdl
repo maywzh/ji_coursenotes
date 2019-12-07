@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+<definitions name="PushMessage"
+             targetNamespace="http://csci927.com/pushmessage.wsdl"
+             xmlns:tns="http://csci927.com/pushmessage.wsdl"
+             xmlns:xsd1="http://csci927.com/pushmessage.xsd"
+             xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+             xmlns="http://schemas.xmlsoap.org/wsdl/">
+              
+  
+  <types>
+    <schema targetNamespace="http://csci927.com/pushmessage.xsd"
+            xmlns="http://www.w3.org/1999/XMLSchema">
+      <element name="PushMessageRequest">
+        <complexType>
+          <all>
+            <element name="Message" type="string"/>
+            <element name="ToUser" type="string"/>
+
+          </all>
+        </complexType>
+      </element>
+      <element name="PushMessageResult">
+        <complexType>
+          <all>
+            <element name="ReturnCode" type="int"/>
+            <element name="ReturnMessage" type="string"/>
+          </all>
+        </complexType>
+      </element>
+    </schema>
+  </types>
+  <message name="PushMessageInput">
+    <part name="body" element="xsd1:PushMessageRequest"/>
+  </message>
+  
+  <message name="PushMessageOutput">
+    <part name="body" element="xsd1:PushMessageResult"/>
+  </message>
+
+  <portType name="PushMessagePortType">
+    <operation name="PushMessage">
+      <input message="tns:PushMessageInput"/>
+      <output message="tns:PushMessageOutput"/>
+    </operation>
+  </portType>
+
+  <binding name="PushMessageBinding" type="tns:PushMessagePortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http">
+      <operation name="PushMessage">
+        <soap:operation soapAction="http://csci927.com/pushmessage">
+          <input>
+            <soap:body use="literal" namespace="http://csci927.com/pushmessage.xsd"
+                       encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+          </input>
+          <output>
+            <soap:body use="literal" namespace="http://csci927.com/pushmessage.xsd"
+                       encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+          </output>
+        </soap:operation>
+      </operation>
+    </soap:binding>
+  </binding>
+
+  <service name="PushMessageService">
+    <documentation>PushMessage Account Service</documentation> 
+    <port name="PushMessagePort" binding="tns:PushMessageBinding">
+    <soap:address location="http://csci927.com/pushmessage"/>
+    </port>
+  </service>
+  
+</definitions>

@@ -1,0 +1,239 @@
+\documentclass{article}
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{listings}
+\usepackage{amssymb}
+\usetikzlibrary{automata,positioning,graphs}
+
+\usepackage{color}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb,
+  language=Python,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass\: \hmwkTitle}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Problem \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Due date
+%   - Class
+%   - Section/Time
+%   - Instructor
+%   - Author
+%
+\newcommand{\hmwkNum}{7}
+\newcommand{\hmwkTitle}{Homework\ \#\hmwkNum}
+\newcommand{\hmwkDueDate}{November 20, 2019}
+\newcommand{\hmwkClass}{CSCI971 Advance Computer Security}
+\newcommand{\hmwkClassInstructor}{Chen Jiageng}
+\newcommand{\hmwkAuthorName}{\textbf{Mei Wangzhihui}}
+\newcommand{\hmwkAuthorNum}{\textbf{2019124044}}
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\\ \hmwkTitle}}\\
+    % \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at 3:10pm}\\
+    % \vspace{0.1in}\large{\textit{\hmwkClassInstructor\ \hmwkClassTime}}
+    \vspace{3in}
+}
+
+\author{\hmwkAuthorName\ \\ \hmwkAuthorNum}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+
+% Alias for the Solution section header
+\newcommand{\solution}{\textbf{\large Solution}}
+
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\E}{\mathrm{E}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+
+\begin{document}
+
+\maketitle
+
+\clearpage
+
+\begin{homeworkProblem}
+
+AE-secure $\Leftrightarrow$ semantically secure under CPA and CI.
+
+For the first cipher, assume an attacker who can perform CPA. He intercept the ciphertext $c=E_1(k, m)=(E(k,m),H_1(m))$, He can perform as many as CPA. We assume in CPA attack game. Adversary $\mathcal{A}$ first send $m_{0},m_{0}$ to challenger $\mathcal{C}$, he get the ciphertext $c=(E(k_0,m_0),H_1(m_0))$. Then $\mathcal{A}$ send $m_{0},m_{1}$ to $\mathcal{C}$, as $E$ is CPA secure, so key has to be changed. $\mathcal{A}$ get the ciphertext  $c=(E(k_1,m_0),H_1(m_0))$ or  $c=(E(k_1,m_1),H_1(m_1))$ based on $b$. Then if $b=1$, $\mathcal{A}$ can easily differ the plaintext from the tag $H_1(m_b)$. So $Adv_{CPA}(\mathcal{A},\mathcal{E}) = 1/2$ is not negligible. Cipher1 is not CPA-secure, so it's not AE-secure.
+
+For the second cipher, attacker can intercept the ciphertext $(c,H_2(c))$, so he can learn the mapping model of $H_2$ function. So in CI attack game, Adversary $\mathcal{A}$ can easily generate an valid ciphertext-tag pair $(c_{atk}, H_2(c_{atk}))$. Then Decryptor $D_2(k, (c_{atk},H_2(c_{atk}))) \neq \perp$. So $Adv_{CI}(\mathcal{A},\mathcal{E})$ is not negligible. Cipher2 does not safisfy CI, so it's not AE-secure.
+
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+    
+Addition $\mathcal{Z}_6^*$ is a cyclic group. 
+
+$\mathcal{Z}_6^*=\{0,1,2,3,4,5,6\}$ 
+
+1 generate \{0,1,2,3,4,5\}
+
+2 generate \{0,2,4\}
+
+3 generate \{0,3\}
+
+4 generate \{0,2,4\}
+
+5 generate \{0,1,2,3,4,5\}
+
+So the generators of $\mathcal{Z}_6^*$ are 1,5, the subgroups are \{0,1,2,3,4,5\}, \{0,2,4\}, \{0,3\}
+
+
+
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+
+
+
+
+
+Group under multiplication $\mathcal{Z}_{13}^*$ is a cyclic group.
+
+$\mathcal{Z}_{13}^*=\{0,1,2,3,4,5,6,7,8,9,10,11,12\}$
+
+    <1> = \{1\} \\
+    <2> = \{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12\} \\ 
+    <3> = \{1, 3, 9\} \\
+    <4> = \{1, 3, 4, 9, 10, 12\} \\ 
+    <5> = \{1, 5, 8, 12\} \\
+    <6> = \{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12\} \\
+    <7> = \{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12\} \\ 
+    <8> = \{1, 5, 8, 12\} \\
+    <9> = \{1, 3, 9 \} \\
+    <10> = \{1, 3, 4, 9, 10, 12\} \\
+    <11> = \{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12\} \\ 
+    <12> = \{1, 12 \}
+
+    So subgroups are \{1\}, \{1, 12 \}, \{1, 3, 9\}, \{1, 5, 8, 12\}, \{1, 3, 4, 9, 10, 12\}, \{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12\}
+    
+\clearpage
+python codes:
+
+\begin{lstlisting}
+    for i in range(2,13):
+    num=1
+    cset = set()
+    for j in range(1,20):
+        num*=i
+        cset.add(num % 13)
+    print(i, cset)
+
+\end{lstlisting}
+
+
+
+\end{homeworkProblem}
+\end{document}

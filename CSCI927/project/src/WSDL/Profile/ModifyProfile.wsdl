@@ -1,0 +1,74 @@
+<?xml version="1.0"?>
+<definitions name="ModifyProfile"
+             targetNamespace="http://csci927.com/modifyprofile.wsdl"
+             xmlns:tns="http://csci927.com/modifyprofile.wsdl"
+             xmlns:xsd1="http://csci927.com/modifyprofile.xsd"
+             xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+             xmlns="http://schemas.xmlsoap.org/wsdl/">
+              
+  
+  <types>
+    <schema targetNamespace="http://csci927.com/modifyprofile.xsd"
+            xmlns="http://www.w3.org/1999/XMLSchema">
+      <element name="ModifyProfileRequest">
+        <complexType>
+          <all>
+            <element name="SessionId" type="string"/>
+            <element name="username" type="string"/>
+            <element name="newpassword" type="password"/>
+            <element name="newnickname" type="string"/>
+            <element name="newemail" type="string"/>
+            <element name="newphone" type="string"/>
+          </all>
+        </complexType>
+      </element>
+      <element name="ModifyProfileResult">
+        <complexType>
+          <all>
+            <element name="ReturnCode" type="int"/>
+            <element name="ReturnMessage" type="string"/>
+          </all>
+        </complexType>
+      </element>
+    </schema>
+  </types>
+  <message name="ModifyProfileInput">
+    <part name="body" element="xsd1:ModifyProfileRequest"/>
+  </message>
+  
+  <message name="ModifyProfileOutput">
+    <part name="body" element="xsd1:ModifyProfileResult"/>
+  </message>
+
+  <portType name="ModifyProfilePortType">
+    <operation name="ModifyProfile">
+      <input message="tns:ModifyProfileInput"/>
+      <output message="tns:ModifyProfileOutput"/>
+    </operation>
+  </portType>
+
+  <binding name="ModifyProfileBinding" type="tns:ModifyProfilePortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http">
+      <operation name="ModifyProfile">
+        <soap:operation soapAction="http://csci927.com/modifyprofile">
+          <input>
+            <soap:body use="literal" namespace="http://csci927.com/modifyprofile.xsd"
+                       encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+          </input>
+          <output>
+            <soap:body use="literal" namespace="http://csci927.com/modifyprofile.xsd"
+                       encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+          </output>
+        </soap:operation>
+      </operation>
+    </soap:binding>
+  </binding>
+
+  <service name="ModifyProfileService">
+    <documentation>ModifyProfile Account Service</documentation> 
+    <port name="ModifyProfilePort" binding="tns:ModifyProfileBinding">
+    <soap:address location="http://csci927.com/modifyprofile"/>
+    </port>
+  </service>
+  
+</definitions>

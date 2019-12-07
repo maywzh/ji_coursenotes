@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+<definitions name="Login"
+             targetNamespace="http://csci927.com/login.wsdl"
+             xmlns:tns="http://csci927.com/login.wsdl"
+             xmlns:xsd1="http://csci927.com/login.xsd"
+             xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+             xmlns="http://schemas.xmlsoap.org/wsdl/">
+              
+  
+  <types>
+    <schema targetNamespace="http://csci927.com/login.xsd"
+            xmlns="http://www.w3.org/1999/XMLSchema">
+      <element name="LoginRequest">
+        <complexType>
+          <all>
+            <element name="username" type="string"/>
+            <element name="password" type="password"/>
+          </all>
+        </complexType>
+      </element>
+      <element name="LoginResult">
+        <complexType>
+          <all>
+            <element name="ReturnCode" type="int"/>
+            <element name="SessionId" type="string"/>
+            <element name="ReturnMessage" type="string"/>
+          </all>
+        </complexType>
+      </element>
+    </schema>
+  </types>
+  <message name="LoginInput">
+    <part name="body" element="xsd1:LoginRequest"/>
+  </message>
+  
+  <message name="LoginOutput">
+    <part name="body" element="xsd1:LoginResult"/>
+  </message>
+
+  <portType name="LoginPortType">
+    <operation name="Login">
+      <input message="tns:LoginInput"/>
+      <output message="tns:LoginOutput"/>
+    </operation>
+  </portType>
+
+  <binding name="LoginBinding" type="tns:LoginPortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http">
+      <operation name="Login">
+        <soap:operation soapAction="http://csci927.com/login">
+          <input>
+            <soap:body use="literal" namespace="http://csci927.com/login.xsd"
+                       encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+          </input>
+          <output>
+            <soap:body use="literal" namespace="http://csci927.com/login.xsd"
+                       encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+          </output>
+        </soap:operation>
+      </operation>
+    </soap:binding>
+  </binding>
+
+  <service name="LoginService">
+    <documentation>Login Account Service</documentation> 
+    <port name="LoginPort" binding="tns:LoginBinding">
+    <soap:address location="http://csci927.com/login"/>
+    </port>
+  </service>
+  
+</definitions>

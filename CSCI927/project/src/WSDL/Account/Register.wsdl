@@ -1,0 +1,73 @@
+<?xml version="1.0"?>
+<definitions name="Register"
+             targetNamespace="http://csci927.com/register.wsdl"
+             xmlns:tns="http://csci927.com/register.wsdl"
+             xmlns:xsd1="http://csci927.com/register.xsd"
+             xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+             xmlns="http://schemas.xmlsoap.org/wsdl/">
+              
+  
+  <types>
+    <schema targetNamespace="http://csci927.com/register.xsd"
+            xmlns="http://www.w3.org/1999/XMLSchema">
+      <element name="RegisterRequest">
+        <complexType>
+          <all>
+            <element name="username" type="string"/>
+            <element name="password" type="password"/>
+            <element name="nickname" type="string"/>
+            <element name="email" type="string"/>
+            <element name="phone" type="string"/>
+          </all>
+        </complexType>
+      </element>
+      <element name="RegisterResult">
+        <complexType>
+          <all>
+            <element name="ReturnCode" type="int"/>
+            <element name="ReturnMessage" type="string"/>
+          </all>
+        </complexType>
+      </element>
+    </schema>
+  </types>
+  <message name="RegisterInput">
+    <part name="body" element="xsd1:RegisterRequest"/>
+  </message>
+  
+  <message name="RegisterOutput">
+    <part name="body" element="xsd1:RegisterResult"/>
+  </message>
+
+  <portType name="RegisterPortType">
+    <operation name="Register">
+      <input message="tns:RegisterInput"/>
+      <output message="tns:RegisterOutput"/>
+    </operation>
+  </portType>
+
+  <binding name="RegisterBinding" type="tns:RegisterPortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http">
+      <operation name="Register">
+        <soap:operation soapAction="http://csci927.com/register">
+          <input>
+            <soap:body use="literal" namespace="http://csci927.com/register.xsd"
+                       encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+          </input>
+          <output>
+            <soap:body use="literal" namespace="http://csci927.com/register.xsd"
+                       encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+          </output>
+        </soap:operation>
+      </operation>
+    </soap:binding>
+  </binding>
+
+  <service name="RegisterService">
+    <documentation>Register Account Service</documentation> 
+    <port name="RegisterPort" binding="tns:RegisterBinding">
+    <soap:address location="http://csci927.com/register"/>
+    </port>
+  </service>
+  
+</definitions>
