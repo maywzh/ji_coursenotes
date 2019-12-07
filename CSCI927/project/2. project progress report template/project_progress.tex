@@ -47,21 +47,29 @@
 
 %-----------Please write the content of your research proposal from here.---------------
 \noindent %peng muzhe
-\section*{Progress}
-\subsection*{}
+\section{Progress}
+\subsection{Interaction Module}
 In order to better description the service, the model is further designed according to the proposal. The must-have modules have finished designing, which includes Updates Issue module, Search module and Message Processing Module. The technology of Business Process Modeling Notation(BPMN) and corresponding Extensive Markup Language(XML) are used to denote well-organized and predictable process, Case Management Model and Notation(CMMN) is used to describe the unpredictable process. More details are included in the appendix. 
-\\Slight adjustment is made to make the function of the service more appropriate, which is:
-\\Deleting the Updates Searching module in the Search service. Because the online study lounge system should focus more on helping users form good habits for study, however it seems unnecessary to search for a certain updates, this module will divert users’ attention more on friends making. 
 
 
-\subsection*{Q\&A Module} %maywzh
-\noindent
+
+
+\subsection{Q\&A Module} %maywzh
 For Q\&A module, We have developed Question Service and Answer Service along with interaction with Follow Service, Push Service. Down-top design was used to build the system, dividing the application into two layer: basic layer and business logic layer. The SOA pattern was referred in building the System, dividing Question Services and Answer Services into atomic services. BPMN model was used to describe the business process model of the Q\&A module in the view of users. Also, We use CMMN model to describe the case model of the moduel. The according xml files are offered.
-Generating Question Services consists search question service, add/edit/follow question services and follow question service, we considered the general business model of the service and combined them into a whold model. In CMMN Model, We connected Question Service and Answer Service, to show the whole service chain.
+
+
+\subsection{Personal Module}%He Yueyue
+The functions of the personal module have been analyzed and described as services that can be provided to users.The business processes of login service, modification of personal information service and learning plan service are formulated and represented by Business Process Modeling Notation(BPMN) and Extensive Markup Language(XML) technology.At the same time, Case Management Model and Notation(CMMN) and XML technology are used to represent the logic of learning report generation service. More details are included in the appendix.
+
+
+\subsection{Self Study Module} %Lyu Liting
+On the basis of the proposal, the services of the self-study module are re-combed and refined. The models of the necessary services of this module are designed, including self-study room service, attendance service and learning task service. The technology of Business Process Modeling Notation (BPMN), Extensible Markup Language (XML) is used to design the ordered business model process. Case Management Model and Notation (CMMN) is used to design the business model process in an unpredictable order. Detailed business models can be seen in the appendix.
 
 \section*{Next plan}
 1.Design the good-to-have services
 \\2.Try to apply more technology.
+\\3.Make all business processes of personal module, and make corresponding interface to interact with other modules.
+\\4.Design the system with richer models.
 
 \clearpage
 \begin{flushleft}
@@ -938,10 +946,16 @@ Generating Question Services consists search question service, add/edit/follow q
     \end{lstlisting}
 	\clearpage
 	
-    %lvliting
-	\noindent 
+     %lvliting
+    \textbf{Self-study Room Service BPMN Model and XML}\\
+    \begin{figure}
+        \centering %图片居中
+        \includegraphics[width=1.0\textwidth]{figure/llt/bpmnselfstudy} %插入图片，[]中设置图片大小，{}中是图片文件名
+       \caption{Self-study Room Service BPMN Model} %最终文档中希望显示的图片标题
+        \label{Self-study Room} %用于文内引用的标签
+  	\end{figure}
     \begin{lstlisting}[language={XML}]
-        <bpmn:collaboration id="Collaboration_1">
+    <bpmn:collaboration id="Collaboration_1">
 		<bpmn:participant id="Participant_1" processRef="Process_1"/>
 		<bpmn:participant id="Participant_2" processRef="Process_2"/>
 		<bpmn:messageFlow id="MessageFlow_1" sourceRef="Participant_2" targetRef="Participant_1"/>
@@ -1138,13 +1152,13 @@ Generating Question Services consists search question service, add/edit/follow q
 
     
 	\end{lstlisting}
-	%\clearpage
-	%\textbf{Answer Service BPMN Model and XML}\\
+	\clearpage
+	\textbf{Report the Self-study Room Service CMMN Model and XML}\\
 	\begin{figure}
 		\centering %图片居中
-		\includegraphics[width=1.0\textwidth]{figure/llt/bpmnselfstudy} %插入图片，[]中设置图片大小，{}中是图片文件名
-		\caption{Self Study Service BPMN Model} %最终文档中希望显示的图片标题
-		\label{bpmnselfstudy} %用于文内引用的标签
+		\includegraphics[width=1.0\textwidth]{figure/llt/selfstudyroombpmn} %插入图片，[]中设置图片大小，{}中是图片文件名
+		\caption{Report the Self-study Room Service CMMN Model} %最终文档中希望显示的图片标题
+		\label{Report the Self-study Room} %用于文内引用的标签
 	\end{figure}
 	\begin{lstlisting}[language={XML}]
 	<cmmn:case id="Case_1">
@@ -1184,11 +1198,13 @@ Generating Question Services consists search question service, add/edit/follow q
 	\end{lstlisting}
 	%\clearpage
 	%\textbf{Answer Service BPMN Model and XML}\\
+	\clearpage
+	\textbf{Attendance Service BPMN Model and XML}\\
 	\begin{figure}
 		\centering %图片居中
-		\includegraphics[width=1.0\textwidth]{figure/llt/selfstudyroombpmn} %插入图片，[]中设置图片大小，{}中是图片文件名
-		\caption{Studyroom Service BPMN} %最终文档中希望显示的图片标题
-		\label{selfstudyroombpmn} %用于文内引用的标签
+		\includegraphics[width=1.0\textwidth]{figure/llt/attendanceservicebpmn} %插入图片，[]中设置图片大小，{}中是图片文件名
+		\caption{Attendance Service BPMN Model} %最终文档中希望显示的图片标题
+		\label{Attendance} %用于文内引用的标签
 	\end{figure}
 	\begin{lstlisting}[language={XML}]
 	<bpmn:process id="Process_2" isExecutable="true">
@@ -1289,18 +1305,12 @@ Generating Question Services consists search question service, add/edit/follow q
 	
 	\end{lstlisting}
 	\clearpage
-	\begin{figure}
-		\centering %图片居中
-		\includegraphics[width=1.0\textwidth]{figure/llt/attendanceservicebpmn} %插入图片，[]中设置图片大小，{}中是图片文件名
-		\caption{Attendance Service BPMN} %最终文档中希望显示的图片标题
-		\label{attendanceservicebpmn} %用于文内引用的标签
-	\end{figure}
-
+	\textbf{Learning Task Service BPMN Model and XML}\\
 	\begin{figure}
 		\centering %图片居中
 		\includegraphics[width=1.0\textwidth]{figure/llt/learningtaskservice} %插入图片，[]中设置图片大小，{}中是图片文件名
-		\caption{Learning Task Service} %最终文档中希望显示的图片标题
-		\label{learningtaskservice} %用于文内引用的标签
+		\caption{Learning Task Service BPMN Model} %最终文档中希望显示的图片标题
+		\label{Learning Task} %用于文内引用的标签
 	\end{figure}
 	\begin{lstlisting}[language={XML}]
 	<bpmn:process id="Process_3" isExecutable="true">
