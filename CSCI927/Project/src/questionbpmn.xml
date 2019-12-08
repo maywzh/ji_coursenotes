@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions exporter="Visual Paradigm" exporterVersion="1" id="Definition" targetNamespace="http://www.omg.org/bpmn20" xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL http://www.omg.org/spec/BPMN/20100501/BPMN20.xsd">
+	<process id="_1" isExecutable="false" name="QuestionService">
+		<intermediateCatchEvent id="BP06_BP86" name="New answer received">
+			<incoming>BP06_BP87</incoming>
+			<outgoing>BP06_BP88</outgoing>
+			<messageEventDefinition id="ID_41527216_1627_3203_7600_000000200064"/>
+		</intermediateCatchEvent>
+		<task completionQuantity="1" id="BP06_BP83" isForCompensation="false" name="Follow Question" startQuantity="1">
+			<incoming>BP06_BP84</incoming>
+			<outgoing>BP06_BP87</outgoing>
+		</task>
+		<task completionQuantity="1" id="BP06_BP81" isForCompensation="false" name="Edit Question" startQuantity="1">
+			<incoming>BP06_BP82</incoming>
+			<outgoing>BP06_BP84</outgoing>
+		</task>
+		<intermediateCatchEvent id="BP06_BP75" name="10 days no answer">
+			<incoming>BP06_BP80</incoming>
+			<outgoing>BP06_BP82</outgoing>
+			<timerEventDefinition id="ID_01527216_1627_3203_7600_000000200063"/>
+		</intermediateCatchEvent>
+		<intermediateCatchEvent id="BP06_BP74" name="No helpful answers">
+			<incoming>BP06_BP76</incoming>
+			<outgoing>BP06_BP77</outgoing>
+			<conditionalEventDefinition id="ID_01527216_1627_3203_7600_000000200062">
+				<condition/>
+			</conditionalEventDefinition>
+		</intermediateCatchEvent>
+		<intermediateCatchEvent id="BP06_BP72" name="Found helpful answer">
+			<incoming>BP06_BP78</incoming>
+			<outgoing>BP06_BP73</outgoing>
+			<conditionalEventDefinition id="ID_01527216_1627_3203_7600_000000200061">
+				<condition/>
+			</conditionalEventDefinition>
+		</intermediateCatchEvent>
+		<eventBasedGateway gatewayDirection="Unspecified" id="BP06_BP70" instantiate="false" name="">
+			<incoming>BP06_BP71</incoming>
+			<outgoing>BP06_BP76</outgoing>
+			<outgoing>BP06_BP78</outgoing>
+			<outgoing>BP06_BP80</outgoing>
+		</eventBasedGateway>
+		<inclusiveGateway gatewayDirection="Unspecified" id="BP06_BP66" name="">
+			<incoming>BP06_BP67</incoming>
+			<incoming>BP06_BP68</incoming>
+			<outgoing>BP06_BP69</outgoing>
+		</inclusiveGateway>
+		<task completionQuantity="1" id="BP06_BP64" isForCompensation="false" name="Vote answer" startQuantity="1">
+			<incoming>BP06_BP65</incoming>
+			<outgoing>BP06_BP67</outgoing>
+		</task>
+		<task completionQuantity="1" id="BP06_BP60" isForCompensation="false" name="Invite user to answer" startQuantity="1">
+			<incoming>BP06_BP77</incoming>
+			<outgoing>BP06_BP62</outgoing>
+		</task>
+		<task completionQuantity="1" id="BP06_BP53" isForCompensation="false" name="Comment answer" startQuantity="1">
+			<incoming>BP06_BP55</incoming>
+			<outgoing>BP06_BP68</outgoing>
+		</task>
+		<inclusiveGateway gatewayDirection="Unspecified" id="BP06_BP51" name="">
+			<incoming>BP06_BP73</incoming>
+			<outgoing>BP06_BP55</outgoing>
+			<outgoing>BP06_BP65</outgoing>
+		</inclusiveGateway>
+		<endEvent id="BP06_BP45" name="">
+			<incoming>BP06_BP69</incoming>
+		</endEvent>
+		<intermediateCatchEvent id="BP06_BP41" name="New answer received">
+			<incoming>BP06_BP42</incoming>
+			<incoming>BP06_BP62</incoming>
+			<outgoing>BP06_BP44</outgoing>
+			<messageEventDefinition id="ID_54404272_1627_3203_7600_000000200041"/>
+		</intermediateCatchEvent>
+		<task completionQuantity="1" id="BP06_BP39" isForCompensation="false" name="Follow Question" startQuantity="1">
+			<incoming>BP06_BP40</incoming>
+			<outgoing>BP06_BP42</outgoing>
+		</task>
+		<task completionQuantity="1" id="BP06_BP37" isForCompensation="false" name="View Answers" startQuantity="1">
+			<incoming>BP06_BP43</incoming>
+			<incoming>BP06_BP44</incoming>
+			<incoming>BP06_BP88</incoming>
+			<outgoing>BP06_BP71</outgoing>
+		</task>
+		<task completionQuantity="1" id="BP06_BP28" isForCompensation="false" name="Click Relative Question" startQuantity="1">
+			<incoming>BP06_BP30</incoming>
+			<outgoing>BP06_BP43</outgoing>
+		</task>
+		<task completionQuantity="1" id="BP06_BP27" isForCompensation="false" name="Add Question" startQuantity="1">
+			<incoming>BP06_BP29</incoming>
+			<outgoing>BP06_BP40</outgoing>
+		</task>
+		<exclusiveGateway gatewayDirection="Unspecified" id="BP06_BP23" name="Found relateive question?">
+			<incoming>BP06_BP24</incoming>
+			<outgoing>BP06_BP29</outgoing>
+			<outgoing>BP06_BP30</outgoing>
+		</exclusiveGateway>
+		<startEvent id="BP06_BP13" isInterrupting="true" name="User encounter puzzle">
+			<outgoing>BP06_BP22</outgoing>
+			<conditionalEventDefinition id="ID_14404272_1627_3203_7600_000000200040">
+				<condition/>
+			</conditionalEventDefinition>
+		</startEvent>
+		<task completionQuantity="1" id="BP06_BP12" isForCompensation="false" name="Search Question" startQuantity="1">
+			<incoming>BP06_BP22</incoming>
+			<outgoing>BP06_BP24</outgoing>
+		</task>
+		<sequenceFlow id="BP06_BP22" name="" sourceRef="BP06_BP13" targetRef="BP06_BP12"/>
+		<sequenceFlow id="BP06_BP24" name="" sourceRef="BP06_BP12" targetRef="BP06_BP23"/>
+		<sequenceFlow id="BP06_BP29" name="no" sourceRef="BP06_BP23" targetRef="BP06_BP27"/>
+		<sequenceFlow id="BP06_BP30" name="yes" sourceRef="BP06_BP23" targetRef="BP06_BP28"/>
+		<sequenceFlow id="BP06_BP40" name="" sourceRef="BP06_BP27" targetRef="BP06_BP39"/>
+		<sequenceFlow id="BP06_BP42" name="" sourceRef="BP06_BP39" targetRef="BP06_BP41"/>
+		<sequenceFlow id="BP06_BP43" name="" sourceRef="BP06_BP28" targetRef="BP06_BP37"/>
+		<sequenceFlow id="BP06_BP44" name="" sourceRef="BP06_BP41" targetRef="BP06_BP37"/>
+		<sequenceFlow id="BP06_BP55" name="" sourceRef="BP06_BP51" targetRef="BP06_BP53"/>
+		<sequenceFlow id="BP06_BP62" name="" sourceRef="BP06_BP60" targetRef="BP06_BP41"/>
+		<sequenceFlow id="BP06_BP65" name="" sourceRef="BP06_BP51" targetRef="BP06_BP64"/>
+		<sequenceFlow id="BP06_BP67" name="" sourceRef="BP06_BP64" targetRef="BP06_BP66"/>
+		<sequenceFlow id="BP06_BP68" name="" sourceRef="BP06_BP53" targetRef="BP06_BP66"/>
+		<sequenceFlow id="BP06_BP69" name="" sourceRef="BP06_BP66" targetRef="BP06_BP45"/>
+		<sequenceFlow id="BP06_BP71" name="" sourceRef="BP06_BP37" targetRef="BP06_BP70"/>
+		<sequenceFlow id="BP06_BP73" name="" sourceRef="BP06_BP72" targetRef="BP06_BP51"/>
+		<sequenceFlow id="BP06_BP76" name="" sourceRef="BP06_BP70" targetRef="BP06_BP74"/>
+		<sequenceFlow id="BP06_BP77" name="" sourceRef="BP06_BP74" targetRef="BP06_BP60"/>
+		<sequenceFlow id="BP06_BP78" name="" sourceRef="BP06_BP70" targetRef="BP06_BP72"/>
+		<sequenceFlow id="BP06_BP80" name="" sourceRef="BP06_BP70" targetRef="BP06_BP75"/>
+		<sequenceFlow id="BP06_BP82" name="" sourceRef="BP06_BP75" targetRef="BP06_BP81"/>
+		<sequenceFlow id="BP06_BP84" name="" sourceRef="BP06_BP81" targetRef="BP06_BP83"/>
+		<sequenceFlow id="BP06_BP87" name="" sourceRef="BP06_BP83" targetRef="BP06_BP86"/>
+		<sequenceFlow id="BP06_BP88" name="" sourceRef="BP06_BP86" targetRef="BP06_BP37"/>
+	</process>
+	<bpmndi:BPMNDiagram id="diagram-_1" name="QuestionService">
+		<bpmndi:BPMNPlane bpmnElement="_1" id="plane-_1">
+			<bpmndi:BPMNShape bpmnElement="BP06_BP86" id="ID_16527216_1627_3203_7600_000000200056">
+				<omgdc:Bounds height="20" width="20" x="603" y="252"/>
+			</bpmndi:BPMNShape>
+			<bpmndi:BPMNShape bpmnElement="BP06_BP83" id="ID_26527216_1627_3203_7600_000000200054">
+				<omgdc:Bounds height="55" width="89" x="569" y="303"/>
+			</bpmndi:BPMNShape>
+			<bpmndi:BPMNShape bpmnElement="BP06_BP81" id="ID_72527216_1627_3203_7600_000000200052">
+				<omgdc:Bounds height="55" width="89" x="676" y="303"/>
+			</bpmndi:BPMNShape>
+			<bpmndi:BPMNShape bpmnElement="BP06_BP75" id="ID_12527216_1627_3203_7600_000000200045">
+				<omgdc:Bounds height="20" width="20" x="710" y="252"/>
+			</bpmndi:BPMNShape>
+			<bpmndi:BPMNShape bpmnElement="BP06_BP74" id="ID_62527216_1627_3203_7600_000000200044">
+				<omgdc:Bounds height="20" width="20" x="710" y="123"/>
+			</bpmndi:BPMNShape>
+			<bpmndi:BPMNShape bpmnElement="BP06_BP72" id="ID_04404272_1627_3203_7600_000000200037">
+				<omgdc:Bounds height="20" width="20" x="837" y="191"/>
+			</bpmndi:BPMNShape>
+			<bpmndi:BPMNShape bpmnElement="BP06_BP70" id="ID_30404272_1627_3203_7600_000000200035">
+				<omgdc:Bounds height="40" width="40" x="700" y="181"/>
+			</bpmndi:BPMNShape>
+			<bpmndi:BPMNShape bpmnElement="BP06_BP66" id="ID_60404272_1627_3203_7600_000000200031">
+				<omgdc:Bounds height="40" width="40" x="1067" y="181"/>
+			</bpmndi:BPMNShape>
+			<bpmndi:BPMNShape bpmnElement="BP06_BP64" id="ID_00404272_1627_3203_7600_000000200027">
+				<omgdc:Bounds height="55" width="89" x="958" y="104"/>
+			</bpmndi:BPMNShape>
+			<bpmndi:BPMNShape bpmnElement="BP06_BP60" id="ID_37004272_1627_3203_7600_000000200025">
+				<omgdc:Bounds height="55" width="89" x="676" y="31"/>
+			</bpmndi:BPMNShape>
+			<bpmndi:BPMNShape bpmnElement="BP06_BP53" id="ID_17004272_1627_3203_7600_000000200023">
+				<omgdc:Bounds height="55" width="89" x="958" y="242"/>
+			</bpmndi:BPMNShape>
+			<bpmndi:BPMNShape bpmnElement="BP06_BP51" id="ID_67004272_1627_3203_7600_000000200022">
+				<omgdc:Bounds height="40" width="40" x="909" y="181"/>
+			</bpmndi:BPMNShape>
+			<bpmndi:BPMNShape bpmnElement="BP06_BP45" id="ID_27004272_1627_3203_7600_000000200021">
+				<omgdc:Bounds height="20" width="20" x="1155" y="191"/>
+			</bpmndi:BPMNShape>
+			<bpmndi:BPMNShape bpmnElement="BP06_BP41" id="ID_23004272_1627_3203_7600_000000200015">
+				<omgdc:Bounds height="20" width="20" x="603" y="48"/>
+			</bpmndi:BPMNShape>
+			<bpmndi:BPMNShape bpmnElement="BP06_BP39" id="ID_25004272_1627_3203_7600_000000200013">
+				<omgdc:Bounds height="55" width="89" x="471" y="31"/>
+			</bpmndi:BPMNShape>
+			<bpmndi:BPMNShape bpmnElement="BP06_BP37" id="ID_45004272_1627_3203_7600_000000200012">
+				<omgdc:Bounds height="55" width="89" x="569" y="173"/>
+			</bpmndi:BPMNShape>
+			<bpmndi:BPMNShape bpmnElement="BP06_BP28" id="ID_31004272_1627_3203_7600_000000200007">
+				<omgdc:Bounds height="55" width="89" x="339" y="173"/>
+			</bpmndi:BPMNShape>
+			<bpmndi:BPMNShape bpmnElement="BP06_BP27" id="ID_51004272_1627_3203_7600_000000200006">
+				<omgdc:Bounds height="55" width="89" x="339" y="31"/>
+			</bpmndi:BPMNShape>
+			<bpmndi:BPMNShape bpmnElement="BP06_BP23" id="ID_11004272_1627_3203_7600_000000200004">
+				<omgdc:Bounds height="40" width="40" x="274" y="110"/>
+			</bpmndi:BPMNShape>
+			<bpmndi:BPMNShape bpmnElement="BP06_BP13" id="ID_41004272_1627_3203_7600_000000200002">
+				<omgdc:Bounds height="20" width="20" x="59" y="120"/>
+			</bpmndi:BPMNShape>
+			<bpmndi:BPMNShape bpmnElement="BP06_BP12" id="ID_25570272_1627_3203_7600_000000200001">
+				<omgdc:Bounds height="55" width="91" x="131" y="103"/>
+			</bpmndi:BPMNShape>
+			<bpmndi:BPMNEdge bpmnElement="BP06_BP22" id="ID_61004272_1627_3203_7600_000000200003">
+				<omgdi:waypoint x="79" y="130"/>
+				<omgdi:waypoint x="130" y="130"/>
+			</bpmndi:BPMNEdge>
+			<bpmndi:BPMNEdge bpmnElement="BP06_BP24" id="ID_51004272_1627_3203_7600_000000200005">
+				<omgdi:waypoint x="222" y="130"/>
+				<omgdi:waypoint x="273" y="130"/>
+			</bpmndi:BPMNEdge>
+			<bpmndi:BPMNEdge bpmnElement="BP06_BP29" id="ID_71004272_1627_3203_7600_000000200010">
+				<omgdi:waypoint x="294" y="110"/>
+				<omgdi:waypoint x="294" y="58"/>
+				<omgdi:waypoint x="338" y="58"/>
+			</bpmndi:BPMNEdge>
+			<bpmndi:BPMNEdge bpmnElement="BP06_BP30" id="ID_05004272_1627_3203_7600_000000200011">
+				<omgdi:waypoint x="294" y="150"/>
+				<omgdi:waypoint x="294" y="200"/>
+				<omgdi:waypoint x="338" y="200"/>
+			</bpmndi:BPMNEdge>
+			<bpmndi:BPMNEdge bpmnElement="BP06_BP40" id="ID_65004272_1627_3203_7600_000000200014">
+				<omgdi:waypoint x="428" y="58"/>
+				<omgdi:waypoint x="470" y="58"/>
+			</bpmndi:BPMNEdge>
+			<bpmndi:BPMNEdge bpmnElement="BP06_BP42" id="ID_63004272_1627_3203_7600_000000200016">
+				<omgdi:waypoint x="560" y="58"/>
+				<omgdi:waypoint x="603" y="58"/>
+			</bpmndi:BPMNEdge>
+			<bpmndi:BPMNEdge bpmnElement="BP06_BP43" id="ID_13004272_1627_3203_7600_000000200017">
+				<omgdi:waypoint x="428" y="200"/>
+				<omgdi:waypoint x="568" y="200"/>
+			</bpmndi:BPMNEdge>
+			<bpmndi:BPMNEdge bpmnElement="BP06_BP44" id="ID_53004272_1627_3203_7600_000000200020">
+				<omgdi:waypoint x="613" y="68"/>
+				<omgdi:waypoint x="613" y="172"/>
+			</bpmndi:BPMNEdge>
+			<bpmndi:BPMNEdge bpmnElement="BP06_BP55" id="ID_57004272_1627_3203_7600_000000200024">
+				<omgdi:waypoint x="929" y="221"/>
+				<omgdi:waypoint x="929" y="269"/>
+				<omgdi:waypoint x="957" y="269"/>
+			</bpmndi:BPMNEdge>
+			<bpmndi:BPMNEdge bpmnElement="BP06_BP62" id="ID_77004272_1627_3203_7600_000000200026">
+				<omgdi:waypoint x="675" y="58"/>
+				<omgdi:waypoint x="623" y="58"/>
+			</bpmndi:BPMNEdge>
+			<bpmndi:BPMNEdge bpmnElement="BP06_BP65" id="ID_20404272_1627_3203_7600_000000200030">
+				<omgdi:waypoint x="929" y="181"/>
+				<omgdi:waypoint x="929" y="131"/>
+				<omgdi:waypoint x="957" y="131"/>
+			</bpmndi:BPMNEdge>
+			<bpmndi:BPMNEdge bpmnElement="BP06_BP67" id="ID_10404272_1627_3203_7600_000000200032">
+				<omgdi:waypoint x="1047" y="131"/>
+				<omgdi:waypoint x="1087" y="131"/>
+				<omgdi:waypoint x="1087" y="181"/>
+			</bpmndi:BPMNEdge>
+			<bpmndi:BPMNEdge bpmnElement="BP06_BP68" id="ID_50404272_1627_3203_7600_000000200033">
+				<omgdi:waypoint x="1047" y="269"/>
+				<omgdi:waypoint x="1087" y="269"/>
+				<omgdi:waypoint x="1087" y="221"/>
+			</bpmndi:BPMNEdge>
+			<bpmndi:BPMNEdge bpmnElement="BP06_BP69" id="ID_30404272_1627_3203_7600_000000200034">
+				<omgdi:waypoint x="1106" y="202"/>
+				<omgdi:waypoint x="1155" y="202"/>
+			</bpmndi:BPMNEdge>
+			<bpmndi:BPMNEdge bpmnElement="BP06_BP71" id="ID_70404272_1627_3203_7600_000000200036">
+				<omgdi:waypoint x="658" y="201"/>
+				<omgdi:waypoint x="699" y="201"/>
+			</bpmndi:BPMNEdge>
+			<bpmndi:BPMNEdge bpmnElement="BP06_BP73" id="ID_22527216_1627_3203_7600_000000200043">
+				<omgdi:waypoint x="857" y="202"/>
+				<omgdi:waypoint x="909" y="202"/>
+			</bpmndi:BPMNEdge>
+			<bpmndi:BPMNEdge bpmnElement="BP06_BP76" id="ID_12527216_1627_3203_7600_000000200046">
+				<omgdi:waypoint x="720" y="181"/>
+				<omgdi:waypoint x="720" y="143"/>
+			</bpmndi:BPMNEdge>
+			<bpmndi:BPMNEdge bpmnElement="BP06_BP77" id="ID_52527216_1627_3203_7600_000000200047">
+				<omgdi:waypoint x="720" y="123"/>
+				<omgdi:waypoint x="720" y="86"/>
+			</bpmndi:BPMNEdge>
+			<bpmndi:BPMNEdge bpmnElement="BP06_BP78" id="ID_32527216_1627_3203_7600_000000200050">
+				<omgdi:waypoint x="739" y="200"/>
+				<omgdi:waypoint x="837" y="200"/>
+			</bpmndi:BPMNEdge>
+			<bpmndi:BPMNEdge bpmnElement="BP06_BP80" id="ID_72527216_1627_3203_7600_000000200051">
+				<omgdi:waypoint x="720" y="221"/>
+				<omgdi:waypoint x="720" y="252"/>
+			</bpmndi:BPMNEdge>
+			<bpmndi:BPMNEdge bpmnElement="BP06_BP82" id="ID_06527216_1627_3203_7600_000000200053">
+				<omgdi:waypoint x="720" y="272"/>
+				<omgdi:waypoint x="720" y="302"/>
+			</bpmndi:BPMNEdge>
+			<bpmndi:BPMNEdge bpmnElement="BP06_BP84" id="ID_66527216_1627_3203_7600_000000200055">
+				<omgdi:waypoint x="675" y="331"/>
+				<omgdi:waypoint x="658" y="331"/>
+			</bpmndi:BPMNEdge>
+			<bpmndi:BPMNEdge bpmnElement="BP06_BP87" id="ID_16527216_1627_3203_7600_000000200057">
+				<omgdi:waypoint x="612" y="302"/>
+				<omgdi:waypoint x="612" y="272"/>
+			</bpmndi:BPMNEdge>
+			<bpmndi:BPMNEdge bpmnElement="BP06_BP88" id="ID_56527216_1627_3203_7600_000000200060">
+				<omgdi:waypoint x="612" y="252"/>
+				<omgdi:waypoint x="612" y="228"/>
+			</bpmndi:BPMNEdge>
+		</bpmndi:BPMNPlane>
+	</bpmndi:BPMNDiagram>
+</definitions>
