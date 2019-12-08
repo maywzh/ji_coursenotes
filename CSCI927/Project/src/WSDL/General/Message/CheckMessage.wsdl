@@ -1,0 +1,70 @@
+<?xml version="1.0"?>
+<definitions name="CheckMessage"
+             targetNamespace="http://csci927.com/checkmessage.wsdl"
+             xmlns:tns="http://csci927.com/checkmessage.wsdl"
+             xmlns:xsd1="http://csci927.com/checkmessage.xsd"
+             xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+             xmlns="http://schemas.xmlsoap.org/wsdl/">
+              
+  
+  <types>
+    <schema targetNamespace="http://csci927.com/checkmessage.xsd"
+            xmlns="http://www.w3.org/1999/XMLSchema">
+      <element name="CheckMessageRequest">
+        <complexType>
+          <all>
+            <element name="SessionId" type="string"/>
+          </all>
+        </complexType>
+      </element>
+      <element name="CheckMessageResult">
+        <complexType>
+          <all>
+            <element name="ReturnCode" type="int"/>
+            <element name="ReturnMessage" type="string"/>
+            <element name="Message" type="string"/>
+          </all>
+        </complexType>
+      </element>
+    </schema>
+  </types>
+  <message name="CheckMessageInput">
+    <part name="body" element="xsd1:CheckMessageRequest"/>
+  </message>
+  
+  <message name="CheckMessageOutput">
+    <part name="body" element="xsd1:CheckMessageResult"/>
+  </message>
+
+  <portType name="CheckMessagePortType">
+    <operation name="CheckMessage">
+      <input message="tns:CheckMessageInput"/>
+      <output message="tns:CheckMessageOutput"/>
+    </operation>
+  </portType>
+
+  <binding name="CheckMessageBinding" type="tns:CheckMessagePortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http">
+      <operation name="CheckMessage">
+        <soap:operation soapAction="http://csci927.com/checkmessage">
+          <input>
+            <soap:body use="literal" namespace="http://csci927.com/checkmessage.xsd"
+                       encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+          </input>
+          <output>
+            <soap:body use="literal" namespace="http://csci927.com/checkmessage.xsd"
+                       encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+          </output>
+        </soap:operation>
+      </operation>
+    </soap:binding>
+  </binding>
+
+  <service name="CheckMessageService">
+    <documentation>CheckMessage Account Service</documentation> 
+    <port name="CheckMessagePort" binding="tns:CheckMessageBinding">
+    <soap:address location="http://csci927.com/checkmessage"/>
+    </port>
+  </service>
+  
+</definitions>

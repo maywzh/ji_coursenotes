@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+<definitions name="punch"
+             targetNamespace="http://csci927.com/share.wsdl"
+             xmlns:tns="http://csci927.com/share.wsdl"
+             xmlns:xsd1="http://csci927.com/share.xsd"
+             xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+             xmlns="http://schemas.xmlsoap.org/wsdl/">
+              
+  
+  <types>
+    <schema targetNamespace="http://csci927.com/share.xsd"
+            xmlns="http://www.w3.org/1999/XMLSchema">
+      <element name="ShareRequest">
+        <complexType>
+          <all>
+            <element name="SessionId" type="string"/>
+            <element name="Sharetousername" type="string"/>
+            <element name="ShareType" type="string"/>
+          </all>
+        </complexType>
+      </element>
+      <element name="ShareResult">
+        <complexType>
+          <all>
+            <element name="ReturnCode" type="int"/>
+            <element name="ReturnMessage" type="string"/>
+            <element name="ShareLink" type="string"/>
+          </all>
+        </complexType>
+      </element>
+    </schema>
+  </types>
+  <message name="ShareInput">
+    <part name="body" element="xsd1:ShareRequest"/>
+  </message>
+  
+  <message name="ShareOutput">
+    <part name="body" element="xsd1:ShareResult"/>
+  </message>
+
+  <portType name="SharePortType">
+    <operation name="Share">
+      <input message="tns:ShareInput"/>
+      <output message="tns:ShareOutput"/>
+    </operation>
+  </portType>
+
+  <binding name="ShareBinding" type="tns:SharePortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http">
+      <operation name="Share">
+        <soap:operation soapAction="http://csci927.com/share">
+          <input>
+            <soap:body use="literal" namespace="http://csci927.com/share.xsd"
+                       encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+          </input>
+          <output>
+            <soap:body use="literal" namespace="http://csci927.com/share.xsd"
+                       encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+          </output>
+        </soap:operation>
+      </operation>
+    </soap:binding>
+  </binding>
+
+  <service name="ShareService">
+    <documentation>Share Account Service</documentation> 
+    <port name="SharePort" binding="tns:ShareBinding">
+    <soap:address location="http://csci927.com/share"/>
+    </port>
+  </service>
+  
+</definitions>

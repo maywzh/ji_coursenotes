@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+<definitions name="Punch"
+             targetNamespace="http://csci927.com/punch.wsdl"
+             xmlns:tns="http://csci927.com/punch.wsdl"
+             xmlns:xsd1="http://csci927.com/punch.xsd"
+             xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+             xmlns="http://schemas.xmlsoap.org/wsdl/">
+              
+  
+  <types>
+    <schema targetNamespace="http://csci927.com/punch.xsd"
+            xmlns="http://www.w3.org/1999/XMLSchema">
+      <element name="PunchRequest">
+        <complexType>
+          <all>
+            <element name="SessionId" type="string"/>
+            <element name="timestamp" type="string"/>
+            <element name="punchtext" type="string"/>
+          </all>
+        </complexType>
+      </element>
+      <element name="PunchResult">
+        <complexType>
+          <all>
+            <element name="ReturnCode" type="int"/>
+            <element name="ReturnMessage" type="string"/>
+          </all>
+        </complexType>
+      </element>
+    </schema>
+  </types>
+  <message name="PunchInput">
+    <part name="body" element="xsd1:PunchRequest"/>
+  </message>
+  
+  <message name="PunchOutput">
+    <part name="body" element="xsd1:PunchResult"/>
+  </message>
+
+  <portType name="PunchPortType">
+    <operation name="Punch">
+      <input message="tns:PunchInput"/>
+      <output message="tns:PunchOutput"/>
+    </operation>
+  </portType>
+
+  <binding name="PunchBinding" type="tns:PunchPortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http">
+      <operation name="Punch">
+        <soap:operation soapAction="http://csci927.com/punch">
+          <input>
+            <soap:body use="literal" namespace="http://csci927.com/punch.xsd"
+                       encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+          </input>
+          <output>
+            <soap:body use="literal" namespace="http://csci927.com/punch.xsd"
+                       encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+          </output>
+        </soap:operation>
+      </operation>
+    </soap:binding>
+  </binding>
+
+  <service name="PunchService">
+    <documentation>Punch Account Service</documentation> 
+    <port name="PunchPort" binding="tns:PunchBinding">
+    <soap:address location="http://csci927.com/punch"/>
+    </port>
+  </service>
+  
+</definitions>

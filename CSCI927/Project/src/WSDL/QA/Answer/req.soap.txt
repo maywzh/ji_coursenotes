@@ -1,0 +1,17 @@
+POST /StockQuote HTTP/1.1
+Host: example.com
+Content-Type: text/xml; charset="utf-8"
+Content-Length: nnnn
+SOAPAction: "http://example.com/Comment"
+ 
+<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"
+                   SOAP-ENV:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">
+  <SOAP-ENV:Body>
+    <m:CommentRequest xmlns:m="http://example.com/comment.xsd">
+      <SessionId>123nkdf1239jfasdkf123123#d</SessionId>
+      <DataType>answer</DataType>
+      <ObjectId>fsdhiuh1239hoewhf02uhfsdpr23</ObjectId>
+      <Comment>The Answer is Good!~</Comment>
+    </m:CommentRequest>
+  </SOAP-ENV:Body>
+</SOAP-ENV:Envelope>

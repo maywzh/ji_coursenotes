@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+<definitions name="DownloadFile"
+             targetNamespace="http://csci927.com/downloadfile.wsdl"
+             xmlns:tns="http://csci927.com/downloadfile.wsdl"
+             xmlns:xsd1="http://csci927.com/downloadfile.xsd"
+             xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+             xmlns="http://schemas.xmlsoap.org/wsdl/">
+              
+  
+  <types>
+    <schema targetNamespace="http://csci927.com/downloadfile.xsd"
+            xmlns="http://www.w3.org/1999/XMLSchema">
+      <element name="DownloadFileRequest">
+        <complexType>
+          <all>
+            <element name="SessionId" type="string"/>
+            <element name="Filename" type="string"/>
+          </all>
+        </complexType>
+      </element>
+      <element name="DownloadFileResult">
+        <complexType>
+          <all>
+            <element name="ReturnCode" type="int"/>
+            <element name="ReturnMessage" type="string"/>
+            <element name="File" type="bytes"/>
+          </all>
+        </complexType>
+      </element>
+    </schema>
+  </types>
+  <message name="DownloadFileInput">
+    <part name="body" element="xsd1:DownloadFileRequest"/>
+  </message>
+  
+  <message name="DownloadFileOutput">
+    <part name="body" element="xsd1:DownloadFileResult"/>
+  </message>
+
+  <portType name="DownloadFilePortType">
+    <operation name="DownloadFile">
+      <input message="tns:DownloadFileInput"/>
+      <output message="tns:DownloadFileOutput"/>
+    </operation>
+  </portType>
+
+  <binding name="DownloadFileBinding" type="tns:DownloadFilePortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http">
+      <operation name="DownloadFile">
+        <soap:operation soapAction="http://csci927.com/downloadfile">
+          <input>
+            <soap:body use="literal" namespace="http://csci927.com/downloadfile.xsd"
+                       encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+          </input>
+          <output>
+            <soap:body use="literal" namespace="http://csci927.com/downloadfile.xsd"
+                       encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+          </output>
+        </soap:operation>
+      </operation>
+    </soap:binding>
+  </binding>
+
+  <service name="DownloadFileService">
+    <documentation>DownloadFile Account Service</documentation> 
+    <port name="DownloadFilePort" binding="tns:DownloadFileBinding">
+    <soap:address location="http://csci927.com/downloadfile"/>
+    </port>
+  </service>
+  
+</definitions>

@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+<definitions name="Follow"
+             targetNamespace="http://csci927.com/follow.wsdl"
+             xmlns:tns="http://csci927.com/follow.wsdl"
+             xmlns:xsd1="http://csci927.com/follow.xsd"
+             xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+             xmlns="http://schemas.xmlsoap.org/wsdl/">
+              
+  
+  <types>
+    <schema targetNamespace="http://csci927.com/follow.xsd"
+            xmlns="http://www.w3.org/1999/XMLSchema">
+      <element name="FollowRequest">
+        <complexType>
+          <all>
+            <element name="SessionId" type="string"/>
+            <element name="FollowType" type="string"/>
+            <element name="FollowId" type="string"/>
+          </all>
+        </complexType>
+      </element>
+      <element name="FollowResult">
+        <complexType>
+          <all>
+            <element name="ReturnCode" type="int"/>
+            <element name="ReturnMessage" type="string"/>
+            <element name="Message" type="string"/>
+          </all>
+        </complexType>
+      </element>
+    </schema>
+  </types>
+  <message name="FollowInput">
+    <part name="body" element="xsd1:FollowRequest"/>
+  </message>
+  
+  <message name="FollowOutput">
+    <part name="body" element="xsd1:FollowResult"/>
+  </message>
+
+  <portType name="FollowPortType">
+    <operation name="Follow">
+      <input message="tns:FollowInput"/>
+      <output message="tns:FollowOutput"/>
+    </operation>
+  </portType>
+
+  <binding name="FollowBinding" type="tns:FollowPortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http">
+      <operation name="Follow">
+        <soap:operation soapAction="http://csci927.com/follow">
+          <input>
+            <soap:body use="literal" namespace="http://csci927.com/follow.xsd"
+                       encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+          </input>
+          <output>
+            <soap:body use="literal" namespace="http://csci927.com/follow.xsd"
+                       encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+          </output>
+        </soap:operation>
+      </operation>
+    </soap:binding>
+  </binding>
+
+  <service name="FollowService">
+    <documentation>Follow Account Service</documentation> 
+    <port name="FollowPort" binding="tns:FollowBinding">
+    <soap:address location="http://csci927.com/follow"/>
+    </port>
+  </service>
+  
+</definitions>

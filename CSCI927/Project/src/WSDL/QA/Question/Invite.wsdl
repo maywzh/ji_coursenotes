@@ -1,0 +1,70 @@
+<?xml version="1.0"?>
+<definitions name="Invite"
+             targetNamespace="http://csci927.com/invite.wsdl"
+             xmlns:tns="http://csci927.com/invite.wsdl"
+             xmlns:xsd1="http://csci927.com/invite.xsd"
+             xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+             xmlns="http://schemas.xmlsoap.org/wsdl/">
+              
+  
+  <types>
+    <schema targetNamespace="http://csci927.com/invite.xsd"
+            xmlns="http://www.w3.org/1999/XMLSchema">
+      <element name="InviteRequest">
+        <complexType>
+          <all>
+            <element name="SessionId" type="string"/>
+            <element name="username" type="string"/>
+          </all>
+        </complexType>
+      </element>
+      <element name="InviteResult">
+        <complexType>
+          <all>
+            <element name="ReturnCode" type="int"/>
+            <element name="ReturnMessage" type="string"/>
+          </all>
+        </complexType>
+      </element>
+    </schema>
+  </types>
+  <message name="InviteInput">
+    <part name="body" element="xsd1:InviteRequest"/>
+  </message>
+  
+  <message name="InviteOutput">
+    <part name="body" element="xsd1:InviteResult"/>
+  </message>
+
+  <portType name="InvitePortType">
+    <operation name="Invite">
+      <input message="tns:InviteInput"/>
+      <output message="tns:InviteOutput"/>
+    </operation>
+  </portType>
+
+  <binding name="InviteBinding" type="tns:InvitePortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http">
+      <operation name="Invite">
+        <soap:operation soapAction="http://csci927.com/invite">
+          <input>
+            <soap:body use="literal" namespace="http://csci927.com/invite.xsd"
+                       encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+          </input>
+          <output>
+            <soap:body use="literal" namespace="http://csci927.com/invite.xsd"
+                       encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+          </output>
+        </soap:operation>
+      </operation>
+    </soap:binding>
+  </binding>
+
+  <service name="InviteService">
+    <documentation>Invite Account Service</documentation> 
+    <port name="InvitePort" binding="tns:InviteBinding">
+    <soap:address location="http://csci927.com/invite"/>
+    </port>
+  </service>
+  
+</definitions>

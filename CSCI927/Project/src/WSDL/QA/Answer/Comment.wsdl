@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+<definitions name="Comment"
+             targetNamespace="http://csci927.com/comment.wsdl"
+             xmlns:tns="http://csci927.com/comment.wsdl"
+             xmlns:xsd1="http://csci927.com/comment.xsd"
+             xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+             xmlns="http://schemas.xmlsoap.org/wsdl/">
+              
+  
+  <types>
+    <schema targetNamespace="http://csci927.com/comment.xsd"
+            xmlns="http://www.w3.org/1999/XMLSchema">
+      <element name="CommentRequest">
+        <complexType>
+          <all>
+            <element name="SessionId" type="string"/>
+            <element name="DataType" type="string"/>
+            <element name="ObjectId" type="string"/>
+            <element name="Comment" type="string"/>
+          </all>
+        </complexType>
+      </element>
+      <element name="CommentResult">
+        <complexType>
+          <all>
+            <element name="ReturnCode" type="int"/>
+            <element name="ReturnMessage" type="string"/>
+          </all>
+        </complexType>
+      </element>
+    </schema>
+  </types>
+  <message name="CommentInput">
+    <part name="body" element="xsd1:CommentRequest"/>
+  </message>
+  
+  <message name="CommentOutput">
+    <part name="body" element="xsd1:CommentResult"/>
+  </message>
+
+  <portType name="CommentPortType">
+    <operation name="Comment">
+      <input message="tns:CommentInput"/>
+      <output message="tns:CommentOutput"/>
+    </operation>
+  </portType>
+
+  <binding name="CommentBinding" type="tns:CommentPortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http">
+      <operation name="Comment">
+        <soap:operation soapAction="http://csci927.com/comment">
+          <input>
+            <soap:body use="literal" namespace="http://csci927.com/comment.xsd"
+                       encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+          </input>
+          <output>
+            <soap:body use="literal" namespace="http://csci927.com/comment.xsd"
+                       encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+          </output>
+        </soap:operation>
+      </operation>
+    </soap:binding>
+  </binding>
+
+  <service name="CommentService">
+    <documentation>Comment Account Service</documentation> 
+    <port name="CommentPort" binding="tns:CommentBinding">
+    <soap:address location="http://csci927.com/comment"/>
+    </port>
+  </service>
+  
+</definitions>

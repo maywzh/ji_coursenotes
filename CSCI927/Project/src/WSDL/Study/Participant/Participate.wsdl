@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+<definitions name="Participate"
+             targetNamespace="http://csci927.com/participate.wsdl"
+             xmlns:tns="http://csci927.com/participate.wsdl"
+             xmlns:xsd1="http://csci927.com/participate.xsd"
+             xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+             xmlns="http://schemas.xmlsoap.org/wsdl/">
+              
+  
+  <types>
+    <schema targetNamespace="http://csci927.com/participate.xsd"
+            xmlns="http://www.w3.org/1999/XMLSchema">
+      <element name="ParticipateRequest">
+        <complexType>
+          <all>
+            <element name="SessionId" type="string"/>
+            <element name="ObjectId" type="string"/>
+            <element name="ParticipateType" type="int"/>
+          </all>
+        </complexType>
+      </element>
+      <element name="ParticipateResult">
+        <complexType>
+          <all>
+            <element name="ReturnCode" type="int"/>
+            <element name="ReturnMessage" type="string"/>
+          </all>
+        </complexType>
+      </element>
+    </schema>
+  </types>
+  <message name="ParticipateInput">
+    <part name="body" element="xsd1:ParticipateRequest"/>
+  </message>
+  
+  <message name="ParticipateOutput">
+    <part name="body" element="xsd1:ParticipateResult"/>
+  </message>
+
+  <portType name="ParticipatePortType">
+    <operation name="Participate">
+      <input message="tns:ParticipateInput"/>
+      <output message="tns:ParticipateOutput"/>
+    </operation>
+  </portType>
+
+  <binding name="ParticipateBinding" type="tns:ParticipatePortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http">
+      <operation name="Participate">
+        <soap:operation soapAction="http://csci927.com/participate">
+          <input>
+            <soap:body use="literal" namespace="http://csci927.com/participate.xsd"
+                       encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+          </input>
+          <output>
+            <soap:body use="literal" namespace="http://csci927.com/participate.xsd"
+                       encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+          </output>
+        </soap:operation>
+      </operation>
+    </soap:binding>
+  </binding>
+
+  <service name="ParticipateService">
+    <documentation>Participate Account Service</documentation> 
+    <port name="ParticipatePort" binding="tns:ParticipateBinding">
+    <soap:address location="http://csci927.com/participate"/>
+    </port>
+  </service>
+  
+</definitions>

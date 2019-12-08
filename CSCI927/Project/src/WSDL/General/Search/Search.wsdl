@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+<definitions name="Search"
+             targetNamespace="http://csci927.com/search.wsdl"
+             xmlns:tns="http://csci927.com/search.wsdl"
+             xmlns:xsd1="http://csci927.com/search.xsd"
+             xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+             xmlns="http://schemas.xmlsoap.org/wsdl/">
+              
+  
+  <types>
+    <schema targetNamespace="http://csci927.com/search.xsd"
+            xmlns="http://www.w3.org/1999/XMLSchema">
+      <element name="SearchRequest">
+        <complexType>
+          <all>
+            <element name="keyword" type="int"/>
+            <element name="type" type="string"/>
+            <element name="period" type="string"/>
+          </all>
+        </complexType>
+      </element>
+      <element name="SearchResult">
+        <complexType>
+          <all>
+            <element name="ReturnCode" type="int"/>
+            <element name="ReturnMessage" type="string"/>
+            <element name="results" type="json"/>
+          </all>
+        </complexType>
+      </element>
+    </schema>
+  </types>
+  <message name="SearchInput">
+    <part name="body" element="xsd1:SearchRequest"/>
+  </message>
+  
+  <message name="SearchOutput">
+    <part name="body" element="xsd1:SearchResult"/>
+  </message>
+
+  <portType name="SearchPortType">
+    <operation name="Search">
+      <input message="tns:SearchInput"/>
+      <output message="tns:SearchOutput"/>
+    </operation>
+  </portType>
+
+  <binding name="SearchBinding" type="tns:SearchPortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http">
+      <operation name="Search">
+        <soap:operation soapAction="http://csci927.com/search">
+          <input>
+            <soap:body use="literal" namespace="http://csci927.com/search.xsd"
+                       encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+          </input>
+          <output>
+            <soap:body use="literal" namespace="http://csci927.com/search.xsd"
+                       encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+          </output>
+        </soap:operation>
+      </operation>
+    </soap:binding>
+  </binding>
+
+  <service name="SearchService">
+    <documentation>Search Account Service</documentation> 
+    <port name="SearchPort" binding="tns:SearchBinding">
+    <soap:address location="http://csci927.com/search"/>
+    </port>
+  </service>
+  
+</definitions>

@@ -1,0 +1,70 @@
+<?xml version="1.0"?>
+<definitions name="AddContact"
+             targetNamespace="http://csci927.com/addcontact.wsdl"
+             xmlns:tns="http://csci927.com/addcontact.wsdl"
+             xmlns:xsd1="http://csci927.com/addcontact.xsd"
+             xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+             xmlns="http://schemas.xmlsoap.org/wsdl/">
+              
+  
+  <types>
+    <schema targetNamespace="http://csci927.com/addcontact.xsd"
+            xmlns="http://www.w3.org/1999/XMLSchema">
+      <element name="AddContactRequest">
+        <complexType>
+          <all>
+            <element name="SessionId" type="string"/>
+            <element name="ContactUsername" type="string"/>
+          </all>
+        </complexType>
+      </element>
+      <element name="AddContactResult">
+        <complexType>
+          <all>
+            <element name="ReturnCode" type="int"/>
+            <element name="ReturnMessage" type="string"/>
+          </all>
+        </complexType>
+      </element>
+    </schema>
+  </types>
+  <message name="AddContactInput">
+    <part name="body" element="xsd1:AddContactRequest"/>
+  </message>
+  
+  <message name="AddContactOutput">
+    <part name="body" element="xsd1:AddContactResult"/>
+  </message>
+
+  <portType name="AddContactPortType">
+    <operation name="AddContact">
+      <input message="tns:AddContactInput"/>
+      <output message="tns:AddContactOutput"/>
+    </operation>
+  </portType>
+
+  <binding name="AddContactBinding" type="tns:AddContactPortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http">
+      <operation name="AddContact">
+        <soap:operation soapAction="http://csci927.com/addcontact">
+          <input>
+            <soap:body use="literal" namespace="http://csci927.com/addcontact.xsd"
+                       encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+          </input>
+          <output>
+            <soap:body use="literal" namespace="http://csci927.com/addcontact.xsd"
+                       encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+          </output>
+        </soap:operation>
+      </operation>
+    </soap:binding>
+  </binding>
+
+  <service name="AddContactService">
+    <documentation>AddContact Account Service</documentation> 
+    <port name="AddContactPort" binding="tns:AddContactBinding">
+    <soap:address location="http://csci927.com/addcontact"/>
+    </port>
+  </service>
+  
+</definitions>

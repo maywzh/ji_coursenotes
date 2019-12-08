@@ -1,0 +1,13 @@
+HTTP/1.1 200 OK
+Content-Type: text/xml; charset="utf-8"
+Content-Length: nnnn
+ 
+<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"
+                   SOAP-ENV:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+  <SOAP-ENV:Body>
+    <m:CommentResult xmlns:m=" http://example.com/comment.xsd ">
+      <ReturnCode>0</ReturnCode>
+      <ReturnMessage>Success</ReturnMessage>
+    </m:CommentResult >
+  </SOAP-ENV:Body>
+</SOAP-ENV:Envelope>

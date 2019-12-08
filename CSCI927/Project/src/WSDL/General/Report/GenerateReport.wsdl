@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+<definitions name="GenerateReport"
+             targetNamespace="http://csci927.com/generatereport.wsdl"
+             xmlns:tns="http://csci927.com/generatereport.wsdl"
+             xmlns:xsd1="http://csci927.com/generatereport.xsd"
+             xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+             xmlns="http://schemas.xmlsoap.org/wsdl/">
+              
+  
+  <types>
+    <schema targetNamespace="http://csci927.com/generatereport.xsd"
+            xmlns="http://www.w3.org/1999/XMLSchema">
+      <element name="GenerateReportRequest">
+        <complexType>
+          <all>
+            <element name="SessionId" type="string"/>
+            <element name="DataType" type="string"/>
+            <element name="DataForm" type="json"/>
+          </all>
+        </complexType>
+      </element>
+      <element name="GenerateReportResult">
+        <complexType>
+          <all>
+            <element name="ReturnCode" type="int"/>
+            <element name="ReturnMessage" type="string"/>
+            <element name="Report" type="json"/>
+          </all>
+        </complexType>
+      </element>
+    </schema>
+  </types>
+  <message name="GenerateReportInput">
+    <part name="body" element="xsd1:GenerateReportRequest"/>
+  </message>
+  
+  <message name="GenerateReportOutput">
+    <part name="body" element="xsd1:GenerateReportResult"/>
+  </message>
+
+  <portType name="GenerateReportPortType">
+    <operation name="GenerateReport">
+      <input message="tns:GenerateReportInput"/>
+      <output message="tns:GenerateReportOutput"/>
+    </operation>
+  </portType>
+
+  <binding name="GenerateReportBinding" type="tns:GenerateReportPortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http">
+      <operation name="GenerateReport">
+        <soap:operation soapAction="http://csci927.com/generatereport">
+          <input>
+            <soap:body use="literal" namespace="http://csci927.com/generatereport.xsd"
+                       encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+          </input>
+          <output>
+            <soap:body use="literal" namespace="http://csci927.com/generatereport.xsd"
+                       encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+          </output>
+        </soap:operation>
+      </operation>
+    </soap:binding>
+  </binding>
+
+  <service name="GenerateReportService">
+    <documentation>GenerateReport Account Service</documentation> 
+    <port name="GenerateReportPort" binding="tns:GenerateReportBinding">
+    <soap:address location="http://csci927.com/generatereport"/>
+    </port>
+  </service>
+  
+</definitions>

@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+<definitions name="Add"
+             targetNamespace="http://csci927.com/add.wsdl"
+             xmlns:tns="http://csci927.com/add.wsdl"
+             xmlns:xsd1="http://csci927.com/add.xsd"
+             xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+             xmlns="http://schemas.xmlsoap.org/wsdl/">
+              
+  
+  <types>
+    <schema targetNamespace="http://csci927.com/add.xsd"
+            xmlns="http://www.w3.org/1999/XMLSchema">
+      <element name="AddRequest">
+        <complexType>
+          <all>
+            <element name="SessionId" type="string"/>
+            <element name="DataType" type="string"/>
+            <element name="Data" type="json"/>
+          </all>
+        </complexType>
+      </element>
+      <element name="AddResult">
+        <complexType>
+          <all>
+            <element name="ReturnCode" type="int"/>
+            <element name="ReturnMessage" type="string"/>
+          </all>
+        </complexType>
+      </element>
+    </schema>
+  </types>
+  <message name="AddInput">
+    <part name="body" element="xsd1:AddRequest"/>
+  </message>
+  
+  <message name="AddOutput">
+    <part name="body" element="xsd1:AddResult"/>
+  </message>
+
+  <portType name="AddPortType">
+    <operation name="Add">
+      <input message="tns:AddInput"/>
+      <output message="tns:AddOutput"/>
+    </operation>
+  </portType>
+
+  <binding name="AddBinding" type="tns:AddPortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http">
+      <operation name="Add">
+        <soap:operation soapAction="http://csci927.com/add">
+          <input>
+            <soap:body use="literal" namespace="http://csci927.com/add.xsd"
+                       encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+          </input>
+          <output>
+            <soap:body use="literal" namespace="http://csci927.com/add.xsd"
+                       encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+          </output>
+        </soap:operation>
+      </operation>
+    </soap:binding>
+  </binding>
+
+  <service name="AddService">
+    <documentation>Add Object Service</documentation> 
+    <port name="AddPort" binding="tns:AddBinding">
+    <soap:address location="http://csci927.com/add"/>
+    </port>
+  </service>
+  
+</definitions>

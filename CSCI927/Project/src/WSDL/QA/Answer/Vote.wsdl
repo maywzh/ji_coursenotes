@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+<definitions name="Vote"
+             targetNamespace="http://csci927.com/vote.wsdl"
+             xmlns:tns="http://csci927.com/vote.wsdl"
+             xmlns:xsd1="http://csci927.com/vote.xsd"
+             xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+             xmlns="http://schemas.xmlsoap.org/wsdl/">
+              
+  
+  <types>
+    <schema targetNamespace="http://csci927.com/vote.xsd"
+            xmlns="http://www.w3.org/1999/XMLSchema">
+      <element name="VoteRequest">
+        <complexType>
+          <all>
+            <element name="SessionId" type="string"/>
+            <element name="AnswerId" type="string"/>
+            <element name="VoteType" type="int"/>
+          </all>
+        </complexType>
+      </element>
+      <element name="VoteResult">
+        <complexType>
+          <all>
+            <element name="ReturnCode" type="int"/>
+            <element name="ReturnMessage" type="string"/>
+          </all>
+        </complexType>
+      </element>
+    </schema>
+  </types>
+  <message name="VoteInput">
+    <part name="body" element="xsd1:VoteRequest"/>
+  </message>
+  
+  <message name="VoteOutput">
+    <part name="body" element="xsd1:VoteResult"/>
+  </message>
+
+  <portType name="VotePortType">
+    <operation name="Vote">
+      <input message="tns:VoteInput"/>
+      <output message="tns:VoteOutput"/>
+    </operation>
+  </portType>
+
+  <binding name="VoteBinding" type="tns:VotePortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http">
+      <operation name="Vote">
+        <soap:operation soapAction="http://csci927.com/vote">
+          <input>
+            <soap:body use="literal" namespace="http://csci927.com/vote.xsd"
+                       encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+          </input>
+          <output>
+            <soap:body use="literal" namespace="http://csci927.com/vote.xsd"
+                       encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+          </output>
+        </soap:operation>
+      </operation>
+    </soap:binding>
+  </binding>
+
+  <service name="VoteService">
+    <documentation>Vote Account Service</documentation> 
+    <port name="VotePort" binding="tns:VoteBinding">
+    <soap:address location="http://csci927.com/vote"/>
+    </port>
+  </service>
+  
+</definitions>

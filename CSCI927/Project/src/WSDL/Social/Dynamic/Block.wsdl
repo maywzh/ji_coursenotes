@@ -1,0 +1,70 @@
+<?xml version="1.0"?>
+<definitions name="Block"
+             targetNamespace="http://csci927.com/block.wsdl"
+             xmlns:tns="http://csci927.com/block.wsdl"
+             xmlns:xsd1="http://csci927.com/block.xsd"
+             xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+             xmlns="http://schemas.xmlsoap.org/wsdl/">
+              
+  
+  <types>
+    <schema targetNamespace="http://csci927.com/block.xsd"
+            xmlns="http://www.w3.org/1999/XMLSchema">
+      <element name="BlockRequest">
+        <complexType>
+          <all>
+            <element name="SessionId" type="string"/>
+            <element name="blockusername" type="string"/>
+          </all>
+        </complexType>
+      </element>
+      <element name="BlockResult">
+        <complexType>
+          <all>
+            <element name="ReturnCode" type="int"/>
+            <element name="ReturnMessage" type="string"/>
+          </all>
+        </complexType>
+      </element>
+    </schema>
+  </types>
+  <message name="BlockInput">
+    <part name="body" element="xsd1:BlockRequest"/>
+  </message>
+  
+  <message name="BlockOutput">
+    <part name="body" element="xsd1:BlockResult"/>
+  </message>
+
+  <portType name="BlockPortType">
+    <operation name="Block">
+      <input message="tns:BlockInput"/>
+      <output message="tns:BlockOutput"/>
+    </operation>
+  </portType>
+
+  <binding name="BlockBinding" type="tns:BlockPortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http">
+      <operation name="Block">
+        <soap:operation soapAction="http://csci927.com/block">
+          <input>
+            <soap:body use="literal" namespace="http://csci927.com/block.xsd"
+                       encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+          </input>
+          <output>
+            <soap:body use="literal" namespace="http://csci927.com/block.xsd"
+                       encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+          </output>
+        </soap:operation>
+      </operation>
+    </soap:binding>
+  </binding>
+
+  <service name="BlockService">
+    <documentation>Block Account Service</documentation> 
+    <port name="BlockPort" binding="tns:BlockBinding">
+    <soap:address location="http://csci927.com/block"/>
+    </port>
+  </service>
+  
+</definitions>
