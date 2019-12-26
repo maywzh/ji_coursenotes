@@ -1,9 +1,9 @@
 # JI Courses
 
-## CSCI971 cryptography_assignments
+## CSCI971 Advanced Computer Security
 
-## CSCI924 
+## CSCI924 Reasoning and Learning
 
-## CSCI927
+## CSCI927 Service-oriented Software Engineering
 
-## CSIT940
+## CSIT940 Research Methodology
