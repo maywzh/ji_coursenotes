@@ -1,9 +1,15 @@
 # JI Courses
 
-## CSCI971 Advanced Computer Security
+## 2019fall
 
-## CSCI924 Reasoning and Learning
+### CSCI971 Advanced Computer Security
 
-## CSCI927 Service-oriented Software Engineering
+### CSCI924 Reasoning and Learning
 
-## CSIT940 Research Methodology
+### CSCI927 Service-oriented Software Engineering
+
+### CSIT940 Research Methodology
+
+### Engineering Ethics
+
+### Politics
