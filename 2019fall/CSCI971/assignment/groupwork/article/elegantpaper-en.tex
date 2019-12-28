@@ -1,0 +1,72 @@
+% Full chain: pdflatex -> bibtex -> pdflatex -> pdflatex
+\documentclass[11pt,en]{elegantpaper}
+
+\title{Survey}
+\author{maywzh}
+\institute{CCNU-UOW Joint Institude}
+
+\version{}
+\date{}
+
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+
+\end{abstract}
+
+
+\section{Our Identity-based Encryption Scheme}
+
+\subsection{BasicIdent}
+\subsection{Identity-Based Encryption with Chosen Ciphertext Security}
+Fujisaki-Okamoto introduced one transformation method that can convert BasicIdent scheme into a chosen ciphertext secure IBE system in the random oracle model. Denote $\mathcal{E}_{pk}(M;r)$ as the a probablistic public key encryption M using the random bits $r$ under the public key $pk$. The the hybird scheme $\mathcal{E}^{hy}$ canbe defined as:
+$$
+\mathcal{E}_{p k}^{h y}(M)=\left\langle\mathcal{E}_{p k}\left(\sigma ; H_{3}(\sigma, M)\right), H_{4}(\sigma) \oplus M\right\rangle
+$$
+$\sigma$ is generated randomly, $H_3,H_4$ are crypto graphic hash functions. It's proved that $\mathcal{E}$ is a one-way encryption scheme. Therefore, $\mathcal{E}^{hy}$ is a chosen ciphertext secure system (IND-CCA) in random oracle model. The transformation can be applied to the BasicIdent. Then it shows that the resulting IBE system is IND-ID-CCA secure. The IBE scheme is called FullIdent. The scheme contains four parts: Setup, Extract, Encrypt and Decrypt. The FullIdent is chosen ciphertext secure IBE (IND-ID-CCA). This can be proved under the theorem based on results from Fujisaki and Okamoto. 
+
+\subsection{Relaxing the hashing requirements}
+IBE system uses a hash function $H_1:\{0,1\}^*\rightarrow\mathbb{G}_1^*$. Building such hash functions can be difficult. In order to relax the requirement of hashing. So an intermediate set $A$ is introduced. The scheme substitute hashing directly onto $\mathbb{G}_1^*$ into hashing onto $A\subseteq\{0,1\}^*$, and then map A onto $\mathbb{G}_1^*$ through a deterministic encoding function. 
+The encoding function $L:A\rightarrow\mathbb{G}_1^*$ is admissible if it satisfies the following properties:
+\begin{enumerate}
+	\item Computable: An efficient deterministic algorithm to compute L(x) for any $x\in A$.
+	\item $l$-to-1: $|L^{-1}(y)|=l$ for all $y\in \mathbb{G}_1^*$.
+	\item Samplable: $\mathcal{L}_S(y)$ is a uniform random element in $L^{-1}(y)$
+\end{enumerate}
+The modification to FullIdent is to obtain and IND-ID-CCA secure IBE system. The $H_1$ is replaced by a hash function into some set $A$. It can be proved that the modified FullIdent is a chosen ciphertext secure IBE.
+ 
+\section{A concrete IBE system using the Weil pairing}
+The article then use FullIdent to describe IBE system based on the Weil pairing. 
+
+The Weil pairing has some properties:
+\begin{enumerate}
+	\item Bilinear: For all $P,Q\in \mathbb{G}_1$ and for all $a,b\in \mathbb{Z}$ it satisfy $\hat{e}(a P, b Q)=\hat{e}(P, Q)^{a b}$.
+	\item Non-degenerate: If $P$ is a generator of $\mathbb{G}_1$ then $\hat{e}(P, P) \in \mathbb{F}_{p^{2}}^{*}$ is a generator of $\mathbb{G}_2^*$
+	\item Computable: Given $P, Q \in \mathbb{G}_{1}$ an efficient algorithm to compute $\hat{e}(P, Q) \in \mathbb{G}_{2}$ exists.
+\end{enumerate}
+Computational Diffie-Hellman problem (CDH) is hard in the group $\mathbb{G}_1$ and Decisional Diffie-Hellman problem (DDH) is easy in $\mathbb{G}_1$. Later, the author introduced the BDH Parameter Generator into discussion and drawed the conclution that one should not use this BDH parameter generator with primes p that are less than 512-bits long.
+\subsection{An admissible encoding function: Map Topoint}
+As the IBE system uses a hash function $H_1:\{0,1\}^*\rightarrow\mathbb{G}_1^*$. The author presentated an admissible encoding function $MapToPoint$.
+the MapToPoint work as follows:
+\begin{enumerate}
+	\item Compute $x_{0}=\left(y_{0}^{2}-1\right)^{1 / 3}=\left(y_{0}^{2}-1\right)^{(2 p-1) / 3} \in \mathbb{F}_{p}$
+	\item Let $Q=\left(x_{0}, y_{0}\right) \in E\left(\mathbb{F}_{p}\right)$ and set $Q_{\mathrm{lo}}=\ell Q \in \mathbb{G}_{1}$
+	\item Output $MapToPoint(y_0)=Q_{ID}$ 
+\end{enumerate}
+The admissibility of $MapToPoint$ is proved.
+
+\section{A concrete IBE system}
+The IBE system Fullldent' using the BDH parameter generator and the admissible encoding $MapTopoint$ is a chosen ciphertext secure IBE
+
+\section{Extensions and Observation}
+The author presentated some extentions. The system based on some other curves such as Tate pairings are discussted with the conclusion that encryption and decryption in FullIdent can be made faster by using the Tate pairing on elliptic curves. The application of IBE in an e-mail system storing the CA's private key in PKG is also mentioned. The PKG's master-key can be generated in a distributed fashion. In addition, the performance of the IBE system can be optimized by working in a small subgroup of the curve. 
+
+\section {Escrow EIGamal encryption}
+The escrow ability to EIGamal encryption system can be obtained through the Weil pairing. It gives the algorithm under the setup of BDH parameter generaotr $\mathbb{G}$ and a security parameter $k \in \mathbb{Z}^+$. The system is semantic secure when BDH is hard for groups generated by $\mathcal{G}$.
+%\nocite{en1,en2}
+%\bibliography{wpref}
+
+\end{document}
