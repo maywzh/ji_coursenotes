@@ -45,8 +45,7 @@ if __name__ == "__main__":
         roboMap[canvisit[1]][canvisit[0]] = 0
     dv = [[0, 1], [0, -1], [1, 0], [-1, 0]]
     # record the path
-    vmap = [[[maxi * maxj, -1]
-             for j in range(maxj + 2)] for i in range(maxi + 2)]
+    vmap = [[[maxi * maxj, -1] for j in range(maxj + 2)] for i in range(maxi + 2)]
 
     def dfs(maze, i, j, diridx, depth):
         if vmap[i][j][0] > depth:
