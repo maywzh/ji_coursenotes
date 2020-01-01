@@ -54,7 +54,7 @@ def getMajorClass(dataClassList):
 
 def splitDataset(dataSet, featureIdx, v):
     """
-    Dataset Classfication
+    Dataset Classification
     """
     retDataSet = []
     for featureVector in dataSet:
@@ -117,7 +117,7 @@ def createTree(dataSet, featureLabels):
     """
     Core Function: ID3 Algorithm Implementation 
     """
-    # get the last colomn (the class) of dataSet
+    # get the last column (the class) of dataSet
     dataclassList = [dataInstance[-1] for dataInstance in dataSet]
     # if there are only one class  => class
     if dataclassList.count(dataclassList[0]) == len(dataclassList):
@@ -132,7 +132,7 @@ def createTree(dataSet, featureLabels):
     bestFeatureLabel = featureLabels[bestFeature]
     # get tree
     myTree = {bestFeatureLabel: {}}
-    # delete that lable
+    # delete that label
     del (featureLabels[bestFeature])
     # get best candidate value
     bestFeatureValues = [dataInstance[bestFeature] for dataInstance in dataSet]
