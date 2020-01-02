@@ -40,9 +40,9 @@ def readDB(filename):
 if __name__ == "__main__":
     canvisits, start, end, maxj, maxi = readDB("./DB.pl")
     # Generate the map
-    roboMap = [[1 for j in range(maxj + 2)] for i in range(maxi + 2)]
+    robotMap = [[1 for j in range(maxj + 2)] for i in range(maxi + 2)]
     for canvisit in canvisits:
-        roboMap[canvisit[1]][canvisit[0]] = 0
+        robotMap[canvisit[1]][canvisit[0]] = 0
     dv = [[0, 1], [0, -1], [1, 0], [-1, 0]]
     # record the path
     vmap = [[[maxi * maxj, -1] for j in range(maxj + 2)] for i in range(maxi + 2)]
@@ -61,7 +61,7 @@ if __name__ == "__main__":
                 nextj = j + dv[k][1]
                 if maze[nexti][nextj] == 0:
                     dfs(maze, nexti, nextj, k, depth+1)
-    dfs(roboMap, start[1], start[0], 4, 0)
+    dfs(robotMap, start[1], start[0], 4, 0)
     for i in range(maxi + 2):
         print(vmap[i])
        # Out put the outcome
