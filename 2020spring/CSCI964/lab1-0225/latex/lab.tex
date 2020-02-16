@@ -1,0 +1,230 @@
+\documentclass{article}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{listings} 
+\usepackage{neuralnetwork}
+\usetikzlibrary{automata,positioning}
+
+\usepackage{color}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb,
+  language=Python,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass\: \hmwkTitle}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Task \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Task \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Task \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Task \arabic{#1}}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Task \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Task \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Due date
+%   - Class
+%   - Section/Time
+%   - Instructor
+%   - Author
+%
+
+\newcommand{\hmwkTitle}{Lab\ \#1}
+\newcommand{\hmwkDueDate}{September 25, 2019}
+\newcommand{\hmwkClass}{CSCI964 Computational Intelligence}
+\newcommand{\hmwkClassTime}{2.14}
+\newcommand{\hmwkClassInstructor}{Zhifeng Wang}
+\newcommand{\hmwkAuthorName}{\textbf{Mei Wangzhihui}}
+\newcommand{\hmwkAuthorNum}{\textbf{2019124044}}
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+    % \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at 3:10pm}\\
+    % \vspace{0.1in}\large{\textit{\hmwkClassInstructor\ \hmwkClassTime}}
+    \vspace{3in}
+}
+
+\author{\hmwkAuthorName\ \hmwkAuthorNum}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+
+% Alias for the Solution section header
+\newcommand{\solution}{\textbf{\large Solution}}
+
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\E}{\mathrm{E}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+
+\begin{document}
+
+\maketitle
+
+\pagebreak
+
+\begin{homeworkProblem}
+\noindent 1) Single-layer Neural Network is an Artificial Neural Network (ANN) with an input layer and a output layer.
+\begin{figure}[H]
+    \centering
+    \begin{neuralnetwork}[height=4]
+        \newcommand{\nodetextclear}[2]{}
+        \newcommand{\nodetextx}[2]{$x_#2$}
+        \newcommand{\nodetexty}[2]{$y_#2$}
+        \inputlayer[count=4, bias=false, title=Input\\layer, text=\nodetextx]
+        % \hiddenlayer[count=5, bias=false, title=Hidden\\layer, text=\nodetextclear] \linklayers
+        \outputlayer[count=3, title=Output\\layer, text=\nodetexty] \linklayers
+    \end{neuralnetwork}
+    \caption{Single-layer Neural Network}
+\end{figure}
+
+\noindent 2) Multi-layer Neural Network contains more than one layer of artificial neurons with several hidden layer. 
+\begin{figure}[H]
+    \centering
+    \begin{neuralnetwork}[height=4]
+        \newcommand{\nodetextclear}[2]{}
+        \newcommand{\nodetextx}[2]{$x_#2$}
+        \newcommand{\nodetexty}[2]{$y_#2$}
+        \inputlayer[count=4, bias=false, title=Input\\layer, text=\nodetextx]
+        \hiddenlayer[count=5, bias=false, title=Hidden\\layer 1, text=\nodetextclear] \linklayers
+        \hiddenlayer[count=6, bias=false, title=Hidden\\layer 2, text=\nodetextclear] \linklayers
+        \outputlayer[count=3, title=Output\\layer (Hidden), text=\nodetexty] \linklayers
+    \end{neuralnetwork}
+    \caption{Multi-layer Neural Network}
+\end{figure}
+
+\noindent 3) Shallow Neural Network contains less hidden layers(usually only one layer). It fit functions with a lot parameters.
+\begin{figure}[H]
+    \centering
+    \begin{neuralnetwork}[height=4]
+        \newcommand{\nodetextclear}[2]{}
+        \newcommand{\nodetextx}[2]{$x_#2$}
+        \newcommand{\nodetexty}[2]{$y_#2$}
+        \inputlayer[count=4, bias=false, title=Input\\layer, text=\nodetextx]
+        \hiddenlayer[count=6, bias=false, title=Hidden\\layer 1, text=\nodetextclear] \linklayers        \outputlayer[count=3, title=Output\\layer (Hidden), text=\nodetexty] \linklayers
+    \end{neuralnetwork}
+    \caption{Shallow Neural Network}
+\end{figure}
+
+\noindent 4) Deep Neural Network contains many hidden layers. It can fit functions better with less parameters than a shallow network.
+\begin{figure}[H]
+    \centering
+    \begin{neuralnetwork}[height=4]
+        \newcommand{\nodetextclear}[2]{}
+        \newcommand{\nodetextx}[2]{$x_#2$}
+        \newcommand{\nodetexty}[2]{$y_#2$}
+        \inputlayer[count=4, bias=false, title=Input\\layer, text=\nodetextx]
+        \hiddenlayer[count=5, bias=false, title=Hidden\\layer 1, text=\nodetextclear] \linklayers
+        \hiddenlayer[count=7, bias=false, title=Hidden\\layer 2, text=\nodetextclear] \linklayers
+        \hiddenlayer[count=8, bias=false, title=Hidden\\layer 3, text=\nodetextclear] \linklayers
+        \hiddenlayer[count=6, bias=false, title=Hidden\\layer 4, text=\nodetextclear] \linklayers
+        \hiddenlayer[count=7, bias=false, title=Hidden\\layer 5, text=\nodetextclear] \linklayers
+        \outputlayer[count=3, title=Output\\layer (Hidden), text=\nodetexty] \linklayers
+    \end{neuralnetwork}
+    \caption{Deep Neural Network}
+\end{figure}
+\end{homeworkProblem}
+
+
+\end{document}
