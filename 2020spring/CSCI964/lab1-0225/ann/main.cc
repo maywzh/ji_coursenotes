@@ -8,7 +8,7 @@ int main()
 	const int inNodes = 2;   //输入层结点数
 	const int outNodes = 1;  //输出层结点数
 
-	const int trainClass = 5; //5个类别
+	const int trainClass = 2; //5个类别
 	const int numPerClass = 30;  //每个类别30个样本点
 
 	int sampleN = trainClass * numPerClass;     //每类训练样本数为30，5个类别，总的样本数为150
