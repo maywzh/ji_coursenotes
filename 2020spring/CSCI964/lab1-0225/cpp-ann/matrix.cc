@@ -6,7 +6,24 @@
 using namespace std;
 
 struct invalid_dimensions {};
+Matrix::Matrix():
+m{0}, n{0} {
+	vector<vector<double>> tmp;
+	for (int i = 0; i < m; ++i) {
+		vector<double> row;
+		for (int j = 0; j < n; ++j) {
+			row.emplace_back(0);
+		}
+		tmp.emplace_back(row);
+	}
+	matrix = tmp;
+}
 
+Matrix::Matrix(vector<vector<double>> matrix):
+matrix{matrix} {
+	m = matrix.size();
+	n = matrix[0].size();
+}
 Matrix::Matrix(int m, int n, vector<vector<double>> matrix):
 m{m}, n{n}, matrix{matrix} {}
 
@@ -101,6 +118,17 @@ void Matrix::initNormal() {
 	for (int i = 0; i < m; ++i) {
 		for (int j = 0; j < n; ++j) {
 			matrix[i][j] = distribution(gen);
+		}
+	}
+}
+
+void Matrix::init(int sm, int sn, std::vector<std::vector<double>> &set_matrix) {
+	m = sm;
+	n = sn;
+	for (int i = 0; i < sm; ++i)
+	{
+		for (int j = 0; j < sn; ++j) {
+			matrix[i][j] = set_matrix[i][j];
 		}
 	}
 }

@@ -6,7 +6,7 @@ class NeuralNet {
 public:
 	// constructor
 	NeuralNet(int input_size, int output_size, std::vector<int> hidden_sizes, Matrix inputs, Matrix outputs);
-	NeuralNet(int input_size, int output_size, std::vector<Matrix> weights, Matrix inputs);
+	NeuralNet(int input_size, int output_size, std::vector<int> hidden_sizes, std::vector<Matrix> weights, std::vector<Matrix> biases, Matrix inputs);
 	// activation functions
 	static double sigmoid(double n, bool deriv = false);
 	static double relu(double n, bool deriv = false);
@@ -52,13 +52,17 @@ public:
 	// propogation
 	Matrix feedForward(Matrix input);
 	void backProp(int batch_size = 0);
+	void setInitialWeight(std::vector<Matrix> &weights){
 
+}
 	// ith weight matrix accessor
 	Matrix getWeights(int i);
 
 	// using the model
 	void train(int epochs);
 	Matrix predict(Matrix input);
+	// stream operator
+	friend std::ostream &operator<<(std::ostream &out, const NeuralNet &nn);
 
 private:
 	const int input_size;
