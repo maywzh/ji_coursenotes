@@ -16,4 +16,6 @@ int main()
 	vector<Matrix> biases{bias1, bias2};
 	vector<int> hidden{2, 2};
 	NeuralNet nn{2, 2, hidden, weights, biases, inputs};
+	nn.feedForward(input);
+	cout << nn;
 }

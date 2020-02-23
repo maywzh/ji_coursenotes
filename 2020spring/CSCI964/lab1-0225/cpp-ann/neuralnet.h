@@ -6,7 +6,7 @@ class NeuralNet {
 public:
 	// constructor
 	NeuralNet(int input_size, int output_size, std::vector<int> hidden_sizes, Matrix inputs, Matrix outputs);
-	NeuralNet(int input_size, int output_size, std::vector<int> hidden_sizes, std::vector<Matrix> weights, std::vector<Matrix> biases, Matrix inputs);
+	NeuralNet(int input_size, int output_size, std::vector<int> hidden_sizes, std::vector<Matrix> &weights, std::vector<Matrix> &biases, Matrix inputs);
 	// activation functions
 	static double sigmoid(double n, bool deriv = false);
 	static double relu(double n, bool deriv = false);

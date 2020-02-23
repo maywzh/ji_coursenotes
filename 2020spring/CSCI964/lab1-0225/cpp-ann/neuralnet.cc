@@ -22,11 +22,11 @@ NeuralNet::NeuralNet(int input_size, int output_size, std::vector<int> hidden_si
 	intermediates.emplace_back(Matrix{0, 0});
 }
 
-NeuralNet::NeuralNet(int input_size, int output_size, std::vector<int> hidden_sizes, std::vector<Matrix> weights, std::vector<Matrix> biases, Matrix inputs) : input_size{input_size}, output_size{output_size}, hidden_sizes{hidden_sizes}, inputs{inputs}
+NeuralNet::NeuralNet(int input_size, int output_size, std::vector<int> hidden_sizes, std::vector<Matrix> &weights, std::vector<Matrix> &biases, Matrix inputs) : input_size{input_size}, output_size{output_size}, hidden_sizes{hidden_sizes}, inputs{inputs}
 {
-	int prev_dim = inputs.getCols();
+	int totalsize = weights.size();
 	int m, n, bm, bn;
-	for (unsigned int i = 0; i < weights.size(); i++)
+	for (unsigned int i = 0; i < totalsize; i++)
 	{
 		m = weights[i].getRows();
 		n = weights[i].getCols();
@@ -34,9 +34,9 @@ NeuralNet::NeuralNet(int input_size, int output_size, std::vector<int> hidden_si
 		bn = biases[i].getCols();
 		Matrix weight_layer{m, n, weights[i].getVector()};
 		Matrix bias{bm, bn, biases[i].getVector()};
-		weights.emplace_back(weight_layer);
-		biases.emplace_back(bias);
-		intermediates.emplace_back(Matrix{0, 0});
+		this->weights.push_back(weight_layer);
+		this->biases.push_back(bias);
+		intermediates.push_back(Matrix{0, 0});
 	}
 	// Matrix last_layer {n, output_size};
 	// last_layer.initNormal();
@@ -199,6 +199,14 @@ ostream &operator<<(ostream &out, const NeuralNet &nn)
 {
 	for (int i = 0; i < nn.weights.size(); i++)
 	{
+		cout << i << "th weight matrix" << endl;
 		cout << nn.weights[i];
+	}
+	cout << "input:" << endl;
+	cout << nn.inputs;
+	for (int i = 0; i < nn.intermediates.size(); i++)
+	{
+		cout << i << "th intermediate layer" << endl;
+		cout << nn.intermediates[i];
 	}
 }
