@@ -38,10 +38,7 @@ NeuralNet::NeuralNet(int input_size, int output_size, std::vector<int> hidden_si
 		this->biases.push_back(bias);
 		intermediates.push_back(Matrix{0, 0});
 	}
-	// Matrix last_layer {n, output_size};
-	// last_layer.initNormal();
-	// weights.emplace_back(last_layer);
-	// intermediates.emplace_back(Matrix {0, 0});
+
 }
 
 double NeuralNet::sigmoid(double n, bool deriv)
