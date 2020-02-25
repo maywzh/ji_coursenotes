@@ -1,6 +1,7 @@
 #include "neuralnet.h"
 #include <math.h>
 #include <iostream>
+#include <Eigen/Dense>
 
 using namespace std;
 
