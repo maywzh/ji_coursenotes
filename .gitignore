@@ -1,6 +1,6 @@
 .ipynb_checkpoints
 *.ipynb
-.vscode
+# .vscode
 materials/*.pdf
 *.dSYM
 *.o

@@ -7,9 +7,9 @@ class Matrix {
 public:
 	// constructors
 	Matrix();
-	Matrix(int m, int n, std::vector<std::vector<double>> matrix);
+	Matrix(int m, int n, std::vector<std::vector<double> > matrix);
 	Matrix(int m, int n); // zero matrix
-	Matrix(std::vector<std::vector<double>> matrix); // zero matrix
+	Matrix(std::vector<std::vector<double> > matrix); // zero matrix
 	// applies a function over the entire matrix
 	template<typename F> void apply(F f) {
 		for (int i = 0; i < m; ++i) {
@@ -32,7 +32,7 @@ public:
 
 	// randomizations
 	void initNormal();
-	void init(int m, int n, std::vector<std::vector<double>> &matrix);
+	void init(int m, int n, std::vector<std::vector<double> > &matrix);
 	// misc operations
 	double sum();
 	void normalize();
@@ -40,11 +40,11 @@ public:
 	// accessors
 	int getRows();
 	int getCols();
-	std::vector<std::vector<double>> getVector();
+	std::vector<std::vector<double> > getVector();
 
 private:
 	int m, n;
-	std::vector<std::vector<double>> matrix;
+	std::vector<std::vector<double> > matrix;
 };
 
 #endif

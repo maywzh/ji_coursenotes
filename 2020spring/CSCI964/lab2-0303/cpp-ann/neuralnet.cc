@@ -108,8 +108,8 @@ void NeuralNet::backProp(int batch_size)
 			int a = i * batch_size;
 			int b = min(inputs.getRows() - 1, a + batch_size - 1);
 
-			vector<vector<double>> input_batch_vector;
-			vector<vector<double>> output_batch_vector;
+			vector<vector<double> > input_batch_vector;
+			vector<vector<double> > output_batch_vector;
 
 			for (int i = a; i <= b; ++i)
 			{
