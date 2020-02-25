@@ -1,15 +1,15 @@
 #include <iostream>
-#include <Eigen/Dense>
+#include <eigen3/Eigen/Dense>
 using namespace Eigen;
 using namespace std;
 int main()
 {
-    MatrixXd m = MatrixXd::Random(3, 3);
-    m = (m + MatrixXd::Constant(3, 3, 1.2)) * 50;
-    cout << "m =" << endl
-         << m << endl;
-    VectorXd v(3);
-    v << 1, 2, 3;
-    cout << "m * v =" << endl
-         << m * v << endl;
+    MatrixXd m1(2, 3);
+    MatrixXd m2(3, 2);
+    m1 << 1, 1, 1,
+        2, 2, 2;
+    m2 << 1, 1,
+        2, 2,
+        3, 3;
+    std::cout << m1 * m2 << endl;
 }

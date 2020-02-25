@@ -72,6 +72,8 @@
         "cinttypes": "cpp",
         "hashtable": "cpp",
         "bit": "cpp",
-        "memory_resource": "cpp"
+        "memory_resource": "cpp",
+        "core": "cpp",
+        "dense": "cpp"
     }
 }
