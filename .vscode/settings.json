@@ -1,5 +1,5 @@
 {
-    "python.pythonPath": "/Users/maywzh/.pyenv/versions/3.7.4/bin/python",
+    "python.pythonPath": "/home/maywzh/.pyenv/versions/3.7.4/bin/python",
     "files.associations": {
         "*.cxx": "cpp",
         "__bit_reference": "cpp",
