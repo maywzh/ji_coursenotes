@@ -93,5 +93,5 @@ int main()
     MatrixXd biases[] = {bias};
     MatrixXd weights[] = {weight};
     //gradDst(1, 1, 4, 0.01, 0.001, 1000000, x, weights, biases, y); // online learning
-    gradDst(1, 1, 4, 1000000, 0.01, 0.000000001, x, weights, biases, y); // batch method
+    gradDst(3, 1, 4, 1000000, 0.01, 0.000000001, x, weights, biases, y); // batch method
 }

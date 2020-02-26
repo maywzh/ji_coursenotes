@@ -33,6 +33,31 @@
             "cStandard": "c11",
             "cppStandard": "c++17",
             "intelliSenseMode": "clang-x64"
+        },
+        {
+            "name": "Linux",        
+            "includePath": [
+                "${workspaceFolder}/**",
+                "${fileDirname}/**"
+            ],
+            "browse": {
+                "path": [
+                    "${workspaceFolder}/**",
+                    "${cwd}",
+                    "${fileDirname}/**",
+                    "/usr/local/opt/opencv@4/include/**",
+                    "/usr/local/Cellar/opencv/4.2.0_1/include/**",
+                    "/usr/local/include/eigen3/Eigen/**",
+                    "/usr/include"
+                ],
+                "limitSymbolsToIncludedHeaders": true,
+                "databaseFilename": ""
+            },
+            "defines": [],
+            "compilerPath": "/usr/bin/gcc",  
+            "cStandard": "c11",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "clang-x64"
         }
     ],
     "version": 4
