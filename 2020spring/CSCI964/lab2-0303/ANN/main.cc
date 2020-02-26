@@ -30,14 +30,14 @@ double forwardProp(int numberOfLayers, MatrixXd input, MatrixXd *weights, Matrix
     return output(0);
 }
 
-double gradDst(const int batch_size, const int layernumber, const int dataset_size, const int maxepoch, const double LR, const double maxerror, MatrixXd *x, MatrixXd *weights, MatrixXd *thetas, double *y)
+void gradDst(const int batch_size, const int layernumber, const int dataset_size, const int maxepoch, const double LR, const double maxerror, MatrixXd *x, MatrixXd *weights, MatrixXd *thetas, double *y)
 {
     int epoch = 0, ctr = 0, idx = 0;
-    double error = 0, lasterror, sumerror = 0;
+    double error = 0, lasterror, deltaerror, sumerror = 0;
     MatrixXd deltaW(3, 1);
     double deltaTheta = 0;
     deltaW << 0, 0, 0;
-    double deltaerror = maxerror + 100;
+    //Calculate the initial mean error
     for (int i = 0; i < dataset_size; i++)
     {
         double t = forwardProp(layernumber, x[i], weights, thetas);
@@ -46,6 +46,7 @@ double gradDst(const int batch_size, const int layernumber, const int dataset_si
     lasterror = sumerror / dataset_size;
     do
     {
+        // One Epoch
         epoch++;
         for (int i = 0; i < batch_size; i++)
         {
@@ -54,9 +55,11 @@ double gradDst(const int batch_size, const int layernumber, const int dataset_si
             deltaTheta += LR * (t - y[idx]) * t * (1 - t);
             idx = (idx + 1) % dataset_size;
         }
+        // Adjust The Weight and theta
         weights[layernumber - 1] -= deltaW / batch_size;
         thetas[layernumber - 1](0) += deltaTheta / batch_size;
         sumerror = 0;
+        //Calculate the Mean Error
         for (int i = 0; i < dataset_size; i++)
         {
             double t = forwardProp(layernumber, x[i], weights, thetas);
@@ -64,6 +67,7 @@ double gradDst(const int batch_size, const int layernumber, const int dataset_si
         }
         error = sumerror / dataset_size;
         deltaerror = abs(error - lasterror);
+
         lasterror = error;
         deltaW << 0, 0, 0;
         deltaTheta = 0;
@@ -74,7 +78,6 @@ double gradDst(const int batch_size, const int layernumber, const int dataset_si
         cout << "w" << weights[0] << endl;
         cout << "theta: " << thetas[0] << endl;
     } while (deltaerror > maxerror && epoch < maxepoch);
-    return error;
 }
 
 int main()
@@ -93,5 +96,5 @@ int main()
     MatrixXd biases[] = {bias};
     MatrixXd weights[] = {weight};
     //gradDst(1, 1, 4, 0.01, 0.001, 1000000, x, weights, biases, y); // online learning
-    gradDst(3, 1, 4, 1000000, 0.01, 0.000000001, x, weights, biases, y); // batch method
+    gradDst(1, 1, 4, 1000000, 0.01, 0.000000001, x, weights, biases, y); // batch method
 }
