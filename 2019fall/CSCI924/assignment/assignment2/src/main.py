@@ -21,8 +21,8 @@ def readDB(filename):
     with open(filename) as f:
         lines = f.readlines()
         for line in lines:
-            line = line.replace("\n", "").replace(
-                "\r\n", "").strip().replace(' ', '')
+            line = line.replace("\n", "").replace("\r\n",
+                                                  "").strip().replace(' ', '')
             ifMap = re.search('^s\([0-9]+,[0-9]+\)\.$', line)
             ifGoal = re.search('^goalState\([0-9]+,[0-9]+\)\.$', line)
             ifStart = re.search('^startState\([0-9]+,[0-9]+\)\.$', line)
@@ -68,7 +68,7 @@ def findPath(maze, start, end, r, c):
         print("no solution")
         return
     else:
-        print("shortest path: %d" % (value[end[1]][end[0]][0]+1))
+        print("shortest path: %d" % (value[end[1]][end[0]][0] + 1))
         i = end[1]
         j = end[0]
         path = [(j, i)]
@@ -84,7 +84,7 @@ def findPath(maze, start, end, r, c):
 if __name__ == "__main__":
     canvisits, start, end, maxj, maxi = readDB("./DB.pl")
     # Generate the map
-    roboMap = [[1 for j in range(maxj+2)] for i in range(maxi+2)]
+    roboMap = [[1 for j in range(maxj + 2)] for i in range(maxi + 2)]
     for canvisit in canvisits:
         roboMap[canvisit[1]][canvisit[0]] = 0
     findPath(roboMap, start, end, maxi, maxj)
