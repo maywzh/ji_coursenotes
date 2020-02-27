@@ -36,4 +36,5 @@ def readData(filepath, ifShuffle, feature_num=4):
     return xs, ys
 
 
-x, y = readData('../iris.txt', False, 4)
+if __name__ == "__main__":
+    x, y = readData('../iris.txt', False, 4)

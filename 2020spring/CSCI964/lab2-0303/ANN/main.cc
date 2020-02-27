@@ -97,4 +97,8 @@ int main()
     MatrixXd weights[] = {weight};
     //gradDst(1, 1, 4, 0.01, 0.001, 1000000, x, weights, biases, y); // online learning
     gradDst(1, 1, 4, 1000000, 0.01, 0.000000001, x, weights, biases, y); // batch method
+    for (int i = 0; i < 4; i++)
+    {
+        cout << forwardProp(1, x[i], weights, )
+    }
 }
