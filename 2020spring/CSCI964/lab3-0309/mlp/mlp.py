@@ -24,8 +24,16 @@ def readData(filepath, ifShuffle, feature_num=4):
             random.shuffle(lines)
         for line in lines:
             xs.append(np.array(line.split(',')[0:feature_num]))
-            label_str = line.split(',')[-1]
-            if not label_dict.has_key(label_str):
+            label_str = line.split(',')[-1].strip('\n')
+            if not label_str in label_dict.keys():
                 label_num += 1
                 label_dict[label_str] = label_num
             ynums.append(label_dict[label_str])
+        for ynum in ynums:
+            y = np.zeros((1, label_num))
+            y[0][ynum - 1] = 1
+            ys.append(y)
+    return xs, ys
+
+
+x, y = readData('../iris.txt', False, 4)
