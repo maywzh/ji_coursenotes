@@ -1,5 +1,6 @@
 #include <iostream>
 #include <eigen3/Eigen/Core>
+#include <vector>
 
 using namespace std;
 using namespace Eigen;
@@ -72,16 +73,17 @@ void gradDst(const int batch_size, const int layernumber, const int dataset_size
         deltaW << 0, 0, 0;
         deltaTheta = 0;
 
-        cout << "\nepochs: " << epoch << endl;
-        cout << "error: " << error << endl;
-        cout << "deltaerror:" << deltaerror << endl;
-        cout << "w" << weights[0] << endl;
-        cout << "theta: " << thetas[0] << endl;
+        // cout << "\nepochs: " << epoch << endl;
+        // cout << "error: " << error << endl;
+        // cout << "deltaerror:" << deltaerror << endl;
+        // cout << "w" << weights[0] << endl;
+        // cout << "theta: " << thetas[0] << endl;
     } while (deltaerror > maxerror && epoch < maxepoch);
 }
 
 int main()
 {
+    vector<MatrixXd> Weightss;
     MatrixXd x0(1, 3), x1(1, 3), x2(1, 3), x3(1, 3);
     MatrixXd weight(3, 1), bias(1, 1);
     x0 << 0, 0, 1;
@@ -95,10 +97,18 @@ int main()
     double y[] = {y0, y1, y2, y3};
     MatrixXd biases[] = {bias};
     MatrixXd weights[] = {weight};
-    //gradDst(1, 1, 4, 0.01, 0.001, 1000000, x, weights, biases, y); // online learning
+    cout << "online mode training:" << endl;
     gradDst(1, 1, 4, 1000000, 0.01, 0.000000001, x, weights, biases, y); // batch method
     for (int i = 0; i < 4; i++)
     {
-        cout << forwardProp(1, x[i], weights, )
+        cout << "y" << i << ": " << forwardProp(1, x[i], weights, biases) << endl;
+    }
+    cout << "batch mode training:" << endl;
+    weights[0] << 0, 0, 0;
+    biases[0] << 0;
+    gradDst(3, 1, 4, 1000000, 0.01, 0.000000001, x, weights, biases, y); // batch method
+    for (int i = 0; i < 4; i++)
+    {
+        cout << "y" << i << ": " << forwardProp(1, x[i], weights, biases) << endl;
     }
 }
