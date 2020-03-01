@@ -83,7 +83,6 @@ void gradDst(const int batch_size, const int layernumber, const int dataset_size
 
 int main()
 {
-    vector<MatrixXd> Weightss;
     MatrixXd x0(1, 3), x1(1, 3), x2(1, 3), x3(1, 3);
     MatrixXd weight(3, 1), bias(1, 1);
     x0 << 0, 0, 1;
