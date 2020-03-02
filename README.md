@@ -16,6 +16,14 @@
 
 ## 2020spring
 
+### CSIT814 IT Project Management
+
+### CSCI933 Machine Learning Algorithms and Applications
+
+### CSCI964 Computational Intelligence
+
+### CSCI968 Advanced Network Security
+
 ## 2020fall
 
 ## 2021spring
