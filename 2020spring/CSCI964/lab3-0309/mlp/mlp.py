@@ -38,7 +38,7 @@ def readData(filepath, ifShuffle, feature_num=4):
 
 
 class mlp(object):
-    def __init__(self, lr=0.1, mometum=0.5, lda=0.0, te=1e-5, epoch=100, size=None):
+    def __init__(self, lr=0.1, momentum=0.5, lda=0.0, te=1e-5, epoch=100, size=None):
         self.learningRate = lr
         self.lambda_ = lda
         self.thresholdError = te
@@ -59,8 +59,8 @@ class mlp(object):
 
     def forwardPropagation(self, item=None):
         a = [item]
-        for wIndex in range(len(self.W)):
-            a.append(sigmoid(self.W[wIndex] * a[-1] + self.b[wIndex]))
+        for i in range(len(self.W)):
+            a.append(sigmoid(self.W[i] * a[-1] + self.b[i]))
         return a
 
     def backPropagation(self, label=None, a=None):
@@ -104,7 +104,7 @@ class mlp(object):
         plt.title('epoch-loss')
         for ep in range(self.maxEpoch):
             error = []
-            for itemIndex in range(input_.shape[1]):
+            for itemIndex in range(len(input_)):
                 a = self.forwardPropagation(input_[:, itemIndex])
                 e = self.backPropagation(target[:, itemIndex], a)
                 error.append(e[0, 0])
@@ -126,4 +126,6 @@ class mlp(object):
 if __name__ == "__main__":
     x, y = readData('../iris.txt', False, 4)
     print(len(y[0]))
-    #model = mlp(lr=0.1, momentum=0.5, lda=0.0, te=1e-5, epoch=1000, size=[len(x), 5, len(y)])
+    model = mlp(lr=0.1, momentum=0.5, lda=0.0, te=1e-5, epoch=1000, size=[len(x), 5, len(y)])
+    model.init()
+    model.train(x, y, 10)
