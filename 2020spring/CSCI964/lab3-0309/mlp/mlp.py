@@ -27,7 +27,7 @@ def readData(filepath, ifShuffle, feature_num=4):
             x = list(map(float, line.split(',')[0:feature_num]))
             xs.append(np.array(x).reshape(feature_num, 1))
             label_str = line.strip('\n').split(',')[-1]
-            if not label_str in label_dict.keys():
+            if not label_str in list(label_dict.keys()):
                 label_num += 1
                 label_dict[label_str] = label_num
             ynums.append(label_dict[label_str])
