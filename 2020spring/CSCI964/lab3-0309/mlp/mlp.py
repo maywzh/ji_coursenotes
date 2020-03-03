@@ -104,6 +104,7 @@ class mlp(object):
         plt.ylabel('loss')
         plt.grid(True)
         plt.title('epoch-loss')
+        plt.show()
         for ep in range(self.maxEpoch):
             error = []
             for i in range(len(input_)):
