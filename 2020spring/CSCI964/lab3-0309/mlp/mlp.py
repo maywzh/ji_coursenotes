@@ -24,16 +24,17 @@ def readData(filepath, ifShuffle, feature_num=4):
         if ifShuffle:
             random.shuffle(lines)
         for line in lines:
-            xs.append(np.array(line.split(',')[0:feature_num]))
-            label_str = line.split(',')[-1].strip('\n')
+            x = list(map(float, line.split(',')[0:feature_num]))
+            xs.append(np.array(x).reshape(feature_num, 1))
+            label_str = line.strip('\n').split(',')[-1]
             if not label_str in label_dict.keys():
                 label_num += 1
                 label_dict[label_str] = label_num
             ynums.append(label_dict[label_str])
         for ynum in ynums:
-            y = np.zeros((1, label_num))
-            y[0][ynum - 1] = 1
-            ys.append(y)
+            y = np.zeros(label_num)
+            y[ynum - 1] = 1.0
+            ys.append(y.reshape(label_num, 1))
     return xs, ys
 
 
@@ -57,6 +58,7 @@ class mlp(object):
             self.W.append(np.mat(np.random.uniform(-0.5, 0.5, size=(self.size[i + 1], self.size[i]))))
             self.b.append(np.mat(np.random.uniform(-0.5, 0.5, size=(self.size[i + 1], 1))))
 
+    # w: len(a[i+1]) x len (a[i]) a[i]: len(a[i]) x 1
     def forwardPropagation(self, item=None):
         a = [item]
         for i in range(len(self.W)):
@@ -74,8 +76,8 @@ class mlp(object):
             delta.append(delta_hl)
         # if no W => the first bp, no last momentum.
         if not len(self.last_W):
-            for i in range(self.size - 1):
-                self.last_w.append(np.mat(np.zeros_like(self.W[i])))
+            for i in range(len(self.size) - 1):
+                self.last_W.append(np.mat(np.zeros_like(self.W[i])))
                 self.last_b.append(np.mat(np.zeros_like(self.b[i])))
             # Update the Weights
             for j in range(len(delta)):
@@ -104,9 +106,9 @@ class mlp(object):
         plt.title('epoch-loss')
         for ep in range(self.maxEpoch):
             error = []
-            for itemIndex in range(len(input_)):
-                a = self.forwardPropagation(input_[:, itemIndex])
-                e = self.backPropagation(target[:, itemIndex], a)
+            for i in range(len(input_)):
+                a = self.forwardPropagation(input_[i])
+                e = self.backPropagation(target[i], a)
                 error.append(e[0, 0])
             epoch_error = sum(error) / len(error)
 
@@ -125,7 +127,5 @@ class mlp(object):
 
 if __name__ == "__main__":
     x, y = readData('../iris.txt', False, 4)
-    print(len(y[0]))
-    model = mlp(lr=0.1, momentum=0.5, lda=0.0, te=1e-5, epoch=1000, size=[len(x), 5, len(y)])
-    model.init()
+    model = mlp(lr=0.1, momentum=0.5, lda=0.0, te=1e-5, epoch=1000, size=[len(x[0]), 5, len(y[0])])
     model.train(x, y, 10)
