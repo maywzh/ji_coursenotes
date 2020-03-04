@@ -4,7 +4,7 @@
 *  Ver1: Koren Ward - 15 March 2003
 *  Ver2: Koren Ward - 21 July  2003 - Dynamic memory added
 *  Ver3: Koren Ward - 20 March 2005 - Net paramaters in datafile added
-*  Ver4: Your Name -  ?? April 2005 - 3, 4 & 5 layer mlp & test fn added
+*  Ver4: Wangzhihui Mei - 5 March 2020 - 3, 4 & 5 layer mlp & test fn added
 *  Copyright - University of Wollongong - 2005
 *************************************************************************/
 #include <iostream>
