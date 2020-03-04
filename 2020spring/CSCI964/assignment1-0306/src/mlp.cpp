@@ -4,7 +4,7 @@
 *  Ver1: Koren Ward - 15 March 2003
 *  Ver2: Koren Ward - 21 July  2003 - Dynamic memory added
 *  Ver3: Koren Ward - 20 March 2005 - Net paramaters in datafile added
-*  Ver4: Your Name -  ?? April 2005 - 3, 4 & 5 layer mlp & test fn added
+*  Ver4: Wangzhihui Mei - 5 March 2020 - 3, 4 & 5 layer mlp & test fn added
 *  Copyright - University of Wollongong - 2005
 *************************************************************************/
 #include <iostream>
@@ -22,14 +22,14 @@ const int MAXPATS = 5000; // Max training patterns
 
 // mlp paramaters
 long NumIts;   // Max training iterations
-int NumHN;	 // Number of hidden layers
-int NumHN1;	// Number of neurons in hidden layer 1
-int NumHN2;	// Number of neurons in hidden layer 2
-int NumHN3;	// Number of neurons in hidden layer 3
-int NumHN4;	// Number of neurons in hidden layer 4
+int NumHN;	   // Number of hidden layers
+int NumHN1;	   // Number of neurons in hidden layer 1
+int NumHN2;	   // Number of neurons in hidden layer 2
+int NumHN3;	   // Number of neurons in hidden layer 3
+int NumHN4;	   // Number of neurons in hidden layer 4
 float LrnRate; // Learning rate
-float Mtm1;	// Momentum(t-1)
-float Mtm2;	// Momentum(t-2)
+float Mtm1;	   // Momentum(t-1)
+float Mtm2;	   // Momentum(t-2)
 float ObjErr;  // Objective error
 
 // mlp weights
@@ -242,7 +242,6 @@ void TestNet(float **x, float **d, int NumIPs, int NumOPs, int NumPats)
 {
 	cout << "TestNet() not yet implemented\n";
 }
-
 
 float **Aloc2DAry(int m, int n)
 {
