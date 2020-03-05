@@ -1,6 +1,5 @@
 {
-    "tasks": [
-        {
+    "tasks": [{
             "type": "shell",
             "label": "clang++ build active file",
             "command": "/usr/bin/clang++",

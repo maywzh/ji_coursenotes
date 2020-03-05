@@ -14,6 +14,7 @@
 #include <cstdio>
 #include <cmath>
 #include <ctime>
+#include <string>
 
 using namespace std;
 
@@ -44,23 +45,61 @@ void Free2DAry(float **Ary2D, int n);
 
 int random_between(int min, int max)
 {
-	srand((unsigned)time(NULL));
+	//srand((unsigned)time(NULL));
 	return (rand() % (max - min + 1)) + min;
 }
-
-int *RandomArray(int n)
+// return a InitArray if ifShuffle == 1 else return an ordinal array
+// void InitArray(int *arr, int n, bool ifShuffle)
+// {
+// 	for (int i = 0; i < n; i++)
+// 	{
+// 		arr[i] = i;
+// 	}
+// 	if (ifShuffle)
+// 	{
+// 		for (int i = n; i != 0; i--)
+// 		{
+// 			int j = random_between(0, i);
+// 			int tmp = arr[i];
+// 			arr[i] = arr[j];
+// 			arr[j] = tmp;
+// 		}
+// 	}
+// }
+void InitArray(int *arr, int n, int ordering)
 {
-	int *arr = new int[n];
-	for (int i = 0; i < n; i++)
+
+	if (ordering == 0)
 	{
-		arr[i] = i;
+		for (int i = 0; i < n; i++)
+		{
+			arr[i] = i;
+		}
 	}
-	for (int i = n; i != 0; i--)
+	else if (ordering == 1)
 	{
-		int j = random_between(0, i);
-		int tmp = arr[i];
-		arr[i] = arr[j];
-		arr[j] = tmp;
+		for (int i = n - 1; i != 0; i--)
+		{
+			int j = random_between(0, i);
+			int tmp = arr[i];
+			arr[i] = arr[j];
+			arr[j] = tmp;
+		}
+	}
+	else if (ordering == 2)
+	{
+		int ii = random_between(0, n - 1);
+		int jj = random_between(0, n - 1);
+		int tmp = arr[ii];
+		arr[ii] = arr[jj];
+		arr[jj] = tmp;
+	}
+	else
+	{
+		for (int i = 0; i < n; i++)
+		{
+			arr[i] = i;
+		}
 	}
 }
 
@@ -184,6 +223,7 @@ void TrainNet(float **x, float **d, int NumIPs, int NumOPs, int NumPats)
 		AveErr = 0;
 		MaxErr = -3.4e38;
 		NumErr = 0;
+
 		for (p = 0; p < NumPats; p++)
 		{ // for each pattern...
 			// Cal neural network output
@@ -298,14 +338,32 @@ void TrainNet2(float **x, float **d, int NumIPs, int NumOPs, int NumPats, int Or
 	for (i = 0; i < NumHN1; i++)
 		for (j = 0; j < NumOPs; j++)
 			w2[i][j] = w22[i][j] = w222[i][j] = float(rand()) / RAND_MAX - 0.5;
-
+	int *arr = new int[NumPats];
+	InitArray(arr, NumPats, 0);
+	if (Ordering == 2)
+		InitArray(arr, NumPats, 1);
 	for (;;)
 	{ // Main learning loop
 		MinErr = 3.4e38;
 		AveErr = 0;
 		MaxErr = -3.4e38;
 		NumErr = 0;
-		for (p = 0; p < NumPats; p++)
+		if (Ordering == 0)
+		{
+		}
+		else if (Ordering == 1)
+		{
+			InitArray(arr, NumPats, 1);
+		}
+		else if (Ordering == 2)
+		{
+			InitArray(arr, NumPats, 2);
+		}
+		else
+		{
+			InitArray(arr, NumPats, 1);
+		}
+		for (i = 0, p = arr[0]; i < NumPats; p = arr[++i])
 		{ // for each pattern...
 			// Cal neural network output
 			for (i = 0; i < NumHN1; i++)
@@ -370,6 +428,7 @@ void TrainNet2(float **x, float **d, int NumIPs, int NumOPs, int NumPats, int Or
 				}
 			}
 		} // end for each pattern
+
 		ItCnt++;
 		AveErr /= NumPats;
 		float PcntErr = NumErr / float(NumPats) * 100.0;
@@ -380,6 +439,7 @@ void TrainNet2(float **x, float **d, int NumIPs, int NumOPs, int NumPats, int Or
 			break;
 	} // end main learning loop
 	// Free memory
+	delete[] arr;
 	delete h1;
 	delete y;
 	delete ad1;
