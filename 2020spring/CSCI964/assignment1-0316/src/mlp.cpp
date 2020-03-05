@@ -48,25 +48,14 @@ int random_between(int min, int max)
 	//srand((unsigned)time(NULL));
 	return (rand() % (max - min + 1)) + min;
 }
-// return a InitArray if ifShuffle == 1 else return an ordinal array
-// void InitArray(int *arr, int n, bool ifShuffle)
-// {
-// 	for (int i = 0; i < n; i++)
-// 	{
-// 		arr[i] = i;
-// 	}
-// 	if (ifShuffle)
-// 	{
-// 		for (int i = n; i != 0; i--)
-// 		{
-// 			int j = random_between(0, i);
-// 			int tmp = arr[i];
-// 			arr[i] = arr[j];
-// 			arr[j] = tmp;
-// 		}
-// 	}
-// }
-void InitArray(int *arr, int n, int ordering)
+void InitArray(int *arr, int n)
+{
+	for (int i = 0; i < n; i++)
+	{
+		arr[i] = i;
+	}
+}
+void RandomArray(int *arr, int n, int ordering)
 {
 
 	if (ordering == 0)
@@ -338,30 +327,33 @@ void TrainNet2(float **x, float **d, int NumIPs, int NumOPs, int NumPats, int Or
 	for (i = 0; i < NumHN1; i++)
 		for (j = 0; j < NumOPs; j++)
 			w2[i][j] = w22[i][j] = w222[i][j] = float(rand()) / RAND_MAX - 0.5;
+	// Initailize the array
 	int *arr = new int[NumPats];
-	InitArray(arr, NumPats, 0);
-	if (Ordering == 2)
-		InitArray(arr, NumPats, 1);
+	InitArray(arr, NumPats);
+	if (Ordering >= 2)
+		RandomArray(arr, NumPats, 1);
 	for (;;)
 	{ // Main learning loop
 		MinErr = 3.4e38;
 		AveErr = 0;
 		MaxErr = -3.4e38;
 		NumErr = 0;
+		bool WrongClassified = false;
 		if (Ordering == 0)
 		{
 		}
 		else if (Ordering == 1)
 		{
-			InitArray(arr, NumPats, 1);
+			RandomArray(arr, NumPats, 1);
 		}
 		else if (Ordering == 2)
 		{
-			InitArray(arr, NumPats, 2);
+			RandomArray(arr, NumPats, 2);
 		}
 		else
 		{
-			InitArray(arr, NumPats, 1);
+			if (!WrongClassified)
+				RandomArray(arr, NumPats, 1);
 		}
 		for (i = 0, p = arr[0]; i < NumPats; p = arr[++i])
 		{ // for each pattern...

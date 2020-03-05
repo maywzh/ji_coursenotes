@@ -13,25 +13,14 @@ int random_between(int min, int max)
     return (rand() % (max - min + 1)) + min;
 }
 
-// return a InitArray if ifShuffle == 1 else return an ordinal array
-void InitArray(int *arr, int n, bool ifShuffle)
+// return an ordinal array
+void InitArray(int *arr, int n)
 {
     for (int i = 0; i < n; i++)
     {
         arr[i] = i;
     }
-    if (ifShuffle)
-    {
-        for (int i = n - 1; i != 0; i--)
-        {
-            int j = random_between(0, i);
-            int tmp = arr[i];
-            arr[i] = arr[j];
-            arr[j] = tmp;
-        }
-    }
 }
-
 void InitArray2(int *arr, int n, int ordering)
 {
 
