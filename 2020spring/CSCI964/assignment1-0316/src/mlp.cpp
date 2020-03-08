@@ -520,7 +520,7 @@ void TrainNet3(float **x, float **d, int NumIPs, int NumOPs, int NumPats, int Or
 				RandomArray(arr, NumPats, 1);
 		}
 		// Training
-		for (i = 0, p = arr[0]; i < NumPats; i++, p = arr[i])
+		for (int idx = 0, p = arr[0]; idx < NumPats; idx++, p = arr[idx])
 		{
 			//forward propagation
 			for (i = 0; i < NumHN1; i++)
@@ -710,7 +710,7 @@ void TrainNet4(float **x, float **d, int NumIPs, int NumOPs, int NumPats, int Or
 			if (!WrongClassified)
 				RandomArray(arr, NumPats, 1);
 		}
-		for (i = 0, p = arr[0]; i < NumPats; i++, p = arr[i])
+		for (int idx = 0, p = arr[0]; idx < NumPats; idx++, p = arr[idx])
 		{
 			//forward propagation
 			for (i = 0; i < NumHN1; i++)
@@ -843,6 +843,7 @@ void TrainNet4(float **x, float **d, int NumIPs, int NumOPs, int NumPats, int Or
 	delete ad1;
 	delete ad2;
 }
+
 void TestNet(float **x, float **d, int NumIPs, int NumOPs, int NumPats)
 {
 	float PatErr;				   // Absolute error sum of the pattern
@@ -898,6 +899,7 @@ void TestNet(float **x, float **d, int NumIPs, int NumOPs, int NumPats)
 	cout.setf(ios::fixed | ios::showpoint);
 	cout << "MinErr:" << setw(12) << MinErr << " AveErr:" << setw(12) << AveErr << " MaxErr:" << setw(12) << MaxErr << " PcntErr:" << setw(12) << PcntErr << endl;
 }
+
 // 分配一个m*n的二维数组
 float **Aloc2DAry(int m, int n)
 {
