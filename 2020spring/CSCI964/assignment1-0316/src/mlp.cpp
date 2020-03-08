@@ -168,7 +168,7 @@ int main()
 			fin >> OPTstData[i][j];
 	}
 	fin.close();
-	TrainNet(IPTrnData, OPTrnData, NumIPs, NumOPs, NumTrnPats);
+	TrainNet2(IPTrnData, OPTrnData, NumIPs, NumOPs, NumTrnPats);
 	TestNet(IPTstData, OPTstData, NumIPs, NumOPs, NumTstPats);
 	Free2DAry(IPTrnData, NumTrnPats);
 	Free2DAry(OPTrnData, NumTrnPats);
@@ -301,9 +301,9 @@ void TrainNet(float **x, float **d, int NumIPs, int NumOPs, int NumPats)
 	delete ad2;
 }
 
+// Trains 2 layer back propagation neural network
 void TrainNet2(float **x, float **d, int NumIPs, int NumOPs, int NumPats)
 {
-	// Trains 2 layer back propagation neural network
 	// x[][]=>input data, d[][]=>desired output data
 
 	float *h1 = new float[NumHN1];		  // O/Ps of hidden layer
@@ -422,6 +422,7 @@ void TrainNet2(float **x, float **d, int NumIPs, int NumOPs, int NumPats)
 	delete ad2;
 }
 
+// Trains 3 layer back propagation neural network
 void TrainNet3(float **x, float **d, int NumIPs, int NumOPs, int NumPats, int Ordering)
 {
 	// Trains 2 layer back propagation neural network
@@ -604,9 +605,10 @@ void TrainNet3(float **x, float **d, int NumIPs, int NumOPs, int NumPats, int Or
 	delete ad1;
 	delete ad2;
 }
+
+// Trains 4 layer back propagation neural network
 void TrainNet4(float **x, float **d, int NumIPs, int NumOPs, int NumPats, int Ordering)
 {
-	// Trains 2 layer back propagation neural network
 	// x[][]=>input data, d[][]=>desired output data
 
 	float *h1 = new float[NumHN1];  // O/Ps of hidden layer 1
