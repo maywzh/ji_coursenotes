@@ -4,7 +4,7 @@ NumIPs: 8
 NumOPs: 1
 NumTrnPats: 3677
 NumTstPats: 500
-NumIts: 500
+NumIts: 1000000
 NumHN: 1
 NumHN1: 5
 LrnRate: 0.6

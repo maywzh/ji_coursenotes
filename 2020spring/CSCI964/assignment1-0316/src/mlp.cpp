@@ -62,6 +62,15 @@ void InitArray(int *arr, int n)
 		arr[i] = i;
 	}
 }
+void PrintArray(int *arr, int n)
+{
+	for (int i = 0; i < n; i++)
+	{
+		cout << arr[i] << " ";
+	}
+	cout << endl;
+}
+
 void RandomArray(int *arr, int n, int ordering)
 {
 
@@ -307,14 +316,14 @@ void TrainNet2(float **x, float **d, int NumIPs, int NumOPs, int NumPats, int Or
 {
 	// x[][]=>input data, d[][]=>desired output data
 
-	float *h1 = new float[NumHN1];		  // O/Ps of hidden layer
-	float *y = new float[NumOPs];		  // O/P of Net
-	float *ad1 = new float[NumHN1];		  // HN1 back prop errors
-	float *ad2 = new float[NumOPs];		  // O/P back prop errors
-	float PatErr, MinErr, AveErr, MaxErr; // Pattern errors
-	int p, i, j;						  // for loops indexes
-	long ItCnt = 0;						  // Iteration counter
-	long NumErr = 0;					  // Error counter (added for spiral problem)
+	float *h1 = new float[NumHN1];						 // O/Ps of hidden layer
+	float *y = new float[NumOPs];						 // O/P of Net
+	float *ad1 = new float[NumHN1];						 // HN1 back prop errors
+	float *ad2 = new float[NumOPs];						 // O/P back prop errors
+	float PatErr, MinErr, AveErr, MaxErr, PcntErr = 0.0; // Pattern errors
+	int p, i, j;										 // for loops indexes
+	long ItCnt = 0;										 // Iteration counter
+	long NumErr = 0;									 // Error counter (added for spiral problem)
 
 	cout << "TrainNet2: IP:" << NumIPs << " H1:" << NumHN1 << " OP:" << NumOPs << endl;
 
@@ -346,7 +355,7 @@ void TrainNet2(float **x, float **d, int NumIPs, int NumOPs, int NumPats, int Or
 		AveErr = 0;
 		MaxErr = -3.4e38;
 		NumErr = 0;
-		bool WrongClassified = NumErr > 1 / 10 * NumPats; // if 1/10 samples are recorded, the epoch/pattern is wrong classified
+		// bool WrongClassified = NumErr > 1 / 10 * NumPats; // if 1/10 samples are recorded, the epoch/pattern is wrong classified
 		if (Ordering == 0)
 		{
 		}
@@ -360,10 +369,10 @@ void TrainNet2(float **x, float **d, int NumIPs, int NumOPs, int NumPats, int Or
 		}
 		else
 		{
-			if (!WrongClassified)
+			// if PcntErr > 10% => the pattern is wrong classified.
+			if (PcntErr > 10.0)
 				RandomArray(arr, NumPats, 1);
 		}
-
 		//Training
 		for (int idx = 0, p = arr[0]; idx < NumPats; idx++, p = arr[idx])
 		{
@@ -431,7 +440,7 @@ void TrainNet2(float **x, float **d, int NumIPs, int NumOPs, int NumPats, int Or
 		} // end for each pattern
 		ItCnt++;
 		AveErr /= NumPats;
-		float PcntErr = NumErr / float(NumPats) * 100.0;
+		PcntErr = NumErr / float(NumPats) * 100.0;
 		cout.setf(ios::fixed | ios::showpoint);
 		cout << setprecision(6) << setw(6) << ItCnt << ": " << setw(12) << MinErr << setw(12) << AveErr << setw(12) << MaxErr << setw(12) << PcntErr << endl;
 
