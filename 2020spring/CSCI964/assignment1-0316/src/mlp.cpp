@@ -168,7 +168,8 @@ int main()
 			fin >> OPTstData[i][j];
 	}
 	fin.close();
-	TrainNet2(IPTrnData, OPTrnData, NumIPs, NumOPs, NumTrnPats);
+
+	TrainNet2(IPTrnData, OPTrnData, NumIPs, NumOPs, NumTrnPats, 1);
 	TestNet(IPTstData, OPTstData, NumIPs, NumOPs, NumTstPats);
 	Free2DAry(IPTrnData, NumTrnPats);
 	Free2DAry(OPTrnData, NumTrnPats);
@@ -176,7 +177,7 @@ int main()
 	Free2DAry(OPTstData, NumTstPats);
 	cout << "End of program.\n";
 	//system("PAUSE"); // win32
-	int c = getchar(); // alternative to system("PAUSE") in UNIX
+	//int c = getchar(); // alternative to system("PAUSE") in UNIX
 	return 0;
 }
 void TrainNet(float **x, float **d, int NumIPs, int NumOPs, int NumPats)
@@ -302,7 +303,7 @@ void TrainNet(float **x, float **d, int NumIPs, int NumOPs, int NumPats)
 }
 
 // Trains 2 layer back propagation neural network
-void TrainNet2(float **x, float **d, int NumIPs, int NumOPs, int NumPats)
+void TrainNet2(float **x, float **d, int NumIPs, int NumOPs, int NumPats, int Ordering)
 {
 	// x[][]=>input data, d[][]=>desired output data
 
@@ -333,26 +334,48 @@ void TrainNet2(float **x, float **d, int NumIPs, int NumOPs, int NumPats)
 	for (i = 0; i < NumHN1; i++)
 		for (j = 0; j < NumOPs; j++)
 			w2[i][j] = w22[i][j] = w222[i][j] = float(rand()) / RAND_MAX - 0.5;
-
+	// Initailize the array
+	int *arr = new int[NumPats];
+	InitArray(arr, NumPats);
+	if (Ordering >= 2)
+		RandomArray(arr, NumPats, 1);
+	// Perform learning iterable learning epochs
 	for (;;)
-	{ // Main learning loop
+	{
 		MinErr = 3.4e38;
 		AveErr = 0;
 		MaxErr = -3.4e38;
 		NumErr = 0;
+		bool WrongClassified = NumErr > 1 / 10 * NumPats; // if 1/10 samples are recorded, the epoch/pattern is wrong classified
+		if (Ordering == 0)
+		{
+		}
+		else if (Ordering == 1)
+		{
+			RandomArray(arr, NumPats, 1);
+		}
+		else if (Ordering == 2)
+		{
+			RandomArray(arr, NumPats, 2);
+		}
+		else
+		{
+			if (!WrongClassified)
+				RandomArray(arr, NumPats, 1);
+		}
 
-		for (p = 0; p < NumPats; p++)
-		{ // for each pattern...
-			// Cal neural network output
+		//Training
+		for (int idx = 0, p = arr[0]; idx < NumPats; idx++, p = arr[idx])
+		{
 			for (i = 0; i < NumHN1; i++)
-			{ // Cal O/P of hidden layer 1
+			{
 				float in = 0;
 				for (j = 0; j < NumIPs; j++)
 					in += w1[j][i] * x[p][j];
 				h1[i] = (float)(1.0 / (1.0 + exp(double(-in)))); // Sigmoid fn
 			}
 			for (i = 0; i < NumOPs; i++)
-			{ // Cal O/P of output layer
+			{
 				float in = 0;
 				for (j = 0; j < NumHN1; j++)
 				{
@@ -873,7 +896,7 @@ void TestNet(float **x, float **d, int NumIPs, int NumOPs, int NumPats)
 	AveErr /= NumPats;
 	float PcntErr = NumErr / float(NumPats) * 100.0;
 	cout.setf(ios::fixed | ios::showpoint);
-	cout << "MinErr:" << setw(12) << MinErr << "AveErr:" << setw(12) << AveErr << "MaxErr:" << setw(12) << MaxErr << "PcntErr:" << setw(12) << PcntErr << endl;
+	cout << "MinErr:" << setw(12) << MinErr << " AveErr:" << setw(12) << AveErr << " MaxErr:" << setw(12) << MaxErr << " PcntErr:" << setw(12) << PcntErr << endl;
 }
 // 分配一个m*n的二维数组
 float **Aloc2DAry(int m, int n)

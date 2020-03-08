@@ -21,7 +21,7 @@ void InitArray(int *arr, int n)
         arr[i] = i;
     }
 }
-void InitArray2(int *arr, int n, int ordering)
+void RandomArray(int *arr, int n, int ordering)
 {
 
     if (ordering == 0)
@@ -99,13 +99,13 @@ int main()
     // {
     //     InitArray(arr, NumPats, false); //TODO: Pattern 3
     // }
-    InitArray2(arr, NumPats, 0);
+    RandomArray(arr, NumPats, 0);
     PrintArray(arr, NumPats);
-    InitArray2(arr, NumPats, 1);
+    RandomArray(arr, NumPats, 1);
     PrintArray(arr, NumPats);
-    InitArray2(arr, NumPats, 2);
+    RandomArray(arr, NumPats, 2);
     PrintArray(arr, NumPats);
-    InitArray2(arr, NumPats, 2);
+    RandomArray(arr, NumPats, 2);
     PrintArray(arr, NumPats);
     delete[] arr;
 
