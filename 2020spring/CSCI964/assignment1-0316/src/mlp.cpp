@@ -42,7 +42,11 @@ float **w5, **w55, **w555; // 5th layer wts
 
 void TrainNet(float **x, float **d, int NumIPs, int NumOPs, int NumPats);
 void TrainNet2(float **x, float **d, int NumIPs, int NumOPs, int NumPats, int Ordering);
+void TrainNet3(float **x, float **d, int NumIPs, int NumOPs, int NumPats, int Ordering);
+void TrainNet4(float **x, float **d, int NumIPs, int NumOPs, int NumPats, int Ordering);
+
 void TestNet(float **x, float **d, int NumIPs, int NumOPs, int NumPats);
+
 float **Aloc2DAry(int m, int n);
 void Free2DAry(float **Ary2D, int n);
 
@@ -283,6 +287,7 @@ void TrainNet(float **x, float **d, int NumIPs, int NumOPs, int NumPats)
 		ItCnt++;
 		AveErr /= NumPats;
 		float PcntErr = NumErr / float(NumPats) * 100.0;
+		cout << "Test: " << endl;
 		cout.setf(ios::fixed | ios::showpoint);
 		cout << setprecision(6) << setw(6) << ItCnt << ": " << setw(12) << MinErr << setw(12) << AveErr << setw(12) << MaxErr << setw(12) << PcntErr << endl;
 
@@ -490,18 +495,19 @@ void TrainNet3(float **x, float **d, int NumIPs, int NumOPs, int NumPats, int Or
 			if (!WrongClassified)
 				RandomArray(arr, NumPats, 1);
 		}
+		// Training
 		for (i = 0, p = arr[0]; i < NumPats; i++, p = arr[i])
-		{ // for each pattern...
-			// Cal neural network output
+		{
+			//forward propagation
 			for (i = 0; i < NumHN1; i++)
-			{ // Cal O/P of hidden layer 1
+			{
 				float in = 0;
 				for (j = 0; j < NumIPs; j++)
 					in += w1[j][i] * x[p][j];
 				h1[i] = (float)(1.0 / (1.0 + exp(double(-in)))); // Sigmoid fn
 			}
 			for (i = 0; i < NumHN2; i++)
-			{ // Cal O/P of output layer
+			{
 				float in = 0;
 				for (j = 0; j < NumHN1; j++)
 				{
@@ -509,10 +515,10 @@ void TrainNet3(float **x, float **d, int NumIPs, int NumOPs, int NumPats, int Or
 				}
 				h2[i] = (float)(1.0 / (1.0 + exp(double(-in)))); // Sigmoid fn
 			}
-			for (i = 0; i < NumHN2; i++)
-			{ // Cal O/P of output layer
+			for (i = 0; i < NumOPs; i++)
+			{
 				float in = 0;
-				for (j = 0; j < NumOPs; j++)
+				for (j = 0; j < NumHN2; j++)
 				{
 					in += w3[j][i] * h2[j];
 				}
@@ -534,11 +540,11 @@ void TrainNet3(float **x, float **d, int NumIPs, int NumOPs, int NumPats, int Or
 			if (PatErr > MaxErr)
 				MaxErr = PatErr;
 			AveErr += PatErr;
-
+			// backward propagation
 			// Out layer -> 2th hidden layer : NumOPs -> NumHN2
 			for (i = 0; i < NumOPs; i++)
 			{
-				ad2[i] = (d[p][i] - y[i]) * y[i] * (1.0 - y[i]);
+				ad3[i] = (d[p][i] - y[i]) * y[i] * (1.0 - y[i]);
 				for (j = 0; j < NumHN1; j++)
 				{
 					w3[j][i] += LrnRate * h2[j] * ad3[i] +
@@ -553,11 +559,11 @@ void TrainNet3(float **x, float **d, int NumIPs, int NumOPs, int NumPats, int Or
 			{
 				float err = 0.0;
 				for (j = 0; j < NumOPs; j++)
-					err += ad2[j] * w2[i][j];
+					err += ad3[j] * w3[i][j];
 				ad2[i] = err * h2[i] * (1.0 - h2[i]);
 				for (j = 0; j < NumHN1; j++)
 				{
-					w2[j][i] += LrnRate * ad2[i] * ad1[j] +
+					w2[j][i] += LrnRate * ad2[i] * h1[j] +
 								Mtm1 * (w2[j][i] - w22[j][i]) +
 								Mtm2 * (w22[j][i] - w222[j][i]);
 					w222[j][i] = w22[j][i];
@@ -569,7 +575,7 @@ void TrainNet3(float **x, float **d, int NumIPs, int NumOPs, int NumPats, int Or
 			{
 				float err = 0.0;
 				for (j = 0; j < NumHN2; j++)
-					err += ad1[j] * w1[i][j];
+					err += ad2[j] * w2[i][j];
 				ad1[i] = err * h1[i] * (1.0 - h1[i]);
 				for (j = 0; j < NumIPs; j++)
 				{
@@ -629,12 +635,12 @@ void TrainNet4(float **x, float **d, int NumIPs, int NumOPs, int NumPats, int Or
 	w2 = Aloc2DAry(NumHN1, NumHN2); // 2nd layer wts
 	w22 = Aloc2DAry(NumHN1, NumHN2);
 	w222 = Aloc2DAry(NumHN1, NumHN2);
-	w3 = Aloc2DAry(NumHN2, NumHN3); // 3nd layer wts
+	w3 = Aloc2DAry(NumHN2, NumHN3); // 3rd layer wts
 	w33 = Aloc2DAry(NumHN2, NumHN3);
 	w333 = Aloc2DAry(NumHN2, NumHN3);
-	w3 = Aloc2DAry(NumHN3, NumOPs); // 3nd layer wts
-	w33 = Aloc2DAry(NumHN3, NumOPs);
-	w333 = Aloc2DAry(NumHN3, NumOPs);
+	w4 = Aloc2DAry(NumHN3, NumOPs); // 4th layer wts
+	w44 = Aloc2DAry(NumHN3, NumOPs);
+	w444 = Aloc2DAry(NumHN3, NumOPs);
 
 	// Init wts between -0.5 and +0.5
 	srand(time(0));
@@ -662,7 +668,7 @@ void TrainNet4(float **x, float **d, int NumIPs, int NumOPs, int NumPats, int Or
 		AveErr = 0;
 		MaxErr = -3.4e38;
 		NumErr = 0;
-		bool WrongClassified = NumErr > 1 / 10 * NumPats; // if 1/10 samples are recorded, the epoch/pattern is wrong classified
+		bool WrongClassified = NumErr > 1 / 10 * NumPats; // if 1/10 samples are marked error, the epoch/pattern is wrong classified
 		if (Ordering == 0)
 		{
 		}
@@ -680,17 +686,17 @@ void TrainNet4(float **x, float **d, int NumIPs, int NumOPs, int NumPats, int Or
 				RandomArray(arr, NumPats, 1);
 		}
 		for (i = 0, p = arr[0]; i < NumPats; i++, p = arr[i])
-		{ // for each pattern...
-			// Cal neural network output
+		{
+			//forward propagation
 			for (i = 0; i < NumHN1; i++)
-			{ // Cal O/P of hidden layer 1
+			{
 				float in = 0;
 				for (j = 0; j < NumIPs; j++)
 					in += w1[j][i] * x[p][j];
 				h1[i] = (float)(1.0 / (1.0 + exp(double(-in)))); // Sigmoid fn
 			}
 			for (i = 0; i < NumHN2; i++)
-			{ // Cal O/P of output layer
+			{
 				float in = 0;
 				for (j = 0; j < NumHN1; j++)
 				{
@@ -698,12 +704,21 @@ void TrainNet4(float **x, float **d, int NumIPs, int NumOPs, int NumPats, int Or
 				}
 				h2[i] = (float)(1.0 / (1.0 + exp(double(-in)))); // Sigmoid fn
 			}
-			for (i = 0; i < NumHN2; i++)
-			{ // Cal O/P of output layer
+			for (i = 0; i < NumHN3; i++)
+			{
 				float in = 0;
-				for (j = 0; j < NumOPs; j++)
+				for (j = 0; j < NumHN2; j++)
 				{
 					in += w3[j][i] * h2[j];
+				}
+				h3[i] = (float)(1.0 / (1.0 + exp(double(-in)))); // Sigmoid fn
+			}
+			for (i = 0; i < NumOPs; i++)
+			{
+				float in = 0;
+				for (j = 0; j < NumHN3; j++)
+				{
+					in += w4[j][i] * h3[j];
 				}
 				y[i] = (float)(1.0 / (1.0 + exp(double(-in)))); // Sigmoid fn
 			}
@@ -723,25 +738,28 @@ void TrainNet4(float **x, float **d, int NumIPs, int NumOPs, int NumPats, int Or
 			if (PatErr > MaxErr)
 				MaxErr = PatErr;
 			AveErr += PatErr;
-
+			// backward propagation
 			// Out layer -> 3th hidden layer : NumOPs -> NumHN3
 			for (i = 0; i < NumOPs; i++)
 			{
-				ad2[i] = (d[p][i] - y[i]) * y[i] * (1.0 - y[i]);
+				ad4[i] = (d[p][i] - y[i]) * y[i] * (1.0 - y[i]);
 				for (j = 0; j < NumHN3; j++)
 				{
-					w4[j][i] += LrnRate * h2[j] * ad3[i] +
-								Mtm1 * (w3[j][i] - w33[j][i]) +
-								Mtm2 * (w33[j][i] - w333[j][i]);
-					w333[j][i] = w33[j][i]; // The last last time weight
-					w33[j][i] = w3[j][i];   // the last time weight
+					w4[j][i] += LrnRate * h3[j] * ad4[i] +
+								Mtm1 * (w4[j][i] - w44[j][i]) +
+								Mtm2 * (w44[j][i] - w444[j][i]);
+					w444[j][i] = w44[j][i]; // The last last time weight
+					w44[j][i] = w4[j][i];   // the last time weight
 				}
 			}
-			// 3th hidden layer -> 2nd hidden layer : HumHN2 -> NumHN1
-			for (i = 0; i < NumOPs; i++)
+			// 3rd hidden layer -> 2nd hidden layer : NumHN3 -> NumHN2
+			for (i = 0; i < NumHN3; i++)
 			{
-				ad2[i] = (d[p][i] - y[i]) * y[i] * (1.0 - y[i]);
-				for (j = 0; j < NumHN1; j++)
+				float err = 0.0;
+				for (j = 0; j < NumOPs; j++)
+					err += ad4[j] * w4[i][j];
+				ad3[i] = err * h3[i] * (1.0 - h3[i]);
+				for (j = 0; j < NumHN2; j++)
 				{
 					w3[j][i] += LrnRate * h2[j] * ad3[i] +
 								Mtm1 * (w3[j][i] - w33[j][i]) +
@@ -750,32 +768,32 @@ void TrainNet4(float **x, float **d, int NumIPs, int NumOPs, int NumPats, int Or
 					w33[j][i] = w3[j][i];   // the last time weight
 				}
 			}
-			// 2nd hidden layer -> 1st hidden layer : HumHN2 -> NumHN1
+			// 3th hidden layer -> 2nd hidden layer : NumHN2 -> NumHN1
 			for (i = 0; i < NumHN2; i++)
 			{
 				float err = 0.0;
-				for (j = 0; j < NumOPs; j++)
-					err += ad2[j] * w2[i][j];
+				for (j = 0; j < NumHN3; j++)
+					err += ad3[j] * w3[i][j];
 				ad2[i] = err * h2[i] * (1.0 - h2[i]);
 				for (j = 0; j < NumHN1; j++)
 				{
-					w2[j][i] += LrnRate * ad2[i] * ad1[j] +
+					w2[j][i] += LrnRate * h1[j] * ad2[i] +
 								Mtm1 * (w2[j][i] - w22[j][i]) +
 								Mtm2 * (w22[j][i] - w222[j][i]);
 					w222[j][i] = w22[j][i];
 					w22[j][i] = w2[j][i];
 				}
 			}
-			// 1st hidden layer -> Input layer : NumHN1 -> NumIOs
+			// 2nd hidden layer -> 1st hidden layer : HumHN1-> NumIPs
 			for (i = 0; i < NumHN1; i++)
 			{
 				float err = 0.0;
 				for (j = 0; j < NumHN2; j++)
-					err += ad1[j] * w1[i][j];
+					err += ad2[j] * w2[i][j];
 				ad1[i] = err * h1[i] * (1.0 - h1[i]);
-				for (j = 0; j < NumIPs; j++)
+				for (j = 0; j < NumHN1; j++)
 				{
-					w1[j][i] += LrnRate * ad1[i] * x[p][j] +
+					w1[j][i] += LrnRate * x[p][j] * ad1[i] +
 								Mtm1 * (w1[j][i] - w11[j][i]) +
 								Mtm2 * (w11[j][i] - w111[j][i]);
 					w111[j][i] = w11[j][i];
@@ -802,9 +820,59 @@ void TrainNet4(float **x, float **d, int NumIPs, int NumOPs, int NumPats, int Or
 }
 void TestNet(float **x, float **d, int NumIPs, int NumOPs, int NumPats)
 {
-	cout << "TestNet() not yet implemented\n";
+	float PatErr;				   // Absolute error sum of the pattern
+	float MinErr;				   // Minimum epoch error
+	float AveErr;				   // Aveage error in one epoch
+	float MaxErr;				   // maximum epoch error
+	float *h1 = new float[NumHN1]; // O/Ps of hidden layer 1
+	// float *h2 = new float[NumHN2]; // O/Ps of hidden layer 2
+	// float *h3 = new float[NumHN3]; // O/Ps of hidden layer 2
+	float *y = new float[NumOPs]; // O/P of Net
+	int p, i, j;				  // for loops indexes
+	long ItCnt = 0;				  // Iteration counter
+	long NumErr = 0;			  // Error counter (added for spiral problem)
+	for (p = 0; p < NumPats; p++)
+	{
+		//forward propagation
+		for (i = 0; i < NumHN1; i++)
+		{
+			float in = 0;
+			for (j = 0; j < NumIPs; j++)
+				in += w1[j][i] * x[p][j];
+			h1[i] = (float)(1.0 / (1.0 + exp(double(-in)))); // Sigmoid fn
+		}
+		for (i = 0; i < NumOPs; i++)
+		{
+			float in = 0;
+			for (j = 0; j < NumHN1; j++)
+			{
+				in += w2[j][i] * h1[j];
+			}
+			y[i] = (float)(1.0 / (1.0 + exp(double(-in)))); // Sigmoid fn
+		}
+		// Cal error for this pattern
+		PatErr = 0.0;
+		for (i = 0; i < NumOPs; i++)
+		{
+			float err = y[i] - d[p][i]; // actual-desired O/P
+			if (err > 0)
+				PatErr += err;
+			else
+				PatErr -= err;
+			NumErr += ((y[i] < 0.5 && d[p][i] >= 0.5) || (y[i] >= 0.5 && d[p][i] < 0.5)); //added for binary classification problem
+		}
+		if (PatErr < MinErr)
+			MinErr = PatErr;
+		if (PatErr > MaxErr)
+			MaxErr = PatErr;
+		AveErr += PatErr;
+		//cout << "TestNet() not yet implemented\n";
+	}
+	AveErr /= NumPats;
+	float PcntErr = NumErr / float(NumPats) * 100.0;
+	cout.setf(ios::fixed | ios::showpoint);
+	cout << "MinErr:" << setw(12) << MinErr << "AveErr:" << setw(12) << AveErr << "MaxErr:" << setw(12) << MaxErr << "PcntErr:" << setw(12) << PcntErr << endl;
 }
-
 // 分配一个m*n的二维数组
 float **Aloc2DAry(int m, int n)
 {
