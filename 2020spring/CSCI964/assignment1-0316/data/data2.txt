@@ -5,11 +5,13 @@ NumOPs: 1
 NumTrnPats: 3677
 NumTstPats: 500
 NumIts: 1000000
-NumHN: 1
-NumHN1: 5
+NumHN: 3
+NumHN1: 10
+NumHN2: 20
+NumHN3: 15
 LrnRate: 0.6
-Mtm1: 1.2
-Mtm2: 0.4
+Mtm1: 0.1
+Mtm2: 0.05
 ObjErr: 0.005
 Ordering: 0
 
