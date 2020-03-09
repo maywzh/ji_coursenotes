@@ -1,6 +1,7 @@
 import numpy as np
 import random
 import matplotlib.pyplot as plt
+import matplotlib.animation as animation
 
 
 def sigmoid(x):
@@ -105,6 +106,7 @@ class mlp(object):
         plt.grid(True)
         plt.title('epoch-loss')
         plt.show()
+
         for ep in range(self.maxEpoch):
             error = []
             for i in range(len(input_)):
@@ -117,10 +119,10 @@ class mlp(object):
             plt.draw()
 
             if epoch_error < self.thresholdError:
-                print("Finish {0}: ".format(ep) % epoch_error)
+                print("Finish {0}: {1}".format(ep, epoch_error))
                 return
             elif ep % show == 0:
-                print("epoch {0}: ".format(ep) % epoch_error)
+                print("epoch {0}: {1} ".format(ep, epoch_error))
 
     def sim(self, inp=None):
         return self.forwardPropagation(item=inp)[-1]
