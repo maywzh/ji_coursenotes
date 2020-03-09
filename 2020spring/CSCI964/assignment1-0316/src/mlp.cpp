@@ -778,58 +778,22 @@ void TrainNet4(float **x, float **d, int NumIPs, int NumOPs, int NumPats, int Or
 
 void TestNet(float **x, float **d, int NumIPs, int NumOPs, int NumPats)
 {
-	float PatErr;				   // Absolute error sum of the pattern
-	float MinErr;				   // Minimum epoch error
-	float AveErr;				   // Aveage error in one epoch
-	float MaxErr;				   // maximum epoch error
-	float *h1 = new float[NumHN1]; // O/Ps of hidden layer 1
-	// float *h2 = new float[NumHN2]; // O/Ps of hidden layer 2
-	// float *h3 = new float[NumHN3]; // O/Ps of hidden layer 2
-	float *y = new float[NumOPs]; // O/P of Net
-	int p, i, j;				  // for loops indexes
-	long ItCnt = 0;				  // Iteration counter
-	long NumErr = 0;			  // Error counter (added for spiral problem)
-	for (p = 0; p < NumPats; p++)
+	if (NumHN == 1)
 	{
-		//forward propagation
-		for (i = 0; i < NumHN1; i++)
-		{
-			float in = 0;
-			for (j = 0; j < NumIPs; j++)
-				in += w1[j][i] * x[p][j];
-			h1[i] = (float)(1.0 / (1.0 + exp(double(-in)))); // Sigmoid fn
-		}
-		for (i = 0; i < NumOPs; i++)
-		{
-			float in = 0;
-			for (j = 0; j < NumHN1; j++)
-			{
-				in += w2[j][i] * h1[j];
-			}
-			y[i] = (float)(1.0 / (1.0 + exp(double(-in)))); // Sigmoid fn
-		}
-		// Cal error for this pattern
-		PatErr = 0.0;
-		for (i = 0; i < NumOPs; i++)
-		{
-			float err = y[i] - d[p][i]; // actual-desired O/P
-			if (err > 0)
-				PatErr += err;
-			else
-				PatErr -= err;
-			NumErr += ((y[i] < 0.5 && d[p][i] >= 0.5) || (y[i] >= 0.5 && d[p][i] < 0.5)); //added for binary classification problem
-		}
-		if (PatErr < MinErr)
-			MinErr = PatErr;
-		if (PatErr > MaxErr)
-			MaxErr = PatErr;
-		AveErr += PatErr;
-		//cout << "TestNet() not yet implemented\n";
+		TestNet2(x, d, NumIPs, NumOPs, NumPats);
 	}
-	AveErr /= NumPats;
-	float PcntErr = NumErr / float(NumPats) * 100.0;
-	cout.setf(ios::fixed | ios::showpoint);
-	cout << "MinErr:" << setw(12) << MinErr << " AveErr:" << setw(12) << AveErr << " MaxErr:" << setw(12) << MaxErr << " PcntErr:" << setw(12) << PcntErr << endl;
+	else if (NumHN == 2)
+	{
+		TestNet3(x, d, NumIPs, NumOPs, NumPats);
+	}
+	else if (NumHN == 3)
+	{
+		TestNet4(x, d, NumIPs, NumOPs, NumPats);
+	}
+	else
+	{
+		cout << "Exceed hidden layer limit" << endl;
+	}
 }
 
 void TestNet2(float **x, float **d, int NumIPs, int NumOPs, int NumPats)
