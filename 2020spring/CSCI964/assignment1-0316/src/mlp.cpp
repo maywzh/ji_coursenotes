@@ -23,14 +23,14 @@ const int MAXPATS = 5000; // Max training patterns
 
 // mlp paramaters
 long NumIts;   // Max training iterations
-int NumHN;	 // Number of hidden layers
-int NumHN1;	// Number of neurons in hidden layer 1
-int NumHN2;	// Number of neurons in hidden layer 2
-int NumHN3;	// Number of neurons in hidden layer 3
-int NumHN4;	// Number of neurons in hidden layer 4
+int NumHN;	   // Number of hidden layers
+int NumHN1;	   // Number of neurons in hidden layer 1
+int NumHN2;	   // Number of neurons in hidden layer 2
+int NumHN3;	   // Number of neurons in hidden layer 3
+int NumHN4;	   // Number of neurons in hidden layer 4
 float LrnRate; // Learning rate
-float Mtm1;	// Momentum(t-1)
-float Mtm2;	// Momentum(t-2)
+float Mtm1;	   // Momentum(t-1)
+float Mtm2;	   // Momentum(t-2)
 float ObjErr;  // Objective error
 
 // mlp weights
@@ -46,7 +46,9 @@ void TrainNet3(float **x, float **d, int NumIPs, int NumOPs, int NumPats, int Or
 void TrainNet4(float **x, float **d, int NumIPs, int NumOPs, int NumPats, int Ordering);
 
 void TestNet(float **x, float **d, int NumIPs, int NumOPs, int NumPats);
-
+void TestNet2(float **x, float **d, int NumIPs, int NumOPs, int NumPats);
+void TestNet3(float **x, float **d, int NumIPs, int NumOPs, int NumPats);
+void TestNet4(float **x, float **d, int NumIPs, int NumOPs, int NumPats);
 float **Aloc2DAry(int m, int n);
 void Free2DAry(float **Ary2D, int n);
 
@@ -381,9 +383,9 @@ void TrainNet3(float **x, float **d, int NumIPs, int NumOPs, int NumPats, int Or
 	// Trains 2 layer back propagation neural network
 	// x[][]=>input data, d[][]=>desired output data
 
-	float *h1 = new float[NumHN1];  // O/Ps of hidden layer 1
-	float *h2 = new float[NumHN2];  // O/Ps of hidden layer 2
-	float *y = new float[NumOPs];   // O/P of Net
+	float *h1 = new float[NumHN1];	// O/Ps of hidden layer 1
+	float *h2 = new float[NumHN2];	// O/Ps of hidden layer 2
+	float *y = new float[NumOPs];	// O/P of Net
 	float *ad1 = new float[NumHN1]; // HN1 back prop errors
 	float *ad2 = new float[NumHN2]; // HN2 back prop errors
 	float *ad3 = new float[NumOPs]; // O/P back prop errors
@@ -393,7 +395,7 @@ void TrainNet3(float **x, float **d, int NumIPs, int NumOPs, int NumPats, int Or
 	float MaxErr;					// maximum epoch error
 
 	int p, i, j;	 // for loops indexes
-	long ItCnt = 0;  // Iteration counter
+	long ItCnt = 0;	 // Iteration counter
 	long NumErr = 0; // Error counter (added for spiral problem)
 
 	cout << "TrainNet2: IP:" << NumIPs << " H1:" << NumHN1 << " H2:" << NumHN2 << " OP:" << NumOPs << endl;
@@ -506,7 +508,7 @@ void TrainNet3(float **x, float **d, int NumIPs, int NumOPs, int NumPats, int Or
 								Mtm1 * (w3[j][i] - w33[j][i]) +
 								Mtm2 * (w33[j][i] - w333[j][i]);
 					w333[j][i] = w33[j][i]; // The last last time weight
-					w33[j][i] = w3[j][i];   // the last time weight
+					w33[j][i] = w3[j][i];	// the last time weight
 				}
 			}
 			// 2th hidden layer -> 1st hidden layer : HumHN2 -> NumHN1
@@ -565,10 +567,10 @@ void TrainNet4(float **x, float **d, int NumIPs, int NumOPs, int NumPats, int Or
 {
 	// x[][]=>input data, d[][]=>desired output data
 
-	float *h1 = new float[NumHN1];  // O/Ps of hidden layer 1
-	float *h2 = new float[NumHN2];  // O/Ps of hidden layer 2
-	float *h3 = new float[NumHN3];  // O/Ps of hidden layer 2
-	float *y = new float[NumOPs];   // O/P of Net
+	float *h1 = new float[NumHN1];	// O/Ps of hidden layer 1
+	float *h2 = new float[NumHN2];	// O/Ps of hidden layer 2
+	float *h3 = new float[NumHN3];	// O/Ps of hidden layer 2
+	float *y = new float[NumOPs];	// O/P of Net
 	float *ad1 = new float[NumHN1]; // HN1 back prop errors
 	float *ad2 = new float[NumHN2]; // HN2 back prop errors
 	float *ad3 = new float[NumHN3]; // HN3 back prop errors
@@ -579,7 +581,7 @@ void TrainNet4(float **x, float **d, int NumIPs, int NumOPs, int NumPats, int Or
 	float MaxErr;					// maximum epoch error
 
 	int p, i, j;	 // for loops indexes
-	long ItCnt = 0;  // Iteration counter
+	long ItCnt = 0;	 // Iteration counter
 	long NumErr = 0; // Error counter (added for spiral problem)
 
 	cout << "TrainNet2: IP:" << NumIPs << " H1:" << NumHN1 << " H2:" << NumHN2 << " H3:" << NumHN3 << " OP:" << NumOPs << endl;
@@ -706,7 +708,7 @@ void TrainNet4(float **x, float **d, int NumIPs, int NumOPs, int NumPats, int Or
 								Mtm1 * (w4[j][i] - w44[j][i]) +
 								Mtm2 * (w44[j][i] - w444[j][i]);
 					w444[j][i] = w44[j][i]; // The last last time weight
-					w44[j][i] = w4[j][i];   // the last time weight
+					w44[j][i] = w4[j][i];	// the last time weight
 				}
 			}
 			// 3rd hidden layer -> 2nd hidden layer : NumHN3 -> NumHN2
@@ -722,7 +724,7 @@ void TrainNet4(float **x, float **d, int NumIPs, int NumOPs, int NumPats, int Or
 								Mtm1 * (w3[j][i] - w33[j][i]) +
 								Mtm2 * (w33[j][i] - w333[j][i]);
 					w333[j][i] = w33[j][i]; // The last last time weight
-					w33[j][i] = w3[j][i];   // the last time weight
+					w33[j][i] = w3[j][i];	// the last time weight
 				}
 			}
 			// 3th hidden layer -> 2nd hidden layer : NumHN2 -> NumHN1
@@ -1059,11 +1061,11 @@ int main()
 		fin >> Tmp >> NumHN3; // 第三隐层神经元数
 	if (i-- > 0)
 		fin >> Tmp >> NumHN4; // 第四隐层神经元数
-	fin >> Tmp >> LrnRate;	//学习率
+	fin >> Tmp >> LrnRate;	  //学习率
 	fin >> Tmp >> Mtm1;		  // 动量一
 	fin >> Tmp >> Mtm2;		  // 动量二
-	fin >> Tmp >> ObjErr;	 // 最大误差
-	fin >> Tmp >> Ordering;   // 样例读取顺序
+	fin >> Tmp >> ObjErr;	  // 最大误差
+	fin >> Tmp >> Ordering;	  // 样例读取顺序
 	// 判定超参数合法性
 	if (NumIPs < 1 || NumIPs > MAXN || NumOPs < 1 || NumOPs > MAXN ||
 		NumTrnPats < 1 || NumTrnPats > MAXPATS || NumTrnPats < 1 || NumTrnPats > MAXPATS ||
