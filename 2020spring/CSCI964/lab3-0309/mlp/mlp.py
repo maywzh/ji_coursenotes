@@ -99,30 +99,29 @@ class mlp(object):
         return error
 
     def train(self, input_=None, target=None, show=10):
-        plt.ion()
-        plt.figure(1)
-        plt.xlabel('epoch')
-        plt.ylabel('loss')
-        plt.grid(True)
-        plt.title('epoch-loss')
-        plt.show()
-
+        epoch_errors = []
         for ep in range(self.maxEpoch):
             error = []
+
             for i in range(len(input_)):
                 a = self.forwardPropagation(input_[i])
                 e = self.backPropagation(target[i], a)
                 error.append(e[0, 0])
             epoch_error = sum(error) / len(error)
-
-            plt.scatter(ep, epoch_error)
-            plt.draw()
-
+            epoch_errors.append(epoch_error)
             if epoch_error < self.thresholdError:
                 print("Finish {0}: {1}".format(ep, epoch_error))
                 return
             elif ep % show == 0:
                 print("epoch {0}: {1} ".format(ep, epoch_error))
+
+        plt.xlabel('epoch')
+        plt.ylabel('loss')
+        plt.title('epoch-loss')
+        x = list(range(self.maxEpoch))
+        y = epoch_errors
+        plt.plot(x, y)
+        plt.show()
 
     def sim(self, inp=None):
         return self.forwardPropagation(item=inp)[-1]
@@ -130,5 +129,5 @@ class mlp(object):
 
 if __name__ == "__main__":
     x, y = readData('../iris.txt', False, 4)
-    model = mlp(lr=0.1, momentum=0.5, lda=0.0, te=1e-5, epoch=1000, size=[len(x[0]), 5, len(y[0])])
+    model = mlp(lr=0.05, momentum=0.6, lda=0.0, te=1e-5, epoch=1000, size=[len(x[0]), 10, len(y[0])])
     model.train(x, y, 10)
