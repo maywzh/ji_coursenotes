@@ -483,3 +483,7 @@ GitHub.sublime-settings
 
 2020spring/CSCI964/lab2-0303/ANN/main
 .vscode/settings.json
+2020spring/CSCI964/lab4-0317/src/mySaveModel.model
+2020spring/CSCI964/lab4-0317/src/libsvm/svm-predict
+2020spring/CSCI964/lab4-0317/src/libsvm/svm-scale
+2020spring/CSCI964/lab4-0317/src/libsvm/svm-train
