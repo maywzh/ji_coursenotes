@@ -12,4 +12,5 @@ df['size'] = df['size'].map(size_mapping)
 class_mapping = {label: idx for idx, label in enumerate(set(df['label']))}
 df['label'] = df['label'].map(class_mapping)
 y = df.label  # y为数据的label值
-dummy = pd.get_dummies(df.iloc[:, :-1])
+dummy = pd.get_dummies(df.iloc[:, :])
+# play one-hot
