@@ -1,6 +1,0 @@
-.idea/
-bin
-.DS_Store
-config.json
-dist/
-docker/.lightsocks.json
