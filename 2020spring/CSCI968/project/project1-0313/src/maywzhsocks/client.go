@@ -10,8 +10,8 @@ import (
 
 func main() {
 	fmt.Print(os.Args[0])
-	listenAddr := flag.String("c", ":8488", "Input server listen port(Default 8888):")
-	serverAddr := flag.String("s", ":8489", "Input server listen address:")
+	listenAddr := flag.String("c", ":8488", "Input server listen address:port:")
+	serverAddr := flag.String("s", ":8489", "Input server listen address:port:")
 	passwd := flag.String("p", "123456", "Input server proxy password:")
 	encrytype := flag.String("t", "random", "Input encryption type:")
 	recvHTTPProto := flag.String("r", "http", "use http or sock5 protocol(default http):")

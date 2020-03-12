@@ -8,7 +8,7 @@ import (
 )
 
 func main() {
-	listenAddr := flag.String("s", ":8488", "Input server listen port(Default 8888):")
+	listenAddr := flag.String("s", ":8488", "Input server listen address:port:")
 	passwd := flag.String("p", "123456", "Input server proxy password:")
 	encrytype := flag.String("t", "random", "Input encryption type:")
 	flag.Parse()

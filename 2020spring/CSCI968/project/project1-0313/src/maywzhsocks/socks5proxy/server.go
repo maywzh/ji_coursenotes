@@ -34,7 +34,6 @@ func handleClientRequest(client *net.TCPConn, auth socks5Auth) {
 		log.Print(client.RemoteAddr(), err)
 		return
 	}
-
 	log.Println(client.RemoteAddr(), request.DSTDOMAIN, request.DSTADDR, request.DSTPORT)
 
 	// 连接真正的远程服务
