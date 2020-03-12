@@ -25,7 +25,7 @@ func handleProxyRequest(localClient *net.TCPConn, serverAddr *net.TCPAddr, auth 
 	// Build secure channel with remote
 	wg := new(sync.WaitGroup)
 	wg.Add(2)
-
+	log.Println(localClient.LocalAddr(), " ===> ", localClient.RemoteAddr())
 	// 本地的内容copy到远程端
 	go func() {
 		defer wg.Done()
