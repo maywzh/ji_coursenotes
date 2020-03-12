@@ -2,17 +2,19 @@ package main
 
 import (
 	"flag"
+	"fmt"
 	"log"
-
+	"os"
 	socks5proxy "socks5/socks5proxy"
 )
 
 func main() {
-	listenAddr := flag.String("local", ":8888", "Input server listen address(Default 8888):")
-	serverAddr := flag.String("server", "", "Input server listen address:")
-	passwd := flag.String("passwd", "123456", "Input server proxy password:")
-	encrytype := flag.String("type", "random", "Input encryption type:")
-	recvHTTPProto := flag.String("recv", "http", "use http or sock5 protocol(default http):")
+	fmt.Print(os.Args[0])
+	listenAddr := flag.String("c", ":8488", "Input server listen port(Default 8888):")
+	serverAddr := flag.String("s", ":8489", "Input server listen address:")
+	passwd := flag.String("p", "123456", "Input server proxy password:")
+	encrytype := flag.String("t", "random", "Input encryption type:")
+	recvHTTPProto := flag.String("r", "http", "use http or sock5 protocol(default http):")
 	flag.Parse()
 	if *serverAddr == "" {
 		log.Fatal("请输入正确的远程地址")
