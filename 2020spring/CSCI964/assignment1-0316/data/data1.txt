@@ -9,8 +9,8 @@ NumHN: 3
 NumHN1: 12
 NumHN2: 24
 NumHN3: 10
-LrnRate: 0.1
-Mtm1: 1.0
+LrnRate: 0.03
+Mtm1: 0.8
 Mtm2: 0.4
 ObjErr: 0.005
 Ordering: 0
