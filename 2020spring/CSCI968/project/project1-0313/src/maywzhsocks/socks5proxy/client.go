@@ -1,3 +1,11 @@
+/*
+ * @Author: your name
+ * @Date: 2020-03-15 03:23:13
+ * @LastEditTime: 2020-03-15 03:28:41
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: /ji_coursenotes/2020spring/CSCI968/project/project1-0313/src/maywzhsocks/socks5proxy/client.go
+ */
 package socks5proxy
 
 import (
@@ -16,7 +24,7 @@ func handleProxyRequest(localClient *net.TCPConn, serverAddr *net.TCPAddr, auth 
 	// 远程连接IO
 	dstServer, err := net.DialTCP("tcp", nil, serverAddr)
 	if err != nil {
-		log.Print("远程服务器地址连接错误!!!")
+		log.Print("Wrong remote address!")
 		log.Print(err)
 		return
 	}
@@ -47,20 +55,20 @@ func Client(listenAddrString string, serverAddrString string, encrytype string, 
 	if err != nil {
 		log.Fatal(err)
 	}
-	log.Printf("你的密码是: %s ,请保管好你的密码", passwd)
+	log.Printf("Your password: %s, Keep it carefully!", passwd)
 
 	// proxy地址
 	serverAddr, err := net.ResolveTCPAddr("tcp", serverAddrString)
 	if err != nil {
 		log.Fatal(err)
 	}
-	log.Printf("连接远程服务器: %s ....", serverAddrString)
+	log.Printf("Connecting to remote server: %s ....", serverAddrString)
 
 	listenAddr, err := net.ResolveTCPAddr("tcp", listenAddrString)
 	if err != nil {
 		log.Fatal(err)
 	}
-	log.Printf("监听本地端口: %s ", listenAddrString)
+	log.Printf("Listening to local address: %s ", listenAddrString)
 
 	listener, err := net.ListenTCP("tcp", listenAddr)
 	if err != nil {

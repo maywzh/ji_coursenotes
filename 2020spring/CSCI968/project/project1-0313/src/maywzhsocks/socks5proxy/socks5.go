@@ -46,15 +46,15 @@ type ProtocolVersion struct {
 func (s *ProtocolVersion) HandleHandshake(b []byte) ([]byte, error) {
 	n := len(b)
 	if n < 3 {
-		return nil, errors.New("协议错误, sNMETHODS不对")
+		return nil, errors.New("Fatal protocol, invalid sNMETHODS")
 	}
 	s.VER = b[0] //ReadByte reads and returns a single byte，第一个参数为socks的版本号
 	if s.VER != 0x05 {
-		return nil, errors.New("协议错误, version版本不为5!")
+		return nil, errors.New("Not Socks5 Protocol")
 	}
 	s.NMETHODS = b[1] //nmethods是记录methods的长度的。nmethods的长度是1个字节
 	if n != int(2+s.NMETHODS) {
-		return nil, errors.New("协议错误, sNMETHODS不对")
+		return nil, errors.New("Fatal protocol, invalid sNMETHODS")
 	}
 	s.METHODS = b[2 : 2+s.NMETHODS] //读取指定长度信息，读取正好len(buf)长度的字节。如果字节数不是指定长度，则返回错误信息和正确的字节数
 
@@ -66,7 +66,7 @@ func (s *ProtocolVersion) HandleHandshake(b []byte) ([]byte, error) {
 	}
 
 	if s.VER != SOCKS_VERSION {
-		return nil, errors.New("该协议不是socks5协议")
+		return nil, errors.New("Not Socks5 Protocol")
 	}
 
 	//服务器回应客户端消息:
@@ -74,7 +74,7 @@ func (s *ProtocolVersion) HandleHandshake(b []byte) ([]byte, error) {
 	// 第二个参数表示服务端选中的认证方法，0即无需密码访问, 2表示需要用户名和密码进行验证。
 	// 88是一种私有的加密协议
 	if useMethod != METHOD_CODE {
-		return nil, errors.New("协议错误, 加密方法不对")
+		return nil, errors.New("Fatal protocol, wroing encryption method")
 	}
 	resp := []byte{SOCKS_VERSION, useMethod}
 	return resp, nil
@@ -118,7 +118,7 @@ func (s *Socks5AuthUPasswd) HandleAuth(b []byte) ([]byte, error) {
 
 	s.VER = b[0]
 	if s.VER != 5 {
-		return nil, errors.New("该协议不是socks5协议")
+		return nil, errors.New("Not Socks5 Protocol")
 	}
 
 	s.ULEN = b[1]
@@ -182,16 +182,16 @@ func (s *Socks5Resolution) LSTRequest(b []byte) ([]byte, error) {
 	// n, err := conn.Read(b)
 	n := len(b)
 	if n < 7 {
-		return nil, errors.New("请求协议错误")
+		return nil, errors.New("Wroing request protocol")
 	}
 	s.VER = b[0]
 	if s.VER != SOCKS_VERSION {
-		return nil, errors.New("该协议不是socks5协议")
+		return nil, errors.New("Not Socks5 Protocol")
 	}
 
 	s.CMD = b[1]
 	if s.CMD != 1 {
-		return nil, errors.New("客户端请求类型不为代理连接, 其他功能暂时不支持.")
+		return nil, errors.New("Not support this feature")
 	}
 	s.RSV = b[2] //RSV保留字端，值长度为1个字节
 
@@ -213,7 +213,7 @@ func (s *Socks5Resolution) LSTRequest(b []byte) ([]byte, error) {
 		//	IP V6 address: X'04'
 		s.DSTADDR = b[4 : 4+net.IPv6len]
 	default:
-		return nil, errors.New("IP地址错误")
+		return nil, errors.New("Wrong IP address")
 	}
 
 	s.DSTPORT = binary.BigEndian.Uint16(b[n-2 : n])

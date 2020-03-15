@@ -31,7 +31,7 @@ func (s *DefaultAuth) Encrypt(b []byte) error {
 	for i, v := range b {
 		// 编码
 		if int(v) >= len(s.Encode) {
-			return errors.New("socks5Auth Encode 超出范围")
+			return errors.New("socks5Auth Encode exceed limit")
 		}
 		b[i] = s.Encode[v]
 	}
@@ -42,7 +42,7 @@ func (s *DefaultAuth) Decrypt(b []byte) error {
 	for i, v := range b {
 		// 编码
 		if int(v) >= len(s.Encode) {
-			return errors.New("socks5Auth Encode 超出范围")
+			return errors.New("socks5Auth Encode exceed limit")
 		}
 		b[i] = s.Decode[v]
 	}
@@ -76,7 +76,7 @@ func CreateSimpleCipher(passwd string) (*DefaultAuth, error) {
 	// 采用最简单的凯撒位移法
 	sumint := 0
 	if len(passwd) == 0 {
-		return nil, errors.New("密码不能为空")
+		return nil, errors.New("Null password")
 	}
 	for v := range passwd {
 		sumint += int(v)
@@ -100,7 +100,7 @@ func CreateRandomCipher(passwd string) (*DefaultAuth, error) {
 	// 采用随机编码表进行加密
 	sumint := 0
 	if len(passwd) == 0 {
-		return nil, errors.New("密码不能为空")
+		return nil, errors.New("Null password")
 	}
 	for v := range passwd {
 		sumint += int(v)
@@ -123,7 +123,7 @@ func CreateRandomCipher(passwd string) (*DefaultAuth, error) {
 // 创建认证证书
 func CreateAuth(encrytype string, passwd string) (socks5Auth, error) {
 	if len(passwd) == 0 {
-		return nil, errors.New("密码不能为空")
+		return nil, errors.New("Null password")
 	}
 	var s socks5Auth
 	var err error
@@ -134,7 +134,7 @@ func CreateAuth(encrytype string, passwd string) (socks5Auth, error) {
 	case "random":
 		s, err = CreateRandomCipher(passwd)
 	default:
-		return nil, errors.New("错误加密方法类型！")
+		return nil, errors.New("Wrong encryption！")
 	}
 
 	if err != nil {

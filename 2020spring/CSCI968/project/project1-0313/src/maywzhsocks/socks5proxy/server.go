@@ -68,14 +68,14 @@ func Server(listenAddrString string, encrytype string, passwd string) {
 	if err != nil {
 		log.Fatal(err)
 	}
-	log.Printf("你的密码是:%s ,请保管好你的密码", passwd)
+	log.Printf("Your password:%s Keep it carefully!", passwd)
 
 	// 监听客户端
 	listenAddr, err := net.ResolveTCPAddr("tcp", listenAddrString)
 	if err != nil {
 		log.Fatal(err)
 	}
-	log.Printf("监听服务器端口: %s ", listenAddrString)
+	log.Printf("Listening remote address: %s ", listenAddrString)
 
 	listener, err := net.ListenTCP("tcp", listenAddr)
 	if err != nil {

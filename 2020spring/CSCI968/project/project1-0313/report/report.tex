@@ -1,0 +1,48 @@
+%
+% LaTeX report template 
+%
+\documentclass[a4paper,10pt]{article}
+\usepackage{graphicx}
+\usepackage{listings} 
+
+\lstset{frame=tb,
+  language=Python,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+
+\begin{document}
+%
+   \title{Project Step 1}
+
+   \author{Wangzhihui Mei \\ e-mail: maywzh@gmail.com}
+          
+   \date{}
+
+   \maketitle
+   
+  \newpage
+    
+% This is a comment: in LaTeX everything that in a line comes
+% after a "%" symbol is treated as comment
+\section*{Presentation}
+  \begin{figure}[]
+    \centering
+    \includegraphics[width=1.0\textwidth]{image/img1.png}
+    \caption{running}
+  \end{figure}
+
+
+\end{document}
+
