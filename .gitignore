@@ -6,6 +6,7 @@ materials/*.pdf
 *.dSYM
 *.o
 *.exe
+/home/maywzh/Workspace/ji_coursenotes/2020spring/CSCI968/project/project1-0313/src/demo
 # ---> Linux
 *~
 

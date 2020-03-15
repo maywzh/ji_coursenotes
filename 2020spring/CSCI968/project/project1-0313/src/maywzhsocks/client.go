@@ -1,9 +1,6 @@
 /*
- * @Author: your name
- * @Date: 2020-03-15 03:30:14
- * @LastEditTime: 2020-03-15 03:33:08
- * @LastEditors: Please set LastEditors
- * @Description: In User Settings Edit
+ * @Author: maywzh
+ * @Date: 2020-03-15 16:16:39
  * @FilePath: /ji_coursenotes/2020spring/CSCI968/project/project1-0313/src/maywzhsocks/client.go
  */
 package main

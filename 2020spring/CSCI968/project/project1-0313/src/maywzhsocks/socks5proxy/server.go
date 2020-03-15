@@ -1,3 +1,8 @@
+/*
+ * @Author: maywzh
+ * @Date: 2020-03-15 16:16:53
+ * @FilePath: /ji_coursenotes/2020spring/CSCI968/project/project1-0313/src/maywzhsocks/socks5proxy/server.go
+ */
 package socks5proxy
 
 import (
@@ -34,7 +39,7 @@ func handleClientRequest(client *net.TCPConn, auth socks5Auth) {
 		log.Print(client.RemoteAddr(), err)
 		return
 	}
-	log.Println(client.RemoteAddr(), " ===> ", request.DSTDOMAIN, request.DSTPORT)
+	log.Println(client.LocalAddr(), " ===> ", request.DSTDOMAIN, request.DSTPORT)
 
 	// 连接真正的远程服务
 	dstServer, err := net.DialTCP("tcp", nil, request.RAWADDR)
@@ -68,7 +73,7 @@ func Server(listenAddrString string, encrytype string, passwd string) {
 	if err != nil {
 		log.Fatal(err)
 	}
-	log.Printf("Your password:%s Keep it carefully!", passwd)
+	//log.Printf("Your password:%s Keep it carefully!", passwd)
 
 	// 监听客户端
 	listenAddr, err := net.ResolveTCPAddr("tcp", listenAddrString)

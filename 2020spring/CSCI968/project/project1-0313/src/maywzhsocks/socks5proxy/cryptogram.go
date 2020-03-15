@@ -23,9 +23,6 @@ type DefaultAuth struct {
 	Decode *[256]byte //解码表
 }
 
-/**
-加密方法：根据编码表将字符串进行编码
-**/
 
 func (s *DefaultAuth) Encrypt(b []byte) error {
 	for i, v := range b {
