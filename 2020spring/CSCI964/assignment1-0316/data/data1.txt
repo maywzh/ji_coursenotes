@@ -6,12 +6,12 @@ NumTrnPats: 192
 NumTstPats: 192
 NumIts: 100000
 NumHN: 3 
-NumHN1: 12
-NumHN2: 24
-NumHN3: 10
-LrnRate: 0.03
+NumHN1: 5
+NumHN2: 10
+NumHN3: 5
+LrnRate: 0.05
 Mtm1: 0.8
-Mtm2: 0.4
+Mtm2: 0
 ObjErr: 0.005
 Ordering: 0
 
