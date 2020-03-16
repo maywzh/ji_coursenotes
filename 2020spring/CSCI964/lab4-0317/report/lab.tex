@@ -1,0 +1,253 @@
+\documentclass{article}
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{listings} 
+\usepackage{neuralnetwork}
+\usetikzlibrary{automata,positioning}
+
+\usepackage{color}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb,
+  language=Python,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass\: \hmwkTitle}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Task \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Task \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Task \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Task \arabic{#1}}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Task \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Task \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Due date
+%   - Class
+%   - Section/Time
+%   - Instructor
+%   - Author
+%
+
+\newcommand{\hmwkTitle}{Lab\ \#3}
+\newcommand{\hmwkDueDate}{September 25, 2019}
+\newcommand{\hmwkClass}{CSCI964 Computational Intelligence}
+\newcommand{\hmwkClassTime}{3.5}
+\newcommand{\hmwkClassInstructor}{Zhifeng Wang}
+\newcommand{\hmwkAuthorName}{\textbf{Mei Wangzhihui}}
+\newcommand{\hmwkAuthorNum}{\textbf{2019124044}}
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+    % \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at 3:10pm}\\
+    % \vspace{0.1in}\large{\textit{\hmwkClassInstructor\ \hmwkClassTime}}
+    \vspace{3in}
+}
+
+\author{\hmwkAuthorName\ \hmwkAuthorNum}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+
+% Alias for the Solution section header
+\newcommand{\solution}{\textbf{\large Solution}}
+
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\E}{\mathrm{E}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+
+\begin{document}
+
+\maketitle
+
+\pagebreak
+
+\begin{homeworkProblem}
+\lstset{language=C}
+\begin{lstlisting}
+    import libsvm.commonutil as commonutil
+    import libsvm.svmutil as sut
+    
+    y, x = sut.svm_read_problem("../data/iris_libsvm_random.txt")
+    model = sut.svm_train(y, x, '-t 0')
+    
+    p_label, p_acc, p_val = sut.svm_predict(y, x, model)
+    
+    
+\end{lstlisting}
+\textbf{linear kernel}
+
+iter = 32
+nu = 0.204900
+obj = -15.759854, rho = -6.783209
+nSV = 23, nBSV = 19
+
+iter = 5
+nu = 0.014961
+obj = -0.748057, rho = 1.447464
+nSV = 3, nBSV = 0
+
+iter = 12
+nu = 0.004074
+obj = -0.203684, rho = 1.507573
+nSV = 3, nBSV = 0
+Total nSV = 27
+Accuracy = 99.3333 (149/150) (classification)
+
+\textbf{polynomial kernel}
+iter = 29574
+nu = 0.062675
+obj = -5.885061, rho = -7.005220
+nSV = 11, nBSV = 4
+
+iter = 6
+nu = 0.000188
+obj = -0.009399, rho = 1.134350
+nSV = 3, nBSV = 0
+
+iter = 9
+nu = 0.000036
+obj = -0.001817, rho = 1.184761
+nSV = 4, nBSV = 0
+Total nSV = 16
+Accuracy = 98\% (147/150) (classification)
+
+\textbf{radial basis function}
+iter = 47
+nu = 0.293557
+obj = -21.377492, rho = 0.144354
+nSV = 33, nBSV = 26
+
+iter = 49
+nu = 0.046504
+obj = -2.403415, rho = -0.040019
+nSV = 11, nBSV = 2
+
+iter = 22
+nu = 0.038910
+obj = -1.945147, rho = -0.167726
+nSV = 10, nBSV = 0
+Total nSV = 45
+Accuracy = 98.6667\% (148/150) (classification)
+
+\textbf{sigmoid: tanh}
+iter = 50
+nu = 1.000000
+obj = -100.000000, rho = 0.000000
+nSV = 100, nBSV = 100
+
+iter = 50
+nu = 1.000000
+obj = -100.000043, rho = 0.000001
+nSV = 100, nBSV = 100
+
+iter = 50
+nu = 1.000000
+obj = -100.000047, rho = 0.000000
+nSV = 100, nBSV = 100
+Total nSV = 150
+Accuracy = 4\% (6/150) (classification)
+\end{homeworkProblem}
+
+\end{document}

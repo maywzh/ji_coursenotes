@@ -10,6 +10,7 @@
 \usepackage{algpseudocode}
 \usepackage{listings} 
 \usepackage{neuralnetwork}
+\usepackage{subfigure}
 \usetikzlibrary{automata,positioning}
 
 \usepackage{color}
@@ -165,11 +166,124 @@
 \pagebreak
 
 \begin{homeworkProblem}
-  The first problem can be 
+  The \textbf{two-spiral problem} is a two class problem, which is non-linear.
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{image/d1}
+    \caption{two-spiral problem}
+\end{figure}
+  I use a 2-layer MLP to solve this problem as the problem is non-linear. 
+  First I try to use a single-hidden-layer to fit the problem.
+  But the graph fluctuate heavily. I try to turn down the learning rate(LR) and turn up the momentum (Mtm) so that it can converange more smoothly. But the wrong rate is high.
+  \begin{figure}[H]
+      \centering
+      \includegraphics[width=0.6\textwidth]{image/d1ff1}
+      \caption{3-layer MLP}
+  \end{figure}
+  The I add one hidden layer to solve it. 
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{image/d1f2}
+    \caption{4-layer MLP}
+\end{figure}
+The model applied on test dataset is : AvgError = 0.001843, Error rate = 0.82\%. Generally, It's a good model. But the performance is not optimized.
+
+Adding an extra layer into it:
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.6\textwidth]{image/d1f1}
+  \caption{5-layer MLP}
+\end{figure}
+For Test Set $AvgError=0.0028466$ and  $ Error rate= 1.56\%$
 \end{homeworkProblem}
+though it predict weeker than the second MLP, but it perform better in computation complexisity.
 \clearpage
 \begin{homeworkProblem}
+  \textbf{1-hidden-layer MLP}
+  \begin{figure}[H]
+    \centering
+    \subfigure[fig1.]{
+      \begin{minipage}[t]{0.5\linewidth}
+      \centering
+      \includegraphics[width=3in]{image/d2f1}
+      \end{minipage}% 
+      }%
+      \subfigure[fig2.]{
+        \begin{minipage}[t]{0.5\linewidth}
+        \centering
+        \includegraphics[width=3in]{image/d2f3}
+        \end{minipage}% 
+        }%
+      \\
+      \subfigure[fig3.]{
+        \begin{minipage}[t]{0.5\linewidth}
+        \centering
+        \includegraphics[width=3in]{image/d2f4}
+        \end{minipage}% 
+      }% 
+      \subfigure[fig4.]{
+        \begin{minipage}[t]{0.5\linewidth}
+        \centering
+        \includegraphics[width=3in]{image/d2f6}
+        \end{minipage}% 
+      }%
+      \\
+      \subfigure[fig5.]{
+        \begin{minipage}[t]{0.5\linewidth}
+        \centering
+        \includegraphics[width=3in]{image/d2f8}
+        \end{minipage}% 
+      }%
+      \subfigure[fig6.]{
+        \begin{minipage}[t]{0.5\linewidth}
+        \centering
+        \includegraphics[width=3in]{image/d2f10}
+        \end{minipage}% 
+      }%
+     
+    \caption{MLP}
+  \end{figure} 
 
+  The performance of these MLP is:
+  \begin{table}[H]
+    \centering
+    \begin{tabular}{|l|l|l|l|}
+    \hline
+        Hidden Layer & Average Error & Error rate & Training Time \\ \hline
+        16 & 0.071 & 0.23 & 5s \\ \hline
+        48 & 0.075 & 0.238 & 16s \\ \hline
+        16, 16 & 0.07 & 0.224 & 34s \\ \hline
+        48, 256 & 0.072 & 0.238 & 273s \\ \hline
+        32, 32, 16 & 0.071 & 0.226 & 158s \\ \hline
+        48, 64, 64 & 0.070 & 0.224 & 213s \\ \hline
+    \end{tabular}
+    \caption{Performance of MLPs}
+\end{table}
+ With the consideration of the balance between Accuracy and performance, The 2-hidden-layer (16,16) is the best choice.
 \end{homeworkProblem}
-
+\begin{homeworkProblem}
+  \begin{figure}[H]
+    \centering
+    \subfigure[fig1.]{
+      \begin{minipage}[t]{0.5\linewidth}
+      \centering
+      \includegraphics[width=3in]{image/d3ff1}
+      \end{minipage}% 
+      }%
+      \subfigure[fig2.]{
+        \begin{minipage}[t]{0.5\linewidth}
+        \centering
+        \includegraphics[width=3in]{image/d3ff2}
+        \end{minipage}% 
+        }%
+      \\
+    \caption{bad example}
+  \end{figure}
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=3in]{image/d3f1}
+    \caption{MLP with 1-hidden layer}
+  \end{figure}
+  The final $Average Error = 0.205$ and $ Error Rate = 4\%$, The time to converange the MLP is 100000 epochs.
+\end{homeworkProblem}
 \end{document}

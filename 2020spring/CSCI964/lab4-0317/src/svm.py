@@ -10,7 +10,7 @@ style.use('ggplot')
 toy_train = []
 
 # 读取样例文件
-labels, train = sut.svm_read_problem(r'../data/toy_train_data.txt')
+labels, train = sut.svm_read_problem(r'../data/iris_libsvm_random.txt')
 
 print(train[0].values(), labels[0])
 

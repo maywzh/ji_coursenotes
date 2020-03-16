@@ -7,12 +7,12 @@ NumTstPats: 192
 NumIts: 100000
 NumHN: 2
 NumHN1: 48
-NumHN2: 48
+NumHN1: 48
 LrnRate: 0.01
 Mtm1: 1.2
 Mtm2: 0.8
-ObjErr: 0.005
-Ordering: 2
+ObjErr: 0.000001
+Ordering: 0
 
 0.971354	0.209317	1
 -0.971354	-0.209317	0

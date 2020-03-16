@@ -266,8 +266,11 @@ void TrainNet2(float **x, float **d, int NumIPs, int NumOPs, int NumPats, int Or
 		cout << setprecision(6) << setw(6) << ItCnt << ": " << setw(12) << MinErr << setw(12) << AveErr << setw(12) << MaxErr << setw(12) << PcntErr << endl;
 		trainfile.setf(ios::fixed | ios::showpoint);
 		trainfile << MinErr << setw(12) << AveErr << setw(12) << MaxErr << setw(12) << PcntErr << endl;
-		if ((abs(AveErr - lastAveErr) <= ObjErr) || (ItCnt == NumIts))
+		if (((abs(AveErr - lastAveErr) <= ObjErr) && (AveErr < 0.02)) || (ItCnt == NumIts))
+		{
+			cout << abs(AveErr - lastAveErr) << endl;
 			break;
+		};
 	} // end main learning loop
 	// Free memory
 	trainfile.close();
@@ -457,8 +460,12 @@ void TrainNet3(float **x, float **d, int NumIPs, int NumOPs, int NumPats, int Or
 		cout << setprecision(6) << setw(6) << ItCnt << ": " << setw(12) << MinErr << setw(12) << AveErr << setw(12) << MaxErr << setw(12) << PcntErr << endl;
 		trainfile.setf(ios::fixed | ios::showpoint);
 		trainfile << MinErr << setw(12) << AveErr << setw(12) << MaxErr << setw(12) << PcntErr << endl;
-		if ((abs(AveErr - lastAveErr) <= ObjErr) || (ItCnt == NumIts))
+		if (((abs(AveErr - lastAveErr) <= ObjErr) && (AveErr < 0.02)) || (ItCnt == NumIts))
+		{
+			cout << abs(AveErr - lastAveErr) << endl;
 			break;
+		};
+
 	} // end main learning loop
 	// Free memory
 	trainfile.close();
@@ -680,8 +687,11 @@ void TrainNet4(float **x, float **d, int NumIPs, int NumOPs, int NumPats, int Or
 		cout << setprecision(6) << setw(6) << ItCnt << ": " << setw(12) << MinErr << setw(12) << AveErr << setw(12) << MaxErr << setw(12) << PcntErr << endl;
 		trainfile.setf(ios::fixed | ios::showpoint);
 		trainfile << MinErr << setw(12) << AveErr << setw(12) << MaxErr << setw(12) << PcntErr << endl;
-		if ((abs(AveErr - lastAveErr) <= ObjErr) || (ItCnt == NumIts))
+		if (((abs(AveErr - lastAveErr) <= ObjErr) && (AveErr < 0.02)) || (ItCnt == NumIts))
+		{
+			cout << abs(AveErr - lastAveErr) << endl;
 			break;
+		};
 	} // end main learning loop
 	// Free memory
 	trainfile.close();
