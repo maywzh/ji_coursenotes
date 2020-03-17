@@ -1,4 +1,11 @@
+'''
+@Author: maywzh
+@Date: 2020-03-17 17:35:18
+@FilePath: /ji_coursenotes/2020spring/CSCI964/assignment1-0316/src/plot.py
+'''
 import matplotlib.pyplot as plt
+import os
+import platform
 
 
 def readData(filename):
@@ -33,4 +40,8 @@ if __name__ == "__main__":
     #ax2.xlabel("epoch")
     ax2.set_ylabel("Error rate%")
     fig.legend(loc="upper left")
-    plt.show()
+    print(platform.machine())
+    if platform.system() == "Linux":
+        plt.savefig("./fig")
+    else:
+        plt.show()
