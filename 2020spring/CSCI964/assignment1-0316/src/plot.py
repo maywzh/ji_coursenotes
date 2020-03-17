@@ -21,13 +21,13 @@ def readData(filename):
 
 
 if __name__ == "__main__":
-    filename1 = "./trainfile.txt"
+    filename1 = "./tmp/trainfile.txt"
     datas = readData(filename1)
     fig = plt.figure()
     ax1 = fig.add_subplot(111)
     ax1.plot(range(len(datas)), [data[1] for data in datas], color="b", label='AvgError')
     title = ""
-    with open("param.txt") as paraf:
+    with open("./tmp/param.txt") as paraf:
         title = paraf.readlines()[0]
     # with open("testresult.txt") as testf:
     #     title = title + "\n" + testf.readline()
@@ -42,6 +42,6 @@ if __name__ == "__main__":
     fig.legend(loc="upper left")
     print(platform.machine())
     if platform.system() == "Linux":
-        plt.savefig("./fig")
+        plt.savefig("./tmp/fig")
     else:
         plt.show()
