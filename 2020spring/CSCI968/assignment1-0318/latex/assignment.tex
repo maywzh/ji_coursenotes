@@ -9,7 +9,7 @@
 \usepackage[plain]{algorithm}
 \usepackage{algpseudocode}
 \usepackage{listings} 
-\usetikzlibrary{automata,positioning}
+\usetikzlibrary{automata,positioning,positioning,calc}
 
 \usepackage{color}
 
@@ -17,22 +17,13 @@
 \definecolor{gray}{rgb}{0.5,0.5,0.5}
 \definecolor{mauve}{rgb}{0.58,0,0.82}
 
-\lstset{frame=tb,
-  language=Python,
-  aboveskip=3mm,
-  belowskip=3mm,
-  showstringspaces=false,
-  columns=flexible,
-  basicstyle={\small\ttfamily},
-  numbers=none,
-  numberstyle=\tiny\color{gray},
-  keywordstyle=\color{blue},
-  commentstyle=\color{dkgreen},
-  stringstyle=\color{mauve},
-  breaklines=true,
-  breakatwhitespace=true,
-  tabsize=3
-}
+\lstset{language=Go,
+  basicstyle=\ttfamily\scriptsize,
+  keywordstyle=\color{blue}\ttfamily,
+  stringstyle=\color{red}\ttfamily,
+  commentstyle=\color{green}\ttfamily,
+  breaklines,%自动换行
+  }
 %
 % Basic Document Settings
 %
@@ -178,14 +169,269 @@
 \end{homeworkProblem}
 
 \begin{homeworkProblem}
+    \begin{lstlisting}
+        package main
+
+        import (
+            "crypto/elliptic"
+            "crypto/rand"
+            "crypto/sha256"
+            "fmt"
+            "io"
+            "math/big"
+        )
+        
+        type PublicKey struct {
+            elliptic.Curve
+            X, Y *big.Int
+        }
+        
+        type PrivateKey struct {
+            PublicKey
+            D *big.Int 
+        }
+        
+        var one = new(big.Int).SetInt64(1)
+        
+        func randFieldElement(c elliptic.Curve, rand io.Reader) (k *big.Int, err error) {
+            params := c.Params()
+            b := make([]byte, params.BitSize/8+8)
+            _, err = io.ReadFull(rand, b)
+            if err != nil {
+                return
+            }
+        
+            k = new(big.Int).SetBytes(b)
+            n := new(big.Int).Sub(params.N, one)
+            k.Mod(k, n)
+            k.Add(k, one)
+            return
+        }
+        
+        func GenerateKey(c elliptic.Curve, rand io.Reader) (*PrivateKey, error) {
+            k, err := randFieldElement(c, rand) 
+            if err != nil {
+                return nil, err
+            }
+            priv := new(PrivateKey)
+            priv.PublicKey.Curve = c
+            priv.D = k
+            priv.PublicKey.X, priv.PublicKey.Y = c.ScalarBaseMult(k.Bytes())
+            return priv, nil
+        }
+        
+        func hashIt(x, y *big.Int, message string) *big.Int {
+            tempHash := sha256.Sum256([]byte(message))
+            hash := tempHash[:]
+            tempInput := make([]byte, len(hash))
+            tempInput = append(tempInput, hash...)
+            tempInput = append(tempInput, x.Bytes()...)
+            tempInput = append(tempInput, y.Bytes()...)
+            temp := sha256.Sum256(tempInput)
+            cTemp := temp[:]
+            return new(big.Int).SetBytes(cTemp)
+        }
+        
+        func Sign(rand io.Reader, priv *PrivateKey, message string) (msg string, x, y, a *big.Int, err error) {
+        
+            var k *big.Int
+        
+            for {
+        
+                k, err = randFieldElement(priv.PublicKey.Curve, rand)
+                if err == nil {
+                    break
+                }
+            }
+        
+            x, y = priv.Curve.ScalarBaseMult(k.Bytes())
+            cV := hashIt(x, y, message)
+            temp := new(big.Int).Mul(priv.D, cV)
+            a = new(big.Int).Add(k, temp)
+            msg = message
+            return
+        }
+        
+        func Verify(pub *PublicKey, message string, x, y, a *big.Int) bool {
+        
+            cV := hashIt(x, y, message)
+            x1, y1 := pub.Curve.ScalarMult(pub.X, pub.Y, cV.Bytes())
+            x, y = pub.Curve.Add(x1, y1, x, y)
+            x2, y2 := pub.Curve.ScalarBaseMult(a.Bytes())
+            return (x.Cmp(x2) == 0 && y.Cmp(y2) == 0)
+        }
+        
+        func Sign_opt(rand io.Reader, priv *PrivateKey, message string) (msg string, cv, a *big.Int, err error) {
+        
+            var k *big.Int
+            for {
+        
+                k, err = randFieldElement(priv.PublicKey.Curve, rand)
+                if err == nil {
+                    break
+                }
+            }
+        
+            x, y := priv.Curve.ScalarBaseMult(k.Bytes())
+            cv = hashIt(x, y, message)
+            temp := new(big.Int).Mul(priv.D, cv)
+            a = new(big.Int).Add(k, temp)
+            msg = message
+            return
+        }
+        
+        func Verify_opt(pub *PublicKey, message string, cV, a *big.Int) bool {
+            x, y := pub.Curve.ScalarBaseMult(a.Bytes())
+            x1, y1 := pub.Curve.ScalarMult(pub.X, pub.Y, cV.Bytes())
+            negY1 := new(big.Int).Neg(y1)
+            x2, y2 := pub.Curve.Add(x, y, x1, negY1)
+            x3, y3 := pub.Curve.Add(x2, y2, x1, y1)
+            return (x3.Cmp(x) == 0 && y3.Cmp(y) == 0)
+        }
+        
+        func main() {
+            privateKey, err := GenerateKey(elliptic.P256(), rand.Reader)
+            if err != nil {
+                panic(err)
+            }
+            msg := "CSCI468/968AdvancedNetworkSecurity,Spring2020"
+        
+            message, x, y, a, err := Sign(rand.Reader, privateKey, msg)
+            if err != nil {
+                panic(err)
+            }
+        
+            fmt.Println("message:", message)
+            fmt.Println("signature: u_t:", x, y)
+            fmt.Println("signature: a_z:", a)
+        
+            valid := Verify(&privateKey.PublicKey, message, x, y, a)
+            fmt.Println("signature verified:", valid)
+        
+            fmt.Println(" optimized versions:")
+        
+            message1, cv1, a1, err1 := Sign_opt(rand.Reader, privateKey, msg)
+            if err1 != nil {
+                panic(err)
+            }
+        
+            fmt.Println("message:", message1)
+            fmt.Println("signature: c:", cv1)
+            fmt.Println("signature: a_z:", a1)
+            valid1 := Verify_opt(&privateKey.PublicKey, message1, cv1, a1)
+            fmt.Println("signature verified:", valid1)
+        }
+        
+    \end{lstlisting}
+
+    \textbf{Output}
+    \begin{lstlisting}
+        message: CSCI468/968AdvancedNetworkSecurity,Spring2020
+        signature: u_t: 43068305453503561280361870469765841078369704546103943374318459436367629179869 12359168923261615701252974857854824377642988124531973618366557065204705787927
+        signature: a_z: 118113457633065229502460821696906849747556761002336714124847642078416851115
+        48021326205279399598472135606629328989136237936188537873579005908404438188124092
+        signature verified: true
+         optimized versions:
+        message: CSCI468/968AdvancedNetworkSecurity,Spring2020
+        signature: c: 83530092752711663050226295389097351853301230250199467408878628416381598386762
+        signature: a_z: 8780426964957236590780147515699576311543968677026630689745462357275074160
+        176151219015926555566164400321326536792780260274081321137737074842644458188839833
+        signature verified: true
+    \end{lstlisting}
+    
 
 \end{homeworkProblem}
 
 \begin{homeworkProblem}
+    \begin{tikzpicture}
+    
+        % Public parameter:
+        \node[draw=none,fill=none,align=center] (public) at (0,1) {Schnorr signature scheme \\ $\alpha\xleftarrow{R}\mathbb{Z}_q$, $u\leftarrow g^\alpha$};
+    
+        % Signer
+        \node[draw] (Signer) at (-2,0) {Signer};
+        \draw[thick] (Signer) -- ++(0, -6);
+    
+        % Calculations of Signer
+        \node[draw=none,fill=none,anchor=east] at ($(Signer) + (0,-1)$) {$sk\leftarrow \alpha$};
+        \node[draw=none,fill=none,anchor=east] at ($(Signer) + (0,-2)$) {$\alpha_{ti}\xleftarrow{R} \mathbb{Z}_q , u_{ti}\leftarrow g^{\alpha_{ti}}$};
+        \node[draw=none,fill=none,anchor=east] at ($(Signer) + (0,-3)$) {$c_i\leftarrow H(m_i,u_{ti}),\alpha_{zi}\leftarrow \alpha_{ti} +\alpha c_i$};
+    
+        % Verifier
+        \node[draw] (Verifier) at (2,0) {Verifier};
+        \draw[thick] (Verifier) -- ++(0, -6);
+    
+        % Calculations of Verifier
+        \node[draw=none,fill=none,anchor=west] at ($(Verifier) + (0,-1)$) {$pk\leftarrow u $};
+        \node[draw=none,fill=none,anchor=west] at ($(Verifier) + (0,-4)$) {$c_i\leftarrow H(m_i,u_{ti})$ \\ accept if $g^{\alpha_{zi}}=u_{ti}\cdot u^{c_i}=g^{\alpha_{ti}+\alpha c_i}$};
 
+        % Messages
+        \draw[->,thick] ($(Signer)+(0,-3.5)$) -- ($(Verifier)+(0,-3.5)$) node [pos=0.5,above,font=\footnotesize] {$\sigma_i\leftarrow (u_{ti},\alpha_{zi})$};
+    \end{tikzpicture}
+
+   When signing $m_0$, $u_{t0}=g^{\alpha_{t0}},\alpha_{z0}=\alpha_{t0}+\alpha c_0, c_0=H(m_0,u_{t0})$.
+   
+   When signing $m_1$, $u_{t1}=g^{a\alpha_{t0}+b}=u_{t0}^a\cdot g^b,\alpha_{z1}=a\cdot\alpha_{t0}+b+\alpha c_1,c1=H(m_1,u_{t1})$.
+
+   If adversary obtain $(m_0,\sigma_0)$ and $(m_1,\sigma_1)$, he can get $\alpha_{z1}-a\alpha_{z0}=(c_1-ac_0)\alpha + b$ where $c_0,c_1,a,b$ is clear for adversary. 
+   
+   $$Adv_{sk}=P(c_1-ac_0\neq0)$$
+
+   so the probability of obtaining secret key $\alpha$ is not negligible.
 \end{homeworkProblem}
 
 \begin{homeworkProblem}
+    \begin{tikzpicture}
+    
+        % Public parameter:
+        \node[draw=none,fill=none,align=center] (public) at (0,1) {Batch Schnorr signature scheme \\ $\alpha\xleftarrow{R}\mathbb{Z}_q$, $u\leftarrow g^\alpha$};
+    
+        % Signer
+        \node[draw] (Signer) at (-2,0) {Signer};
+        \draw[thick] (Signer) -- ++(0, -7);
+    
+        % Calculations of Signer
+        \node[draw=none,fill=none,anchor=east] at ($(Signer) + (0,-1)$) {$sk\leftarrow \alpha$};
+        \node[draw=none,fill=none,anchor=east] at ($(Signer) + (0,-2)$) {$\alpha_{ti}\xleftarrow{R} \mathbb{Z}_q , u_t\leftarrow g^{\alpha_t}$};
+        \node[draw=none,fill=none,anchor=east] at ($(Signer) + (0,-3)$) {$c\leftarrow H(m,u_t),\alpha_z\leftarrow \alpha_t +\alpha c$};
+    
+        % Verifier
+        \node[draw] (Verifier) at (2,0) {Verifier};
+        \draw[thick] (Verifier) -- ++(0, -7);
+    
+        % Calculations of Verifier
+        \node[draw=none,fill=none,anchor=west] at ($(Verifier) + (0,-1)$) {$pk\leftarrow u $};
+        \node[draw=none,fill=none,anchor=west] at ($(Verifier) + (0,-4)$) {$\beta_1,\beta_2,...,\beta_n\xleftarrow{R}\mathcal{C}$};
+        \node[draw=none,fill=none,anchor=west] at ($(Verifier) + (0,-5)$) {$c_i\leftarrow H(m_i,u_{ti})$,$\bar{\alpha}\leftarrow \sum_{i=1}^n{\beta_i \alpha_{zi}}\in\mathbb{Z}_q$ and $\bar{c}\leftarrow \sum_{i=1}^n\beta_ic_i \in \mathbb{Z}_q$};
+        \node[draw=none,fill=none,anchor=west] at ($(Verifier) + (0,-6)$) {accept if $g^{\bar{\alpha}}=u^{\bar{c}}\cdot \prod_{i=1}^n u_{ti}^{\beta_i}$};
 
-\end{homeworkProblem}`'
+        % Messages
+        \draw[->,thick] ($(Signer)+(0,-3.5)$) -- ($(Verifier)+(0,-3.5)$) node [pos=0.5,above,font=\footnotesize] {$\sigma_i\leftarrow (u_{ti},\alpha_{zi})$};
+        \draw[->,thick] ($(Signer)+(0,-4.1)$) -- ($(Verifier)+(0,-4.1)$) node [pos=0.5,above,font=\footnotesize] {\vdots};
+
+    \end{tikzpicture}
+    We get 
+    \begin{equation}
+        \begin{split}
+            g^{\bar{\alpha}}&=g^{\sum_{i=1}^n{\beta_i\alpha_{zi}}}\\
+            &=\prod_{i=1}^n({g^{\alpha_{zi}}})^{\beta_i}\\
+            &=g^{\sum_{i=1}^n \alpha_{zi}\beta_i}
+        \end{split}
+    \end{equation}
+    \begin{equation}
+        \begin{split}
+           u^{\bar{c}}\cdot\prod_{i=1}^n{u_{ti}^{\beta_i}}
+           &=g^{\alpha\cdot\sum_{i=1}^n{\beta_i c_i}} \cdot g^{\sum_{i=1}^n{\alpha_{ti}\beta_i}}\\
+           &=g^{\sum_{i=1}^n{(\alpha_{ti}+\alpha c_i)\beta_i}}\\
+           &=\prod_{i=1}^n (g^{\alpha_{ti}+\alpha c_i})^{\beta_i}\\
+           &=g^{\sum_{i=1}^n(\alpha_{ti}+\alpha c_i)\beta_i}
+        \end{split}
+    \end{equation}
+    Suppose that $\beta_i$ is not used, then the $g^{\bar{\alpha}}=g^{\sum_{i=1}^n \alpha_{zi}}$ and $u^{\bar{c}}\cdot\prod_{i=1}^n{u_{ti}^{\beta_i}}=g^{\sum_{i=1}^n(\alpha_{ti}+\alpha c_i)}$
+
+    $$P(\exists{\alpha_{zi}\neq\alpha_{ti}+\alpha c_i},g^{\sum_{i=1}^n \alpha_{zi}}=g^{\sum_{i=1}^n(\alpha_{ti}+\alpha c_i)})$$ is not negligible.
+    while $$P(\exists{\alpha_{zi}\neq\alpha_{ti}+\alpha c_i},g^{\sum_{i=1}^n \alpha_{zi}\beta_i}=g^{\sum_{i=1}^n(\alpha_{ti}+\alpha c_i)\beta_i})$$ is negligible.
+    so advantage is $$Adv_{BSV}=P(\exists{\alpha_{zi}\neq\alpha_{ti}+\alpha c_i},g^{\sum_{i=1}^n \alpha_{zi}\beta_i}=g^{\sum_{i=1}^n(\alpha_{ti}+\alpha c_i)\beta_i})P$$
+
+\end{homeworkProblem}
 \end{document}
