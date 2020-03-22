@@ -40,7 +40,6 @@ if __name__ == "__main__":
     #ax2.xlabel("epoch")
     ax2.set_ylabel("Error rate%")
     fig.legend(loc="upper left")
-    print(platform.machine())
     if platform.system() == "Linux":
         plt.savefig("./tmp/fig")
     else:
