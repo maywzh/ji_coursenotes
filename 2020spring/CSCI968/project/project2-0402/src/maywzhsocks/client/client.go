@@ -107,13 +107,10 @@ func aesGcmEncryptNetCopy(input, output *net.TCPConn, k []byte) (err error) {
 		// nonce 12 加密
 		ciphertext, nonce := AesGcmEncrypt(k, buf[:count])
 
-		// 打包
 		cbuf := make([]byte, 0)
-		// 写入版本头
 		cbuf = append(cbuf, 'V')
 		size := make([]byte, 2)
 		binary.BigEndian.PutUint16(size, uint16(len(nonce)+len(ciphertext)))
-		// 版本长度
 		cbuf = append(cbuf, size...)
 		cbuf = append(cbuf, nonce...)
 		cbuf = append(cbuf, ciphertext...)
@@ -134,7 +131,6 @@ func aesGcmEncryptNetCopy(input, output *net.TCPConn, k []byte) (err error) {
 func aesGcmDecryptNetCopy(input, output *net.TCPConn, k []byte) (err error) {
 
 	for {
-		// 解包
 		buf := make([]byte, 3)
 		_, err := io.ReadFull(input, buf)
 		if err != nil && err == io.EOF {
@@ -149,8 +145,6 @@ func aesGcmDecryptNetCopy(input, output *net.TCPConn, k []byte) (err error) {
 		if err != nil && err == io.EOF {
 			return err
 		}
-
-		// 解密
 
 		pbuf := AesGcmDecrypt(k, bodyBuf[12:], bodyBuf[:12])
 		count := len(pbuf)
@@ -172,17 +166,12 @@ func chacha20poly1305EncryptNetCopy(input, output *net.TCPConn, k []byte) (err e
 	buf := make([]byte, 8192)
 	for {
 		count, err := input.Read(buf)
-		// fmt.Println("写", buf[:count])
-		// nonce 12 加密
 		ciphertext, nonce := chacha20poly1305Encrypt(k, buf[:count])
 
-		// 打包
 		cbuf := make([]byte, 0)
-		// 写入版本头
 		cbuf = append(cbuf, 'V')
 		size := make([]byte, 2)
 		binary.BigEndian.PutUint16(size, uint16(len(nonce)+len(ciphertext)))
-		// 版本长度
 		cbuf = append(cbuf, size...)
 		cbuf = append(cbuf, nonce...)
 		cbuf = append(cbuf, ciphertext...)
@@ -202,7 +191,6 @@ func chacha20poly1305EncryptNetCopy(input, output *net.TCPConn, k []byte) (err e
 
 func chacha20poly1305DecryptNetCopy(input, output *net.TCPConn, k []byte) (err error) {
 	for {
-		// 解包
 		buf := make([]byte, 3)
 		_, err := io.ReadFull(input, buf)
 		if err != nil && err == io.EOF {
@@ -217,8 +205,6 @@ func chacha20poly1305DecryptNetCopy(input, output *net.TCPConn, k []byte) (err e
 		if err != nil && err == io.EOF {
 			return err
 		}
-
-		// 解密
 
 		pbuf := chacha20poly1305Decrypt(k, bodyBuf[12:], bodyBuf[:12])
 		count := len(pbuf)
@@ -242,13 +228,10 @@ func encryptNetCopy(input, output *net.TCPConn) (err error) {
 
 		count, err := input.Read(buf)
 
-		// 打包
 		cbuf := make([]byte, 0)
-		// 写入版本头
 		cbuf = append(cbuf, 'V')
 		size := make([]byte, 2)
 		binary.BigEndian.PutUint16(size, uint16(len(buf[:count])))
-		// 版本长度
 		cbuf = append(cbuf, size...)
 		cbuf = append(cbuf, buf[:count]...)
 

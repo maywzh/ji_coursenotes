@@ -73,22 +73,16 @@ type Proxy struct {
 func (c *Proxy) Write(bytes []byte) (count int, err error) {
 
 	if c.proxyType == "1" {
-		// 封包
 		ciphertext, nonce := AesGcmEncrypt(c.k, bytes)
-		// log.Println("收到的", nonce)
 
 		cbuf := make([]byte, 0)
-		// 写入版本头
 		cbuf = append(cbuf, 'V')
 		size := make([]byte, 2)
 		binary.BigEndian.PutUint16(size, uint16(len(nonce)+len(ciphertext)))
-		// 版本长度
 		cbuf = append(cbuf, size...)
-		// body
 		cbuf = append(cbuf, nonce...)
 		cbuf = append(cbuf, ciphertext...)
 
-		// 发送
 		count, err = c.trueClient.Write(cbuf)
 		if err != nil {
 			return
@@ -96,40 +90,31 @@ func (c *Proxy) Write(bytes []byte) (count int, err error) {
 		return
 
 	} else if c.proxyType == "2" {
-		// 封包
 		ciphertext, nonce := chacha20poly1305Encrypt(c.k, bytes)
-		// log.Println("收到的", nonce)
 
 		cbuf := make([]byte, 0)
-		// 写入版本头
 		cbuf = append(cbuf, 'V')
 		size := make([]byte, 2)
 		binary.BigEndian.PutUint16(size, uint16(len(nonce)+len(ciphertext)))
-		// 版本长度
 		cbuf = append(cbuf, size...)
 		// body
 		cbuf = append(cbuf, nonce...)
 		cbuf = append(cbuf, ciphertext...)
 
-		// 发送
 		count, err = c.trueClient.Write(cbuf)
 		if err != nil {
 			return
 		}
 		return
 	} else {
-		// 封包
 		cbuf := make([]byte, 0)
-		// 写入版本头
 		cbuf = append(cbuf, 'V')
 		size := make([]byte, 2)
 		binary.BigEndian.PutUint16(size, uint16(len(bytes)))
-		// 版本长度
 		cbuf = append(cbuf, size...)
 		// body
 		cbuf = append(cbuf, bytes...)
 
-		// 发送
 		count, err = c.trueClient.Write(cbuf)
 		if err != nil {
 			return
@@ -139,7 +124,6 @@ func (c *Proxy) Write(bytes []byte) (count int, err error) {
 }
 
 func (c *Proxy) Read(bytes []byte) (int, error) {
-	// 解包
 	if c.proxyType == "1" {
 
 		buf := make([]byte, 3)
@@ -452,13 +436,10 @@ func callTarget(client *Proxy, request *Request) {
 }
 
 func handlClientRequest(trueClient *net.TCPConn, encryptType string, k []byte) {
-	// 代理一波read和write方法\
 
 	var client *Proxy
 	p := Proxy{encryptType, k, trueClient}
 	client = &p
-	// 代理一波
-
 	message, err := decodeNegotiationRequest(client)
 	if err != nil {
 		log.Println("[decodeNegotiationRequest err]", err)
