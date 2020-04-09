@@ -1,5 +1,5 @@
-.ipynb_checkpoints
-*.ipynb
+#.ipynb_checkpoints
+#*.ipynb
 **/*.mpp
 # .vscode
 materials/*.pdf
