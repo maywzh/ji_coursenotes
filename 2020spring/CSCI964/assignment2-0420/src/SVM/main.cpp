@@ -56,7 +56,7 @@ int main() {
   cout << "Loading testing data" << endl;
   testFeatures = Malloc(svm_node *, NTest);
   testLabels = new int[NTest];
-  int testLabel, passtest;
+  int testLabel;
   double acc;
   for (i = 0; i < NTest; i++) {
     svm_node *testFeatureVec = new svm_node[NFeature + 1];
@@ -99,6 +99,7 @@ int main() {
   svm_save_model("model.txt", model);
 
   // Test model
+  int passtest = 0;
   for (i = 0; i < NTest; i++) {
     int predictValue = svm_predict(model, testFeatures[i]);
     cout << testFeatures[i][0].value << testFeatures[i][1].value
