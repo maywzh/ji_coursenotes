@@ -1,10 +1,7 @@
-; Contains data for the intertwined two spiral problem.
-;
-NFeature: 2 
-Nlabel: 1 
-NTrain: 192
-NTest: 192
-
+2
+1
+192
+192
 0.971354	0.209317	1
 -0.971354	-0.209317	0
 0.906112	0.406602	1
