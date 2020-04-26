@@ -106,7 +106,7 @@ int main() {
     if (predictValue == testLabels[i])
       passtest++;
   }
-  acc = passtest / NTest * 1.0;
+  acc = passtest / (NTest * 1.0);
   cout << "acc=" << acc << endl;
 
   // Free Memory
