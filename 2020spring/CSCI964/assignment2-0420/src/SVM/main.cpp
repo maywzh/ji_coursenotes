@@ -80,11 +80,11 @@ int main() {
   param.svm_type = C_SVC;
   param.kernel_type = RBF;
   param.degree = 3;
-  param.gamma = 0; // 1/num_features
+  param.gamma = 8.0; // 1/num_features
   param.coef0 = 0;
   param.nu = 0.5;
   param.cache_size = 100;
-  param.C = 1;
+  param.C = 2048;
   param.eps = 1e-3;
   param.p = 0.1;
   param.shrinking = 1;
@@ -101,13 +101,12 @@ int main() {
   int passtest = 0;
   for (i = 0; i < NTest; i++) {
     int predictValue = svm_predict(model, testFeatures[i]);
-    cout << testFeatures[i][0].value << testFeatures[i][1].value
-         << " predict: " << predictValue << " actual: " << testLabels[i]
-         << endl;
+    cout << "index:" << i << " predict: " << predictValue
+         << " actual: " << testLabels[i] << endl;
     if (predictValue == testLabels[i])
       passtest++;
   }
-  acc = passtest / NTest;
+  acc = passtest / NTest * 1.0;
   cout << "acc=" << acc << endl;
 
   // Free Memory
