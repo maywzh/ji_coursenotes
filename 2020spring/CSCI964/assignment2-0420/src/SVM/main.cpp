@@ -77,21 +77,47 @@ int main() {
 
   cout << "Data loaded" << endl << "Loading parameter" << endl;
 
-  param.svm_type = C_SVC;
+  param.svm_type = C_SVC; // -s svm类型：SVM设置类型(默认0)0 -- C-SVC 1 --v-SVC
+                          // 2 – 一类SVM 3 -- e-SVR 4 -- v-SVR
   param.kernel_type = RBF;
+  //-t 核函数类型：核函数设置类型(默认2) 0 – 线性：u'v 1 –
+  //多项式：(r*u'v + coef0)^degree 2 – RBF函数：exp(-gamma|u-v|^2) 3
+  //–sigmoid：tanh(r*u'v + coef0)
   param.degree = 3;
-  param.gamma = 8.0; // 1/num_features
-  param.coef0 = 0;
-  param.nu = 0.5;
-  param.cache_size = 100;
-  param.C = 2048;
-  param.eps = 1e-3;
-  param.p = 0.1;
-  param.shrinking = 1;
-  param.probability = 0;
+  //　　-d degree：核函数中的degree设置(针对多项式核函数)(默认3)
+
+  param.gamma = 8.0;
+  // -g
+  // r(gama)：核函数中的gamma函数设置(针对多项式/rbf/sigmoid核函数)(默认1/n_features)
+
+  param.coef0 =
+      0; //　　-r coef0：核函数中的coef0设置(针对多项式/sigmoid核函数)((默认0)
+
+  param.nu = 0.5; //　　-n nu：设置v-SVC，一类SVM和v- SVR的参数(默认0.5)
+
+  param.cache_size =
+      100; //　　-m cachesize：设置cache内存大小，以MB为单位(默认40)
+
+  param.C = 2048; //　　-c cost：设置C-SVC，e -SVR和v-SVR的参数(损失函数)(默认1)
+
+  param.eps = 1e-3; //　　-e eps：设置允许的终止判据(默认0.001)
+
+  param.p = 0.1; //　　-p p：设置e -SVR 中损失函数p的值(默认0.1)
+
+  param.shrinking = 1; //　　-h shrinking：是否使用启发式，0或1(默认1)
+
+  param.probability =
+      0; //-b 概率估计：是否计算SVC或SVR的概率估计，可选值0 或1，默认0；
+
+  /*nr_weight, weight_label, and weight are used to change the penalty
+    for some classes (If the weight for a class is not changed, it is
+    set to 1). This is useful for training classifier using unbalanced
+    input data or with asymmetric misclassification cost.
+*/
   param.nr_weight = 0;
   param.weight_label = NULL;
-  param.weight = NULL;
+  param.weight =
+      NULL; //　　-wi weight：设置第几类的参数C为weight*C(C-SVC中的C)(默认1)
 
   // Train model
   model = svm_train(&prob, &param);
