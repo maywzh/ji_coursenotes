@@ -77,7 +77,6 @@ int main() {
 
   cout << "Data loaded" << endl << "Loading parameter" << endl;
 
-  // // set all default parameters for param struct
   param.svm_type = C_SVC;
   param.kernel_type = RBF;
   param.degree = 3;
