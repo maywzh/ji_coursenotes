@@ -2,6 +2,7 @@
 #include <ctype.h>
 #include <fstream>
 #include <iostream>
+#include <math.h>
 #include <stdlib.h>
 #include <vector>
 using namespace std;
@@ -13,7 +14,7 @@ struct svm_problem prob;    // set by read_problem
 struct svm_model *model;
 struct svm_node *x_space;
 svm_node **testFeatures;
-int *testLabels;
+double *testLabels;
 svm_node *featureVecs;
 svm_node *labels;
 
@@ -55,8 +56,8 @@ int main() {
 
   cout << "Loading testing data" << endl;
   testFeatures = Malloc(svm_node *, NTest);
-  testLabels = new int[NTest];
-  int testLabel;
+  testLabels = new double[NTest];
+  double testLabel;
   double acc;
   for (i = 0; i < NTest; i++) {
     svm_node *testFeatureVec = new svm_node[NFeature + 1];
@@ -70,25 +71,27 @@ int main() {
     testFeatureVec[NFeature].index = -1; // the last index should be -1
     testFeatures[i] = testFeatureVec;
     fin >> testLabel;
-    cout << testLabel << endl;
+
     testLabels[i] = testLabel;
   }
   fin.close();
 
   cout << "Data loaded" << endl << "Loading parameter" << endl;
 
-  param.svm_type = C_SVC; // -s svm类型：SVM设置类型(默认0)0 -- C-SVC 1 --v-SVC
-                          // 2 – 一类SVM 3 -- e-SVR 4 -- v-SVR
+  param.svm_type = 0; // -s svm类型：SVM设置类型(默认0)0 -- C-SVC 1
+                      // --v-SVC 2 – 一类SVM 3 -- e-SVR 4 -- v-SVR
+
+  param.C = 2; //　　-c cost：设置C-SVC，e -SVR和v-SVR的参数(损失函数)(默认1
+  param.gamma = 2;
+  // -g
+  // r(gama)：核函数中的gamma函数设置(针对多项式/rbf/sigmoid核函数)(默认1/n_features)
+
   param.kernel_type = RBF;
   //-t 核函数类型：核函数设置类型(默认2) 0 – 线性：u'v 1 –
   //多项式：(r*u'v + coef0)^degree 2 – RBF函数：exp(-gamma|u-v|^2) 3
   //–sigmoid：tanh(r*u'v + coef0)
   param.degree = 3;
   //　　-d degree：核函数中的degree设置(针对多项式核函数)(默认3)
-
-  param.gamma = 8.0;
-  // -g
-  // r(gama)：核函数中的gamma函数设置(针对多项式/rbf/sigmoid核函数)(默认1/n_features)
 
   param.coef0 =
       0; //　　-r coef0：核函数中的coef0设置(针对多项式/sigmoid核函数)((默认0)
@@ -98,11 +101,7 @@ int main() {
   param.cache_size =
       100; //　　-m cachesize：设置cache内存大小，以MB为单位(默认40)
 
-  param.C = 2048; //　　-c cost：设置C-SVC，e -SVR和v-SVR的参数(损失函数)(默认1)
-
   param.eps = 1e-3; //　　-e eps：设置允许的终止判据(默认0.001)
-
-  param.p = 0.1; //　　-p p：设置e -SVR 中损失函数p的值(默认0.1)
 
   param.shrinking = 1; //　　-h shrinking：是否使用启发式，0或1(默认1)
 
@@ -113,7 +112,7 @@ int main() {
     for some classes (If the weight for a class is not changed, it is
     set to 1). This is useful for training classifier using unbalanced
     input data or with asymmetric misclassification cost.
-*/
+ */
   param.nr_weight = 0;
   param.weight_label = NULL;
   param.weight =
@@ -126,7 +125,7 @@ int main() {
   // Test model
   int passtest = 0;
   for (i = 0; i < NTest; i++) {
-    int predictValue = svm_predict(model, testFeatures[i]);
+    double predictValue = svm_predict(model, testFeatures[i]);
     cout << "index:" << i << " predict: " << predictValue
          << " actual: " << testLabels[i] << endl;
     if (predictValue == testLabels[i])

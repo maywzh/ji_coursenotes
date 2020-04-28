@@ -60,7 +60,7 @@ vector<double> Hash;
 int city_num_t = 0;
 int CITY_NUM;
 
-double cost_matrix[3][3] = {10, 7.5, 5, 7.5, 5, 2.5, 5, 2.5, 1};
+double dist_map_wp[3][3] = {10, 7.5, 5, 7.5, 5, 2.5, 5, 2.5, 1};
 
 typedef struct City {
   double x;
@@ -94,7 +94,7 @@ void CalDistance() {
       temp2 = CitySequence[j].y - CitySequence[i].y;
       int type_city_i = CitySequence[i].type;
       int type_city_j = CitySequence[j].type;
-      double per_cost = cost_matrix[type_city_i][type_city_j];
+      double per_cost = dist_map_wp[type_city_i][type_city_j];
       v_tmp.push_back((sqrt(temp1 * temp1 + temp2 * temp2) * per_cost));
     }
     CityDistance.push_back(v_tmp);
@@ -419,6 +419,9 @@ int main() {
   CalDistance();
   InitColony(city);
   CalFitness(city);
+  //打开输出文件
+  ofstream outf;
+  outf.open(to_string(CITY_NUM) + "out.txt");
 
   for (i = 0; i < MaxEpoc; i++) {
 
@@ -430,8 +433,9 @@ int main() {
       cout << "step=" << i << endl;
       PrintOut(city);
     }
+    outf << city.BestValue << endl;
   }
-
+  outf.close();
   cout << "Optimised Data!" << endl;
   PrintOut(city); //输出
   return 0;
