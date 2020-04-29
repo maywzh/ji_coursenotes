@@ -4,6 +4,7 @@
  *      Modified by: maywzh
  *      Changes: maywzh
  *************************************************************/
+
 #include <cmath>
 #include <cstdio>
 #include <cstdlib>
@@ -12,9 +13,20 @@
 #include <iostream>
 #include <string>
 #include <vector>
+
+// ----------------------Macro----------------------
 #define EulerDist(a, b)                                                        \
   sqrt((a.x - b.x) * (a.x - b.x) * 1.0 + (a.y - b.y) * (a.y - b.y) * 1.0)
 
+#define Rand01() (rand() / (double)(RAND_MAX))
+#define RandInt(r) (int(rand() / (double(RAND_MAX) + 1) * r))
+#define RandomBetween(min, max) ((rand() % (max - min + 1)) + min)
+#define Hit(p, r) (int(rand() / (double(RAND_MAX) + 1) * r) < p * r)
+#define Bool(f) (f ? "True" : "False")
+#define VisitCostBetweenCity(a, b)                                             \
+  (dist_map[a][b] * TypeCostMap[citys[a].type - 1][citys[b].type - 1])
+#define PrintLn(FORMAT, VALUE) printf(FORMAT "\n", VALUE)
+// ----------------------Macro----------------------
 using namespace std;
 
 const int cDebug = 0;
@@ -28,20 +40,19 @@ const int cNumGens = 150;              //世代数
 const int cPopSize = 100; // 种群个体数 即城市路线的个数
 const int cTournamentSize = 5;
 const int Seed = 1234;
-const int cTargetFitness = 80; //目标适应度
-static int cIndividualLength;  //基因长度 即城市序列长度
+const double cTargetFitness = 1.0 / 5000; //目标适应度
+static int cIndividualLength;             //基因长度 即城市序列长度
 
 void InitPop(int ***CrntPop, int ***NextPop, int **Fitness, int **BestMenber);
 void FreeMem(int **CrntPop, int **NextPop, int *Fitness, int *BestMember);
 int Tournament(int *Fitness, int TournamentSize);
 int EvaluateFitness(int *Member);
+double EvaluateFitness(int *visit_order, int len);
 void Crossover(int *P1, int *P2, int *C1, int *C2);
 void Copy(int *P1, int *P2, int *C1, int *C2);
 void Mutate(int *Member);
-double Rand01();    // 0..1
-int RandInt(int n); // 0..n-1
-
-int NCity; //城市数
+// double Rand01(); // 0..1
+// int RandInt(int n); // 0..n-1
 
 double **dist_map; // 两两城市间欧拉距离表
 double **cost_map; // 两两城市间花费表
@@ -59,23 +70,6 @@ struct city {
 // --------tool function-------
 vector<city> citys; //城市列表
 
-// // 城市间的欧拉距离
-// double EulerDist(city &a, city &b) {
-//   return sqrt((a.x - b.x) * (a.x - b.x) * 1.0 +
-//               (a.y - b.y) * (a.y - b.y) * 1.0);
-// }
-
-// 计算一个基因序列的花费
-double GetCostBetweenCity(int a, int b) {
-  return dist_map[a][b] * TypeCostMap[citys[a].type - 1][citys[b].type - 1];
-}
-
-// [min, max] 之间随机数
-int RandomBetween(int min, int max) {
-  // srand((unsigned)time(NULL));
-  return (rand() % (max - min + 1)) + min;
-}
-
 // 随机排列一个随机序列
 void RandomArray(int *arr, int arrlen) {
   for (int i = arrlen - 1; i != 0; i--) {
@@ -85,41 +79,6 @@ void RandomArray(int *arr, int arrlen) {
     arr[j] = tmp;
   }
 }
-
-string BoolToOut(bool flag) {
-  if (flag)
-    return "true";
-  else
-    return "false";
-}
-
-// 思路
-//  在该问题中，每一条路径就是所谓的染色体（解的编码），每条路径的长度就是该个体的适应性（路径长度越短，适应性越强）。交叉操作就是选择两条路径，取一个分界点k，将两条路径分别以分界点k分成前后两段，并且将两条路径重新组合得到新的两条路径。这里的交叉操作蕴含了变异操作，但是能够让子代继承父代的优良特性。变异操作也是实现群体多样性的一种手段，也是全局寻优的保证，具体实现为，按照给定的变异率，对选定的变异的个体，随机的选取三个整数u
-
-// blog.csdn.net/qq547276542/article/details/77805423
-// Step1: 确定编码机制, 生成初始种群.
-// 解决TSP问题通常采用城市序号对路径进行编码,
-// 按照访问城市的顺序排列组成编码.
-// Step2: 计算种群中每个个体的适应度值.
-// TSP求解是要寻找使目标函数最小的个体, 因此选择适应度 函数fitness(i) =
-// D/f(Ri) 设置常数𝐷, 防止路径值 过大而导致适应度函数倒数接近于0.
-// 可以看出, 巡游路径越小, 适应度值越大. Step3: 选择算子.
-// 通常采用精英个体保存策略和赌轮选择算子, 即适应度最高的个体一定被选择.
-// 计算每个个体在整个种群适应度中的被选择概率和累计概率分别为
-// p(i)=fitness(i)/sum(fitness(i)),Q(i)=sum(pj)
-//通过随机数𝑟所在的区间范围选择遗传个体.
-// Step4: 交叉算子. 由交叉概率𝑝𝑐 选择若干父体并进行配对,
-// 按照交叉算法的规则生成新个体,
-// 常用的规范方法有单点交叉、部分映射交叉、循环交叉等.
-// Step5: 变异算子.
-// 为了保持种群个体的多样性, 防止陷入局部最优, 需要按照某一变异概率pm
-// 随机确定变异个体, 并实行相应变异操作, 通常采用逆序 变异算子.
-// Step6:
-// 迭代终止条件. 若满足预定的终止条件 (达到最大迭代次数), 则停止迭代,
-// 所得的路径认为是 满意的路径; 否则, 转至Step2, 计算新一代种群中每
-// 个个体的适应度值.
-
-//===========================================================
 
 // 读取以及初始化数据
 // 初始化欧拉距离表
@@ -131,26 +90,27 @@ void LoadData(string filename) {
     cout << "File not found!\n";
     exit(1);
   }
-  fin >> NCity;
-  cIndividualLength = NCity;
-  dist_map = new double *[NCity];
-  cost_map = new double *[NCity];
-  for (int i = 0; i < NCity; i++) {
+  fin >> cIndividualLength;
+  dist_map = new double *[cIndividualLength];
+  cost_map = new double *[cIndividualLength];
+  for (int i = 0; i < cIndividualLength; i++) {
     city c;
     fin >> c.x >> c.y >> c.type;
     citys.push_back(c);
   }
   // Initialize the distance map
-  for (int i = 0; i < NCity; i++) {
-    dist_map[i] = new double[NCity];
-    cost_map[i] = new double[NCity];
-    for (int j = 0; j < NCity; j++) {
+  for (int i = 0; i < cIndividualLength; i++) {
+    dist_map[i] = new double[cIndividualLength];
+    cost_map[i] = new double[cIndividualLength];
+    for (int j = 0; j < cIndividualLength; j++) {
       dist_map[i][j] = EulerDist(citys[i], citys[j]);
-      cost_map[i][j] =
-          dist_map[i][j] * TypeCostMap[citys[i].type - 1][citys[j].type - 1];
+      cost_map[i][j] = VisitCostBetweenCity(i, j);
     }
   }
 }
+
+// 以概率p命中 [0,r) 范围的数
+// bool Hit(double p, int r) { return (RandInt(r) < r * p); }
 
 //判定一个序列是否符合规则 每个点都只访问一次
 bool Validate(int *arr, int num) {
@@ -205,9 +165,10 @@ void PrintData() {
 // }
 
 //初始化种群 对每个个体（序列）随机一个不同的城市序列
-void InitPop(int ***CrntPop, int ***NextPop, int **Fitness, int **BestMember) {
+void InitPop(int ***CrntPop, int ***NextPop, int **BestMember,
+             double **Fitness) {
   int i, j, k;
-  srand(Seed);
+  srand((unsigned)time(NULL));
   //分配空间
   *CrntPop = new int *[cPopSize]; //当前种群
   *NextPop = new int *[cPopSize]; //下一个种群
@@ -215,7 +176,7 @@ void InitPop(int ***CrntPop, int ***NextPop, int **Fitness, int **BestMember) {
     (*CrntPop)[i] = new int[cIndividualLength];
     (*NextPop)[i] = new int[cIndividualLength];
   }
-  *Fitness = new int[cPopSize]; //每个种群的个体都有适应度
+  *Fitness = new double[cPopSize]; //每个种群的个体都有适应度
   *BestMember = new int[cIndividualLength]; //最佳个体（走法）
   if (Fitness == NULL || BestMember == NULL)
     exit(1);
@@ -236,12 +197,12 @@ void InitPop(int ***CrntPop, int ***NextPop, int **Fitness, int **BestMember) {
 }
 
 //释放堆内存
-void FreeMem(int **CrntPop, int **NextPop, int *Fitness, int *BestMenber) {
+void FreeMem(int **CrntPop, int **NextPop, int *BestMenber, double *Fitness) {
   for (int i = 0; i < cPopSize; i++) {
     delete[] CrntPop[i];
     delete[] NextPop[i];
   }
-  for (int i = 0; i < NCity; i++) {
+  for (int i = 0; i < cIndividualLength; i++) {
     delete[] dist_map[i];
     delete[] cost_map[i];
   }
@@ -254,30 +215,20 @@ void FreeMem(int **CrntPop, int **NextPop, int *Fitness, int *BestMenber) {
 }
 //===========================================================
 
-//评估Fitness 取路径长度T的倒数
-int EvaluateFitness(int *Member) {
+// 计算适应度 为路径长度的倒数 越大越好
+double EvaluateFitness(int *visit_order, int len) {
   // Evaluates fitness based on bit pattern
   int i;
-  int TheFitness = 0;
-  for (i = 0; i < cIndividualLength / 6; i++)
-    TheFitness += Member[i] == 0;
-  for (; i < cIndividualLength * 2 / 6; i++)
-    TheFitness += Member[i] == 1;
-  for (; i < cIndividualLength * 3 / 6; i++)
-    TheFitness += Member[i] == 0;
-  for (; i < cIndividualLength * 4 / 6; i++)
-    TheFitness += Member[i] == 1;
-  for (; i < cIndividualLength * 5 / 6; i++)
-    TheFitness += Member[i] == 0;
-  for (; i < cIndividualLength; i++)
-    TheFitness += Member[i] == 1;
-  return (TheFitness);
+  double TheFitness = 1 / CalTotalDistance(visit_order, len);
+  return TheFitness;
 }
+
 //================================================================
 
 //旅行
-int Tournament(int *Fitness, int TournamentSize) {
-  int WinFit = -99999, Winner;
+int Tournament(double *Fitness, int TournamentSize) {
+  double WinFit = -99999;
+  int Winner;
   for (int i = 0; i < TournamentSize; i++) {
     int j = RandInt(cPopSize);
     if (Fitness[j] > WinFit) {
@@ -290,78 +241,138 @@ int Tournament(int *Fitness, int TournamentSize) {
 
 //交叉
 void Crossover(int *P1, int *P2, int *C1, int *C2) {
+  return Crossover(P1, P2, C1, C2, cIndividualLength);
+  // 去重
+}
+
+void Crossover(int *P1, int *P2, int *C1, int *C2, int len) {
   int i, Left, Right;
+  int change[len];
+  int bitmap[len]; //记录第i个城市所在位置
+  for (int i = 0; i < len; i++) {
+    change[i] = bitmap[i] = 0;
+  }
   switch (CrossoverType) {
-  case eRandom: // swap random genes
-    srand(Seed);
-    for (i = 0; i < cIndividualLength; i++) {
+  case eRandom: // swap random genes 随机交叉
+    srand((unsigned)time(NULL));
+    for (i = 0; i < len; i++) {
       // 模拟杂交率命中
-      if (RandInt(100) + 1 > 100 * cCrossoverRate) {
+      if (!Hit(cCrossoverRate, 10000) || i == 0) { //未命中
         C1[i] = P1[i];
         C2[i] = P2[i];
+        change[i] = 0;
       } else {
         C1[i] = P2[i];
         C2[i] = P1[i];
+        change[i] = 1;
+        bitmap[C1[i]] = i; // 把P2[i] 这个城市放在C1的i的位置
       }
     }
     break;
-  case eUniform: // swap odd/even genes
-    for (i = 0; i < cIndividualLength; i++) {
+  case eUniform: // swap odd/even genes 奇偶交叉
+    for (i = 0; i < len; i++) {
       if (i % 2) {
         C1[i] = P1[i];
         C2[i] = P2[i];
+        change[i] = 0;
+
       } else {
         C1[i] = P2[i];
         C2[i] = P1[i];
+        change[i] = 1;
+        bitmap[C1[i]] = i;
       }
     }
     break;
-  case eOnePoint: // perform 1 point x-over
-    Left = RandInt(cIndividualLength);
+  case eOnePoint:                // 右端交叉
+    Left = RandInt(len - 2) + 1; //[1..n - 1]
     if (cDebug) {
-      printf("Cut points: 0 <= %d <= %d\n", Left, cIndividualLength - 1);
+      printf("Cut points: 0 <= %d <= %d\n", Left, len - 1);
     }
-    for (i = 0; i <= Left; i++) {
+    for (i = 1; i <= Left; i++) {
       C1[i] = P1[i];
       C2[i] = P2[i];
+      change[i] = 0;
     }
-    for (i = Left + 1; i < cIndividualLength; i++) {
+    for (i = Left + 1; i < len; i++) {
       C1[i] = P2[i];
       C2[i] = P1[i];
+      change[i] = 1;
+      bitmap[C1[i]] = i;
     }
     break;
-  case eTwoPoint: // perform 2 point x-over
-    Left = RandInt(cIndividualLength - 1);
-    Right = Left + 1 + RandInt(cIndividualLength - Left - 1);
+  case eTwoPoint: // perform 2 point x-over 中间段交叉
+    Left = 0;
+    Right = len - 2;
+    RandInt(len - 1);
+    Right = Left + 1 + RandInt(len - Left - 1);
     if (cDebug) {
-      printf("Cut points: 0 <= %d < %d <= %d\n", Left, Right,
-             cIndividualLength - 1);
+      printf("Cut points: 0 <= %d < %d <= %d\n", Left, Right, len - 1);
     }
     for (i = 0; i <= Left; i++) {
       C1[i] = P1[i];
       C2[i] = P2[i];
+      change[i] = 0;
     }
     for (i = Left + 1; i <= Right; i++) {
       C1[i] = P2[i];
       C2[i] = P1[i];
+      change[i] = 1;
+      bitmap[C1[i]] = i;
     }
-    for (i = Right + 1; i < cIndividualLength; i++) {
+    for (i = Right + 1; i < len; i++) {
       C1[i] = P1[i];
       C2[i] = P2[i];
+      change[i] = 0;
     }
     break;
   default:
     printf("Invalid crossover?\n");
     exit(1);
   }
+  // 去重
+  int sidx;
+  for (int i = 1; i < len; i++)
+    if (change[i] == 0) { //只考虑未被置换的段
+      sidx = C1[i];
+      //目标: 从C2置换段换出一个不冲突的位点
+      while (bitmap[sidx] != 0) { //该城市已在队列中
+        sidx = C2[bitmap[sidx]];
+      }
+      bitmap[sidx] = i;
+      change[i] = 1;
+      C2[i] = C1[i];
+      C1[i] = sidx;
+    }
 }
+
+// 轮盘赌 按概率选取适应度强的个体
+void Select(int **curPop) {}
 
 //变异
-void Mutate(int *Member) {
-  int Pick = RandInt(cIndividualLength); //取基因的某一个位置
-  Member[Pick] = !Member[Pick];
+void Mutate(int *visit_order, int len) {
+  double fit = EvaluateFitness(visit_order, len);
+  double fitMutate = 0;
+  int cp_visit_order[len];
+  for (int i = 0; i < len; i++) {
+    cp_visit_order[i] = visit_order[i];
+  }
+  while (fitMutate <= fit) {
+    int a = RandInt(len), b, tmp;
+    while (a == b)
+      b = RandInt(len);
+
+    tmp = cp_visit_order[a];
+    cp_visit_order[a] = cp_visit_order[b];
+    cp_visit_order[b] = tmp;
+    fitMutate = EvaluateFitness(cp_visit_order, len);
+  }
+  for (int i = 0; i < len; i++) {
+    visit_order[i] = cp_visit_order[i];
+  }
 }
 
+// 由父母代直接拷贝到子女代
 void Copy(int *P1, int *P2, int *C1, int *C2) {
   for (int i = 0; i < cIndividualLength; i++) {
     C1[i] = P1[i];
@@ -370,71 +381,136 @@ void Copy(int *P1, int *P2, int *C1, int *C2) {
 }
 //=================================================================
 // return random between [0,1]
-double Rand01() { // 0..1
-  return (rand() / (double)(RAND_MAX));
-}
+// double Rand01() { // 0..1
+//   return (rand() / (double)(RAND_MAX));
+// }
 
 // return random between [0, n-1]
-int RandInt(int n) { return int(rand() / (double(RAND_MAX) + 1) * n); }
+// int RandInt(int n) { return int(rand() / (double(RAND_MAX) + 1) * n); }
 
 int main(int argc, char *argv[]) {
+  // int len = 7, i;
+  // int sidx;
+  // int P1[7] = {0, 1, 2, 3, 4, 5, 6};
+  // int P2[7] = {0, 3, 2, 5, 4, 6, 1};
+  // int C1[7] = {0}, C2[7] = {0};
+  // int change[7] = {0};
+  // int bitmap[7] = {0};
+  // int Left = 1, Right = len - 2;
+  // if (cDebug) {
+  //   printf("Cut points: 0 < %d <= %d < %d\n", Left, Right, len);
+  // }
+  // for (i = 0; i < Left; i++) {
+  //   C1[i] = P1[i];
+  //   C2[i] = P2[i];
+  //   change[i] = 0;
+  // }
+  // for (i = Left; i < Right; i++) {
+  //   C1[i] = P2[i];
+  //   C2[i] = P1[i];
+  //   change[i] = 1;
+  //   bitmap[C1[i]] = i;
+  // }
+  // for (i = Right; i < len; i++) {
+  //   C1[i] = P1[i];
+  //   C2[i] = P2[i];
+  //   change[i] = 0;
+  // }
+  // for (int i = 0; i < len; i++) {
+  //   cout << C1[i] << " ";
+  // }
+  // cout << endl;
+  // for (int i = 0; i < len; i++) {
+  //   cout << C2[i] << " ";
+  // }
+  // cout << endl;
+  // for (int i = 0; i < len; i++) {
+  //   cout << bitmap[i] << " ";
+  // }
+  // cout << endl;
+  // for (int i = 0; i < len; i++) {
+  //   cout << change[i] << " ";
+  // }
+  // cout << endl;
+  // for (int i = 1; i < len; i++)
+  //   if (change[i] == 0) { //只考虑未被置换的段
+  //     sidx = C1[i];
+  //     //目标: 从C2置换段换出一个不冲突的位点
+  //     while (bitmap[sidx] != 0) { //该城市已在队列中
+  //       sidx = C2[bitmap[sidx]];
+  //     }
+  //     bitmap[sidx] = i;
+  //     change[i] = 1;
+  //     C2[i] = C1[i];
+  //     C1[i] = sidx;
+  //   }
+  // for (int i = 0; i < len; i++) {
+  //   cout << C1[i] << " ";
+  // }
+  // cout << endl;
+  // for (int i = 0; i < len; i++) {
+  //   cout << C2[i] << " ";
+  // }
+  // cout << endl;
 
-  int **CrntPop, **NextPop; // the crnt & next population lives here
-  int *Fitness, BestFitness = 0, *BestMember; // fitness vars
-  int i, TargetReached = false;
-  string fname;
-  cout << "Enter data filename:" << endl;
-  cin >> fname;
-  LoadData(fname);
-  InitPop(&CrntPop, &NextPop, &Fitness, &BestMember);
-  for (int Gen = 0; Gen < cNumGens; Gen++) {
-    for (i = 0; i < cPopSize; i++) {
+  // int **CrntPop, **NextPop; // the crnt & next population lives here
+  // double *Fitness;          //越大越好
+  // int BestFitness = 0;      //越大越好
+  // int *BestMember;          // fitness individual
+  // int i, TargetReached = false;
+  // string fname;
+  // cout << "Enter data filename:" << endl;
+  // cin >> fname;
+  // LoadData(fname);
+  // InitPop(&CrntPop, &NextPop, &BestMember, &Fitness);
+  // for (int Gen = 0; Gen < cNumGens; Gen++) {
+  //   for (i = 0; i < cPopSize; i++) {
 
-      // Evaluate the fitness of pop members
-      Fitness[i] = EvaluateFitness(CrntPop[i]);
-      if (BestFitness < Fitness[i]) { // save best member
-        BestFitness = Fitness[i];
-        for (int j = 0; j < cIndividualLength; j++)
-          BestMember[j] = CrntPop[i][j];
-        if (Fitness[i] >= cTargetFitness) {
-          TargetReached = true;
-          break;
-        }
-      }
-    }
-    if (TargetReached)
-      break;
+  //     // Evaluate the fitness of pop members
+  //     Fitness[i] = EvaluateFitness(CrntPop[i], cIndividualLength);
+  //     if (BestFitness < Fitness[i]) { // save best member
+  //       BestFitness = Fitness[i];
+  //       for (int j = 0; j < cIndividualLength; j++)
+  //         BestMember[j] = CrntPop[i][j];
+  //       if (Fitness[i] >= cTargetFitness) {
+  //         TargetReached = true;
+  //         break;
+  //       }
+  //     }
+  //   }
+  //   if (TargetReached)
+  //     break;
 
-    // Produce the next population
-    for (i = 0; i < cPopSize; i += 2) {
-      int Parent1 = Tournament(Fitness, cTournamentSize);
-      int Parent2 = Tournament(Fitness, cTournamentSize);
-      if (cCrossoverRate > Rand01())
-        Crossover(CrntPop[Parent1], CrntPop[Parent2], NextPop[i],
-                  NextPop[i + 1]);
-      else
-        Copy(CrntPop[Parent1], CrntPop[Parent2], NextPop[i], NextPop[i + 1]);
-      if (cMutationRate < Rand01())
-        Mutate(NextPop[i]);
-      if (cMutationRate < Rand01())
-        Mutate(NextPop[i + 1]);
-    }
-    int **Tmp = CrntPop;
-    CrntPop = NextPop;
-    NextPop = Tmp;
+  //   // Produce the next population
+  //   for (i = 0; i < cPopSize; i += 2) {
+  //     int Parent1 = Tournament(Fitness, cTournamentSize);
+  //     int Parent2 = Tournament(Fitness, cTournamentSize);
+  //     if (cCrossoverRate > Rand01())
+  //       Crossover(CrntPop[Parent1], CrntPop[Parent2], NextPop[i],
+  //                 NextPop[i + 1]);
+  //     else
+  //       Copy(CrntPop[Parent1], CrntPop[Parent2], NextPop[i], NextPop[i + 1]);
+  //     if (cMutationRate < Rand01())
+  //       Mutate(NextPop[i]);
+  //     if (cMutationRate < Rand01())
+  //       Mutate(NextPop[i + 1]);
+  //   }
+  //   int **Tmp = CrntPop;
+  //   CrntPop = NextPop;
+  //   NextPop = Tmp;
 
-    cout << setw(3) << Gen << ':' << setw(5) << BestFitness << endl;
-  }
-  if (TargetReached)
-    cout << "Target fitness reached: " << BestFitness << "!\n";
-  else
-    cout << "Target fitness not reached: " << BestFitness << "!\n";
-  cout << "Best Individual: ";
-  for (i = 0; i < cIndividualLength; i++)
-    cout << BestMember[i];
-  cout << endl;
-  FreeMem(CrntPop, NextPop, Fitness, BestMember);
-  char s[20];
-  cin.getline(s, 20);
-  return 0;
+  //   cout << setw(3) << Gen << ':' << setw(5) << BestFitness << endl;
+  // }
+  // if (TargetReached)
+  //   cout << "Target fitness reached: " << BestFitness << "!\n";
+  // else
+  //   cout << "Target fitness not reached: " << BestFitness << "!\n";
+  // cout << "Best Individual: ";
+  // for (i = 0; i < cIndividualLength; i++)
+  //   cout << BestMember[i];
+  // cout << endl;
+  // FreeMem(CrntPop, NextPop, BestMember, Fitness);
+  // char s[20];
+  // cin.getline(s, 20);
+  // return 0;
 }

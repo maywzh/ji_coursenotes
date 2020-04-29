@@ -279,6 +279,7 @@ double GetFittness(vector<int> a) {
   return N / Distance;
 }
 
+
 //变异
 void Mutation(TSP &city, double pm) {
   int i, k, m;
