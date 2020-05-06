@@ -1,0 +1,7 @@
+/* pages/room/detail.wxss */
+.meeting-item{
+  margin-top: 20rpx
+}
+.qr_code{
+  width: 100%
+}

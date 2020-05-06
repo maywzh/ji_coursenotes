@@ -1,0 +1,18 @@
+{
+  "pages": [
+    "pages/room/list",
+    "pages/room/detail",
+    "pages/room/edit",
+    "pages/meeting/reserve",
+    "pages/meeting/detail",
+    "pages/meeting/edit",
+    "pages/meeting/my"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "会议室",
+    "navigationBarTextStyle": "black"
+  },
+  "sitemapLocation": "sitemap.json"
+}
