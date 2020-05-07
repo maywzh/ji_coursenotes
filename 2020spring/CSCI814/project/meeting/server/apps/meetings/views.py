@@ -22,12 +22,10 @@ site = ViewSite(name='meetings', app_name='meetings')
 
 
 class BaseView(UserBaseView):
-
     @staticmethod
     def get_room_follow(room_id, user_id):
         follow, _ = models.UserFollowRoom.default_manager.get_or_create(
-            room_id=room_id, user_id=user_id
-        )
+            room_id=room_id, user_id=user_id)
         return follow
 
     @staticmethod
@@ -37,7 +35,8 @@ class BaseView(UserBaseView):
             'start_time': config.RESERVE_START_TIME,
             'end_time': config.RESERVE_END_TIME,
             'start_date': today,
-            'end_date': today + datetime.timedelta(days=config.SELECT_DATE_DAYS)
+            'end_date':
+            today + datetime.timedelta(days=config.SELECT_DATE_DAYS)
         }
 
     def get_context(self, request, *args, **kwargs):
@@ -68,13 +67,15 @@ class RoomCreate(BaseView):
             name=request.params.name,
             description=request.params.description,
             create_user_id=request.user.pk,
-            create_user_manager=request.params.create_user_manager
-        )
+            create_user_manager=request.params.create_user_manager)
         try:
             room.qr_code = biz.get_wxa_code_unlimited_file(
-                "room_%d.jpg" % room.pk, scene="room_id=%d" % room.pk, page="pages/room/detail"
-            )
-            room.save(update_fields=['qr_code', ], force_update=True)
+                "room_%d.jpg" % room.pk,
+                scene="room_id=%d" % room.pk,
+                page="pages/room/detail")
+            room.save(update_fields=[
+                'qr_code',
+            ], force_update=True)
         except Exception:
             utility.reportExceptionByMail("get_wxa_code_unlimited_file")
         self.get_room_follow(room.pk, request.user.pk)
@@ -84,9 +85,11 @@ class RoomCreate(BaseView):
         param_fields = (
             ('name', fields.CharField(help_text='名称', max_length=64)),
             ('description', fields.CharField(help_text='描述', max_length=255)),
-            ('create_user_manager', fields.BooleanField(
-                help_text='创建人管理权限', required=False, default=False, omit=False
-            )),
+            ('create_user_manager',
+             fields.BooleanField(help_text='创建人管理权限',
+                                 required=False,
+                                 default=False,
+                                 omit=False)),
         )
 
 
@@ -108,9 +111,8 @@ class RoomBase(BaseView):
 
     class Meta:
         path = '/'
-        param_fields = (
-            ('meeting_id', fields.IntegerField(help_text='会议ID')),
-        )
+        param_fields = (('meeting_id',
+                         fields.IntegerField(help_text='会议ID')), )
 
 
 @site
@@ -131,10 +133,17 @@ class RoomEdit(RoomBase):
     class Meta:
         param_fields = (
             ('name', fields.CharField(help_text='名称', max_length=64)),
-            ('description', fields.CharField(help_text='描述', max_length=255, required=False, default="", omit="")),
-            ('create_user_manager', fields.NullBooleanField(
-                help_text='创建人管理权限', required=False, default=None, omit=None
-            )),
+            ('description',
+             fields.CharField(help_text='描述',
+                              max_length=255,
+                              required=False,
+                              default="",
+                              omit="")),
+            ('create_user_manager',
+             fields.NullBooleanField(help_text='创建人管理权限',
+                                     required=False,
+                                     default=None,
+                                     omit=None)),
         )
 
 
@@ -168,9 +177,10 @@ class RoomFollow(BaseView):
         return {}
 
     class Meta:
-        param_fields = (
-            ('room_id', fields.SplitCharField(help_text='会议室ID列表', sep=',', field=fields.IntegerField())),
-        )
+        param_fields = (('room_id',
+                         fields.SplitCharField(help_text='会议室ID列表',
+                                               sep=',',
+                                               field=fields.IntegerField())), )
 
 
 @site
@@ -178,16 +188,15 @@ class RoomUnFollow(BaseView):
     name = "取消关注会议室"
 
     def get_context(self, request, *args, **kwargs):
-        follow = models.UserFollowRoom.objects.filter(room_id=request.params.room_id, user_id=request.user.pk).first()
+        follow = models.UserFollowRoom.objects.filter(
+            room_id=request.params.room_id, user_id=request.user.pk).first()
         if follow is None:
             raise CustomError(ErrCode.ERR_COMMON_BAD_PARAM)
         follow.delete()
         return {}
 
     class Meta:
-        param_fields = (
-            ('room_id', fields.IntegerField(help_text='会议室ID')),
-        )
+        param_fields = (('room_id', fields.IntegerField(help_text='会议室ID')), )
 
 
 @site
@@ -196,9 +205,10 @@ class FollowRooms(BaseView):
 
     def get_context(self, request, *args, **kwargs):
         rooms = models.Room.objects.filter(
-            follows__user_id=request.user.pk, follows__delete_status=DELETE_CODE.NORMAL.code
-        )
-        return serializer.RoomSerializer(rooms, request=request, many=True).data
+            follows__user_id=request.user.pk,
+            follows__delete_status=DELETE_CODE.NORMAL.code)
+        return serializer.RoomSerializer(rooms, request=request,
+                                         many=True).data
 
 
 @site
@@ -207,7 +217,8 @@ class CreateRooms(BaseView):
 
     def get_context(self, request, *args, **kwargs):
         rooms = models.Room.objects.filter(create_user_id=request.user.pk)
-        return serializer.RoomSerializer(rooms, request=request, many=True).data
+        return serializer.RoomSerializer(rooms, request=request,
+                                         many=True).data
 
 
 @site
@@ -220,21 +231,32 @@ class RoomMeetings(BaseView):
         d = datetime.date.today()
         if request.params.date is not None:
             d = request.params.date
-        rooms = list(sorted(models.Room.objects.filter(
-            id__in=request.params.room_ids), key=lambda x: request.params.room_ids.index(x.id)
-        ))
-        meetings = models.Meeting.objects.filter(room_id__in=request.params.room_ids, date=d).order_by('start_time')
+        rooms = list(
+            sorted(models.Room.objects.filter(id__in=request.params.room_ids),
+                   key=lambda x: request.params.room_ids.index(x.id)))
+        meetings = models.Meeting.objects.filter(
+            room_id__in=request.params.room_ids, date=d).order_by('start_time')
         ret = self.get_date_time_settings()
         ret.update({
-            'rooms': serializer.RoomSerializer(rooms, request=request, many=True).data,
-            'meetings': serializer.MeetingSerializer(meetings, request=request, many=True).data
+            'rooms':
+            serializer.RoomSerializer(rooms, request=request, many=True).data,
+            'meetings':
+            serializer.MeetingSerializer(meetings, request=request,
+                                         many=True).data
         })
         return ret
 
     class Meta:
         param_fields = (
-            ('room_ids', fields.SplitCharField(help_text='会议室ID列表', sep=',', field=fields.IntegerField())),
-            ('date', fields.DateField(help_text='日期', required=False, default=None, omit=None)),
+            ('room_ids',
+             fields.SplitCharField(help_text='会议室ID列表',
+                                   sep=',',
+                                   field=fields.IntegerField())),
+            ('date',
+             fields.DateField(help_text='日期',
+                              required=False,
+                              default=None,
+                              omit=None)),
         )
 
 
@@ -246,23 +268,30 @@ class MyMeetings(BaseView):
         d = datetime.date.today()
         if request.params.date is not None:
             d = request.params.date
-        meetings = list(models.Meeting.objects.filter(
-            id__in=models.MeetingAttendee.objects.filter(
-                user_id=request.user.pk, meeting__date=d
-            ).values_list('meeting', flat=True)
-        ))
-        rooms = list(models.Room.objects.filter(id__in=set(map(lambda x: x.room_id, meetings))))
+        meetings = list(
+            models.Meeting.objects.filter(
+                id__in=models.MeetingAttendee.objects.filter(
+                    user_id=request.user.pk, meeting__date=d).values_list(
+                        'meeting', flat=True)))
+        rooms = list(
+            models.Room.objects.filter(
+                id__in=set(map(lambda x: x.room_id, meetings))))
         ret = self.get_date_time_settings()
         ret.update({
-            'rooms': serializer.RoomSerializer(rooms, request=request, many=True).data,
-            'meetings': serializer.MeetingSerializer(meetings, request=request, many=True).data
+            'rooms':
+            serializer.RoomSerializer(rooms, request=request, many=True).data,
+            'meetings':
+            serializer.MeetingSerializer(meetings, request=request,
+                                         many=True).data
         })
         return ret
 
     class Meta:
-        param_fields = (
-            ('date', fields.DateField(help_text='日期', required=False, default=None, omit=None)),
-        )
+        param_fields = (('date',
+                         fields.DateField(help_text='日期',
+                                          required=False,
+                                          default=None,
+                                          omit=None)), )
 
 
 @site
@@ -276,19 +305,27 @@ class Reserve(BaseView):
     def get_context(self, request, *args, **kwargs):
         if request.params.start_time >= request.params.end_time:
             raise CustomError(ErrCode.ERR_COMMON_BAD_PARAM)
-        if not self.time_ok(request.params.start_time) or not self.time_ok(request.params.end_time):
+        if not self.time_ok(request.params.start_time) or not self.time_ok(
+                request.params.end_time):
             raise CustomError(ErrCode.ERR_COMMON_BAD_PARAM)
         now = datetime.datetime.now()
-        if request.params.date == now.date() and request.params.start_time < now.time():
+        if request.params.date == now.date(
+        ) and request.params.start_time < now.time():
             raise CustomError(ErrCode.ERR_MEETING_ROOM_TIMEOVER)
 
         with transaction.atomic():
-            if models.Meeting.objects.filter(room_id=request.params.room_id, date=request.params.date).filter(
-                    (Q(start_time__lte=request.params.start_time) & Q(end_time__gt=request.params.start_time))
-                    | (Q(start_time__lt=request.params.end_time) & Q(end_time__gte=request.params.end_time))
-                    | (Q(start_time__lte=request.params.start_time) & Q(start_time__gt=request.params.end_time))
-                    | (Q(end_time__lt=request.params.start_time) & Q(end_time__gte=request.params.end_time))
-            ).select_for_update().exists():
+            if models.Meeting.objects.filter(
+                    room_id=request.params.room_id,
+                    date=request.params.date).filter(
+                        (Q(start_time__lte=request.params.start_time)
+                         & Q(end_time__gt=request.params.start_time))
+                        | (Q(start_time__lt=request.params.end_time)
+                           & Q(end_time__gte=request.params.end_time))
+                        | (Q(start_time__lte=request.params.start_time)
+                           & Q(start_time__gt=request.params.end_time))
+                        | (Q(end_time__lt=request.params.start_time)
+                           & Q(end_time__gte=request.params.end_time))
+                    ).select_for_update().exists():
                 raise CustomError(ErrCode.ERR_MEETING_ROOM_INUSE)
             meeting = models.Meeting.objects.create(
                 user_id=request.user.pk,
@@ -299,18 +336,22 @@ class Reserve(BaseView):
                 start_time=request.params.start_time,
                 end_time=request.params.end_time,
             )
-            models.MeetingAttendee.objects.create(
-                user_id=request.user.pk,
-                meeting_id=meeting.pk
-            )
+            models.MeetingAttendee.objects.create(user_id=request.user.pk,
+                                                  meeting_id=meeting.pk)
         self.get_room_follow(request.params.room_id, request.user.pk)
-        return serializer.MeetingDetailSerializer(meeting, request=request).data
+        return serializer.MeetingDetailSerializer(meeting,
+                                                  request=request).data
 
     class Meta:
         param_fields = (
             ('room_id', fields.IntegerField(help_text='会议室ID')),
             ('name', fields.CharField(help_text='名称', max_length=64)),
-            ('description', fields.CharField(help_text='描述', max_length=255, required=False, default="", omit="")),
+            ('description',
+             fields.CharField(help_text='描述',
+                              max_length=255,
+                              required=False,
+                              default="",
+                              omit="")),
             ('date', fields.DateField(help_text='预定日期')),
             ('start_time', fields.TimeField(help_text='开始时间')),
             ('end_time', fields.TimeField(help_text='结束时间')),
@@ -321,15 +362,17 @@ class MeetingBase(BaseView):
     check_manager = False
 
     def check_api_permissions(self, request, *args, **kwargs):
-        super(MeetingBase, self).check_api_permissions(request, *args, **kwargs)
-        meeting = models.Meeting.objects.filter(pk=request.params.meeting_id).first()
+        super(MeetingBase, self).check_api_permissions(request, *args,
+                                                       **kwargs)
+        meeting = models.Meeting.objects.filter(
+            pk=request.params.meeting_id).first()
         if meeting is None:
             raise CustomError(ErrCode.ERR_COMMON_BAD_PARAM)
         setattr(self, 'meeting', meeting)
         if self.check_manager:
             if meeting.user_id != request.user.pk and (
-                    not meeting.room.create_user_manager or request.user.pk != meeting.room.create_user_id
-            ):
+                    not meeting.room.create_user_manager
+                    or request.user.pk != meeting.room.create_user_id):
                 raise CustomError(ErrCode.ERR_COMMON_PERMISSION)
 
     def get_context(self, request, *args, **kwargs):
@@ -337,9 +380,8 @@ class MeetingBase(BaseView):
 
     class Meta:
         path = '/'
-        param_fields = (
-            ('meeting_id', fields.IntegerField(help_text='会议ID')),
-        )
+        param_fields = (('meeting_id',
+                         fields.IntegerField(help_text='会议ID')), )
 
 
 @site
@@ -347,7 +389,8 @@ class Info(MeetingBase):
     name = "会议详情"
 
     def get_context(self, request, *args, **kwargs):
-        return serializer.MeetingDetailSerializer(self.meeting, request=request).data
+        return serializer.MeetingDetailSerializer(self.meeting,
+                                                  request=request).data
 
 
 @site
@@ -359,29 +402,41 @@ class Edit(MeetingBase):
         data = dict()
         update_fields = list()
         if self.meeting.name != request.params.name:
-            data['name'] = {'from': self.meeting.name, 'to': request.params.name}
+            data['name'] = {
+                'from': self.meeting.name,
+                'to': request.params.name
+            }
             update_fields.append('name')
             self.meeting.name = request.params.name
         if self.meeting.description != request.params.description:
-            data['description'] = {'from': self.meeting.description, 'to': request.params.description}
+            data['description'] = {
+                'from': self.meeting.description,
+                'to': request.params.description
+            }
             update_fields.append('description')
             self.meeting.name = request.params.name
         if update_fields:
             with transaction.atomic():
-                self.meeting.save(force_update=True, update_fields=update_fields)
+                self.meeting.save(force_update=True,
+                                  update_fields=update_fields)
                 models.MeetingTrace.objects.create(
                     meeting_id=self.meeting.pk,
                     user_id=request.user.pk,
                     owner=request.user.pk == self.meeting.user_id,
                     type=constants.MEETING_TRACE_TYPE_CODE.EDIT.code,
-                    data=json.dumps(data, ensure_ascii=False)
-                )
-        return serializer.MeetingDetailSerializer(self.meeting, request=request).data
+                    data=json.dumps(data, ensure_ascii=False))
+        return serializer.MeetingDetailSerializer(self.meeting,
+                                                  request=request).data
 
     class Meta:
         param_fields = (
             ('name', fields.CharField(help_text='名称', max_length=64)),
-            ('description', fields.CharField(help_text='描述', max_length=255, required=False, default="", omit="")),
+            ('description',
+             fields.CharField(help_text='描述',
+                              max_length=255,
+                              required=False,
+                              default="",
+                              omit="")),
         )
 
 
@@ -397,8 +452,7 @@ class Cancel(MeetingBase):
                 meeting_id=self.meeting.pk,
                 user_id=request.user.pk,
                 owner=request.user.pk == self.meeting.user_id,
-                type=constants.MEETING_TRACE_TYPE_CODE.DELETE.code
-            )
+                type=constants.MEETING_TRACE_TYPE_CODE.DELETE.code)
         return {}
 
 
@@ -408,12 +462,11 @@ class Join(MeetingBase):
 
     def get_context(self, request, *args, **kwargs):
         attendee, _ = models.MeetingAttendee.default_manager.get_or_create(
-            meeting_id=request.params.meeting_id,
-            user_id=request.user.pk
-        )
+            meeting_id=request.params.meeting_id, user_id=request.user.pk)
         attendee.un_delete()
         self.get_room_follow(self.meeting.room_id, request.user.pk)
-        return serializer.MeetingDetailSerializer(self.meeting, request=request).data
+        return serializer.MeetingDetailSerializer(self.meeting,
+                                                  request=request).data
 
 
 @site
@@ -422,13 +475,12 @@ class Leave(MeetingBase):
 
     def get_context(self, request, *args, **kwargs):
         attendee = models.MeetingAttendee.objects.filter(
-            meeting_id=request.params.meeting_id,
-            user_id=request.user.pk
-        )
+            meeting_id=request.params.meeting_id, user_id=request.user.pk)
         if attendee is None:
             raise CustomError(ErrCode.ERR_COMMON_BAD_PARAM)
         attendee.delete()
-        return serializer.MeetingDetailSerializer(self.meeting, request=request).data
+        return serializer.MeetingDetailSerializer(self.meeting,
+                                                  request=request).data
 
 
 urlpatterns = site.urlpatterns

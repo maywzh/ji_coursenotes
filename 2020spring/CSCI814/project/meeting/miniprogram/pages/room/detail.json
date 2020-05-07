@@ -2,5 +2,5 @@
   "usingComponents": {
     "date_select": "/components/date_select"
   },
-  "navigationBarTitleText": "会议室详情"
+  "navigationBarTitleText": "Meeting room detail"
 }

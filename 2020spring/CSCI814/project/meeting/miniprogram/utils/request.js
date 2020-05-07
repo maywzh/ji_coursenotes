@@ -51,8 +51,8 @@ const ws_request = function (server, path, data, method, header, resolve, reject
   getApiViewWS(server, true).then(conn => {
     conn.req(path, data, (succ, res) => {
       if (!succ) {
-        console.info(path, data)
-        reject("Network error")
+        console.info(path, data, res)
+        reject("")
       } else {
         check_res(res, server, path, data, method, header, resolve, reject, check_login)
       }

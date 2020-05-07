@@ -31,11 +31,11 @@ Page({
         no_icon_attendee_num: no_icon_attendee_num,
         owner: res.is_manager
       })
-      
+
       app.userInfo().then(res => {
         let joined = false
-        for(let i in this.data.info.attendees){
-          if (this.data.info.attendees[i].id == res.id){
+        for (let i in this.data.info.attendees) {
+          if (this.data.info.attendees[i].id == res.id) {
             joined = true
             break
           }
@@ -46,33 +46,33 @@ Page({
       })
     })
   },
-  attendees_show_change: function(){
-    this.setData({ attendees_show: !this.data.attendees_show})
+  attendees_show_change: function () {
+    this.setData({ attendees_show: !this.data.attendees_show })
   },
   home: function () {
     app.gotoHome()
   },
-  join: function(){
+  join: function () {
 
     app.api.api_meeting_join({ meeting_id: this.data.meeting_id }).then(res => {
       this.refresh()
     })
   },
-  leave: function(){
+  leave: function () {
 
     app.api.api_meeting_leave({ meeting_id: this.data.meeting_id }).then(res => {
       this.refresh()
     })
   },
-  edit: function(){
+  edit: function () {
     wx.navigateTo({
       url: 'edit?meeting_id=' + this.data.meeting_id,
     })
   },
-  del: function(){
+  del: function () {
     wx.showModal({
-      title: '提示',
-      content: '确定要删除吗？',
+      title: 'Confirmation',
+      content: 'Confirm removal？',
       success: sm => {
         if (sm.confirm) {
           app.api.api_meeting_cancel({ meeting_id: this.data.meeting_id }).then(res => {
@@ -86,11 +86,11 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.setData({ show_home: getCurrentPages().length == 1})
+    this.setData({ show_home: getCurrentPages().length == 1 })
     let meeting_id = options.meeting_id
-    if(meeting_id){
-      this.setData({ meeting_id: meeting_id})
-    }else{
+    if (meeting_id) {
+      this.setData({ meeting_id: meeting_id })
+    } else {
       wx.showToast({
         title: '参数错误',
         icon: 'none'
@@ -146,12 +146,12 @@ Page({
    */
   onShareAppMessage: function () {
     let title = '会议'
-    if (this.data.info.name){
+    if (this.data.info.name) {
       title += " - " + this.data.info.name
     }
     return {
       title: title,
-      path: '/pages/meeting/detail?meeting_id='+this.data.meeting_id
+      path: '/pages/meeting/detail?meeting_id=' + this.data.meeting_id
     }
   }
 })

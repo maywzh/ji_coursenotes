@@ -59,7 +59,7 @@ const ApiViewWS = function (ws_path, common_listener) {
   this._new_task = () => {
     this.showLoading = true
     wx.showLoading({
-      title: '加载中',
+      title: 'loading',
     })
     let header = {
       'Cookie': httpCookie.getCookieForReq()

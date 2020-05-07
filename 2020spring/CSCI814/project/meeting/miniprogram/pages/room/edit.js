@@ -13,9 +13,9 @@ Page({
     description: "",
     create_user_manager: false
   },
-  refreshInfo: function() {
-    if (this.data.room_id > 0){
-      app.api.api_meeting_room_info({ room_id: this.data.room_id}).then(res => {
+  refreshInfo: function () {
+    if (this.data.room_id > 0) {
+      app.api.api_meeting_room_info({ room_id: this.data.room_id }).then(res => {
         this.setData({
           name: res.name,
           description: res.description,
@@ -24,10 +24,10 @@ Page({
       })
     }
   },
-  create_user_manager_change: function(e){
+  create_user_manager_change: function (e) {
     this.setData({ create_user_manager: e.detail.value })
   },
-  bindKeyInput: function(e) {
+  bindKeyInput: function (e) {
     this.data[e.currentTarget.dataset.obj] = e.detail.value
   },
   onGetUserInfo: function (e) {
@@ -35,10 +35,10 @@ Page({
       this.setData({ user_info: res })
     })
   },
-  save: function() {
+  save: function () {
     wx.showLoading({
       mask: true,
-      title: '加载中...',
+      title: 'loading...',
     })
     if (this.data.room_id > 0) {
       app.api.api_meeting_room_edit({
@@ -60,7 +60,7 @@ Page({
       }).then(res => {
         wx.hideLoading()
         wx.redirectTo({
-          url: 'detail?room_id='+res.id,
+          url: 'detail?room_id=' + res.id,
         })
       }).catch(res => {
         wx.hideLoading()
@@ -75,8 +75,8 @@ Page({
       this.setData({ user_info: res })
     })
     let room_id = options.room_id
-    if(room_id){
-      this.setData({ room_id: parseInt(room_id)})
+    if (room_id) {
+      this.setData({ room_id: parseInt(room_id) })
       this.refreshInfo()
     }
   },

@@ -1,5 +1,5 @@
 // components/date_select.js
-const weekStr = ['周日', '周一', '周二', '周三', '周四', '周五', '周六']
+const weekStr = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
 const app = getApp()
 Component({
   /**
@@ -20,14 +20,14 @@ Component({
   lifetimes: {
     // 生命周期函数，可以为函数，或一个在methods段中定义的方法名
     attached: function () {
-      
+
     },
   },
   /**
    * 组件的方法列表
    */
   methods: {
-    setDateRange: function(start_date, end_date){
+    setDateRange: function (start_date, end_date) {
       let select_date_ok = false
       start_date = new Date(start_date)
       if (isNaN(start_date)) {
@@ -50,27 +50,27 @@ Component({
         })
         current_date = this.addDay(current_date, 1)
       }
-      let set_data = { date_range: date_range, start_date: this.dateId(start_date), end_date: this.dateId(end_date)}
+      let set_data = { date_range: date_range, start_date: this.dateId(start_date), end_date: this.dateId(end_date) }
       if (!select_date_ok) {
         set_data.select_date = this.dateId(start_date)
       }
       this.setData(set_data)
     },
-    change: function(){
-      this.triggerEvent('change', { select_date: this.data.select_date }, { })
+    change: function () {
+      this.triggerEvent('change', { select_date: this.data.select_date }, {})
     },
-    tap: function(e){
-      this.setData({select_date: e.currentTarget.id})
+    tap: function (e) {
+      this.setData({ select_date: e.currentTarget.id })
       this.change()
     },
-    addDay: function(date, day){
+    addDay: function (date, day) {
       return new Date(Date.parse(date) + 86400000 * day)
     },
-    formatNumber: function(n) {
+    formatNumber: function (n) {
       n = n.toString()
       return n[1] ? n : '0' + n
     },
-    dateId: function(date){
+    dateId: function (date) {
       const year = date.getFullYear()
       const month = date.getMonth() + 1
       const day = date.getDate()
@@ -83,8 +83,8 @@ Component({
     },
     dateDesc: function (date) {
       const now = app.nowDate()
-      if(this.dateId(now) == this.dateId(date)){
-        return "今天"
+      if (this.dateId(now) == this.dateId(date)) {
+        return "Today"
       }
       return weekStr[date.getDay()]
     }

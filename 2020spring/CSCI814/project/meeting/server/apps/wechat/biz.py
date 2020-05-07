@@ -10,9 +10,11 @@ from wechatpy.crypto import WeChatWxaCrypto
 from wechatpy.session.redisstorage import RedisStorage
 
 redis_client = Redis.from_url(settings.REDIS_CACHE_URL)
-wechat = WeChatClient(settings.WECHAT_APPID, settings.WECHAT_APPSECRET, session=RedisStorage(
-    redis_client, prefix="wechat_session::%s" % settings.WECHAT_APPID
-))
+wechat = WeChatClient(settings.WECHAT_APPID,
+                      settings.WECHAT_APPSECRET,
+                      session=RedisStorage(redis_client,
+                                           prefix="wechat_session::%s" %
+                                           settings.WECHAT_APPID))
 
 
 def decrypt_message(session_key, iv, encrypted_data):
@@ -29,12 +31,10 @@ def get_wxa_code_unlimited_file(file_name, scene, **kwargs):
     content = wechat.wxa.get_wxa_code_unlimited(scene, **kw)
     file.write(content.content)
     file.seek(0)
-    return InMemoryUploadedFile(
-        file=file,
-        field_name="",
-        name=file_name,
-        content_type="image/jpeg",
-        size=0,
-        charset="",
-        content_type_extra=""
-    )
+    return InMemoryUploadedFile(file=file,
+                                field_name="",
+                                name=file_name,
+                                content_type="image/jpeg",
+                                size=0,
+                                charset="",
+                                content_type_extra="")
