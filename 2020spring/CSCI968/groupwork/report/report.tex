@@ -142,7 +142,7 @@ PREKRollingPeriod(PREKP) is the duration determining the duration a Periodic Rol
 When setting up the device for exposure detection, the first Periodic Rolling Exposure Key(PREK) is generated on the device and associated with an TIN , corresponding to the time from which the
 key is valid. That value is aligned with the PREKP and is derived as follows: 
 
-$$i\leftarrow \lfloor TIN(time_{keygen})/PREKP\rfloor \times PREKP$$
+$$i\leftarrow \lfloor TIN(timestamp)/PREKP\rfloor \times PREKP$$
 
 The devices generate the 16-byte Temporary Exposure Key as follows: 
 $$PREK_i\leftarrow CRNG(16)$$
@@ -174,12 +174,41 @@ The Encrypted User Metadata(EUM) is data encrypted along with the Interval Proxi
 $$EUM_{i,j}\leftarrow AES_{128}-CTR(EUMK_i,IPI_{i,j},BLEMetadata)$$
 
 
-\subsubsection{Inter-Device Communication}
+\subsubsection{Inter-Device Data Transmittion}
 In our protocol, the client uses Bluetooth low energy beacon to transmit Bluetooth payload containing Encrypted User Metadata and Interval Proximity Identifier to other proximate receivers. Mobile phone offers API for WeChat to use Bluetooth Data transmission.
 
 Similar to WiFi device discovery, the protocol is based on advertising\cite{tang2020privacy}, a.k.a. Bluetooth payloads that our device sends out to anyone within reach, and scanning, which is receiving and reading other devices advertisements.
 
-No connection between devices is ever made: all devices will throw messages out in the air and read whatever comes in.
+In Bluetooth communication, two devices use an association model to authenticate each other, and then exchange data securely. Bluetooth pairing is a key exchange process; however, before exchanging keys, the two devices must share internal pairing parameters including authentication requirements\cite{scarfone2008guide}.
+
+In order to achieve authentication, the two devices must use a certain correlation model for mutual authentication. Before Bluetooth 4.2, several authentication algorithms have fatal flaws. Hackers can use the vulnerability of MITM to pretend to establish a connection between the slave device and the master and obtain Transmit data and easily control your device by brute-forcing application layer transfer protocols.
+
+Pairing refers to the process of authentication and key exchange between two BLE devices. The pairing process includes three stages, and LE secure connection refers to an enhanced security function introduced in the Bluetooth 4.2 specification. It uses a Federal Information Processing Standard (FIPS) algorithm (also called Elliptic Curve Diffie-Hellman (ECDH)) for generating keys and a new program for key exchange. The associated model in the BLE application refers to the model that determines the pairing method based on the input and output functions of the two BLE devices. And the Bluetooth 4.2 specification introduces a new correlation model, the digital comparison (NC).
+
+Bluetooth pairing is divided into three stages: parameter setting, authorization and key generation, and key interaction.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.7\linewidth]{figure/auble}
+	\caption{Bluetooth pairing}
+	\label{fig:fig1}
+\end{figure}
+
+\noindent\textbf{Parameter setting}
+
+Initialize the device and respond to the device to exchange coupling parameters (such as input / output functions, certification requirements flags, encryption key size, and availability of OOB data). The first pairing stage of LE traditional pairing and LE secure connection is the same.
+
+Response devices (such as interconnect layer slave devices) will respond by coupling response commands. The responding device can also initiate the pairing process through the security request command.
+
+\noindent\textbf{Authorization and key generation}
+
+The second pairing phase includes authentication to prevent man-in-the-middle (MITM) attacks and key generation to encrypt BLE links. In LE's traditional pairing, a temporary key (0: Just Works model, 6 digits or 20 digits: Passkey Entry model, 128 digits: OOB model) can be used to obtain a key that can encrypt the BLE link. The temporary key is random data that is not exchanged through the BLE link.
+
+In the public key exchange phase, the initializing device and the responding device will exchange their public keys and begin to calculate the Diffie-Hellman key. You can use the Elliptic-Curve Diffie-Hellman function (P256) to generate Diffie-Hellman keys. The P256 takes as input the specific key and public key of the peer device. The Diffie-Hellman key is never exchanged, it can provide random 256-bit data. In authentication phase 1, each BLE device will perform mutual authentication to prevent man-in-the-middle (MITM) attacks (specific to BLE4.2). The authentication stage 1 of each associated model is different. Any failure during authentication phase 1 will terminate the pairing process. In authentication phase 2, each BLE device will calculate the Long Term Key (LTK), which is used to encrypt the link. You can use the Diffie-Hellman key generated in authentication phase 1, the Bluetooth device address, and a 128-bit random number and use these devices' I / O functions to generate LTK.
+
+\noindent\textbf{Key interaction}
+
+In the key exchange phase, you can use the STK (if using LE traditional pairing) or LTK (if using LE secure connection pairing) generated in the authorization and key generation phase to encrypt the BLE link.
 
 \section{Discussion}
 \subsection{Security}
@@ -188,6 +217,8 @@ In our protocol, only infector's Periodic Rolling Exposure Key will upload to th
 When the user receives others' Interval Proximity Identifiers, a Periodic Rolling Exposure Key is required to correlate between these IPIs. Because the IPIs vary within a short period. The probability of cracking the  IPI  is negligible, which reduces the risk of privacy loss from broadcasting the identifiers. Without the knowledge of Periodic Rolling Exposure Keys, it's computationally infeasible for an attacker to find a collision on an Interval Proximity Identifiers. This prevents a wide range of replay and impersonation attacks. 
 
 When reporting Diagnosis Keys, the correlation of Interval Proximity Identifiers by others is limited to 24 hour periods due to the use of Periodic Rolling Exposure Keys that change daily. The server must not retain metadata from clients uploading Diagnosis Keys(Periodic Rolling Exposure Keys of infectors) after including those key in the aggregated list of Diagnosis Keys per day.
+
+The party-to-party communication a.k.a Bluetooth data transmission is based on authenticated Bluetooth pairing. It can prevent Man-In-The-Middle-Attack. 
 
 % , which can not infer the metadata, so the cloud server can not read person's information. The Metadata Tracking Code or Temporary Exposure Key $tek$ are stored in the users' devices, which may contain some privacy information, It can not be acquired from the $aemk$ as we use $tek$ generate $aemk$ with $HKDF$. A government of this country has developed a tracking tool using this set of APIs. On the server side, administrators cannot know which other users a healthy user has contacted with—the administrator can only do so for diagnosed patients.
 
