@@ -1,16 +1,19 @@
-# lab 9 报告
+# lab 9 Report
 
-## 数据
-MNIST图片通过``datasets.mnist.load_data``加载，采用60000张训练，10000张测试，图片是维度大小为28x28，通道为1的灰度图。
-## 数据预处理
-将像素值从0-255映射为0-1
+## Data
 
-## 模型
-采用三层CNN，第一层32个3x3卷积核，池化层大小为2x2的最大值池化MaxPooling，
-第二层为64个3x3卷积核，池化层为2x2，第三层为64个3x3卷积核，池化层为，
-第三层为64个3x3卷积核，展平后通过softmax归一化输出。
+We load MNIST dataset through``datasets.mnist.load_data``, we set train size as 60000 ann test size as 10000，the dimension of train picture is 28x28 with the channels of 1
+## Preprocess
+We normalize the pixel value from 0-255 to 0-1
 
-## 训练
+## Model
+The model is a 3 layer CNN，
+
+The first layer is a convolutional layer with 32 3x3 convolution kernel and RELU activation function,  the pooling layer is MaxPooling with the pooling size of 2x2.
+The second layer is a convolutional layer with 64 3x3 convolution kernel and RELU activation function,  the pooling layer is MaxPooling with the pooling size of 2x2.
+The third layer is a convolutional layer with 64 3x3 convolution kernel and RELU activation function,  the output layer use softmax to normalize its output.
+
+## Training
 ```bash
 Model: "sequential"
 _________________________________________________________________
@@ -109,5 +112,5 @@ Epoch 00005: saving model to ./ckpt/cp-0005.ckpt
 准确率: 0.9890，共测试了10000张图片 
 ```
 
-## 测试结果
-在10000张测试数据集中实现了0.989的精确率
+## Test
+It got 0.989 accuracy in a 10000 size of dataset.
