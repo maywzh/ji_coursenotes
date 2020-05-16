@@ -168,11 +168,23 @@
 \begin{homeworkProblem}
   \subsubsection{MNIST}
   The MNIST dataset is a handwritten dataset consisting 4 files: a training image set, a training label set, a test image set, a test label set; we can see that this is actually not an ordinary text file or image file, but a compressed file, download and unzip to get a binary file.
-  \begin{figure}[]
+  \begin{itemize}
+    \item train-images-idx3-ubyte.gz: training set images (9912422 bytes)
+    \item train-labels-idx1-ubyte.gz: training set labels (28881 bytes)
+    \item t10k-images-idx3-ubyte.gz: test set images (1648877 bytes)
+    \item t10k-labels-idx1-ubyte.gz: test set labels (4542 bytes)
+  \end{itemize}
+
+  The MNIST dataset comes from the National Institute of Standards and Technology (NIST). M is the abbreviation of Modified. The training set is composed of numbers handwritten from 250 different people, of which 50\% are high school students and 50\% are from the Census Bureau staff. The test set is also the same proportion of handwritten digital data. Each picture is composed of 28x28 pixels, and each pixel is represented by a gray value. Here, the 28x28 pixels are expanded into a one-dimensional line vector (784 values per line). The picture label is one-hot code: 0-9.
+
+  \begin{figure}[H]
     \centering
-    \includegraphics[width=1.0\textwidth]{./image/ministintro1.jpg}
-    \caption{}
+    \includegraphics[width=.5\textwidth]{image/mnist1}
+    \caption{The MNIST instances}
   \end{figure}
+  \subsubsection{SOM}
+  A Self-organizing Map is a data visualization technique developed by Professor Teuvo Kohonen in the early 1980's. Self-organizing maps are a class of unsupervised learning neural networks used for feature detection. They’re used to produce a low-dimension space of training samples. Therefore, they’re used for dimensionality reduction.
+  \subsubsection{Model}
 
 \end{homeworkProblem}
 
