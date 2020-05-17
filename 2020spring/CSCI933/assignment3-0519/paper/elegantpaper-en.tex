@@ -21,11 +21,11 @@
 
 \section{Introduction}
 
-As a big agricultural country, China suffer biological disasters such as disease and insect Tons annually. The crop diseases, insects, and grass diseases are not only diverse and widely distributed, but also have complicated disaster conditions. This directly affects the sustainable and stable development of agriculture and the growth of the rural economy. Practice has shown that the rational application of pesticides is an important measure to ensure a bumper harvest in agriculture, and the premise of rational application of pesticides is the correct diagnosis of the types and occurrence of pests and diseases. Not only is it impossible to obtain a good agricultural harvest, it will also cause a series of more serious problems. At present, the identification of pests and diseases still mainly rely on manual or semi-manual identification, which is actually a highly repetitive and time-consuming task. As an important subfield in artificial intelligence, machine learning plays a key role in modern intelligent technology. We can also use machine learning technology to detect crop diseases and insect pests, thereby saving manpower and achieving information agriculture.
+As a big agricultural country, China suffer biological disasters such as disease and insect Tons annually. The crop diseases, insects, and grass diseases are not only diverse and widely distributed, but also have complicated disaster conditions\cite{hsu2019food}. This directly affects the sustainable and stable development of agriculture and the growth of the rural economy. Practice has shown that the rational application of pesticides is an important measure to ensure a bumper harvest in agriculture, and the premise of rational application of pesticides is the correct diagnosis of the types and occurrence of pests and diseases. Not only is it impossible to obtain a good agricultural harvest, it will also cause a series of more serious problems. At present, the identification of pests and diseases still mainly rely on manual or semi-manual identification, which is actually a highly repetitive and time-consuming task. As an important subfield in artificial intelligence, machine learning plays a key role in modern intelligent technology. We can also use machine learning technology to detect crop diseases and insect pests, thereby saving manpower and achieving information agriculture\cite{mahlein2016plant}.
 
 For machine learning, according to the specific conditions of labeled and unlabeled samples contained in the training set, the task types can be roughly divided into the following types: supervised learning, unsupervised learning, and semi-supervised learning. In supervised learning, the classifier learns a large number of labeled training samples to build a model for predicting the label of unseen samples. "Label" refers to the output corresponding to the sample. In the classification problem, the label is the category to which the sample belongs, and in regression analysis, the label is the real-value output corresponding to the sample. With the rapid development of data collection and storage technology, it has been quite easy to collect a large number of unlabeled samples, and obtaining a large number of labeled samples is relatively difficult, because obtaining these labels may require a lot of manpower and material resources. There are also a large number of such cases in detection of crop diseases and insect pests. Relevant agencies have a large number of unlabeled data, and only a small number of representative samples can be labeled by human labor, but all labeling is not realistic. In fact, there are a lot of such situations in crop disease and pest monitoring. The relevant agricultural management agencies have a large amount of unlabeled data, but if all these images are required to be labeled, the workload is extremely large and often unrealistic.
 
-Semi-supervised learning (SSL) came into being under the above background and has become an important research field in pattern recognition and machine learning. In recent years, with the extensive application of machine learning theory in data analysis and data mining, such as web page and text classification, image and video retrieval, medical data processing, etc., semi-supervised learning has made great progress in theoretical research and practical applications . The research of semi-supervised learning mainly focuses on how to obtain a learner with good performance and generalization ability when part of the training data is missing. The lack of information here includes the absence of category labels or the presence of noise, and the lack of some feature dimensions of the data. The theoretical research of semi-supervised learning provides us with an in-depth understanding of many important theoretical issues of machine learning, such as the relationship between data manifolds and data categories, the proper handling of missing data, the effective use of labeled data, and the relationship between supervised and unsupervised learning Connection, the design of active learning algorithms, etc. have very important guiding significance.
+Semi-supervised learning (SSL)\cite{rasmus2015semisupervised}came into being under the above background and has become an important research field in pattern recognition and machine learning. In recent years, with the extensive application of machine learning theory in data analysis and data mining, such as web page and text classification, image and video retrieval, medical data processing, etc., semi-supervised learning has made great progress in theoretical research and practical applications . The research of semi-supervised learning mainly focuses on how to obtain a learner with good performance and generalization ability when part of the training data is missing. The lack of information here includes the absence of category labels or the presence of noise, and the lack of some feature dimensions of the data. The theoretical research of semi-supervised learning provides us with an in-depth understanding of many important theoretical issues of machine learning, such as the relationship between data manifolds and data categories, the proper handling of missing data, the effective use of labeled data, and the relationship between supervised and unsupervised learning Connection, the design of active learning algorithms, etc. have very important guiding significance.
 
 % With the recent rapid development of data availability, computing power and new algorithms, machine learning has gradually become one of the key methods for implementing artificial intelligence (AI). 
 % Machine learning is a subset of artificial intelligence in the broader field of computer science. It uses computers and algorithms to learn from "data" and 
@@ -35,8 +35,8 @@ Semi-supervised learning (SSL) came into being under the above background and ha
 % And unlabeled sample collection:$\mathbb{D}_{u}=\left\{\left(\overrightarrow{\mathbf{x}}_{l+1}, y_{l+1}\right),\left(\overrightarrow{\mathbf{x}}_{l+2}, y_{l+2}\right), \cdots,\left(\overrightarrow{\mathbf{x}}_{l+u}, y_{l+u}\right)\right\}$, The learner automatically uses unlabeled $\mathbb{D}_{u}$ to improve learning performance\par
 % According to the angle of statistic theory, Inductive SSL includes two types of models: Transductive SSL and Inductive SSL. Transductive SSL to process only the given training data in the sample space, use the samples with class labels and the examples without class labels in the training
 % data to train, predict the class labels of the examples without class labels in the training data; SSL processes all the given and unknown samples in the entire sample space, and simultaneously uses the samples with class labels and the samples without class labels in the training data, and the unknown test samples to train together, not only predicts the classlessness in the training data 
-% the class label of the sample of the label, the more important is to predict the class label of the unknown test sample. SSL has been used to solve many practical problems, Yarrowsky uses collaborative training to construct different classifiers from the two views to disambiguate the meaning of the word. One classifier uses the context of the word in the text, and the other classifier is based on the meaning of the word that appears elsewhere in the text;
-% Zhou and others used collaborative training for image retrieval; Goldberg and Zhu used a graph-based method to solve the problem of emotional grading;
+% the class label of the sample of the label, the more important is to predict the class label of the unknown test sample\cite{sun2013rgb}. SSL has been used to solve many practical problems, Yarrowsky uses collaborative training to construct different classifiers from the two views to disambiguate the meaning of the word. One classifier uses the context of the word in the text, and the other classifier is based on the meaning of the word that appears elsewhere in the text;
+% Zhou and others used collaborative training for image retrieval; Goldberg and Zhu\cite{zhu2002learning} used a graph-based method to solve the problem of emotional grading;
 
 \section{Background theory}
 The research history of SSL can be traced back to the 1970s. During this period, Self-Training, Transdictionary Learning, Generative Mode and other learning methods appeared. 
@@ -48,7 +48,7 @@ Generative semi-supervised learning method is a method based directly on generat
 	\item This assumption makes it possible to associate unlabeled samples with learning objectives through the parameters of the latent model.
 	\item The labeling of unlabeled samples can be regarded as the missing parameter of the model, which can usually be solved based on the maximum likelihood estimation based on the EM algorithm.
 \end{itemize}
-Models for generating examples include Gaussian models, Bayesian networks, Sigmoid BeliefNetWorks, GMM, Multimedia Mixture Model(MMM), and Hidden Markov Model(HMM).
+Models\cite{li2020mixture} for generating examples include Gaussian models, Bayesian networks, Sigmoid BeliefNetWorks, GMM, Multimedia Mixture Model(MMM), and Hidden Markov Model(HMM).
 \begin{enumerate}
 	\item The examples in the Gaussian model follow the Gaussian distribution: \\
 		$p(\boldsymbol{x} | y)=N(\boldsymbol{x} | \boldsymbol{\mu}, \boldsymbol{\Sigma})=\frac{1}{(2 \pi)^{D / 2}|\boldsymbol{\Sigma}|^{1 / 2}} \exp \left(-\frac{1}{2}(\boldsymbol{x}-\boldsymbol{\mu})^{\mathrm{T}} \boldsymbol{\Sigma}^{-1}(\boldsymbol{x}-\boldsymbol{\mu})\right)$
@@ -69,13 +69,13 @@ The advantages of generative semi-supervised learning method: the method is simp
 Disadvantages: The model assumption must be accurate, that is, the assumed generative model must be consistent with the real data distribution, otherwise the use of unlabeled data will reduce the generalization performance.
 
 \subsection{Discriminative Methods}
-The discriminative method uses the maximum interval algorithm to simultaneously train class targetsThe signed sample and the sample without class label learning decision boundary, as shown belowAs shown, make it pass through the low-density data area, and make the learnedThe distance between the classification hyperplane and the nearest sample is the largest.
+The discriminative method\cite{zhang2017label} uses the maximum interval algorithm to simultaneously train class targetsThe signed sample and the sample without class label learning decision boundary, as shown belowAs shown, make it pass through the low-density data area, and make the learnedThe distance between the classification hyperplane and the nearest sample is the largest.
 \begin{figure}[H]
 		\centering
 		\includegraphics[scale=0.4]{figure/2.png}
 		\caption{Schematic diagram of discriminant method}
 \end{figure}
-Discriminant methods include LDA, generalized discriminant analysis (GenerarizedDiscriminantAnalysis (GDA), semi-supervised supportVector machine (Semi-SuppliedSupperPortVecutorMachine,SVM), entropy regularization method and KNN method.
+Discriminant methods include LDA\cite{alshehhi2017hierarchical}, generalized discriminant analysis (GenerarizedDiscriminantAnalysis (GDA), semi-supervised supportVector machine (Semi-SuppliedSupperPortVecutorMachine,SVM), entropy regularization method and KNN method.
 \begin{enumerate}
 \item LDA is also called Fisher Linear Discrimination (Fisher Liner)
 Discriminative Analysis (FDA), originally developed by Fisher
@@ -120,10 +120,10 @@ Among them:
 \item The KNN method finds the k nearest neighbor samples that are closest to the test sample in all samples, and the number of each type are $k_{j}$,$j=c_{1}, \cdots, c_{C}$,using decision rule $\arg \max _{j} k_{j}, j=c_{1}, \cdots, c_{C}$ to select the class label to mark the sample.
 \end{enumerate}
 \subsection{Graph-Based Methods}
-The essence of the graph-based method is label propagation (LabelPropagation). Based on the manifold hypothesis, the graph is constructed according to the geometric structure between the samples. The graph nodes are used to represent the samples. Propagate the class label from the sample with class label to the sample without class label.
+The essence of the graph-based method\cite{chen2018survey} is label propagation (LabelPropagation). Based on the manifold hypothesis, the graph is constructed according to the geometric structure between the samples. The graph nodes are used to represent the samples. Propagate the class label from the sample with class label to the sample without class label.
 
 
-The basic training process of the graph-based method is:
+The basic training process of the graph-based method\cite{chong2020graph} is:
 \begin{itemize}
 	\item Choosing an appropriate distance function to calculate the distance between samples. The available distance functions include Euclidean distance, Manhattan distance, Chebyshev distance, Ming's distance, Mahalanobis distance, and normalized Euclidean distance;
 	\item According to the calculated distance, select an appropriate connection method, connect the samples with edges, and construct a connection diagram. The constructed connection graph is divided into dense graph (DenseGraph) and sparse graph (SparseGraph). The typical representative of dense graph is a fully connected graph, as shown in Figure 3, there are edge connections between any two nodes; sparse as shown in Figure 4, according to a certain criterion, the closest nodes are connected, including KNN diagram, $\varepsilon$-Nearest Neighbor ($\varepsilon$NN) diagram, tangent weight diagram, exponential weight diagram, etc ;
@@ -200,6 +200,71 @@ we extract the following two texture features from each crop image:
 	\end{gather}
 	\item Gray gradient co-occurrence matrix: The gray gradient co-occurrence matrix model mainly reflects the relationship between the two most basic elements in the image, namely the gray level and the gradient (or edge) of the image point. The gray level of each image point is the basis for forming the image, and the gradient is the element that forms the edge contour of the image. The main information of the image is provided by the edge contour of the image. The gray gradient space clearly describes the resolution law of the gray and gradient of each pixel in the image, and also gives the spatial relationship between each image point and its field image point. It can describe the image texture well and reflect the direction texture from the gradient direction. The classification result of the gray-level gradient co-occurrence matrix is superior to the gray-level co-occurrence matrix, because the gray-level co-occurrence matrix uses only gray-scale information, while the gray-scale gradient co-occurrence matrix uses both the gray-scale and gradient information of the image. Gray gradient co-occurrence matrix (GGCM) texture feature analysis is to extract the texture features of gray gradient co-occurrence matrix. The gradient information of the image is added to the gray level co-occurrence matrix, so that the co-occurrence matrix can better contain the elements of the texture image and their arrangement information.
 \end{enumerate}
+
+\subsection{GAN based classifier}
+The network structure of the generative adversarial network includes a generative model G and a discriminant model D\cite{ledig2017photo}. The role of the generated model is to be able to capture the distribution of data from the training sample data, and the discriminant model implements the function of a $(n + 1)$ classifier classification model ($n$ represents the original number of categories in the training data, and $n +1$ categories are added true and false categories), to determine whether the data input to the discrimination model is real data or sample data generated by the generation model. The optimization process of generating an adversarial network can be understood as a "minimax two-player game" problem. During training, one of the generated model and the discriminant model is fixed, and the parameters of the other model are updated. Iterate alternately, and update the parameters to maximize the error of the other model. Eventually, generator G can estimate the distribution of sample data, and can generate samples that are very similar to the distribution of training data, and discriminator D will be a great Discriminator\cite{zhao2016energy}.
+
+\subsubsection{How GAN perform Semi-supervised learning}
+In this topic, this paper uses Generative Adversarial Network (GAN) to implement a semi-supervised learning algorithm based on deep learning. Unlabeled sample data does not have any category information, so it is not possible to conduct supervised model training, but the role of the generator in generating an adversarial network is to generate pseudo samples from random signals for the true and false classification performance of the discriminator Training, so in the semi-supervised generation adversarial network, compared to the pseudo samples generated by the generator in the network, the unlabeled sample data has a label, that is, the real sample, because this part of the sample is taken from the real The crops suffering from pests and diseases are not generated by the generator, so that the discriminator D can be trained together with the pseudo samples. The distribution of such network training data is shown in Figure \ref{datadist}.
+\begin{figure}[H]
+    \centering
+	\includegraphics[scale=0.5]{figure/5.1.png} 
+	\caption{Dataset distribution}
+	\label{datadist}
+\end{figure}
+As shown in the Figure \ref{datadist}, the data with samples and the data without samples form the real data class, and the pseudo samples generated by the generator form the generated data class, that is, the data set that belongs to the false label.
+
+Therefore, the data in the training set contains two parts, one is the original labeled data $x$, and the other is the unlabeled real crop (after image feature extraction) data $x_u$, the generator will generate $I_f$ pseudo from random noise sample. When the discriminator in the network inputs the sample $I$, for the 2-classification problem of this topic, the discriminator will output $2+1$ dimensional estimate $L$, and finally pass the $softmax$ function. The probability $P$ of the category, the first 2 dimensions correspond to the original 2-category category, and the last dimension corresponds to whether the sample is a pseudo sample, that is, whether it is a sample generated by the generator. The position corresponding to the maximum value in the probability P of each category is the predicted label value corresponding to the sample.
+\begin{equation}
+	softmax(x_i)=\frac{e^{(x_i)}}{\sum_j e^{x_j}} \label{4.1}
+\end{equation}
+
+In the semi-supervised generation antagonistic network, three kinds of errors are mainly involved: first, for the original labeled sample, it is necessary to judge whether the output of the discriminator is the correct label, and the error expression is shown in equation \ref{4.2}:
+\begin{equation}
+	L_{label}=-E[ln p(y|x)] \label{4.2}
+\end{equation}
+
+Secondly, for samples without labels in the original training set, it is necessary to judge whether the output of the discriminator is The error expression of the former K class is shown in equation \ref{4.3}:
+\begin{equation}
+	L_{unlabel}=-E[ln(1-p(K+1|x))] \label{4.3}
+\end{equation}
+
+Finally, for the generator to be generated as a pseudo-sample, it needs to judge whether the discriminator discriminates it as the K+1 class, where
+The corresponding error expression is shown in equation \ref{4.4}:
+\begin{equation}
+	L_{fake}=-E[lnp(K+1)|x] \label{4.4}
+\end{equation}
+
+Based on the above three errors, the error of discriminator in the whole semi-supervised generation antagonism network is obtained as shown in equation \ref{4.5}:
+\begin{equation}
+	L_d=L_{label}+w/2(L_{unlabel}+L_{fake}) \label{4.5}
+\end{equation}
+
+The error function introduces the weight w, which can be set artificially in network training.
+
+In the case of the generator, it is the generation of sample data that increases the discriminator's true-false error, so the generator's error.The difference can be expressed as shown in equation \ref{4.6}:
+\begin{equation}
+	L_G=-L_{fake} \label{4.6}
+\end{equation}
+
+\subsection{Network architecture}
+In the previous section, this article described the overall architecture of semi-supervised generation of the counter network and the network update process's error calculation method. In this section, the semi-supervised generation of the antagonistic network will be discussed.
+
+As can be seen from the content in the previous section, the semi-supervised generation antagonism network mainly consists of two parts: generator and discriminator. The generator is responsible for generating false samples and real samples mixed together for discriminator to classify. In this project, the network structure diagram of the generator part of the semi-supervised generation antagonistic network is shown in Figure \ref{f4.2}, and the network structure diagram of the discriminator part is shown in Figure \ref{f4.3}.
+\begin{figure}[H]
+    \centering
+	\includegraphics[scale=0.6]{figure/5.2.png}
+	\caption{Network architecture}
+	\label{f4.2}
+\end{figure}
+\begin{figure}[H]
+    \centering
+	\includegraphics[scale=0.6]{figure/5.3.png}  
+	\caption{Classifier Network architecture}
+	\label{f4.3}
+\end{figure}
+
+As shown in Figure \ref{f4.2}, it is a network structure diagram of the generator in the semi-supervised generation confrontation network. This part generates a pseudo-crop image of a specified size from random noise. Figure \ref{f4.3} shows the network structure of the discriminator in the semi-supervised generative adversarial network. The discriminator is composed of a multi-layer convolutional neural network, which is the semi-supervised generative adversarial network classifier.
 
 \section{Conclusion}
 In this article, this paper uses semi-supervised generative adversarial networks to perform semi-supervised learning on crop disease and insect images. We redesigned the network composition of generators and discriminators in generative adversarial networks based on the characteristics of crop images. In the generative confrontation network used, this paper designs a multi-layer generator network and a discriminator deep neural network. The input to generate the adversarial network is the result of the improved network segmentation, combining the artificially selected features with the features calculated by the neural network.
