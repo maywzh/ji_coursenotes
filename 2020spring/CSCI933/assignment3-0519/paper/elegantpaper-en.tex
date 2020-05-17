@@ -1,7 +1,7 @@
 \documentclass[11pt,en]{elegantpaper}
 
-\title{Survey on Game AI based on Deep learning}
-\author{Wangzhihui Mei 2019124044}
+\title{GAN based semi-supervised learning crop disease classifier}
+\author{Wangzhihui Mei 2019124044 Chang Xu 20191xxxxx Zijia He 20191xxxxx Hongyi Huang 2019xxxxxx}
 \institute{CCNU-UOW JI}
 
 \version{}
@@ -20,11 +20,24 @@
 
 \section{Background theory}
 
-\section{Non-linear Learning}
-
 \section{Application}
+There are two commonly used hypotheses in the field of semi-supervised learning: the cluster hypothesis and the manifold hypothesis. The clustering hypothesis refers to that the samples in the same cluster have a larger possibility of having the same mark, which means that the interface of different mark points should not appear in the area with a higher sample density while the manifold hypothesis means that adjacent samples have similar properties, and their labels should also be similar\cite{shen2003multilabel}. Since both the graph method and the density-based clustering method adhere to these two assumptions, the combined effect of the two methods on a certain level should be comparable to the graph method alone. Specifically, the computational complexity of the graph method is higher, but the computational complexity of the local density estimation is much lower. Our Yang Chen picture uses the advantage of local giant thunder in computing time to reduce the composition of the node tree, on the other hand The method has a good classification effect on the overall characterization ability of the data structure.
+\subsection{}
 
 
+\subsection{Preprocessing}
+First, we need to perform some tricky transformation to initial crop images to apply our classification algorithm to them. 
+\subsubsection{Grayscale Conversion}
+Images are commonly saved by RGB(i.e. Red, Green and Blue) channels, which can preserve the natural color while reducing the memory consumption of the storage. Some researcher has done some related work\cite{sun2013rgb}, by extracting G-channel elements, they can not only simplify the algorithm, but also retain the original information of the image on the original basis. In this article, we also applied weighted sum conversion based on asymmetric weights. We increased the weight of G channel and reduce the weight of RB channels. 
+$$Gray_{img}=R\times 0.287+G\times 0.599 + B\times 0.114$$
+R,G,B represent Red，Green and Blue channel. The conversed image kept a lot of original information from initial image.
+
+\subsubsection{Image standardization and normalization}
+In the original crop image, the floating range of pixel values ​​is large, which results in the objective function of the classification algorithm being unable to handle the features of the original image well in a large range. That is to say, assuming that a certain feature value in the original image has a large value range, such feature value will affect the final classification accuracy. Therefore, before classification, it is necessary to make a relatively standardized adjustment to his images, limiting the feature values ​​to a certain range, to maintain a relative balance between the original characteristics. In this article, we applied image normalization. $X_mid$ is a middle variable to simplify the formula, $X$ is pixel matrix, $N$ is the total pixel num in the image, $X_i$ is the value of pixel with the index $i$.
+$$X_{mid}=\frac{X-\frac{1}{N} \sum_{i=1}^{N} x_{i}}{\sqrt{\frac{1}{N} \sum_{i=1}^{N}\left(x_{i}-\frac{1}{N} \sum_{i=1}^{N} x_{i}\right)^{2}}}$$ 
+$$X_{norm}=\frac{X_{mid}-\min \left(X_{mid}\right)}{\max \left(X_{mid}\right)-\min \left(X_{mid}\right)} \times 255$$
+
+\subsubsection{Crop image }
 \section{Conclusion}
 
 \section{References}
