@@ -1,5 +1,6 @@
 \documentclass{article}
 
+\usepackage{multirow}
 \usepackage{fancyhdr}
 \usepackage{extramarks}
 \usepackage{amsmath}
@@ -443,10 +444,10 @@ The toolboxes is TensorFlow and TensorBoard.
 
 The language is Python.
 \subsubsection{b}
-I applied CNN to this task. The network is a 22-layer-network with 15 convolutional layers, 4 pooling layer(MaxPooling) and 3 fully connected layers. Like Table \ref{dcnnt}. The parameters of $k$, $s$ and $p$ denote the kernel size, stride, and padding size, respectively.
+I applied CNN to this task. The network is a 22-layer-network with 15 convolutional layers, 4 pooling layer(MaxPooling) and 3 fully connected layers. Like Figure \ref{dcnnt}. The parameters of $k$, $s$ and $p$ denote the kernel size, stride, and padding size, respectively.
 \begin{figure}[h]
   \centering
-  \includegraphics[width=0.4\textwidth]{image/dcnnt}
+  \includegraphics[width=1.0\textwidth]{image/dcnnt}
   \caption{The architecture of the network}
   \label{dcnnt}
 \end{figure}
@@ -458,13 +459,34 @@ I applied gray level stretch to normalize the image intensities like Eq.\ref{eq1
 \end{equation}
 where $f$ is the input image pixel gray level and $g$ is the output pixel gray level.
 
-Then, I applied data augmentation to the dataset. Data augmentation is a useful method for training CNN on small datasets. The images of different cell patterns in training set were rotated with different angles like Figure \ref{dataau}.
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=1.0\textwidth]{image/dataau}
-  \caption{Data augmentation to dataset}
-  \label{dataau}
-\end{figure}
+Then, I applied data augmentation to the dataset. Data augmentation is a useful method for training CNN on small datasets. The images of different cell patterns in training set were rotated with different angles like Table \ref{datd}.
+
+% Please add the following required packages to your document preamble:
+% \usepackage{multirow}
+% Please add the following required packages to your document preamble:
+% \usepackage{multirow}
+\begin{table}[H]
+  \resizebox{\textwidth}{!}{
+  \begin{tabular}{l|l|l|l|l|l|l|l|l}
+  Patterns    & No. of Images & Training set for CNN & Rotation degree 1   & No. After Rotation & Rotation degree 2   & No. After Rotation & Rotation degree 3   & No. After Rotation \\ \hline
+  Golgi       & 721           & 463                  & 24                  & 6945               & 12                  & 13890              & 6                   & 27780              \\ \hline
+  Homogeneous & 2494          & 1596                 & \multirow{5}{*}{72} & 7980               & \multirow{5}{*}{36} & 15960              & \multirow{5}{*}{18} & 31920              \\ \cline{1-3} \cline{5-5} \cline{7-7} \cline{9-9} 
+  Speckled    & 2831          & 1812                 &                     & 9060               &                     & 18120              &                     & 36240              \\ \cline{1-3} \cline{5-5} \cline{7-7} \cline{9-9} 
+  Nucleolar   & 2598          & 1663                 &                     & 8315               &                     & 16630              &                     & 33260              \\ \cline{1-3} \cline{5-5} \cline{7-7} \cline{9-9} 
+  Centromere  & 2741          & 1754                 &                     & 8770               &                     & 17540              &                     & 35080              \\ \cline{1-3} \cline{5-5} \cline{7-7} \cline{9-9} 
+  NuMem       & 2208          & 1413                 &                     & 7065               &                     & 14130              &                     & 28260              \\ \hline
+  Total       & 13596         & 8701                 &                     & 48135              &                     & 96270              &                     & 192540            
+  \end{tabular}}
+  \caption{}{Data augmentation to dataset}
+  \label{datd}
+\end{table}
+
+% \begin{figure}[H]
+%   \centering
+%   \includegraphics[width=1.0\textwidth]{image/dataau}
+%   \caption{Data augmentation to dataset}
+%   \label{dataau}
+% \end{figure}
 
 \subsubsection{d}
 We choose convolutional kernel like $1\times 1$ and $3\times 3$ as they require less parameters and computational loss. Besides, $1\times 1$ kernel can reduce or add the dimension of feature map and integrate channel information of feature map. Each convolution layer is followed by a nonlinear activation layer with the activation function PreLU as Eq.\ref{prelu}, where $\theta$ is a parameter in learning process. On the side, $2\times 2$ max pooling is employed to decrease the dimension of feature maps. At the end of the proposed network, two fully-connected layers and one softmax layer are employed to classify cell images into six categories. To prevent the network from overfitting, I applied 0.5 dropout layer to it.  
@@ -513,9 +535,8 @@ The final accuracy performance is like Table \ref{TBL2}.
   Rotation degree 1 & Rotation degree 2 & Rotation degree 3 \\ \hline
   95.33 & 98.02 & 98.17 \\ \hline
   \end{tabular}
- 
   \caption{The final accuracy performance}
-  
+  \label{TBL2}
 \end{table}
 
 \subsubsection{g}
