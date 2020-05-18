@@ -1,0 +1,38 @@
+KNNL
+
+Kohonen Neural Network Library
+
+This library is written in C++, using boost library.
+To compile is needed boost version 1.33 or newer.
+
+In special case it is possible to reduce code and force
+to use library without boost. 
+
+For details look on http://knnl.sourceforge.net.
+
+To compile demo version run:
+
+make 
+
+or 
+
+make release
+
+for debugging use
+
+make debug
+
+or to prepare release version with logger - trivial debugger 
+described in debbugger.hpp file:
+
+make tdrelease
+
+There are also included project files for MS Visual Studio and
+Dev C++ as well as CMake project prepared with support from CLion. 
+CMake uses path to the boost library set as C://Programs//boost_1_60_0.
+
+If this path is different fix the options, please.
+
+Have a fun :-),
+Authors.
+

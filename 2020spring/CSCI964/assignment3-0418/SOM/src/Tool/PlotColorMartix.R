@@ -1,4 +1,4 @@
-m = read.table("ColorsResults.csv",header=F,sep=",")
+m = read.table("../ColorsResults.csv",header=F,sep=",")
 nbRows <- 50
 nbCols <- 50
 output = matrix(nrow=nbRows,ncol=nbCols)

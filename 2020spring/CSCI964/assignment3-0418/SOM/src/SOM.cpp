@@ -9,11 +9,8 @@
 #include "SOM.h"
 #include "ClassesSOM.h"
 #include </usr/local/include/eigen3/Eigen/eigen>
+#include <fstream>
 #include <iostream>
 #include <sstream>
-#include <fstream>
 #include <string>
 using namespace std;
-
-
-
