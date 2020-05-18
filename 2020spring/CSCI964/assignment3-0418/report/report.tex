@@ -206,11 +206,50 @@ The training process is like the following Figure \ref{SOMtrain}. The purple are
   \label{SOMtrain}
 \end{figure}
 
-\subsubsection{Initialization}
-Initialize all connection weights to random values. Initialize the weight of each node. The weights are set to standardized small random values.
+\subsection{Ordering and convergence}
+If the parameters are correctly initialized, we can start from the completely disordered initial state, and the SOM algorithm will gradually make the activation patterns obtained from the input space represent ordered. (However, it may end up in a metastable state where the feature map has topological defects.)
 
-\subsubsection{}
+There are two significant stages in this adaptive process:
+Ordering or self-organizing stage: During this period, the weight vectors are topologically sorted. Usually this will require up to 1000 iterations of the SOM algorithm, and careful selection of neighborhood and learning rate parameters needs to be considered.
 
+Convergence phase: During this period feature maps are fine tuned and provide accurate statistical quantization of the input space. Usually the number of iterations at this stage is at least 500 times the number of neurons in the network, and the parameters must be selected carefully.
+Here I set the number of ordering iterations as 1000, and the number of convergence iterations as 2000
+
+In my implementation, the ordering epoch is set to 1000 and convergence epoch is set to 2000, and the learning rate is set to 0.1. 
+
+\subsection{Distance each epoch}
+The euclidean distance between its values in the t-th and (t+1)-th iterations convergence in a few epochs and then decrease slowly with fluctuation.
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.5\textwidth]{image/dis}
+  \caption{Distance each epoch}
+  \label{dis}
+\end{figure}
+
+\subsection{2D lattices of three stages}
+\subsubsection{Initialization stage}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=1.0\textwidth]{image/somf1}
+  \caption{Initialization stage}
+  \label{somf1}
+\end{figure}
+
+\subsubsection{Between Initialization stage and Convergence stage}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=1.0\textwidth]{image/somf2}
+  \caption{Between Initialization stage and Convergence stage}
+  \label{somf2}
+\end{figure}
+
+\subsubsection{Convergence stage}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=1.0\textwidth]{image/somf3}
+  \caption{Convergence stage}
+  \label{somf3}
+\end{figure}
 
 \end{homeworkProblem}
 
@@ -326,8 +365,8 @@ test_accuracy = tf.keras.metrics.SparseCategoricalAccuracy(
   
 \end{lstlisting}
 
-\subsubsection{Training}
-The following code define the training process. 
+\subsubsection{Training and testing}
+The following code applied the training process and testing process. 
 \begin{lstlisting}
 @tf.function
 def train_step(images, labels):
@@ -342,7 +381,161 @@ def train_step(images, labels):
     train_loss(loss)
     train_accuracy(labels, predictions)
 
+
+@tf.function
+def test_step(images, labels):
+    # training=False is only needed if there are layers with different
+    # behavior during training versus inference (e.g. Dropout).
+    predictions = model(images, training=False)
+    t_loss = loss_object(labels, predictions)
+
+    test_loss(t_loss)
+    test_accuracy(labels, predictions)
+
+    EPOCHS = 5
+
+for epoch in range(EPOCHS):
+    # Reset the metrics at the start of the next epoch
+    train_loss.reset_states()
+    train_accuracy.reset_states()
+    test_loss.reset_states()
+    test_accuracy.reset_states()
+
+    for images, labels in train_ds:
+        train_step(images, labels)
+
+    for test_images, test_labels in test_ds:
+        test_step(test_images, test_labels)
+
+    template = 'Epoch {}, Loss: {}, Accuracy: {}, Test Loss: {}, Test Accuracy: {}'
+    print(
+        template.format(epoch + 1, train_loss.result(),
+                        train_accuracy.result() * 100, test_loss.result(),
+                        test_accuracy.result() * 100))
 \end{lstlisting}
+
+\subsubsection{Tuning}
+Tune the size of hidden layer, the accuracy and loss change like this Figure \ref{nnal}.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.4\textwidth]{image/nnaccuracy_hl}
+  \includegraphics[width=0.4\textwidth]{image/nnloss_hl}
+  \caption{Epoch accuracy/loss of different hidden layer size}
+  \label{nnal}
+\end{figure}
+
+Tune the size of convolution kernel, the test accuracy increase and test loss decrease. See Figure \ref{nnks}.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.4\textwidth]{image/nn_acc_ks}
+  \includegraphics[width=0.4\textwidth]{image/nnloss_ks}
+  \caption{Epoch accuracy/loss of different convolution kernel size}
+  \label{nnks}
+\end{figure}
+
+\subsection{Cell image classification}
+\subsubsection{a}
+The classification technique is deep Convolutional Neural Network(CNN). 
+
+The toolboxes is TensorFlow and TensorBoard.
+
+The language is Python.
+\subsubsection{b}
+I applied CNN to this task. The network is a 22-layer-network with 15 convolutional layers, 4 pooling layer(MaxPooling) and 3 fully connected layers. Like Table \ref{dcnnt}. The parameters of $k$, $s$ and $p$ denote the kernel size, stride, and padding size, respectively.
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.4\textwidth]{image/dcnnt}
+  \caption{The architecture of the network}
+  \label{dcnnt}
+\end{figure}
+
+\subsubsection{c}
+I applied gray level stretch to normalize the image intensities like Eq.\ref{eq1} 
+\begin{equation}
+  g=\frac{(f-\min (f)) \times 255}{\max (f)-\min (f)} \label{eq1}
+\end{equation}
+where $f$ is the input image pixel gray level and $g$ is the output pixel gray level.
+
+Then, I applied data augmentation to the dataset. Data augmentation is a useful method for training CNN on small datasets. The images of different cell patterns in training set were rotated with different angles like Figure \ref{dataau}.
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=1.0\textwidth]{image/dataau}
+  \caption{Data augmentation to dataset}
+  \label{dataau}
+\end{figure}
+
+\subsubsection{d}
+We choose convolutional kernel like $1\times 1$ and $3\times 3$ as they require less parameters and computational loss. Besides, $1\times 1$ kernel can reduce or add the dimension of feature map and integrate channel information of feature map. Each convolution layer is followed by a nonlinear activation layer with the activation function PreLU as Eq.\ref{prelu}, where $\theta$ is a parameter in learning process. On the side, $2\times 2$ max pooling is employed to decrease the dimension of feature maps. At the end of the proposed network, two fully-connected layers and one softmax layer are employed to classify cell images into six categories. To prevent the network from overfitting, I applied 0.5 dropout layer to it.  
+\begin{equation}
+  F=max(\theta x, x) \label{prelu}
+\end{equation}
+
+\subsubsection{e}
+% The training accuracy of rotation degree 1 is 98.69\%, rotation degree 2 is 99.36\% and rotation degree 3 is 99.57\%. 
+
+% The validation accuracy of rotation degree 1 is 96.33\%, rotation degree 2 is 98.73\% and rotation degree 3 is 99.34\%. 
+
+The accuracy performance is like Table \ref{tb1}.
+\begin{table}[H]
+  \centering
+  \begin{tabular}{|l|l|l|l|}
+  \hline
+       & Rotation degree 1 & Rotation degree 2 & Rotation degree 3 \\ \hline
+      Training & 98.69 & 99.36 & 96.33 \\ \hline
+      Validation & 96.33 & 98.73 & 99.34 \\ \hline
+  \end{tabular}
+  \caption{The training accuracy}
+  \label{tb1}
+\end{table}
+
+% We applied two evaluation metrics for classification accuracy as $ACA$ and $MCA$.
+
+% \begin{equation}
+%   ACA=\frac{R}{N}
+% \end{equation}
+% where $R$ stands for the total right classification numbers of total cell images $N$.
+
+% \begin{equation}
+%   MCA=\frac{1}{n} \sum_{k=1}^{n} C C R_{k}
+% \end{equation}
+% where $CCR_k$ is the classification accuracy of class $k$ and $n$ stands for the number of cell classes.
+\subsubsection{f}
+
+
+The final accuracy performance is like Table \ref{TBL2}.
+
+\begin{table}[H]
+  \centering
+  \begin{tabular}{|l|l|l|l|}
+  \hline
+  Rotation degree 1 & Rotation degree 2 & Rotation degree 3 \\ \hline
+  95.33 & 98.02 & 98.17 \\ \hline
+  \end{tabular}
+  \caption{The final accuracy performance}
+  \label{TBL2}
+\end{table}
+
+\subsubsection{g}
+We can generate the output of each layer and get the following results Figure \ref{cnn1} and \ref{cnn2}.
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.2\textwidth]{image/cnn1}
+  \caption{Feature maps from first convolution layer}
+  \label{cnn1}
+\end{figure}
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.4\textwidth]{image/cnn2}
+  \caption{Feature maps from last convolution layer}
+  \label{cnn2}
+\end{figure}
+
+It seems to be that the first convolution layer reveal the edge of initial image, and features learned by the last layer is abstract and clear.
+
+We can also draw the conclusion that more data generate better accuracy from the final accuracy, as the number of data increase with degree.
+
 \end{homeworkProblem}
 \end{document}
 
