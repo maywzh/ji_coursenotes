@@ -6,14 +6,15 @@
  */
 
 
+#include "SOM.h"
+#include "ClassesSOM.h"
 
 #include </usr/local/include/eigen3/Eigen/eigen>
 #include <iostream>
 #include <sstream>
 #include <fstream>
 #include <string>
-#include "SOM.h"
-#include "ClassesSOM.h"
+
 #include <stdlib.h>     /* srand, rand */
 
 
@@ -21,12 +22,12 @@ using namespace std;
 
 int main()
 {
-
-    SOM test;
+    SOM test; //create test
+    
     test.ReadData("./colorsInput.csv", 3000, 3);
-//test.ReadData("/Users/icortes/Desktop/SOMcpp/SOM/ThreeColors.txt", 3, 3);
+    //test.ReadData("./ThreeColors.txt", 3, 3);
     test.InitializeMap(50, 50);
-    test.PrintToCSVFileRowWise("./SOMColorsBeforeTraining.csv", test.SOMMap, test.xsize, test.ysize,test.InputVectorSize);
+    test.PrintToCSVFileRowWise("./SOMColorsBeforeTraining.csv", test.SOMMap, test.xsize, test.ysize, test.InputVectorSize);
 
     test.SigmaNeighbouringInitial = 25;
     test.SigmaNeighbourhoodFinal = 1;
@@ -35,9 +36,7 @@ int main()
     
     test.Train(100);
     test.PrintToCSVFileRowWise("./ColorsResults.csv", test.SOMMap, test.xsize, test.ysize,test.InputVectorSize);
-    
-    //std::cout << test.MaxValueInputData;
-    
+
     std::cout << "lambda :" << test.lambda << "\n";
     std::cout <<  "L0 :" << test.LearningRateInitial << "\n";
     std::cout <<  "Sigma0 Neighbours:" << test.SigmaNeighbouringInitial << "\n";

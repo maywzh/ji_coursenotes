@@ -1,0 +1,26 @@
+TensorFlow 2.0 Upgrade Script
+-----------------------------
+Converted 1 files
+Detected 0 issues that require attention
+--------------------------------------------------------------------------------
+================================================================================
+Detailed log follows:
+
+================================================================================
+--------------------------------------------------------------------------------
+Processing file 'minist_softmax.py'
+ outputting to 'mnist_softmax_v2.py'
+--------------------------------------------------------------------------------
+
+13:7: INFO: Renamed 'tf.InteractiveSession' to 'tf.compat.v1.InteractiveSession'
+15:4: INFO: Renamed 'tf.placeholder' to 'tf.compat.v1.placeholder'
+20:5: INFO: Renamed 'tf.placeholder' to 'tf.compat.v1.placeholder'
+21:17: INFO: Added keywords to args of function 'tf.reduce_sum'
+21:36: INFO: Renamed 'tf.log' to 'tf.math.log'
+22:13: INFO: Renamed 'tf.train.GradientDescentOptimizer' to 'tf.compat.v1.train.GradientDescentOptimizer'
+24:0: INFO: Renamed 'tf.initialize_all_variables' to 'tf.compat.v1.initialize_all_variables'
+29:30: INFO: Added keywords to args of function 'tf.argmax'
+29:47: INFO: Added keywords to args of function 'tf.argmax'
+30:11: INFO: Added keywords to args of function 'tf.reduce_mean'
+--------------------------------------------------------------------------------
+
