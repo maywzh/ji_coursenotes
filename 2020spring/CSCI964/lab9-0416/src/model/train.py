@@ -4,6 +4,8 @@ import os
 import tensorflow as tf
 from tensorflow.keras import datasets, layers, models
 
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
+
 
 class CNN(object):
     def __init__(self):
