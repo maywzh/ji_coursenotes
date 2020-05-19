@@ -169,113 +169,113 @@
 \pagebreak
 
 \begin{homeworkProblem}
-\subsection{Introduction to MNIST}
-The MNIST dataset is a handwritten digital picture dataset, a very popular experimental data set in machine learning, almost becoming a model. It is available at website \href{http://yann.lecun.com/exdb/mnist/}{THE MNIST DATABASE}, and it contains four parts:
-\begin{itemize}
-  \item Training set images: train-images-idx3-ubyte.gz (9.9 MB, containing 60,000 samples)
-  \item Training set labels: train-labels-idx1-ubyte.gz (29 KB, containing 60,000 labels)
-  \item Test set images: t10k-images-idx3-ubyte.gz (1.6 MB, containing 10,000 samples)
-  \item Test set labels: t10k-labels-idx1-ubyte.gz (5KB, containing 10,000 labels)
-\end{itemize}
-The MNIST dataset comes from the National Institute of Standards and Technology (NIST). Now do you know the origin of the name of this data set? M is the abbreviation of Modified. The training set is composed of numbers handwritten from 250 different people, of which 50\% are high school students and 50\% are from the staff of the Census Bureau. The test set is also the same proportion of handwritten digital data. Each picture is composed of 28x28 pixels, and each pixel is represented by a gray value. Here, the 28x28 pixels are expanded into a one-dimensional line vector (784 values ​​per line). The picture label is one-hot code: 0-9.
+  \subsection{Introduction to MNIST}
+  The MNIST dataset is a handwritten digital picture dataset, a very popular experimental data set in machine learning, almost becoming a model. It is available at website \href{http://yann.lecun.com/exdb/mnist/}{THE MNIST DATABASE}, and it contains four parts:
+  \begin{itemize}
+    \item Training set images: train-images-idx3-ubyte.gz (9.9 MB, containing 60,000 samples)
+    \item Training set labels: train-labels-idx1-ubyte.gz (29 KB, containing 60,000 labels)
+    \item Test set images: t10k-images-idx3-ubyte.gz (1.6 MB, containing 10,000 samples)
+    \item Test set labels: t10k-labels-idx1-ubyte.gz (5KB, containing 10,000 labels)
+  \end{itemize}
+  The MNIST dataset comes from the National Institute of Standards and Technology (NIST). Now do you know the origin of the name of this data set? M is the abbreviation of Modified. The training set is composed of numbers handwritten from 250 different people, of which 50\% are high school students and 50\% are from the staff of the Census Bureau. The test set is also the same proportion of handwritten digital data. Each picture is composed of 28x28 pixels, and each pixel is represented by a gray value. Here, the 28x28 pixels are expanded into a one-dimensional line vector (784 values ​​per line). The picture label is one-hot code: 0-9.
 
-MNIST's original black and white (dual horizontal) image size is standardized to fit a 20x20 frame while retaining its aspect ratio. As a result of the anti-aliasing technique used by the normalization algorithm, the resulting image contains gray levels. The center of mass pixel image is shifted, positioning the image in the center of the 28x28 field, thereby centering it in the 28x28 image, just like Figure \ref{fNNIST0}.
+  MNIST's original black and white (dual horizontal) image size is standardized to fit a 20x20 frame while retaining its aspect ratio. As a result of the anti-aliasing technique used by the normalization algorithm, the resulting image contains gray levels. The center of mass pixel image is shifted, positioning the image in the center of the 28x28 field, thereby centering it in the 28x28 image, just like Figure \ref{fNNIST0}.
 
-\begin{figure}[h]
-  \centering
-  \includegraphics[width=0.5\textwidth]{image/blog_mnist}
-  \caption{MNIST data sample}
-  \label{fNNIST0}
-\end{figure}
+  \begin{figure}[h]
+    \centering
+    \includegraphics[width=0.5\textwidth]{image/blog_mnist}
+    \caption{MNIST data sample}
+    \label{fNNIST0}
+  \end{figure}
 
-\subsection{Introduction of SOM}
-SOM stands for Self-Organizing Map and is an unsupervised learning neural network for feature detection. It simulates different characteristics of the division of nerve cells in different regions of the human brain, that is, different regions have different response characteristics, and this process is automatically completed. SOM is used to generate a low-dimensional space of training samples. It can convert complex non-linear statistical relationships between high-dimensional data into simple geometric relationships and display them in a low-dimensional manner. Therefore, it is usually used in dimensionality reduction problems. SOM is different from other artificial neural networks because they use competitive learning instead of error-related learning, while involving back propagation and gradient descent. In competitive learning, each will compete with each other to respond to a subset of input data(Figure \ref{SOMnet}).
+  \subsection{Introduction of SOM}
+  SOM stands for Self-Organizing Map and is an unsupervised learning neural network for feature detection. It simulates different characteristics of the division of nerve cells in different regions of the human brain, that is, different regions have different response characteristics, and this process is automatically completed. SOM is used to generate a low-dimensional space of training samples. It can convert complex non-linear statistical relationships between high-dimensional data into simple geometric relationships and display them in a low-dimensional manner. Therefore, it is usually used in dimensionality reduction problems. SOM is different from other artificial neural networks because they use competitive learning instead of error-related learning, while involving back propagation and gradient descent. In competitive learning, each will compete with each other to respond to a subset of input data(Figure \ref{SOMnet}).
 
-\begin{figure}[h]
-  \centering
-  \includegraphics[width=0.5\textwidth]{image/SOM1}
-  \caption{SOM architecture}
-  \label{SOMnet}
-\end{figure}
+  \begin{figure}[h]
+    \centering
+    \includegraphics[width=0.5\textwidth]{image/SOM1}
+    \caption{SOM architecture}
+    \label{SOMnet}
+  \end{figure}
 
-The training process is like the following Figure \ref{SOMtrain}. The purple area represents the distribution of training data, and the white grid represents the current training data extracted from the distribution. First, the SOM node is located anywhere in the data space. The node closest to the training data (highlighted in yellow) will be selected. It moves towards training data just like neighboring nodes in the grid. After many iterations, the grid tends to approximate this kind of data distribution.
+  The training process is like the following Figure \ref{SOMtrain}. The purple area represents the distribution of training data, and the white grid represents the current training data extracted from the distribution. First, the SOM node is located anywhere in the data space. The node closest to the training data (highlighted in yellow) will be selected. It moves towards training data just like neighboring nodes in the grid. After many iterations, the grid tends to approximate this kind of data distribution.
 
-\begin{figure}[h]
-  \centering
-  \includegraphics[width=0.5\textwidth]{image/SOM2}
-  \caption{SOM training rocess}
-  \label{SOMtrain}
-\end{figure}
+  \begin{figure}[h]
+    \centering
+    \includegraphics[width=0.5\textwidth]{image/SOM2}
+    \caption{SOM training rocess}
+    \label{SOMtrain}
+  \end{figure}
 
-\subsection{Ordering and convergence}
-If the parameters are correctly initialized, we can start from the completely disordered initial state, and the SOM algorithm will gradually make the activation patterns obtained from the input space represent ordered. (However, it may end up in a metastable state where the feature map has topological defects.)
+  \subsection{Ordering and convergence}
+  If the parameters are correctly initialized, we can start from the completely disordered initial state, and the SOM algorithm will gradually make the activation patterns obtained from the input space represent ordered. (However, it may end up in a metastable state where the feature map has topological defects.)
 
-There are two significant stages in this adaptive process:
-Ordering or self-organizing stage: During this period, the weight vectors are topologically sorted. Usually this will require up to 1000 iterations of the SOM algorithm, and careful selection of neighborhood and learning rate parameters needs to be considered.
+  There are two significant stages in this adaptive process:
+  Ordering or self-organizing stage: During this period, the weight vectors are topologically sorted. Usually this will require up to 1000 iterations of the SOM algorithm, and careful selection of neighborhood and learning rate parameters needs to be considered.
 
-Convergence phase: During this period feature maps are fine tuned and provide accurate statistical quantization of the input space. Usually the number of iterations at this stage is at least 500 times the number of neurons in the network, and the parameters must be selected carefully.
-Here I set the number of ordering iterations as 1000, and the number of convergence iterations as 2000
+  Convergence phase: During this period feature maps are fine tuned and provide accurate statistical quantization of the input space. Usually the number of iterations at this stage is at least 500 times the number of neurons in the network, and the parameters must be selected carefully.
+  Here I set the number of ordering iterations as 1000, and the number of convergence iterations as 2000
 
-In my implementation, the ordering epoch is set to 1000 and convergence epoch is set to 2000, and the learning rate is set to 0.1. 
+  In my implementation, the ordering epoch is set to 1000 and convergence epoch is set to 2000, and the learning rate is set to 0.1.
 
-\subsection{Distance each epoch}
-The euclidean distance between its values in the t-th and (t+1)-th iterations convergence in a few epochs and then decrease slowly with fluctuation.
-\begin{figure}[h]
-  \centering
-  \includegraphics[width=0.5\textwidth]{image/dis}
-  \caption{Distance each epoch}
-  \label{dis}
-\end{figure}
+  \subsection{Distance each epoch}
+  The euclidean distance between its values in the t-th and (t+1)-th iterations convergence in a few epochs and then decrease slowly with fluctuation.
+  \begin{figure}[h]
+    \centering
+    \includegraphics[width=0.5\textwidth]{image/dis}
+    \caption{Distance each epoch}
+    \label{dis}
+  \end{figure}
 
-\subsection{2D lattices of three stages}
-\subsubsection{Initialization stage}
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=1.0\textwidth]{image/somf1}
-  \caption{Initialization stage}
-  \label{somf1}
-\end{figure}
+  \subsection{2D lattices of three stages}
+  \subsubsection{Initialization stage}
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\textwidth]{image/somf1}
+    \caption{Initialization stage}
+    \label{somf1}
+  \end{figure}
 
-\subsubsection{Between Initialization stage and Convergence stage}
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=1.0\textwidth]{image/somf2}
-  \caption{Between Initialization stage and Convergence stage}
-  \label{somf2}
-\end{figure}
+  \subsubsection{Between Initialization stage and Convergence stage}
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\textwidth]{image/somf2}
+    \caption{Between Initialization stage and Convergence stage}
+    \label{somf2}
+  \end{figure}
 
-\subsubsection{Convergence stage}
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=1.0\textwidth]{image/somf3}
-  \caption{Convergence stage}
-  \label{somf3}
-\end{figure}
+  \subsubsection{Convergence stage}
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\textwidth]{image/somf3}
+    \caption{Convergence stage}
+    \label{somf3}
+  \end{figure}
 
 \end{homeworkProblem}
 
 \begin{homeworkProblem}
-\subsection{Introduction to MNIST}
-The MNIST dataset is a handwritten digital picture dataset, a very popular experimental data set in machine learning, almost becoming a model. It is available at website \href{http://yann.lecun.com/exdb/mnist/}{THE MNIST DATABASE}, and it contains four parts:
-\begin{itemize}
-  \item Training set images: train-images-idx3-ubyte.gz (9.9 MB, containing 60,000 samples)
-  \item Training set labels: train-labels-idx1-ubyte.gz (29 KB, containing 60,000 labels)
-  \item Test set images: t10k-images-idx3-ubyte.gz (1.6 MB, containing 10,000 samples)
-  \item Test set labels: t10k-labels-idx1-ubyte.gz (5KB, containing 10,000 labels)
-\end{itemize}
+  \subsection{Introduction to MNIST}
+  The MNIST dataset is a handwritten digital picture dataset, a very popular experimental data set in machine learning, almost becoming a model. It is available at website \href{http://yann.lecun.com/exdb/mnist/}{THE MNIST DATABASE}, and it contains four parts:
+  \begin{itemize}
+    \item Training set images: train-images-idx3-ubyte.gz (9.9 MB, containing 60,000 samples)
+    \item Training set labels: train-labels-idx1-ubyte.gz (29 KB, containing 60,000 labels)
+    \item Test set images: t10k-images-idx3-ubyte.gz (1.6 MB, containing 10,000 samples)
+    \item Test set labels: t10k-labels-idx1-ubyte.gz (5KB, containing 10,000 labels)
+  \end{itemize}
 
-The MNIST dataset can be imported by TensorFlow API directly. 
-\begin{lstlisting}
+  The MNIST dataset can be imported by TensorFlow API directly.
+  \begin{lstlisting}
   import tensorflow as tf
   from tensorflow.keras import datasets, layers, models
 
 
   (train_images, train_labels), (test_images,test_labels) = datasets.mnist.load_data()
 \end{lstlisting}
-\subsection{Multinomial logistic regression}
-\subsubsection{Defining network}
-The following code define a 3-layer network like Figure \ref{mlrnet}. The input dimention was flattened from $28\times 28$ to $784\times 1$ in Flatten layer. The Dense layer was full-connection layer. The Dropout layer was adopted to preventing overfitting by keeping neutrons hidden and unchanged in one training epoch with a certain probability. The tf.nn.softmax function converts these logits to "probabilities" for each class. The losses.SparseCategoricalCrossentropy loss takes a vector of logits and a True index and returns a scalar loss for each example. Finally, set the model's optimizer to Adam (an optimizer that can adjust the learning rate adaptively), set loss function to SparseCategoricalCrossentropy and metrics to accuracy.
-\begin{lstlisting}
+  \subsection{Multinomial logistic regression}
+  \subsubsection{Defining network}
+  The following code define a 3-layer network like Figure \ref{mlrnet}. The input dimention was flattened from $28\times 28$ to $784\times 1$ in Flatten layer. The Dense layer was full-connection layer. The Dropout layer was adopted to preventing overfitting by keeping neutrons hidden and unchanged in one training epoch with a certain probability. The tf.nn.softmax function converts these logits to "probabilities" for each class. The losses.SparseCategoricalCrossentropy loss takes a vector of logits and a True index and returns a scalar loss for each example. Finally, set the model's optimizer to Adam (an optimizer that can adjust the learning rate adaptively), set loss function to SparseCategoricalCrossentropy and metrics to accuracy.
+  \begin{lstlisting}
   model = tf.keras.models.Sequential([
     tf.keras.layers.Flatten(input_shape=(28, 28)),
     tf.keras.layers.Dense(128, activation='relu'),
@@ -285,55 +285,55 @@ The following code define a 3-layer network like Figure \ref{mlrnet}. The input 
 loss_fn = tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True)
 model.compile(optimizer='adam', loss=loss_fn, metrics=['accuracy'])
 \end{lstlisting}
-\begin{figure}[h]
-  \centering
-  \includegraphics[width=0.2\textheight]{image/mlrnet}
-  \caption{Multinomial logisticre gression network architecture}
-  \label{mlrnet}
-\end{figure}
+  \begin{figure}[h]
+    \centering
+    \includegraphics[width=0.2\textheight]{image/mlrnet}
+    \caption{Multinomial logisticre gression network architecture}
+    \label{mlrnet}
+  \end{figure}
 
-\subsubsection{Training network}
-The following code training the neural network. We also applied tensorboard to visualize the trainging process, like Figure \ref{epoch_accuracy}.
-\begin{lstlisting}
+  \subsubsection{Training network}
+  The following code training the neural network. We also applied tensorboard to visualize the trainging process, like Figure \ref{epoch_accuracy}.
+  \begin{lstlisting}
 model.fit(x_train,
         y_train,
         epochs=5,
         validation_data=(x_test, y_test),
         callbacks=[tensorboard_callback])
 \end{lstlisting}
-\begin{figure}[h]
-  \centering
-  \includegraphics[width=0.4\textwidth]{image/epoch_accuracy}
-  \caption{Epoch accuracy of training set and test set}
-  \label{epoch_accuracy}
-\end{figure}
-\subsubsection{Test}
-The following code test the neural network's accuracy.
-\begin{lstlisting}
+  \begin{figure}[h]
+    \centering
+    \includegraphics[width=0.4\textwidth]{image/epoch_accuracy}
+    \caption{Epoch accuracy of training set and test set}
+    \label{epoch_accuracy}
+  \end{figure}
+  \subsubsection{Test}
+  The following code test the neural network's accuracy.
+  \begin{lstlisting}
 model.evaluate(x_test, y_test, verbose=2)
 \end{lstlisting}
-\subsubsection{Tuning}
-As we change batch size, the graph down pan down like Figure \ref{epoch_accuracy_bs}.
-\begin{figure}[h]
-  \centering
-  \includegraphics[width=0.4\textwidth]{image/epoch_accuracy_bs}
-  \caption{Epoch accuracy of different batch size}
-  \label{epoch_accuracy_bs}
-\end{figure}
+  \subsubsection{Tuning}
+  As we change batch size, the graph down pan down like Figure \ref{epoch_accuracy_bs}.
+  \begin{figure}[h]
+    \centering
+    \includegraphics[width=0.4\textwidth]{image/epoch_accuracy_bs}
+    \caption{Epoch accuracy of different batch size}
+    \label{epoch_accuracy_bs}
+  \end{figure}
 
-As we change optimizer and learning rate, the graphs vary like Figure \ref{epoch_accuracy_op}.
-\begin{figure}[h]
-  \centering
-  \includegraphics[width=0.4\textwidth]{image/epoch_accuracy_op}
-  \caption{Epoch accuracy of different optimizer}
-  \label{epoch_accuracy_op}
-\end{figure}
+  As we change optimizer and learning rate, the graphs vary like Figure \ref{epoch_accuracy_op}.
+  \begin{figure}[h]
+    \centering
+    \includegraphics[width=0.4\textwidth]{image/epoch_accuracy_op}
+    \caption{Epoch accuracy of different optimizer}
+    \label{epoch_accuracy_op}
+  \end{figure}
 
 
-\subsection{Multi-layer neural network}
-\subsubsection{Defining network}
-The following code define a basic neural network model. The first layer is a convolutional layer with 32 3x3 convolution kernel and RELU activation function. The second layer is a Flatten layer to flatten multi-dimensional input to a 1d-vector. The third is a hidden full-connection layer with RELU as activation function. The final layer is a output layer to output a one-hot encoding vector.
-\begin{lstlisting}
+  \subsection{Multi-layer neural network}
+  \subsubsection{Defining network}
+  The following code define a basic neural network model. The first layer is a convolutional layer with 32 3x3 convolution kernel and RELU activation function. The second layer is a Flatten layer to flatten multi-dimensional input to a 1d-vector. The third is a hidden full-connection layer with RELU as activation function. The final layer is a output layer to output a one-hot encoding vector.
+  \begin{lstlisting}
 
 class MyModel(Model):
     def __init__(self):
@@ -366,9 +366,9 @@ test_accuracy = tf.keras.metrics.SparseCategoricalAccuracy(
   
 \end{lstlisting}
 
-\subsubsection{Training and testing}
-The following code applied the training process and testing process. 
-\begin{lstlisting}
+  \subsubsection{Training and testing}
+  The following code applied the training process and testing process.
+  \begin{lstlisting}
 @tf.function
 def train_step(images, labels):
     with tf.GradientTape() as tape:
@@ -477,7 +477,7 @@ Then, I applied data augmentation to the dataset. Data augmentation is a useful 
   NuMem       & 2208          & 1413                 &                     & 7065               &                     & 14130              &                     & 28260              \\ \hline
   Total       & 13596         & 8701                 &                     & 48135              &                     & 96270              &                     & 192540            
   \end{tabular}}
-  \caption{}{Data augmentation to dataset}
+  \caption{Data augmentation to dataset}
   \label{datd}
 \end{table}
 
@@ -557,6 +557,7 @@ We can generate the output of each layer and get the following results Figure \r
 It seems to be that the first convolution layer reveal the edge of initial image, and features learned by the last layer is abstract and clear.
 
 We can also draw the conclusion that more data generate better accuracy from the final accuracy, as the number of data increase with degree.
+
 
 \end{homeworkProblem}
 \end{document}
