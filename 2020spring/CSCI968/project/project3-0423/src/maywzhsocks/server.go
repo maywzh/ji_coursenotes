@@ -14,7 +14,6 @@ import (
 	"net"
 	"os"
 	"strconv"
-
 	"golang.org/x/crypto/chacha20poly1305"
 )
 
