@@ -231,6 +231,7 @@ Convert::Convert(char *characters, int rlow, int rhigh, int arrayType,
 }
 
 // output target file
+// To one-hot encoding
 void Convert::targetOutput(void) {
   if (target->good()) {
     switch (currentChar) {
