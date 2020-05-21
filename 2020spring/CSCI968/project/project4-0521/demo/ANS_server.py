@@ -63,9 +63,9 @@ class SocksProxy(socketserver.StreamRequestHandler):
         self.connection.sendall(reply)
         #   建立连接成功，开始交换数据
         if reply[1] == 0 and cmd == 1:
-            print('开始交换数据')
+            print('Begin data exchange')
             self.exchange_loop(self.connection, remote)
-            print('交换完了')
+            print('Data exchanged')
         self.server.close_request(self.request)
 
     def get_available_methods(self, n):
@@ -80,10 +80,10 @@ class SocksProxy(socketserver.StreamRequestHandler):
 
     def exchange_loop(self, client, remote):
         while True:
-            print('等待数据了')
+            print('Waiting for data')
             #   等待数据
             r, w, e = select.select([client, remote], [], [])
-            print('等到数据了，开始交换')
+            print('Data received, Begin exchanging data')
             print('r:', r)
             print('w:', w)
             print('e:', e)
