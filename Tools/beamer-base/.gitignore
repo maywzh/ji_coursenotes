@@ -1,0 +1,6 @@
+*.pdf
+*.zip
+build/*
+!base/art/*.pdf
+!doc/beamerlogo.pdf
+!doc/examples/a-lecture/beamerexample-lecture-logo.pdf
