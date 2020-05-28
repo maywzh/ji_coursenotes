@@ -13,19 +13,33 @@
 \maketitle
 
 \begin{abstract}
-	
+%Online messaging service has been playing an important role in people’s daily life for social activities and other related businesses. The most widely used messaging services include Wechat,Whatsapp, Facebook, Line and so on. On the other hand, the privacy issues related to the messaging services are being discussed and investigated more and more often recently. The concept of the end to end encryption (E2EE) is proposed to mainly address the security is-sues that the private information may be compromised at the messaging server. In other words,in the scenario that messaging servers are required, which is the case for most of the asynchronous messaging services, messages communicated between two or multiple parties need to go through the servers for various functionality purposes. As a result, precautions need to betaken on whether the messages and other related information can be learned only by the end parties or not.
+
+%Signal is one of the most popular messaging services that claims to achieve the end to end encryption security level and what’s more importantly, it is an open source project applying the noise cryptographic protocol framework[1], which is also used by Whatsapp, wireguard, facebook Messenger, Skype, and Google Allo.
+
 \end{abstract}
 
+%TODO: You are required to provide a research report on the above issues containing the related background introduction and the corresponding solutions. Protocols should be concrete including all the mathematical details of the primitives you would apply. Please explain the reason behind the design to support the correctness and security properties, and show that the design can indeed achieve the goals.One technical report (12 pages in length excluding the references) should be submitted with the following format:
+
+
 \section{Introduction}
-Including the Signal protocol and other related background
+%TODO: Including the Signal protocol and other related background
 
 
 \section{Solution}
-\subsection{Issue 1}
-\subsection{Issue 2}
+%TODO: In this research report, you are required to first understand how Signal messaging servicework by referring to the documents [2, 3, 4] along with the source code [5]. Then based on theSignal framework, provide your solutions to the following two issues.
 
+
+
+\subsection{Issue 1}
+%TODO: Group chatting is one of the important functions in the online messaging application. Users within the group should be able to communicate with each other securely; A users should be allowed to join or leave the group; messaging server should not be able to know the sensitive information regarding the group member identities, message content and so on.You are required to define the security goals in detail that you believe to be reasonable in the group chatting scenario, and provide the solution based on the Signal framework. [2,3,4]
+
+\subsection{Issue 2}
+%TODO: There are many popular messaging services which do not satisfy the E2EE security level,especially for the non-open source products. This is sometimes due to the auditing or other requirements by both the government and the company itself. Please provide the solution for this scenario so that the security requirements are satisfied as in the E2EE scenario except for the case that the messaging server is able to audit the corresponding communication session (message content, and user identity and so on). Please describe how you can limit the damage if the messaging server is compromised.
 
 \section{Conclusion}
+
+
 
 \bibliography{wpref}
 
