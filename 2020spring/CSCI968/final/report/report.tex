@@ -28,11 +28,13 @@
 
 \section{Introduction}
 %TODO: Including the Signal protocol and other related background
-In the modern network environment, people have increasing demands for privacy protection. Now the world is worried that people ’s personal privacy will be violated, as people use instant messaging apps and services, where the service provider may be the weakness of leaking privacy in the case that only transmission encryption is adopted.   
-
-Signal is an excellent End-to-end encryption protocol.
+In the modern network environment, people have increasing demands for privacy protection. Now the world is worried that people ’s personal privacy will be violated, as people use instant messaging apps and services, where the service provider may be the vulnerable because of attacker can crack the server or perform Man-In-The-Middle attack in the case that only transmission encryption is adopted. In other scenario, the privacy of user is transparent to server, so service providers may acquire the content of communication as they want. To solve the natural weakness of transmission encryption, End-to-end encryption is introduced. 
 
 End-to-end encryption (E2EE) is a communication system where only users participating in the communication can read the information. In general, it can prevent potential eavesdroppers-including telecommunications providers, Internet services. Such systems are designed to prevent potential surveillance or corrective attempts, because it is difficult for third parties without keys to decipher Data transmitted or stored. Generally speaking, communication providers that use end-to-end encryption will not be able to provide their customers' communication data to the specification. 
+
+Signal is an excellent End-to-end encryption protocol.\cite{alwen2019double} It is very famous in both IT and security field and applied in Whatsapp，Facebook Messenger，Skype, etc. The core algorithm of Signal protocol is X3DH and Double Ratchet, referring to the key agreement protocol "Extended Triple Diffie-Hellman" and one secure key management algorithm respectively. 
+
+
 
 
 
