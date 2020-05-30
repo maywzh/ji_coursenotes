@@ -28,14 +28,14 @@
 
 \section{Introduction}
 %TODO: Including the Signal protocol and other related background
-In the modern network environment, people have increasing demands for privacy protection. Now the world is worried that people ’s personal privacy will be violated, as people use instant messaging apps and services, where the service provider may be the vulnerable because of attacker can crack the server or perform Man-In-The-Middle attack in the case that only transmission encryption is adopted. In other scenario, the privacy of user is transparent to server, so service providers may acquire the content of communication as they want. To solve the natural weakness of transmission encryption, End-to-end encryption is introduced.
+In the modern network environment, people have increasing demands for privacy protection. Now the world is worried that people ’s personal privacy will be violated, as people use instant messaging apps and services, where the service provider may be the vulnerable because of attacker can crack the server or perform Man-In-The-Middle attack in the case that only transmission encryption is adopted\cite{rosler2018more}. In other scenario, the privacy of user is transparent to server, so service providers may acquire the content of communication as they want. To solve the natural weakness of transmission encryption, End-to-end encryption is introduced.
 
-End-to-end encryption (E2EE) is a communication system where only users participating in the communication can read the information. In general, it can prevent potential eavesdroppers-including telecommunications providers, Internet services. Such systems are designed to prevent potential surveillance or corrective attempts, because it is difficult for third parties without keys to decipher Data transmitted or stored. Generally speaking, communication providers that use end-to-end encryption will not be able to provide their customers' communication data to the specification.
+End-to-end encryption (E2EE) is a communication system where only users participating in the communication can read the information. In general, it can prevent potential eavesdroppers-including telecommunications providers, Internet services. Such systems are designed to prevent potential surveillance or corrective attempts, because it is difficult for third parties without keys to decipher Data transmitted or stored\cite{zhang2007security}. Generally speaking, communication providers that use end-to-end encryption will not be able to provide their customers' communication data to the specification.
 
-Signal is an excellent End-to-end encryption protocol.\cite{alwen2019double} It is very famous in both IT and security field and applied in Whatsapp，Facebook Messenger，Skype, etc. The core algorithm of Signal protocol is X3DH and Double Ratchet, referring to the key agreement protocol "Extended Triple Diffie-Hellman" and one secure key management algorithm respectively.
+Signal is an excellent End-to-end encryption protocol.\cite{alwen2019double} It is very famous in both IT and security field and applied in Whatsapp，Facebook Messenger，Skype, etc. The core algorithm of Signal protocol is X3DH and Double Ratchet, referring to the key agreement protocol "Extended Triple Diffie-Hellman" and one secure key management algorithm respectively\cite{cohn2017formal}.
 We perform the analysis of Signal by introducing the privacy preserving requirement and principle of X3DH and Double Ratchet.
 
-\subsection{Privacy protection consideration}
+\subsection{Privacy preserving consideration}
 The most significant point of privacy-preserving is the content of the communication. The leakage of communication content will expose the private content of the communication party or cause scam attack to the communicating parties, which seriously interferes with normal work and life.
 
 The confidentiality of the communicating parties is also important, that is to say, the identification of user should be unknown to unrelated third party as far as possible. This means trying to avoid the server from knowing and storing relevant information.
@@ -66,9 +66,9 @@ The Signal protocol can be used in the communication between the two parties and
 %\subsubsection{Forward security and Backward security}
 
 \subsubsection{X3DH}
-Extended Triple Diffie-Hellman was developed by Moxie Marlinspike and Trevor Perrin. It implements the Diffie-Hellman key agreement protocol with the assistance of a central server so that both parties can communicate asynchronously and communicate only with the server. In X3DH setting, the server kept some information published by offline user Bob, which can be utilized by Alice to generate a secret key for communicatiion with Bob.
+Extended Triple Diffie-Hellman was developed by Moxie Marlinspike and Trevor Perrin\cite{marlinspike2016x3dh}. It implements the Diffie-Hellman key agreement protocol with the assistance of a central server so that both parties can communicate asynchronously and communicate only with the server. In X3DH setting, the server kept some information published by offline user Bob, which can be utilized by Alice to generate a secret key for communicatiion with Bob.
 
-The X3DH parameters include：type of eclipse curve(available value including 25519 and X448), the hash function(SHA-256, SHA-512, etc.) and information for application identification. For example, the application may take X25519 as the eclipse curve, the SHA-512 as the hash function and "ProtocolX" as the information. The application also need to define a encoding function $Encode(PK)$, for encoding the public key $PK$ of X25519 or X448 to string.
+The X3DH parameters include：type of eclipse curve(available value including 25519 and X448)\cite{marlinspike2016x3dh}, the hash function(SHA-256, SHA-512, etc.) and information for application identification. For example, the application may take X25519 as the eclipse curve, the SHA-512 as the hash function and "ProtocolX" as the information. The application also need to define a encoding function $Encode(PK)$, for encoding the public key $PK$ of X25519 or X448 to string.
 
 We use some notation to describe X3DH:
 \begin{itemize}
@@ -89,8 +89,6 @@ We use some notation to describe X3DH:
 %     \item $SPK_B$: the signed pre-key of Bob
 %     \item $OPK_B$: the one-time pre-key of Bob
 % \end{itemize}
-
-
 
 In X3DH, all public key should have the same format. Each one of the parties, Alice and Bob, has one identity key $IK_B$. Bob has a signed pre-key $SPK_B$, which is updated periodically by Bob, and a set of one-time pre-key $OPK_B$s, of which each one is used in one X3DH. In each interaction of the protocol, Alice generates one new ephemeral key $EK_A$, and after each interaction, Alice and Bob will share one 32-byte key $SK$, which can be used for the communication of the latter protocol. $IK_A$ and $IK_B$ both use the public key used for identity verification for a long time. $SPK_B$ is used by Bob to sign the session for authentication. Generally, this key will be replaced in a certain period for security, usually one week, one day, or even several hours. $OPK_B$ is Bob ’s public key that can be used only once to establish a session. Generally, Bob uploads a set of tens or hundreds of such public keys to the server. Such public keys must be discarded each time a session is successfully established. , Must not be reused, otherwise it will face huge security risks. $EK_A$ is the key that Alice temporarily generated in order to establish the session. It shall be discarded immediately after the session is successfully established.
 
@@ -159,14 +157,14 @@ Then Alice can use $SK$ and keys derived from $SK$ to communicate with Bob.
 Bob retrieves the identification key $IK_A$ and temporary public key $EK_A$ of Alice from the initial message received from Alice and loads the relative private keys of his identification key $IK_B$, $SPK_B$ and $OPK_B$ used by Alice. Bob redo the DH and KDF computation mentioned above to generate $SK$ and delete the output value of DH. After these, Bob constructed AD string with $IK_A$ and $IK_B$. Finally, Bob tries to decrypt the initial ciphertext with $SK$ and $AD$. If the decryption fails, Bob will stop the protocol and delete $SK$ immediately, or else the protocol completes and Bob will delete the $OPK$ for forward encryption. Then Bob and use $SK$ or derived keys of $SK$ to perform the post-X3DH protocol with Alice.
 
 \subsubsection{Double Ratchet}
-The ratchet is a one-way gear. Through the ratchet algorithm, you can ensure that if someone gets the key, they can only decrypt the current data, but cannot monitor the previous or future data. The double ratchet is a forward one. The backward ratchet guarantees the security of forward and backward, and provides double insurance for the security of data transmission. Even the serial key can only read a small part of the data.
+The ratchet is a one-way gear. Through the ratchet algorithm, you can ensure that if someone gets the key, they can only decrypt the current data, but cannot monitor the previous or future data. The double ratchet is a forward one. The backward ratchet guarantees the security of forward and backward, and provides double insurance for the security of data transmission. Even the serial key can only read a small part of the data\cite{perrin2016double,cohn2016post}.
 
 Signal Protocol uses a ratchet algorithm to generate a message key. Using a ratchet algorithm, each message can use a different key. Even if the key of a message is cracked, third parties can only calculate the key of the subsequent message, but not to the key to the previous message is called forward security.
 
 If an additional ratchet algorithm is added, it can ensure backward security on the basis of forward security, that is, even if the key of a message is cracked, and the key of the message before and after cannot be cracked. This algorithm is called Double Ratchet algorithm. The Double Ratchet algorithm used by Signal Protocol in the communication between the two parties is KDF chain ratchet and DH ratchet to ensure the forward security and backward security of the message.
 
 \paragraph{KDF chain}
-KDF is a cryptographic function that inputs a secret and random KDF key and other data (see Figure \ref{kdfchain}), and returns the output data. Under the premise that the key is unknown, the output data is inseparable from the random number, which meets the PRF requirements in cryptography, that is, a pseudo-random function is reached. The KDF chain uses a part of KDF output as the output key, and another part as the next key.
+KDF is a cryptographic function that inputs a secret and random KDF key and other data (see Figure \ref{kdfchain}), and returns the output data. Under the premise that the key is unknown, the output data is inseparable from the random number, which meets the PRF requirements in cryptography, that is, a pseudo-random function is reached. The KDF chain uses a part of KDF output as the output key, and another part as the next key\cite{bellare2017ratcheted}.
 
 \begin{figure}[H]
     \centering
@@ -192,7 +190,7 @@ In this way, a double ratchet is formed, forming a forward and backward security
 
 \paragraph{Symmetric-key ratchet}
 
-Each message sent or received is encrypted with a unique message key. The message key is the output key of the sending KDF chain and the receiving KDF chain. The KDF keys of these chains are called chain keys.
+Each message sent or received is encrypted with a unique message key. The message key is the output key of the sending KDF chain and the receiving KDF chain. The KDF keys of these chains are called chain keys\cite{poettering2018towards}.
 
 Since the KDF input of the sending chain and the receiving chain is constant, the two chains do not have the recoverability after being broken. The sending chain and receiving chain can only ensure that each message is encrypted with a unique key, and this key can be deleted after encryption or decryption. The process of calculating the next chain key and message key from a given chain key is called a ratchet step of a symmetric-key ratchet (Figure \ref{skratchet}).
 
@@ -206,7 +204,7 @@ Since the KDF input of the sending chain and the receiving chain is constant, th
 
 
 \paragraph{Diffie-Hellman Ratchet}
-If the attacker steals one of the sending chain key and receiving chain key, then he can calculate all the message keys thereafter and decrypt the corresponding message. To avoid this, the double ratchet algorithm combines a symmetric key ratchet with a DH ratchet, and uses the latter to update the chain key based on the output of Diffie-Hellman.
+If the attacker steals one of the sending chain key and receiving chain key, then he can calculate all the message keys thereafter and decrypt the corresponding message. To avoid this, the double ratchet algorithm combines a symmetric key ratchet with a DH ratchet, and uses the latter to update the chain key based on the output of Diffie-Hellman\cite{almuzaini2019formal,cohn2018ends}.
 
 In order to implement DH ratcheting, both parties to the communication generate a DH key pair (Diffie-Hellman public key and private key) as the current ratchet key pair. Each message sent from either party will carry a message header, which contains the sender's current ratchet public key. When receiving a new ratchet public key sent from the far end, the local end will implement a DH ratchet step (DH ratchet step) to generate a new ratchet key pair to replace the current local key pair.
 
@@ -217,10 +215,9 @@ In this round, Alice also uses Bob's new public key to calculate a new round of 
 Similarly, as the key calculated by DH changes, the sending chain will also step forward. Take the DH output as the KDF input of the root chain, and the KDF output of the root chain as the sending chain key and receiving chain key. So a complete DH ratchet step includes two updates of the root KDF chain, and its KDF output is used as the new receiving chain key and sending chain key.
 
 \paragraph{Double Ratchet}
-The combination of the symmetric key ratchet and the DH ratchet forms a double ratchet, which guarantees the security of forward and backward.
+The combination of the symmetric key ratchet and the DH ratchet forms a double ratchet, which guarantees the security of forward and backward\cite{alwen2019double,cohn2017formal,poettering2018towards}.
 
-When sending or receiving a message, a symmetric key ratcheting step of the sending chain or receiving chain is performed once to derive a new message key.
-When a new ratchet public key is received, before the symmetric key ratchet step, a DH ratchet step is performed to update the chain key.
+When sending or receiving a message, a symmetric key ratcheting step of the sending chain or receiving chain is performed once to derive a new message key. When a new ratchet public key is received, before the symmetric key ratchet step, a DH ratchet step is performed to update the chain key\cite{perrin2016double}.
 
 Alice has used Bob's ratchet public key and shared key initialization as the initial root key (RK). As part of the initialization, Alice generates a new ratchet key pair and uses the DH output as the input of the root KDF to calculate the new root key (RK) and send chain key (CK).
 
@@ -294,6 +291,10 @@ If attachments like images, videos and voice records are considered, they should
 \subsubsection*{Security analysis}
 
 The server only saves the client authentication public key (public authentication key), so even if being cracked, the attacker cannot decrypt the privacy content of users.
+
+Considering authentication, no cryptographic guarantee of the authenticity of communicating parties is provided in the Signal Protocol. Public keys should be verified out-of-band using another communication channel. Without it, the communication could already be intercepted using a man-in-the-middle attack.
+
+From the security perspective of Post-Quantum, all communication records may be preserved in cloud server.All data cannot be decrypted in the current situation, while may be decrypted in the case of quantum computer application. The quantum computers will be able to crack all asymmetric systems used in the Signal Protocol.
 
 \subsection{Issue2: E2EE security except for Auditing}
 
