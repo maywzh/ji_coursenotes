@@ -18,7 +18,7 @@
     % Online messaging service has been playing an important role in people’s daily life for social activities and other related businesses. The most widely used messaging services include Wechat,Whatsapp, Facebook, Line and so on. On the other hand, the privacy issues related to the messaging services are being discussed and investigated more and more often recently. The concept of the end to end encryption (E2EE) is proposed to mainly address the security issues that the private information may be compromised at the messaging server. In other words,in the scenario that messaging servers are required, which is the case for most of the asynchronous messaging services, messages communicated between two or multiple parties need to go through the servers for various functionality purposes. As a result, precautions need to betaken on whether the messages and other related information can be learned only by the end parties or not.
 
     %Signal is one of the most popular messaging services that claims to achieve the end to end encryption security level and what’s more importantly, it is an open source project applying the noise cryptographic protocol framework[1], which is also used by Whatsapp, wireguard, facebook Messenger, Skype, and Google Allo.
-
+    In this article, analysis the principle of Signal protocol if performed. Signal is one of the most secure End-to-end encryption protocol. The End-to-end encryption protocol is introduced first followed by some analysis of privacy-preserving scenerios and requirements. Then, the core ideas of the key exchange protocol X3DH and the Double Ratchet algorithm enabling the forward security and backward security is presented. Finally, the solutions of grouping chatting and government auditing of communication with maximum security and minimum privacy leakage risks are given. 
 
 
 \end{abstract}
@@ -53,20 +53,76 @@ The first attribute is the openness and verifiability of the protocol. The openn
 
 The next attribute is the decentralization and autonomy. Any centralized or maintained by a commercial company may affect the system as the center weakens or the company changes. The long-term vitality of basic communication service need decentralization and reduction of commercial companies maintenance. The system can add auxiliary functions to the central server and commercial companies to provide certain support for it, but the stable operation of the system cannot rely on these centralized prerequisites. The best practical way is to realize that anyone can add server resources to the system on the basis of donation or for some kind of income, which can be conveniently added to the server network and can be easily disconnected from the server network without affecting the overall operation of the network. .
 
-The last attribute is the support for basic social network features. In order for the system to form a usable and easy-to-use social network, the system must provide additional basic security communication requirements in addition to the end-to-end encryption security service. A secure group communication encryption mechanism must be provided, which should be consistent with the effect that a group of people actually gather in a private physical space. Also, It is necessary to provide a mechanism for introducing external content into the secure communication range, and at the same time limit the damage of external content to possible privacy issues. Moreover, the personal homepage, friends circle and other related social network feature support should be provided, the data storage should also be distributed encrypted. 
+The last attribute is the support for basic social network features. In order for the system to form a usable and easy-to-use social network, the system must provide additional basic security communication requirements in addition to the end-to-end encryption security service. A secure group communication encryption mechanism must be provided, which should be consistent with the effect that a group of people actually gather in a private physical space. Also, It is necessary to provide a mechanism for introducing external content into the secure communication range, and at the same time limit the damage of external content to possible privacy issues. Moreover, the personal homepage, friends circle and other related social network feature support should be provided, the data storage should also be distributed encrypted.
 
 
 \section{Solution}
 %TODO: In this research report, you are required to first understand how Signal messaging service work by referring to the documents [2, 3, 4] along with the source code [5]. Then based on the Signal framework, provide your solutions to the following two issues.
 
+The Signal protocol can be used in the communication between the two parties and the packet communication, which can ensure the encrypted transmission of the transmitted messages, pictures, audio, video and other files. Even if the key of some messages is inserted, the hacker cannot decrypt the previous message and the subsequent message, so the signal protocol can provide forward security and backward security.
+
+\subsection{The principle of Signal protocol}
+
+\subsubsection{Forward security and Backward security}
 
 
-\subsection{Issue 1}
+\subsubsection{X3DH}
+Extended Triple Diffie-Hellman was developed by Moxie Marlinspike and Trevor Perrin. It implements the Diffie-Hellman key agreement protocol with the assistance of a central server so that both parties can communicate asynchronously and communicate only with the server. In X3DH setting, the server kept some information published by offline user Bob, which can be utilized by Alice to generate a secret key for communicatiion with Bob.
+
+The X3DH parameters include：type of eclipse curve(available value including 25519 and X448), the hash function(SHA-256, SHA-512, etc.) and information for application identification. For example, the application may take X25519 as the eclipse curve, the SHA-512 as the hash function and "ProtocolX" as the information. The application also need to define a encoding function $Encode(PK)$, for encoding the public key $PK$ of X25519 or X448 to string.
+
+We use some notation to describe X3DH:
+\begin{itemize}
+    \item $X||Y$ represents the concatenation of byte sequences $X$ and $Y$
+    \item $DH(PK1,PK2)$ represents the output secret key of ECCDH, where the $PK1$ and $PK2$ are the public keys from different key pair.
+    \item $Sig(PK,M)$ represents signing the message $M$ with the corresponding secret key $SK$ of $PK$, the $PK$ can be used for signature verification.
+    \item $KDF(KM)$ represents the 32-byte output of HKDF, whose inputs include $F||KM$. salt, and info. The $F||KM$ is the material of key. The salt is the zero padding string with the equal length of the hash function output. The info is the identification info, which is one of X3DH parameters.
+    \item Alice represents the sender, who send receiver Bob some initial data and build shared key for intercommunication.
+    \item Bob represents the receiver, whom Alice(s) can generate shared key with and send encrypted data to. In fact, to ensure the mechanism valid when Bob is offline, they may build connection through the server.
+    \item Server can store the data sent from Alice to Bob, which can be checked by Bob shortly after. Server enables Bob publishing some data as well to offer these data to senders like Alice.
+\end{itemize}
+
+% The used key of X3DH protocol is:
+% \begin{itemize}
+%     \item IK-A: the identity key of Alice
+%     \item EK-A: the ephemeral key of Alice
+%     \item IK-B: the identity key of Bob
+%     \item SPK-B: the signed prekey of Bob
+%     \item OPK-B: the one-time prekey of Bob
+% \end{itemize}
+
+
+
+In X3DH, all public key should have the same format. Each one of the parties, Alice and Bob, has one identity key IK-B. Bob has a signed prekey SPK-B, which is updated periodically by Bob, and a set of one-time prekey OPK-Bs, of which each one is used in one X3DH. In each interaction of the protocol, Alice generates one new ephemeral key EK-A, and after each interaction, Alice and Bob will share one 32-byte key SK, which can be used for the communication of the latter protocol. IK-A and IK-B both use the public key used for identity verification for a long time. SPK-B is used by Bob to sign the session for authentication. Generally, this key will be replaced in a certain period for security, usually one week, one day, or even several hours. OPK-B is Bob ’s public key that can be used only once to establish a session. Generally, Bob uploads a set of tens or hundreds of such public keys to the server. Such public keys must be discarded each time a session is successfully established. , Must not be reused, otherwise it will face huge security risks. EK-A is the key that Alice temporarily generated in order to establish the session. It shall be discarded immediately after the session is successfully established.
+
+The three phases of X3DH is like Figure.
+
+\begin{enumerate}
+    \item Bob sends his SPK-B to server.
+    \item Alice fetch the package of shared SPK-B of Bob, and sends one initial message to Bob by it.
+    \item Bob receives and handles the initail message from Alice.
+\end{enumerate}
+
+\paragraph{Bob sending ECDH keys}
+In this phase, Bob send IK-B, SPK-B, the signature Sig(IK-B, Encode(SPK-B)) and (OPK-B1, OPK-B2,..) to server. After sending the signed SPK-B, Bob may preserver the relevant secret key for some time to handle the delayed messages. When someone tries to authenticate with them to establish a session, the relevant private key will be used. For a single preset key, if the session is used during the session establishment, the relevant key must be deleted after the session is established.
+
+
+
+
+% \subsubsection{Curve25519}
+
+% Curve25519 is currently the highest level of Diffie-Hellman function, suitable for a wide range of scenarios, designed by Professor Daniel J. Bernstein. In cryptography, Curve25519 is an elliptic curve that provides 128-bit security and is designed for elliptic curve Diffie-Hellman (ECDH) key agreement schemes. It is one of the fastest ECC curves and is not covered by any known patents.
+
+% Given a user's 32-byte key, curve25519 calculates the user's 32-byte public key. Given this user's 32-byte key and another user's 32-byte public key, curve25519 calculates a 32-byte shared key and provides it to these two users. You can then use this secret to authenticate and encrypt two users.
+
+
+\subsection{Group chatting}
 %TODO: Group chatting is one of the important functions in the online messaging application. Users within the group should be able to communicate with each other securely; A users should be allowed to join or leave the group; messaging server should not be able to know the sensitive information regarding the group member identities, message content and so on.You are required to define the security goals in detail that you believe to be reasonable in the group chatting scenario, and provide the solution based on the Signal framework. [2,3,4]
 
+\subsubsection{Security analysis}
 
 
-\subsection{Issue 2}
+\subsection{Auditing}
 %TODO: There are many popular messaging services which do not satisfy the E2EE security level, especially for the non-open source products. This is sometimes due to the auditing or other requirements by both the government and the company itself. Please provide the solution for this scenario so that the security requirements are satisfied as in the E2EE scenario except for the case that the messaging server is able to audit the corresponding communication session (message content, and user identity and so on). Please describe how you can limit the damage if the messaging server is compromised.
 
 
