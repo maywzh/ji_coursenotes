@@ -216,21 +216,7 @@ In this round, Alice also uses Bob's new public key to calculate a new round of 
 
 Similarly, as the key calculated by DH changes, the sending chain will also step forward. Take the DH output as the KDF input of the root chain, and the KDF output of the root chain as the sending chain key and receiving chain key. So a complete DH ratchet step includes two updates of the root KDF chain, and its KDF output is used as the new receiving chain key and sending chain key.
 
-\paragraph{Double Ratchet}
-The combination of the symmetric key ratchet and the DH ratchet forms a double ratchet, which guarantees the security of forward and backward.
-
-When sending or receiving a message, a symmetric key ratcheting step of the sending chain or receiving chain is performed once to derive a new message key.
-When a new ratchet public key is received, before the symmetric key ratchet step, a DH ratchet step is performed to update the chain key.
-
-Alice has used Bob's ratchet public key and shared key initialization as the initial root key (RK). As part of the initialization, Alice generates a new ratchet key pair and uses the DH output as the input of the root KDF to calculate the new root key (RK) and send chain key (CK).
-
-When Alice sends the first message A1, she performs a symmetric key ratchet step on the sending chain key to generate a new message key (the message key is marked with the message number it encrypted or decrypted). The new chain key will be saved, but the message key and the old chain key can be deleted.
-
-Double ratchet stepping requires that both parties interact with each other to achieve a stepping. If the message is unilaterally sent or received, only symmetric key stepping occurs. DH stepping requires the other party to reply with a new ratchet public key.
-
-When the new public key is received, the message key is calculated using the last time own private key, and the received message is decrypted. Then generate a new ratchet key pair for DH stepping, calculate a new message key, and encrypt the next message sent.
-
-
+\pa
 
 
 % \subsubsection{Curve25519}
@@ -242,7 +228,6 @@ When the new public key is received, the message key is calculated using the las
 
 \subsection{Group chatting}
 %TODO: Group chatting is one of the important functions in the online messaging application. Users within the group should be able to communicate with each other securely; A users should be allowed to join or leave the group; messaging server should not be able to know the sensitive information regarding the group member identities, message content and so on.You are required to define the security goals in detail that you believe to be reasonable in the group chatting scenario, and provide the solution based on the Signal framework. [2,3,4]
-
 
 \subsubsection{Security analysis}
 
