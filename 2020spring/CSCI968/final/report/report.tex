@@ -18,7 +18,7 @@
     % Online messaging service has been playing an important role in people’s daily life for social activities and other related businesses. The most widely used messaging services include Wechat,Whatsapp, Facebook, Line and so on. On the other hand, the privacy issues related to the messaging services are being discussed and investigated more and more often recently. The concept of the end to end encryption (E2EE) is proposed to mainly address the security issues that the private information may be compromised at the messaging server. In other words,in the scenario that messaging servers are required, which is the case for most of the asynchronous messaging services, messages communicated between two or multiple parties need to go through the servers for various functionality purposes. As a result, precautions need to betaken on whether the messages and other related information can be learned only by the end parties or not.
 
     %Signal is one of the most popular messaging services that claims to achieve the end to end encryption security level and what’s more importantly, it is an open source project applying the noise cryptographic protocol framework[1], which is also used by Whatsapp, wireguard, facebook Messenger, Skype, and Google Allo.
-    In this article, analysis the principle of Signal protocol if performed. Signal is one of the most secure End-to-end encryption protocol. The End-to-end encryption protocol is introduced first followed by some analysis of privacy-preserving scenerios and requirements. Then, the core ideas of the key exchange protocol X3DH and the Double Ratchet algorithm enabling the forward security and backward security is presented. Finally, the solutions of grouping chatting and government auditing of communication with maximum security and minimum privacy leakage risks are given. 
+    In this article, analysis the principle of Signal protocol if performed. Signal is one of the most secure End-to-end encryption protocol. The End-to-end encryption protocol is introduced first followed by some analysis of privacy-preserving scenerios and requirements. Then, the core ideas of the key exchange protocol X3DH and the Double Ratchet algorithm enabling the forward security and backward security is presented. Finally, the solutions of grouping chatting and government auditing of communication with maximum security and minimum privacy leakage risks are given.
 
 
 \end{abstract}
@@ -106,8 +106,9 @@ The three phases of X3DH is like Figure.
 \paragraph{Bob sending ECDH keys}
 In this phase, Bob send IK-B, SPK-B, the signature Sig(IK-B, Encode(SPK-B)) and (OPK-B1, OPK-B2,..) to server. After sending the signed SPK-B, Bob may preserver the relevant secret key for some time to handle the delayed messages. When someone tries to authenticate with them to establish a session, the relevant private key will be used. For a single preset key, if the session is used during the session establishment, the relevant key must be deleted after the session is established.
 
+\paragraph{Alice acquiring Bob's key package}
 
-
+reportdf
 
 % \subsubsection{Curve25519}
 
