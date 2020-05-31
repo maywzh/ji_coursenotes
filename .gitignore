@@ -506,3 +506,7 @@ GitHub.sublime-settings
 
 **/lab.pdf
 **/assignment.pdf
+
+**/latex/assignment*.pdf
+
+**/report/lab*.pdf
