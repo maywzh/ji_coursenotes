@@ -1,3 +1,5 @@
+SQL> 
+SQL> SET ECHO ON
 SQL> SET FEEDBACK ON
 SQL> SET LINESIZE 100
 SQL> SET PAGESIZE 200
@@ -12,7 +14,7 @@ SQL> INSERT INTO traveller VALUES ( '284123045234', 'Australia', 'Dimitri', 'Wil
 
 1 row inserted.
 
-SQL> INSERT INTO traveller VALUES ( '459910233225', 'United Kindom', 'Lucas', 'Smith', TO_DATE('01-JAN-1984', 'DD-MON-YYYY'));
+SQL> INSERT INTO traveller VALUES ( '459910233225', 'United Kingdom', 'Lucas', 'Smith', TO_DATE('01-JAN-1984', 'DD-MON-YYYY'));
 
 1 row inserted.
 
@@ -42,7 +44,7 @@ SQL> INSERT INTO visit VALUES ('152483045685', 'China', 'Kyono Mori Yurinsha', '
 
 1 row inserted.
 
-SQL> INSERT INTO visit VALUES ('459910233225', 'United Kindom', 'Delta Hotel', 'Toronto', TO_DATE('18-JUNE-2020', 'DD-MON-YYYY'), NULL);
+SQL> INSERT INTO visit VALUES ('459910233225', 'United Kingdom', 'Delta Hotel', 'Toronto', TO_DATE('18-JUNE-2020', 'DD-MON-YYYY'), NULL);
 
 1 row inserted.
 

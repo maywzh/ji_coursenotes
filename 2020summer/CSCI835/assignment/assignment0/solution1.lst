@@ -1,3 +1,5 @@
+SQL> 
+SQL> SET ECHO ON
 SQL> SET FEEDBACK ON
 SQL> SET LINESIZE 100
 SQL> SET PAGESIZE 200
@@ -11,19 +13,8 @@ SQL> CREATE TABLE traveller(
   6  birthdate       DATE            NOT NULL, /* date of birth	*/
   7      CONSTRAINT traveller_pkey PRIMARY KEY ( pnum, nationality ));
 
-Error starting at line : 9 in command -
-CREATE TABLE traveller(
-pnum	        VARCHAR(30)     NOT NULL, /* passport number  */
-nationality     VARCHAR(30)     NOT NULL, /* nationality		*/
-fname           VARCHAR(30)	    NOT NULL, /* first name		*/
-lname           VARCHAR(30)	    NOT NULL, /* last name		*/
-birthdate       DATE            NOT NULL, /* date of birth	*/
-    CONSTRAINT traveller_pkey PRIMARY KEY ( pnum, nationality ))
-Error report -
-ORA-00955: name is already used by an existing object
-00955. 00000 -  "name is already used by an existing object"
-*Cause:    
-*Action:
+Table TRAVELLER created.
+
 SQL> 
 SQL> CREATE TABLE hotel(
   2  hname	        VARCHAR(50)     NOT NULL, /* hotel name  */
@@ -35,21 +26,8 @@ SQL> CREATE TABLE hotel(
   8      CONSTRAINT hotel_pk PRIMARY KEY ( hname, city ),
   9      CONSTRAINT hotel_uq UNIQUE (country, city, street, bnum));
 
-Error starting at line : 17 in command -
-CREATE TABLE hotel(
-hname	        VARCHAR(50)     NOT NULL, /* hotel name  */
-country         VARCHAR(30)     NOT NULL, /* country it is located in		*/
-city            VARCHAR(30)     NOT NULL, /* city		*/
-street          VARCHAR(100)    NOT NULL, /* street name		*/
-bnum            VARCHAR(10)     NOT NULL, /* building number	*/
-star            INTEGER         NOT NULL, /* stars	*/
-    CONSTRAINT hotel_pk PRIMARY KEY ( hname, city ),
-    CONSTRAINT hotel_uq UNIQUE (country, city, street, bnum))
-Error report -
-ORA-00955: name is already used by an existing object
-00955. 00000 -  "name is already used by an existing object"
-*Cause:    
-*Action:
+Table HOTEL created.
+
 SQL> 
 SQL> CREATE TABLE visit(
   2  pnum	        VARCHAR(30)     NOT NULL, /* passport number  */
@@ -64,24 +42,8 @@ SQL> CREATE TABLE visit(
  11          REFERENCES hotel(hname, city), 
  12      CONSTRAINT DATECHK CHECK (departure_date > arrival_date));
 
-Error starting at line : 27 in command -
-CREATE TABLE visit(
-pnum	        VARCHAR(30)     NOT NULL, /* passport number  */
-nationality     VARCHAR(30)     NOT NULL, /* nationality		*/
-hname	        VARCHAR(50)     NOT NULL, /* hotel name  */
-hcity           VARCHAR(30) 	NOT NULL, /* hotel city		*/
-arrival_date    DATE            NOT NULL, /* arrival  date 	*/
-departure_date  DATE            NULL,  /* departure  date 	*/
-    CONSTRAINT VISIT_FK1 FOREIGN KEY(pnum, nationality)
-        REFERENCES traveller(pnum, nationality),
-    CONSTRAINT VISIT_FK2 FOREIGN KEY(hname, hcity)
-        REFERENCES hotel(hname, city), 
-    CONSTRAINT DATECHK CHECK (departure_date > arrival_date))
-Error report -
-ORA-00955: name is already used by an existing object
-00955. 00000 -  "name is already used by an existing object"
-*Cause:    
-*Action:
+Table VISIT created.
+
 SQL> 
 SQL> 
 SQL> COMMIT;
