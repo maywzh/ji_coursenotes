@@ -1,0 +1,12 @@
+spool dbdrop
+SET ECHO OFF
+SET ECHO ON
+SET LINESIZE 200
+SET WRAP OFF
+
+DROP TABLE traveller PURGE;
+DROP TABLE hotel PURGE
+
+PROMPT Done.
+
+spool off

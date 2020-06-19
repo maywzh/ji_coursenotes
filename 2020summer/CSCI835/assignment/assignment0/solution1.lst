@@ -1,0 +1,57 @@
+SQL> 
+SQL> SET ECHO ON
+SQL> SET FEEDBACK ON
+SQL> SET LINESIZE 100
+SQL> SET PAGESIZE 200
+SQL> SET SERVEROUTPUT ON
+SQL> 
+SQL> CREATE TABLE traveller(
+  2  pnum	      VARCHAR(30)     NOT NULL, /* passport number  */
+  3  nationality   VARCHAR(30)     NOT NULL, /* nationality		*/
+  4  fname        VARCHAR(30)	      NOT NULL, /* first name		*/
+  5  lname        VARCHAR(30)	      NOT NULL, /* last name		*/
+  6  birthdate    DATE        NOT NULL, /* date of birth	*/
+  7      CONSTRAINT traveller_pkey PRIMARY KEY ( pnum, nationality ));
+
+Table TRAVELLER created.
+
+SQL> 
+SQL> CREATE TABLE hotel(
+  2  hname	      VARCHAR(30)     NOT NULL, /* hotel name  */
+  3  country      VARCHAR(30)     NOT NULL, /* country it is located in		*/
+  4  city       VARCHAR(30) 	      NOT NULL, /* city		*/
+  5  street        VARCHAR(30)       NOT NULL, /* street name		*/
+  6  bnum    VARCHAR(30)       NOT NULL, /* building number	*/
+  7  star    INTEGER       NOT NULL, /* building number	*/
+  8      CONSTRAINT hotel_pk PRIMARY KEY ( hname, city ),
+  9      CONSTRAINT hotel_uq UNIQUE (country, city, street, bnum));
+
+Table HOTEL created.
+
+SQL> 
+SQL> CREATE TABLE visit(
+  2  pnum	      VARCHAR(30)     NOT NULL, /* passport number  */
+  3  nationality   VARCHAR(30)     NOT NULL, /* nationality		*/
+  4  hname	      VARCHAR(30)     NOT NULL, /* hotel name  */
+  5  hcity       VARCHAR(30) 	      NOT NULL, /* hotel city		*/
+  6  arrival_date  DATE  NOT NULL, /* arrival  date 	*/
+  7  departure_date  DATE NULL,  /* departure  date 	*/
+  8      CONSTRAINT VISIT_FK1 FOREIGN KEY(pnum, nationality)
+  9          REFERENCES traveller(pnum, nationality),
+ 10      CONSTRAINT VISIT_FK2 FOREIGN KEY(hname, hcity)
+ 11          REFERENCES hotel(hname, city));
+
+Table VISIT created.
+
+SQL> 
+SQL> 
+SQL> COMMIT;
+
+Commit complete.
+
+SQL> 
+SQL> PROMPT dbcreate.sql done.
+dbcreate.sql done.
+SQL> 
+SQL> 
+SQL> spool off
