@@ -20,4 +20,8 @@ INSERT INTO visit VALUES ('284123045234', 'Australia', 'Delta Hotel', 'Toronto',
 INSERT INTO visit VALUES ('152483045685', 'China', 'Kyono Mori Yurinsha', 'Kyoto', TO_DATE('3-JUNE-2019', 'DD-MON-YYYY'), TO_DATE('6-JUNE-2019', 'DD-MON-YYYY'));
 INSERT INTO visit VALUES ('459910233225', 'United Kingdom', 'Delta Hotel', 'Toronto', TO_DATE('18-JUNE-2020', 'DD-MON-YYYY'), NULL);
 
+COMMIT;
+
+PROMPT solution2.sql done.
+
 spool off
