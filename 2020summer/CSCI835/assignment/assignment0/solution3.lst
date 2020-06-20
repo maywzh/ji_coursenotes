@@ -1,3 +1,5 @@
+SQL> 
+SQL> SET ECHO ON
 SQL> SET FEEDBACK ON
 SQL> SET LINESIZE 100
 SQL> SET PAGESIZE 200
@@ -18,18 +20,33 @@ SQL> UPDATE traveller t
 
 SQL> 
 SQL> ALTER TABLE visit
-  2  ADD hcountry VARCHAR(30);
+  2  ADD hcountry VARCHAR(30) NOT NULL;
 
-Table VISIT altered.
-
+Error starting at line : 17 in command -
+ALTER TABLE visit
+ADD hcountry VARCHAR(30) NOT NULL
+Error report -
+ORA-01758: table must be empty to add mandatory (NOT NULL) column
+01758. 00000 -  "table must be empty to add mandatory (NOT NULL) column"
+*Cause:    
+*Action:
 SQL> 
 SQL> UPDATE visit v
   2  SET hcountry = (
   3      SELECT country FROM hotel WHERE v.hname = hname AND v.hcity = city
   4  );
 
-3 rows updated.
-
+Error starting at line : 20 in command -
+UPDATE visit v
+SET hcountry = (
+    SELECT country FROM hotel WHERE v.hname = hname AND v.hcity = city
+)
+Error at Command Line : 21 Column : 5
+Error report -
+SQL Error: ORA-00904: "HCOUNTRY": invalid identifier
+00904. 00000 -  "%s: invalid identifier"
+*Cause:    
+*Action:
 SQL> 
 SQL> COMMIT;
 

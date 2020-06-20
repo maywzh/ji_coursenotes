@@ -15,7 +15,7 @@ SET visitedhotels_num = (
 );
 
 ALTER TABLE visit
-ADD hcountry VARCHAR(30);
+ADD hcountry VARCHAR(30) NOT NULL;
 
 UPDATE visit v
 SET hcountry = (

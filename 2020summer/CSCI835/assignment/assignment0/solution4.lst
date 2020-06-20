@@ -1,0 +1,42 @@
+SQL> 
+SQL> SET ECHO ON
+SQL> SET FEEDBACK ON
+SQL> SET LINESIZE 100
+SQL> SET PAGESIZE 200
+SQL> SET SERVEROUTPUT ON
+SQL> 
+SQL> DELETE FROM visit
+  2  WHERE hname = 'Delta Hotel' and hcity = 'Toronto';
+
+0 rows deleted.
+
+SQL> 
+SQL> DELETE FROM hotel
+  2  WHERE hname = 'Delta Hotel' and city = 'Toronto';
+
+0 rows deleted.
+
+SQL> 
+SQL> UPDATE traveller t 
+  2  SET visitedhotels_num = (
+  3      SELECT COUNT(*) FROM visit WHERE t.pnum = pnum GROUP BY (pnum, nationality)
+  4  );
+
+3 rows updated.
+
+SQL> 
+SQL> UPDATE visit v 
+  2  SET arrival_date = TO_DATE('01-JUN-2019', 'DD-MON-YYYY')
+  3  WHERE pnum='152483045685' AND nationality = 'China' AND hname = 'Kyono Mori Yurinsha' AND hcity = 'Kyoto' AND arrival_date = TO_DATE('3-JUNE-2019', 'DD-MON-YYYY');
+
+0 rows updated.
+
+SQL> 
+SQL> COMMIT;
+
+Commit complete.
+
+SQL> 
+SQL> PROMPT solution4.sql done.
+solution4.sql done.
+SQL> spool off
