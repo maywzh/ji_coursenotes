@@ -516,3 +516,7 @@ GitHub.sublime-settings
 **/report/report.pdf
 
 *.zip
+
+*.docx
+
+*.ppt

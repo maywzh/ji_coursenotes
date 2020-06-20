@@ -1,0 +1,21 @@
+SQL> SET LINESIZE 200
+SQL> SET WRAP OFF
+SQL> 
+SQL> DROP TABLE visit PURGE;
+
+Table VISIT dropped.
+
+SQL> DROP TABLE traveller PURGE;
+
+Table TRAVELLER dropped.
+
+SQL> DROP TABLE hotel PURGE;
+
+Table HOTEL dropped.
+
+SQL> 
+SQL> 
+SQL> PROMPT Done.
+Done.
+SQL> 
+SQL> spool off

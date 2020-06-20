@@ -1,0 +1,60 @@
+SQL> SET FEEDBACK ON
+SQL> SET LINESIZE 100
+SQL> SET PAGESIZE 200
+SQL> SET SERVEROUTPUT ON
+SQL> 
+SQL> SELECT DISTINCT t.fname, t.lname
+  2  FROM traveller t 
+  3      INNER JOIN visit v ON t.pnum = v.pnum AND t.nationality = v.nationality 
+  4      INNER JOIN hotel h ON v.hname = h.hname and v.hcity = h.city
+  5  WHERE h.star = 4;
+
+FNAME                          LNAME                         
+------------------------------ ------------------------------
+Rui                            Yang                          
+
+1 row selected. 
+
+SQL> 
+SQL> SELECT hname, (SELECT COUNT(*) FROM visit v WHERE v.hname = h.hname AND v.hcity = h.city) as visitors_num
+  2  FROM hotel h;
+
+HNAME                                              VISITORS_NUM
+-------------------------------------------------- ------------
+Kyono Mori Yurinsha                                           2
+The Omni Grove Park Inn                                       0
+
+2 rows selected. 
+
+SQL> 
+SQL> SELECT hname as visitors_num
+  2  FROM hotel h
+  3  WHERE (SELECT COUNT(*) FROM visit v WHERE v.hname = h.hname AND v.hcity = h.city) = 0;
+
+VISITORS_NUM                                      
+--------------------------------------------------
+The Omni Grove Park Inn
+
+1 row selected. 
+
+SQL> 
+SQL> SELECT lname from traveller 
+  2  UNION
+  3  SELECT hname from hotel;
+
+LNAME                                             
+--------------------------------------------------
+Kyono Mori Yurinsha
+Smith
+The Omni Grove Park Inn
+Williams
+Yang
+
+5 rows selected. 
+
+SQL> 
+SQL> --COMMIT;
+SQL> 
+SQL> PROMPT solution5.sql done.
+solution5.sql done.
+SQL> spool off
