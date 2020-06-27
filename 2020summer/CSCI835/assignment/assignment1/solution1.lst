@@ -1,0 +1,56 @@
+SQL> SET FEEDBACK ON
+SQL> SET LINESIZE 100
+SQL> SET PAGESIZE 200
+SQL> SET SERVEROUTPUT ON
+SQL> 
+SQL> CREATE TABLE student(
+  2  snumber	        VARCHAR(15)     NOT NULL, /* student number  */
+  3  first_name      VARCHAR(30)     NOT NULL, /* first name		*/
+  4  last_name       VARCHAR(30)	    NOT NULL, /* last name		*/
+  5  ccode           VARCHAR(30)	    NOT NULL /* course		*/
+  6  );
+
+Table STUDENT created.
+
+SQL> 
+SQL> CREATE TABLE hotel(
+  2  name	        VARCHAR(50)     NOT NULL, /* hotel name  */
+  3  city            VARCHAR(30)     NOT NULL, /* city		*/
+  4  capacity        INTEGER         NOT NULL, /* 	capacity	*/
+  5  enumber         VARCHAR(15)     NOT NULL, /* employee number	*/
+  6  salary          DECIMAL(6)      NOT NULL /* salary	*/
+  7  );
+
+Table HOTEL created.
+
+SQL> 
+SQL> CREATE TABLE BUILDING(
+  2  bnumber	        VARCHAR(30)     NOT NULL, /* building number */
+  3  bname           VARCHAR(30)     NOT NULL, /* building name 		*/
+  4  rnumber	        VARCHAR(50)     NOT NULL, /* room number  */
+  5  area            VARCHAR(30) 	NOT NULL, /* area	*/
+  6  enumber         VARCHAR(15)     NOT NULL  /* employee number	*/
+  7  );
+
+Table BUILDING created.
+
+SQL> 
+SQL> CREATE TABLE team(
+  2  tname	        VARCHAR(30)     NOT NULL, /* team name */
+  3  player          VARCHAR(50)     NOT NULL, /* player name */
+  4  supporter	    VARCHAR(50)     NOT NULL /* support name  */
+  5  );
+
+Table TEAM created.
+
+SQL> 
+SQL> COMMIT;
+
+Commit complete.
+
+SQL> 
+SQL> PROMPT solution1.sql done.
+solution1.sql done.
+SQL> 
+SQL> 
+SQL> spool off

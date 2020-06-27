@@ -1,0 +1,104 @@
+SQL> SET LINESIZE 200
+SQL> SET WRAP OFF
+SQL> 
+SQL> 
+SQL> INSERT INTO student VALUES ( '152483045685', 'Wayne', 'Wong', 'CS108');
+
+1 row inserted.
+
+SQL> INSERT INTO student VALUES ( '152483045685', 'Wayne', 'Wong', 'CS290');
+
+1 row inserted.
+
+SQL> INSERT INTO student VALUES ( '459910233225', 'Lucas', 'Smith', 'CS108');
+
+1 row inserted.
+
+SQL> 
+SQL> 
+SQL> INSERT INTO hotel VALUES ('Kyono Yurinsha', 'Kyoto', 100, '3045685', 3000);
+
+1 row inserted.
+
+SQL> INSERT INTO hotel VALUES ('Kyono Yurinsha', 'Kyoto', 100, '5991233', 3500);
+
+1 row inserted.
+
+SQL> INSERT INTO hotel VALUES ('Delta Hotel', 'Toronto', 150, '10233225', 4500);
+
+1 row inserted.
+
+SQL> INSERT INTO hotel VALUES ('Delta Hotel', 'Toronto', 150, '24830458', 4200);
+
+1 row inserted.
+
+SQL> 
+SQL> INSERT INTO building VALUES ('39840', 'Rotana Plaza', 'A1210', 'Alpha Zone', '3045685');
+
+1 row inserted.
+
+SQL> INSERT INTO building VALUES ('39840', 'Rotana Plaza', 'D3048', 'Delta Zone', '5991233');
+
+1 row inserted.
+
+SQL> INSERT INTO building VALUES ('189834', 'The Exchange 106', 'R4209', '4th Floor', '10233225');
+
+1 row inserted.
+
+SQL> INSERT INTO building VALUES ('189834', 'The Exchange 106', 'R4209', '4th Floor', '24830458');
+
+1 row inserted.
+
+SQL> 
+SQL> INSERT INTO hotel VALUES ('FC Beijing', 'Boyi Wang', 'Nike');
+
+Error starting at line : 23 in command -
+INSERT INTO hotel VALUES ('FC Beijing', 'Boyi Wang', 'Nike')
+Error at Command Line : 23 Column : 13
+Error report -
+SQL Error: ORA-00947: not enough values
+00947. 00000 -  "not enough values"
+*Cause:    
+*Action:
+SQL> INSERT INTO hotel VALUES ('FC Beijing', 'Boyi Wang', 'Adidas');
+
+Error starting at line : 24 in command -
+INSERT INTO hotel VALUES ('FC Beijing', 'Boyi Wang', 'Adidas')
+Error at Command Line : 24 Column : 13
+Error report -
+SQL Error: ORA-00947: not enough values
+00947. 00000 -  "not enough values"
+*Cause:    
+*Action:
+SQL> INSERT INTO hotel VALUES ('FC Beijing', 'Ronaldo Cris', 'Nike');
+
+Error starting at line : 25 in command -
+INSERT INTO hotel VALUES ('FC Beijing', 'Ronaldo Cris', 'Nike')
+Error at Command Line : 25 Column : 13
+Error report -
+SQL Error: ORA-00947: not enough values
+00947. 00000 -  "not enough values"
+*Cause:    
+*Action:
+SQL> INSERT INTO hotel VALUES ('FC Beijing', 'Ronaldo Cris', 'Adidas');
+
+Error starting at line : 26 in command -
+INSERT INTO hotel VALUES ('FC Beijing', 'Ronaldo Cris', 'Adidas')
+Error at Command Line : 26 Column : 13
+Error report -
+SQL Error: ORA-00947: not enough values
+00947. 00000 -  "not enough values"
+*Cause:    
+*Action:
+SQL> 
+SQL> 
+SQL> COMMIT;
+
+Commit complete.
+
+SQL> 
+SQL> PROMPT insert1.sql done.
+insert1.sql done.
+SQL> 
+SQL> 
+SQL> spool off
