@@ -1,0 +1,341 @@
+SQL> 
+SQL> /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+SQL> /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+SQL> 
+SQL> CREATE TABLE CATEGORY
+  2  (
+  3      CATEGORY_NAME 	VARCHAR(30)	NOT NULL,
+  4      DESCRIPTION 	VARCHAR(2000)       NULL,
+  5      PICTURE 		VARCHAR(255)        NULL,
+  6      CONSTRAINT PK_CATEGORY PRIMARY KEY (CATEGORY_NAME)
+  7  );
+
+Table CATEGORY created.
+
+SQL> 
+SQL> COMMENT ON COLUMN CATEGORY.CATEGORY_NAME IS 'Name of food category.';
+
+Comment created.
+
+SQL> COMMENT ON COLUMN CATEGORY.PICTURE IS 'A picture representing the food category.';
+
+Comment created.
+
+SQL> 
+SQL> /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+SQL> 
+SQL> CREATE TABLE CUSTOMER
+  2  (
+  3      CUSTOMER_CODE 	VARCHAR(5)	NOT NULL,
+  4      COMPANY_NAME 	VARCHAR(40)	NOT NULL,
+  5      CONTACT_NAME 	VARCHAR(30)         NULL,      
+  6      CONTACT_TITLE 	VARCHAR(30)         NULL,
+  7      ADDRESS 		VARCHAR(60)         NULL,
+  8      CITY 		VARCHAR(15)         NULL,
+  9      REGION 		VARCHAR(15)         NULL,
+ 10      POSTAL_CODE 	VARCHAR(10)         NULL,
+ 11      COUNTRY 		VARCHAR(15)         NULL,
+ 12      PHONE 		VARCHAR(24)         NULL,
+ 13      FAX 		VARCHAR(24)         NULL,
+ 14      CONSTRAINT PK_CUSTOMER PRIMARY KEY (CUSTOMER_CODE)
+ 15  );
+
+Table CUSTOMER created.
+
+SQL> 
+SQL> COMMENT ON COLUMN CUSTOMER.CUSTOMER_CODE IS 'Unique five-character code based on customer name.';
+
+Comment created.
+
+SQL> COMMENT ON COLUMN CUSTOMER.ADDRESS IS 'Street or post-office box.';
+
+Comment created.
+
+SQL> COMMENT ON COLUMN CUSTOMER.REGION IS 'State or province.';
+
+Comment created.
+
+SQL> COMMENT ON COLUMN CUSTOMER.PHONE IS 'Phone number includes country code or area code.';
+
+Comment created.
+
+SQL> COMMENT ON COLUMN CUSTOMER.FAX IS 'Phone number includes country code or area code.';
+
+Comment created.
+
+SQL> 
+SQL> /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+SQL> 
+SQL> CREATE TABLE EMPLOYEE
+  2  (
+  3      EMPLOYEE_ID		NUMBER(9)	NOT NULL,
+  4      LASTNAME 		VARCHAR(20) 	NOT NULL,
+  5      FIRSTNAME 		VARCHAR(10) 	NOT NULL,
+  6      TITLE 		VARCHAR(30)         NULL,
+  7      TITLE_OF_COURTESY 	VARCHAR(25)         NULL,
+  8      BIRTHDATE 		DATE                NULL,
+  9      HIREDATE 		DATE                NULL,
+ 10      ADDRESS 		VARCHAR(60)         NULL,
+ 11      CITY 		VARCHAR(15)         NULL,
+ 12      REGION 		VARCHAR(15)         NULL,
+ 13      POSTAL_CODE 	VARCHAR(10)         NULL,
+ 14      COUNTRY 		VARCHAR(15)         NULL,
+ 15      HOME_PHONE 		VARCHAR(24)         NULL,
+ 16      EXTENSION 		VARCHAR(4)          NULL,
+ 17      PHOTO 		VARCHAR(255)        NULL,
+ 18      NOTES 		VARCHAR(2000)       NULL,
+ 19      REPORTS_TO 		NUMBER(9)           NULL,
+ 20      CONSTRAINT PK_EMPLOYEE PRIMARY KEY (EMPLOYEE_ID)
+ 21  );
+
+Table EMPLOYEE created.
+
+SQL> 
+SQL> COMMENT ON COLUMN EMPLOYEE.EMPLOYEE_ID IS 'Number assigned to new employee.';
+
+Comment created.
+
+SQL> COMMENT ON COLUMN EMPLOYEE.TITLE IS 'Employee''s title.';
+
+Comment created.
+
+SQL> COMMENT ON COLUMN EMPLOYEE.TITLE_OF_COURTESY IS 'Title used in salutations.';
+
+Comment created.
+
+SQL> COMMENT ON COLUMN EMPLOYEE.ADDRESS IS 'Street or post-office box.';
+
+Comment created.
+
+SQL> COMMENT ON COLUMN EMPLOYEE.REGION IS 'State or province.';
+
+Comment created.
+
+SQL> COMMENT ON COLUMN EMPLOYEE.HOME_PHONE IS 'Phone number includes country code or area code.';
+
+Comment created.
+
+SQL> COMMENT ON COLUMN EMPLOYEE.EXTENSION IS 'Internal telephone extension number.';
+
+Comment created.
+
+SQL> COMMENT ON COLUMN EMPLOYEE.PHOTO IS 'Picture of employee.';
+
+Comment created.
+
+SQL> COMMENT ON COLUMN EMPLOYEE.NOTES IS 'General information about employee''s background.';
+
+Comment created.
+
+SQL> COMMENT ON COLUMN EMPLOYEE.REPORTS_TO IS 'Employee''s supervisor.';
+
+Comment created.
+
+SQL> 
+SQL> /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+SQL> 
+SQL> CREATE TABLE SUPPLIER
+  2  (
+  3      COMPANY_NAME 	VARCHAR(40)	NOT NULL,
+  4      CONTACT_NAME 	VARCHAR(30)         NULL,
+  5      CONTACT_TITLE 	VARCHAR(30)         NULL,
+  6      ADDRESS 		VARCHAR(60)         NULL,
+  7      CITY 		VARCHAR(15)         NULL,
+  8      REGION 		VARCHAR(15)         NULL,
+  9      POSTAL_CODE 	VARCHAR(10)         NULL,
+ 10      COUNTRY 		VARCHAR(15)         NULL,
+ 11      PHONE 		VARCHAR(24)         NULL,
+ 12      FAX 		VARCHAR(24)         NULL,
+ 13      HOME_PAGE 		VARCHAR(500)        NULL,
+ 14      CONSTRAINT PK_SUPPLIER PRIMARY KEY (COMPANY_NAME)  
+ 15  );
+
+Table SUPPLIER created.
+
+SQL> 
+SQL> COMMENT ON COLUMN SUPPLIER.COMPANY_NAME IS 'Name of supplying company.';
+
+Comment created.
+
+SQL> COMMENT ON COLUMN SUPPLIER.ADDRESS IS 'Street or post-office box.';
+
+Comment created.
+
+SQL> COMMENT ON COLUMN SUPPLIER.REGION IS 'State or province.';
+
+Comment created.
+
+SQL> COMMENT ON COLUMN SUPPLIER.PHONE IS 'Phone number includes country code or area code.';
+
+Comment created.
+
+SQL> COMMENT ON COLUMN SUPPLIER.FAX IS 'Phone number includes country code or area code.';
+
+Comment created.
+
+SQL> COMMENT ON COLUMN SUPPLIER.HOME_PAGE IS 'Supplier''s home page on World Wide Web.';
+
+Comment created.
+
+SQL> 
+SQL> /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+SQL> CREATE TABLE SHIPPER
+  2  (
+  3      COMPANY_NAME 	VARCHAR(40)	NOT NULL,
+  4      PHONE 		VARCHAR(24)         NULL,
+  5      CONSTRAINT PK_SHIPPER PRIMARY KEY (COMPANY_NAME),
+  6      CONSTRAINT CK_SHIPPER UNIQUE (PHONE)
+  7  );
+
+Table SHIPPER created.
+
+SQL> 
+SQL> COMMENT ON COLUMN SHIPPER.COMPANY_NAME IS 'Name of shipping company.';
+
+Comment created.
+
+SQL> COMMENT ON COLUMN SHIPPER.PHONE IS 'Phone number includes country code or area code.';
+
+Comment created.
+
+SQL> 
+SQL> /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+SQL> 
+SQL> CREATE TABLE PRODUCT
+  2  (
+  3      PRODUCT_NAME 	VARCHAR(40) 	NOT NULL,
+  4      SUPPLIER_NAME	VARCHAR(40) 	NOT NULL,
+  5      CATEGORY_NAME	VARCHAR(30)	NOT NULL,
+  6      QUANTITY_PER_UNIT 	VARCHAR(20)         NULL,
+  7      UNIT_PRICE 		NUMBER(10,2)	DEFAULT 0,
+  8      UNITS_IN_STOCK 	NUMBER(9) 	DEFAULT 0,
+  9      UNITS_ON_ORDER 	NUMBER(9) 	DEFAULT 0,
+ 10      REORDER_LEVEL 	NUMBER(9) 	DEFAULT 0,
+ 11      DISCONTINUED 	CHAR(1)		DEFAULT 'N',
+ 12      CONSTRAINT PK_PRODUCT PRIMARY KEY (PRODUCT_NAME),
+ 13      CONSTRAINT FK_CATEGORY_NAME FOREIGN KEY (CATEGORY_NAME) REFERENCES CATEGORY(CATEGORY_NAME),
+ 14      CONSTRAINT FK_SUPPLIER_NAME FOREIGN KEY (SUPPLIER_NAME) REFERENCES SUPPLIER(COMPANY_NAME),
+ 15      CONSTRAINT CK_PRODUCT_UNIT_PRICE CHECK (UNIT_PRICE >= 0),
+ 16      CONSTRAINT CK_PRODUCT_UNITS_IN_STOCK CHECK (UNITS_IN_STOCK >= 0),
+ 17      CONSTRAINT CK_PRODUCT_UNITS_ON_ORDER CHECK (UNITS_ON_ORDER >= 0),
+ 18      CONSTRAINT CK_PRODUCT_REORDER_LEVEL CHECK (REORDER_LEVEL >= 0),
+ 19      CONSTRAINT CK_PRODUCT_DISCONTINUED CHECK (DISCONTINUED in ('Y','N'))
+ 20  );
+
+Table PRODUCT created.
+
+SQL> 
+SQL> COMMENT ON COLUMN PRODUCT.SUPPLIER_NAME IS 'Same entry as in Suppliers table.';
+
+Comment created.
+
+SQL> COMMENT ON COLUMN PRODUCT.CATEGORY_NAME IS 'Same entry as in Categories table.';
+
+Comment created.
+
+SQL> COMMENT ON COLUMN PRODUCT.QUANTITY_PER_UNIT IS '(e.g., 24-count case, 1-liter bottle).';
+
+Comment created.
+
+SQL> COMMENT ON COLUMN PRODUCT.REORDER_LEVEL IS 'Minimum units to maintain in stock.';
+
+Comment created.
+
+SQL> COMMENT ON COLUMN PRODUCT.DISCONTINUED IS 'Yes means item is no longer available.';
+
+Comment created.
+
+SQL> 
+SQL> 
+SQL> /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+SQL> CREATE TABLE ORDERS
+  2  (
+  3      ORDER_ID		NUMBER(9)	NOT NULL,
+  4      CUSTOMER_CODE 	VARCHAR(5) 	NOT NULL,
+  5      EMPLOYEE_ID 	NUMBER(9) 	NOT NULL,
+  6      ORDER_DATE 		DATE 	   	NOT NULL,
+  7      REQUIRED_DATE 	DATE,
+  8      SHIPPED_DATE 	DATE,
+  9      SHIP_VIA 		VARCHAR(40),
+ 10      FREIGHT 		NUMBER(10,2)	DEFAULT 0,
+ 11      SHIP_NAME 		VARCHAR(40),
+ 12      SHIP_ADDRESS 	VARCHAR(60),
+ 13      SHIP_CITY 		VARCHAR(15),
+ 14      SHIP_REGION 	VARCHAR(15),
+ 15      SHIP_POSTAL_CODE 	VARCHAR(10),
+ 16      SHIP_COUNTRY 	VARCHAR(15),
+ 17      CONSTRAINT PK_ORDERS PRIMARY KEY (ORDER_ID),
+ 18      CONSTRAINT FK_CUSTOMER_CODE FOREIGN KEY (CUSTOMER_CODE) REFERENCES CUSTOMER(CUSTOMER_CODE),  
+ 19      CONSTRAINT FK_EMPLOYEE_ID FOREIGN KEY (EMPLOYEE_ID) REFERENCES EMPLOYEE(EMPLOYEE_ID),  
+ 20      CONSTRAINT FK_SHIP_VIA FOREIGN KEY (SHIP_VIA) REFERENCES SHIPPER(COMPANY_NAME)  
+ 21  );
+
+Table ORDERS created.
+
+SQL> 
+SQL> COMMENT ON COLUMN ORDERS.ORDER_ID IS 'Unique order number.';
+
+Comment created.
+
+SQL> COMMENT ON COLUMN ORDERS.CUSTOMER_CODE IS 'Same entry as in Customers table.';
+
+Comment created.
+
+SQL> COMMENT ON COLUMN ORDERS.EMPLOYEE_ID IS 'Same entry as in Employees table.';
+
+Comment created.
+
+SQL> COMMENT ON COLUMN ORDERS.SHIP_VIA IS 'Same as Company name in Shippers table.';
+
+Comment created.
+
+SQL> COMMENT ON COLUMN ORDERS.SHIP_NAME IS 'Name of person or company to receive the shipment.';
+
+Comment created.
+
+SQL> COMMENT ON COLUMN ORDERS.SHIP_ADDRESS IS 'Street address only -- no post-office box allowed.';
+
+Comment created.
+
+SQL> COMMENT ON COLUMN ORDERS.SHIP_REGION IS 'State or province.';
+
+Comment created.
+
+SQL> 
+SQL> /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+SQL> 
+SQL> CREATE TABLE ORDER_DETAIL
+  2  (
+  3      ORDER_ID		 NUMBER(9)	NOT NULL,
+  4      PRODUCT_NAME         VARCHAR(40) 	NOT NULL,
+  5      UNIT_PRICE 		 NUMBER(10,2)   DEFAULT 0.0,
+  6      QUANTITY 		 NUMBER(9)	DEFAULT 1,
+  7      DISCOUNT 		 NUMBER(4,2)	DEFAULT 0.0,
+  8      CONSTRAINT PK_ORDER_DETAIL PRIMARY KEY (ORDER_ID, PRODUCT_NAME),
+  9      CONSTRAINT FK_ORDER_ID FOREIGN KEY (ORDER_ID) REFERENCES ORDERS (ORDER_ID),
+ 10      CONSTRAINT FK_PRODUCT_NAME FOREIGN KEY (PRODUCT_NAME) REFERENCES PRODUCT (PRODUCT_NAME),
+ 11      CONSTRAINT CK_ORDER_DETAIL_UNIT_PRICE CHECK (UNIT_PRICE >= 0), 
+ 12      CONSTRAINT CK_ORDER_DETAIL_QUANTITY CHECK (QUANTITY > 0),
+ 13      CONSTRAINT CK_ORDER_DETAIL_DISCOUNT CHECK (DISCOUNT between 0 and 1) 
+ 14  );
+
+Table ORDER_DETAIL created.
+
+SQL> 
+SQL> COMMENT ON COLUMN ORDER_DETAIL.UNIT_PRICE IS 'Unit price of product';
+
+Comment created.
+
+SQL> COMMENT ON COLUMN ORDER_DETAIL.QUANTITY IS 'Quantity ordered.';
+
+Comment created.
+
+SQL> COMMENT ON COLUMN ORDER_DETAIL.QUANTITY IS 'Discount applied.';
+
+Comment created.
+
+SQL> 
+SQL> /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+SQL> /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+SQL> 
+SQL> spool off

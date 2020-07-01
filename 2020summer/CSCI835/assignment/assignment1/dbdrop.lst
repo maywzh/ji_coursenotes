@@ -1,0 +1,49 @@
+SQL> SET ECHO OFF
+SQL> SET LINESIZE 200
+SQL> SET WRAP OFF
+SQL> 
+SQL> DROP TABLE student PURGE;
+
+Error starting at line : 7 in command -
+DROP TABLE student PURGE
+Error report -
+ORA-00942: table or view does not exist
+00942. 00000 -  "table or view does not exist"
+*Cause:    
+*Action:
+SQL> DROP TABLE hotel PURGE;
+
+Error starting at line : 8 in command -
+DROP TABLE hotel PURGE
+Error report -
+ORA-00942: table or view does not exist
+00942. 00000 -  "table or view does not exist"
+*Cause:    
+*Action:
+SQL> DROP TABLE building PURGE;
+
+Error starting at line : 9 in command -
+DROP TABLE building PURGE
+Error report -
+ORA-00942: table or view does not exist
+00942. 00000 -  "table or view does not exist"
+*Cause:    
+*Action:
+SQL> DROP TABLE team PURGE;
+
+Error starting at line : 10 in command -
+DROP TABLE team PURGE
+Error report -
+ORA-00942: table or view does not exist
+00942. 00000 -  "table or view does not exist"
+*Cause:    
+*Action:
+SQL> 
+SQL> COMMIT;
+
+Commit complete.
+
+SQL> PROMPT Done.
+Done.
+SQL> 
+SQL> spool off

@@ -9,7 +9,7 @@ DROP TABLE hotel PURGE;
 DROP TABLE building PURGE;
 DROP TABLE team PURGE;
 
-
+COMMIT;
 PROMPT Done.
 
 spool off

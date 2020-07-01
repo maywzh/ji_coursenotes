@@ -1,0 +1,408 @@
+SQL> SET ECHO ON
+SQL> SET FEEDBACK ON
+SQL> SET LINESIZE 100
+SQL> SET PAGESIZE 200
+SQL> SET SERVEROUTPUT ON
+SQL> 
+SQL> EXPLAIN PLAN FOR SELECT * FROM ORDER_DETAIL WHERE PRODUCT_NAME = 'BOLT' AND QUANTITY > 100;
+
+Explained.
+
+SQL> SELECT * FROM TABLE(DBMS_XPLAN.DISPLAY);
+
+PLAN_TABLE_OUTPUT                                                                                   
+----------------------------------------------------------------------------------------------------
+Plan hash value: 43944565
+ 
+----------------------------------------------------------------------------------
+| Id  | Operation         | Name         | Rows  | Bytes | Cost (%CPU)| Time     |
+----------------------------------------------------------------------------------
+|   0 | SELECT STATEMENT  |              |     1 |    74 |     3   (0)| 00:00:01 |
+|*  1 |  TABLE ACCESS FULL| ORDER_DETAIL |     1 |    74 |     3   (0)| 00:00:01 |
+----------------------------------------------------------------------------------
+ 
+Predicate Information (identified by operation id):
+---------------------------------------------------
+ 
+   1 - filter("PRODUCT_NAME"='BOLT' AND "QUANTITY">100)
+ 
+Note
+-----
+   - dynamic sampling used for this statement (level=2)
+
+17 rows selected. 
+
+SQL> 
+SQL> EXPLAIN PLAN FOR SELECT DISTINCT CATEGORY_NAME FROM PRODUCT;
+
+Explained.
+
+SQL> SELECT * FROM TABLE(DBMS_XPLAN.DISPLAY);
+
+PLAN_TABLE_OUTPUT                                                                                   
+----------------------------------------------------------------------------------------------------
+Plan hash value: 107077271
+ 
+------------------------------------------------------------------------------
+| Id  | Operation          | Name    | Rows  | Bytes | Cost (%CPU)| Time     |
+------------------------------------------------------------------------------
+|   0 | SELECT STATEMENT   |         |    77 |  1309 |     4  (25)| 00:00:01 |
+|   1 |  HASH UNIQUE       |         |    77 |  1309 |     4  (25)| 00:00:01 |
+|   2 |   TABLE ACCESS FULL| PRODUCT |    77 |  1309 |     3   (0)| 00:00:01 |
+------------------------------------------------------------------------------
+ 
+Note
+-----
+   - dynamic sampling used for this statement (level=2)
+
+13 rows selected. 
+
+SQL> 
+SQL> EXPLAIN PLAN FOR SELECT UNIT_PRICE FROM ORDER_DETAIL WHERE QUANTITY IN (100, 200, 300) OR DISCOUNT = 0.01;
+
+Explained.
+
+SQL> SELECT * FROM TABLE(DBMS_XPLAN.DISPLAY);
+
+PLAN_TABLE_OUTPUT                                                                                   
+----------------------------------------------------------------------------------------------------
+Plan hash value: 43944565
+ 
+----------------------------------------------------------------------------------
+| Id  | Operation         | Name         | Rows  | Bytes | Cost (%CPU)| Time     |
+----------------------------------------------------------------------------------
+|   0 | SELECT STATEMENT  |              |     1 |    39 |     3   (0)| 00:00:01 |
+|*  1 |  TABLE ACCESS FULL| ORDER_DETAIL |     1 |    39 |     3   (0)| 00:00:01 |
+----------------------------------------------------------------------------------
+ 
+Predicate Information (identified by operation id):
+---------------------------------------------------
+ 
+   1 - filter("QUANTITY"=100 OR "QUANTITY"=200 OR "QUANTITY"=300 OR 
+              "DISCOUNT"=0.01)
+ 
+Note
+-----
+   - dynamic sampling used for this statement (level=2)
+
+18 rows selected. 
+
+SQL> 
+SQL> EXPLAIN PLAN FOR SELECT CATEGORY_NAME, SUPPLIER_NAME, COUNT(*) FROM PRODUCT GROUP BY CATEGORY_NAME, SUPPLIER_NAME;
+
+Explained.
+
+SQL> SELECT * FROM TABLE(DBMS_XPLAN.DISPLAY);
+
+PLAN_TABLE_OUTPUT                                                                                   
+----------------------------------------------------------------------------------------------------
+Plan hash value: 2921987230
+ 
+------------------------------------------------------------------------------
+| Id  | Operation          | Name    | Rows  | Bytes | Cost (%CPU)| Time     |
+------------------------------------------------------------------------------
+|   0 | SELECT STATEMENT   |         |    77 |  3003 |     4  (25)| 00:00:01 |
+|   1 |  HASH GROUP BY     |         |    77 |  3003 |     4  (25)| 00:00:01 |
+|   2 |   TABLE ACCESS FULL| PRODUCT |    77 |  3003 |     3   (0)| 00:00:01 |
+------------------------------------------------------------------------------
+ 
+Note
+-----
+   - dynamic sampling used for this statement (level=2)
+
+13 rows selected. 
+
+SQL> 
+SQL> EXPLAIN PLAN FOR SELECT SUPPLIER_NAME, UNIT_PRICE FROM PRODUCT ORDER BY UNIT_PRICE, QUANTITY_PER_UNIT;
+
+Explained.
+
+SQL> SELECT * FROM TABLE(DBMS_XPLAN.DISPLAY);
+
+PLAN_TABLE_OUTPUT                                                                                   
+----------------------------------------------------------------------------------------------------
+Plan hash value: 3416692823
+ 
+------------------------------------------------------------------------------
+| Id  | Operation          | Name    | Rows  | Bytes | Cost (%CPU)| Time     |
+------------------------------------------------------------------------------
+|   0 | SELECT STATEMENT   |         |    77 |  3619 |     4  (25)| 00:00:01 |
+|   1 |  SORT ORDER BY     |         |    77 |  3619 |     4  (25)| 00:00:01 |
+|   2 |   TABLE ACCESS FULL| PRODUCT |    77 |  3619 |     3   (0)| 00:00:01 |
+------------------------------------------------------------------------------
+ 
+Note
+-----
+   - dynamic sampling used for this statement (level=2)
+
+13 rows selected. 
+
+SQL> 
+SQL> EXPLAIN PLAN FOR SELECT SUPPLIER.COMPANY_NAME, SUPPLIER.CITY FROM PRODUCT JOIN SUPPLIER ON PRODUCT.SUPPLIER_NAME = SUPPLIER.COMPANY_NAME;
+
+Explained.
+
+SQL> SELECT * FROM TABLE(DBMS_XPLAN.DISPLAY);
+
+PLAN_TABLE_OUTPUT                                                                                   
+----------------------------------------------------------------------------------------------------
+Plan hash value: 3505126471
+ 
+-------------------------------------------------------------------------------
+| Id  | Operation          | Name     | Rows  | Bytes | Cost (%CPU)| Time     |
+-------------------------------------------------------------------------------
+|   0 | SELECT STATEMENT   |          |    77 |  4081 |     6   (0)| 00:00:01 |
+|*  1 |  HASH JOIN         |          |    77 |  4081 |     6   (0)| 00:00:01 |
+|   2 |   TABLE ACCESS FULL| SUPPLIER |    29 |   899 |     3   (0)| 00:00:01 |
+|   3 |   TABLE ACCESS FULL| PRODUCT  |    77 |  1694 |     3   (0)| 00:00:01 |
+-------------------------------------------------------------------------------
+ 
+Predicate Information (identified by operation id):
+---------------------------------------------------
+ 
+   1 - access("PRODUCT"."SUPPLIER_NAME"="SUPPLIER"."COMPANY_NAME")
+ 
+Note
+-----
+   - dynamic sampling used for this statement (level=2)
+
+19 rows selected. 
+
+SQL> 
+SQL> CREATE INDEX PNQ_IDX ON ORDER_DETAIL(PRODUCT_NAME, QUANTITY);
+
+Index PNQ_IDX created.
+
+SQL> EXPLAIN PLAN FOR SELECT * FROM ORDER_DETAIL WHERE PRODUCT_NAME = 'BOLT' AND QUANTITY > 100;
+
+Explained.
+
+SQL> SELECT * FROM TABLE(DBMS_XPLAN.DISPLAY);
+
+PLAN_TABLE_OUTPUT                                                                                   
+----------------------------------------------------------------------------------------------------
+Plan hash value: 1362353282
+ 
+--------------------------------------------------------------------------------------------
+| Id  | Operation                   | Name         | Rows  | Bytes | Cost (%CPU)| Time     |
+--------------------------------------------------------------------------------------------
+|   0 | SELECT STATEMENT            |              |     1 |    74 |     1   (0)| 00:00:01 |
+|   1 |  TABLE ACCESS BY INDEX ROWID| ORDER_DETAIL |     1 |    74 |     1   (0)| 00:00:01 |
+|*  2 |   INDEX RANGE SCAN          | PNQ_IDX      |     1 |       |     1   (0)| 00:00:01 |
+--------------------------------------------------------------------------------------------
+ 
+Predicate Information (identified by operation id):
+---------------------------------------------------
+ 
+   2 - access("PRODUCT_NAME"='BOLT' AND "QUANTITY">100 AND "QUANTITY" IS NOT NULL)
+ 
+Note
+-----
+   - dynamic sampling used for this statement (level=2)
+
+18 rows selected. 
+
+SQL> 
+SQL> CREATE INDEX CN_IDX ON PRODUCT(CATEGORY_NAME);
+
+Index CN_IDX created.
+
+SQL> EXPLAIN PLAN FOR SELECT DISTINCT CATEGORY_NAME FROM PRODUCT;
+
+Explained.
+
+SQL> SELECT * FROM TABLE(DBMS_XPLAN.DISPLAY);
+
+PLAN_TABLE_OUTPUT                                                                                   
+----------------------------------------------------------------------------------------------------
+Plan hash value: 1642616140
+ 
+-----------------------------------------------------------------------------
+| Id  | Operation          | Name   | Rows  | Bytes | Cost (%CPU)| Time     |
+-----------------------------------------------------------------------------
+|   0 | SELECT STATEMENT   |        |    77 |  1309 |     2  (50)| 00:00:01 |
+|   1 |  SORT UNIQUE NOSORT|        |    77 |  1309 |     2  (50)| 00:00:01 |
+|   2 |   INDEX FULL SCAN  | CN_IDX |    77 |  1309 |     1   (0)| 00:00:01 |
+-----------------------------------------------------------------------------
+ 
+Note
+-----
+   - dynamic sampling used for this statement (level=2)
+
+13 rows selected. 
+
+SQL> 
+SQL> CREATE INDEX DISCOUNT_IDX ON ORDER_DETAIL(DISCOUNT);
+
+Index DISCOUNT_IDX created.
+
+SQL> CREATE INDEX QUANTITY_IDX ON ORDER_DETAIL(QUANTITY);
+
+Index QUANTITY_IDX created.
+
+SQL> EXPLAIN PLAN FOR SELECT UNIT_PRICE FROM ORDER_DETAIL WHERE QUANTITY IN (100, 200, 300) OR DISCOUNT = 0.01;
+
+Explained.
+
+SQL> SELECT * FROM TABLE(DBMS_XPLAN.DISPLAY);
+
+PLAN_TABLE_OUTPUT                                                                                   
+----------------------------------------------------------------------------------------------------
+Plan hash value: 946223427
+ 
+----------------------------------------------------------------------------------------------
+| Id  | Operation                     | Name         | Rows  | Bytes | Cost (%CPU)| Time     |
+----------------------------------------------------------------------------------------------
+|   0 | SELECT STATEMENT              |              |     2 |    78 |     4   (0)| 00:00:01 |
+|   1 |  CONCATENATION                |              |       |       |            |          |
+|   2 |   TABLE ACCESS BY INDEX ROWID | ORDER_DETAIL |     1 |    39 |     2   (0)| 00:00:01 |
+|*  3 |    INDEX RANGE SCAN           | DISCOUNT_IDX |     2 |       |     1   (0)| 00:00:01 |
+|   4 |   INLIST ITERATOR             |              |       |       |            |          |
+|*  5 |    TABLE ACCESS BY INDEX ROWID| ORDER_DETAIL |     1 |    39 |     2   (0)| 00:00:01 |
+|*  6 |     INDEX RANGE SCAN          | QUANTITY_IDX |     2 |       |     1   (0)| 00:00:01 |
+----------------------------------------------------------------------------------------------
+ 
+Predicate Information (identified by operation id):
+---------------------------------------------------
+ 
+   3 - access("DISCOUNT"=0.01)
+   5 - filter(LNNVL("DISCOUNT"=0.01))
+   6 - access("QUANTITY"=100 OR "QUANTITY"=200 OR "QUANTITY"=300)
+ 
+Note
+-----
+   - dynamic sampling used for this statement (level=2)
+
+24 rows selected. 
+
+SQL> 
+SQL> CREATE INDEX CATE_SN_IDX ON PRODUCT(CATEGORY_NAME, SUPPLIER_NAME);
+
+Index CATE_SN_IDX created.
+
+SQL> EXPLAIN PLAN FOR SELECT CATEGORY_NAME, SUPPLIER_NAME, COUNT(*) FROM PRODUCT GROUP BY CATEGORY_NAME, SUPPLIER_NAME;
+
+Explained.
+
+SQL> SELECT * FROM TABLE(DBMS_XPLAN.DISPLAY);
+
+PLAN_TABLE_OUTPUT                                                                                   
+----------------------------------------------------------------------------------------------------
+Plan hash value: 1557335248
+ 
+------------------------------------------------------------------------------------
+| Id  | Operation            | Name        | Rows  | Bytes | Cost (%CPU)| Time     |
+------------------------------------------------------------------------------------
+|   0 | SELECT STATEMENT     |             |    77 |  3003 |     1   (0)| 00:00:01 |
+|   1 |  SORT GROUP BY NOSORT|             |    77 |  3003 |     1   (0)| 00:00:01 |
+|   2 |   INDEX FULL SCAN    | CATE_SN_IDX |    77 |  3003 |     1   (0)| 00:00:01 |
+------------------------------------------------------------------------------------
+ 
+Note
+-----
+   - dynamic sampling used for this statement (level=2)
+
+13 rows selected. 
+
+SQL> 
+SQL> CREATE INDEX UP_QPU_IDX ON PRODUCT(UNIT_PRICE, QUANTITY_PER_UNIT, SUPPLIER_NAME);
+
+Index UP_QPU_IDX created.
+
+SQL> EXPLAIN PLAN FOR SELECT SUPPLIER_NAME, UNIT_PRICE FROM PRODUCT ORDER BY UNIT_PRICE, QUANTITY_PER_UNIT;
+
+Explained.
+
+SQL> SELECT * FROM TABLE(DBMS_XPLAN.DISPLAY);
+
+PLAN_TABLE_OUTPUT                                                                                   
+----------------------------------------------------------------------------------------------------
+Plan hash value: 1648519039
+ 
+-------------------------------------------------------------------------------
+| Id  | Operation        | Name       | Rows  | Bytes | Cost (%CPU)| Time     |
+-------------------------------------------------------------------------------
+|   0 | SELECT STATEMENT |            |    77 |  3619 |     1   (0)| 00:00:01 |
+|   1 |  INDEX FULL SCAN | UP_QPU_IDX |    77 |  3619 |     1   (0)| 00:00:01 |
+-------------------------------------------------------------------------------
+ 
+Note
+-----
+   - dynamic sampling used for this statement (level=2)
+
+12 rows selected. 
+
+SQL> 
+SQL> CREATE INDEX SN_IDX ON PRODUCT(SUPPLIER_NAME);
+
+Index SN_IDX created.
+
+SQL> CREATE INDEX SUP_CY_IDX ON SUPPLIER(COMPANY_NAME, CITY);
+
+Index SUP_CY_IDX created.
+
+SQL> EXPLAIN PLAN FOR SELECT SUPPLIER.COMPANY_NAME, SUPPLIER.CITY FROM PRODUCT JOIN SUPPLIER ON PRODUCT.SUPPLIER_NAME = SUPPLIER.COMPANY_NAME;
+
+Explained.
+
+SQL> SELECT * FROM TABLE(DBMS_XPLAN.DISPLAY);
+
+PLAN_TABLE_OUTPUT                                                                                   
+----------------------------------------------------------------------------------------------------
+Plan hash value: 2140289099
+ 
+--------------------------------------------------------------------------------
+| Id  | Operation         | Name       | Rows  | Bytes | Cost (%CPU)| Time     |
+--------------------------------------------------------------------------------
+|   0 | SELECT STATEMENT  |            |    77 |  4081 |     1   (0)| 00:00:01 |
+|   1 |  NESTED LOOPS     |            |    77 |  4081 |     1   (0)| 00:00:01 |
+|   2 |   INDEX FULL SCAN | SUP_CY_IDX |    29 |   899 |     1   (0)| 00:00:01 |
+|*  3 |   INDEX RANGE SCAN| SN_IDX     |     3 |    66 |     0   (0)| 00:00:01 |
+--------------------------------------------------------------------------------
+ 
+Predicate Information (identified by operation id):
+---------------------------------------------------
+ 
+   3 - access("PRODUCT"."SUPPLIER_NAME"="SUPPLIER"."COMPANY_NAME")
+ 
+Note
+-----
+   - dynamic sampling used for this statement (level=2)
+
+19 rows selected. 
+
+SQL> 
+SQL> DROP INDEX PNQ_IDX;
+
+Index PNQ_IDX dropped.
+
+SQL> DROP INDEX CN_IDX;
+
+Index CN_IDX dropped.
+
+SQL> DROP INDEX QUANTITY_IDX;
+
+Index QUANTITY_IDX dropped.
+
+SQL> DROP INDEX DISCOUNT_IDX;
+
+Index DISCOUNT_IDX dropped.
+
+SQL> DROP INDEX CATE_SN_IDX;
+
+Index CATE_SN_IDX dropped.
+
+SQL> DROP INDEX UP_QPU_IDX;
+
+Index UP_QPU_IDX dropped.
+
+SQL> DROP INDEX SN_IDX;
+
+Index SN_IDX dropped.
+
+SQL> DROP INDEX SUP_CY_IDX;
+
+Index SUP_CY_IDX dropped.
+
+SQL> 
+SQL> SPOOL OFF

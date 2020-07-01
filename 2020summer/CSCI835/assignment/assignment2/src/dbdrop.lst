@@ -1,0 +1,35 @@
+SQL> 
+SQL> DROP TABLE ORDER_DETAIL;
+
+Table ORDER_DETAIL dropped.
+
+SQL> DROP TABLE ORDERS;
+
+Table ORDERS dropped.
+
+SQL> DROP TABLE PRODUCT;
+
+Table PRODUCT dropped.
+
+SQL> DROP TABLE SUPPLIER;
+
+Table SUPPLIER dropped.
+
+SQL> DROP TABLE CATEGORY;
+
+Table CATEGORY dropped.
+
+SQL> DROP TABLE CUSTOMER;
+
+Table CUSTOMER dropped.
+
+SQL> DROP TABLE EMPLOYEE;
+
+Table EMPLOYEE dropped.
+
+SQL> DROP TABLE SHIPPER;
+
+Table SHIPPER dropped.
+
+SQL> 
+SQL> spool off
