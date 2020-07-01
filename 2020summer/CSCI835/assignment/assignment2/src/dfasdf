@@ -1,0 +1,22 @@
+PL/SQL procedure successfully completed.
+
+
+PL/SQL procedure successfully completed.
+
+SQL> SET FEEDBACK ON
+SQL> SET LINESIZE 100
+SQL> SET PAGESIZE 200
+SQL> SET SERVEROUTPUT ON
+SQL> 
+SQL> EXEC INSERT_ORDER_DETAIL(383, 'Perth Pasties', 32.8, 10, 0);
+Product is discontinued!
+
+
+PL/SQL procedure successfully completed.
+
+SQL> EXEC INSERT_ORDER_DETAIL(383, 'Lakkalikoori', 16.2, 10, 0.1);
+
+PL/SQL procedure successfully completed.
+
+SQL> 
+SQL> SPOOL OFF
