@@ -1,4 +1,3 @@
-SQL> SET ECHO ON
 SQL> SET FEEDBACK ON
 SQL> SET LINESIZE 100
 SQL> SET PAGESIZE 200
@@ -21,24 +20,44 @@ SQL> CREATE OR REPLACE PROCEDURE INSERT_ORDER_DETAIL(order_id_ IN ORDER_DETAIL.O
 Procedure INSERT_ORDER_DETAIL compiled
 
 SQL> 
+SQL> SELECT DISCONTINUED FROM PRODUCT WHERE PRODUCT_NAME = 'Perth Pasties';
+
+D
+-
+Y
+
+1 row selected. 
+
 SQL> EXECUTE INSERT_ORDER_DETAIL(383, 'Perth Pasties', 32.8, 10, 0);
 Product is discontinued!
 
 
 PL/SQL procedure successfully completed.
 
+SQL> SELECT * FROM ORDER_DETAIL WHERE ORDER_ID = 383 AND PRODUCT_NAME = 'Perth Pasties';
+
+0 rows selected. 
+
+SQL> 
+SQL> SELECT DISCONTINUED FROM PRODUCT WHERE PRODUCT_NAME = 'Lakkalikoori';
+
+D
+-
+N
+
+1 row selected. 
+
 SQL> EXECUTE INSERT_ORDER_DETAIL(383, 'Lakkalikoori', 16.2, 10, 0.1);
 
-Error starting at line : 23 in command -
-BEGIN INSERT_ORDER_DETAIL(383, 'Lakkalikoori', 16.2, 10, 0.1); END;
-Error report -
-ORA-00001: unique constraint (MEIWANGZHIHUI.PK_ORDER_DETAIL) violated
-ORA-06512: at "MEIWANGZHIHUI.INSERT_ORDER_DETAIL", line 5
-ORA-06512: at line 1
-00001. 00000 -  "unique constraint (%s.%s) violated"
-*Cause:    An UPDATE or INSERT statement attempted to insert a duplicate key.
-           For Trusted Oracle configured in DBMS MAC mode, you may see
-           this message if a duplicate entry exists at a different level.
-*Action:   Either remove the unique restriction or do not insert the key.
-SQL> /
+PL/SQL procedure successfully completed.
+
+SQL> SELECT * FROM ORDER_DETAIL WHERE ORDER_ID = 383 AND PRODUCT_NAME = 'Lakkalikoori';
+
+  ORDER_ID PRODUCT_NAME                             UNIT_PRICE   QUANTITY   DISCOUNT
+---------- ---------------------------------------- ---------- ---------- ----------
+       383 Lakkalikoori                                   16.2         10         .1
+
+1 row selected. 
+
+SQL> 
 SQL> SPOOL OFF
