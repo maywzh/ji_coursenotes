@@ -4,29 +4,70 @@ SQL> SET PAGESIZE 200
 SQL> SET SERVEROUTPUT ON
 SQL> 
 SQL> ALTER TABLE PRODUCT
-  2  ADD ORDERED_NUM NUMBER(9) DEFAULT 0 NOT NULL;
-
-Error starting at line : 8 in command -
-ALTER TABLE PRODUCT
-ADD ORDERED_NUM NUMBER(9) DEFAULT 0 NOT NULL
-Error report -
-ORA-01430: column being added already exists in table
-01430. 00000 -  "column being added already exists in table"
-*Cause:    
-*Action:
-SQL> 
-SQL> UPDATE PRODUCT p SET ORDERED_NUM= (SELECT nvl(sum(QUANTITY),0) AS sumnum FROM ORDER_DETAIL od GROUP BY od.PRODUCT_NAME HAVING od.PRODUCT_NAME = p.PRODUCT_NAME);
-
-Error starting at line : 11 in command -
-UPDATE PRODUCT p SET ORDERED_NUM= (SELECT nvl(sum(QUANTITY),0) AS sumnum FROM ORDER_DETAIL od GROUP BY od.PRODUCT_NAME HAVING od.PRODUCT_NAME = p.PRODUCT_NAME)
-Error report -
-ORA-01407: cannot update ("MEIWANGZHIHUI"."PRODUCT"."ORDERED_NUM") to NULL
-
-SQL> 
-SQL> ALTER TABLE PRODUCT
-  2  DROP COLUMN ORDERED_NUM;
+  2  ADD ORDERED_NUM NUMBER(9) DEFAULT 0;
 
 Table PRODUCT altered.
 
+SQL> 
+SQL> UPDATE PRODUCT p SET ORDERED_NUM = nvl((SELECT sum(QUANTITY) AS sumnum FROM ORDER_DETAIL od GROUP BY od.PRODUCT_NAME HAVING od.PRODUCT_NAME = p.PRODUCT_NAME), 0);
+
+77 rows updated.
+
+SQL> 
+SQL> CREATE OR REPLACE TRIGGER OrderProduct 
+  2  AFTER INSERT ON ORDER_DETAIL
+  3  FOR EACH ROW
+  4  WHEN (NEW.QUANTITY > 0)
+  5  BEGIN
+  6    UPDATE PRODUCT p SET ORDERED_NUM = ORDERED_NUM + :NEW.QUANTITY WHERE p.PRODUCT_NAME = :NEW.PRODUCT_NAME;
+  7  END;
+  8  /
+
+Trigger ORDERPRODUCT compiled
+
+SQL> 
+SQL> SELECT ORDERED_NUM FROM PRODUCT WHERE PRODUCT_NAME = 'Lakkalikoori';
+
+ORDERED_NUM
+-----------
+         84
+
+1 row selected. 
+
+SQL> INSERT INTO ORDER_DETAIL VALUES(383, 'Lakkalikoori', 16.2, 10, 0.1);
+
+1 row inserted.
+
+SQL> SELECT ORDERED_NUM FROM PRODUCT WHERE PRODUCT_NAME = 'Lakkalikoori';
+
+ORDERED_NUM
+-----------
+         94
+
+1 row selected. 
+
+SQL> 
+SQL> SELECT ORDERED_NUM FROM PRODUCT WHERE PRODUCT_NAME = 'Chartreuse verte';
+
+ORDERED_NUM
+-----------
+          0
+
+1 row selected. 
+
+SQL> INSERT INTO ORDER_DETAIL VALUES(383, 'Chartreuse verte', 102.1, 15, 0.2);
+
+1 row inserted.
+
+SQL> SELECT ORDERED_NUM FROM PRODUCT WHERE PRODUCT_NAME = 'Chartreuse verte';
+
+ORDERED_NUM
+-----------
+         15
+
+1 row selected. 
+
+SQL> 
+SQL> 
 SQL> 
 SQL> SPOOL OFF

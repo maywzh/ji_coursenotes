@@ -10,19 +10,8 @@ SQL> CREATE TABLE CATEGORY
   6      CONSTRAINT PK_CATEGORY PRIMARY KEY (CATEGORY_NAME)
   7  );
 
-Error starting at line : 10 in command -
-CREATE TABLE CATEGORY
-(
-    CATEGORY_NAME 	VARCHAR(30)	NOT NULL,
-    DESCRIPTION 	VARCHAR(2000)       NULL,
-    PICTURE 		VARCHAR(255)        NULL,
-    CONSTRAINT PK_CATEGORY PRIMARY KEY (CATEGORY_NAME)
-)
-Error report -
-ORA-00955: name is already used by an existing object
-00955. 00000 -  "name is already used by an existing object"
-*Cause:    
-*Action:
+Table CATEGORY created.
+
 SQL> 
 SQL> COMMENT ON COLUMN CATEGORY.CATEGORY_NAME IS 'Name of food category.';
 
@@ -161,27 +150,8 @@ SQL> CREATE TABLE SUPPLIER
  14      CONSTRAINT PK_SUPPLIER PRIMARY KEY (COMPANY_NAME)  
  15  );
 
-Error starting at line : 82 in command -
-CREATE TABLE SUPPLIER
-(
-    COMPANY_NAME 	VARCHAR(40)	NOT NULL,
-    CONTACT_NAME 	VARCHAR(30)         NULL,
-    CONTACT_TITLE 	VARCHAR(30)         NULL,
-    ADDRESS 		VARCHAR(60)         NULL,
-    CITY 		VARCHAR(15)         NULL,
-    REGION 		VARCHAR(15)         NULL,
-    POSTAL_CODE 	VARCHAR(10)         NULL,
-    COUNTRY 		VARCHAR(15)         NULL,
-    PHONE 		VARCHAR(24)         NULL,
-    FAX 		VARCHAR(24)         NULL,
-    HOME_PAGE 		VARCHAR(500)        NULL,
-    CONSTRAINT PK_SUPPLIER PRIMARY KEY (COMPANY_NAME)  
-)
-Error report -
-ORA-00955: name is already used by an existing object
-00955. 00000 -  "name is already used by an existing object"
-*Cause:    
-*Action:
+Table SUPPLIER created.
+
 SQL> 
 SQL> COMMENT ON COLUMN SUPPLIER.COMPANY_NAME IS 'Name of supplying company.';
 
@@ -252,32 +222,8 @@ SQL> CREATE TABLE PRODUCT
  19      CONSTRAINT CK_PRODUCT_DISCONTINUED CHECK (DISCONTINUED in ('Y','N'))
  20  );
 
-Error starting at line : 119 in command -
-CREATE TABLE PRODUCT
-(
-    PRODUCT_NAME 	VARCHAR(40) 	NOT NULL,
-    SUPPLIER_NAME	VARCHAR(40) 	NOT NULL,
-    CATEGORY_NAME	VARCHAR(30)	NOT NULL,
-    QUANTITY_PER_UNIT 	VARCHAR(20)         NULL,
-    UNIT_PRICE 		NUMBER(10,2)	DEFAULT 0,
-    UNITS_IN_STOCK 	NUMBER(9) 	DEFAULT 0,
-    UNITS_ON_ORDER 	NUMBER(9) 	DEFAULT 0,
-    REORDER_LEVEL 	NUMBER(9) 	DEFAULT 0,
-    DISCONTINUED 	CHAR(1)		DEFAULT 'N',
-    CONSTRAINT PK_PRODUCT PRIMARY KEY (PRODUCT_NAME),
-    CONSTRAINT FK_CATEGORY_NAME FOREIGN KEY (CATEGORY_NAME) REFERENCES CATEGORY(CATEGORY_NAME),
-    CONSTRAINT FK_SUPPLIER_NAME FOREIGN KEY (SUPPLIER_NAME) REFERENCES SUPPLIER(COMPANY_NAME),
-    CONSTRAINT CK_PRODUCT_UNIT_PRICE CHECK (UNIT_PRICE >= 0),
-    CONSTRAINT CK_PRODUCT_UNITS_IN_STOCK CHECK (UNITS_IN_STOCK >= 0),
-    CONSTRAINT CK_PRODUCT_UNITS_ON_ORDER CHECK (UNITS_ON_ORDER >= 0),
-    CONSTRAINT CK_PRODUCT_REORDER_LEVEL CHECK (REORDER_LEVEL >= 0),
-    CONSTRAINT CK_PRODUCT_DISCONTINUED CHECK (DISCONTINUED in ('Y','N'))
-)
-Error report -
-ORA-00955: name is already used by an existing object
-00955. 00000 -  "name is already used by an existing object"
-*Cause:    
-*Action:
+Table PRODUCT created.
+
 SQL> 
 SQL> COMMENT ON COLUMN PRODUCT.SUPPLIER_NAME IS 'Same entry as in Suppliers table.';
 
@@ -373,54 +319,21 @@ SQL> CREATE TABLE ORDER_DETAIL
  13      CONSTRAINT CK_ORDER_DETAIL_DISCOUNT CHECK (DISCOUNT between 0 and 1) 
  14  );
 
-Error starting at line : 180 in command -
-CREATE TABLE ORDER_DETAIL
-(
-    ORDER_ID		 NUMBER(9)	NOT NULL,
-    PRODUCT_NAME         VARCHAR(40) 	NOT NULL,
-    UNIT_PRICE 		 NUMBER(10,2)   DEFAULT 0.0,
-    QUANTITY 		 NUMBER(9)	DEFAULT 1,
-    DISCOUNT 		 NUMBER(4,2)	DEFAULT 0.0,
-    CONSTRAINT PK_ORDER_DETAIL PRIMARY KEY (ORDER_ID, PRODUCT_NAME),
-    CONSTRAINT FK_ORDER_ID FOREIGN KEY (ORDER_ID) REFERENCES ORDERS (ORDER_ID),
-    CONSTRAINT FK_PRODUCT_NAME FOREIGN KEY (PRODUCT_NAME) REFERENCES PRODUCT (PRODUCT_NAME),
-    CONSTRAINT CK_ORDER_DETAIL_UNIT_PRICE CHECK (UNIT_PRICE >= 0), 
-    CONSTRAINT CK_ORDER_DETAIL_QUANTITY CHECK (QUANTITY > 0),
-    CONSTRAINT CK_ORDER_DETAIL_DISCOUNT CHECK (DISCOUNT between 0 and 1) 
-)
-Error report -
-ORA-00054: resource busy and acquire with NOWAIT specified or timeout expired
-00054. 00000 -  "resource busy and acquire with NOWAIT specified or timeout expired"
-*Cause:    Interested resource is busy.
-*Action:   Retry if necessary or increase timeout.
+Table ORDER_DETAIL created.
+
 SQL> 
 SQL> COMMENT ON COLUMN ORDER_DETAIL.UNIT_PRICE IS 'Unit price of product';
 
-Error starting at line : 195 in command -
-COMMENT ON COLUMN ORDER_DETAIL.UNIT_PRICE IS 'Unit price of product'
-Error report -
-ORA-00942: table or view does not exist
-00942. 00000 -  "table or view does not exist"
-*Cause:    
-*Action:
+Comment created.
+
 SQL> COMMENT ON COLUMN ORDER_DETAIL.QUANTITY IS 'Quantity ordered.';
 
-Error starting at line : 196 in command -
-COMMENT ON COLUMN ORDER_DETAIL.QUANTITY IS 'Quantity ordered.'
-Error report -
-ORA-00942: table or view does not exist
-00942. 00000 -  "table or view does not exist"
-*Cause:    
-*Action:
+Comment created.
+
 SQL> COMMENT ON COLUMN ORDER_DETAIL.QUANTITY IS 'Discount applied.';
 
-Error starting at line : 197 in command -
-COMMENT ON COLUMN ORDER_DETAIL.QUANTITY IS 'Discount applied.'
-Error report -
-ORA-00942: table or view does not exist
-00942. 00000 -  "table or view does not exist"
-*Cause:    
-*Action:
+Comment created.
+
 SQL> 
 SQL> /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 SQL> /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */

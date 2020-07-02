@@ -1,85 +1,63 @@
+SQL> ALTER TABLE PRODUCT
+  2  DROP COLUMN ORDERED_NUM;
+
+Table PRODUCT altered.
+
+SQL> DROP PROCEDURE INSERT_ORDER_DETAIL;
+
+Error starting at line : 8 in command -
+DROP PROCEDURE INSERT_ORDER_DETAIL
+Error report -
+ORA-04043: object INSERT_ORDER_DETAIL does not exist
+04043. 00000 -  "object %s does not exist"
+*Cause:    An object name was specified that was not recognized by the system.
+           There are several possible causes:
+           - An invalid name for a table, view, sequence, procedure, function,
+           package, or package body was entered. Since the system could not
+           recognize the invalid name, it responded with the message that the
+           named object does not exist.
+           - An attempt was made to rename an index or a cluster, or some
+           other object that cannot be renamed.
+*Action:   Check the spelling of the named object and rerun the code. (Valid
+           names of tables, views, functions, etc. can be listed by querying
+           the data dictionary.)
+SQL> DROP TRIGGER "MAYWZH"."ORDERPRODUCT";
+
+Trigger "MAYWZH"."ORDERPRODUCT" dropped.
+
+SQL> 
 SQL> 
 SQL> DROP TABLE ORDER_DETAIL;
 
-Error starting at line : 7 in command -
-DROP TABLE ORDER_DETAIL
-Error report -
-ORA-00942: table or view does not exist
-00942. 00000 -  "table or view does not exist"
-*Cause:    
-*Action:
+Table ORDER_DETAIL dropped.
+
 SQL> DROP TABLE ORDERS;
 
-Error starting at line : 8 in command -
-DROP TABLE ORDERS
-Error report -
-ORA-00942: table or view does not exist
-00942. 00000 -  "table or view does not exist"
-*Cause:    
-*Action:
+Table ORDERS dropped.
+
 SQL> DROP TABLE PRODUCT;
 
-Error starting at line : 9 in command -
-DROP TABLE PRODUCT
-Error report -
-ORA-00054: resource busy and acquire with NOWAIT specified or timeout expired
-00054. 00000 -  "resource busy and acquire with NOWAIT specified or timeout expired"
-*Cause:    Interested resource is busy.
-*Action:   Retry if necessary or increase timeout.
+Table PRODUCT dropped.
+
 SQL> DROP TABLE SUPPLIER;
 
-Error starting at line : 10 in command -
-DROP TABLE SUPPLIER
-Error report -
-ORA-02449: unique/primary keys in table referenced by foreign keys
-02449. 00000 -  "unique/primary keys in table referenced by foreign keys"
-*Cause:    An attempt was made to drop a table with unique or
-           primary keys referenced by foreign keys in another table.
-*Action:   Before performing the above operations the table, drop the
-           foreign key constraints in other tables. You can see what
-           constraints are referencing a table by issuing the following
-           command:
-           SELECT * FROM USER_CONSTRAINTS WHERE TABLE_NAME = "tabnam";
+Table SUPPLIER dropped.
+
 SQL> DROP TABLE CATEGORY;
 
-Error starting at line : 11 in command -
-DROP TABLE CATEGORY
-Error report -
-ORA-02449: unique/primary keys in table referenced by foreign keys
-02449. 00000 -  "unique/primary keys in table referenced by foreign keys"
-*Cause:    An attempt was made to drop a table with unique or
-           primary keys referenced by foreign keys in another table.
-*Action:   Before performing the above operations the table, drop the
-           foreign key constraints in other tables. You can see what
-           constraints are referencing a table by issuing the following
-           command:
-           SELECT * FROM USER_CONSTRAINTS WHERE TABLE_NAME = "tabnam";
+Table CATEGORY dropped.
+
 SQL> DROP TABLE CUSTOMER;
 
-Error starting at line : 12 in command -
-DROP TABLE CUSTOMER
-Error report -
-ORA-00942: table or view does not exist
-00942. 00000 -  "table or view does not exist"
-*Cause:    
-*Action:
+Table CUSTOMER dropped.
+
 SQL> DROP TABLE EMPLOYEE;
 
-Error starting at line : 13 in command -
-DROP TABLE EMPLOYEE
-Error report -
-ORA-00942: table or view does not exist
-00942. 00000 -  "table or view does not exist"
-*Cause:    
-*Action:
+Table EMPLOYEE dropped.
+
 SQL> DROP TABLE SHIPPER;
 
-Error starting at line : 14 in command -
-DROP TABLE SHIPPER
-Error report -
-ORA-00942: table or view does not exist
-00942. 00000 -  "table or view does not exist"
-*Cause:    
-*Action:
+Table SHIPPER dropped.
+
 SQL> 
 SQL> spool off
