@@ -4,46 +4,9 @@ SQL> SET LINESIZE 100
 SQL> SET PAGESIZE 200
 SQL> SET SERVEROUTPUT ON
 SQL> 
-SQL> CREATE PROCEDURE INSERT_ORDER_DETAIL(order_id_ IN ORDER_DETAIL.ORDER_ID%TYPE, product_name_ IN ORDER_DETAIL.PRODUCT_NAME%TYPE, unit_price_ IN ORDER_DETAIL.UNIT_PRICE%TYPE, quantity_ IN ORDER_DETAIL.QUANTITY%TYPE, discount_ IN ORDER_DETAIL.DISCOUNT%TYPE) IS pd_state PRODUCT.DISCONTINUED%TYPE;
-  2  BEGIN
-  3    SELECT DISCONTINUED INTO pd_state FROM PRODUCT WHERE PRODUCT_NAME = product_name_;
-  4    IF pd_state = 'N' THEN
-  5      INSERT INTO ORDER_DETAIL VALUES(order_id_, product_name_, unit_price_, quantity_, discount_);
-  6    ELSE
-  7      DBMS_OUTPUT.PUT_LINE('Product is discontinued!');
-  8    END IF;
-  9    COMMIT;
- 10  END INSERT_ORDER_DETAIL;
- 11  
- 12  EXEC INSERT_ORDER_DETAIL(383, 'Perth Pasties', 32.8, 10, 0);
- 13  EXEC INSERT_ORDER_DETAIL(383, 'Lakkalikoori', 16.2, 10, 0.1);
-
-Error starting at line : 7 in command -
-CREATE PROCEDURE INSERT_ORDER_DETAIL(order_id_ IN ORDER_DETAIL.ORDER_ID%TYPE, product_name_ IN ORDER_DETAIL.PRODUCT_NAME%TYPE, unit_price_ IN ORDER_DETAIL.UNIT_PRICE%TYPE, quantity_ IN ORDER_DETAIL.QUANTITY%TYPE, discount_ IN ORDER_DETAIL.DISCOUNT%TYPE) IS pd_state PRODUCT.DISCONTINUED%TYPE;
-BEGIN
-  SELECT DISCONTINUED INTO pd_state FROM PRODUCT WHERE PRODUCT_NAME = product_name_;
-  IF pd_state = 'N' THEN
-    INSERT INTO ORDER_DETAIL VALUES(order_id_, product_name_, unit_price_, quantity_, discount_);
-  ELSE
-    DBMS_OUTPUT.PUT_LINE('Product is discontinued!');
-  END IF;
-  COMMIT;
-END INSERT_ORDER_DETAIL;
-
-EXEC INSERT_ORDER_DETAIL(383, 'Perth Pasties', 32.8, 10, 0);
-EXEC INSERT_ORDER_DETAIL(383, 'Lakkalikoori', 16.2, 10, 0.1);
-Error report -
-ORA-00955: name is already used by an existing object
-00955. 00000 -  "name is already used by an existing object"
-*Cause:    
-*Action:
-SQL> SET ECHO ON
-SQL> SET FEEDBACK ON
-SQL> SET LINESIZE 100
-SQL> SET PAGESIZE 200
-SQL> SET SERVEROUTPUT ON
 SQL> 
-SQL> CREATE PROCEDURE INSERT_ORDER_DETAIL(order_id_ IN ORDER_DETAIL.ORDER_ID%TYPE, product_name_ IN ORDER_DETAIL.PRODUCT_NAME%TYPE, unit_price_ IN ORDER_DETAIL.UNIT_PRICE%TYPE, quantity_ IN ORDER_DETAIL.QUANTITY%TYPE, discount_ IN ORDER_DETAIL.DISCOUNT%TYPE) IS pd_state PRODUCT.DISCONTINUED%TYPE;
+SQL> 
+SQL> CREATE OR REPLACE PROCEDURE INSERT_ORDER_DETAIL(order_id_ IN ORDER_DETAIL.ORDER_ID%TYPE, product_name_ IN ORDER_DETAIL.PRODUCT_NAME%TYPE, unit_price_ IN ORDER_DETAIL.UNIT_PRICE%TYPE, quantity_ IN ORDER_DETAIL.QUANTITY%TYPE, discount_ IN ORDER_DETAIL.DISCOUNT%TYPE) IS pd_state PRODUCT.DISCONTINUED%TYPE;
   2  BEGIN
   3    SELECT DISCONTINUED INTO pd_state FROM PRODUCT WHERE PRODUCT_NAME = product_name_;
   4    IF pd_state = 'N' THEN
@@ -53,140 +16,29 @@ SQL> CREATE PROCEDURE INSERT_ORDER_DETAIL(order_id_ IN ORDER_DETAIL.ORDER_ID%TYP
   8    END IF;
   9    COMMIT;
  10  END INSERT_ORDER_DETAIL;
- 11  
- 12  EXEC INSERT_ORDER_DETAIL(383, 'Perth Pasties', 32.8, 10, 0);
- 13  EXEC INSERT_ORDER_DETAIL(383, 'Lakkalikoori', 16.2, 10, 0.1);
+ 11  /
 
 Procedure INSERT_ORDER_DETAIL compiled
 
-LINE/COL  ERROR
---------- -------------------------------------------------------------
-12/1      PLS-00103: Encountered the symbol "EXEC" 
-13/61     PLS-00103: Encountered the symbol "end-of-file" when expecting one of the following:     begin function pragma procedure subtype type <an identifier>    <a double-quoted delimited-identifier> current cursor delete    exists prior 
-Errors: check compiler log
-SQL> SET ECHO ON
-SQL> SET FEEDBACK ON
-SQL> SET LINESIZE 100
-SQL> SET PAGESIZE 200
-SQL> SET SERVEROUTPUT ON
 SQL> 
-SQL> CREATE PROCEDURE INSERT_ORDER_DETAIL(order_id_ IN ORDER_DETAIL.ORDER_ID%TYPE, product_name_ IN ORDER_DETAIL.PRODUCT_NAME%TYPE, unit_price_ IN ORDER_DETAIL.UNIT_PRICE%TYPE, quantity_ IN ORDER_DETAIL.QUANTITY%TYPE, discount_ IN ORDER_DETAIL.DISCOUNT%TYPE) IS pd_state PRODUCT.DISCONTINUED%TYPE;
-  2  BEGIN
-  3    SELECT DISCONTINUED INTO pd_state FROM PRODUCT WHERE PRODUCT_NAME = product_name_;
-  4    IF pd_state = 'N' THEN
-  5      INSERT INTO ORDER_DETAIL VALUES(order_id_, product_name_, unit_price_, quantity_, discount_);
-  6    ELSE
-  7      DBMS_OUTPUT.PUT_LINE('Product is discontinued!');
-  8    END IF;
-  9    COMMIT;
- 10  END INSERT_ORDER_DETAIL;
- 11  
- 12  EXEC INSERT_ORDER_DETAIL(383, 'Perth Pasties', 32.8, 10, 0);
- 13  EXEC INSERT_ORDER_DETAIL(383, 'Lakkalikoori', 16.2, 10, 0.1);
-
-Error starting at line : 7 in command -
-CREATE PROCEDURE INSERT_ORDER_DETAIL(order_id_ IN ORDER_DETAIL.ORDER_ID%TYPE, product_name_ IN ORDER_DETAIL.PRODUCT_NAME%TYPE, unit_price_ IN ORDER_DETAIL.UNIT_PRICE%TYPE, quantity_ IN ORDER_DETAIL.QUANTITY%TYPE, discount_ IN ORDER_DETAIL.DISCOUNT%TYPE) IS pd_state PRODUCT.DISCONTINUED%TYPE;
-BEGIN
-  SELECT DISCONTINUED INTO pd_state FROM PRODUCT WHERE PRODUCT_NAME = product_name_;
-  IF pd_state = 'N' THEN
-    INSERT INTO ORDER_DETAIL VALUES(order_id_, product_name_, unit_price_, quantity_, discount_);
-  ELSE
-    DBMS_OUTPUT.PUT_LINE('Product is discontinued!');
-  END IF;
-  COMMIT;
-END INSERT_ORDER_DETAIL;
-
-EXEC INSERT_ORDER_DETAIL(383, 'Perth Pasties', 32.8, 10, 0);
-EXEC INSERT_ORDER_DETAIL(383, 'Lakkalikoori', 16.2, 10, 0.1);
-Error report -
-ORA-00955: name is already used by an existing object
-00955. 00000 -  "name is already used by an existing object"
-*Cause:    
-*Action:
-SQL> SET ECHO ON
-SQL> SET FEEDBACK ON
-SQL> SET LINESIZE 100
-SQL> SET PAGESIZE 200
-SQL> SET SERVEROUTPUT ON
-SQL> 
-SQL> CREATE PROCEDURE INSERT_ORDER_DETAIL(order_id_ IN ORDER_DETAIL.ORDER_ID%TYPE, product_name_ IN ORDER_DETAIL.PRODUCT_NAME%TYPE, unit_price_ IN ORDER_DETAIL.UNIT_PRICE%TYPE, quantity_ IN ORDER_DETAIL.QUANTITY%TYPE, discount_ IN ORDER_DETAIL.DISCOUNT%TYPE) IS pd_state PRODUCT.DISCONTINUED%TYPE;
-  2  BEGIN
-  3    SELECT DISCONTINUED INTO pd_state FROM PRODUCT WHERE PRODUCT_NAME = product_name_;
-  4    IF pd_state = 'N' THEN
-  5      INSERT INTO ORDER_DETAIL VALUES(order_id_, product_name_, unit_price_, quantity_, discount_);
-  6    ELSE
-  7      DBMS_OUTPUT.PUT_LINE('Product is discontinued!');
-  8    END IF;
-  9    COMMIT;
- 10  END INSERT_ORDER_DETAIL;
- 11  
- 12  EXEC INSERT_ORDER_DETAIL(383, 'Perth Pasties', 32.8, 10, 0);
- 13  EXEC INSERT_ORDER_DETAIL(383, 'Lakkalikoori', 16.2, 10, 0.1);
-
-Procedure INSERT_ORDER_DETAIL compiled
-
-LINE/COL  ERROR
---------- -------------------------------------------------------------
-12/1      PLS-00103: Encountered the symbol "EXEC" 
-13/61     PLS-00103: Encountered the symbol "end-of-file" when expecting one of the following:     begin function pragma procedure subtype type <an identifier>    <a double-quoted delimited-identifier> current cursor delete    exists prior 
-Errors: check compiler log
-SQL> SET ECHO ON
-SQL> SET FEEDBACK ON
-SQL> SET LINESIZE 100
-SQL> SET PAGESIZE 200
-SQL> SET SERVEROUTPUT ON
-SQL> 
-SQL> CREATE PROCEDURE INSERT_ORDER_DETAIL(order_id_ IN ORDER_DETAIL.ORDER_ID%TYPE, product_name_ IN ORDER_DETAIL.PRODUCT_NAME%TYPE, unit_price_ IN ORDER_DETAIL.UNIT_PRICE%TYPE, quantity_ IN ORDER_DETAIL.QUANTITY%TYPE, discount_ IN ORDER_DETAIL.DISCOUNT%TYPE) IS pd_state PRODUCT.DISCONTINUED%TYPE;
-  2  BEGIN
-  3    SELECT DISCONTINUED INTO pd_state FROM PRODUCT WHERE PRODUCT_NAME = product_name_;
-  4    IF pd_state = 'N' THEN
-  5      INSERT INTO ORDER_DETAIL VALUES(order_id_, product_name_, unit_price_, quantity_, discount_);
-  6    ELSE
-  7      DBMS_OUTPUT.PUT_LINE('Product is discontinued!');
-  8    END IF;
-  9    COMMIT;
- 10  END INSERT_ORDER_DETAIL;
-
-Procedure INSERT_ORDER_DETAIL compiled
-
-SQL> SET ECHO ON
-SQL> SET FEEDBACK ON
-SQL> SET LINESIZE 100
-SQL> SET PAGESIZE 200
-SQL> SET SERVEROUTPUT ON
-SQL> 
-SQL> CREATE PROCEDURE INSERT_ORDER_DETAIL(order_id_ IN ORDER_DETAIL.ORDER_ID%TYPE, product_name_ IN ORDER_DETAIL.PRODUCT_NAME%TYPE, unit_price_ IN ORDER_DETAIL.UNIT_PRICE%TYPE, quantity_ IN ORDER_DETAIL.QUANTITY%TYPE, discount_ IN ORDER_DETAIL.DISCOUNT%TYPE) IS pd_state PRODUCT.DISCONTINUED%TYPE;
-  2  BEGIN
-  3    SELECT DISCONTINUED INTO pd_state FROM PRODUCT WHERE PRODUCT_NAME = product_name_;
-  4    IF pd_state = 'N' THEN
-  5      INSERT INTO ORDER_DETAIL VALUES(order_id_, product_name_, unit_price_, quantity_, discount_);
-  6    ELSE
-  7      DBMS_OUTPUT.PUT_LINE('Product is discontinued!');
-  8    END IF;
-  9    COMMIT;
- 10  END INSERT_ORDER_DETAIL;
-
-Procedure INSERT_ORDER_DETAIL compiled
-
-PL/SQL procedure successfully completed.
-
-
-PL/SQL procedure successfully completed.
-
-SQL> SET FEEDBACK ON
-SQL> SET LINESIZE 100
-SQL> SET PAGESIZE 200
-SQL> SET SERVEROUTPUT ON
-SQL> 
-SQL> EXEC INSERT_ORDER_DETAIL(383, 'Perth Pasties', 32.8, 10, 0);
+SQL> EXECUTE INSERT_ORDER_DETAIL(383, 'Perth Pasties', 32.8, 10, 0);
 Product is discontinued!
 
 
 PL/SQL procedure successfully completed.
 
-SQL> EXEC INSERT_ORDER_DETAIL(383, 'Lakkalikoori', 16.2, 10, 0.1);
+SQL> EXECUTE INSERT_ORDER_DETAIL(383, 'Lakkalikoori', 16.2, 10, 0.1);
 
-PL/SQL procedure successfully completed.
-
-SQL> 
+Error starting at line : 23 in command -
+BEGIN INSERT_ORDER_DETAIL(383, 'Lakkalikoori', 16.2, 10, 0.1); END;
+Error report -
+ORA-00001: unique constraint (MEIWANGZHIHUI.PK_ORDER_DETAIL) violated
+ORA-06512: at "MEIWANGZHIHUI.INSERT_ORDER_DETAIL", line 5
+ORA-06512: at line 1
+00001. 00000 -  "unique constraint (%s.%s) violated"
+*Cause:    An UPDATE or INSERT statement attempted to insert a duplicate key.
+           For Trusted Oracle configured in DBMS MAC mode, you may see
+           this message if a duplicate entry exists at a different level.
+*Action:   Either remove the unique restriction or do not insert the key.
+SQL> /
 SQL> SPOOL OFF

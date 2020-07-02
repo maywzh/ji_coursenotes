@@ -1,35 +1,85 @@
 SQL> 
 SQL> DROP TABLE ORDER_DETAIL;
 
-Table ORDER_DETAIL dropped.
-
+Error starting at line : 7 in command -
+DROP TABLE ORDER_DETAIL
+Error report -
+ORA-00942: table or view does not exist
+00942. 00000 -  "table or view does not exist"
+*Cause:    
+*Action:
 SQL> DROP TABLE ORDERS;
 
-Table ORDERS dropped.
-
+Error starting at line : 8 in command -
+DROP TABLE ORDERS
+Error report -
+ORA-00942: table or view does not exist
+00942. 00000 -  "table or view does not exist"
+*Cause:    
+*Action:
 SQL> DROP TABLE PRODUCT;
 
-Table PRODUCT dropped.
-
+Error starting at line : 9 in command -
+DROP TABLE PRODUCT
+Error report -
+ORA-00054: resource busy and acquire with NOWAIT specified or timeout expired
+00054. 00000 -  "resource busy and acquire with NOWAIT specified or timeout expired"
+*Cause:    Interested resource is busy.
+*Action:   Retry if necessary or increase timeout.
 SQL> DROP TABLE SUPPLIER;
 
-Table SUPPLIER dropped.
-
+Error starting at line : 10 in command -
+DROP TABLE SUPPLIER
+Error report -
+ORA-02449: unique/primary keys in table referenced by foreign keys
+02449. 00000 -  "unique/primary keys in table referenced by foreign keys"
+*Cause:    An attempt was made to drop a table with unique or
+           primary keys referenced by foreign keys in another table.
+*Action:   Before performing the above operations the table, drop the
+           foreign key constraints in other tables. You can see what
+           constraints are referencing a table by issuing the following
+           command:
+           SELECT * FROM USER_CONSTRAINTS WHERE TABLE_NAME = "tabnam";
 SQL> DROP TABLE CATEGORY;
 
-Table CATEGORY dropped.
-
+Error starting at line : 11 in command -
+DROP TABLE CATEGORY
+Error report -
+ORA-02449: unique/primary keys in table referenced by foreign keys
+02449. 00000 -  "unique/primary keys in table referenced by foreign keys"
+*Cause:    An attempt was made to drop a table with unique or
+           primary keys referenced by foreign keys in another table.
+*Action:   Before performing the above operations the table, drop the
+           foreign key constraints in other tables. You can see what
+           constraints are referencing a table by issuing the following
+           command:
+           SELECT * FROM USER_CONSTRAINTS WHERE TABLE_NAME = "tabnam";
 SQL> DROP TABLE CUSTOMER;
 
-Table CUSTOMER dropped.
-
+Error starting at line : 12 in command -
+DROP TABLE CUSTOMER
+Error report -
+ORA-00942: table or view does not exist
+00942. 00000 -  "table or view does not exist"
+*Cause:    
+*Action:
 SQL> DROP TABLE EMPLOYEE;
 
-Table EMPLOYEE dropped.
-
+Error starting at line : 13 in command -
+DROP TABLE EMPLOYEE
+Error report -
+ORA-00942: table or view does not exist
+00942. 00000 -  "table or view does not exist"
+*Cause:    
+*Action:
 SQL> DROP TABLE SHIPPER;
 
-Table SHIPPER dropped.
-
+Error starting at line : 14 in command -
+DROP TABLE SHIPPER
+Error report -
+ORA-00942: table or view does not exist
+00942. 00000 -  "table or view does not exist"
+*Cause:    
+*Action:
 SQL> 
 SQL> spool off
