@@ -1,0 +1,19 @@
+digraph finite_state_machine {
+	rankdir=TB;
+	size="8,8"
+	node [shape = circle]; Waiting Half_power Full_power Set_time Disabled Enabled Operation;
+	node [shape = circle];
+	Waiting -> Half_power [ label = "Half power" ];
+	Waiting -> Full_power [ label = "Full power" ];
+	Half_power -> Full_power [ label = "Full power" ];
+	Half_power -> Set_time [ label = "Timer" ];
+	Full_power -> Half_power [ label = "Half power" ];
+	Full_power -> Set_time [ label = "Timer" ]
+	Set_time -> Enabled [ label = "Door closed" ];
+	Set_time -> Disabled [ label = "Door open" ];
+	Set_time -> Set_time [ label = "Number" ];
+	Enabled -> Operation [ label = "Start" ];
+	Operation -> Waiting [ label = "Cancel" ];
+	Operation -> Disabled [ label = "Door open" ];
+	Operation -> Waiting [ label = "finish"];
+}
