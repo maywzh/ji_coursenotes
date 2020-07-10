@@ -520,3 +520,5 @@ GitHub.sublime-settings
 *.docx
 
 *.ppt
+
+.vscode
