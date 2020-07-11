@@ -1,30 +1,27 @@
 SQL> ALTER TABLE PRODUCT
   2  DROP COLUMN ORDERED_NUM;
 
-Table PRODUCT altered.
-
+Error starting at line : 6 in command -
+ALTER TABLE PRODUCT
+DROP COLUMN ORDERED_NUM
+Error report -
+ORA-00904: "ORDERED_NUM": invalid identifier
+00904. 00000 -  "%s: invalid identifier"
+*Cause:    
+*Action:
 SQL> DROP PROCEDURE INSERT_ORDER_DETAIL;
 
-Error starting at line : 8 in command -
-DROP PROCEDURE INSERT_ORDER_DETAIL
-Error report -
-ORA-04043: object INSERT_ORDER_DETAIL does not exist
-04043. 00000 -  "object %s does not exist"
-*Cause:    An object name was specified that was not recognized by the system.
-           There are several possible causes:
-           - An invalid name for a table, view, sequence, procedure, function,
-           package, or package body was entered. Since the system could not
-           recognize the invalid name, it responded with the message that the
-           named object does not exist.
-           - An attempt was made to rename an index or a cluster, or some
-           other object that cannot be renamed.
-*Action:   Check the spelling of the named object and rerun the code. (Valid
-           names of tables, views, functions, etc. can be listed by querying
-           the data dictionary.)
+Procedure INSERT_ORDER_DETAIL dropped.
+
 SQL> DROP TRIGGER "MAYWZH"."ORDERPRODUCT";
 
-Trigger "MAYWZH"."ORDERPRODUCT" dropped.
-
+Error starting at line : 9 in command -
+DROP TRIGGER "MAYWZH"."ORDERPRODUCT"
+Error report -
+ORA-04080: trigger 'ORDERPRODUCT' does not exist
+04080. 00000 -  "trigger '%s' does not exist"
+*Cause:    The TRIGGER name is invalid.
+*Action:   Check the trigger name.
 SQL> 
 SQL> 
 SQL> DROP TABLE ORDER_DETAIL;
