@@ -515,6 +515,9 @@ GitHub.sublime-settings
 
 **/report/report.pdf
 
+**/assignment*/solution*.pdf
+
+
 *.zip
 
 *.docx
