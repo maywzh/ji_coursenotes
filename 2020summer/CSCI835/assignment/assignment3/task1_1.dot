@@ -1,0 +1,11 @@
+digraph task1 {
+        rankdir="LR";
+        T1 [shape=none, label=<T<SUB>1</SUB>>];
+        T2 [shape=none, label=<T<SUB>2</SUB>>];
+        T3 [shape=none, label=<T<SUB>3</SUB>>];
+        T2 -> T1;
+        T1 -> T2[splines=spline];
+        T3 -> T2;
+        T2 -> T3;
+        T3 -> T1;
+}
