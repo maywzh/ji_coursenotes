@@ -1,0 +1,82 @@
+> db.orders.insert({ "_id": "Beijing Quanjude", "SUPPLIER": { "company name": "Beijing Quanjude", "contact name": "Quanren Yang", "contact title": "Manager", "address": "Xuanwu District, Qianmen,West Avenue 14th floor", "city": "Beijing", "region": null, "postal code": "100051", "country": "China", "phone": "(86) 010-63023062", "fax": "(86) 010-63048992", "home page": null, "supplies": [{ "PRODUCT": { "product name": "Spiced Roast Duck", "category name": "Food", "quantity per unit": "1 per pack", "unit price": 170, "units in stock": NumberInt("78"), "units on order": NumberInt("0"), "reorder level": NumberInt("15"), "discontinued": "N" } }] } });
+WriteResult({ "nInserted" : 1 })
+> db.orders.insert({ "_id": "MAYWZ", "CUSTOMER": { "customer code": "MAYWZ", "company name": "SukiMask Inc.", "contact name": "Wei Yang", "contact title": "Owner", "address": "Zhonghualu Avenue 34", "city": "Beijing", "region": null, "postal code": "100071", "country": "China", "phone": "(86) 010-67234722", "fax": "(86) 010-61566216", "submits": [{ "ORDER": { "order id": NumberInt("473"), "employee id": NumberInt("9"), "order date": new Date("2020-07-15"), "required date": new Date("2020-07-15"), "shipped date": new Date("2020-07-15"), "ship via": "SF Express", "freight": 56.37, "ship name": "Duck Meal", "ship address": "", "ship city": "Beijing", "ship region": "Beijing", "ship postal code": "JKCO17", "ship country": "CN", "consists of": [{ "ORDER DETAIL": { "product name": "Spiced Roast Duck", "unit price": 153, "quantity": NumberInt("10"), "discount": 0.1 } }] } }] } });
+WriteResult({ "nInserted" : 1 })
+> db.orders.find({ "SUPPLIER.company name": "Beijing Quanjude" }).pretty();
+{
+	"_id" : "Beijing Quanjude",
+	"SUPPLIER" : {
+		"company name" : "Beijing Quanjude",
+		"contact name" : "Quanren Yang",
+		"contact title" : "Manager",
+		"address" : "Xuanwu District, Qianmen,West Avenue 14th floor",
+		"city" : "Beijing",
+		"region" : null,
+		"postal code" : "100051",
+		"country" : "China",
+		"phone" : "(86) 010-63023062",
+		"fax" : "(86) 010-63048992",
+		"home page" : null,
+		"supplies" : [
+			{
+				"PRODUCT" : {
+					"product name" : "Spiced Roast Duck",
+					"category name" : "Food",
+					"quantity per unit" : "1 per pack",
+					"unit price" : 170,
+					"units in stock" : 78,
+					"units on order" : 0,
+					"reorder level" : 15,
+					"discontinued" : "N"
+				}
+			}
+		]
+	}
+}
+> db.orders.find({ "CUSTOMER.customer code": "MAYWZ" }).pretty();
+{
+	"_id" : "MAYWZ",
+	"CUSTOMER" : {
+		"customer code" : "MAYWZ",
+		"company name" : "SukiMask Inc.",
+		"contact name" : "Wei Yang",
+		"contact title" : "Owner",
+		"address" : "Zhonghualu Avenue 34",
+		"city" : "Beijing",
+		"region" : null,
+		"postal code" : "100071",
+		"country" : "China",
+		"phone" : "(86) 010-67234722",
+		"fax" : "(86) 010-61566216",
+		"submits" : [
+			{
+				"ORDER" : {
+					"order id" : 473,
+					"employee id" : 9,
+					"order date" : ISODate("2020-07-15T00:00:00Z"),
+					"required date" : ISODate("2020-07-15T00:00:00Z"),
+					"shipped date" : ISODate("2020-07-15T00:00:00Z"),
+					"ship via" : "SF Express",
+					"freight" : 56.37,
+					"ship name" : "Duck Meal",
+					"ship address" : "",
+					"ship city" : "Beijing",
+					"ship region" : "Beijing",
+					"ship postal code" : "JKCO17",
+					"ship country" : "CN",
+					"consists of" : [
+						{
+							"ORDER DETAIL" : {
+								"product name" : "Spiced Roast Duck",
+								"unit price" : 153,
+								"quantity" : 10,
+								"discount" : 0.1
+							}
+						}
+					]
+				}
+			}
+		]
+	}
+}
+> 

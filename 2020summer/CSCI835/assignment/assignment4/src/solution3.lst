@@ -1,0 +1,469 @@
+> db.orders.find({ "SUPPLIER": { $exists: true } }).count();
+30
+> db.orders.find({ "SUPPLIER.company name": "Norske Meierier" }).pretty();
+{
+	"_id" : "Norske Meierier",
+	"SUPPLIER" : {
+		"company name" : "Norske Meierier",
+		"contact name" : "Beate Vileid",
+		"contact title" : "Marketing Manager",
+		"address" : "Hatlevegen 5",
+		"city" : "Sandvika",
+		"region" : null,
+		"postal code" : "1320",
+		"country" : "Norway",
+		"phone" : "(0)2-953010",
+		"fax" : null,
+		"home page" : null,
+		"supplies" : [
+			{
+				"PRODUCT" : {
+					"product name" : "Geitost",
+					"category name" : "Dairy Products",
+					"quantity per unit" : "500 g",
+					"unit price" : 2.5,
+					"units in stock" : 112,
+					"units on order" : 0,
+					"reorder level" : 20,
+					"discontinued" : "N"
+				}
+			},
+			{
+				"PRODUCT" : {
+					"product name" : "Gudbrandsdalsost",
+					"category name" : "Dairy Products",
+					"quantity per unit" : "10 kg pkg.",
+					"unit price" : 36,
+					"units in stock" : 26,
+					"units on order" : 0,
+					"reorder level" : 15,
+					"discontinued" : "N"
+				}
+			},
+			{
+				"PRODUCT" : {
+					"product name" : "Flotemysost",
+					"category name" : "Dairy Products",
+					"quantity per unit" : "10 - 500 g pkgs.",
+					"unit price" : 21.5,
+					"units in stock" : 26,
+					"units on order" : 0,
+					"reorder level" : 0,
+					"discontinued" : "N"
+				}
+			}
+		]
+	}
+}
+> db.orders.find({ "SUPPLIER.country": "USA", "SUPPLIER.city": "Boston" }).pretty();
+{
+	"_id" : "New England Seafood Cannery",
+	"SUPPLIER" : {
+		"company name" : "New England Seafood Cannery",
+		"contact name" : "Robb Merchant",
+		"contact title" : "Wholesale Account Agent",
+		"address" : "Order Processing Dept. 2100 Paul Revere Blvd.",
+		"city" : "Boston",
+		"region" : "MA",
+		"postal code" : "02134",
+		"country" : "USA",
+		"phone" : "(617) 555-3267",
+		"fax" : "(617) 555-3389",
+		"home page" : null,
+		"supplies" : [
+			{
+				"PRODUCT" : {
+					"product name" : "Boston Crab Meat",
+					"category name" : "Seafood",
+					"quantity per unit" : "24 - 4 oz tins",
+					"unit price" : 18.4,
+					"units in stock" : 123,
+					"units on order" : 0,
+					"reorder level" : 30,
+					"discontinued" : "N"
+				}
+			},
+			{
+				"PRODUCT" : {
+					"product name" : "Jack's New England Clam Chowder",
+					"category name" : "Seafood",
+					"quantity per unit" : "12 - 12 oz cans",
+					"unit price" : 9.65,
+					"units in stock" : 85,
+					"units on order" : 0,
+					"reorder level" : 10,
+					"discontinued" : "N"
+				}
+			}
+		]
+	}
+}
+> db.orders.find({ $or: [{ "SUPPLIER.country": "USA" }, { "SUPPLIER.city": "Sandvika" }] }).pretty();
+{
+	"_id" : "Bigfoot Breweries",
+	"SUPPLIER" : {
+		"company name" : "Bigfoot Breweries",
+		"contact name" : "Cheryl Saylor",
+		"contact title" : "Regional Account Rep.",
+		"address" : "3400 - 8th AvenueSuite 210",
+		"city" : "Bend",
+		"region" : "OR",
+		"postal code" : "97101",
+		"country" : "USA",
+		"phone" : "(503) 555-9931",
+		"fax" : null,
+		"home page" : null,
+		"supplies" : [
+			{
+				"PRODUCT" : {
+					"product name" : "Sasquatch Ale",
+					"category name" : "Beverages",
+					"quantity per unit" : "24 - 12 oz bottles",
+					"unit price" : 14,
+					"units in stock" : 111,
+					"units on order" : 0,
+					"reorder level" : 15,
+					"discontinued" : "N"
+				}
+			},
+			{
+				"PRODUCT" : {
+					"product name" : "Steeleye Stout",
+					"category name" : "Beverages",
+					"quantity per unit" : "24 - 12 oz bottles",
+					"unit price" : 18,
+					"units in stock" : 20,
+					"units on order" : 0,
+					"reorder level" : 15,
+					"discontinued" : "N"
+				}
+			},
+			{
+				"PRODUCT" : {
+					"product name" : "Laughing Lumberjack Lager",
+					"category name" : "Beverages",
+					"quantity per unit" : "24 - 12 oz bottles",
+					"unit price" : 14,
+					"units in stock" : 52,
+					"units on order" : 0,
+					"reorder level" : 10,
+					"discontinued" : "N"
+				}
+			}
+		]
+	}
+}
+{
+	"_id" : "Grandma Kelly's Homestead",
+	"SUPPLIER" : {
+		"company name" : "Grandma Kelly's Homestead",
+		"contact name" : "Regina Murphy",
+		"contact title" : "Sales Representative",
+		"address" : "707 Oxford Rd.",
+		"city" : "Ann Arbor",
+		"region" : "MI",
+		"postal code" : "48104",
+		"country" : "USA",
+		"phone" : "(313) 555-5735",
+		"fax" : "(313) 555-3349",
+		"home page" : null,
+		"supplies" : [
+			{
+				"PRODUCT" : {
+					"product name" : "Grandma's Boysenberry Spread",
+					"category name" : "Condiments",
+					"quantity per unit" : "12 - 8 oz jars",
+					"unit price" : 25,
+					"units in stock" : 120,
+					"units on order" : 0,
+					"reorder level" : 25,
+					"discontinued" : "N"
+				}
+			},
+			{
+				"PRODUCT" : {
+					"product name" : "Uncle Bob's Organic Dried Pears",
+					"category name" : "Produce",
+					"quantity per unit" : "12 - 1 lb pkgs.",
+					"unit price" : 30,
+					"units in stock" : 15,
+					"units on order" : 0,
+					"reorder level" : 10,
+					"discontinued" : "N"
+				}
+			},
+			{
+				"PRODUCT" : {
+					"product name" : "Northwoods Cranberry Sauce",
+					"category name" : "Condiments",
+					"quantity per unit" : "12 - 12 oz jars",
+					"unit price" : 40,
+					"units in stock" : 6,
+					"units on order" : 0,
+					"reorder level" : 0,
+					"discontinued" : "N"
+				}
+			}
+		]
+	}
+}
+{
+	"_id" : "New England Seafood Cannery",
+	"SUPPLIER" : {
+		"company name" : "New England Seafood Cannery",
+		"contact name" : "Robb Merchant",
+		"contact title" : "Wholesale Account Agent",
+		"address" : "Order Processing Dept. 2100 Paul Revere Blvd.",
+		"city" : "Boston",
+		"region" : "MA",
+		"postal code" : "02134",
+		"country" : "USA",
+		"phone" : "(617) 555-3267",
+		"fax" : "(617) 555-3389",
+		"home page" : null,
+		"supplies" : [
+			{
+				"PRODUCT" : {
+					"product name" : "Boston Crab Meat",
+					"category name" : "Seafood",
+					"quantity per unit" : "24 - 4 oz tins",
+					"unit price" : 18.4,
+					"units in stock" : 123,
+					"units on order" : 0,
+					"reorder level" : 30,
+					"discontinued" : "N"
+				}
+			},
+			{
+				"PRODUCT" : {
+					"product name" : "Jack's New England Clam Chowder",
+					"category name" : "Seafood",
+					"quantity per unit" : "12 - 12 oz cans",
+					"unit price" : 9.65,
+					"units in stock" : 85,
+					"units on order" : 0,
+					"reorder level" : 10,
+					"discontinued" : "N"
+				}
+			}
+		]
+	}
+}
+{
+	"_id" : "New Orleans Cajun Delights",
+	"SUPPLIER" : {
+		"company name" : "New Orleans Cajun Delights",
+		"contact name" : "Shelley Burke",
+		"contact title" : "Order Administrator",
+		"address" : "P.O. Box 78934",
+		"city" : "New Orleans",
+		"region" : "LA",
+		"postal code" : "70117",
+		"country" : "USA",
+		"phone" : "(100) 555-4822",
+		"fax" : null,
+		"home page" : null,
+		"supplies" : [
+			{
+				"PRODUCT" : {
+					"product name" : "Chef Anton's Cajun Seasoning",
+					"category name" : "Condiments",
+					"quantity per unit" : "48 - 6 oz jars",
+					"unit price" : 25,
+					"units in stock" : 53,
+					"units on order" : 0,
+					"reorder level" : 0,
+					"discontinued" : "N"
+				}
+			},
+			{
+				"PRODUCT" : {
+					"product name" : "Chef Anton's Gumbo Mix",
+					"category name" : "Condiments",
+					"quantity per unit" : "36 boxes",
+					"unit price" : 21.35,
+					"units in stock" : 0,
+					"units on order" : 0,
+					"reorder level" : 0,
+					"discontinued" : "Y"
+				}
+			},
+			{
+				"PRODUCT" : {
+					"product name" : "Louisiana Fiery Hot Pepper Sauce",
+					"category name" : "Condiments",
+					"quantity per unit" : "32 - 8 oz bottles",
+					"unit price" : 21.05,
+					"units in stock" : 76,
+					"units on order" : 0,
+					"reorder level" : 0,
+					"discontinued" : "N"
+				}
+			},
+			{
+				"PRODUCT" : {
+					"product name" : "Louisiana Hot Spiced Okra",
+					"category name" : "Condiments",
+					"quantity per unit" : "24 - 8 oz jars",
+					"unit price" : 17,
+					"units in stock" : 5,
+					"units on order" : 100,
+					"reorder level" : 20,
+					"discontinued" : "N"
+				}
+			}
+		]
+	}
+}
+{
+	"_id" : "Norske Meierier",
+	"SUPPLIER" : {
+		"company name" : "Norske Meierier",
+		"contact name" : "Beate Vileid",
+		"contact title" : "Marketing Manager",
+		"address" : "Hatlevegen 5",
+		"city" : "Sandvika",
+		"region" : null,
+		"postal code" : "1320",
+		"country" : "Norway",
+		"phone" : "(0)2-953010",
+		"fax" : null,
+		"home page" : null,
+		"supplies" : [
+			{
+				"PRODUCT" : {
+					"product name" : "Geitost",
+					"category name" : "Dairy Products",
+					"quantity per unit" : "500 g",
+					"unit price" : 2.5,
+					"units in stock" : 112,
+					"units on order" : 0,
+					"reorder level" : 20,
+					"discontinued" : "N"
+				}
+			},
+			{
+				"PRODUCT" : {
+					"product name" : "Gudbrandsdalsost",
+					"category name" : "Dairy Products",
+					"quantity per unit" : "10 kg pkg.",
+					"unit price" : 36,
+					"units in stock" : 26,
+					"units on order" : 0,
+					"reorder level" : 15,
+					"discontinued" : "N"
+				}
+			},
+			{
+				"PRODUCT" : {
+					"product name" : "Flotemysost",
+					"category name" : "Dairy Products",
+					"quantity per unit" : "10 - 500 g pkgs.",
+					"unit price" : 21.5,
+					"units in stock" : 26,
+					"units on order" : 0,
+					"reorder level" : 0,
+					"discontinued" : "N"
+				}
+			}
+		]
+	}
+}
+> db.orders.find({ "SUPPLIER.country": "USA", "SUPPLIER.city": { $in: ["Boston", "Los Angeles", "Ann Arbor"] } }).pretty();
+{
+	"_id" : "Grandma Kelly's Homestead",
+	"SUPPLIER" : {
+		"company name" : "Grandma Kelly's Homestead",
+		"contact name" : "Regina Murphy",
+		"contact title" : "Sales Representative",
+		"address" : "707 Oxford Rd.",
+		"city" : "Ann Arbor",
+		"region" : "MI",
+		"postal code" : "48104",
+		"country" : "USA",
+		"phone" : "(313) 555-5735",
+		"fax" : "(313) 555-3349",
+		"home page" : null,
+		"supplies" : [
+			{
+				"PRODUCT" : {
+					"product name" : "Grandma's Boysenberry Spread",
+					"category name" : "Condiments",
+					"quantity per unit" : "12 - 8 oz jars",
+					"unit price" : 25,
+					"units in stock" : 120,
+					"units on order" : 0,
+					"reorder level" : 25,
+					"discontinued" : "N"
+				}
+			},
+			{
+				"PRODUCT" : {
+					"product name" : "Uncle Bob's Organic Dried Pears",
+					"category name" : "Produce",
+					"quantity per unit" : "12 - 1 lb pkgs.",
+					"unit price" : 30,
+					"units in stock" : 15,
+					"units on order" : 0,
+					"reorder level" : 10,
+					"discontinued" : "N"
+				}
+			},
+			{
+				"PRODUCT" : {
+					"product name" : "Northwoods Cranberry Sauce",
+					"category name" : "Condiments",
+					"quantity per unit" : "12 - 12 oz jars",
+					"unit price" : 40,
+					"units in stock" : 6,
+					"units on order" : 0,
+					"reorder level" : 0,
+					"discontinued" : "N"
+				}
+			}
+		]
+	}
+}
+{
+	"_id" : "New England Seafood Cannery",
+	"SUPPLIER" : {
+		"company name" : "New England Seafood Cannery",
+		"contact name" : "Robb Merchant",
+		"contact title" : "Wholesale Account Agent",
+		"address" : "Order Processing Dept. 2100 Paul Revere Blvd.",
+		"city" : "Boston",
+		"region" : "MA",
+		"postal code" : "02134",
+		"country" : "USA",
+		"phone" : "(617) 555-3267",
+		"fax" : "(617) 555-3389",
+		"home page" : null,
+		"supplies" : [
+			{
+				"PRODUCT" : {
+					"product name" : "Boston Crab Meat",
+					"category name" : "Seafood",
+					"quantity per unit" : "24 - 4 oz tins",
+					"unit price" : 18.4,
+					"units in stock" : 123,
+					"units on order" : 0,
+					"reorder level" : 30,
+					"discontinued" : "N"
+				}
+			},
+			{
+				"PRODUCT" : {
+					"product name" : "Jack's New England Clam Chowder",
+					"category name" : "Seafood",
+					"quantity per unit" : "12 - 12 oz cans",
+					"unit price" : 9.65,
+					"units in stock" : 85,
+					"units on order" : 0,
+					"reorder level" : 10,
+					"discontinued" : "N"
+				}
+			}
+		]
+	}
+}
+> 
