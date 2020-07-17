@@ -1,0 +1,193 @@
+\documentclass[12pt]{article}%
+\usepackage{amsfonts}
+\usepackage{fancyhdr}
+\usepackage{comment}
+\usepackage[a4paper, top=2.5cm, bottom=2.5cm, left=2.2cm, right=2.2cm]%
+{geometry}
+\usepackage{times}
+\usepackage{amsmath}
+\usepackage{changepage}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{diagbox}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{fontspec}
+%\setmonofont{FiraCode-Regular}
+%
+\setcounter{MaxMatrixCols}{30}
+\newtheorem{theorem}{Theorem}
+\newtheorem{acknowledgement}[theorem]{Acknowledgement}
+\newtheorem{algorithm}[theorem]{Algorithm}
+\newtheorem{axiom}{Axiom}
+\newtheorem{case}[theorem]{Case}
+\newtheorem{claim}[theorem]{Claim}
+\newtheorem{conclusion}[theorem]{Conclusion}
+\newtheorem{condition}[theorem]{Condition}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{criterion}[theorem]{Criterion}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{exercise}[theorem]{Exercise}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{notation}[theorem]{Notation}
+\newtheorem{problem}[theorem]{Problem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{solution}[theorem]{Solution}
+\newtheorem{summary}[theorem]{Summary}
+\newenvironment{proof}[1][Proof]{\textbf{#1.} }{\ \rule{0.5em}{0.5em}}
+
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Z}{\mathbb{Z}}
+
+\begin{document}
+
+\title{TrafficLight}
+\author{Wangzhihui Mei \\ 2019124044 6603385}
+\date{}
+\maketitle
+
+\section*{Mathematic definition}
+\noindent
+$C=(P,T,I,O)$
+
+\noindent$P=\{L1R,L1G,L1Y,L2R,L2G,L2Y,L34R,L34G,L34Y\}$
+
+\noindent$T=\{ab,bc,cd,de,ea\}$
+
+\noindent$I(ab)=\{L1R,L34R\}$ $O(ab)=\{L1G,L34G\}$
+
+\noindent$I(bc)=\{L34G\}$ $O(bc)=\{L34Y\}$
+
+\noindent$I(cd)=\{L2R,L34Y\}$ $O(cd)=\{L2G,L34R\}$
+
+\noindent$I(de)=\{L1G,L2G\}$ $O(de)=\{L1Y,L2Y\}$
+
+\noindent$I(ea)=\{L1Y,L2Y\}$ $O(ea)=\{L1R,L2R\}$
+
+\noindent The initial marking is:
+$\mu=(1,0,0,1,0,0,1,0,0)$
+
+
+\section*{The definition of all colsets}
+
+\lstset{
+    numbers=left, 
+    numberstyle= \tiny, 
+    keywordstyle= \color{ blue!70},
+    commentstyle= \color{red!50!green!50!blue!50}, 
+    frame=shadowbox, % 阴影效果
+    rulesepcolor= \color{ red!20!green!20!blue!20} ,
+    escapeinside=``, % 英文分号中可写入中文
+    xleftmargin=2em,xrightmargin=2em, aboveskip=1em,
+    framexleftmargin=2em
+} 
+\begin{lstlisting}
+    colset DATA = string;
+    var c,c': DATA;
+    fun TransColor(c:DATA) = (case c of
+     "Red" => 1`"Green"
+     | "Green" => 1`"Yellow"
+     | "Yellow" => 1`"Red");
+\end{lstlisting}
+
+\section*{State space analysis}
+
+\begin{lstlisting}
+Statistics
+------------------------------------------------------------------------
+
+State Space
+Nodes:  5
+Arcs:   5
+Secs:   0
+Status: Full
+
+Scc Graph
+Nodes:  1
+Arcs:   0
+Secs:   0
+
+
+Boundedness Properties
+------------------------------------------------------------------------
+
+Best Integer Bounds
+Upper      Lower
+TrafficLight'L1G 1      1          0
+TrafficLight'L1R 1      1          0
+TrafficLight'L1Y 1      1          0
+TrafficLight'L2G 1      1          0
+TrafficLight'L2R 1      1          0
+TrafficLight'L2Y 1      1          0
+TrafficLight'L34G 1     1          0
+TrafficLight'L34R 1     1          0
+TrafficLight'L34Y 1     1          0
+
+Best Upper Multi-set Bounds
+TrafficLight'L1G 1  1`"Green"
+TrafficLight'L1R 1  1`"Red"
+TrafficLight'L1Y 1  1`"Yellow"
+TrafficLight'L2G 1  1`"Green"
+TrafficLight'L2R 1  1`"Red"
+TrafficLight'L2Y 1  1`"Yellow"
+TrafficLight'L34G 1 1`"Green"
+TrafficLight'L34R 1 1`"Red"
+TrafficLight'L34Y 1 1`"Yellow"
+
+Best Lower Multi-set Bounds
+TrafficLight'L1G 1  empty
+TrafficLight'L1R 1  empty
+TrafficLight'L1Y 1  empty
+TrafficLight'L2G 1  empty
+TrafficLight'L2R 1  empty
+TrafficLight'L2Y 1  empty
+TrafficLight'L34G 1 empty
+TrafficLight'L34R 1 empty
+TrafficLight'L34Y 1 empty
+
+
+Home Properties
+------------------------------------------------------------------------
+
+Home Markings
+All
+
+
+Liveness Properties
+------------------------------------------------------------------------
+
+Dead Markings
+None
+
+Dead Transition Instances
+None
+
+Live Transition Instances
+All
+
+
+Fairness Properties
+------------------------------------------------------------------------
+
+Impartial Transition Instances
+TrafficLight'ab 1
+TrafficLight'bc 1
+TrafficLight'cd 1
+TrafficLight'de 1
+TrafficLight'ea 1
+
+Fair Transition Instances
+None
+
+Just Transition Instances
+None
+
+Transition Instances with No Fairness
+None
+\end{lstlisting}
+\end{document}
