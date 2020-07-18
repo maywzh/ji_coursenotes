@@ -1645,8 +1645,7 @@ TrafficLight&apos;L34G 1: empty
 TrafficLight&apos;L34Y 1: empty
 TrafficLight&apos;L2G 1: empty
 TrafficLight&apos;L2R 1: 1`&quot;Red&quot;
-TrafficLight&apos;L2Y 1: empty
-</text>
+TrafficLight&apos;L2Y 1: empty</text>
         </descriptor>
         <roundbox w="45.000000"
                   h="36.000000"/>
@@ -1678,8 +1677,7 @@ TrafficLight&apos;L34G 1: 1`&quot;Green&quot;
 TrafficLight&apos;L34Y 1: empty
 TrafficLight&apos;L2G 1: empty
 TrafficLight&apos;L2R 1: 1`&quot;Red&quot;
-TrafficLight&apos;L2Y 1: empty
-</text>
+TrafficLight&apos;L2Y 1: empty</text>
         </descriptor>
         <roundbox w="45.000000"
                   h="40.000000"/>
@@ -1711,8 +1709,7 @@ TrafficLight&apos;L34G 1: empty
 TrafficLight&apos;L34Y 1: 1`&quot;Yellow&quot;
 TrafficLight&apos;L2G 1: empty
 TrafficLight&apos;L2R 1: 1`&quot;Red&quot;
-TrafficLight&apos;L2Y 1: empty
-</text>
+TrafficLight&apos;L2Y 1: empty</text>
         </descriptor>
         <roundbox w="45.000000"
                   h="40.000000"/>
@@ -1744,8 +1741,7 @@ TrafficLight&apos;L34G 1: empty
 TrafficLight&apos;L34Y 1: empty
 TrafficLight&apos;L2G 1: 1`&quot;Green&quot;
 TrafficLight&apos;L2R 1: empty
-TrafficLight&apos;L2Y 1: empty
-</text>
+TrafficLight&apos;L2Y 1: empty</text>
         </descriptor>
         <roundbox w="45.000000"
                   h="40.000000"/>
@@ -1777,8 +1773,7 @@ TrafficLight&apos;L34G 1: empty
 TrafficLight&apos;L34Y 1: empty
 TrafficLight&apos;L2G 1: empty
 TrafficLight&apos;L2R 1: empty
-TrafficLight&apos;L2Y 1: 1`&quot;Yellow&quot;
-</text>
+TrafficLight&apos;L2Y 1: 1`&quot;Yellow&quot;</text>
         </descriptor>
         <roundbox w="45.000000"
                   h="40.000000"/>
@@ -1811,42 +1806,7 @@ TrafficLight&apos;L2Y 1: 1`&quot;Yellow&quot;
           <text>&lt;same as model&gt;</text>
         </value>
       </option>
-      <option name="extensions.10005.enable">
-        <value>
-          <boolean>true</boolean>
-        </value>
-      </option>
-      <option name="extensions.10007.enable">
-        <value>
-          <boolean>true</boolean>
-        </value>
-      </option>
-      <option name="extensions.10008.enable">
-        <value>
-          <boolean>true</boolean>
-        </value>
-      </option>
-      <option name="extensions.10001.enable">
-        <value>
-          <boolean>true</boolean>
-        </value>
-      </option>
-      <option name="extensions.10004.enable">
-        <value>
-          <boolean>true</boolean>
-        </value>
-      </option>
-      <option name="extensions.10002.enable">
-        <value>
-          <boolean>true</boolean>
-        </value>
-      </option>
       <option name="extensions.10003.enable">
-        <value>
-          <boolean>true</boolean>
-        </value>
-      </option>
-      <option name="extensions.10006.enable">
         <value>
           <boolean>true</boolean>
         </value>
@@ -1856,12 +1816,47 @@ TrafficLight&apos;L2Y 1: 1`&quot;Yellow&quot;
           <boolean>true</boolean>
         </value>
       </option>
-      <option name="extensions.10007.options.discover">
+      <option name="extensions.10008.enable">
+        <value>
+          <boolean>true</boolean>
+        </value>
+      </option>
+      <option name="extensions.10005.enable">
+        <value>
+          <boolean>true</boolean>
+        </value>
+      </option>
+      <option name="extensions.10006.enable">
+        <value>
+          <boolean>true</boolean>
+        </value>
+      </option>
+      <option name="extensions.10004.enable">
+        <value>
+          <boolean>true</boolean>
+        </value>
+      </option>
+      <option name="extensions.10007.enable">
+        <value>
+          <boolean>true</boolean>
+        </value>
+      </option>
+      <option name="extensions.10001.enable">
+        <value>
+          <boolean>true</boolean>
+        </value>
+      </option>
+      <option name="extensions.10002.enable">
+        <value>
+          <boolean>true</boolean>
+        </value>
+      </option>
+      <option name="extensions.10011.options.disable">
         <value>
           <boolean>false</boolean>
         </value>
       </option>
-      <option name="extensions.10011.options.disable">
+      <option name="extensions.10007.options.discover">
         <value>
           <boolean>false</boolean>
         </value>
@@ -2170,9 +2165,7 @@ TrafficLight&apos;L2Y 1: 1`&quot;Yellow&quot;
           <IndexNode expanded="false"/>
         </IndexNode>
       </IndexNode>
-      <IndexNode expanded="false">
-        <IndexNode expanded="false"/>
-      </IndexNode>
+      <IndexNode expanded="false"/>
       <IndexNode expanded="true">
         <IndexNode expanded="true"/>
         <IndexNode expanded="true"/>
