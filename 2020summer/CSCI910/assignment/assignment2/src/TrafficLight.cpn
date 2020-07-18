@@ -80,8 +80,8 @@
     <page id="ID6">
       <pageattr name="TrafficLight"/>
       <place id="ID1412323733">
-        <posattr x="-394.000000"
-                 y="191.000000"/>
+        <posattr x="-441.000000"
+                 y="210.000000"/>
         <fillattr colour="White"
                   pattern=""
                   filled="false"/>
@@ -103,8 +103,8 @@
                 anchor.vertical="0"/>
         </marking>
         <type id="ID1412323734">
-          <posattr x="-353.000000"
-                   y="167.000000"/>
+          <posattr x="-400.000000"
+                   y="186.000000"/>
           <fillattr colour="White"
                     pattern="Solid"
                     filled="false"/>
@@ -117,8 +117,8 @@
                 version="4.0.1">DATA</text>
         </type>
         <initmark id="ID1412323735">
-          <posattr x="-337.000000"
-                   y="214.000000"/>
+          <posattr x="-384.000000"
+                   y="233.000000"/>
           <fillattr colour="White"
                     pattern="Solid"
                     filled="false"/>
@@ -967,8 +967,8 @@
         <transend idref="ID1412323852"/>
         <placeend idref="ID1412323733"/>
         <annot id="ID1412382538">
-          <posattr x="-284.000000"
-                   y="171.000000"/>
+          <posattr x="-341.000000"
+                   y="170.000000"/>
           <fillattr colour="White"
                     pattern="Solid"
                     filled="false"/>
@@ -1191,8 +1191,8 @@
         <transend idref="ID1412337486"/>
         <placeend idref="ID1412323733"/>
         <annot id="ID1412382545">
-          <posattr x="-481.000000"
-                   y="245.000000"/>
+          <posattr x="-501.000000"
+                   y="253.000000"/>
           <fillattr colour="White"
                     pattern="Solid"
                     filled="false"/>
@@ -1287,8 +1287,8 @@
         <transend idref="ID1412337486"/>
         <placeend idref="ID1412325411"/>
         <annot id="ID1412382548">
-          <posattr x="-449.000000"
-                   y="195.000000"/>
+          <posattr x="-495.000000"
+                   y="179.000000"/>
           <fillattr colour="White"
                     pattern="Solid"
                     filled="false"/>
