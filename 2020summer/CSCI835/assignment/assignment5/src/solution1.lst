@@ -1,0 +1,146 @@
+> db.getCollection("orders").update({ "SUPPLIER.city": "Zaandam" }, { $push: { "SUPPLIER.supplies": { "PRODUCT": { "product name": "Changde Noodles", "category name": "Noodles" } } } });
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.getCollection("orders").find({ "SUPPLIER.city": "Zaandam" }, { "SUPPLIER.supplies.PRODUCT.product name": 1 }).pretty();
+{
+        "_id" : "Zaanse Snoepfabriek",
+        "SUPPLIER" : {
+                "supplies" : [
+                        {
+                                "PRODUCT" : {
+                                        "product name" : "Zaanse koeken"
+                                }
+                        },
+                        {
+                                "PRODUCT" : {
+                                        "product name" : "Choc
+                                        olade"
+                                }
+                        },
+                        {
+                                "PRODUCT" : {
+                                        "product name" : "Changde Noodles"
+                                }
+                        }
+                ]
+        }
+}
+> db.getCollection("orders").update({ "SUPPLIER.company name": "Tokyo Traders" }, { $pull: { "SUPPLIER.supplies": { "PRODUCT.product name": "Longlife Tofu" } } })
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.getCollection("orders").find({ "SUPPLIER.company name": "Tokyo Traders" }, { "SUPPLIER.supplies.PRODUCT.product name": 1 }).pretty()
+{
+        "_id" : "Tokyo Traders",
+        "SUPPLIER" : {
+                "supplies" : [
+                        {
+                                "PRODUCT" : {
+                                        "product name" : "Mishi Kobe Niku"
+                                }
+                        },
+                        {
+                                "PRODUCT" : {
+                                        "product name" : "Ikura"
+                                }
+                        }
+                ]
+        }
+}
+>  db.getCollection("orders").update({ "SUPPLIER.supplies.PRODUCT.product name": "Flotemysost" }, { $mul: { "SUPPLIER.supplies.$.PRODUCT.unit price": 2 } });
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.getCollection("orders").aggregate([
+...     { "$unwind": "$SUPPLIER.supplies" },
+...     { "$match": { "SUPPLIER.supplies.PRODUCT.product name": "Flotemysost" } },
+...     { "$project": { "_id": 0, "product name": "$SUPPLIER.supplies.PRODUCT.product name", "unit price": "$SUPPLIER.supplies.PRODUCT.unit price" } }
+... ]).pretty();
+{ "product name" : "Flotemysost", "unit price" : 172 }
+> db.getCollection("orders").update({ "CUSTOMER.customer code": "FAMIA" }, { $rename: { "CUSTOMER.submits": "CUSTOMER.sends" } });
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.getCollection("orders").find({ "CUSTOMER.customer code": "FAMIA" }).pretty();
+{
+        "_id" : "FAMIA",
+        "CUSTOMER" : {
+                "customer code" : "FAMIA",
+                "company name" : "Familia Arquibaldo",
+                "contact name" : "Aria Cruz",
+                "contact title" : "Marketing Assistant",
+                "address" : "Rua Oros, 92",
+                "city" : "São Paulo",
+                "region" : "SP",
+                "postal code" : "05442-030",
+                "country" : "Brazil",
+                "phone" : "(11) 555-9857",
+                "fax" : null,
+                "sends" : [
+                        {
+                                "ORDER" : {
+                                        "order id" : 328,
+                                        "employee id" : 9,
+                                        "order date" : ISODate("1996-12-18T00:00:00Z"),
+                                        "required date" : ISODate("1997-01-01T00:00:00Z"),
+                                        "shipped date" : ISODate("1996-12-25T00:00:00Z"),
+                                        "ship via" : "Federal Shipping",
+                                        "freight" : 13.99,
+                                        "ship name" : "Familia Arquibaldo",
+                                        "ship address" : "Rua Orós, 92",
+                                        "ship city" : "São Paulo",
+                                        "ship region" : "SP",
+                                        "ship postal code" : "05442-030",
+                                        "ship country" : "Brazil",
+                                        "consists of" : [
+                                                {
+                                                        "ORDER DETAIL" : {
+                                                                "product name" : "Louisiana Fiery Hot Pepper Sauce",
+                                                                "unit price" : 16.8,
+                                                                "quantity" : 40,
+                                                                "discount" : 0
+                                                        }
+                                                },
+                                                {
+                                                        "ORDER DETAIL" : {
+                                                                "product name" : "Raclette Courdavault",
+                                                                "unit price" : 44,
+                                                                "quantity" : 9,
+                                                                "discount" : 0
+                                                        }
+                                                },
+                                                {
+                                                        "ORDER DETAIL" : {
+                                                                "product name" : "Scottish Longbreads",
+                                                                "unit price" : 10,
+                                                                "quantity" : 10,
+                                                                "discount" : 0
+                                                        }
+                                                }
+                                        ]
+                                }
+                        },
+                        {
+                                "ORDER" : {
+                                        "order id" : 356,
+                                        "employee id" : 2,
+                                        "order date" : ISODate("1997-01-14T00:00:00Z"),
+                                        "required date" : ISODate("1997-02-11T00:00:00Z"),
+                                        "shipped date" : ISODate("1997-01-17T00:00:00Z"),
+                                        "ship via" : "Federal Shipping",
+                                        "freight" : 21.48,
+                                        "ship name" : "Familia Arquibaldo",
+                                        "ship address" : "Rua Orós, 92",
+                                        "ship city" : "São Paulo",
+                                        "ship region" : "SP",
+                                        "ship postal code" : "05442-030",
+                                        "ship country" : "Brazil",
+                                        "consists of" : [
+                                                {
+                                                        "ORDER DETAIL" : {
+                                                                "product name" : "Filo Mix",
+                                                                "unit price" : 5.6,
+                                                                "quantity" : 20,
+                                                                "discount" : 0
+                                                        }
+                                                }
+                                        ]
+                                }
+                        }
+                ]
+        }
+}
+>
