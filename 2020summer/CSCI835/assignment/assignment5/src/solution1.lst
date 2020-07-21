@@ -143,4 +143,11 @@ WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
                 ]
         }
 }
->
+> db.getCollection("orders").update({ "CUSTOMER.submits.ORDER.order id": 310 }, { $set: { "CUSTOMER.submits.$.ORDER.employee id": NumberInt(7) } });
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.getCollection("orders").aggregate([  { "$
+...     { "$unwind": "$CUSTOMER.submits" },
+...     { "$match": { "CUSTOMER.submits.ORDER.order id": 310 } },
+...     { "$project": { "_id": 0, "order id": "$CUSTOMER.submits.ORDER.order id", "employee id": "$CUSTOMER.submits.ORDER.employee id" } }
+... ]).pretty();
+{ "order id" : 310, "employee id" : 7 }

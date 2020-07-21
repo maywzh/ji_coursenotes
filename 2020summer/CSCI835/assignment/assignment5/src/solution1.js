@@ -19,5 +19,13 @@ db.getCollection("orders").update({ "CUSTOMER.customer code": "FAMIA" }, { $rena
 
 db.getCollection("orders").find({ "CUSTOMER.customer code": "FAMIA" }).pretty();
 
+db.getCollection("orders").update({ "CUSTOMER.submits.ORDER.order id": 310 }, { $set: { "CUSTOMER.submits.ORDER.employee id": NumberInt(7) } });
+
+db.getCollection("orders").aggregate([
+    { "$unwind": "$CUSTOMER.submits" },
+    { "$match": { "CUSTOMER.submits.ORDER.order id": 310 } },
+    { "$project": { "_id": 0, "order id": "$CUSTOMER.submits.ORDER.order id", "employee id": "$CUSTOMER.submits.ORDER.employee id" } }
+]).pretty();
+
 
 //db.getCollection("orders").find({ "SUPPLIER.supplies.PRODUCT.product name": "Flotemysost" });
