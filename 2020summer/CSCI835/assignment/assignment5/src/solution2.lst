@@ -1,0 +1,60 @@
+> db.getCollection("orders").aggregate([
+...     { $match: { "SUPPLIER.company name": "Gai paturage" } },
+...     { $project: { "_id": 0, "products1": "$SUPPLIER.supplies.PRODUCT.product name" } }
+... ]).pretty();
+{ "products1" : [ "Raclette Courdavault", "Camembert Pierrot" ] }
+> db.getCollection("orders").aggregate([
+...     { $unwind: "$SUPPLIER.supplies" },
+ $ma    { $match: { "SUPPLIER.company name": "Gai paturage" } },
+...     { $project: { "_id": 0, "products2": { "product name": "$SUPPLIER.supplies.PRODUCT.product name" } } }
+... ]).pretty();
+{ "products2" : { "product name" : "Raclette Courdavault" } }
+{ "products2" : { "product name" : "Camembert Pierrot" } }
+> db.getCollection("orders").aggregate([
+ { $    { $unwind: "$SUPPLIER.supplies" },
+...     { $group: { "_id": null, "total number of products": { $sum: NumberInt(1) } } },
+...     { $project: { "_id": 0 } }
+... ]).pretty()
+{ "total number of products" : 77 }
+> db.getCollection("orders").aggregate([
+...     { $unwind: "$CUSTOMER.submits" },
+...     { $group: { "_id": "$CUSTOMER.submits.ORDER.employee id", count: { $sum: NumberInt(1) } } },
+...     { $sort: { "_id": 1 } },
+...     { $limit: 3 },
+...     { $project: { "employee id": "$_id", "_id": 0 } }
+rett]).pretty();
+{ "employee id" : 1 }
+{ "employee id" : 2 }
+{ "employee id" : 3 }
+> db.getCollection("orders").aggregate([
+...     { $match: { "SUPPLIER": { $exists: 1 } } },
+...     { $project: { "total products": { $size: "$SUPPLIER.supplies" }, "_id": 0, "company name": "$SUPPLIER.company name" } }
+... ]).pretty();
+{ "total products" : 1, "company name" : "Aux joyeux ecclesiastiques" }
+{ "total products" : 3, "company name" : "Bigfoot Breweries" }
+{
+        "total products" : 2,
+        "company name" : "Cooperativa de Quesos 'Las Cabras'"
+}
+{ "total products" : 1, "company name" : "Escargots Nouveaux" }
+{ "total products" : 3, "company name" : "Exotic Liquids" }
+{ "total products" : 2, "company name" : "Forets d'erables" }
+{ "total products" : 3, "company name" : "Formaggi Fortini s.r.l." }
+{ "total products" : 3, "company name" : "G'day, Mate" }
+{ "total products" : 2, "company name" : "Gai paturage" }
+{ "total products" : 3, "company name" : "Grandma Kelly's Homestead" }
+{ "total products" : 3, "company name" : "Heli Susswaren GmbH And Co. KG" }
+{ "total products" : 3, "company name" : "Karkki Oy" }
+{ "total products" : 3, "company name" : "Leka Trading" }
+{ "total products" : 2, "company name" : "Lyngbysild" }
+{ "total products" : 2, "company name" : "Ma Maison" }
+{ "total products" : 3, "company name" : "Mayumi's" }
+{ "total products" : 2, "company name" : "New England Seafood Cannery" }
+{ "total products" : 4, "company name" : "New Orleans Cajun Delights" }
+{
+        "total products" : 1,
+        "company name" : "Nord-Ost-Fisch Handelsgesellschaft mbH"
+}
+{ "total products" : 3, "company name" : "Norske Meierier" }
+Type "it" for more
+>
