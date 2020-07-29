@@ -10,29 +10,22 @@ ADD TNE NUMBER(9) DEFAULT 0; --Total Number of Employee
 
 UPDATE Department d SET TNE = nvl((SELECT count(E#) AS tne FROM Employee e WHERE e.Dname = d.Dname), 0);
 
--- CREATE OR REPLACE TRIGGER ModifyEmployeeDept
--- AFTER INSERT OR DELETE OR UPDATE ON Employee
--- FOR EACH ROW
--- BEGIN
---   IF DELETING THEN
---     UPDATE Department d SET TNE = nvl((SELECT count(E#) AS tne FROM Employee e WHERE e.Dname = d.Dname), 0) WHERE d.Dname = :OLD.Dname;
---   ELSIF UPDATING THEN
---     IF (:OLD.Dname != :NEW.Dname) THEN
---       UPDATE Department d SET TNE = nvl((SELECT count(E#) AS tne FROM Employee e WHERE e.Dname = d.Dname), 0) WHERE d.Dname = :OLD.Dname OR Dname = :NEW.Dname;
---     END IF;
---   ELSE
---     UPDATE Department d SET TNE = nvl((SELECT count(E#) AS tne FROM Employee e WHERE e.Dname = d.Dname), 0) WHERE d.Dname = :NEW.Dname;
---   END IF;
--- END;
--- /
-
 CREATE OR REPLACE TRIGGER ModifyEmployeeDept
 AFTER INSERT OR DELETE OR UPDATE ON Employee
+FOR EACH ROW
 BEGIN
-  UPDATE Department d SET TNE = nvl((SELECT count(E#) FROM Employee e WHERE e.Dname = d.Dname), 0);
+  IF DELETING THEN
+    UPDATE Department d SET TNE = TNE - 1 WHERE d.Dname = :OLD.Dname;
+  ELSIF UPDATING THEN
+    IF (:OLD.Dname != :NEW.Dname) THEN
+      UPDATE Department d SET TNE = TNE - 1 WHERE d.Dname = :OLD.Dname ;
+      UPDATE Department d SET TNE = TNE + 1 WHERE d.Dname = :NEW.Dname;
+    END IF;
+  ELSE
+    UPDATE Department d SET TNE = TNE + 1 WHERE d.Dname = :NEW.Dname;
+  END IF;
 END;
 /
-
 
 INSERT INTO Department VALUES ('Business Department', 'Kenneth J. Willis', TO_DATE('09-12-2015', 'DD-MM-YYYY'), 0);
 
@@ -49,10 +42,12 @@ DELETE FROM Employee
 WHERE E#='GX689';
 
 SELECT TNE FROM Department WHERE Dname = 'Business Department';
+SELECT TNE FROM Department WHERE Dname = 'Product Development Department';
 
 UPDATE Employee
 SET Dname='Product Development Department', Supervisor#='AE798'
 WHERE E#='TI867';
 SELECT TNE FROM Department WHERE Dname = 'Business Department';
+SELECT TNE FROM Department WHERE Dname = 'Product Development Department';
 
 spool off

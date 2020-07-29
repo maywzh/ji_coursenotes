@@ -16,32 +16,25 @@ SQL> UPDATE Department d SET TNE = nvl((SELECT count(E#) AS tne FROM Employee e 
 1 row updated.
 
 SQL> 
-SQL> -- CREATE OR REPLACE TRIGGER ModifyEmployeeDept
-SQL> -- AFTER INSERT OR DELETE OR UPDATE ON Employee
-SQL> -- FOR EACH ROW
-SQL> -- BEGIN
-SQL> --   IF DELETING THEN
-SQL> --     UPDATE Department d SET TNE = nvl((SELECT count(E#) AS tne FROM Employee e WHERE e.Dname = d.Dname), 0) WHERE d.Dname = :OLD.Dname;
-SQL> --   ELSIF UPDATING THEN
-SQL> --     IF (:OLD.Dname != :NEW.Dname) THEN
-SQL> --       UPDATE Department d SET TNE = nvl((SELECT count(E#) AS tne FROM Employee e WHERE e.Dname = d.Dname), 0) WHERE d.Dname = :OLD.Dname OR Dname = :NEW.Dname;
-SQL> --     END IF;
-SQL> --   ELSE
-SQL> --     UPDATE Department d SET TNE = nvl((SELECT count(E#) AS tne FROM Employee e WHERE e.Dname = d.Dname), 0) WHERE d.Dname = :NEW.Dname;
-SQL> --   END IF;
-SQL> -- END;
-SQL> -- /
-SQL> 
 SQL> CREATE OR REPLACE TRIGGER ModifyEmployeeDept
   2  AFTER INSERT OR DELETE OR UPDATE ON Employee
-  3  BEGIN
-  4    UPDATE Department d SET TNE = nvl((SELECT count(E#) FROM Employee e WHERE e.Dname = d.Dname), 0);
-  5  END;
-  6  /
+  3  FOR EACH ROW
+  4  BEGIN
+  5    IF DELETING THEN
+  6      UPDATE Department d SET TNE = TNE - 1 WHERE d.Dname = :OLD.Dname;
+  7    ELSIF UPDATING THEN
+  8      IF (:OLD.Dname != :NEW.Dname) THEN
+  9        UPDATE Department d SET TNE = TNE - 1 WHERE d.Dname = :OLD.Dname ;
+ 10        UPDATE Department d SET TNE = TNE + 1 WHERE d.Dname = :NEW.Dname;
+ 11      END IF;
+ 12    ELSE
+ 13      UPDATE Department d SET TNE = TNE + 1 WHERE d.Dname = :NEW.Dname;
+ 14    END IF;
+ 15  END;
+ 16  /
 
 Trigger MODIFYEMPLOYEEDEPT compiled
 
-SQL> 
 SQL> 
 SQL> INSERT INTO Department VALUES ('Business Department', 'Kenneth J. Willis', TO_DATE('09-12-2015', 'DD-MM-YYYY'), 0);
 
@@ -100,6 +93,14 @@ SQL> SELECT TNE FROM Department WHERE Dname = 'Business Department';
 
 1 row selected. 
 
+SQL> SELECT TNE FROM Department WHERE Dname = 'Product Development Department';
+
+       TNE
+----------
+         2
+
+1 row selected. 
+
 SQL> 
 SQL> UPDATE Employee
   2  SET Dname='Product Development Department', Supervisor#='AE798'
@@ -112,6 +113,14 @@ SQL> SELECT TNE FROM Department WHERE Dname = 'Business Department';
        TNE
 ----------
          1
+
+1 row selected. 
+
+SQL> SELECT TNE FROM Department WHERE Dname = 'Product Development Department';
+
+       TNE
+----------
+         3
 
 1 row selected. 
 
