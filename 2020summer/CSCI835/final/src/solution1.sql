@@ -1,4 +1,4 @@
-spool dbcreate
+spool solution1
 set echo on
 set feedback on
 set linesize 200

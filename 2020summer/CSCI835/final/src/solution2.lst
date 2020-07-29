@@ -1,0 +1,119 @@
+SQL> set echo on
+SQL> set feedback on
+SQL> set linesize 100
+SQL> set pagesize 200
+SQL> SET SERVEROUTPUT ON
+SQL> 
+SQL> ALTER TABLE Department
+  2  ADD TNE NUMBER(9) DEFAULT 0;
+
+Table DEPARTMENT altered.
+
+SQL>  --Total Number of Employee
+SQL> 
+SQL> UPDATE Department d SET TNE = nvl((SELECT count(E#) AS tne FROM Employee e WHERE e.Dname = d.Dname), 0);
+
+1 row updated.
+
+SQL> 
+SQL> -- CREATE OR REPLACE TRIGGER ModifyEmployeeDept
+SQL> -- AFTER INSERT OR DELETE OR UPDATE ON Employee
+SQL> -- FOR EACH ROW
+SQL> -- BEGIN
+SQL> --   IF DELETING THEN
+SQL> --     UPDATE Department d SET TNE = nvl((SELECT count(E#) AS tne FROM Employee e WHERE e.Dname = d.Dname), 0) WHERE d.Dname = :OLD.Dname;
+SQL> --   ELSIF UPDATING THEN
+SQL> --     IF (:OLD.Dname != :NEW.Dname) THEN
+SQL> --       UPDATE Department d SET TNE = nvl((SELECT count(E#) AS tne FROM Employee e WHERE e.Dname = d.Dname), 0) WHERE d.Dname = :OLD.Dname OR Dname = :NEW.Dname;
+SQL> --     END IF;
+SQL> --   ELSE
+SQL> --     UPDATE Department d SET TNE = nvl((SELECT count(E#) AS tne FROM Employee e WHERE e.Dname = d.Dname), 0) WHERE d.Dname = :NEW.Dname;
+SQL> --   END IF;
+SQL> -- END;
+SQL> -- /
+SQL> 
+SQL> CREATE OR REPLACE TRIGGER ModifyEmployeeDept
+  2  AFTER INSERT OR DELETE OR UPDATE ON Employee
+  3  BEGIN
+  4    UPDATE Department d SET TNE = nvl((SELECT count(E#) FROM Employee e WHERE e.Dname = d.Dname), 0);
+  5  END;
+  6  /
+
+Trigger MODIFYEMPLOYEEDEPT compiled
+
+SQL> 
+SQL> 
+SQL> INSERT INTO Department VALUES ('Business Department', 'Kenneth J. Willis', TO_DATE('09-12-2015', 'DD-MM-YYYY'), 0);
+
+1 row inserted.
+
+SQL> 
+SQL> INSERT INTO DeptLocation VALUES ('Business Department', 'Albany');
+
+1 row inserted.
+
+SQL> INSERT INTO DeptLocation VALUES ('Business Department', 'New York');
+
+1 row inserted.
+
+SQL> 
+SQL> SELECT TNE FROM Department WHERE Dname = 'Business Department';
+
+       TNE
+----------
+         0
+
+1 row selected. 
+
+SQL> INSERT INTO Employee VALUES('YH391', 'Gregory M. Platt', TO_DATE('05-03-1972', 'DD-MM-YYYY'), NULL, 'Business Department');
+
+1 row inserted.
+
+SQL> INSERT INTO Employee VALUES('TI867', 'Richard J. Reed', TO_DATE('04-12-1992', 'DD-MM-YYYY'), 'YH391', 'Business Department');
+
+1 row inserted.
+
+SQL> INSERT INTO Employee VALUES('GX689', 'Pat R. Mejia', TO_DATE('01-12-1987', 'DD-MM-YYYY'), 'YH391', 'Business Department');
+
+1 row inserted.
+
+SQL> SELECT TNE FROM Department WHERE Dname = 'Business Department';
+
+       TNE
+----------
+         3
+
+1 row selected. 
+
+SQL> 
+SQL> DELETE FROM Employee
+  2  WHERE E#='GX689';
+
+1 row deleted.
+
+SQL> 
+SQL> SELECT TNE FROM Department WHERE Dname = 'Business Department';
+
+       TNE
+----------
+         2
+
+1 row selected. 
+
+SQL> 
+SQL> UPDATE Employee
+  2  SET Dname='Product Development Department', Supervisor#='AE798'
+  3  WHERE E#='TI867';
+
+1 row updated.
+
+SQL> SELECT TNE FROM Department WHERE Dname = 'Business Department';
+
+       TNE
+----------
+         1
+
+1 row selected. 
+
+SQL> 
+SQL> spool off

@@ -1,0 +1,60 @@
+SQL> set echo on
+SQL> set feedback on
+SQL> set linesize 200
+SQL> set pagesize 500
+SQL> 
+SQL> CREATE TABLE Department (
+  2  	DName		VARCHAR2(30)	NOT NULL, /* Department name		                        */
+  3  	Manager	        VARCHAR2(30)	NOT NULL, /* Department manager name	                        */
+  4  	MSDate		DATE, 			  /* Manager start date     	                        */
+  5  	CONSTRAINT Department_PK PRIMARY KEY(DName) );
+
+Table DEPARTMENT created.
+
+SQL> 
+SQL> CREATE TABLE DeptLocation (
+  2  	DName		VARCHAR(32)	NOT NULL, /* Department name		                        */
+  3  	Address		VARCHAR2(50)	NOT NULL, /* Department location	                        */
+  4  	CONSTRAINT DeptLocation_PK PRIMARY KEY(DName, Address),
+  5  	CONSTRAINT DeptLocation_FK1 FOREIGN KEY(DName)
+  6  	                            REFERENCES Department(DName) );
+
+Table DEPTLOCATION created.
+
+SQL> 
+SQL> CREATE TABLE Employee (
+  2  	E#		CHAR(5)		NOT NULL, /* Employee number    	                        */
+  3  	Name		VARCHAR2(30)	NOT NULL, /* Employee name		                        */
+  4  	DOB		Date            NOT NULL, /* Date of birth		                        */
+  5  	Supervisor#	CHAR(5),		  /* Supervisor number		                        */
+  6  	DName		VARCHAR(32), 		  /* Department number		                        */
+  7  	CONSTRAINT Employee_PK PRIMARY KEY(E#),
+  8  	CONSTRAINT Employee_FK1 FOREIGN KEY (Supervisor#) REFERENCES Employee(E#),
+  9  	CONSTRAINT Employee_FK2 FOREIGN KEY (DName) REFERENCES Department (DName));
+
+Table EMPLOYEE created.
+
+SQL> 
+SQL> INSERT INTO Department VALUES ('Product Development Department', 'Eugene N. Betts', TO_DATE('12-12-2013', 'DD-MM-YYYY') );
+
+1 row inserted.
+
+SQL> 
+SQL> INSERT INTO DeptLocation VALUES ('Product Development Department', 'Atlanta');
+
+1 row inserted.
+
+SQL> INSERT INTO DeptLocation VALUES ('Product Development Department', 'Portland');
+
+1 row inserted.
+
+SQL> 
+SQL> INSERT INTO Employee VALUES('AE798', 'Connie N. Seager', TO_DATE('05-01-1984', 'DD-MM-YYYY'), NULL, 'Product Development Department');
+
+1 row inserted.
+
+SQL> INSERT INTO Employee VALUES('TX987', 'Lynn J. Skinner', TO_DATE('06-10-1992', 'DD-MM-YYYY'), 'AE798', 'Product Development Department');
+
+1 row inserted.
+
+SQL> spool off
