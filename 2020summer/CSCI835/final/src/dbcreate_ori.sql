@@ -1,3 +1,7 @@
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+/*                                        Sample database                                               */
+/*                                 Companies, Locations, Employees                                      */
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 spool dbcreate
 set echo on
 set feedback on
@@ -8,10 +12,12 @@ CREATE TABLE Department (
 	DName		VARCHAR2(30)	NOT NULL, /* Department name		                        */
 	Manager	        VARCHAR2(30)	NOT NULL, /* Department manager name	                        */
 	MSDate		DATE, 			  /* Manager start date     	                        */
+	E#              CHAR(5)         NOT NULL, /* A number of employee who is a member of department */
 	CONSTRAINT Department_PK PRIMARY KEY(DName) );
 
 CREATE TABLE DeptLocation (
 	DName		VARCHAR(32)	NOT NULL, /* Department name		                        */
+	Manager	        VARCHAR2(30)	NOT NULL, /* Department manager name	                        */	
 	Address		VARCHAR2(50)	NOT NULL, /* Department location	                        */
 	CONSTRAINT DeptLocation_PK PRIMARY KEY(DName, Address),
 	CONSTRAINT DeptLocation_FK1 FOREIGN KEY(DName)
@@ -25,13 +31,7 @@ CREATE TABLE Employee (
 	DName		VARCHAR(32), 		  /* Department number		                        */
 	CONSTRAINT Employee_PK PRIMARY KEY(E#),
 	CONSTRAINT Employee_FK1 FOREIGN KEY (Supervisor#) REFERENCES Employee(E#),
-	CONSTRAINT Employee_FK2 FOREIGN KEY (DName) REFERENCES Department (DName));
+	CONSTRAINT Employee_FK2 FOREIGN KEY (DName) REFERENCES Department (DName) );
 
-INSERT INTO Department VALUES ('Product Development Department', 'Eugene N. Betts', TO_DATE('12-12-2013', 'DD-MM-YYYY') );
-
-INSERT INTO DeptLocation VALUES ('Product Development Department', 'Atlanta');
-INSERT INTO DeptLocation VALUES ('Product Development Department', 'Portland');
-
-INSERT INTO Employee VALUES('AE798', 'Connie N. Seager', TO_DATE('05-01-1984', 'DD-MM-YYYY'), NULL, 'Product Development Department');
-INSERT INTO Employee VALUES('TX987', 'Lynn J. Skinner', TO_DATE('06-10-1992', 'DD-MM-YYYY'), 'AE798', 'Product Development Department');
 spool off
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
