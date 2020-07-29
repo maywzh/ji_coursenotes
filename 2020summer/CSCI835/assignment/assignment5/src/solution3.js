@@ -1,4 +1,4 @@
-db.createCollection("task3", {
+db.createCollection("company", {
     "validator": {
         $jsonSchema: {
             "bsonType": "object",
