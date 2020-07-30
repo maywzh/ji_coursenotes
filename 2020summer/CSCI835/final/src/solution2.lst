@@ -1,4 +1,3 @@
-SQL> set echo on
 SQL> set feedback on
 SQL> set linesize 100
 SQL> set pagesize 200

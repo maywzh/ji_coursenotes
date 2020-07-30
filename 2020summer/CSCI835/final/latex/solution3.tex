@@ -8,8 +8,25 @@
 \date{}
 \maketitle
 
-\subsection*{(1)}
+\subsection*{Concurrent Transaction Analysis}
 
-\clearpage
+\begin{table}[h]
+    \begin{tabular}{l|l}
+    T1                                                                                                               & T2                                                                                                               \\ \hline
+    \begin{tabular}[c]{@{}l@{}}INSERT INTO Employee \\ VALUES('RX590',...)\end{tabular}                              &                                                                                                                  \\ \hline
+                                                                                                                     & \begin{tabular}[c]{@{}l@{}}INSERT INTO Employee \\ VALUES('GTX20',...)\end{tabular}                              \\ \hline
+    \begin{tabular}[c]{@{}l@{}}SELECT COUNT(*) \\ INTO tne\_ \\ FROM Employee \\ WHERE DName = DName\_;\end{tabular} &                                                                                                                  \\ \hline
+    3                                                                                                                &                                                                                                                  \\ \hline
+                                                                                                                     & \begin{tabular}[c]{@{}l@{}}SELECT COUNT(*) \\ INTO tne\_ \\ FROM Employee \\ WHERE DName = DName\_;\end{tabular} \\ \hline
+                                                                                                                     & 3                                                                                                                \\ \hline
+    \begin{tabular}[c]{@{}l@{}}UPDATE Department d \\ SET TNE = tne\_ \\ WHERE d.Dname = DName\_;\end{tabular}       &                                                                                                                  \\ \hline
+                                                                                                                     & \begin{tabular}[c]{@{}l@{}}UPDATE Department d \\ SET TNE = tne\_ \\ WHERE d.Dname = DName\_;\end{tabular}       \\ \hline
+    COMMIT;                                                                                                          &                                                                                                                  \\ \hline
+    \end{tabular}
+    \caption{Transactions both running at read committed}
+    \label{tab1}
+    \end{table}
+
+\noindent We can see from Table \ref{tab1}, transaction T1 and T2 process concurrently at an isolation level read committed. The derived attribute TNE (Total number of employee) should be 4 rather than 3, the procedure may corrupt a value of TNE. The sotred procedure implemented cannot be processed at an isolation level read committed. The Serializable isolation level prevent this by commit transactions serializablely, so the next transaction can read the latest TNE.
 
 \end{document}
