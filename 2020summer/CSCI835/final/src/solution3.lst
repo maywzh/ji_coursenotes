@@ -4,55 +4,17 @@ SQL> set linesize 100
 SQL> set pagesize 200
 SQL> SET SERVEROUTPUT ON
 SQL> 
-SQL> -- drop the trigger if it exists
-SQL> DECLARE 
-  2    l_count INTEGER;
-  3  BEGIN
-  4    SELECT COUNT(*) INTO l_count
-  5    FROM user_triggers
-  6    WHERE TRIGGER_NAME = 'MODIFYEMPLOYEEDEPT';
-  7  
-  8    IF l_count > 0 THEN
-  9       EXECUTE IMMEDIATE 'DROP TRIGGER ModifyEmployeeDept';
- 10    END IF;
- 11  END;
- 12  /
-
-PL/SQL procedure successfully completed.
-
-SQL> 
 SQL> -- Create PL/SQL procedure
 SQL> CREATE OR REPLACE PROCEDURE INSERT_NEW_EMPLOYEE(E#_ IN Employee.E#%TYPE, Name_ IN Employee.Name%TYPE, DOB_ IN Employee.DOB%TYPE, Supervisor#_ IN Employee.Supervisor#%TYPE, DName_ IN Employee.DName%TYPE) IS tne_ Department.TNE%TYPE;
   2  BEGIN
-  3    SELECT COUNT(*) INTO tne_ FROM Employee WHERE DName = DName_;
-  4    INSERT INTO Employee VALUES(E#_ , Name_, DOB_, Supervisor#_, DName_); 
-  5    UPDATE Department d SET TNE = tne_ + 1 WHERE d.Dname = DName_;
+  3    INSERT INTO Employee VALUES(E#_ , Name_, DOB_, Supervisor#_, DName_); 
+  4    SELECT COUNT(*) INTO tne_ FROM Employee WHERE DName = DName_;
+  5    UPDATE Department d SET TNE = tne_ WHERE d.Dname = DName_;
   6    COMMIT;
   7  END INSERT_NEW_EMPLOYEE;
   8  /
 
 Procedure INSERT_NEW_EMPLOYEE compiled
-
-SQL> 
-SQL> SELECT TNE FROM Department WHERE DName='Product Development Department';
-
-       TNE
-----------
-         3
-
-1 row selected. 
-
-SQL> EXECUTE INSERT_NEW_EMPLOYEE('RX590', 'Linda A. Hughes', TO_DATE('12-12-2013', 'DD-MM-YYYY'), 'AE798', 'Product Development Department');
-
-PL/SQL procedure successfully completed.
-
-SQL> SELECT TNE FROM Department WHERE DName='Product Development Department';
-
-       TNE
-----------
-         4
-
-1 row selected. 
 
 SQL> 
 SQL> spool off
