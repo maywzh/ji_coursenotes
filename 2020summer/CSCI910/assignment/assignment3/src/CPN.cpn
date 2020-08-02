@@ -219,7 +219,7 @@ else nil
       <pageattr name="Dinning67"/>
       <place id="ID1412390009">
         <posattr x="-504.000000"
-                 y="145.000000"/>
+                 y="-145.000000"/>
         <fillattr colour="White"
                   pattern=""
                   filled="false"/>
@@ -228,11 +228,11 @@ else nil
                   type="Solid"/>
         <textattr colour="Black"
                   bold="false"/>
-        <text>Order init</text>
+        <text>Arrived</text>
         <ellipse w="104.000000"
                  h="58.000000"/>
-        <token x="-41.000000"
-               y="85.000000"/>
+        <token x="-98.000000"
+               y="94.000000"/>
         <marking x="-1.000000"
                  y="0.000000"
                  hidden="false">
@@ -242,7 +242,7 @@ else nil
         </marking>
         <type id="ID1412390010">
           <posattr x="-442.500000"
-                   y="114.000000"/>
+                   y="-175.000000"/>
           <fillattr colour="White"
                     pattern="Solid"
                     filled="false"/>
@@ -255,8 +255,8 @@ else nil
                 version="4.0.1">ORDER</text>
         </type>
         <initmark id="ID1412390011">
-          <posattr x="-295.500000"
-                   y="203.000000"/>
+          <posattr x="-352.000000"
+                   y="-83.000000"/>
           <fillattr colour="White"
                     pattern="Solid"
                     filled="false"/>
@@ -336,11 +336,12 @@ else nil
                   type="Solid"/>
         <textattr colour="Black"
                   bold="false"/>
-        <text>Restaurant
-Waiter</text>
+        <text>Available
+restaurant
+employee</text>
         <ellipse w="104.000000"
                  h="58.000000"/>
-        <token x="-26.000000"
+        <token x="-36.000000"
                y="23.000000"/>
         <marking x="-1.000000"
                  y="0.000000"
@@ -389,7 +390,7 @@ Waiter</text>
                   type="Solid"/>
         <textattr colour="Black"
                   bold="false"/>
-        <text>Order preparing</text>
+        <text>Preparing</text>
         <ellipse w="104.000000"
                  h="58.000000"/>
         <token x="-10.000000"
@@ -441,7 +442,7 @@ Waiter</text>
                   type="Solid"/>
         <textattr colour="Black"
                   bold="false"/>
-        <text>Order served</text>
+        <text>Served</text>
         <ellipse w="104.000000"
                  h="58.000000"/>
         <token x="-10.000000"
@@ -493,8 +494,8 @@ Waiter</text>
                   type="Solid"/>
         <textattr colour="Black"
                   bold="false"/>
-        <text>Operation
-Signal</text>
+        <text>Modify
+operation</text>
         <ellipse w="104.000000"
                  h="58.000000"/>
         <token x="-40.000000"
@@ -546,8 +547,8 @@ Signal</text>
                   type="Solid"/>
         <textattr colour="Black"
                   bold="false"/>
-        <text>Operation
-Order  Item</text>
+        <text>Available
+items</text>
         <ellipse w="104.000000"
                  h="58.000000"/>
         <token x="-45.000000"
@@ -590,7 +591,7 @@ Order  Item</text>
       </place>
       <place id="ID1412589001">
         <posattr x="-504.000000"
-                 y="393.000000"/>
+                 y="378.000000"/>
         <fillattr colour="White"
                   pattern=""
                   filled="false"/>
@@ -613,7 +614,7 @@ Order  Item</text>
         </marking>
         <type id="ID1412589002">
           <posattr x="-440.500000"
-                   y="362.000000"/>
+                   y="347.000000"/>
           <fillattr colour="White"
                     pattern="Solid"
                     filled="false"/>
@@ -627,7 +628,7 @@ Order  Item</text>
         </type>
         <initmark id="ID1412589036">
           <posattr x="-432.000000"
-                   y="423.000000"/>
+                   y="408.000000"/>
           <fillattr colour="White"
                     pattern="Solid"
                     filled="false"/>
@@ -652,13 +653,13 @@ Order  Item</text>
                   type="solid"/>
         <textattr colour="Black"
                   bold="false"/>
-        <text>Modify Order</text>
-        <box w="86.000000"
+        <text>Modify_dishes</text>
+        <box w="104.000000"
              h="46.000000"/>
         <binding x="7.200000"
                  y="-3.000000"/>
         <cond id="ID1412392913">
-          <posattr x="-108.000000"
+          <posattr x="-117.000000"
                    y="313.000000"/>
           <fillattr colour="White"
                     pattern="Solid"
@@ -672,7 +673,7 @@ Order  Item</text>
                 version="4.0.1"/>
         </cond>
         <time id="ID1412392914">
-          <posattr x="1.500000"
+          <posattr x="10.500000"
                    y="313.000000"/>
           <fillattr colour="White"
                     pattern="Solid"
@@ -686,7 +687,7 @@ Order  Item</text>
                 version="4.0.1"/>
         </time>
         <code id="ID1412392915">
-          <posattr x="21.500000"
+          <posattr x="30.500000"
                    y="224.000000"/>
           <fillattr colour="White"
                     pattern="Solid"
@@ -700,7 +701,7 @@ Order  Item</text>
                 version="4.0.1"/>
         </code>
         <priority id="ID1412392917">
-          <posattr x="-137.000000"
+          <posattr x="-146.000000"
                    y="245.000000"/>
           <fillattr colour="White"
                     pattern="Solid"
@@ -716,7 +717,7 @@ Order  Item</text>
       </trans>
       <trans id="ID1412393643"
              explicit="false">
-        <posattr x="-267.000000"
+        <posattr x="-316.000000"
                  y="145.000000"/>
         <fillattr colour="White"
                   pattern=""
@@ -726,13 +727,13 @@ Order  Item</text>
                   type="solid"/>
         <textattr colour="Black"
                   bold="false"/>
-        <text>Place order</text>
+        <text>Place_orders</text>
         <box w="86.000000"
              h="46.000000"/>
         <binding x="7.200000"
                  y="-3.000000"/>
         <cond id="ID1412393644">
-          <posattr x="-319.000000"
+          <posattr x="-368.000000"
                    y="179.000000"/>
           <fillattr colour="White"
                     pattern="Solid"
@@ -746,7 +747,7 @@ Order  Item</text>
                 version="4.0.1"/>
         </cond>
         <time id="ID1412393645">
-          <posattr x="-209.500000"
+          <posattr x="-258.500000"
                    y="179.000000"/>
           <fillattr colour="White"
                     pattern="Solid"
@@ -760,7 +761,7 @@ Order  Item</text>
                 version="4.0.1"/>
         </time>
         <code id="ID1412393646">
-          <posattr x="-189.500000"
+          <posattr x="-238.500000"
                    y="90.000000"/>
           <fillattr colour="White"
                     pattern="Solid"
@@ -774,7 +775,7 @@ Order  Item</text>
                 version="4.0.1"/>
         </code>
         <priority id="ID1412393648">
-          <posattr x="-348.000000"
+          <posattr x="-397.000000"
                    y="111.000000"/>
           <fillattr colour="White"
                     pattern="Solid"
@@ -800,13 +801,13 @@ Order  Item</text>
                   type="solid"/>
         <textattr colour="Black"
                   bold="false"/>
-        <text>Prepare Order</text>
-        <box w="106.000000"
+        <text>Prepare_ordered_dishes</text>
+        <box w="168.000000"
              h="46.000000"/>
         <binding x="7.200000"
                  y="-3.000000"/>
         <cond id="ID1412393804">
-          <posattr x="-118.000000"
+          <posattr x="-149.000000"
                    y="76.000000"/>
           <fillattr colour="White"
                     pattern="Solid"
@@ -820,7 +821,7 @@ Order  Item</text>
                 version="4.0.1"/>
         </cond>
         <time id="ID1412393805">
-          <posattr x="11.500000"
+          <posattr x="42.500000"
                    y="76.000000"/>
           <fillattr colour="White"
                     pattern="Solid"
@@ -834,7 +835,7 @@ Order  Item</text>
                 version="4.0.1"/>
         </time>
         <code id="ID1412393806">
-          <posattr x="31.500000"
+          <posattr x="62.500000"
                    y="-13.000000"/>
           <fillattr colour="White"
                     pattern="Solid"
@@ -848,7 +849,7 @@ Order  Item</text>
                 version="4.0.1"/>
         </code>
         <priority id="ID1412393808">
-          <posattr x="-147.000000"
+          <posattr x="-178.000000"
                    y="8.000000"/>
           <fillattr colour="White"
                     pattern="Solid"
@@ -874,13 +875,13 @@ Order  Item</text>
                   type="solid"/>
         <textattr colour="Black"
                   bold="false"/>
-        <text>Serve order</text>
-        <box w="106.000000"
+        <text>Serve_order_dishes</text>
+        <box w="134.000000"
              h="46.000000"/>
         <binding x="7.200000"
                  y="-3.000000"/>
         <cond id="ID1412409331">
-          <posattr x="-118.000000"
+          <posattr x="-132.000000"
                    y="-119.000000"/>
           <fillattr colour="White"
                     pattern="Solid"
@@ -894,7 +895,7 @@ Order  Item</text>
                 version="4.0.1"/>
         </cond>
         <time id="ID1412409332">
-          <posattr x="11.500000"
+          <posattr x="25.500000"
                    y="-119.000000"/>
           <fillattr colour="White"
                     pattern="Solid"
@@ -908,7 +909,7 @@ Order  Item</text>
                 version="4.0.1"/>
         </time>
         <code id="ID1412409333">
-          <posattr x="31.500000"
+          <posattr x="45.500000"
                    y="-208.000000"/>
           <fillattr colour="White"
                     pattern="Solid"
@@ -922,7 +923,7 @@ Order  Item</text>
                 version="4.0.1"/>
         </code>
         <priority id="ID1412409335">
-          <posattr x="-147.000000"
+          <posattr x="-161.000000"
                    y="-187.000000"/>
           <fillattr colour="White"
                     pattern="Solid"
@@ -953,8 +954,21 @@ Order  Item</text>
                    currentcyckle="2"/>
         <transend idref="ID1412393643"/>
         <placeend idref="ID1412390009"/>
+        <bendpoint id="ID1412590954"
+                   serial="1">
+          <posattr x="-504.000000"
+                   y="145.000000"/>
+          <fillattr colour="White"
+                    pattern="Solid"
+                    filled="false"/>
+          <lineattr colour="Black"
+                    thick="0"
+                    type="Solid"/>
+          <textattr colour="Black"
+                    bold="false"/>
+        </bendpoint>
         <annot id="ID1412441259">
-          <posattr x="-385.000000"
+          <posattr x="-436.000000"
                    y="134.000000"/>
           <fillattr colour="White"
                     pattern="Solid"
@@ -986,7 +1000,7 @@ Order  Item</text>
         <transend idref="ID1412393643"/>
         <placeend idref="ID1412390854"/>
         <annot id="ID1412441262">
-          <posattr x="-166.000000"
+          <posattr x="-191.000000"
                    y="156.000000"/>
           <fillattr colour="White"
                     pattern="Solid"
@@ -1050,7 +1064,7 @@ Order  Item</text>
         <transend idref="ID1412393803"/>
         <placeend idref="ID1412390938"/>
         <annot id="ID1412441264">
-          <posattr x="-154.000000"
+          <posattr x="-170.000000"
                    y="53.000000"/>
           <fillattr colour="White"
                     pattern="Solid"
@@ -1159,7 +1173,7 @@ Order  Item</text>
                     bold="false"/>
         </bendpoint>
         <annot id="ID1412441267">
-          <posattr x="-181.000000"
+          <posattr x="-188.000000"
                    y="-142.000000"/>
           <fillattr colour="White"
                     pattern="Solid"
@@ -1191,7 +1205,7 @@ Order  Item</text>
         <transend idref="ID1412409330"/>
         <placeend idref="ID1412414416"/>
         <annot id="ID1412441268">
-          <posattr x="58.000000"
+          <posattr x="65.000000"
                    y="-142.000000"/>
           <fillattr colour="White"
                     pattern="Solid"
@@ -1319,7 +1333,7 @@ Order  Item</text>
         <transend idref="ID1412392912"/>
         <placeend idref="ID1412572894"/>
         <annot id="ID1412572986">
-          <posattr x="52.000000"
+          <posattr x="57.000000"
                    y="297.000000"/>
           <fillattr colour="White"
                     pattern="Solid"
@@ -1383,7 +1397,7 @@ Order  Item</text>
         <transend idref="ID1412392912"/>
         <placeend idref="ID1412572894"/>
         <annot id="ID1412588353">
-          <posattr x="53.000000"
+          <posattr x="58.000000"
                    y="261.000000"/>
           <fillattr colour="White"
                     pattern="Solid"
@@ -1414,9 +1428,22 @@ Order  Item</text>
                    currentcyckle="2"/>
         <transend idref="ID1412392912"/>
         <placeend idref="ID1412589001"/>
+        <bendpoint id="ID1412590224"
+                   serial="1">
+          <posattr x="-504.000000"
+                   y="279.000000"/>
+          <fillattr colour="White"
+                    pattern="Solid"
+                    filled="false"/>
+          <lineattr colour="Black"
+                    thick="0"
+                    type="Solid"/>
+          <textattr colour="Black"
+                    bold="false"/>
+        </bendpoint>
         <annot id="ID1412589063">
-          <posattr x="-227.500000"
-                   y="367.000000"/>
+          <posattr x="-262.000000"
+                   y="294.000000"/>
           <fillattr colour="White"
                     pattern="Solid"
                     filled="false"/>
@@ -1712,12 +1739,12 @@ then 1`dish else empty</text>
       <cpnbinder id="ID1412389959"
                  x="578"
                  y="211"
-                 width="1776"
-                 height="892">
+                 width="927"
+                 height="764">
         <sheets>
           <cpnsheet id="ID2215"
-                    panx="-29.000000"
-                    pany="120.000000"
+                    panx="119.000000"
+                    pany="109.000000"
                     zoom="1.000000"
                     instance="ID2149">
             <zorder>
@@ -1806,9 +1833,7 @@ then 1`dish else empty</text>
           <IndexNode expanded="false"/>
         </IndexNode>
       </IndexNode>
-      <IndexNode expanded="false">
-        <IndexNode expanded="false"/>
-      </IndexNode>
+      <IndexNode expanded="false"/>
       <IndexNode expanded="true">
         <IndexNode expanded="true"/>
         <IndexNode expanded="true"/>
