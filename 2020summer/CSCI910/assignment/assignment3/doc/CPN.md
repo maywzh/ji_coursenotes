@@ -1,10 +1,8 @@
 # Colored Petri Net of Dinning67
-
+### Group 
 Wangzhihui Mei 6603385 2019124044
-
-
-
-
+Muzhe Peng 6603646 2019124040
+Yiwen Zhao 6603749 2019124038
 
 ### CPN Graph
 
