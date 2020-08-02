@@ -137,8 +137,7 @@
           <id>ORDERITEMLST</id>
         </type>
         <id>olst</id>
-        <id>olst2</id>
-        <layout>var olst,olst2: ORDERITEMLST;</layout>
+        <layout>var olst: ORDERITEMLST;</layout>
       </var>
       <var id="ID1412449941">
         <type>
@@ -218,8 +217,8 @@ else nil
     <page id="ID6">
       <pageattr name="Dinning67"/>
       <place id="ID1412390009">
-        <posattr x="-504.000000"
-                 y="-145.000000"/>
+        <posattr x="-661.000000"
+                 y="-114.000000"/>
         <fillattr colour="White"
                   pattern=""
                   filled="false"/>
@@ -231,8 +230,8 @@ else nil
         <text>Arrived</text>
         <ellipse w="104.000000"
                  h="58.000000"/>
-        <token x="-98.000000"
-               y="94.000000"/>
+        <token x="-26.000000"
+               y="24.000000"/>
         <marking x="-1.000000"
                  y="0.000000"
                  hidden="false">
@@ -241,8 +240,8 @@ else nil
                 anchor.vertical="3"/>
         </marking>
         <type id="ID1412390010">
-          <posattr x="-442.500000"
-                   y="-175.000000"/>
+          <posattr x="-599.500000"
+                   y="-144.000000"/>
           <fillattr colour="White"
                     pattern="Solid"
                     filled="false"/>
@@ -255,8 +254,8 @@ else nil
                 version="4.0.1">ORDER</text>
         </type>
         <initmark id="ID1412390011">
-          <posattr x="-352.000000"
-                   y="-83.000000"/>
+          <posattr x="-436.500000"
+                   y="-79.000000"/>
           <fillattr colour="White"
                     pattern="Solid"
                     filled="false"/>
@@ -341,7 +340,7 @@ restaurant
 employee</text>
         <ellipse w="104.000000"
                  h="58.000000"/>
-        <token x="-36.000000"
+        <token x="-26.000000"
                y="23.000000"/>
         <marking x="-1.000000"
                  y="0.000000"
@@ -552,7 +551,7 @@ items</text>
         <ellipse w="104.000000"
                  h="58.000000"/>
         <token x="-45.000000"
-               y="93.000000"/>
+               y="28.000000"/>
         <marking x="-1.000000"
                  y="0.000000"
                  hidden="false">
@@ -603,8 +602,8 @@ items</text>
         <text>Cancelled</text>
         <ellipse w="104.000000"
                  h="58.000000"/>
-        <token x="-146.000000"
-               y="105.000000"/>
+        <token x="-10.000000"
+               y="0.000000"/>
         <marking x="-1.000000"
                  y="0.000000"
                  hidden="false">
@@ -956,7 +955,7 @@ items</text>
         <placeend idref="ID1412390009"/>
         <bendpoint id="ID1412590954"
                    serial="1">
-          <posattr x="-504.000000"
+          <posattr x="-661.000000"
                    y="145.000000"/>
           <fillattr colour="White"
                     pattern="Solid"
@@ -968,7 +967,7 @@ items</text>
                     bold="false"/>
         </bendpoint>
         <annot id="ID1412441259">
-          <posattr x="-436.000000"
+          <posattr x="-519.000000"
                    y="134.000000"/>
           <fillattr colour="White"
                     pattern="Solid"
@@ -1173,8 +1172,8 @@ items</text>
                     bold="false"/>
         </bendpoint>
         <annot id="ID1412441267">
-          <posattr x="-188.000000"
-                   y="-142.000000"/>
+          <posattr x="-276.000000"
+                   y="-15.000000"/>
           <fillattr colour="White"
                     pattern="Solid"
                     filled="false"/>
@@ -1739,12 +1738,12 @@ then 1`dish else empty</text>
       <cpnbinder id="ID1412389959"
                  x="578"
                  y="211"
-                 width="927"
-                 height="764">
+                 width="1088"
+                 height="744">
         <sheets>
           <cpnsheet id="ID2215"
-                    panx="119.000000"
-                    pany="109.000000"
+                    panx="184.000000"
+                    pany="105.000000"
                     zoom="1.000000"
                     instance="ID2149">
             <zorder>
@@ -1833,7 +1832,9 @@ then 1`dish else empty</text>
           <IndexNode expanded="false"/>
         </IndexNode>
       </IndexNode>
-      <IndexNode expanded="false"/>
+      <IndexNode expanded="false">
+        <IndexNode expanded="false"/>
+      </IndexNode>
       <IndexNode expanded="true">
         <IndexNode expanded="true"/>
         <IndexNode expanded="true"/>
