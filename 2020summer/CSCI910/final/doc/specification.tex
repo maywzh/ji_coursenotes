@@ -1,26 +1,10 @@
-%Copyright 2014 Jean-Philippe Eisenbarth
-%This program is free software: you can 
-%redistribute it and/or modify it under the terms of the GNU General Public 
-%License as published by the Free Software Foundation, either version 3 of the 
-%License, or (at your option) any later version.
-%This program is distributed in the hope that it will be useful,but WITHOUT ANY 
-%WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A 
-%PARTICULAR PURPOSE. See the GNU General Public License for more details.
-%You should have received a copy of the GNU General Public License along with 
-%this program.  If not, see <http://www.gnu.org/licenses/>.
-
-%Based on the code of Yiannis Lazarides
-%http://tex.stackexchange.com/questions/42602/software-requirements-specification-with-latex
-%http://tex.stackexchange.com/users/963/yiannis-lazarides
-%Also based on the template of Karl E. Wiegers
-%http://www.se.rit.edu/~emad/teaching/slides/srs_template_sep14.pdf
-%http://karlwiegers.com
 \documentclass{scrreprt}
 \usepackage{listings}
 \usepackage{underscore}
 \usepackage[bookmarks=true]{hyperref}
 \usepackage[utf8]{inputenc}
 \usepackage[english]{babel}
+\usepackage{enumerate}
 \hypersetup{
     bookmarks=false,    % show bookmarks bar?
     pdftitle={Software Requirement Specification},    % title
@@ -85,87 +69,144 @@
 The purpose of the Internet Banking System is to ease bank account management and to create a convenient and easy-to-use application for users, trying to perform money transferring. The system is an online system for bank business providing feasible and comfortable user experience for user.
 
 \section{The client, customer and other stakeholder}
-The customers are the existing offline bank customer who have bank accounts, either saving account or credit account. They can access their bank accounts via a browser or a mobile App using this system. Other stakeholders include bank service provider, financial institution and public security department. The bank set up servers supporting business functions. Financial institution 
+The customers are the existing offline bank customer who have bank accounts, either saving account or credit account. They can access their bank accounts via a browser or a mobile App using this system. Other stakeholders include bank service provider, financial institution and public security department. The bank set up servers supporting business functions. Financial institution can conduct financial supervision for bank money transfer. Public security department can combat money laundering and fraud crime.
+
 \section{Users of the product}
+Users are the existing offline bank customer who have bank accounts, either saving account or credit account, who can login to bank account, check account balances, transfer money and logout the account.
+
 
 \section{Requirements constraints}
+The concurrency of the backend server is limited. When the server support more than 10000 users concurrently, it may be down and stop service. 
+There also be some delay as server need some time to process business computation. The internet down or the browser or the mobile App crashes may interrupt the function of the system.
 
-
-\section{Naming conventions and definitions}
+% \section{Naming conventions and definitions}
 
 
 \section{Relevant facts}
+The internet bank service has been deployed worldwide. As the mobile internet era comes, more and more users tend to use their mobile App to access their bank account as it is more convenient and easier to manage. The online banking system are typically connected to core banking system. The trend of the service online is irreversible.
+
 
 \section{Assumptions}
+The assumption include several perspective. From the client perspective, user can access their account by mobile terminal and conventional PC terminal, they are free to login to their account and perform money transfer. From the server perspective, the backend system should be available for 24 hours per day and 7 days per week.
 
-\section{Intended Audience and Reading Suggestions}
-% $<$Describe the different types of reader that the document is intended for,such as developers, project managers, marketing staff, users, testers, and documentation writers. Describe what the rest of this SRS contains and how it is organized. Suggest a sequence for reading the document, beginning with the overview sections and proceeding through the sections that are most pertinent to each reader type.$>$
-The document focus on requirements of the Internet Banking System. Developers and testers should focus on section section 3,4,5 for overall understand of the product requirements. User may focus on system features on section 4, which can make them more feasible using the software.
 
-\section{Project Scope}
-% $<$Provide a short description of the software being specified and its purpose,including relevant benefits, objectives, and goals. Relate the software to corporate goals or business strategies. If a separate vision and scope document is available, refer to it rather than duplicating its contents here.$>$
-The purpose of the Internet Banking System is to ease bank account management and to create a convenient and easy-to-use application for users, trying to make money transferring. The system is based on client-server architecture. There will be some backend server supporting all business functions and user can access their bank accounts via a browser or a mobile App. Above all, the product can provide a comfortable user experience for users.
+% \section{Project Scope}
+% % $<$Provide a short description of the software being specified and its purpose,including relevant benefits, objectives, and goals. Relate the software to corporate goals or business strategies. If a separate vision and scope document is available, refer to it rather than duplicating its contents here.$>$
+% The purpose of the Internet Banking System is to ease bank account management and to create a convenient and easy-to-use application for users, trying to make money transferring. The system is based on client-server architecture. There will be some backend server supporting all business functions and user can access their bank accounts via a browser or a mobile App. Above all, the product can provide a comfortable user experience for users.
 
-% The Internet Banking System offer the feature of accessing bank accounts. In this project, the main focus is the money transferring function. There are several phase of the function: Login and logout of the online bank account, checking account balances, transferring money. There are some constraints of the products, including 
+% % The Internet Banking System offer the feature of accessing bank accounts. In this project, the main focus is the money transferring function. There are several phase of the function: Login and logout of the online bank account, checking account balances, transferring money. There are some constraints of the products, including 
 
 
 
-% \section{References}
-% $<$List any other documents or Web addresses to which this SRS refers. These may
-% include user interface style guides, contracts, standards, system requirements
-% specifications, use case documents, or a vision and scope document. Provide
-% enough information so that the reader could access a copy of each reference,
-% including title, author, version number, date, and source or location.$>$
+% % \section{References}
+% % $<$List any other documents or Web addresses to which this SRS refers. These may
+% % include user interface style guides, contracts, standards, system requirements
+% % specifications, use case documents, or a vision and scope document. Provide
+% % enough information so that the reader could access a copy of each reference,
+% % including title, author, version number, date, and source or location.$>$
 
-\section{Product Perspective}
-% $<$Describe the context and origin of the product being specified in this SRS.
-% For example, state whether this product is a follow-on member of a product
-% family, a replacement for certain existing systems, or a new, self-contained
-% product. If the SRS defines a component of a larger system, relate the
-% requirements of the larger system to the functionality of this software and
-% identify interfaces between the two. A simple diagram that shows the major
-% components of the overall system, subsystem interconnections, and external
-% interfaces can be helpful.$>$
-The product is an assistant system for bank service system. The system is base on existing business process and rules. 
+% \section{Product Perspective}
+% % $<$Describe the context and origin of the product being specified in this SRS.
+% % For example, state whether this product is a follow-on member of a product
+% % family, a replacement for certain existing systems, or a new, self-contained
+% % product. If the SRS defines a component of a larger system, relate the
+% % requirements of the larger system to the functionality of this software and
+% % identify interfaces between the two. A simple diagram that shows the major
+% % components of the overall system, subsystem interconnections, and external
+% % interfaces can be helpful.$>$
+% The product is an assistant system for bank service system. The system is base on existing business process and rules. 
 
-It store several following informations:
-\begin{itemize}
-    \item account number
-    \item account password
-    \item account balance 
-    \item account types
-    \item other relative infomation
-\end{itemize}
 
 \chapter{Functional requirements}
 
-\section{The score of the product}
+\section{The scope of the product}
+The purpose of the Internet Banking System is to ease bank account management and to create a convenient and easy-to-use application for users, trying to make money transferring. The system is based on client-server architecture. There will be some backend server supporting all business functions and user can access their bank accounts via a browser or a mobile App. The goal of the system is to make online banking available. follow the online t Above all, the product can provide a comfortable user experience for users.
 
 \section{Functional and data requirements}
+\subsection{Login to the online bank account}
+Customer can login their account by inputting the account number and password and press "login" button for authorization. If the authorization is valid, the user can access detail of his account or making money transferring. Otherwise, if the authorization is invalid, the user should re-input the account number and password. The account will be locked for half an hour if the authentication of account number or passwords failed 3 times. 
+
+\subsection{Check account balances}
+Customers can check their the balances of their accounts. If the account is saving account, the balance should be no less than 0 dollar. Otherwise, if the account is credit account, the saving should be in a range less than overdraft limit.
+
+\subsection{Money transfer}
+The customer can transfer money from his account to another. If the target account is his/her own, there will be no limit except for the balances requirements. Else, if the target account is another person's, the customer should receive a security code from system and input the security code via the client terminal within 1 minute. If the security code is consistent with the received one, the money will be transferred. There will be both daily limit and balances requirements for the transferring.
+
+
+\subsection{Logout the online bank account}
+The customer can logout his/her online bank account by clicking "logout" button, then the browser or the mobile app will return to the home page. The browser or mobile app should terminate the login session and clear any data related to the login credentials.
+
 
 \chapter{Non-functional requirements}
 \section{Look and feel requirements}
-
+As there are browser client and mobile App client, the user interface of different clients should be designed separately. But all clients should share the same design theme from a usability standpoint. There are generally following points should be concerned:
+\begin{itemize}
+    \item Apparently simple to use
+    \item Approachable, so that people do not hesitate to use it
+    \item Authoritative, so that users feel they can rely on it and trust it
+    \item Conforming to the client's other products
+    \item Attractive to children or some other specific group
+    \item Unobtrusive, so that people are not aware of it
+    \item Innovative and appearing to be state of the art
+    \item Professional looking
+\end{itemize}
 \section{Usability requirements}
+With the aid of instructions for use, each requirement must be met by all adequately trained users on the first attempt to reach established usability goals. All observed errors shall be responsive, intuitive and user-friendly. For appropriate users, they must:
+\begin{itemize}
+    \item [1)] Operate with quick and accurate operation feedback.
+    
+    When user click the UI button, there should be some progress indicator tool such as progress bar or loading icon to relieve users' waiting anxiety. If they succeed in using some features, they should get quick response and be redirect to the new state page, else, the failed message or warning page should be displayed.
 
+    \item [2)] Important information must be clearly displayed.
+    
+    The login session should be intuitive. Other important information including the balance of the account, the credit repayment date and the history of money transferring should be clearly available on the home page. 
+
+    \item [3)] The redirection of UI page should be quick.
+    
+    The UI response time should be less than 200 milliseconds with some animation. 
+
+
+\end{itemize} 
 \section{Performance requirements}
+The internet banking system service should be available for $24\times 7$ (24 hours per day, 7 days each week). The maximum number of concurrent users should be over 10000 should be supported by the system with less than 1000 milliseconds delay. The backup system should be activated and take over the internet banking system within 10 minutes when the original system is down.
 
 \section{Operational requirements}
+If client disconnection happen due to internet down or browser/mobile App crash, all uncompleted money transferring should be cancelled. The operation should be atomic and consistent. The operation history should be informed to users and the crash log should be kept for analysis of developers.
 \section{Maintainability and portability requirements}
+The product shall follow modular design pattern to be able to be modified to cope with anew class of use. Besides, the client should be portable to all kinds of browsers(Chrome, Firefox, Safari and so on) and all mobile platforms (iOS and Android).  
 \section{Security requirements}
+All data transferring should be encrypted. The login session should be terminated after certain idle time or expired. The data must satisfy confidentiality, integrity and availability.
 \section{Cultural and political requirements}
-
+The product must support multi-language switching and support instant translation service and perform product localization. The data should be kept on the demand of which country the service is deployed. 
 \section{Legal requirements}
-
+The system should be committed to the laws by examining the legislation or asking a local lawyer. The service should be authorized by the local government.
 
 \chapter{Project issues}
 \section{Open issues}
+There are generally some open issues:
+\begin{enumerate}
+    \item [1)] The data synchronization between original system and backup system. 
+    \item [2)] The high concurrency issues
+
+\end{enumerate}
 \section{Off-the-shelf solutions}
-\section{New problems}
+The master-slave deployment can solve the data synchronization problem between original system and backup system. We can deploy message queue service and elastic compute service to solve the high concurrency issues.
+
 \section{Tasks}
-\section{Cutover}
+There are generally following tasks:
+\begin{itemize}
+    \item Requirement review
+    \item UI design
+    \item Client terminal design
+    \item Server terminal design
+    \item Service deployment
+    \item Service maintenance
+\end{itemize}
 \section{Risk}
+The lack of traceability and inadequate validation may be the risks. Some features cannot be mapped to business requirements. Requirements may not be validated by the appropriate subject matter experts.
+
 \section{Costs}
-\section{User documentation}
-\section{Waiting room}
+The time needed for development and deployment is 6 months. The development cost of the system includes personnel salaries and fixed expenses, and the expected values ​​are respectively 1000,000 dollars and 2000,000 dollars, The subsequent maintenance costs are expected to be 30,000 dollars per month.
+
+
 \end{document}
