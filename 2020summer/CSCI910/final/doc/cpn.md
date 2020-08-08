@@ -1,4 +1,4 @@
-# Colored Perti net
+# Colored Petri net
 
 ## Graph
 ![](./cpn.png)
