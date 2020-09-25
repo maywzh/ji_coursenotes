@@ -1,0 +1,219 @@
+\documentclass{beamer}
+\usepackage{fontspec}
+\usepackage{bibentry}
+\usepackage{graphicx}
+
+\setmainfont{Sarasa-Fixed-Slab-SC-Regular}
+\setsansfont{HelveticaNeue}
+\setbeamertemplate{frametitle}[default][center]
+
+\mode<presentation> {
+
+% The Beamer class comes with a number of default slide themes
+% which change the colors and layouts of slides. Below this is a list
+% of all the themes, uncomment each in turn to see what they look like.
+
+\usetheme{default}
+%\usetheme{AnnArbor}
+%\usetheme{Antibes}
+%\usetheme{Bergen}
+%\usetheme{Berkeley}
+%\usetheme{Berlin}
+%\usetheme{Boadilla}
+%\usetheme{CambridgeUS}
+%\usetheme{Copenhagen}
+%\usetheme{Darmstadt}
+%\usetheme{Dresden}
+%\usetheme{Frankfurt}
+%\usetheme{Goettingen}
+%\usetheme{Hannover}
+%\usetheme{Ilmenau}
+%\usetheme{JuanLesPins}
+%\usetheme{Luebeck}
+%\usetheme{Madrid}
+%\usetheme{Malmoe}
+%\usetheme{Marburg}
+%\usetheme{Montpellier}
+%\usetheme{PaloAlto}
+%\usetheme{Pittsburgh}
+%\usetheme{Rochester}
+%\usetheme{Singapore}
+%\usetheme{Szeged}
+%\usetheme{Warsaw}
+
+% As well as themes, the Beamer class has a number of color themes
+% for any slide theme. Uncomment each of these in turn to see how it
+% changes the colors of your current slide theme.
+
+%\usecolortheme{albatross}
+%\usecolortheme{beaver}
+%\usecolortheme{beetle}
+%\usecolortheme{crane}
+%\usecolortheme{dolphin}
+\usecolortheme{dove}
+%\usecolortheme{fly}
+%\usecolortheme{lily}
+%\usecolortheme{orchid}
+ %\usecolortheme{rose}
+%\usecolortheme{seagull}
+%\usecolortheme{seahorse}
+%\usecolortheme{whale}
+%\usecolortheme{wolverine}
+
+%\setbeamertemplate{footline} % To remove the footer line in all slides uncomment this line
+%\setbeamertemplate{footline}[page number] % To replace the footer line in all slides with a simple slide count uncomment this line
+
+%\setbeamertemplate{navigation symbols}{} % To remove the navigation symbols from the bottom of all slides uncomment this line
+}
+
+\usepackage{graphicx} % Allows including images
+\usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\title[Short title]{Exercise recommender system based on knowledge graph and knowledge modeling} % The short title appears at the bottom of every slide, the full title is only on the title page
+
+\author{ Wangzhihui Mei 2019124044} % Your name
+\institute[JI] % Your institution as it will appear on the bottom of every slide, may be shorthand to save space
+{
+CCNU-UOW JI \\ % Your institution for the title page
+\medskip
+\textit{maywzh@gmail.com} % Your email address
+}
+\date{\today} % Date, can be changed to a custom date
+
+\begin{document}
+
+\begin{frame}
+\titlepage % Print the title page as the first slide
+\end{frame}
+
+\begin{frame}
+\frametitle{Overview} % Table of contents slide, comment this block out to remove it
+\tableofcontents % Throughout your presentation, if you choose to use \section{} and \subsection{} commands, these will automatically be printed on this slide as an overview of your presentation
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+%	PRESENTATION SLIDES
+%----------------------------------------------------------------------------------------
+
+%------------------------------------------------
+\section{Introduction}
+\subsection{Background}
+\begin{frame}
+  \frametitle{Background}
+  The educational method of teaching students in accordance with their aptitude has a history of more than 2,000 years in our country, but in the context of our country’s exam-oriented education, it is really easy to say that it is difficult to formulate a personalized learning plan based on students' different cognitive levels, learning abilities and their own qualities. When traditional thinking is combined with cutting-edge technology, the feasibility of teaching students in accordance with their aptitude has been greatly improved. After the intervention of AI, there are two ways to achieve personalized learning.
+
+\end{frame}
+
+\subsection{Basic Methodology}
+\begin{frame}
+  \frametitle{Basic Methodology}
+  \begin{itemize}
+    \item Analyze content and build a knowledge graph
+    \item Adaptive learning to realize intelligent recommendation
+  \end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+
+
+
+%------------------------------------------------
+
+\section{Knowledge graph}
+% \subsection{Introduction}
+% \begin{frame}
+%   \frametitle{Analysis}
+%   \begin{itemize}
+%     \item Privacy should be kept on local device except for being infected
+%     \item All data transmission process should be encrypted
+%     \item The client is anonymous to other clients and servers
+%   \end{itemize}
+
+% \end{frame}
+% \subsection{Proposed Protocol}
+\begin{frame}%[allowframebreaks] 
+  \frametitle{Knowledge graph}
+  \begin{figure}
+    \centering
+    \includegraphics[height=0.6\textwidth]{figure/kg0}
+    \caption{KG research fields}
+  \end{figure}
+  
+  % \begin{figure}[]
+  %   \centering
+  %   \includegraphics[height=0.7\textheight]{figure/kg11}
+  %   \caption{Tri-tuple}
+  % \end{figure}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Literature review}
+  \begin{itemize}
+    \item Knowledge Representation, Acquisition and Applications\cite{1}
+    \item 在预训练阶段Mask Token时引入了Entity级别和Phase级别\cite{}
+  \end{itemize}
+
+\end{frame}
+
+
+\subsection{Bluetooth Data Transmission}
+\begin{frame}
+  \frametitle{Bluetooth Data Transmission}
+  \begin{figure}[]
+    \centering
+    \includegraphics[height=0.6\textwidth]{figure/auble}
+    \caption{Bluetooth Data transmission}
+  \end{figure}
+  
+
+\end{frame}
+
+\section{Security and Functionalities}
+\subsection{Security}
+\begin{frame}
+  \frametitle{Security}
+  \begin{itemize}
+    \item Only infector’s Periodic Rolling Exposure Key will upload to the cloud server
+    \item The encrypted metadata cannot be decrypted without PREK
+    \item Client-to-client communication is based on authenticated Bluetooth data transmission
+  \end{itemize}
+
+\end{frame}
+
+\subsection{Functionalities}
+\begin{frame}
+  \frametitle{Functionalities}
+  \begin{itemize}
+    \item Data statistics is possible as the register data can be collected.
+    \item Location and time windows of infected can be tracing.
+  \end{itemize}
+
+\end{frame}
+
+\begin{frame}[allowframebreaks]
+  \frametitle{References}
+  \footnotesize{
+  \begin{thebibliography}{99} % Beamer does not support BibTeX so references must be inserted manually as below
+      \bibitem{1}
+      Ji, S., Pan, S., Cambria, E., Marttinen, P., \& Yu, P. S.  (2020). 
+      \newblock A survey on knowledge graphs: Representation, acquisition and applications.
+      \newblock arXiv preprint arXiv:2002.00388.
+      
+  
+      \end{thebibliography}
+  }
+  \end{frame}
+
+\begin{frame}
+\Huge{\centerline{The End}}
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+\end{document} 
