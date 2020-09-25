@@ -112,10 +112,9 @@ CCNU-UOW JI \\ % Your institution for the title page
 \begin{frame}
   \frametitle{Basic Methodology}
   \begin{itemize}
-    \item Analyze content and build a knowledge graph
-    \item Adaptive learning to realize intelligent recommendation
+    \item Analyze content and build a knowledge graph.
+    \item Adaptive learning to realize intelligent recommendation.
   \end{itemize}
-
 \end{frame}
 
 %------------------------------------------------
@@ -137,7 +136,7 @@ CCNU-UOW JI \\ % Your institution for the title page
 % \end{frame}
 % \subsection{Proposed Protocol}
 \begin{frame}%[allowframebreaks] 
-  \frametitle{Knowledge graph}
+  \frametitle{Knowledge graph\cite{1}}
   \begin{figure}
     \centering
     \includegraphics[height=0.6\textwidth]{figure/kg0}
@@ -152,48 +151,37 @@ CCNU-UOW JI \\ % Your institution for the title page
 
 \end{frame}
 
-\begin{frame}
-  \frametitle{Literature review}
-  \begin{itemize}
-    \item Knowledge Representation, Acquisition and Applications\cite{1}
-    \item 在预训练阶段Mask Token时引入了Entity级别和Phase级别\cite{}
-  \end{itemize}
+% \begin{frame}
+%   \frametitle{Literature review}
+%   \begin{itemize}
+%     \item Knowledge Representation, Acquisition and Applications\cite{1}
+%   \end{itemize}
 
+% \end{frame}
+
+
+\subsection{Literature review}
+\begin{frame}
+  \frametitle{KG Completion}
+  Alberto et. all utilized recurrent neural networks to learn time-aware representations of relation types which
+  can be used in conjunction with existing latent factorization methods.\cite{1}
+
+  Yao et. all introduced the work of knowledge base completion. Combined with the pre-training model BERT, it can integrate richer context representation into the model, and achieve SOTA effects in tasks such as triple classification, link prediction, and relationship prediction.\cite{2}
 \end{frame}
 
-
-\subsection{Bluetooth Data Transmission}
 \begin{frame}
-  \frametitle{Bluetooth Data Transmission}
-  \begin{figure}[]
-    \centering
-    \includegraphics[height=0.6\textwidth]{figure/auble}
-    \caption{Bluetooth Data transmission}
-  \end{figure}
-  
-
+  \frametitle{Cognitive Diagnosis}
+  Wang et. all proposed neural cognitive diagnosis method for intelligent education system. \cite{3}
 \end{frame}
 
-\section{Security and Functionalities}
-\subsection{Security}
 \begin{frame}
-  \frametitle{Security}
+  \frametitle{Knowledge Tracing}
   \begin{itemize}
-    \item Only infector’s Periodic Rolling Exposure Key will upload to the cloud server
-    \item The encrypted metadata cannot be decrypted without PREK
-    \item Client-to-client communication is based on authenticated Bluetooth data transmission
-  \end{itemize}
-
-\end{frame}
-
-\subsection{Functionalities}
-\begin{frame}
-  \frametitle{Functionalities}
-  \begin{itemize}
-    \item Data statistics is possible as the register data can be collected.
-    \item Location and time windows of infected can be tracing.
-  \end{itemize}
-
+    \item Individualized Bayesian Knowledge Tracing Models\cite{4}
+    \item Deep Knowledge Tracing\cite{5}
+    \item Tracking Knowledge Proficiency of Students with Educational Priors\cite{6}
+  \end{itemize} 
+  \cite{3}
 \end{frame}
 
 \begin{frame}[allowframebreaks]
@@ -204,9 +192,28 @@ CCNU-UOW JI \\ % Your institution for the title page
       Ji, S., Pan, S., Cambria, E., Marttinen, P., \& Yu, P. S.  (2020). 
       \newblock A survey on knowledge graphs: Representation, acquisition and applications.
       \newblock arXiv preprint arXiv:2002.00388.
-      
-  
-      \end{thebibliography}
+      \bibitem{2}
+      Liang Yao and Chengsheng Mao and Yuan Luo.  (2019). 
+      \newblock KG-BERT: BERT for Knowledge Graph Completion.
+      \newblock arXiv preprint arXiv:1909.03193.
+      \bibitem{3}
+      Wang F, Liu Q, Chen E, et al. 
+      \newblock Neural Cognitive Diagnosis for Intelligent Education Systems[J]. 
+      \newblock arXiv preprint arXiv:1908.08733, 2019.
+      \bibitem{4}
+      Yudelson M V, Koedinger K R, Gordon G J. 
+      \newblock Individualized bayesian knowledge tracing models[C]
+      \newblock International conference on artificial intelligence in education. Springer, Berlin, Heidelberg, 2013: 171-180.  
+      \bibitem{5}
+      Piech C, Bassen J, Huang J, et al.
+      \newblock Deep knowledge tracing.
+      \newblock In Advances in neural information processing systems (pp. 505-513).
+      \bibitem{6}
+      Chen Y, Liu Q, Huang Z, et al. 
+      \newblock Tracking knowledge proficiency of students with educational priors[C]
+      \newblock Proceedings of the 2017 ACM on Conference on Information and Knowledge Management. 2017: 989-998.
+    \end{thebibliography}
+
   }
   \end{frame}
 
