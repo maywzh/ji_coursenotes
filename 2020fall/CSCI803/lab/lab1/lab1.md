@@ -1,17 +1,18 @@
-## Problem 1
+## Lab 01
+### Problem 1
 
-### Algorithm
+#### Algorithm
 
 An algorithm is a list of rules to follow in order to solve a problem.
-### Data Structure
+#### Data Structure
 
 A data structure is a specialized format for organizing, processing, retrieving and storing data. 
 
-### Relation
+#### Relation
 
 A good algorithm usually comes together with a set of good data structures that allow the algorithm to manipulate the data efficiently. Algorithms are commonly used to solve certain types of computational problems. We can often describe such a problem by specifying a relationship between input and output. 
 
-## Problem 2
+### Problem 2
 ```c++
 #include <iostream>
 using namespace std;
