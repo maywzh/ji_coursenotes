@@ -1,20 +1,19 @@
 #include <iostream>
 using namespace std;
 
+int calculate(int N, int i) {
+    return N * i;
+}
 
-
-void printfunc(int N) {
-    for (int i = 0;i < N;i++) {
-        for (int j = 1;j <= 12;j++) {
-            cout << j << ' ';
-        }
-        cout << endl;
+void printing(int N) {
+    for (int i = 1;i <= 12;i++) {
+        cout << calculate(N, i) << ' ';
     }
 }
-int main() {
+int main(int argc, char* argv[]) {
     int N;
     cout << "Please input number:" << endl;
     cin >> N;
-    printfunc(N);
+    printing(N);
     return 0;
 }
