@@ -1,22 +1,21 @@
-#include<iostream>
-using namespace std;
+#include "t4b.h"
 
-int InputNChairs(istream& in) {
+int InputNChairs(std::istream& in) {
     int n;
     in >> n;
     return n;
 }
-float InputSurfaceArea(istream& in) {
+float InputSurfaceArea(std::istream& in) {
     float f;
     in >> f;
     return f;
 }
-string InputColor(istream& in) {
-    string color;
+std::string InputColor(std::istream& in) {
+    std::string color;
     in >> color;
     return color;
 }
-char InputWoodType(istream& in) {
+char InputWoodType(std::istream& in) {
     char ch;
     in >> ch;
     switch (ch)
@@ -25,12 +24,12 @@ char InputWoodType(istream& in) {
         return ch;
         break;
     default:
-        cout << "Invalid Type" << endl;
+        std::cout << "Invalid Type" << std::endl;
         return '-';
         break;
     }
 }
-string OutputWoodType(char wt) {
+std::string OutputWoodType(char wt) {
     switch (wt)
     {
     case 'm':
@@ -67,22 +66,13 @@ float price(int n, float s, char wt) {
     }
     return x * (s + n / 2);
 }
-void displayDetails(int n, float f, string color, char wt) {
-    cout << "Number of Chairs: " << n << endl;
-    cout << "Surface area of the table: " << f << endl;
-    cout << "Colour of the cushions: " << color << endl;
-    cout << "Type of wood: " << OutputWoodType(wt) << endl;
+void displayDetails(int n, float f, std::string color, char wt) {
+    std::cout << "Number of Chairs: " << n << std::endl;
+    std::cout << "Surface area of the table: " << f << std::endl;
+    std::cout << "Colour of the cushions: " << color << std::endl;
+    std::cout << "Type of wood: " << OutputWoodType(wt) << std::endl;
 }
 
 void displayPrice(int n, float f, char wt) {
-    cout << "Total Price: " << price(n, f, wt);
-}
-
-int main() {
-    int n = InputNChairs(cin);
-    float f = InputSurfaceArea(cin);
-    string color = InputColor(cin);
-    char wt = InputWoodType(cin);
-    displayDetails(n, f, color, wt);
-    displayPrice(n, f, wt);
+    std::cout << "Total Price: " << price(n, f, wt);
 }
