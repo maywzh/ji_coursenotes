@@ -80,3 +80,18 @@ Mathematics is a science that specializes in the relationship between quantity a
 
 
 ## Knowledge Graph
+Knowledge graph itself is a logical hierarchical structured knowledge graph, and the formation of knowledge graph requires relevant construction techniques. Therefore, the architecture of the knowledge graph includes the logical structure and technical structure (or architecture) of the knowledge graph.
+
+
+
+#### Logical
+
+The knowledge graph logically consists of a data layer and a schema layer. The data layer is used to store factual data, i.e., knowledge information. In the process of visualizing the knowledge graph, the data storage format of ternary group is usually used to express facts or knowledge information. The ternary knowledge information is generally stored in a graph database (a kind of NoSQL database), such as the open source Neo4j, FlockDB by Twitter and GraphDB developed by Sones, etc. The schema layer is used to manage knowledge information. The schema layer is the core architecture built on top of the data layer to manage the knowledge graph, and it usually uses an ontology knowledge base to effectively manage the knowledge graph. Building a knowledge graph through ontology knowledge base not only strengthens the hierarchical structure of the knowledge system, but also reduces the redundancy of knowledge information.
+
+
+
+#### Technical
+
+The technical architecture of a knowledge graph generally refers to the architecture of the relevant technologies used in the construction of the knowledge graph and its application. The dotted box shows the specific process of building a knowledge graph and its updating. The construction process of knowledge graph starts from the collection of data sources (unstructured, structured and semi-structured data), using automation, semi-automation and other technical means to extract the research-related knowledge information (including the extraction of knowledge entities, relationships and attributes) from data sources and third-party databases, and then store these knowledge information in a certain logical order into the The knowledge graph is then built into the database. Then, after a series of operations such as knowledge representation, entity alignment, ontology construction, knowledge update and knowledge inference, the knowledge graph can be constructed.
+
+The knowledge graph can be constructed in two ways: bottom-up and top-down. Bottom-up means extracting highly reliable knowledge entities from some open data links and adding them to the ontology knowledge base, and then designing and implementing the top-level ontology of the knowledge graph. The top-down construction method is to define the required knowledge ontologies and data storage forms on the basis of the existing knowledge base, and then store the knowledge entities into the ontology knowledge base one by one. It is found that bottom-up knowledge graph is the most widely used knowledge graph construction method, the most representative applications are the Knowledge Vault designed and developed by Google and the Satori knowledge base designed and built by Microsoft.
