@@ -32,4 +32,16 @@
 
 ## 2020fall
 
+### CSCI803 Algorithms and Data Structures
+
+### CSCI851 Advanced Programming
+
+### CSCI920 Contemporary Topics in Computer Science
+
+### CSCI946 (JI120) Big Data Analytics
+
+### CSCI991 (JIA20) Project
+
 ## 2021spring
+
+### CSCI991 (JIA20) Project
