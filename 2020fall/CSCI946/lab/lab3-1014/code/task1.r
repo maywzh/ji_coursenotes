@@ -1,0 +1,10 @@
+grade_input = as.data.frame(read.csv('../grades_km_input.csv'))
+kmdata_orig = as.matrix(grade_input[,c('Student','English','Math','Science')])
+kmdata<-kmdata_orig[,2:4]
+View(kmdata)
+wss <- numeric(15)
+for (k in 1:15) wss[k] <- sum(kmeans(kmdata,centers-k,nstart=25)$withinss)
+plot(1:15,wss,type='b',xlab='Number of Clusters', ylab='Within Sum of Squares')
+km=kmeans(kmdata,3,nstart=25)
+c(wss[3],sum(km$withinss))
+save.image('task1.RData')

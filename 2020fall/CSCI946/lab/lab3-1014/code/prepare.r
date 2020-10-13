@@ -1,1 +1,1 @@
-install.packages(c('plyr','ggplot2','cluster','lattice','graphics','grid','gridExtra'))
+install.packages(c('plyr','ggplot2','cluster','lattice','graphics','grid','gridExtra','ggthemes'))
