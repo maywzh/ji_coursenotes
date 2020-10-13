@@ -54,6 +54,8 @@ Available components:
 [1] 64483.06 64483.06
 > save.image('task1.RData')
 ```
+the elbow is 3, set k = 3
+![](./task1-plot1.png)
 
 
 ## Task Two
@@ -110,3 +112,9 @@ Available components:
 [7] "size"         "iter"         "ifault"      
 > save.image('task2.RData')
 ```
+the elbow is 5, set k = 5
+![](./task2-plot1.png)
+
+
+We can see the data is clustered.
+![](./task2-plot2.png)
