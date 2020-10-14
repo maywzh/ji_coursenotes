@@ -1,6 +1,5 @@
 library(plyr)
 library(ggplot2)
-
 library(cluster)
 library(lattice)
 library(graphics)
@@ -17,4 +16,13 @@ plot(1:15,wss,type='b',xlab='Number of Clusters', ylab='Within Sum of Squares')
 km=kmeans(kmdata,3,nstart=25)
 km
 c(wss[3],sum(km$withinss))
+df<-as.data.frame(kmdata)
+df$cluster<-factor(km$cluster)
+centers<-as.data.frame(km$centers)
+g1<-ggplot(data=df,aes(x=English[],y=Math[],color=cluster)) + geom_point() + theme(legend.position = "right") + geom_point(data=centers,aes(x=English[],y=Math[],color=as.factor(c(1,2,3))),size=10,alpha=.3,show.legend=FALSE)
+g2<-ggplot(data=df,aes(x=English[],y=Science[],color=cluster)) + geom_point() + theme(legend.position = "right") + geom_point(data=centers,aes(x=English[],y=Science[],color=as.factor(c(1,2,3))),size=10,alpha=.3,show.legend=FALSE)
+g3<-ggplot(data=df,aes(x=Math[],y=Science[],color=cluster)) + geom_point() + theme(legend.position = "right") + geom_point(data=centers,aes(x=Math[],y=Science[],color=as.factor(c(1,2,3))),size=10,alpha=.3,show.legend=FALSE)
+grid.arrange(arrangeGrob(g1+theme(legend.position = "right"),
+                         g2+theme(legend.position = "right"),
+                         g3+theme(legend.position = "right")))
 save.image('task1.RData')
