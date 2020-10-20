@@ -1,0 +1,8 @@
+library(arules) 
+data(Groceries)
+summary(Groceries)
+itemsets<-apriori(Groceries,parameter=list(minlen=1,support=0.02,maxlen=10,target='frequent itemsets'))
+rules<-apriori(Groceries,parameter=list(support=0.001,confidence=0.6,target="rules"))
+rules<-sort(rules, decreasing=TRUE,by="confidence")
+inspect(rules[1:5])
+summary(rules)
