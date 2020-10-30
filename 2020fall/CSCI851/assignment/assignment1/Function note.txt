@@ -1,0 +1,24 @@
+There have been a fair few questions about the functions
+for problem diagnosis and fixes.
+
+Here go some illustrations of the type of effect I'm expecting,
+for diagnosis here.
+
+Mechanic   Problem determination complexity   Chance of successful diagnosis.
+    50               50                                50     --> This is a baseline.
+    75               50                                60     --> It's gone up.
+    50               25                                60     --> It's gone up.
+    50               75                                40     --> It's gone down.
+    25               50                                40     --> It's gone down.
+    75               75                                50     --> Balanced again.
+    25               25                                50     --> Balanced again.
+
+
+These numbers are indicative of the trend required,
+you do not need to have these specific numbers.
+You can have percentages greater than 100, for
+example a problem with very low determination complexity
+might always be identified by a very good mechanic.
+
+You don't have to take a 50, 50, 50 as your baselineor
+have the two parameters equally weighted. 

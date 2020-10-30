@@ -1,0 +1,37 @@
+From lukemc@banshee.cs.uow.edu.au Wed Mar 20 21:25:30 2019
+Date: Wed, 20 Mar 2019 21:25:30 +1100 (AEDT)
+From: Luke McAven <lukemc@banshee.cs.uow.edu.au>
+To: Dean Torijovski <dt994@uowmail.edu.au>
+Cc: Luke McAven <lukemc@uow.edu.au>
+Subject: Re: AS1 CSCI251
+
+
+Try and organise what you need to do into the three files that you need.
+
+You will have your main function in a driver .cpp file.
+You will have your function prototypes in a header/.h file, and the function
+implementations in another .cpp file.
+So in terms of the relationship between the files it's like the one in the
+Debug-B.zip exercise.
+
+You can add comments as to what the functions you need are, and what gets
+called from main in what order.
+You need to think about the data you are going to store and where that's
+going to go.
+Once you have done that organisation you can then start looking at
+implementing the functions.
+
+Regards,
+Luke McAven
+Head of Students: EIS: SCIT-UG/PG
+
+On Tue, 19 Mar 2019, Dean Torijovski wrote:
+
+> Hey Luke I'm having difficulty understanding how to code AS1.  I
+> understanding the labs and the C++ language but actually putting it into
+> demonstration to complete this assignment is proving difficult. Any
+> suggestions on how to overcome this?
+> 
+> Thanks, Dean.
+> 
+> 
