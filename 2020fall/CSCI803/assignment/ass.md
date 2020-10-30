@@ -26,17 +26,33 @@ $\lim\limits_{m\rightarrow\infty}{\frac{\log_2^m}{\sqrt{m}}}=\lim\limits_{m\righ
 
 ## 3.
 ### a.
-The worst space complexity:
+The worst space complexity (when each pair in array is equal):
 O(1+1/2n+1/4n+...)=O(N)
 
 ### b.
-Time complexity of each iteration: 
-$\frac{N}{2^{n-1}}$
-The worst case is $O((1+\frac{1}{2}+\frac{1}{4}+...)N)=T(2N)$
-The best case is $\Omega(N) = T(N)$
-$\Theta(N)= T((1+\frac{1}{2}+\frac{1}{4}+...)N)=(2-\frac{1}{2^{n-1}})N$
+
+When each pair in A is equal, the algorithm has the best time complexity $O(N)$, when each pair in A is not equal, the algorithm has the worst complexity $O(Nlog_2^N)$
 
 ### c.
 The algorithm use "Divide conquer" pattern. In a binary group, if two elements are equal, there is no winner for that binary group. Each iteration of the round, the winner of the small binary group is selected. Each time it is progressively eliminated, and what is left is the number with the most numbers in that array. 
 
 ### d.
+The given algorithm is wrong for odd-sized array. 
+Set array A as [0,0,1], the algorithm output nothing rather than 0, which should be the answer.
+
+**Alternative algorithm**:
+```pseudocode
+init hash-table B
+for i <- 1 to len(A) do
+    B[A[i]]++
+    if B[A[i]] > len(A)/2 then 
+        return A[i]
+    end if
+end loop
+```
+
+### e.
+Time complexity: $O(N)$
+Space complexity: $O(N)$
+
+The space complexity depends on the number of identical number in Array A. When there are few identical number in A, Algorithm d may use less space.
