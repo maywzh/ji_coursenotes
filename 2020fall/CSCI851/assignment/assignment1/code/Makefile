@@ -130,17 +130,17 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named CSCI251Assign1
+# Target rules for targets named VET
 
 # Build rule for target.
-CSCI251Assign1: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CSCI251Assign1
-.PHONY : CSCI251Assign1
+VET: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 VET
+.PHONY : VET
 
 # fast build rule for target.
-CSCI251Assign1/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/CSCI251Assign1.dir/build.make CMakeFiles/CSCI251Assign1.dir/build
-.PHONY : CSCI251Assign1/fast
+VET/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/VET.dir/build.make CMakeFiles/VET.dir/build
+.PHONY : VET/fast
 
 main.o: main.cpp.o
 
@@ -148,7 +148,7 @@ main.o: main.cpp.o
 
 # target to build an object file
 main.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/CSCI251Assign1.dir/build.make CMakeFiles/CSCI251Assign1.dir/main.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/VET.dir/build.make CMakeFiles/VET.dir/main.cpp.o
 .PHONY : main.cpp.o
 
 main.i: main.cpp.i
@@ -157,7 +157,7 @@ main.i: main.cpp.i
 
 # target to preprocess a source file
 main.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/CSCI251Assign1.dir/build.make CMakeFiles/CSCI251Assign1.dir/main.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/VET.dir/build.make CMakeFiles/VET.dir/main.cpp.i
 .PHONY : main.cpp.i
 
 main.s: main.cpp.s
@@ -166,7 +166,7 @@ main.s: main.cpp.s
 
 # target to generate assembly for a file
 main.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/CSCI251Assign1.dir/build.make CMakeFiles/CSCI251Assign1.dir/main.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/VET.dir/build.make CMakeFiles/VET.dir/main.cpp.s
 .PHONY : main.cpp.s
 
 vetFunctions.o: vetFunctions.cpp.o
@@ -175,7 +175,7 @@ vetFunctions.o: vetFunctions.cpp.o
 
 # target to build an object file
 vetFunctions.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/CSCI251Assign1.dir/build.make CMakeFiles/CSCI251Assign1.dir/vetFunctions.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/VET.dir/build.make CMakeFiles/VET.dir/vetFunctions.cpp.o
 .PHONY : vetFunctions.cpp.o
 
 vetFunctions.i: vetFunctions.cpp.i
@@ -184,7 +184,7 @@ vetFunctions.i: vetFunctions.cpp.i
 
 # target to preprocess a source file
 vetFunctions.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/CSCI251Assign1.dir/build.make CMakeFiles/CSCI251Assign1.dir/vetFunctions.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/VET.dir/build.make CMakeFiles/VET.dir/vetFunctions.cpp.i
 .PHONY : vetFunctions.cpp.i
 
 vetFunctions.s: vetFunctions.cpp.s
@@ -193,7 +193,7 @@ vetFunctions.s: vetFunctions.cpp.s
 
 # target to generate assembly for a file
 vetFunctions.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/CSCI251Assign1.dir/build.make CMakeFiles/CSCI251Assign1.dir/vetFunctions.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/VET.dir/build.make CMakeFiles/VET.dir/vetFunctions.cpp.s
 .PHONY : vetFunctions.cpp.s
 
 # Help Target
@@ -204,7 +204,7 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
-	@echo "... CSCI251Assign1"
+	@echo "... VET"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
