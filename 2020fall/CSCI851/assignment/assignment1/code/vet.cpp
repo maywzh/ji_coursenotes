@@ -1,35 +1,105 @@
-//
-// Created by Anthony on 28/03/2019.
-//
 #include "vet.h"
 
 static uniform_int_distribution<unsigned> uniform(0, 100);
 static default_random_engine randEng;
 
+//分隔符
 const string DELIMITER = ":";
-vector<Animal> animalList;
-vector<Vet> vetList;
-vector<string> treatmentList;
-vector<Problem> problemList;
+
+// 读取的数据
+vector<Animal> animals;
+vector<Vet> veterinarians;
+vector<string> treatments;
+vector<Problem> problems;
 
 
-void writefile() {
-    ofstream myfile{ "example.txt" };
-    if (myfile.is_open()) {
-        cout << "writing" << endl;
-        myfile << "This is a line.\n";
-        myfile << "This is another line.\n";
-        myfile.close();
+/**
+ * @description:
+ * @param {*}
+ * @return {*}
+ */
+bool treatAnimal(int id) {
+    Vet* vet = getVet();
+    Problem* problem = getProblem(animals.at(id).Problem);
+    bool detected = detectProblem(vet->quality, problem->determinationComplexity);
+
+    if (!detected) {
+        static uniform_int_distribution<unsigned> retryRange(0, problems.size() - 1);
+        if (retryRange(randEng) == 0) {
+            //which number is selected doesn't matter, so long has range is correct
+            detected = true;
+        }
     }
-    else {
-        cout << "Unable to open file";
-    }
 
-    cout << "successful write" << endl;
-
+    bool success = applyTreatment(detected, problem->treatementComplexity, vet->quality);
+    return success;
 }
 
+/** 返回Vector中的一个点
+ * @return
+ */
+Vet* getVet() {
+    static uniform_int_distribution<unsigned> vetRange(0, veterinarians.size() - 1);
+    return  &(veterinarians.at(vetRange(randEng)));
+}
 
+/**
+ * @description:
+ * @param {*}
+ * @return {*}
+ */
+Problem* getProblem(int n) {
+    return &(problems.at(n));
+}
+
+/**
+ * 复杂度除以4
+ * minus vet Quality by new complexity;
+ * get random num between 0-100
+ * problem is detected if random is between 0 - vet quality
+ * vet quality cannot be < 1
+ * @param vetQual
+ * @param complexity
+ * @return bool
+ */
+bool detectProblem(int vetQual, int complexity) {
+    complexity = complexity / 4;
+    vetQual -= complexity;
+    if (uniform(randEng) <= vetQual) {
+        cout << "problem detected" << endl;
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+/**
+ * % 成功率 = (100 - 治疗复杂度) * (1 + 治疗质量)
+ * 在错误诊疗的情况
+ * 成功率除以4
+ * @param detected
+ * @param complexity
+ * @return bool
+ */
+bool applyTreatment(bool detected, int complexity, int vetQual) {
+    double success = ((100 - complexity) * (1 + (vetQual / 100.00))) / 100.00;
+    if (!detected) {
+        success = success * 0.25;
+    }
+    if (uniform(randEng) <= success) {
+        cout << "Treatment applied correctly" << endl;
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+
+/**
+ * @description: 读取文件
+ * @param {*}
+ * @return {*}
+ */
 void readfile(char* filename, void (*functocall)(string)) {
     //    cout<<filename<<endl;
     ifstream in;
@@ -56,85 +126,7 @@ void readfile(char* filename, void (*functocall)(string)) {
     } while (!in.eof());
 }
 
-
-
-string attendAnimal(int id) {
-    Vet* vet = getVet();
-    Problem* problem = getProblem(animalList.at(id).Problem);
-    bool detected = detectProblem(vet->quality, problem->determinationComplexity);
-
-    if (!detected) {
-        static uniform_int_distribution<unsigned> retryRange(0, problemList.size() - 1);
-        if (retryRange(randEng) == 0) {
-            //which number is selected doesn't matter, so long has range is correct
-            detected = true;
-        }
-    }
-
-    bool success = applyTreatment(detected, problem->treatementComplexity, vet->quality);
-}
-
-/** returning a pointer to object in vector to save on memory
- * @return
- */
-Vet* getVet() {
-    static uniform_int_distribution<unsigned> vetRange(0, vetList.size() - 1);
-    return  &(vetList.at(vetRange(randEng)));
-}
-
-Problem* getProblem(int n) {
-    return &(problemList.at(n));
-}
-
-/**
- * divide complexity by 4
- * minus vet Quality by new complexity;
- * get random num between 0-100
- * problem is detected if random is between 0 - vet quality
- * vet quality cannot be < 1
- * @param vetQual
- * @param complexity
- * @return bool
- */
-bool detectProblem(int vetQual, int complexity) {
-    complexity = complexity / 4;
-    vetQual -= complexity;
-    if (uniform(randEng) <= vetQual) {
-        cout << "problem detected" << endl;
-        return true;
-    }
-    else {
-        return false;
-    }
-}
-/**
- * % chance of success = (100 - treatment complexity) * (1 + vet quality)
- * incase of incorrect diagnosis
- * divide chance of success by 4
- * @param detected
- * @param complexity
- * @return bool
- */
-bool applyTreatment(bool detected, int complexity, int vetQual) {
-    double success = ((100 - complexity) * (1 + (vetQual / 100.00))) / 100.00;
-    if (!detected) {
-        success = success * 0.25;
-    }
-    if (uniform(randEng) <= success) {
-        cout << "Treatment applied correctly" << endl;
-        return true;
-    }
-    else {
-        return false;
-    }
-}
-
-
-void writeToOutput(string output, string file) {
-
-}
-
-
+// 读取动物文件
 void readAnimal(string s) {
     Animal tempAnimal;
 
@@ -154,11 +146,14 @@ void readAnimal(string s) {
     token = s.substr(0, s.size() - 1);
     tempAnimal.Problem = stoi(token);
 
-    animalList.push_back(tempAnimal);
+    animals.push_back(tempAnimal);
 }
 
-
-void readVet(string s) {
+/**
+ * @brief 读取兽医文件
+ *
+ */
+void readVeterinarian(string s) {
     Vet tempVet;
 
     string token = s.substr(0, s.find(DELIMITER));
@@ -168,13 +163,20 @@ void readVet(string s) {
     token = s.substr(0, s.size() - 1);
     tempVet.quality = stoi(token);
 
-    vetList.push_back(tempVet);
+    veterinarians.push_back(tempVet);
 }
-
+/**
+ * @brief 读取Treatment
+ *
+ */
 void readTreatments(string s) {
-    treatmentList.push_back(s);
+    treatments.push_back(s);
 }
-
+/**
+ * @description: dsfsfa
+ * @param s srcf
+ * @return {*}
+ */
 void readProblems(string s) {
     Problem tempProblem;
     string token = s.substr(0, s.find(DELIMITER));
@@ -192,36 +194,52 @@ void readProblems(string s) {
     token = s.substr(0, s.size() - 1);
     tempProblem.treatment = stoi(token);
 
-    problemList.push_back(tempProblem);
+    problems.push_back(tempProblem);
 }
 //endregion
 
 
 //region Vector Prints
-
+/**
+ * @description:
+ * @param {*}
+ * @return {*}
+ */
 void printAnimal() {
-    for (unsigned int x = 0; x < animalList.size(); x++) {
-        cout << animalList.at(x).name << " type: " << animalList.at(x).type << " rego: " << animalList.at(x).rego
-            << " Problem: " << animalList.at(x).Problem << endl;
+    for (unsigned int x = 0; x < animals.size(); x++) {
+        cout << animals.at(x).name << " \ttype: " << animals.at(x).type << " \trego: " << animals.at(x).rego
+            << " \tProblem: " << animals.at(x).Problem << endl;
     }
 }
-
-void printVet() {
-    for (unsigned int x = 0; x < vetList.size(); x++) {
-        cout << vetList.at(x).name << " Qual: " << vetList.at(x).quality << endl;
+/**
+ * @description:
+ * @param {*}
+ * @return {*}
+ */
+void printVeterinarian() {
+    for (unsigned int x = 0; x < veterinarians.size(); x++) {
+        cout << veterinarians.at(x).name << " \tQual: " << veterinarians.at(x).quality << endl;
     }
 }
-
+/**
+ * @description:
+ * @param {*}
+ * @return {*}
+ */
 void printTreatments() {
-    for (unsigned int x = 0; x < treatmentList.size(); x++) {
-        cout << treatmentList.at(x) << endl;
+    for (unsigned int x = 0; x < treatments.size(); x++) {
+        cout << treatments.at(x) << endl;
     }
 }
-
+/**
+ * @description:
+ * @param {*}
+ * @return {*}
+ */
 void printProblems() {
-    for (unsigned int x = 0; x < problemList.size(); x++) {
-        cout << problemList.at(x).name << " Deter: " << problemList.at(x).determinationComplexity << " TreatComp: "
-            << problemList.at(x).treatementComplexity << " Treat: " << problemList.at(x).treatment << endl;
+    for (unsigned int x = 0; x < problems.size(); x++) {
+        cout << problems.at(x).name << "\tDeter: " << problems.at(x).determinationComplexity << "\tTreatComp: "
+            << problems.at(x).treatementComplexity << "\tTreat: " << problems.at(x).treatment << endl;
     }
 }
 //endregion

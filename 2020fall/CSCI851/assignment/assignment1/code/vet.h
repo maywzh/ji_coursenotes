@@ -1,9 +1,14 @@
-//
-// Created by Anthony on 28/03/2019.
-//
+/*
+ * @Author: maywzh
+ * @Date: 2020-10-30 15:13:24
+ * @FilePath: /ji_coursenotes/2020fall/CSCI851/assignment/assignment1/code/vet.h
+ */
+ //
+ // Created by maywzh on 28/10/2020.
+ //
 
-#ifndef CSCI251ASSIGN1_VETFUNCTIONS_H
-#define CSCI251ASSIGN1_VETFUNCTIONS_H
+#ifndef CSCI851ASS1_VET_H
+#define CSCI851ASS1_VET_H
 
 #include <vector>
 #include <iostream>
@@ -11,11 +16,6 @@
 #include <time.h>
 #include <random>
 using namespace std;
-
-
-
-//region Data Structures
-
 
 struct Animal {
     string name;
@@ -34,29 +34,26 @@ struct Problem {
     int treatment;
 };
 
-extern vector<Animal> animalList;
-extern vector<Vet> vetList;
-extern vector<string> treatmentList;
-extern vector<Problem> problemList;
-//endregion
+extern vector<Animal> animals;
+extern vector<Vet> veterinarians;
+extern vector<string> treatments;
+extern vector<Problem> problems;
 
-void writeToOutput(string output, string file);
+//void writeToOutput(string output, string file);
 void readfile(char* filename, void (*function)(string));
 Vet* getVet();
 Problem* getProblem(int n);
 bool detectProblem(int vetQual, int complexity);
 bool applyTreatment(bool detected, int complexity, int vetQual);
 
-//region Read Structs
 
 void readAnimal(string s);
-void readVet(string s);
+void readVeterinarian(string s);
 void readProblems(string s);
 void readTreatments(string s);
-//endregion
 
 void printAnimal();
-void printVet();
+void printVeterinarian();
 void printTreatments();
 void printProblems();
-#endif //CSCI251ASSIGN1_VETFUNCTIONS_H
+#endif 
