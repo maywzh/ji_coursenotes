@@ -517,6 +517,11 @@ GitHub.sublime-settings
 
 **/solution*.pdf
 
+**/CMakeFiles
+
+**/CmakeCache.txt
+
+*.cmake
 
 *.zip
 
