@@ -1,0 +1,5 @@
+Hungry:70:15:1.
+Broken limb:30:50:2.
+Fleas:10:10:3.
+Organ failure:50:75:4.
+Extinct:1:100:5.
