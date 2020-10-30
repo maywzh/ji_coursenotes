@@ -1,38 +1,27 @@
 //
 // Created by Anthony on 28/03/2019.
 //
-#include "vetFunctions.h"
+#include "vet.h"
 
-
-/**
-*TODO:
- * create functions:
- * interpret text files
- * Create functions for vet Probability
- * Add NaN error for read Functions
- *
- */
-
-
-
-static uniform_int_distribution<unsigned> uniform(0,100);
+static uniform_int_distribution<unsigned> uniform(0, 100);
 static default_random_engine randEng;
 
-const string DELIMITER =":";
+const string DELIMITER = ":";
 vector<Animal> animalList;
 vector<Vet> vetList;
 vector<string> treatmentList;
 vector<Problem> problemList;
 
 
-void write() {
-    ofstream myfile{"example.txt"};
+void writefile() {
+    ofstream myfile{ "example.txt" };
     if (myfile.is_open()) {
         cout << "writing" << endl;
         myfile << "This is a line.\n";
         myfile << "This is another line.\n";
         myfile.close();
-    } else {
+    }
+    else {
         cout << "Unable to open file";
     }
 
@@ -41,56 +30,59 @@ void write() {
 }
 
 
-void read(char *filename, void (*functocall)(string)) {
-//    cout<<filename<<endl;
+void readfile(char* filename, void (*functocall)(string)) {
+    //    cout<<filename<<endl;
     ifstream in;
     string line;
 
     in.open(filename);
     if (in.bad()) {
         clog << "read BAD" << endl;
-    } else if (in.good()){
+    }
+    else if (in.good()) {
 
-    } else if (in.fail()) {
+    }
+    else if (in.fail()) {
         cerr << "read Fail" << endl;
-    } else if (in.eof()) {
+    }
+    else if (in.eof()) {
         clog << "read EOF" << endl;
     }
-    getline(in,line);
-//    in >> line;
+    getline(in, line);
+    //    in >> line;
     do {
         (*functocall)(line);
-        getline(in,line);
+        getline(in, line);
     } while (!in.eof());
 }
 
 
 
-string attendAnimal(int id){
+string attendAnimal(int id) {
     Vet* vet = getVet();
     Problem* problem = getProblem(animalList.at(id).Problem);
-    bool detected = detectProblem(vet->quality,problem->determinationComplexity);
+    bool detected = detectProblem(vet->quality, problem->determinationComplexity);
 
-    if(!detected){
-        static uniform_int_distribution<unsigned> retryRange(0,problemList.size()-1);
-        if(retryRange(randEng)==0){
+    if (!detected) {
+        static uniform_int_distribution<unsigned> retryRange(0, problemList.size() - 1);
+        if (retryRange(randEng) == 0) {
             //which number is selected doesn't matter, so long has range is correct
-            detected=true;
+            detected = true;
         }
     }
 
-    bool success = applyTreatment(detected,problem->treatementComplexity,vet->quality);
+    bool success = applyTreatment(detected, problem->treatementComplexity, vet->quality);
 }
 
 /** returning a pointer to object in vector to save on memory
  * @return
  */
-Vet* getVet(){
-    static uniform_int_distribution<unsigned> vetRange(0,vetList.size()-1);
+Vet* getVet() {
+    static uniform_int_distribution<unsigned> vetRange(0, vetList.size() - 1);
     return  &(vetList.at(vetRange(randEng)));
 }
 
-Problem* getProblem(int n){
+Problem* getProblem(int n) {
     return &(problemList.at(n));
 }
 
@@ -104,13 +96,14 @@ Problem* getProblem(int n){
  * @param complexity
  * @return bool
  */
-bool detectProblem(int vetQual,int complexity){
-    complexity = complexity/4;
+bool detectProblem(int vetQual, int complexity) {
+    complexity = complexity / 4;
     vetQual -= complexity;
-    if(uniform(randEng)<= vetQual){
-        cout<<"problem detected"<<endl;
+    if (uniform(randEng) <= vetQual) {
+        cout << "problem detected" << endl;
         return true;
-    }else{
+    }
+    else {
         return false;
     }
 }
@@ -122,15 +115,16 @@ bool detectProblem(int vetQual,int complexity){
  * @param complexity
  * @return bool
  */
-bool applyTreatment(bool detected,int complexity,int vetQual){
-    double success = ((100-complexity) *(1+(vetQual/100.00)))/100.00;
-    if(!detected){
-        success = success*0.25;
+bool applyTreatment(bool detected, int complexity, int vetQual) {
+    double success = ((100 - complexity) * (1 + (vetQual / 100.00))) / 100.00;
+    if (!detected) {
+        success = success * 0.25;
     }
-    if(uniform(randEng)<=success){
-        cout<<"Treatment applied correctly"<<endl;
+    if (uniform(randEng) <= success) {
+        cout << "Treatment applied correctly" << endl;
         return true;
-    }else{
+    }
+    else {
         return false;
     }
 }
@@ -140,7 +134,6 @@ void writeToOutput(string output, string file) {
 
 }
 
-//region Struct Reads
 
 void readAnimal(string s) {
     Animal tempAnimal;
@@ -209,13 +202,13 @@ void readProblems(string s) {
 void printAnimal() {
     for (unsigned int x = 0; x < animalList.size(); x++) {
         cout << animalList.at(x).name << " type: " << animalList.at(x).type << " rego: " << animalList.at(x).rego
-             << " Problem: " << animalList.at(x).Problem << endl;
+            << " Problem: " << animalList.at(x).Problem << endl;
     }
 }
 
 void printVet() {
     for (unsigned int x = 0; x < vetList.size(); x++) {
-        cout << vetList.at(x).name << " Qual: "<<vetList.at(x).quality << endl;
+        cout << vetList.at(x).name << " Qual: " << vetList.at(x).quality << endl;
     }
 }
 
@@ -228,7 +221,7 @@ void printTreatments() {
 void printProblems() {
     for (unsigned int x = 0; x < problemList.size(); x++) {
         cout << problemList.at(x).name << " Deter: " << problemList.at(x).determinationComplexity << " TreatComp: "
-             << problemList.at(x).treatementComplexity << " Treat: " << problemList.at(x).treatment << endl;
+            << problemList.at(x).treatementComplexity << " Treat: " << problemList.at(x).treatment << endl;
     }
 }
 //endregion

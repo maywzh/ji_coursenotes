@@ -23,11 +23,11 @@ struct Animal {
     string rego;
     int Problem;
 };
-struct Vet{
+struct Vet {
     string name;
     int quality;
 };
-struct Problem{
+struct Problem {
     string name;
     int determinationComplexity;
     int treatementComplexity;
@@ -41,11 +41,11 @@ extern vector<Problem> problemList;
 //endregion
 
 void writeToOutput(string output, string file);
-void read(char * filename,void (*function)(string));
+void readfile(char* filename, void (*function)(string));
 Vet* getVet();
 Problem* getProblem(int n);
-bool detectProblem(int vetQual,int complexity);
-bool applyTreatment(bool detected,int complexity,int vetQual);
+bool detectProblem(int vetQual, int complexity);
+bool applyTreatment(bool detected, int complexity, int vetQual);
 
 //region Read Structs
 

@@ -169,32 +169,32 @@ main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/VET.dir/build.make CMakeFiles/VET.dir/main.cpp.s
 .PHONY : main.cpp.s
 
-vetFunctions.o: vetFunctions.cpp.o
+vet.o: vet.cpp.o
 
-.PHONY : vetFunctions.o
+.PHONY : vet.o
 
 # target to build an object file
-vetFunctions.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/VET.dir/build.make CMakeFiles/VET.dir/vetFunctions.cpp.o
-.PHONY : vetFunctions.cpp.o
+vet.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/VET.dir/build.make CMakeFiles/VET.dir/vet.cpp.o
+.PHONY : vet.cpp.o
 
-vetFunctions.i: vetFunctions.cpp.i
+vet.i: vet.cpp.i
 
-.PHONY : vetFunctions.i
+.PHONY : vet.i
 
 # target to preprocess a source file
-vetFunctions.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/VET.dir/build.make CMakeFiles/VET.dir/vetFunctions.cpp.i
-.PHONY : vetFunctions.cpp.i
+vet.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/VET.dir/build.make CMakeFiles/VET.dir/vet.cpp.i
+.PHONY : vet.cpp.i
 
-vetFunctions.s: vetFunctions.cpp.s
+vet.s: vet.cpp.s
 
-.PHONY : vetFunctions.s
+.PHONY : vet.s
 
 # target to generate assembly for a file
-vetFunctions.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/VET.dir/build.make CMakeFiles/VET.dir/vetFunctions.cpp.s
-.PHONY : vetFunctions.cpp.s
+vet.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/VET.dir/build.make CMakeFiles/VET.dir/vet.cpp.s
+.PHONY : vet.cpp.s
 
 # Help Target
 help:
@@ -208,9 +208,9 @@ help:
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
-	@echo "... vetFunctions.o"
-	@echo "... vetFunctions.i"
-	@echo "... vetFunctions.s"
+	@echo "... vet.o"
+	@echo "... vet.i"
+	@echo "... vet.s"
 .PHONY : help
 
 
