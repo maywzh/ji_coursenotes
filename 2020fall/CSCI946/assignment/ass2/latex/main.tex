@@ -3,22 +3,25 @@
 \usepackage{xcolor}
 \usepackage{caption}
 \usepackage{graphicx, subfig}
- \usepackage{float}
+\usepackage{float}
 \usepackage[utf8]{inputenc}
-\lstset{numbers=left, %设置行号位置
-        numberstyle=\tiny, %设置行号大小
-        keywordstyle=\color{blue}, %设置关键字颜色
-        commentstyle=\color[cmyk]{1,0,1,0}, %设置注释颜色
-        frame=single, %设置边框格式
-        escapeinside=``, %逃逸字符(1左面的键)，用于显示中文
-        breaklines, %自动折行
-        extendedchars=false, %解决代码跨页时，章节标题，页眉等汉字不显示的问题
-        xleftmargin=1em,xrightmargin=1em, aboveskip=1em, %设置边距
-        tabsize=4, %设置tab空格数
-        showspaces=false %不显示空格
-       }
+\usepackage{fontspec}
+\setmonofont{Sarasa-Mono-Slab-SC-Regular}
 
-\title{Ass2}
+\lstset{
+basicstyle=\ttfamily\scriptsize,
+numbers=none,
+breaklines,%自动换行
+columns=flexible,%不随便添加空格,只在已经有空格的地方添加空格
+keywordstyle=\color{blue}, %设置关键字颜色
+        commentstyle=\color[cmyk]{1,0,1,0}, %设置注释颜色
+numberstyle=\tiny,
+frame=shadowbox,
+rulesepcolor=\color{red!20!green!20!blue!20},
+escapeinside=`', %将中文放在`和'之间，可以在lstlisting环境中准确的显示中文
+}
+
+\title{Assignment 2}
 \author{Wangzhihui Mei, HongYi Huang, ChangXu, Zijia He}
 \date{November 2020}
 
@@ -27,6 +30,7 @@
 \maketitle
 \section{Task1}
 \subsection{data describe}
+\setlength{\parindent}{0pt}
 Cardiovascular diseases (CVDs) is the leading cause of mortality in India. Ischemic heart disease and stroke are the predominant causes and are responsible for nearly 80\% of CVD deaths. 
 
 \begin{lstlisting}[language=R]
@@ -39,6 +43,7 @@ head(dt)
   \centering
   \includegraphics[width=1\textwidth]{task1_1_dtHead.png} %1.png是图片文件的相对路径
 \end{figure}
+
 This database contains 14 attributes. The "target" field refers to the presence of CVD in the patient. It is
 integer valued 0 (no presence) or 1 (presence). Next we look in detail at the data characteristics of each attribute.
 \\
@@ -77,10 +82,23 @@ table(dt$age)
   \includegraphics[width=1\textwidth]{task1_1_ageSummary.png}
 \end{figure}
 Dividing the data set into training and test sets according to a 7 to 3 ratio
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=1\textwidth]{task1_1_dataDivide.png}
-\end{figure}
+% \begin{figure}[H]
+%   \centering
+%   \includegraphics[width=1\textwidth]{task1_1_dataDivide.png}
+% \end{figure}
+\clearpage
+\begin{lstlisting}[language=R]
+  dt <- read.csv("heart1.csv",na.strings = "?")
+  dt <- na.omit(dt) # handle NA
+  head(dt)
+  age sex cp trestbps chol fbs restecg thalach exang oldpeak slope ca thal target
+  1  63   1  3      145  233   1       0     150     0     2.3     0  0    1      1
+  2  37   1  2      130  250   0       1     187     0     3.5     0  0    2      1
+  3  41   0  1      130  204   0       0     172     0     1.4     2  0    2      1
+  4  56   1  1      120  236   0       1     178     0     0.8     2  0    2      1
+  5  57   0  0      120  354   0       1     163     1     0.6     2  0    2      1
+  6  57   1  0      140  192   0       1     148     0     0.4     1  0    1      1
+  \end{lstlisting}
 Next, a logistic regression prediction model is built using the training set data
 \begin{figure}[H]
   \centering
@@ -148,7 +166,7 @@ After getting the training model, we need to evaluate the suitability of the mod
   \includegraphics[width=1\textwidth]{task1_1_preScore.png}
 \end{figure}
 
-\begin{lstlisting}
+\begin{lstlisting}[language=R]
 > training$predw<-ifelse(training$predd>0.46,1,0)
 > confusn<-confusionMatrix(training$target,training$predw,threshold = 0.46)
 > confusn
@@ -161,7 +179,7 @@ After getting the training model, we need to evaluate the suitability of the mod
 [1] 0.8598131
 \end{lstlisting}
 Similarly, we need to evaluate this model in the test set
-\begin{lstlisting}
+\begin{lstlisting}[language=R]
 > test$prob <- predict(mod,test,type = "response")
 > View(test)
 > ggplot( test, aes( test$prob, color = as.factor(test$target) ) ) + geom_density( size = 1 ) + ggtitle( "Test Set's Predicted Score" )
@@ -183,7 +201,7 @@ Similarly, we need to evaluate this model in the test set
   \includegraphics[width=1\textwidth]{task1_1_testScore.png}
 \end{figure}
 The evaluation summary of logistic regression can be seen below
-\begin{lstlisting}
+\begin{lstlisting}[language=R]
   > Confusion
          Actual
 Predicted  0  1
@@ -203,12 +221,121 @@ Area under the curve: 0.7649
 \subsection{method2}
 \subsection{method3}
 \subsection{discuss}
+
+
+\section{Task2}
+\subsection{Describe the Reuters-21578 corpus}
+Reuters-21578 is a test collection for text classification research that is a multi-class, multi-label dataset. This dataset contains 90 classes, 7769 training files, and 3019 test files is a ModApte subdirectory of the Reuters-21578 benchmark. The Reuters-21578 dataset was originally collected and tagged by the Carnegie Group and Reuters in 1987 during the development of the CONSTRUE text classification system, and later by AT\&T Labs Research in September 1997. released in February, with David D. Lewis as the lead publisher
+
+\subsection{Describe how each document is represented in your implementation.}
+\begin{lstlisting}[language=R]
+> data(Reuters21578)
+> class(Reuters21578)
+[1] "VCorpus" "Corpus" 
+> head(Reuters21578)
+<<VCorpus>>
+Metadata:  corpus specific: 0, document level (indexed): 0
+Content:  documents: 6
+> summary(Reuters21578)
+      Length Class             Mode
+1     2      PlainTextDocument list
+2     2      PlainTextDocument list
+3     2      PlainTextDocument list
+4     2      PlainTextDocument list
+5     2      PlainTextDocument list
+...
+\end{lstlisting}
+
+We import the Reuters-21578 as Vcorpus, which contains Metadata and Content. The metadata attribute contains author, datetime stamp, description, heading id, language, origin, lewissplit, cgisplit, oldid, topics\_cat, places, people, orgs, exchanges. The content is the raw data.
+
+The data structure in the tm package that mainly manages documents is called Corpus, which represents a collection of documents. The corpus is divided into a dynamic corpus (Volatile Corpus) and a static corpus (Permanent Corpus). A dynamic corpus will be stored in memory as an R object and can be generated by either VCorpus() or Corpus(). The dynamic corpus, on the other hand, is stored as an R external file and can be generated using the PCorpus() function.
+
+\subsection{Describe the whole procedure on applying LDA to this corpus to perform topic modeling.}
+\begin{enumerate}
+  \item Import the dataset
+  \item Pre-processing the dataset, including transforming the content to lower case, striping whitespace, removing stopwords, punctuation and numbers, and steming document. 
+  \item Calculate the BOW/TF-IDF document term matrix, ``bowdtm`` and ``tfidfdtm``
+  \item Reducing the dimension with ``tfidfdtm``
+  \item Calculate the word cloud with ``bowdtm``
+  \item Apply LDA analysis.
+\end{enumerate}
+
+\subsection{Describe the parameter setting that you use in the LDA and explain their meanings.}
+\begin{lstlisting}[language=R]
+ result <- LDA(bowdtm, k, method="Gibbs", control=list(iter = 25, verbose = 25, alpha = 0.1))
+\end{lstlisting}
+
+\begin{itemize}
+  \item ``bowdtm``: The document term matrix with BOW method.
+  \item ``k``: number of topics
+  \item ``method=Gibbs``: Applying Gibbs sampling
+  \item ``control=list(iter = 25, verbose = 25, alpha = 0.1)``: inference via 25 iterations.
+\end{itemize}
+
+\subsection{Describe the output of your code and visualize the obtained topics in appropriate ways}
+Draw the word cloud from the TF-IDF document term matrix
+\begin{lstlisting}[language=R]
+  > bowdtm <- bowdtm[slam::row_sums(bowdtm) > 0, ]
+> k <- 20
+> result <- LDA(bowdtm, k, method="Gibbs", control=list(iter = 25, verbose = 25, alpha = 0.1))
+K = 20; V = 32697; M = 19042
+Sampling 25 iterations!
+Iteration 25 ...
+Gibbs sampling completed!
+> result
+A LDA_Gibbs topic model with 20 topics.
+> terms(result, 10)
+      Topic 1   Topic 2   Topic 3   Topic 4    Topic 5   Topic 6   Topic 7   Topic 8      Topic 9    Topic 10  Topic 11  Topic 12  Topic 13  Topic 14 Topic 15 
+ [1,] "said"    "said"    "said"    "said"     "dlrs"    "billion" "said"    "tonn"       "bank"     "said"    "said"    "oil"     "said"    "pct"    "said"   
+ [2,] "govern"  "will"    "trade"   "trade"    "mln"     "bank"    "market"  "said"       "said"     "share"   "reuter"  "said"    "export"  "will"   "share"  
+ [3,] "econom"  "compani" "japan"   "reuter"   "said"    "pct"     "rate"    "mln"        "debt"     "compani" "mine"    "price"   "will"    "issu"   "stock"  
+ [4,] "japan"   "new"     "offici"  "futur"    "year"    "franc"   "dollar"  "wheat"      "loan"     "stock"   "gold"    "gas"     "produc"  "said"   "compani"
+ [5,] "offici"  "reuter"  "state"   "price"    "quarter" "said"    "bank"    "export"     "billion"  "reuter"  "will"    "barrel"  "price"   "mln"    "inc"    
+ [6,] "minist"  "car"     "import"  "pct"      "compani" "year"    "trade"   "reuter"     "dlrs"     "court"   "compani" "product" "coffe"   "bond"   "dlrs"   
+ [7,] "year"    "trade"   "japanes" "new"      "sale"    "mln"     "analyst" "agricultur" "will"     "offer"   "ton"     "mln"     "reuter"  "dlrs"   "offer"  
+ [8,] "will"    "motor"   "unit"    "cent"     "earn"    "reuter"  "currenc" "year"       "interest" "file"    "oper"    "compani" "meet"    "rate"   "will"   
+ [9,] "west"    "exchang" "will"    "tonn"     "share"   "foreign" "dealer"  "grain"      "countri"  "board"   "ounc"    "dlrs"    "countri" "reuter" "reuter" 
+[10,] "japanes" "market"  "reuter"  "contract" "report"  "mark"    "exchang" "crop"       "new"      "inc"     "power"   "will"    "quota"   "manag"  "common" 
+      Topic 16  Topic 17  Topic 18  Topic 19 Topic 20  
+ [1,] "said"    "said"    "said"    "mln"    "pct"     
+ [2,] "tax"     "compani" "compani" "cts"    "year"    
+ [3,] "billion" "dlrs"    "will"    "net"    "said"    
+ [4,] "budget"  "reuter"  "reuter"  "loss"   "billion" 
+ [5,] "bill"    "share"   "inc"     "dlrs"   "februari"
+ [6,] "stg"     "mln"     "corp"    "shr"    "januari" 
+ [7,] "hous"    "corp"    "system"  "reuter" "rose"    
+ [8,] "dlrs"    "inc"     "new"     "profit" "rise"    
+ [9,] "reuter"  "group"   "servic"  "rev"    "last"    
+[10,] "bank"    "will"    "comput"  "oper"   "month"  
+\end{lstlisting}
+
+We should remove empty rows in ``bowdtm`` and set number of topics to 20. Then we can compute the LDA model, inferencing via 25 iterations of Gibbs sampling.
+
+We can see the 10 most likely terms within the term probabilities beta of the inferred topics.
+
+We took eight sample documents and get topic proportions form example documents.
+
+\begin{lstlisting}
+examples <- c(2, 100, 200, 400, 800, 1000, 1200, 1400)
+lapply(pre_process_reuters[examples], as.character)
+
+theta <- tmposterior$topics
+N <- length(examples)
+
+tpExamples <- theta[examples,]
+colnames(tpExamples) <- nameOfTopics
+vizDataFrame <- melt(cbind(data.frame(tpExamples), document = factor(1:N)), variable.name = "topic", id.vars = "document")  
+vizDataFrame
+\end{lstlisting}
+
+\includegraphics[width=.8\textwidth]{./task2.2.png}
+
 \section{Task3}
 \subsection{Data mining and cleaning}
 This data comes from Twitter sentiment analysis in kaggle, From a data set of nearly one million, 13,700 comments about Alan bryd were selected. Among these data, 9,700 positive sentiment data. 4000 negative emotion data. In order to balance the data set, 4000 positive sentiment data and 4000 negative sentiment data were extracted.
  \begin{figure}[H]
 \centering
-  \includegraphics[width=.8\textwidth]{3-1.png} %1.png是图片文件的相对路径
+  \includegraphics[width=1.0\textwidth]{3-1.png} %1.png是图片文件的相对路径
 
 \end{figure}
 There are most characters in the comments, such as emoji, @ other users and some garbled characters are inconsistent in capitalization
