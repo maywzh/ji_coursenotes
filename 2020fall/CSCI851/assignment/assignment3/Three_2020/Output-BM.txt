@@ -1,0 +1,58 @@
+
+$./TS B M B1.txt M1.txt
+
+Translation from Braille to Morse.
+
+Loading translation rule: Braille.
+Braille rule loaded successfully.
+Loading translation rule: Morse.
+Morse rule loaded successfully.
+
+Reading Braille input from B1.txt.
+Reading successful.
+Braille container size: 198
+Symbol distribution:
+0:114  1:84
+
+Translating to Latin proceeds.
+Translation completed successfully.
+
+Latin container size: 33
+Symbol distribution:
+a:3  b:0   c:0   d:0   e:3   f:0   g:1   h:1
+i:3  j:0   k:0   l:3   m:0   n:3   o:1   p:0
+q:0  r:1   s:7   t:1   u:0   v:1   w:0   x:0
+y:1  z:0   space: 4
+
+Latin container content:
+seven silly sailors sang shanties
+
+Translating to Morse proceeds.
+Translation completed successfully.
+
+Morse container size: 124
+Symbol distribution:
+.:56   -:36   space:32
+
+All done.
+Morse container written to M1.txt.
+
+Some notes:
+This is a guide, you are required to output the size and
+distributions but the format doesn't need to be precisely
+like this.
+It's helpful to output where your program is at.
+You don't have to list the symbols that don't occur
+at all in the sample. This would reduce the size of
+the Latin output in a lot of cases.
+You don't have to organise the output of those as
+above either, it's fine to list one symbol and it's
+frequency per line.
+
+You don't have to output the intermediate Latin, but
+it's helpful for us if you do!
+
+Depending on how you do translation to Morse you may
+end up with an additional space separator at the end,
+that's okay.
+
