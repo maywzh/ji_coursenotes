@@ -1,0 +1,21 @@
+Information on installing EBImage and MXNetR packages on lab computer
+
+
+1. Note: must launch the software "R x64" to install the EBImage by following the weblink 
+
+   https://www.bioconductor.org/packages/devel/bioc/vignettes/EBImage/inst/doc/EBImage-introduction.html   
+
+
+2. Try this link first to install mxnet for R.
+   http://newdocs.readthedocs.io/en/latest/build.html#r-package-installation
+
+
+   If not work, try this one: 
+
+   **for mxnet package install in R using this command for only CPU**
+
+   cran <- getOption("repos")
+   cran["dmlc"] <- "https://s3-us-west-2.amazonaws.com/apache-mxnet/R/CRAN/"
+   options(repos = cran)
+   install.packages("mxnet",dependencies = T)
+   library(mxnet)

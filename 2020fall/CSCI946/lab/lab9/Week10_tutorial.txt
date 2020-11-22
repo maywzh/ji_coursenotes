@@ -1,0 +1,5 @@
+Tutorial of Week 10
+
+Read the article in the given weblink and follow it to implement the whole procedure. 
+
+https://www.r-bloggers.com/image-recognition-tutorial-in-r-using-deep-convolutional-neural-networks-mxnet-package/ 
