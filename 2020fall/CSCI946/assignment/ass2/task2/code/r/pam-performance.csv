@@ -1,0 +1,4 @@
+"","topic","recall","precision","fmeasure","accuracy","nexp","npred"
+"earn","earn","81.7","16.2","27.1","28.2","3987","20085"
+"macro.avg","macro.avg","0.7","0.1","0.2","99","0","0"
+"micro.avg","micro.avg","22.9","16.2","19","99","0","0"

@@ -1,0 +1,12 @@
+install.packages("caTools")
+library(caTools)
+img=read.gif("Letter.gif")
+
+library(adimpro)
+Sys.setenv(ImageMagick = paste("C:/Program Files/ImageMagick-7.0.10-Q16"))
+read.image("Letter.gif")
+
+
+install.packages("installr")
+library(installr)
+install.imagemagick("https://www.imagemagick.org/script/download.php")
