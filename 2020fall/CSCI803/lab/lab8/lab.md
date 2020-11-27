@@ -1,18 +1,11 @@
-/*
- * @Author: maywzh
- * @Date: 2020-11-27 21:12:39
- * @LastEditTime: 2020-11-27 23:30:57
- * @LastEditors: maywzh
- * @Description: 
- * @FilePath: \ji_coursenotes\2020fall\CSCI803\lab\lab8\lab.cpp
- * @maywzh，All rights reserved.
- */
+# Lab 8
 
-#include <iostream>
-#include <vector>
-#include <string>
-using namespace std;
+## Password
 
+Using string hashing algorithm to solve this problem. 
+
+The hashing function has the $O(n)$ complexity.
+```cpp
 long long compute_hash(string const &s, int begin, int end)
 {
     // [begin..end)
@@ -29,6 +22,11 @@ long long compute_hash(string const &s, int begin, int end)
     return hash_v;
 }
 
+
+```
+We solve this problem with a two-level loop, where the first level loop iterates over the length of the substring and the second level loop iterates over the start bit of the middle substring. The time complexity is $O(n^2)$
+
+```c++
 string solution(string const &s)
 {
     int s_len = s.size();
@@ -63,12 +61,6 @@ string solution(string const &s)
     }
 }
 
-int main()
-{
-    cout << "Input the s: ";
-    string s;
-    cin >> s;
-    string ans = solution(s);
-    cout << ans << endl;
-    return 0;
-}
+```
+
+The overall time complexity is $O(n^3)$
