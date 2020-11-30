@@ -1,16 +1,16 @@
 CC=clang++
-HEADER=A2.h
+HEADER=Main.h
 EVENT=Event.cpp
 MEMBER=Member.cpp
 PARTY=Party.cpp
-ELECTORATE=Electorate.cpp
+ELECTORATE=Elect.cpp
 STANCE=Stance.cpp
-MAIN=A2.cpp
+MAIN=Main.cpp
 
-A2: A2.o Member.o Party.o Electorate.o Stance.o Event.o
-	$(CC) A2.o Member.o Party.o Electorate.o Stance.o Event.o -o APE
+Main: Main.o Member.o Party.o Elect.o Stance.o Event.o
+	$(CC) Main.o Member.o Party.o Elect.o Stance.o Event.o -o APE
 
-A2.o: $(MAIN) $(HEADER)
+Main.o: $(MAIN) $(HEADER)
 	$(CC) -c $(MAIN)
 
 Member.o: $(MEMBER) $(HEADER)
@@ -19,7 +19,7 @@ Member.o: $(MEMBER) $(HEADER)
 Party.o: $(PARTY) $(HEADER)
 	$(CC) -c $(PARTY)
 
-Electorate.o: $(ELECTORATE) $(HEADER)
+Elect.o: $(ELECTORATE) $(HEADER)
 	$(CC) -c $(ELECTORATE)
 
 Stance.o: $(STANCE) $(HEADER)

@@ -1,4 +1,4 @@
-#include "A2.h"
+#include "Main.h"
 #include <iostream>
 #include <vector>
 #include <fstream>
@@ -9,15 +9,15 @@ using namespace std;
 default_random_engine randEng2;
 Member::Member()
 {
-	name="";
+	name = "";
 }
 void Member::print()
 {
-	cout<<name<<"\t";
+	cout << name << "\t";
 }
 void Member::setName(string n)
 {
-	name=n;
+	name = n;
 }
 string Member::getName()
 {
@@ -26,21 +26,21 @@ string Member::getName()
 //Manager--->Member
 Manager::Manager()
 {
-	title=" ";
+	title = " ";
 }
-void Manager::setManager(string n,string title)
+void Manager::setManager(string n, string title)
 {
 	Member::setName(n);
-	this->title=title;
+	this->title = title;
 }
 void Manager::setManager(Manager m)
 {
 	Member::setName(m.name);
-	title=m.title;
+	title = m.title;
 }
 void Manager::print()
 {
-	cout<<title<<" ";
+	cout << title << " ";
 	Member::print();
 }
 //FinancialManager---->Manager
@@ -48,22 +48,22 @@ int FinancialManager::getEffectiveness()
 {
 	return effectiveness;
 }
-void FinancialManager::setManager(string name,string title)
+void FinancialManager::setManager(string name, string title)
 {
-	Manager::setManager(name,title);
-	uniform_int_distribution<unsigned> effectivenessRandom(1,10);
-	effectiveness=effectivenessRandom(randEng2);
+	Manager::setManager(name, title);
+	uniform_int_distribution<unsigned> effectivenessRandom(1, 10);
+	effectiveness = effectivenessRandom(randEng2);
 }
 void FinancialManager::print()
 {
 	Manager::print();
-	cout<<"effectiveness: "<<effectiveness<<endl;
+	cout << "effectiveness: " << effectiveness << endl;
 }
 //Campaign Manager
 void CampaignManager::setNetwork()
 {
-	uniform_int_distribution<unsigned> randomNetwork(1,4);
-	network=randomNetwork(randEng2);
+	uniform_int_distribution<unsigned> randomNetwork(1, 4);
+	network = randomNetwork(randEng2);
 }
 int CampaignManager::getNetwork()
 {
@@ -72,39 +72,39 @@ int CampaignManager::getNetwork()
 void CampaignManager::setManager(CampaignManager m)
 {
 	Manager::setManager(m);
-	network=m.network;
+	network = m.network;
 }
-void CampaignManager::setManager(string name,string title)
+void CampaignManager::setManager(string name, string title)
 {
-	Manager::setManager(name,title);
+	Manager::setManager(name, title);
 	setNetwork();
 }
 
 int CampaignManager::fundImpact(int fund)
 {
-	float currentFund=fund;
-	return currentFund/1000.00;
+	float currentFund = fund;
+	return currentFund / 1000.00;
 }
 void CampaignManager::print()
 {
 	Manager::print();
-	cout<<"Network:"<<network<<endl;
+	cout << "Network:" << network << endl;
 }
 //NationalCampaignManager
 void NationalCampaignManager::print()
 {
 	Manager::print();
-	cout<<endl;
+	cout << endl;
 }
 int NationalCampaignManager::numberOfAdvertisement()
 {
-	uniform_int_distribution<unsigned> GenerateNum(0,3);
+	uniform_int_distribution<unsigned> GenerateNum(0, 3);
 	return GenerateNum(randEng2);
 }
 //TopMember---->Member
 TopMember::TopMember()
 {
-	popularity=0;
+	popularity = 0;
 }
 int TopMember::getPopularity()
 {
@@ -112,35 +112,35 @@ int TopMember::getPopularity()
 }
 void TopMember::setPopularity()
 {
-	uniform_int_distribution<unsigned> popularity(10,20);
-	this->popularity=popularity(randEng2);
+	uniform_int_distribution<unsigned> popularity(10, 20);
+	this->popularity = popularity(randEng2);
 }
 void TopMember::setPopularity(int popularity)
 {
-	this->popularity=popularity;
+	this->popularity = popularity;
 }
 void TopMember::setTopMember(Stance *issueList)
 {
 	setPopularity();
-	this->popularity=popularity;
+	this->popularity = popularity;
 }
-void TopMember::setStance(Stance *issueList,Stance* partyStance)
+void TopMember::setStance(Stance *issueList, Stance *partyStance)
 {
-	issueList->generateStanceBaseOnParty(5,stanceArray,issueList,partyStance);
+	issueList->generateStanceBaseOnParty(5, stanceArray, issueList, partyStance);
 }
 void TopMember::getStance(Stance *stanceIn, int i)
 {
-	stanceIn->setStance(stanceArray[i].getSignifiance(),stanceArray[i].getApproach());
+	stanceIn->setStance(stanceArray[i].getSignifiance(), stanceArray[i].getApproach());
 }
 void TopMember::print()
 {
-	cout<<"Popularity: "<<popularity;
+	cout << "Popularity: " << popularity;
 }
 //Candidate----->TopMember
 Candidate::Candidate()
 {
-        donation=0;
-		vote=0;
+	donation = 0;
+	vote = 0;
 }
 int Candidate::getDonation()
 {
@@ -149,82 +149,81 @@ int Candidate::getDonation()
 void Candidate::setDonation(int newDonation)
 {
 
-	donation+=newDonation;
+	donation += newDonation;
 }
 void Candidate::setVote(int vote)
 {
-	this->vote=vote;
+	this->vote = vote;
 }
 int Candidate::getVote()
 {
 	return vote;
 }
-void Candidate::setCandidate(string nameIn,int donationIn,Stance *issueList)
+void Candidate::setCandidate(string nameIn, int donationIn, Stance *issueList)
 {
 	Member::setName(nameIn);
 	TopMember::setTopMember(issueList);
-	donation=donationIn;
+	donation = donationIn;
 }
-void Candidate::setCandidate(Candidate candidateIn,int issueSize)
+void Candidate::setCandidate(Candidate candidateIn, int issueSize)
 {
-	name=candidateIn.name;
-	popularity=candidateIn.popularity;
-	donation=candidateIn.donation;
-	for(int i=0;i<issueSize;i++)
-        {
-                stanceArray[i]=candidateIn.stanceArray[i];
-        }
-
+	name = candidateIn.name;
+	popularity = candidateIn.popularity;
+	donation = candidateIn.donation;
+	for (int i = 0; i < issueSize; i++)
+	{
+		stanceArray[i] = candidateIn.stanceArray[i];
+	}
 }
 void Candidate::print(int sizeIssue)
 {
-	cout<<"Candidate ";
+	cout << "Candidate ";
 	Member::print();
 	TopMember::print();
-	cout<<"\t Donation:"<<donation<<"k"<<" Vote:"<<vote<<endl;
-	cout<<"*Stance of Candidate: ";
-	for(int i=0;i<sizeIssue;i++)
-        {
-                stanceArray[i].print();
-                cout<<" ";
-        }
-        cout<<endl;
+	cout << "\t Donation:" << donation << "k"
+		 << " Vote:" << vote << endl;
+	cout << "*Stance of Candidate: ";
+	for (int i = 0; i < sizeIssue; i++)
+	{
+		stanceArray[i].print();
+		cout << " ";
+	}
+	cout << endl;
 }
 //Leader------>TopMember
 Leader::Leader()
 {
-	yearsInPolitic=0;
+	yearsInPolitic = 0;
 }
 int Leader::getExperience()
 {
 	return yearsInPolitic;
 }
-void Leader::setLeader(string n,int y,Stance *issueList)
+void Leader::setLeader(string n, int y, Stance *issueList)
 {
 	Member::setName(n);
 	TopMember::setTopMember(issueList);
-        yearsInPolitic=y;
+	yearsInPolitic = y;
 }
 void Leader::print(int sizeIssue)
 {
-	cout<<"Leader:\t";
+	cout << "Leader:\t";
 	Member::print();
-        TopMember::print();
-	cout<<"\tExperience:"<<yearsInPolitic<<endl;
-	cout<<"*Stance of Leader: ";
-	for(int i=0;i<sizeIssue;i++)
-        {
-                stanceArray[i].print();
-                cout<<" ";
-        }
-        cout<<endl;
-}
-void printAllLeadersPopularity(Party* parties, int partySize,int issueSize)
-{
-	cout<<"Party\tPopularity"<<endl;
-	for(int i=0;i<partySize;i++)
+	TopMember::print();
+	cout << "\tExperience:" << yearsInPolitic << endl;
+	cout << "*Stance of Leader: ";
+	for (int i = 0; i < sizeIssue; i++)
 	{
-		cout<<i+1<<"\t"<<parties[i].getLeader().getPopularity()<<endl;
+		stanceArray[i].print();
+		cout << " ";
+	}
+	cout << endl;
+}
+void printAllLeadersPopularity(Party *parties, int partySize, int issueSize)
+{
+	cout << "Party\tPopularity" << endl;
+	for (int i = 0; i < partySize; i++)
+	{
+		cout << i + 1 << "\t" << parties[i].getLeader().getPopularity() << endl;
 	}
 }
-

@@ -5820,7 +5820,7 @@ INSERT INTO `context_copy` VALUES ('5788', '在三线八角中,构成同位角�
 INSERT INTO `context_copy` VALUES ('5789', '他们都可以用来判断两直线是否平行。', '平行,直线');
 INSERT INTO `context_copy` VALUES ('5790', '欧氏几何的平行公理，可以等价的陈述为“过直线外一点有唯一的一条直线和已知直线平行”。', '平行公理,平行,等价,几何,直线');
 INSERT INTO `context_copy` VALUES ('5791', '平行于同一条直线的两条直线互相平行。', '平行,直线');
-INSERT INTO `context_copy` VALUES ('5792', '两直线平行时：A1/A2=B1/B2≠C1/C2。', '平行,直线');
+INSERT INTO `context_copy` VALUES ('5792', '两直线平行时：A1/Main=B1/B2≠C1/C2。', '平行,直线');
 INSERT INTO `context_copy` VALUES ('5793', '平行线的判定:两条直线被第三条直线所截,如果同旁内角互补,那么这两条直线平行。', '同旁内角,平行线,平行,直线');
 INSERT INTO `context_copy` VALUES ('5794', '如果B=0即直线为，即，它平行于y轴（或垂直于x轴），将化为。', '垂直于,平行,x轴,y轴,直线');
 INSERT INTO `context_copy` VALUES ('5795', '如今我们学习的斜率k，等于所对应的直线（有无数条，它们彼此平行）的倾斜角（只有一个）α的正切，可以反映这样的直线对于x轴倾斜的程度。', '倾斜角,平行,正切,x轴,倾斜,斜率,直线');
@@ -7364,7 +7364,7 @@ INSERT INTO `context_copy` VALUES ('12800', '判断两事件A、B是否为相互
 INSERT INTO `context_copy` VALUES ('12801', '互斥事件是指不可能同时发生的两个事件；相互独立事件是指一事件的发生与否对另一事件发生的概率没影响。', '互斥事件,事件,独立事件,概率');
 INSERT INTO `context_copy` VALUES ('12802', '如果A、B是相互独立事件，则A的补集与B的补集、A与B的补集、A的补集与也都相互独立。', '独立事件,补集');
 INSERT INTO `context_copy` VALUES ('12803', '相互独立事件同时发生的概率公式两个相互独立事件同时发生的概率，等于每个事件发生的概率的积。', '独立事件,概率,事件');
-INSERT INTO `context_copy` VALUES ('12804', '如果事件A1，A2，An相互独立，那么这n个事件同时发生的概率，等于每个事件发生的概率的积。', '事件,概率');
+INSERT INTO `context_copy` VALUES ('12804', '如果事件A1，Main，An相互独立，那么这n个事件同时发生的概率，等于每个事件发生的概率的积。', '事件,概率');
 INSERT INTO `context_copy` VALUES ('12805', '因为件A发生时（即第一个取到白球），事件B的概率P（B）=1/3，而当事件A不发生时（即第一个取到的是黑球），事件B发生的概率P（B）=2/3，也就是说，事件A发生与否影响到事件B发生的概率，所以A与B不是相互独立事件。', '事件,概率,独立事件');
 INSERT INTO `context_copy` VALUES ('12806', '独立重复试验中，每一次试验只有两种结果，即某事件要么发生，要么不发生，并且任何一次试验中的概率都是一样的；每次试验是在同样条件下进行；每次试验间又是相互独立的，互不影响。', '重复试验,事件,概率');
 INSERT INTO `context_copy` VALUES ('12807', '一般地，如果在1次实验中某事件A发生的概率是P，那么在n次独立重复试验中这个事件恰好发生k次的概率是Pn(k)Cnkpk(1p)nk。', '事件,概率,重复试验');

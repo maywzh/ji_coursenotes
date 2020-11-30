@@ -3082,7 +3082,7 @@ amily: entypo-fontello; font-size: 18px; font-weight: normal; }
  "=EE=A0=B2"; }
 
 .image-overlay.overlay-type-video .image-overlay-inside::before { content: =
-"=EE=A2=97"; }
+"=EE=Main=97"; }
 
 #top .hide-inner-overlay .image-overlay-inside { display: none; }
 
@@ -9613,9 +9613,9 @@ ant; display: block !important; }
 
 #top .avia-layerslider .ls-nav-next::before { content: "=EE=A1=BD"; }
 
-#top .avia-layerslider .ls-nav-start::before { content: "=EE=A2=97"; }
+#top .avia-layerslider .ls-nav-start::before { content: "=EE=Main=97"; }
 
-#top .avia-layerslider .ls-nav-stop::before { content: "=EE=A2=99"; }
+#top .avia-layerslider .ls-nav-stop::before { content: "=EE=Main=99"; }
 
 #top .avia-layerslider .ls-bottom-slidebuttons a, #top .avia-layerslider .l=
 s-nav-next::before, #top .avia-layerslider .ls-nav-prev::before, #top .avia=
@@ -13976,10 +13976,10 @@ mily: entypo-fontello; }
 mily: entypo-fontello; }
 
 #top .avia-layerslider .ls-nav-start::before, #top .avia_playpause_icon::be=
-fore { content: "=EE=A2=97"; font-family: entypo-fontello; }
+fore { content: "=EE=Main=97"; font-family: entypo-fontello; }
 
 #top .avia-layerslider .ls-nav-stop::before, #top .avia_playpause_icon.av-p=
-ause::before { content: "=EE=A2=99"; font-family: entypo-fontello; }
+ause::before { content: "=EE=Main=99"; font-family: entypo-fontello; }
 
 .image-overlay .image-overlay-inside::before { content: "=EE=A1=A9"; font-f=
 amily: entypo-fontello; }
@@ -13988,7 +13988,7 @@ amily: entypo-fontello; }
  "=EE=A0=B2"; font-family: entypo-fontello; }
 
 .image-overlay.overlay-type-video .image-overlay-inside::before { content: =
-"=EE=A2=97"; font-family: entypo-fontello; }
+"=EE=Main=97"; font-family: entypo-fontello; }
 
 div.avia-popup button.mfp-arrow::before { content: "=EE=A1=BD"; font-family=
 : entypo-fontello; }
@@ -15224,7 +15224,7 @@ share-twitter a::before { content: "=EF=88=82"; }
 .sd-content ul li.share-reddit div.option.option-smart-off a::before, .sd-s=
 ocial-icon .sd-content ul li.share-reddit a::before, .sd-social-icon-text .=
 sd-content li.share-reddit a::before, .sd-social-text .sd-content ul li.sha=
-re-reddit a::before { content: "=EF=88=A2"; }
+re-reddit a::before { content: "=EF=88=Main"; }
 
 .sd-content ul li.share-tumblr div.option.option-smart-off a::before, .sd-s=
 ocial-icon .sd-content ul li.share-tumblr a::before, .sd-social-icon-text .=
@@ -15752,7 +15752,7 @@ content: "=EF=88=A4"; }
 content: "=EF=88=97"; }
 
 .jetpack-social-navigation-genericons a[href*=3D"reddit.com"]::before { con=
-tent: "=EF=88=A2"; }
+tent: "=EF=88=Main"; }
 
 .jetpack-social-navigation-genericons a[href$=3D"/feed/"]::before { content=
 : "=EF=90=93"; }
