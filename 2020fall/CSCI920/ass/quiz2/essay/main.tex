@@ -1,0 +1,56 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage{harvard}
+\usepackage{setspace}
+\usepackage{float}
+\usepackage[margin=3cm]{geometry}
+\usepackage{fontspec}
+\usepackage{graphicx}
+\setmainfont{Times-Roman}
+\onehalfspacing
+
+
+\begin{document}
+
+
+\title{Using Graph Neural Network In Knowledge Tracing}
+\author{Wangzhihui Mei \\ 2019124044 \ 6603385
+\\ \\
+Central China Normal University \& 
+University of Wollongong Joint-Institude}
+
+
+\date{}
+
+\maketitle
+\thispagestyle{empty}
+\clearpage
+
+
+\newpage
+\setcounter{page}{1} %Counting from this page
+
+%\section*{Introduction}
+In recent years, the study of graph analysis using machine learning methods has received increasing attention due to the powerful expressiveness of graph structures. Graph neural networks (GNNs) are a class of deep learning-based methods for processing graph domain information. Due to its better performance and interpretability\cite{lin2020graph,xie2018crystal}, GNN has recently become a widely used method for graph analysis. Knowledge tracing is a technique for modeling a student's knowledge based on past answers in order to obtain a representation of the student's current state of knowledge. As Knowledge and the mastering of knowledge of students can be structured as graph, so applying GNN in knowledge tracing can be appropriate solution for these tasks.
+
+The concept of graph neural networks was first introduced by Gori et al. in 2005\cite{gori2005new} and further elucidated by Scarselli et al.\cite{scarselli2008graph} These early studies learned the representation of a target node in an iterative manner by propagating neighboring information through the cyclic neural architecture until a stable fixation point was reached. This process is computationally intensive, and many recent studies have been devoted to solving this challenge. In general, graph neural networks are representative of all deep learning methods used for graph data.
+
+Motivated by the great success of convolutional networks in the field of computer vision, a number of methods have recently emerged to redefine the concept of convolution for graph data. The first important research on graph convolutional networks was presented by Bruna et al. in 2013\cite{bruna2013spectral}, when they developed a variant of graph convolution based on spectral graph theory. Since then, spectral-based graph convolutional networks have been improved, extended, and advanced. Since spectral methods usually process the entire graph simultaneously and are difficult to parallelize or extend to large graphs, space-based graph convolutional networks began to develop rapidly. These methods perform convolution directly on the graph structure by aggregating information from the nearest nodes. In combination with sampling strategies, computations can be executed on a batch of nodes rather than on the entire graph, an approach that promises improved efficiency. In addition to graph convolutional networks, a number of alternative graph neural networks have been developed in recent years. These methods include graph attention networks(GATs)\cite{veličković2018graph}, graph self-encoders\cite{salehi2019graph}, graph generation networks\cite{liao2019efficient}, and graph spatiotemporal networks\cite{Yu_2018}.
+
+Battaglia et al.\cite{battaglia2018relational} position graph networks as building blocks for learning from relational data, and review partial graph neural networks in a unified framework. However, their overall framework is highly abstract and loses the insights of each approach in the original paper. More recently, Zhang et al. present a recent survey\cite{zhang2020deep} on graph deep learning, but neglect to investigate graph generation networks and graph spatiotemporal networks. In summary, none of the existing studies provides a comprehensive review of graph neural networks, covering only a portion of graph convolutional neural networks and examining limited studies, thus omitting recent advances in alternative approaches to graph neural networks, such as graph generative networks and graph spatiotemporal networks.
+
+In knowledge-tracing research, graph neural networks can model the structure of knowledge quite well\cite{GKT}. Advances in computer-aided instructional systems have led to an increase in research on knowledge tracking, a platform where student performance is predicted over time, where correct predictions can help students select questions that are comparable to their current cognitive level, an e-learning platform that can help students improve their motivation, and different approaches to knowledge tracking have been proposed: DKT (using the RNN model)\cite{piech2015deep}. From a data structure point of view, course learning can also be modeled as a graph model, where the knowledge points required to be proficient in a knowledge concept are modeled as points on a graph, and these knowledge points are related to each other. It is well known that introducing a priori knowledge about the graph-structural properties of data into a model can improve the performance and interpretability of the model. The rise of graph-based neural networks, although manipulating data over such irregular domains challenges existing and their learning methods, and various generalization frameworks and important operations have yielded better results in several studies, GNNs improve the efficiency of machine learning models from the perspective of relational induction bias, combined with a priori human knowledge of the nature of data. It has considerable expressive power for modeling graphically structured data.
+
+As well as modeling the knowledge, graph neural networks can reduce the effort of manual annotation by learning the relationships between knowledge points\cite{GKT}. In the types of data processed by deep learning, most of the data can be transformed through Euclidean space and projected onto an axis. But in real life, there are many data that cannot be expressed simply through Euclidean structure. For example, in social networks, we all use WeChat, and people add friends through WeChat. We treat each person as a node, and the friendships formed between people as edges, which will form a graph. In this diagram, there is no distance information, nor any spatial information, which is a non-Euclidean spatial structure information. So how can we train on this structural information? In previous deep learning models, the learning of such data could not be done, which is why graph convolution techniques were developed to solve the difficult problem of such data. In some cases of knowledge tracing, the relationships between knowledge points and the strength of the relationships are not explicitly provided, and heuristic and manual annotation of content relationships is necessary for human experts, but requires a lot of time from domain experts. Therefore, it is difficult to model all knowledge in advance as a knowledge point graph, and we define such problems as hidden graph structure problems, like the probability of transferring conceptual answers.
+
+In this article, we introduce the development of graph neural networks and their applications in the field of knowledge tracking. In summary, graph neural networks have a strong ability to describe data in a non-European space and to describe relationships between knowledge points in intelligent education, thus modeling students' knowledge acquisition better than traditional models such as CNN and RNN. Training the knowledge structure in a way that significantly reduces the amount of manual work required to annotate the data, thereby significantly improving model performance and reducing bias.
+
+%\section*{}
+
+
+
+%\section*{Conclusion}
+
+\clearpage
+\bibliographystyle{agsm}
+\bibliography{wpref}
+\end{document}
