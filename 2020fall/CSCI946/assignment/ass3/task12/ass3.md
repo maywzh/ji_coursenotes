@@ -1,5 +1,11 @@
 # Assignment 3
 
+## Team Info and Contribution
+Wangzhihui Mei 2019124044 6603385 25%
+Hongyi Huang 2019180029 6642779 25%
+Zijia He 2019124057 6603725 25%
+Chang Xu 2019180034 6643048 25%
+
 ## Task1
 
 ### Question1 
