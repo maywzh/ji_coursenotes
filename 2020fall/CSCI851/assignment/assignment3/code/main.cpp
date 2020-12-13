@@ -1,7 +1,7 @@
 /*
  * @Author       : maywzh
  * @Date         : 2020-12-13 19:39:13
- * @LastEditTime : 2020-12-13 19:39:46
+ * @LastEditTime : 2020-12-13 21:43:42
  * @LastEditors  : maywzh
  * @Description  : 
  * @FilePath     : /ji_coursenotes/2020fall/CSCI851/assignment/assignment3/code/main.cpp
@@ -242,8 +242,10 @@ void translation(string from, string to, string inputfile, string outputfile)
             string res;
             Morse dd;
             vector<Morse> transdata;
+
             for (int x = 0; x < latindata.size(); x++)
             {
+                std::cout << x << std::endl;
                 res = latindata[x].translation_to_Morse();
                 if (res == "null")
                 {
@@ -347,6 +349,14 @@ std::map<char, std::string> load_rule(string filename)
         rule.insert(std::make_pair(key, value));
         value.clear();
     }
+    std::cout << "Load " << rule.size() << " rules" << std::endl;
+    // for (std::map<char, std::string>::iterator iter = rule.begin(); iter != rule.end(); iter++)
+    // {
+    //     if (iter != rule.end())
+    //     {
+    //         std::cout << iter->first << " : " << iter->second << std::endl;
+    //     }
+    // }
     return rule;
 }
 

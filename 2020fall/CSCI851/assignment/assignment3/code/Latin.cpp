@@ -1,7 +1,7 @@
 /*
  * @Author       : maywzh
  * @Date         : 2020-12-13 19:38:31
- * @LastEditTime : 2020-12-13 20:30:03
+ * @LastEditTime : 2020-12-13 21:37:29
  * @LastEditors  : maywzh
  * @Description  : 
  * @FilePath     : /ji_coursenotes/2020fall/CSCI851/assignment/assignment3/code/Latin.cpp
@@ -56,16 +56,21 @@ std::string Latin::translation_to_Morse()
     }
     return "null";
 }
+
 std::string Latin::translation_to_Braille()
 {
-    for (std::map<char, std::string>::iterator iter = brailleRule.begin(); iter != brailleRule.end(); iter++)
+    std::cout << "Finding " << symbol << endl;
+    // for (std::map<char, std::string>::iterator iter = brailleRule.begin(); iter != brailleRule.end(); iter++)
+    // {
+    //     if (iter != brailleRule.end())
+    //     {
+    //         std::cout << iter->first << " : " << iter->second << std::endl;
+    //     }
+    // }
+    std::map<char, std::string>::iterator iter = brailleRule.find(symbol);
+    if (iter != brailleRule.end())
     {
-        if (symbol == ' ')
-            symbol = '_';
-        if (symbol == iter->first)
-        {
-            return iter->second;
-        }
+        return iter->second;
     }
     return "null";
 }

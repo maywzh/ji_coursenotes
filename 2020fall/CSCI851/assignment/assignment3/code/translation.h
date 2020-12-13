@@ -1,7 +1,7 @@
 /*
  * @Author       : maywzh
  * @Date         : 2020-12-13 11:37:51
- * @LastEditTime : 2020-12-13 20:34:20
+ * @LastEditTime : 2020-12-13 21:44:36
  * @LastEditors  : maywzh
  * @Description  : 
  * @FilePath     : /ji_coursenotes/2020fall/CSCI851/assignment/assignment3/code/translation.h
@@ -26,8 +26,8 @@
 #define MORSEFILE "Morse.txt"
 #define BRAILLEFILE "Braille.txt"
 using namespace std;
-static std::map<char, std::string> morseRule;
-static std::map<char, std::string> brailleRule;
+extern std::map<char, std::string> morseRule;
+extern std::map<char, std::string> brailleRule;
 
 template <typename T>
 class Container
@@ -56,6 +56,7 @@ public:
 	std::string getSymbol();
 	bool checkSymbol(std::string data);
 	char translation_to_Latin();
+	//char translation_to_Latin(const std::map<char, std::string> *);
 };
 
 class Braille
@@ -70,6 +71,7 @@ public:
 	std::string getSymbol();
 	bool checkSymbol(std::string data);
 	char translation_to_Latin();
+	//char translation_to_Latin(const std::map<char, std::string> *);
 };
 
 class Latin
@@ -83,9 +85,9 @@ public:
 	void setSymbol(char data);
 	bool checkSymbol(char data);
 	std::string translation_to_Morse();
-
+	//std::string translation_to_Morse(const std::map<char, std::string> *);
 	std::string translation_to_Braille();
-
+	//std::string translation_to_Braille(const std::map<char, std::string> *);
 	char getSymbol();
 };
 
