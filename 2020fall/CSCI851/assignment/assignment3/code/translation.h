@@ -28,64 +28,6 @@ public:
 	void showDistribution();
 };
 
-template <typename T>
-Container<T>::Container(std::vector<T> d, int s)
-{
-	data.assign(d.begin(), d.end());
-	datasize = s;
-}
-
-template <typename T>
-void Container<T>::showDistribution()
-{
-	int count[256] = {};
-	for (int x = 0; x < datasize; ++x)
-	{
-		for (int i = 0; i < data[x].size() / sizeof(data[0].symbol); i++)
-		{
-		}
-	}
-}
-
-template <typename T>
-void Container<T>::showData()
-{
-	std::cout << "show the container :" << std::endl;
-	for (int x = 0; x < datasize; ++x)
-	{
-		//std::cout<<data[x].symbol;
-		std::cout << data[x];
-	}
-	std::cout << std::endl
-			  << std::endl;
-}
-
-template <typename T>
-void Container<T>::Save_Trans(std::string file)
-{
-	std::cout << "write to " << file << std::endl;
-	std::ofstream outdata;
-	outdata.open(file);
-
-	for (int x = 0; x < datasize; ++x)
-	{
-		//outdata <<data[x].symbol;
-		outdata << data[x];
-	}
-	outdata << std::endl;
-}
-
-template <typename T>
-void Container<T>::showSize()
-{
-	int size = 0;
-	for (int x = 0; x < datasize; ++x)
-	{
-		size = size + data[x].symbol.length();
-	}
-	std::cout << size << std::endl;
-}
-
 class Morse
 {
 	friend std::ostream &operator<<(std::ostream &, const Morse &);
