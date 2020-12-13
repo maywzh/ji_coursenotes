@@ -1,7 +1,7 @@
 /*
  * @Author       : maywzh
  * @Date         : 2020-12-13 19:38:31
- * @LastEditTime : 2020-12-13 19:45:59
+ * @LastEditTime : 2020-12-13 20:30:03
  * @LastEditors  : maywzh
  * @Description  : 
  * @FilePath     : /ji_coursenotes/2020fall/CSCI851/assignment/assignment3/code/Latin.cpp
@@ -34,4 +34,38 @@ bool Latin::checkSymbol(char data)
         return 1;
     else
         return 0;
+}
+
+ostream &operator<<(ostream &out, const Latin &latin)
+{
+    out << latin.symbol;
+    return out;
+}
+
+std::string Latin::translation_to_Morse()
+{
+    int mm = 0;
+    for (std::map<char, std::string>::iterator iter = morseRule.begin(); iter != morseRule.end(); iter++)
+    {
+        if (symbol == ' ')
+            symbol = '_';
+        if (symbol == iter->first)
+        {
+            return iter->second;
+        }
+    }
+    return "null";
+}
+std::string Latin::translation_to_Braille()
+{
+    for (std::map<char, std::string>::iterator iter = brailleRule.begin(); iter != brailleRule.end(); iter++)
+    {
+        if (symbol == ' ')
+            symbol = '_';
+        if (symbol == iter->first)
+        {
+            return iter->second;
+        }
+    }
+    return "null";
 }

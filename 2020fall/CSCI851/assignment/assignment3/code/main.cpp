@@ -144,9 +144,9 @@ void translation(string from, string to, string inputfile, string outputfile)
         vector<Morse> inputdata = Read_from_Morse(inputfile);
 
         Container<Morse> con_morse(inputdata, inputdata.size()); //read in.txt
-        con_morse.showData();
+        con_morse.ShowData();
         cout << "The size of Morse is ";
-        con_morse.showSize();
+        con_morse.ShowSize();
         cout << endl
              << endl;
 
@@ -168,7 +168,7 @@ void translation(string from, string to, string inputfile, string outputfile)
         if (to == "L")
         {
             Container<Latin> con_latin(latindata, latindata.size());
-            con_latin.showData();
+            con_latin.ShowData();
             cout << "The length of Latin is " << latindata.size() << endl;
             con_latin.Save_Trans(outputfile);
         }
@@ -193,9 +193,9 @@ void translation(string from, string to, string inputfile, string outputfile)
             }
 
             Container<Braille> con_braille(transdata, transdata.size());
-            con_braille.showData();
+            con_braille.ShowData();
             cout << "The length of Braille is ";
-            con_braille.showSize();
+            con_braille.ShowSize();
             con_braille.Save_Trans(outputfile);
         }
     }
@@ -204,7 +204,7 @@ void translation(string from, string to, string inputfile, string outputfile)
         vector<Braille> inputdata = Read_from_Braille(inputfile);
 
         Container<Braille> con_braille(inputdata, inputdata.size()); //read in.txt
-        con_braille.showData();
+        con_braille.ShowData();
         cout << "The size of braille is " << inputdata.size() << endl
              << endl
              << endl;
@@ -231,7 +231,7 @@ void translation(string from, string to, string inputfile, string outputfile)
         if (to == "L")
         {
             Container<Latin> con_latin(latindata, latindata.size());
-            con_latin.showData();
+            con_latin.ShowData();
             cout << "The length of Latin is " << latindata.size() << endl;
             con_latin.Save_Trans(outputfile);
         }
@@ -256,9 +256,9 @@ void translation(string from, string to, string inputfile, string outputfile)
             }
 
             Container<Morse> con_morse(transdata, transdata.size());
-            con_morse.showData();
+            con_morse.ShowData();
             cout << "The length of Morse is ";
-            con_morse.showSize();
+            con_morse.ShowSize();
             con_morse.Save_Trans(outputfile);
         }
     }
@@ -267,7 +267,7 @@ void translation(string from, string to, string inputfile, string outputfile)
         vector<Latin> inputdata = Read_Latin(inputfile);
 
         Container<Latin> con_latin(inputdata, inputdata.size()); //read in.txt
-        con_latin.showData();
+        con_latin.ShowData();
         cout << "The size of Latin is " << inputdata.size() << endl
              << endl
              << endl;
@@ -292,9 +292,9 @@ void translation(string from, string to, string inputfile, string outputfile)
             }
 
             Container<Morse> con_morse(transdata, transdata.size());
-            con_morse.showData();
+            con_morse.ShowData();
             cout << "The length of Morse is ";
-            con_morse.showSize();
+            con_morse.ShowSize();
             con_morse.Save_Trans(outputfile);
         }
         else //B
@@ -317,9 +317,9 @@ void translation(string from, string to, string inputfile, string outputfile)
             }
 
             Container<Braille> con_braille(transdata, transdata.size());
-            con_braille.showData();
+            con_braille.ShowData();
             cout << "The length of Braille is ";
-            con_braille.showSize();
+            con_braille.ShowSize();
             con_braille.Save_Trans(outputfile);
         }
     }

@@ -1,7 +1,7 @@
 /*
  * @Author       : maywzh
  * @Date         : 2020-12-13 19:38:20
- * @LastEditTime : 2020-12-13 19:52:22
+ * @LastEditTime : 2020-12-13 20:27:46
  * @LastEditors  : maywzh
  * @Description  : 
  * @FilePath     : /ji_coursenotes/2020fall/CSCI851/assignment/assignment3/code/Braille.cpp
@@ -33,4 +33,25 @@ bool Braille::checkSymbol(string data)
             return 0;
     }
     return 1;
+}
+
+char Braille::translation_to_Latin()
+{
+    for (std::map<char, std::string>::iterator iter = brailleRule.begin(); iter != brailleRule.end(); iter++)
+    {
+        if (symbol == iter->second)
+        {
+            if (iter->first == '_')
+                return ' ';
+            else
+                return iter->first;
+        }
+    }
+    return '0';
+}
+
+ostream &operator<<(ostream &out, const Braille &braille)
+{
+    out << braille.symbol;
+    return out;
 }

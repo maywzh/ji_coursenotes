@@ -16,19 +16,3 @@
  */
 #include "translation.h"
 using namespace std;
-
-ostream &operator<<(ostream &out, const Morse &morse)
-{
-    out << morse.symbol;
-    return out;
-}
-ostream &operator<<(ostream &out, const Braille &braille)
-{
-    out << braille.symbol;
-    return out;
-}
-ostream &operator<<(ostream &out, const Latin &latin)
-{
-    out << latin.symbol;
-    return out;
-}

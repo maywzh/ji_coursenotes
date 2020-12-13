@@ -1,6 +1,6 @@
 CC= clang++
 CCFLAGS= -std=c++2a
-OBJECTS= main.o translation.o Morse.o Braille.o Latin.o Container.o
+OBJECTS= main.o Morse.o Braille.o Latin.o 
 TARGET= TS
 
 
@@ -10,8 +10,8 @@ $(TARGET):	$(OBJECTS)
 main.o:		main.cpp translation.h
 		$(CC) $(CCFLAGS) -c main.cpp
 
-translation.o:	translation.cpp translation.h
-		$(CC) $(CCFLAGS) -c translation.cpp
+# translation.o:	translation.cpp translation.h
+# 		$(CC) $(CCFLAGS) -c translation.cpp
 
 Morse.o:  Morse.cpp translation.h
 		$(CC) $(CCFLAGS) -c Morse.cpp

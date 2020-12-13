@@ -1,7 +1,7 @@
 /*
  * @Author       : maywzh
  * @Date         : 2020-12-13 19:38:11
- * @LastEditTime : 2020-12-13 19:44:58
+ * @LastEditTime : 2020-12-13 20:28:59
  * @LastEditors  : maywzh
  * @Description  : 
  * @FilePath     : /ji_coursenotes/2020fall/CSCI851/assignment/assignment3/code/Morse.cpp
@@ -37,4 +37,26 @@ bool Morse::checkSymbol(string data)
         }
     }
     return 1;
+}
+
+char Morse::translation_to_Latin()
+{
+    for (std::map<char, std::string>::iterator iter = morseRule.begin(); iter != morseRule.end(); iter++)
+    {
+        if (symbol == iter->second)
+        {
+            if (iter->first == '_')
+                return ' ';
+            else
+                return iter->first;
+        }
+    }
+
+    return '0';
+}
+
+ostream &operator<<(ostream &out, const Morse &morse)
+{
+    out << morse.symbol;
+    return out;
 }
