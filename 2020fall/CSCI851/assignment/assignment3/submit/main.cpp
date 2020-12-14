@@ -117,17 +117,6 @@ vector<Braille> Read_from_Braille(string inputfile)
 	return inputdata;
 }
 
-void ShowRule(std::map<char, std::string> rule)
-{
-	for (std::map<char, std::string>::iterator iter = rule.begin(); iter != rule.end(); iter++)
-	{
-		if (iter != rule.end())
-		{
-			std::cout << iter->first << " : " << iter->second << std::endl;
-		}
-	}
-}
-
 void translation(string from, string to, string inputfile, string outputfile)
 {
 	ifstream infile;
@@ -144,7 +133,7 @@ void translation(string from, string to, string inputfile, string outputfile)
 		con_morse.ShowSize();
 		cout << endl
 			 << endl;
-		ShowRule(morseRule);
+
 		char res;
 		Latin dd;
 		vector<Latin> latindata;
@@ -345,31 +334,6 @@ std::map<char, std::string> load_rule(string filename)
 	return rule;
 }
 
-std::map<std::string, char> load_reverse_rule(string filename)
-{
-	ifstream morsef;
-	morsef.open(filename);
-	string lineStr;
-	string key;
-	char value;
-	int pos = 0;
-	std::map<std::string, char> rule;
-
-	getline(morsef, lineStr);
-	while (!morsef.eof())
-	{
-		value = lineStr[0];
-		pos = lineStr.find(" ");
-		key = lineStr.substr(pos + 1, lineStr.length() - 1);
-
-		getline(morsef, lineStr);
-
-		rule.insert(std::make_pair(key, value));
-		key.clear();
-	}
-	return rule;
-}
-
 int main(int argc, char *argv[])
 {
 	if (argc != 5)
@@ -403,7 +367,6 @@ int main(int argc, char *argv[])
 	{
 		cout << "Loading Morse rule ..." << endl;
 		morseRule = load_rule(MORSEFILE);
-		rmorseRule = load_reverse_rule(MORSEFILE);
 	}
 	if ((std::string)argv[1] == "B" || (std::string)argv[2] == "B")
 	{
@@ -411,7 +374,6 @@ int main(int argc, char *argv[])
 			 << endl
 			 << endl;
 		brailleRule = load_rule(BRAILLEFILE);
-		rbrailleRule = load_reverse_rule(BRAILLEFILE)
 	}
 
 	translation(argv[1], argv[2], argv[3], argv[4]);

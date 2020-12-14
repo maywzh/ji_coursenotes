@@ -6,15 +6,13 @@
 #include <utility>
 #include <cstring>
 #include <typeinfo>
-#include <algorithm>
 
 #define MORSEFILE "Morse.txt"
 #define BRAILLEFILE "Braille.txt"
 
 static std::map<char, std::string> morseRule;
 static std::map<char, std::string> brailleRule;
-static std::map<std::string, char> rmorseRule;
-static std::map<std::string, char> rbrailleRule;
+
 template <typename T>
 class Container
 {
@@ -102,11 +100,10 @@ public:
 
 	char Trans2Latin()
 	{
-
-		std::cout << "Finding " << symbol << std::endl;
-		for (std::map<char, std::string>::iterator iter = rmorseRule.begin(); iter != rmorseRule.end(); iter++)
+		std::cout << "Finding " << symbol << endl;
+		for (std::map<char, std::string>::iterator iter = morseRule.begin(); iter != morseRule.end(); iter++)
 		{
-			std::cout << iter->second << "|" << symbol << "|" << std::endl;
+
 			if (symbol == iter->second)
 			{
 				if (iter->first == '_')
