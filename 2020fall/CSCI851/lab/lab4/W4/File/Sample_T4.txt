@@ -1,0 +1,3 @@
+Dog: Flash is a Spotty thing.
+The dog's age is 4
+License fee: $17.55

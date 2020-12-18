@@ -1,0 +1,14 @@
+
+
+
+\item What is the following doing? Write a program that uses this sensibly. See what happens if you don't
+appropriately tidy up the memory.
+\begin{verbatim}
+float **fVar;
+fVar = new float* [10];
+for(int i = 0; i < 10; ++i)
+	fVar[i] = new float[10];
+\end{verbatim}
+
+
+
