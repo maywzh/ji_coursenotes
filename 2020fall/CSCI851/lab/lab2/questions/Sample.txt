@@ -1,0 +1,10 @@
+Enter the number of chairs for the table 5
+Enter the colour of the cushions red
+Enter the surface area of the table 16
+Enter the type of wood -
+m for mahogany, o for oak, or p for pine f
+Enter the type of wood -
+m for mahogany, o for oak, or p for pine o
+You have chosen a oak table with:
+ dimensions 4 by 4 and 5 chairs with red cushions!
+Price is $2775.

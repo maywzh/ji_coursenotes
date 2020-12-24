@@ -1,0 +1,16 @@
+-------------------------------------------
+Sales       Class A     Class B     Class C
+0 - 20       0.03        0.02        0.005        
+21 - 50      0.05        0.035        0.015        
+51+          0.075        0.055        0.04        
+-------------------------------------------
+Name: Thomas the Tank Engine
+Grade: A     Staff Number # 1001
+Salary: $10000     Sales Made: 21
+Bonus: $10500
+
+Name: Bob the Builder
+Grade: C     Staff Number # 1002
+Salary: $5000     Sales Made: 56
+Bonus: $11200
+

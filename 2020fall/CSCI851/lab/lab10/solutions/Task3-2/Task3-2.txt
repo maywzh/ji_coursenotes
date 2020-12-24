@@ -1,0 +1,18 @@
+Running each executable without the library being present:
+
+$ ./M1
+Enter the first integer : 1
+Enter the second integer : 2
+Enter the third integer : 3
+The sum of 1 2 3 is ... 6
+$ ./M2
+Enter the first integer : 1
+Enter the second integer : 2
+Enter the third integer : 3
+The sum of 1 2 3 is ... 6
+$ ./M3
+ld.so.1: M3: fatal: libcode.so: open failed: No such file or directory
+Killed
+$
+
+M3 fails because it is a shared library and was not placed into the executable.

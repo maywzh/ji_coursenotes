@@ -1,0 +1,2 @@
+Profiling allows you to see how long each function or point in a program takes to run.
+Using this data, you can find out which functions are worth optimizing.

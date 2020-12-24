@@ -1,0 +1,30 @@
+$ CC -std=c++11 Three.cpp -o Three
+
+$ ./Three 1000
+Time with reserved: 0.000165s
+Time without reserved: 0.00025s
+
+$ ./Three 10000
+Time with reserved: 0.001505s
+Time without reserved: 0.001567s
+
+$ ./Three 100000
+Time with reserved: 0.016003s
+Time without reserved: 0.01715s
+
+$ ./Three 1000000
+Time with reserved: 0.142244s
+Time without reserved: 0.159127s
+
+$ ./Three 10000000
+Time with reserved: 1.26934s
+Time without reserved: 1.57749s
+
+$ ./Three 200000000
+Time with reserved: 30.0366s
+terminate called after throwing an instance of 'std::bad_alloc'
+  what():  std::bad_alloc
+Abort
+
+Time with reserved is faster in all cases tested.
+The program runs into memory problems with very large numbers.

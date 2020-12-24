@@ -1,0 +1,30 @@
+Dependency: "uses"
+- In the code: Class A contains a functions that accepts class B as an argument. 
+- [Library] has access to info of one or more [Publisher]s.
+
+Association: "has a", "uses"
+- In the code: Class B is a member (field) of class A.
+- [Library] uses one or more [Supplier]s.
+
+Aggregation: "owns", "contains"
+- Similar to association, but used in the sense that class A is a container, which holds one or more class B.
+- Objects that are part of the container can exist separately.
+- In the code: Class A contains an array of class B objects.
+- [Library] owns one or more [Book]s. However, a [Book] can still exist without the [Library].
+
+Composition: "owns", "contains"
+- Similar to aggregation, but objects that are part of the container cannot exist on their own.
+- In the code: Class A creates a pointer to class B in the constructor. Then, in the destructor, it deletes the pointer.
+- [Library] owns [Budget]. The [Budget] cannot exist without the [Library].
+- A [Rectangle] has 4 [Vertex] (vertices). A [Vertex] does not make sense to exist on its own.
+
+Inheritance (specialisation/generalisation): "is a"
+- [Rectangle] inherits the base characteristics of a [Shape].
+- Polymorphism: When a child class overrides a function in the parent class.
+
+(a) Library, books. Aggregation. Library owns one or more books. Books can still exist without a library.
+(b) Insects, legs, wings. Composition. It would not really make sense for legs and wings to exist separately.
+(c) Pet shop, big dogs, little dogs. Aggregation. A pet shop contains dogs, but the dogs can exist without the pet shop.
+(d) Insects, ants, spiders. Inheritance. Ants and spiders inherit characteristics of insects.
+(e) Pencil case, pencils. Aggregation. A pencil case contains pencils. Pencils can exist without the pencil case.
+(f) Robots, androids, humans. An android may inherit a robot. There is no relationship between humans and robots or androids.

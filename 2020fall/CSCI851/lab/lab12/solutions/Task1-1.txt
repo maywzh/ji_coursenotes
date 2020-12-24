@@ -1,0 +1,77 @@
+a. The difference is the the order that the integers are placed into the list.
+b. Output as below:
+
+  One.cpp
+  33
+  23
+  13
+  15
+  3
+  9
+  13
+  12
+
+  Two.cpp
+  33
+  23
+  12
+  13
+  9
+  15
+  13
+  3
+
+c. The programs sort the integers in the list using the compint function.
+
+d. The original order of the list has an impact on the on the sorted result. It may not be what the programmer intended, so it may not be a good thing.
+
+  One.cpp
+
+    Original: 3, 13, 23, 15, 9, 13, 12, 33, 
+
+    a:b     a-3:b+3   a-3 > b+3
+    ---------------------------
+    13:3    10:6      true
+    15:23   12:26     false
+    23:13   20:16     true
+    15:13   12:16     false
+    15:3    12:6      true
+    13:9    10:12     false
+    33:12   30:15     true
+    33:9    30:12     true
+    12:9    9:12      false
+    12:13   9:16      false
+    33:23   30:26     true
+    9:23    6:26      false
+    9:13    6:16      false
+    9:15    6:18      false
+    9:3     6:6       false
+
+    Sorted: 33, 23, 13, 15, 3, 9, 13, 12
+
+  Two.cpp
+
+    Original: 33, 12, 13, 9, 15, 23, 13, 3, 
+
+    a:b     a-3:b+3   a-3 > b+3
+    ---------------------------
+    12:33   9:36      false
+    9:13    6:16      false
+    13:33   10:36     false
+    13:12   10:15     false
+    23:15   20:18     true
+    3:13    0:16      false
+    13:23   10:26     false
+    13:15   10:18     false
+    23:33   20:36     false
+    23:12   20:15     true
+    15:12   12:15     false
+    15:13   12:16     false
+    15:9    12:12     false
+
+    Sorted: 33, 23, 12, 13, 9, 15, 13, 3
+
+e. I would not expect this behaviour with most sorting algorithms.
+   I would expect the result of a sorting algorithm to remain the same, regardless of the original order of the list.
+   Perhaps a different implementation is required if this is not what the developer intended.
+   One solution would be to perform a preliminary sort() with no arguments first.

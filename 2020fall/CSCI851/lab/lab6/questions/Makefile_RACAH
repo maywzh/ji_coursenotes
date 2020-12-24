@@ -1,0 +1,150 @@
+# makefile for racah
+
+#  The variables OBJDIR, BINDIR, SYSTEM should be defined here or in the
+#   environment. eg setenv BINDIR ".."
+
+OBJDIR = ../obj
+BINDIR = ..
+
+PROG = racah
+CODE_VERSION = v3.1
+
+# NOTE: the variables SYSTEM_PATH, USER_PATH, HELP_FILE, RACAH_INIT
+#	 each define system strings that can be
+#	 configured at installation time.
+
+#	any file to be used is looked for, first with USER_PATH,
+#	 and if absent, then with SYSTEM_PATH.
+#	As distributed, the f6 and f3 directories, the HELP_FILE 
+#        and all the src code are attached to SYSTEM_PATH
+
+SYSTEM_PATH = ~bgs/racah/  # this is reset for canterbury to ~physphb2/racah/
+HELP_FILE   = intro.tex
+RACAH_INIT  = racah.init
+
+USER_PATH   = ~/racah/  # any user-defined files can be put in their home dir
+
+CC = cc -g
+LDFLAGS = -lm
+
+# general default variables  ----------------------------
+
+O = $(OBJDIR)/
+EXE = $(BINDIR)/$(PROG)
+
+OBJECTS = $(O)racah.o $(O)io.o $(O)c_number.o $(O)c_matrix.o $(O)tree.o \
+	$(O)irrep.o $(O)threej.o $(O)sixj.o $(O)ninej.o $(O)twojm.o \
+	$(O)threejm.o $(O)group.o $(O)branch.o $(O)transfrm.o \
+	$(O)matrix.o
+
+COMMON_H = io.h c_number.h  c_matrix.h
+GROUPS_H = globals.h group.h irrep.h threej.h
+ALL_H   = $(COMMON_H) $(GROUPS_H) sixj.h ninej.h \
+	  branch.h twojm.h threejm.h transfrm.h matrix.h
+
+# targets   --------------------------------------------
+
+default: $(SYSTEM)
+
+clean:
+	rm -f $(EXE) $(O)*.o
+
+AIX:
+	$(MAKE) $(EXE)
+
+DEC_OSF1:
+	$(MAKE) CC="cc -std -Dbase=100000000" $(EXE)
+
+Solaris_1:
+	$(MAKE) $(EXE)
+
+Solaris_2:  # optimze -xO4
+	$(MAKE) $(EXE)
+
+HP_UX:
+	$(MAKE) CC="cc -Aa -g -D_HPUX_SOURCE" LDFLAGS="-lM" $(EXE)
+
+Irix_R3000:
+	$(MAKE) $(EXE)
+
+Irix_R3000mp:
+	$(MAKE) $(EXE)
+
+Irix_R4000:
+	$(MAKE) CC="cc -g -mips2 -Dbase=100000000" $(EXE)
+
+Irix4_R4000:
+	$(MAKE) $(EXE)
+
+Linux:
+	$(MAKE) CC="gcc -g -Wall" $(EXE)
+
+canterbury:  # optimize -O2  This is the Canterbury setup
+	$(MAKE) CC="gcc -g -Wall" SYSTEM_PATH=~physphb2/racah/ $(EXE)
+
+schur: # gives Hughan Ross' code for autoextensions 
+	$(MAKE) CC="gcc -g -Wall" SYSTEM_PATH=~physphb2/racah/ \
+	SCHUR="-DSCHUR=schur/schur" \
+	SCHUR_IO="schur_io.c" SCHUR_GP="schurgp.c" $(EXE)
+
+DOS: 	# this hasn't been tested, and wont work!
+	$(MAKE) CC="cc -g -DIBM" \
+	SYSTEM_PATH="" RACAH_INIT="racah.ini" LDFLAGS=""   $(EXE)
+
+DJGPP:  # DJGPP is the GNU C compiler for 486's
+	$(MAKE) CC=gcc\ -O2\ -Wall\ -DDJGPP \
+	RACAH_INIT=racah.ini SYSTEM_PATH=/racah USER_PATH=/racah $(EXE)
+ 
+
+# the main bit --------------------------------------------
+
+$(EXE): $(OBJECTS)
+	$(CC) -o $(EXE) $(OBJECTS) $(LDFLAGS)
+
+$(O)racah.o: racah.c $(ALL_H)
+	$(CC) -DRACAH_INIT=$(RACAH_INIT) -c racah.c -o $(O)racah.o
+
+$(O)io.o: io.c io.h system.c $(SCHUR_IO)
+	$(CC) -DHELP_FILE=$(HELP_FILE) -DUSER_PATH=$(USER_PATH) \
+	-DSYSTEM_PATH=$(SYSTEM_PATH) -DCODE_VERSION=$(CODE_VERSION) \
+	 $(SCHUR) -c io.c -o $(O)io.o
+
+$(O)c_number.o: c_number.c linteger.c io.h c_number.h
+	$(CC) -c c_number.c -o $(O)c_number.o
+
+$(O)c_matrix.o: c_matrix.c io.h c_number.h c_matrix.h
+	$(CC) -c c_matrix.c -o $(O)c_matrix.o
+
+$(O)tree.o: tree.c tree.h io.h
+	$(CC) -c tree.c -o $(O)tree.o
+
+$(O)group.o: group.c $(COMMON_H) $(GROUPS_H) sixj.h
+	$(CC) -c group.c -o $(O)group.o
+
+$(O)irrep.o: irrep.c $(COMMON_H) $(GROUPS_H) $(SCHUR_GP)
+	$(CC) $(SCHUR)-c irrep.c -o $(O)irrep.o
+
+$(O)threej.o: threej.c $(COMMON_H) $(GROUPS_H) 
+	$(CC) -c threej.c -o $(O)threej.o
+
+$(O)sixj.o: sixj.c tree.h sixj.h calc_6j.c $(COMMON_H) $(GROUPS_H)
+	$(CC) -c sixj.c -o $(O)sixj.o
+
+$(O)ninej.o: ninej.c $(COMMON_H) $(GROUPS_H) sixj.h ninej.h
+	$(CC) -c ninej.c -o $(O)ninej.o
+
+$(O)twojm.o: twojm.c $(COMMON_H) $(GROUPS_H) tree.h twojm.h branch.h 
+	$(CC) -c twojm.c -o $(O)twojm.o
+
+$(O)threejm.o: threejm.c calc_3jm.c $(ALL_H)
+	$(CC) -c threejm.c -o $(O)threejm.o
+
+$(O)branch.o: branch.c $(ALL_H)
+	$(CC) -c branch.c -o $(O)branch.o
+
+$(O)transfrm.o: transfrm.c $(ALL_H)
+	$(CC) -c transfrm.c -o $(O)transfrm.o
+
+$(O)matrix.o: matrix.c $(ALL_H)
+	$(CC) -c matrix.c -o $(O)matrix.o
+
