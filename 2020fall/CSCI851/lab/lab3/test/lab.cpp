@@ -1,10 +1,10 @@
 /*
  * @Author       : maywzh
- * @Date         : 2020-12-25 01:28:46
- * @LastEditTime : 2020-12-25 14:34:11
+ * @Date         : 2020-12-25 14:17:06
+ * @LastEditTime : 2020-12-25 14:17:30
  * @LastEditors  : maywzh
  * @Description  : 
- * @FilePath     : /ji_coursenotes/2020fall/CSCI851/lab/lab3/W3/solution/Task2.cpp
+ * @FilePath     : /ji_coursenotes/2020fall/CSCI851/lab/lab3/test/lab.cpp
  * @
  * Copyright (c) 2017 maywzh.
  * 
@@ -16,27 +16,9 @@
  */
 #include <iostream>
 
-int main()
+int main(int argc, char const *argv[])
 {
-    std::cout << "The basic types size: " << std::endl;
-    std::cout << "sizeof(char) = " << sizeof(char) << std::endl;
-    std::cout << "sizeof(short) = " << sizeof(short) << std::endl;
-    std::cout << "sizeof(int) = " << sizeof(int) << std::endl;
-    std::cout << "sizeof(float) = " << sizeof(float) << std::endl;
-    std::cout << "sizeof(double) = " << sizeof(double) << std::endl;
-    std::cout << "sizeof(long) = " << sizeof(long) << std::endl;
-    std::cout << "sizeof(long long) = " << sizeof(long long) << std::endl;
-    std::cout << "----------------------" << std::endl;
-    char A[] = "Elephant";      // 9
-    std::string B = "Elephant"; // 24
-    int C[8] = {5};             // 32
-
-    std::cout << "sizeof(A) = " << sizeof(A) << std::endl;
-    std::cout << "sizeof(B) = " << sizeof(B) << std::endl;
-    std::cout << "sizeof(C) = " << sizeof(C) << std::endl;
-
-    for (int i = 0; i < 8; ++i)
-        std::cout << "C[" << i << "] = " << C[i] << std::endl;
-
+    const int value = 128;
+    value = 256;
     return 0;
 }
