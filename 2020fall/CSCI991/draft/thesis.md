@@ -1,7 +1,6 @@
 # Personalized High School Math Exercises Recommendation based on Knowledge Graph Completion and Knowledge Tracing
 
 ## Introduction
-
 In the context of the popularity of artificial intelligence technology, AI has become a trend in various industries. The theoretical breakthrough has brought about large-scale commercial applications and profoundly changed social development. 
 
 When it comes to AI-education, although there are many deep learning and artificial intelligence solutions, there are not many projects that can be applied and implemented in practice. Most of the solutions are still in the conceptual stage or data collection stage, which is far from practical application. 
