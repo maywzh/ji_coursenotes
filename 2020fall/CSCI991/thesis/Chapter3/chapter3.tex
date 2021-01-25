@@ -8,30 +8,18 @@
 \fi
 
 \section{Motivation}
+%本章节为该推荐系统的一个核心部分，即通过知识追踪的方式获取学生的知识掌握状态。知识追踪是根据学生的以往的答题记录来建模学生的知识掌握情况，从而获取学生的知识状态。知识追踪的模型非常丰富，早期的知识追踪模型一般基于一阶马尔可夫模型的贝叶斯知识追踪（BKT），它们的基础假设是学生的知识状态用一组二进制变量来表示，也取得了不错的结果。在2015年，Piech等人提出了深度知识追踪模型（DKT），首次将循环神经网络应用于知识追踪任务，用于追踪学生知识熟练度随着时间动态变化的过程，并学习学生对于知识熟练度的潜在向量表示，标志着基于神经网络模型的知识追踪研究的序幕。后来，又有针对模型冷启动问题对于题干的文本信息进行挖掘的改进模型Exercise-Enhanced Recurrent Neural Network（EERNN），它也利用了注意力机制来考虑题目相似度的问题。后来张等人考虑知识概念与技能关系的Dynamic Key-Value Memory Networks模型被提出来，它针对技能-问题的二元关系建立了Key-Value模型，取得了较好的效果。同时该模型也具有较好的可解释性，它直观地反映了技能掌握程度到问题解答情况的逻辑关系，也符合相关的教育心理学原理。对于这些模型也有一些研究考虑了一些其他因素的影响，例如引入了遗忘问题、多知识点问题和先验技能图谱的考虑。但现有的模型往往对于知识点之间的连接考虑不足，或者简单地将知识点作为相互独立的节点，或者将知识点作为简单的层次模型，但实际上，知识点之间是图状结构，在这种情况下，采用图神经网络来表征知识点之间的关系，训练其embedding是一个较好的解决方案。
 
-%本章节为该推荐系统的一个核心部分，即通过知识追踪的方式获取学生的知识掌握状态。知识追踪是根据学生的以往的答题记录来建模学生的知识掌握情况，从而获取学生的知识状态。知识追踪的模型非常丰富，早期的知识追踪模型一般基于一阶马尔可夫模型的贝叶斯知识追踪（BKT），它们的基础假设是学生的知识状态用一组二进制变量来表示，也取得了不错的结果。在2015年，Piech等人首次将循环神经网络应用于知识追踪任务，用于追踪学生知识熟练度随着时间动态变化的过程，并学习学生对于知识熟练度的潜在向量表示，标志着基于神经网络模型的知识追踪研究的序幕。
+This section is a core part of this recommendation system, which is to obtain the student's knowledge mastery status by means of knowledge tracking. Knowledge tracking is to model students' knowledge mastery based on their past answer records to obtain students' knowledge status. Models of knowledge tracking are abundant, and early models of knowledge tracking are generally based on Bayesian knowledge tracking (BKT) with first-order Markov models, which are based on the assumption that students' knowledge states are represented by a set of binary variables and have also achieved good results. In 2015, Piech et al.\cite{piech2015deep} proposed a deep knowledge tracking model (DKT), which for the first time applied recurrent neural networks to a knowledge tracking task for tracking the dynamic change of students' knowledge proficiency over time and learning students' potential vector representation for knowledge proficiency, marking the prologue of knowledge tracking research based on neural network models. Later, there was the improved model Exercise-Enhanced Recurrent Neural Network (EERNN)\cite{su2018exercise} for mining the textual information of question stems for the model cold-start problem, which also utilized the attention mechanism to consider the problem of topic similarity. Later Zhang et al. proposed the Dynamic Key-Value Memory Networks model\cite{zhang2017dynamic}, which considers the relationship between knowledge concepts and skills, was proposed, which builds a Key-Value model for the skill-question binary relationship and achieves better results. It also has good interpretability, which intuitively reflects the logical relationship between skill mastery and question answering, and is in line with the relevant educational psychology principles. For these models there are also some studies that consider the influence of some other factors, such as the introduction of forgetting problem, multiple knowledge point problem and a priori skill mapping considerations. However, the existing models often do not consider enough the connection between knowledge points, either simply as mutually independent nodes or as simple hierarchical models, but in fact, knowledge points are graph-like structures, in which case, using graph neural networks to characterize the relationship between knowledge points and training their embedding is a better solution.
 
-This section is a core part of this recommendation system, which is to obtain the student's knowledge mastery status by means of knowledge tracking. Knowledge tracking is to model students' knowledge mastery based on their past answer records to obtain students' knowledge status. Models of knowledge tracking are abundant, and early models of knowledge tracking are generally based on Bayesian knowledge tracking (BKT) of first-order Markov models, which are based on the assumption that students' knowledge states are represented by a set of binary variables, and have also achieved good results. In 2015, Piech et al.\cite{piech2015deep} first applied recurrent neural networks to a knowledge tracking task for tracking the dynamics of student knowledge proficiency over time and learning students' potential vector representations for knowledge proficiency, marking the prologue of knowledge tracking research based on neural network models.
 
-%
+\section{Proposed Model}
 
-\section{}
+\subsection{Algorithm Overview}
 
-\subsection{Knowledge Tracing}
+\subsection{Graph Neural Networks}
 
-\subsection{First Subsub Section in the Second Subsection}
-
-\subsection{Third Subsection in the First Section}
-\dots and some more \dots
-
-\subsubsection{First Subsub Section in the Third Subsection}
-\dots and some more in the first subsub section otherwise it all looks the same
-doesn't it? well we can add some text to it and some more and some more and
-some more and some more and some more and some more and some more \dots
-
-\subsubsection{Second Subsub Section in the Third Subsection}
-\dots and some more in the first subsub section otherwise it all looks the same
-doesn't it? well we can add some text to it \dots
+\subsection{}
 
 \section{Second Section of the Third Chapter}
 and here I write more \dots
