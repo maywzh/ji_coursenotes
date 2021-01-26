@@ -527,3 +527,5 @@ GitHub.sublime-settings
 *.zip
 
 .vscode
+
+*__latexindent_temp*.tex
