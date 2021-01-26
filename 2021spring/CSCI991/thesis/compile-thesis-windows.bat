@@ -42,6 +42,7 @@ DEL "%FILENAME%.idx"
 DEL "%FILENAME%.out"
 DEL "%FILENAME%.nlo"
 DEL "%FILENAME%.nls"
+DEL "%FILENAME%.ilg"
+DEL "%FILENAME%.log"
 
-
-"%FILENAME%.pdf"
+:: "%FILENAME%.pdf"
