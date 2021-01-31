@@ -36,4 +36,4 @@ thesis.run.xml*
 *run.xml*
 *.latexmkrc*
 *_latexmk*
-*.__latexindent_temp.tex
+*__latexindent_temp.tex
