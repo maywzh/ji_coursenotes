@@ -12,11 +12,20 @@
 
 
 \section{Research Motivation}
-As the starting point of a recommendation system, the data source is often the first step to consider.
+%这一章提出了对于基于
 
+%知识图是作为一种知识领域图谱，它显示了知识的发展过程和结构。通过可视化技术来描述知识资源及其载体，对知识及其相互联系进行挖掘、分析、构建、绘制和显示。同时知识图谱作为人工智能的重要组成部分，目前在推荐系统和问答系统中发挥着越来越重要的作用。
+
+%本文以知识图谱存储高中数学的知识点和问题作为推荐系统的数据源。它作为知识追踪模型部分的补充输入，提供学科知识点的先验知识。
+
+%首先介绍了知识图谱的基本原理和常用技术，然后提出了一种自动提取试题知识点的知识图谱构建方法，并介绍了知识图谱的构建和知识点提取、语料获取和预处理、知识点识别和知识图谱更新技术。
+
+%本文将利用知识图构建数学领域的知识图，构建学生用户模型。在高中数学领域知识图的构建中，将教材中涉及的基本概念和关键词抽象成知识点本体，通过命名实体识别法对高中数学习题中的知识点关键词进行识别，然后将抽象出来的知识点与关键词进行关联，构建高中数学知识图。高中数学中大量的知识点与学生个体对每个知识点的掌握程度相关联，建立学生用户模型，将学生用户模型抽象成知识图，将有利于进行个性化的练习推荐。
+As the starting point of a recommendation system, the data source is often the first step to consider.
+b
 A knowledge graph is a map that serves as a kind of knowledge domain mapping, which shows the knowledge development process and structure. Visualization techniques are used to describe knowledge resources and their carriers, to mine, analyze, construct, map and display knowledge and their interconnections. Also knowledge graphs, as an important part of artificial intelligence, are now playing an increasingly important role in recommendation systems and question and answer systems.
 
-In this section, this paper uses the knowledge graph to store the knowledge points and questions of high school mathematics as the data source for the recommendation system. It serves as a supplementary input to the knowledge tracing model section and provides a priori knowledge of the subject knowledge points.
+In this section, this paper uses the knowledge graph to store the knowledge points and questions of high school mathematics as the data source for the recommendation system. It serves as a supplementary input to the knowledge tracing model section and provides a priori k中nowledge of the subject knowledge points.
 
 Firstly, the basic principles and common techniques of knowledge graph are introduced, and then a knowledge graph construction method for automatic extraction of knowledge points of test questions is proposed, and the knowledge graph construction and knowledge point extraction, corpus acquisition and preprocessing, knowledge point identification and knowledge graph updating techniques are introduced.
 
@@ -26,7 +35,10 @@ In this paper, we will use the knowledge graph in constructing the knowledge gra
 
 
 \section{Basic theory of knowledge graph}
-The Knowledge Graph is a new concept introduced by Google in 2012. Knowledge graph is essentially a knowledge base of Semantic Network, which describes conceptual entities and their relationships in the objective world in a structured form. From the beginning of oogle search, to nowadays chatbots, big data risk control, securities investment, intelligent medical care, adaptive education, recommendation system, all use knowledge graph.
+
+%知识图谱是谷歌在2012年提出的一个新概念。知识图本质上是语义网络的知识库，它以结构化的形式描述客观世界中的概念实体及其关系。从一开始的ogle搜索，到现在的聊天机器人、大数据风控、证券投资、智能医疗、自适应教育、推荐系统，都使用了知识图谱。
+
+The Knowledge Graph is a new concept introduced by Google in 2012. Knowledge graph is essentially a knowledge base of Semantic Network, which describes conceptual entities and their relationships in the objective world in a structured form. From the beginning of oogle search, to nowadays chatbots, big data risk control, securities investment, intelligent medical care, adaptive education, recommendation system, all use knowledge graph. 
 
 \subsection{Representation}
 Knowledge graphs focus on concepts, entities and their relationships, where entities are things in the objective world and concepts are generalizations and abstractions of things with the same properties. Ontology is the basis of knowledge representation of knowledge graph, which can be formally represented as $O=\{C,H,P,A,I\}$, where $C$ is the set of concepts, such as transactional concepts and event-like concepts, $H$ is the set of contextual relations of concepts, $P$ is the set of attributes, which describes the features possessed by concepts, $A$ is the set of rules, which describes the domain rules, and $I$ is the set of instances, which describes the instance-attribute-value.
