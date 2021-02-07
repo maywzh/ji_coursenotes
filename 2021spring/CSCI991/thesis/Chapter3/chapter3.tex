@@ -55,13 +55,13 @@ The key point of this section is to track students' knowledge. This paper propos
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=0.8\textwidth]{ch2-fig1.jpeg}
+	\includegraphics[width=1.0\textwidth]{ch2-fig1.jpeg}
 	\caption{Overview Model Structure}
 	\label{fig1}
 \end{figure}
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=0.8\textwidth]{ch2-fig2.jpeg}
+	\includegraphics[width=1.0\textwidth]{ch2-fig2.jpeg}
 	\caption{The Graph of Knowledge Point and Question}
 	\label{fig2}
 \end{figure}
@@ -89,7 +89,7 @@ $$, where $||$ means concatenation operation. It is a single-layer feedforward n
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=0.8\textwidth]{ch2-fig3.png}
+	\includegraphics[width=1.0\textwidth]{ch2-fig3.png}
 	\caption{Feature extraction and attention mechanism}
 	\label{fig3}
 \end{figure}
@@ -103,7 +103,7 @@ To make the result of self-attention more stable. The multi-headed attention mec
 $K$ independent attention mechanisms can be achieved by connecting $k$ features together.
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=0.8\textwidth]{ch2-fig4.png}
+	\includegraphics[width=1.0\textwidth]{ch2-fig4.png}
 	\caption{Multi−head Attention}
 	\label{fig4}
 \end{figure}
@@ -121,7 +121,7 @@ From this layer, we got the embedded question and knowledge point vector $\hat{q
 The input of transformer Block is the concatenation of the embedded question $\hat{q}_{i}$ and corresponding answer $a_i$, i.e. $e_i=\hat{q}_{i}\|a_i$. The general structure is like Figure \ref{fig5} and the Transformer-block is like Figure \ref{fig6}. The traditional Transformer model is modified to apply to knowledge tracing task. The Transformer can learn the W-matrix relating underlying knowledge points and questions rather than directly learn the representation of each question. This allows the model to learn deeper connections between problems, resulting in better inference performance. It can cluster problems with similar knowledge points and reduce the variance for less frequent problems.
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=0.8\textwidth]{ch2-fig5.jpeg}
+	\includegraphics[width=1.0\textwidth]{ch2-fig5.jpeg}
 	\caption{The Transformer architecture}
 	\label{fig5}
 \end{figure}
