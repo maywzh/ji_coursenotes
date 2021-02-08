@@ -56,12 +56,10 @@ The structure of the recommendation system is like Figure. \ref{fig0}
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=1.0\textwidth]{fig0.jpeg}
+	\includegraphics[width=1.0\textwidth]{ch4-fig1.png}
 	\caption{The Architecture of Recommendation System}
 	\label{fig0}
 \end{figure}
-
-
 
 \subsection{Recall Stage}
 In the recall phase, due to the large amount of data, the algorithm of Collaborative Filtering (CF) can achieve half the result with twice the effort. It only needs to calculate the similarity of students' knowledge states $h^\prime$ with other students who have similar knowledge states $h$.
@@ -70,32 +68,76 @@ Collaborative Filtering, the most classic type of recommendation algorithm, incl
 
 Generally speaking, there are three types of collaborative filtering recommendations. The first one is user-based collaborative filtering, the second one is item-based collaborative filtering, and the third one is model-based collaborative filtering.
 
-\subsubsection{Predict the similarity between users}
+
+\subsubsection{Student Similarity Calculation}
+The purpose of collaborative filtering is to recommend recommended items of users similar to the target user to the user. The user-based collaborative filtering algorithm is discovered through historical behavior data of users, and measures and scores these preferences. Set the similarity of users through a given algorithm, and make recommendations among users who have the same preferences.
+
 User-based collaborative filtering mainly considers the similarity between users and users. As long as we find out the items that similar users like and predict the target users' ratings of the corresponding items, we can find the items with the highest ratings and recommend them to users. The item-based collaborative filtering is similar to the user-based collaborative filtering, except that we turn to find the similarity between items and users, and only if we find the ratings of certain items by target users, then we can predict similar items with high similarity and recommend the highest rated similar items to users. For example, if you buy a machine learning related book online, the website will immediately recommend a bunch of machine learning, big data related books to you, and the idea of collaborative filtering based on items is obviously used here.
 
 Similar statistics are used to get neighboring users with similar hobbies or interests, so we can use the obtained user's knowledge state embedding $h_t$ from the previous knowledge tracking module, which can be used as the basis for calculating the similarity. The first step is to find other users who are similar to the new user based on their historical behavior information; at the same time, to predict the items that the current new user may like based on the evaluation information of these similar users on other items. Given the user rating data matrix R, the user-based collaborative filtering algorithm needs to define the similarity function $s : U \times U \to R$ to calculate the similarity between users, and then calculate the recommendation results based on the rating data and the similarity matrix. We can use the cosine similarity to calculate this value.
 
-$$
-s(u, v)=\frac{h_{u} \cdot h_{v}}{\left\|h_{u}\right\|_{2}\left\|h_{v}\right\|_{2}}
-
-
-%=\frac{\sum_{i} h_{u, i} h_{v, i}}{\sqrt{\sum_{i} h_{u, i}^{2}} \sqrt{\sum_{i} h_{v, i}^{2}}}
-$$
-
+\begin{align}
+  s(u, v)=\frac{h_{u} \cdot h_{v}}{\left\|h_{u}\right\|_{2}\left\|h_{v}\right\|_{2}}
+\end{align}
 where $h_u$ and $h_v$ represent the knowledge mastery state of user $u$ and $v$.
 We can obtain the exercise recommendation history \mathcal{H} of user B, which is closest to user A to be recommended, and then use the exercises in \mathcal{H} as a rough set as the next sorted list of exercises.
-\subsubsection{Calculate the similarity between exercise}
+
+\subsubsection{Exercise Filtering System}
+Through the previous section, we calculated the similarity of students, which comprehensively considers students’ current knowledge proficiency, students’ personalized information and so on. Next, we need to use the collaborative filtering algorithm to generate a rough recommended set of exercises $S_{raw}$.
+
+When the recommendation system is running, the system will record the students’ question records. After calculating the similarity of the students, they can be sorted according to the similarity. Given a threshold, list the students whose similarity is greater than the threshold, and divide the students according to the list. The exercises corresponding to the problem record are added to $S_{raw}$.
+
+The algorithm is as \ref{alg:EF}:
+\begin{algorithm}[h]
+  \caption{Exercise Filtering Algorithm}
+  \label{alg:EF}
+  \begin{algorithmic}
+  \REQUIRE ~~\\ 
+  The target student $s_i$; \\
+  The student represent matrix, $S=\{s_0,s_1,...,s_N\}$;\\
+  The log of recommendation $L=\{L_0,L_1,...,L_N\}$ \\
+  The log-exercise relation: $L_i=\{E_0,...,E_{|L_i|}\}$\\
+  The filtering thread $T$;
+  \ENSURE ~~\\ %算法的输出：Output
+  The filted exercise set $S={E_{s_0},...,E_{s_{N^'}}}$
+  \STATE Calculate the similarity between $s_i$ and other students $Sim$
+  \STATE Sort $Sim$ and get the top $T$ results $R=\{s_{r_0},...,s_{r_T}\}$; 
+  \STATE Aggregate the exercises log of students in $R$, get exercise set $S$
+  \RETURN $S$; %算法的返回值
+  \end{algorithmic}
+\end{algorithm}
+
 
 
 
 \subsection{Ranking Stage}
-In the previous step we obtained a list of recommended exercises for similar students by collaborative filtering in the recall phase, and in this phase, a ranking of the exercises is needed to further reduce the amount of recommendations.
+%本节我们设计了一个基于MLP的试题排序模型，该模型输入学生的知识状态向量$h_t$，以及通过序列嵌入学习的知识状态改变向量$d_h$，以及习题的知识点标注向量。
 
-\mynote{TODO:设计一个图神经网络用于知识点权重embedding or 简单的PMF等认知诊断算法} 
-\section{Experiment}
+In the previous step we obtained a list of recommended exercises for similar students by collaborative filtering in the recall phase, and in this phase, a ranking of the exercises is needed to further reduce the amount of recommendations and give the ranking sequence of exercise. In this section, we design an MLP-based test ordering model. The model inputs the student's knowledge state vector $h_t$, the knowledge state change vector $d_h$ learned through sequence embedding, and the knowledge point labeling vector of the exercises. The architecture is like figure \ref{fig:ch4-fig3}.
 
-\subsection{Database}
-\subsection{Baseline}
-\subsection{Result}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=1.0\textwidth]{ch4-fig3.png}
+	\caption{The Architecture of Recommendation System}
+	\label{fig:ch4-fig3}
+\end{figure}
+
+The model is a three-layer multi-layer perceptron, with two fully connected layers in the middle, and the output layer uses softmax to output the probabilities of exercise recommendation. The input layer inputs the student's knowledge state vector, knowledge state change vector and exercise knowledge point label vector. The model is a three-layer multi-layer perceptron, with two fully connected layers in the middle, and the output layer uses softmax to output the probabilities of exercise recommendation. The input layer inputs the student's knowledge state vector, knowledge state change vector and exercise knowledge point label vector. The loss function is:
+\begin{align}
+\mathcal{L}=\sum_{i=1}^{T} y_i \log \left(\text{sigmoid}\left(\hat{y}_i\right)\right)+\left(1-y_i \right) \log (1-\text{sigmoid}(\hat{y}_i))
+\end{align}
+where $\hat{y}_i$ is the output value, $y_i$ is actual recommended weights for the exercises.
+
+After training the model, sort the output values, and the sorted list is the recommended problem set.
+%在训练好模型之后，将输出值进行排序，排序的列表即为推荐的习题集。
+% \mynote{TODO:设计一个图神经网络用于知识点权重embedding or 简单的PMF等认知诊断算法} 
+% \section{Experiment}
+
+% \subsection{Database}
+% \subsection{Baseline}
+% \subsection{Result}
 
 \section{Summary}
+%本节提出了一个基于召回-排序的双阶段推荐系统框架，在召回阶段，采用了协同过滤的方式，排序阶段，则采用了多层感知机，来对学生知识状态-习题知识点进行建模，同时考虑到学生的学习速度即知识状态改变，输出习题与当前知识状态匹配度。
+This section proposes a two-stage recommendation system framework based on recall-ranking. In the recall stage, collaborative filtering is used, and in the ranking stage, multi-layer perceptrons are used to model students' knowledge state-exercise knowledge points. At the same time, taking into account the student’s learning speed, that is, the change of knowledge state, the output exercises match the current knowledge state.

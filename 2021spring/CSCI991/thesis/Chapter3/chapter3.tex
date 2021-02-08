@@ -77,15 +77,18 @@ In this part, embedding calculation can obtain the deep correlation between prob
 GAT applies an attention mechanism to weighted summation of neighboring node features. The weights of the neighboring node features depend entirely on the node features and are independent of the graph structure. In GAT, each node in the graph can be assigned different weights to neighboring nodes based on their characteristics. With the introduction of the attention mechanism, it is only relevant to adjacent nodes, i.e., nodes that share edges, without the need to get information about the whole graph. Specifically, the node of GAT network represents the knowledge point embedding or question embedding. Denote the node as $i$ and the neighbor node set as $\mathcal{N}_{i}$ and the embedding of node as $x_i$, the input of the graph attention layer is $x=\left\{\overrightarrow{x_{1}}, \overrightarrow{x_{2}}, \overrightarrow{x_{3}} \ldots \overrightarrow{x_{n}}|\overrightarrow{x_{i}}\in \mathbb{R}_{F}\right\}$ and the output is $ x=\left\{\overrightarrow{x_{1}}^{\prime}, \overrightarrow{x_{2}}^{\prime}, \overrightarrow{x_{3}}^{\prime} \ldots \overrightarrow{x_{n}}^{\prime}|\overrightarrow{x_{i}}^\prime\in \mathbb{R}_{F^\prime}\right\}$, where $n$ is the number of nodes and $F$ is the number of node features. represents the features of all nodes, and $F^{\prime}$ denotes the output node features. In order to get the corresponding input and output transformations, we need to perform at least one linear transformation based on the input features to get the output features, so we need to train a weight matrix for all nodes: $W \in \mathbb { R } ^ { F ^ { \prime } \times F }$, and this weight matrix is the relationship between the F features of the input and the F′ features of the output.
 
 To achieve better high dimension feature representation, we need at least one linear transformation from low-dimensional to high-dimensional features. Therefore, a linear transformation is first done for the node features and then the coefficients are calculated. The attention mechanism of self-attention is implemented for each node, and the attention coefficients (Attention coefficients) and its softmax value are:
-$$e_{i j}=a\left(\mathbf{W} \vec{x}_{i}, \mathbf{W} \vec{x}_{j}\right)$$
-$$\alpha_{i j}=\operatorname{softmax}_{j}\left(e_{i j}\right)=\frac{\exp \left(e_{i j}\right)}{\sum_{k \in \mathcal{N}_{i}} \exp \left(e_{i k}\right)}$$
+\begin{align}
+	e_{i j}&=a\left(\mathbf{W} \vec{x}_{i}, \mathbf{W} \vec{x}_{j}\right) \\
+	\alpha_{i j}&=\operatorname{softmax}_{j}\left(e_{i j}\right)=\frac{\exp \left(e_{i j}\right)}{\sum_{k \in \mathcal{N}_{i}} \exp \left(e_{i k}\right)}
+\end{align}
 
 The $e_{ij}$ and $\alpha_{ij}$ represents the importance of node $i$ to node $j$. 
 
 In General, the complete attention mechanism is:
-$$
-\alpha_{i j}=\frac{\exp \left(\text{LeakyReLu}\left(\overrightarrow{\mathrm{a}}^{T}\left[W \vec{h}_{i} \| W \vec{h}_{j}\right]\right)\right)}{\sum_{k \in N_{i}} \exp \left(\text{LeakyReLu}\left(\overrightarrow{\mathrm{a}}^{T}\left[W \vec{h}_{i} \| W \vec{h}_{k}\right]\right)\right)}
-$$, where $||$ means concatenation operation. It is a single-layer feedforward neural network, $\overrightarrow { \mathrm { a } } \in \mathbb { R } ^ { 2 F ^ { \prime } }$ is the weight matrix connecting the layers in the neural network, and a LeakyReLu function is also added to the output layer of this feedforward neural network. The procedure is like Figure \ref{fig3};
+\begin{align}
+	\alpha_{i j}=\frac{\exp \left(\text{LeakyReLu}\left(\overrightarrow{\mathrm{a}}^{T}\left[W \vec{h}_{i} \| W \vec{h}_{j}\right]\right)\right)}{\sum_{k \in N_{i}} \exp \left(\text{LeakyReLu}\left(\overrightarrow{\mathrm{a}}^{T}\left[W \vec{h}_{i} \| W \vec{h}_{k}\right]\right)\right)}
+\end{align}
+where $||$ means concatenation operation. It is a single-layer feedforward neural network, $\overrightarrow { \mathrm { a } } \in \mathbb { R } ^ { 2 F ^ { \prime } }$ is the weight matrix connecting the layers in the neural network, and a LeakyReLu function is also added to the output layer of this feedforward neural network. The procedure is like Figure \ref{fig3};
 
 \begin{figure}[h]
 	\centering
@@ -95,8 +98,9 @@ $$, where $||$ means concatenation operation. It is a single-layer feedforward n
 \end{figure}
 
 Here, since the graph structure information is to be considered, the concept of masked attention is introduced, which means that the denominator of the softmax considers only the first-order information about the neighbors. By this method, each node then gets a weight about the neighboring nodes and then the combined representation of the nodes is obtained by summing.
-
-$$\vec{x}_{i}^{\prime}=\sigma\left(\sum_{j \in \mathcal{N}_{i}} \alpha_{i j} \mathbf{W} \vec{x}_{j}\right)$$
+\begin{align}
+	\vec{x}_{i}^{\prime}=\sigma\left(\sum_{j \in \mathcal{N}_{i}} \alpha_{i j} \mathbf{W} \vec{x}_{j}\right)
+\end{align}
 where $\sigma$ are the non-linear transformation such as ReLU or LeakyReLU. If the edge $j \to i$ does not exist, we can simply omit the calculation of $\alpha_{ij}$, which can reduce the calculation. The formula means that the output characteristics of this node are related to all the nodes adjacent to it and are obtained after the nonlinear activation of their linear sum.
 
 To make the result of self-attention more stable. The multi-headed attention mechanism can be used here, like Figure \ref{fig4}. Multi-head attention is actually a combination of multiple self-attention structures, each head learns features in a different representation space, and multiple heads may learn slightly different attention focus, which gives the model more capacity.
@@ -107,9 +111,16 @@ $K$ independent attention mechanisms can be achieved by connecting $k$ features 
 	\caption{Multi−head Attention}
 	\label{fig4}
 \end{figure}
-$$\vec{x}_{i}^{\prime}=\|_{k=1}^{K} \sigma\left(\sum_{j \in \mathcal{N}_{i}} \alpha_{i j}^{k} \mathbf{W}^{k} \vec{x}_{j}\right)$$
+\begin{align}
+	\vec{x}_{i}^{\prime}=\|_{k=1}^{K} \sigma\left(\sum_{j \in \mathcal{N}_{i}} \alpha_{i j}^{k} \mathbf{W}^{k} \vec{x}_{j}\right)
+\end{align}
+
+
 K-averaging is used to replace the join operation and to delay the application of the final nonlinear function. The attention coefficients between different nodes after regularization are obtained by the above operation and can be used to predict the output characteristics of each node:
-$$\vec{x}_{i}^{\prime}=\sigma\left(\frac{1}{K} \sum_{k=1}^{K} \sum_{j \in \mathcal{N}_{i}} \alpha_{i j}^{k} \mathbf{W}^{k} \vec{x}_{j}\right)$$
+\begin{align}
+	\vec{x}_{i}^{\prime}=\sigma\left(\frac{1}{K} \sum_{k=1}^{K} \sum_{j \in \mathcal{N}_{i}} \alpha_{i j}^{k} \mathbf{W}^{k} \vec{x}_{j}\right)
+\end{align}
+
 There are a total of $K$ attention mechanisms to consider, with $k$ denoting the kth of $K$. 
 
 %GAT获取的questions，knowledge point和answer的嵌入。分别记作$\mathbf{E}_{p} \in \mathbb{R}^{|\mathcal{P}| \times d}$,$ \mathbf{E}_{q} \in \mathbb{R}^{|\mathcal{Q}| \times d}$, $\mathbf{E}_{a} \in \mathbb{R}^{2 \times d}$，用z代表embedding size。
@@ -134,13 +145,11 @@ The input of transformer Block is the concatenation of the embedded question $\h
 \end{figure}
 
 The output of Embedding layer $e_i$ is passed into a Transformer Block, which is a self-attention module. 
-$$
-\begin{array}{c}
-q_{i}=Q e_{i}, k_{i}=K e_{i}, v_{i}=V e_{i} \\
-A_{i j}=\frac{q_{i} k_{j}+b\left(\Delta t_{i-j}\right)}{\sqrt{d_{k}}}, \forall j \leq i \\
-h_{i}=\sum_{j \leq i} \operatorname{softmax}\left(A_{i j}\right) v_{j}
-\end{array}
-$$
+\begin{align}
+	q_{i}&=Q e_{i}, k_{i}=K e_{i}, v_{i}=V e_{i} \\
+A_{i j}&=\frac{q_{i} k_{j}+b\left(\Delta t_{i-j}\right)}{\sqrt{d_{k}}}, \forall j \leq i \\
+h_{i}&=\sum_{j \leq i} \operatorname{softmax}\left(A_{i j}\right) v_{j}
+\end{align}
 
 the masked attention layer first extracts query gi, key k;, and value y; from the inputs ei. It then assign an attention, Aii, to a past interaction e, based on two components: 
 \begin{enumerate}
@@ -150,15 +159,14 @@ the masked attention layer first extracts query gi, key k;, and value y; from th
 
 A Transformer block also have feedforward layer, normalization layer, and residual connections. The outputs of a stack of Transformer blocks is feed to the linear layer before calculating the final loss. $e_{i+1}$ and $e_{i+1}^*$ are the results of applying Interaction Mapping Layer to $(\hat{q}_{i+1}, 1)$ and $(\hat{q}_{i+1}, 0)$.
 
-$$
-\begin{array}{c}
-p_{i+1}=\frac{\exp \left(h_{i} e_{i+1}\right)}{\exp \left(h_{i} e_{i+1}\right)+\exp \left(h_{i} e_{i+1}^{*}\right)} \\
-\text { Loss }=-\sum_{i} c_{i+1} \log \left(p_{i+1}\right)+\left(1-c_{i+1}\right) \log \left(1-p_{i+1}\right)
-\end{array}
-$$
+\begin{align}
+	p_{i+1}&=\frac{\exp \left(h_{i} e_{i+1}\right)}{\exp \left(h_{i} e_{i+1}\right)+\exp \left(h_{i} e_{i+1}^{*}\right)} \\
+	\text{Loss}&=-\sum_{i} c_{i+1} \log \left(p_{i+1}\right)+\left(1-c_{i+1}\right) \log \left(1-p_{i+1}\right)
+\end{align}
+
 
 \subsection{The Knowledge State }
-\mynote{TODO}
+
 
 \section{Experiments}
 In this section, we conduct several experiments to investigate the performance of our model. We first evaluate the prediction error by comparing our model with other baselines on three public datasets. Then the paper make ablation studies on the GAT and GATKT to show their effectivenes. Finally, the paper evaluates the design decisions of the recap module to investigate which design performs better.
