@@ -2,9 +2,9 @@
 
 % **************************** Define Graphics Path **************************
 \ifpdf
-    \graphicspath{{Chapter3/Figs/Raster/}{Chapter3/Figs/PDF/}{Chapter3/Figs/}}
+	\graphicspath{{Chapter3/Figs/Raster/}{Chapter3/Figs/PDF/}{Chapter3/Figs/}}
 \else
-    \graphicspath{{Chapter3/Figs/Vector/}{Chapter3/Figs/}}
+	\graphicspath{{Chapter3/Figs/Vector/}{Chapter3/Figs/}}
 \fi
 
 \section{Motivation}
@@ -28,11 +28,11 @@ The mathematical representation of the knowledge tracing task is an interactive 
 
 %图嵌入是一个图神经网络的重要研究课题，它通过保留图的网络拓扑结构和节点信息，将图中节点表示为低维向量，然后通过其他的机器学习算法进行处理。在本章中，我们通过一个图嵌入算法来表征知识点之间的关联和知识点信息，从而获取对于知识结构的嵌入学习。
 
-The traditional neural network model, which has achieved greater success in extracting features from Euclidean space data, has not worked well for applications on non-Euclidean spaces. And currently, many practical application scenarios are formally generated in non-Euclidean spaces. In the process of knowledge tracing, the connection between knowledge points is exactly a structure of non-Euclidean space, i.e., knowledge graph structure. The irregularity and complexity of graphs pose a great challenge to traditional deep learning algorithms, and the variability of the connections of the nodes of graphs leads to a huge computational effort, which makes some traditional neural network models that perform well in Euclidean space cannot be directly applied to non-Euclidean space. For example, in processing images where each pixel of the image is independent of each other, convolutional neural networks are easier to compute and parallelize for structures like images that are stable and single and have individual parts independent of each other, but this is not the case for graph structures where each node is connected to and has dependencies on other nodes. To characterize the interdependencies between graph nodes, Graph Neural Networks (GNNs) are proposed. 
+The traditional neural network model, which has achieved greater success in extracting features from Euclidean space data, has not worked well for applications on non-Euclidean spaces. And currently, many practical application scenarios are formally generated in non-Euclidean spaces. In the process of knowledge tracing, the connection between knowledge points is exactly a structure of non-Euclidean space, i.e., knowledge graph structure. The irregularity and complexity of graphs pose a great challenge to traditional deep learning algorithms, and the variability of the connections of the nodes of graphs leads to a huge computational effort, which makes some traditional neural network models that perform well in Euclidean space cannot be directly applied to non-Euclidean space. For example, in processing images where each pixel of the image is independent of each other, convolutional neural networks are easier to compute and parallelize for structures like images that are stable and single and have individual parts independent of each other, but this is not the case for graph structures where each node is connected to and has dependencies on other nodes. To characterize the interdependencies between graph nodes, Graph Neural Networks (GNNs) are proposed.
 
 There are five major classes of graph neural networks: Graph Convolution Networks (GCN), Graph Attention Networks(GAN), Graph Autoencoders(GAE), Graph Generative Networks(GGN), and Graph Spatial-temporal Networks(GSN). GCN, the pioneer of graph neural networks, simply applies the convolution operation in image processing to graph structured data processing and gives a specific derivation. It actually aggregates the features of graph neighbor nodes to make a linear transformation. To solve the problem of insufficient depth of graph propagation, multiple GCN layers can be stacked to capture the k-hop neighbor node information. However, the GCN processing requires putting the whole graph into the computational memory, which limits its computational performance. It also requires pre-inputting the graph structure information, which limits its application. To solve the problem that GCN aggregates neighbor nodes ignoring different weights of different neighbor nodes, Graph Attention Networks (GAT) introduces a masked self-attention mechanism to compute the representation of each node by assigning different weights according to the neighbor node characteristics. It does not need to use a pre-constructed graph, so only the neighbor nodes need to be known, which greatly increases the computational speed.
 
-Graph embedding is an important research topic in graph neural networks, which represents nodes in a graph as low-dimensional vectors by preserving the network topology and node information of the graph, which is then processed by other machine learning algorithms. In this chapter, we characterize the association between knowledge points and knowledge point information by a graph embedding algorithm to obtain the learning of embedding for knowledge structures. 
+Graph embedding is an important research topic in graph neural networks, which represents nodes in a graph as low-dimensional vectors by preserving the network topology and node information of the graph, which is then processed by other machine learning algorithms. In this chapter, we characterize the association between knowledge points and knowledge point information by a graph embedding algorithm to obtain the learning of embedding for knowledge structures.
 
 \subsection{Transformer}
 
@@ -48,9 +48,9 @@ Graph embedding is an important research topic in graph neural networks, which r
 
 The key point of this section is to track students' knowledge. This paper proposes a knowledge tracking model based on graph self attention network and Transformer model GATKT. In the experimental verification phase, the baseline performance of the model on several datasets achieves SOA. The first layer of this model is the embedding aggregation layer. In this layer, a gat is used to aggregate the problem embedding and the knowledge point embedding, and to show the internal relationship between the problem and the knowledge point. It can solve the problem of data sparsity and the problem of knowledge point dependence and complex relationship. The second layer is a transformer based knowledge tracking model. Referring to the famous transformer model proposed by Google Brain \cite{vaswani2017attention}, this layer designs a knowledge tracking model based on the transformer mechanism, which inputs questions and skills embedding, and outputs the prediction of the correct answer to the next question. Through this mechanism, the model can realize the learning of long range dependence. In addition, the model can output the hidden knowledge state through the decoder, which is the key to exercise recommendation in the next stage. In a word, the overall architecture diagram of the model can be seen in Figure \ref{fig1}, which is divided into the following modules:
 \begin{enumerate}
-  \item GAT-based embedding layer: embedding layer based on gat: this layer uses embedding method to represent questions, knowledge points and answers. In the graph neural network, each problem represents a node, which is connected with several knowledge nodes, and these knowledge nodes are connected with the related problem nodes. Considering the relevance of knowledge points, knowledge points and knowledge points can be directly connected. The structure is shown in the figure \ref{fig2}. This embedding layer does not carry out pre training, but carries out overall training with other layers to optimize the final result.
-  \item GAT-based knowledge state tracking layer: this layer establishes a graph of knowledge points, which is used to track the students' mastery of knowledge points. This layer updates the knowledge state through the knowledge state, and finally it will be used in the subsequent recommendation process.
-  \item Knowledge tracing layer based on Transformer: this layer is similar to the traditional transformer structure, and has two parts: encoder and decoder. It learns the weight matrix of knowledge points and problems, and can solve the problem of knowledge point dependence. Through the attention mechanism, it can also capture similar problems of knowledge points.
+	\item GAT-based embedding layer: embedding layer based on gat: this layer uses embedding method to represent questions, knowledge points and answers. In the graph neural network, each problem represents a node, which is connected with several knowledge nodes, and these knowledge nodes are connected with the related problem nodes. Considering the relevance of knowledge points, knowledge points and knowledge points can be directly connected. The structure is shown in the figure \ref{fig2}. This embedding layer does not carry out pre training, but carries out overall training with other layers to optimize the final result.
+	\item GAT-based knowledge state tracking layer: this layer establishes a graph of knowledge points, which is used to track the students' mastery of knowledge points. This layer updates the knowledge state through the knowledge state, and finally it will be used in the subsequent recommendation process.
+	\item Knowledge tracing layer based on Transformer: this layer is similar to the traditional transformer structure, and has two parts: encoder and decoder. It learns the weight matrix of knowledge points and problems, and can solve the problem of knowledge point dependence. Through the attention mechanism, it can also capture similar problems of knowledge points.
 \end{enumerate}
 
 \begin{figure}[h]
@@ -70,19 +70,19 @@ The key point of this section is to track students' knowledge. This paper propos
 \subsection{GAT-based Embedding Layer}
 %本节中，采用了图自注意力网络来对问题-知识点关联图进行embedding。它用于降低表征问题数据中知识点的数据稀疏性。我们把第i个问题记作$q_i$，学生对第i个问题的回答记作$a_i$，其中$a_i\in\{0,1\}$，则答题记录记为$X=\{x_1,x_2,...x_{t-1}\}$，其中$x_i=(q_i,a_i)$，我们基于前$t-1$次的答题记录来预测第$t$题的回答正确概率。对于每个问题$q_i$，有一系列的知识点与之相关，这些知识点记作$\{p_1,p_2,...,p_{n_i}\}$。在这里进行embedding计算可以获取问题之间的深层次关联关系，即知识点的相关性。用图结构可以较为理想地做到这一点。从直观上来说，也可以通过对于知识点的掌握情况来推知问题的答对概率。该方法也可以建立对于问题-知识点的更好的表征。
 
-In this section, the graph self attention network is used to embed the problem knowledge point association graph. The embedding method can reduce the sparsity in representing the knowledge points in question data. Let's denoted the i-th question as $q_i$. The answer to question I is $a_i$. The answer record is $x = \{x_1,x_2,...x_{T-1}\}$, where $X_i=(q_i,a_i)$. Based on the answer records of the previous $t-1$ times, we predict the correct probability of the answer to question $t$. For each question $q_i$, there are a series of knowledge points related to it, these knowledge points are denoted as $\{p_1,p_2,...,p_{n_i}\}$, $n_i$ marks the number of knowledge points related to the question $q_i$. Similarly, a knowledge point $p_j$ has also several related question $q_1,...,q_{n_j}$, where $n_j$ is the number of question related to the knowledge point $p_j$. So a graph $\mathcal{G}$ can be used to represent the relation of question-knowledge point, where $\mathcal{G}=\{(q, r_{qp}, p) | q \in \mathcal{Q}, s \in \mathcal{S}}$ and $\mathcal{Q}$ denotes question sets and $\mathcal{P}$ denotes knowledge point sets respectively. $r_{qp}=1$ if $q$ is related to $p$. 
+In this section, the graph self attention network is used to embed the problem knowledge point association graph. The embedding method can reduce the sparsity in representing the knowledge points in question data. Let's denoted the i-th question as $q_i$. The answer to question I is $a_i$. The answer record is $x = \{x_1,x_2,...x_{T-1}\}$, where $X_i=(q_i,a_i)$. Based on the answer records of the previous $t-1$ times, we predict the correct probability of the answer to question $t$. For each question $q_i$, there are a series of knowledge points related to it, these knowledge points are denoted as $\{p_1,p_2,...,p_{n_i}\}$, $n_i$ marks the number of knowledge points related to the question $q_i$. Similarly, a knowledge point $p_j$ has also several related question $q_1,...,q_{n_j}$, where $n_j$ is the number of question related to the knowledge point $p_j$. So a graph $\mathcal{G}$ can be used to represent the relation of question-knowledge point, where $\mathcal{G}=\{(q, r_{qp}, p) | q \in \mathcal{Q}, s \in \mathcal{S}}$ and $\mathcal{Q}$ denotes question sets and $\mathcal{P}$ denotes knowledge point sets respectively. $r_{qp}=1$ if $q$ is related to $p$.
 
-In this part, embedding calculation can obtain the deep correlation between problems, that is, the correlation of knowledge points. This can be achieved with graph structure. Intuitively speaking, we can also infer the correct answer probability of the question by mastering the knowledge points. This method can also establish a better representation of problem knowledge points. In the question-knowledge graph, GAT can capture the high order relation for n-hop neighboring nodes. Also, GAT uses the idea of transformer for reference and introduces masked self attention mechanism. When calculating the representation of each node in the graph, it will assign different weights to its neighbors according to their different characteristics. 
+In this part, embedding calculation can obtain the deep correlation between problems, that is, the correlation of knowledge points. This can be achieved with graph structure. Intuitively speaking, we can also infer the correct answer probability of the question by mastering the knowledge points. This method can also establish a better representation of problem knowledge points. In the question-knowledge graph, GAT can capture the high order relation for n-hop neighboring nodes. Also, GAT uses the idea of transformer for reference and introduces masked self attention mechanism. When calculating the representation of each node in the graph, it will assign different weights to its neighbors according to their different characteristics.
 
 GAT applies an attention mechanism to weighted summation of neighboring node features. The weights of the neighboring node features depend entirely on the node features and are independent of the graph structure. In GAT, each node in the graph can be assigned different weights to neighboring nodes based on their characteristics. With the introduction of the attention mechanism, it is only relevant to adjacent nodes, i.e., nodes that share edges, without the need to get information about the whole graph. Specifically, the node of GAT network represents the knowledge point embedding or question embedding. Denote the node as $i$ and the neighbor node set as $\mathcal{N}_{i}$ and the embedding of node as $x_i$, the input of the graph attention layer is $x=\left\{\overrightarrow{x_{1}}, \overrightarrow{x_{2}}, \overrightarrow{x_{3}} \ldots \overrightarrow{x_{n}}|\overrightarrow{x_{i}}\in \mathbb{R}_{F}\right\}$ and the output is $ x=\left\{\overrightarrow{x_{1}}^{\prime}, \overrightarrow{x_{2}}^{\prime}, \overrightarrow{x_{3}}^{\prime} \ldots \overrightarrow{x_{n}}^{\prime}|\overrightarrow{x_{i}}^\prime\in \mathbb{R}_{F^\prime}\right\}$, where $n$ is the number of nodes and $F$ is the number of node features. represents the features of all nodes, and $F^{\prime}$ denotes the output node features. In order to get the corresponding input and output transformations, we need to perform at least one linear transformation based on the input features to get the output features, so we need to train a weight matrix for all nodes: $W \in \mathbb { R } ^ { F ^ { \prime } \times F }$, and this weight matrix is the relationship between the F features of the input and the F′ features of the output.
 
 To achieve better high dimension feature representation, we need at least one linear transformation from low-dimensional to high-dimensional features. Therefore, a linear transformation is first done for the node features and then the coefficients are calculated. The attention mechanism of self-attention is implemented for each node, and the attention coefficients (Attention coefficients) and its softmax value are:
 \begin{align}
-	e_{i j}&=a\left(\mathbf{W} \vec{x}_{i}, \mathbf{W} \vec{x}_{j}\right) \\
-	\alpha_{i j}&=\operatorname{softmax}_{j}\left(e_{i j}\right)=\frac{\exp \left(e_{i j}\right)}{\sum_{k \in \mathcal{N}_{i}} \exp \left(e_{i k}\right)}
+	e_{i j}      & =a\left(\mathbf{W} \vec{x}_{i}, \mathbf{W} \vec{x}_{j}\right)                                                                            \\
+	\alpha_{i j} & =\operatorname{softmax}_{j}\left(e_{i j}\right)=\frac{\exp \left(e_{i j}\right)}{\sum_{k \in \mathcal{N}_{i}} \exp \left(e_{i k}\right)}
 \end{align}
 
-The $e_{ij}$ and $\alpha_{ij}$ represents the importance of node $i$ to node $j$. 
+The $e_{ij}$ and $\alpha_{ij}$ represents the importance of node $i$ to node $j$.
 
 In General, the complete attention mechanism is:
 \begin{align}
@@ -121,7 +121,7 @@ K-averaging is used to replace the join operation and to delay the application o
 	\vec{x}_{i}^{\prime}=\sigma\left(\frac{1}{K} \sum_{k=1}^{K} \sum_{j \in \mathcal{N}_{i}} \alpha_{i j}^{k} \mathbf{W}^{k} \vec{x}_{j}\right)
 \end{align}
 
-There are a total of $K$ attention mechanisms to consider, with $k$ denoting the kth of $K$. 
+There are a total of $K$ attention mechanisms to consider, with $k$ denoting the kth of $K$.
 
 %GAT获取的questions，knowledge point和answer的嵌入。分别记作$\mathbf{E}_{p} \in \mathbb{R}^{|\mathcal{P}| \times d}$,$ \mathbf{E}_{q} \in \mathbb{R}^{|\mathcal{Q}| \times d}$, $\mathbf{E}_{a} \in \mathbb{R}^{2 \times d}$，用z代表embedding size。
 
@@ -144,24 +144,24 @@ The input of transformer Block is the concatenation of the embedded question $\h
 	\label{fig6}
 \end{figure}
 
-The output of Embedding layer $e_i$ is passed into a Transformer Block, which is a self-attention module. 
+The output of Embedding layer $e_i$ is passed into a Transformer Block, which is a self-attention module.
 \begin{align}
-	q_{i}&=Q e_{i}, k_{i}=K e_{i}, v_{i}=V e_{i} \\
-A_{i j}&=\frac{q_{i} k_{j}+b\left(\Delta t_{i-j}\right)}{\sqrt{d_{k}}}, \forall j \leq i \\
-h_{i}&=\sum_{j \leq i} \operatorname{softmax}\left(A_{i j}\right) v_{j}
+	q_{i}   & =Q e_{i}, k_{i}=K e_{i}, v_{i}=V e_{i}                                           \\
+	A_{i j} & =\frac{q_{i} k_{j}+b\left(\Delta t_{i-j}\right)}{\sqrt{d_{k}}}, \forall j \leq i \\
+	h_{i}   & =\sum_{j \leq i} \operatorname{softmax}\left(A_{i j}\right) v_{j}
 \end{align}
 
-the masked attention layer first extracts query gi, key k;, and value y; from the inputs ei. It then assign an attention, Aii, to a past interaction e, based on two components: 
+the masked attention layer first extracts query gi, key k;, and value y; from the inputs ei. It then assign an attention, Aii, to a past interaction e, based on two components:
 \begin{enumerate}
-  \item $q_i k_j$, the query-key agreement between $e_i$ and $e_j$, which could be interpreted as the degree of latent skills overlapping between interaction $e_i$ and $e_j$;
-  \item A time gap bias, $b(\delta t_{i-j})$, which adjusts the attention weight by the time gap between interactions $e_i$ and $e_j$. The hidden representation $h_i$ is a weighted sum of the past value representations of $e_i$.
+	\item $q_i k_j$, the query-key agreement between $e_i$ and $e_j$, which could be interpreted as the degree of latent skills overlapping between interaction $e_i$ and $e_j$;
+	\item A time gap bias, $b(\delta t_{i-j})$, which adjusts the attention weight by the time gap between interactions $e_i$ and $e_j$. The hidden representation $h_i$ is a weighted sum of the past value representations of $e_i$.
 \end{enumerate}
 
 A Transformer block also have feedforward layer, normalization layer, and residual connections. The outputs of a stack of Transformer blocks is feed to the linear layer before calculating the final loss. $e_{i+1}$ and $e_{i+1}^*$ are the results of applying Interaction Mapping Layer to $(\hat{q}_{i+1}, 1)$ and $(\hat{q}_{i+1}, 0)$.
 
 \begin{align}
-	p_{i+1}&=\frac{\exp \left(h_{i} e_{i+1}\right)}{\exp \left(h_{i} e_{i+1}\right)+\exp \left(h_{i} e_{i+1}^{*}\right)} \\
-	\text{Loss}&=-\sum_{i} c_{i+1} \log \left(p_{i+1}\right)+\left(1-c_{i+1}\right) \log \left(1-p_{i+1}\right)
+	p_{i+1}     & =\frac{\exp \left(h_{i} e_{i+1}\right)}{\exp \left(h_{i} e_{i+1}\right)+\exp \left(h_{i} e_{i+1}^{*}\right)} \\
+	\text{Loss} & =-\sum_{i} c_{i+1} \log \left(p_{i+1}\right)+\left(1-c_{i+1}\right) \log \left(1-p_{i+1}\right)
 \end{align}
 
 
@@ -173,41 +173,41 @@ In this section, we conduct several experiments to investigate the performance o
 \subsection{Datasets}
 To evaluate our model, the experiments are conducted on three widely-used datasets in KT and the detailed statistics are shown in Table \ref{ch2-tb1}.
 \begin{itemize}
-  \item ASSIST09 was collected during the school year 2009-2010 from ASSIST ments online education platform. We conduct our experiments on" skill- builder " dataset. Following the previous work 32, we remove the duplicated records and scaffolding problems from the original dataset. This dataset has 3852 students with 123 skills, 17, 737 questions and 282,619 exercises
-  \item ASSIST12 was collected from the same platform as ASSIST09 during the school year 2012-2013. In this dataset, each question is only related to one skill, but one skill still corresponds to several questions. After the same data processing as ASSIST09, it has 2, 709, 436 exercises with 27, 485 students, 265 skills and 53, 065 questions.
-  \item Ednet was collected by 51. As the whole dataset is too large, we randomly select 5000 students with 189 skills, 12, 161 questions and 676, 974 exercises
+	\item ASSIST09 was collected during the school year 2009-2010 from ASSIST ments online education platform. We conduct our experiments on" skill- builder " dataset. Following the previous work 32, we remove the duplicated records and scaffolding problems from the original dataset. This dataset has 3852 students with 123 skills, 17, 737 questions and 282,619 exercises
+	\item ASSIST12 was collected from the same platform as ASSIST09 during the school year 2012-2013. In this dataset, each question is only related to one skill, but one skill still corresponds to several questions. After the same data processing as ASSIST09, it has 2, 709, 436 exercises with 27, 485 students, 265 skills and 53, 065 questions.
+	\item Ednet was collected by 51. As the whole dataset is too large, we randomly select 5000 students with 189 skills, 12, 161 questions and 676, 974 exercises
 \end{itemize}
- 
+
 \begin{table}[h]
-  \centering
-  \caption{Dataset Statistics}
-  \label{ch2-tb1}
-  \begin{array}{cccc}
-    \hline & \text { ASSIST09 } & \text { ASSIST12 } & \text { EdNet } \\
-    \hline \text { #students } & 3,852 & 27,485 & 5000 \\
-    \text { #questions } & 17,737 & 53,065 & 12,161 \\
-    \text { #skills } & 123 & 265 & 189 \\
-    \text { #exercises } & 282,619 & 2,709,436 & 676,974 \\
-    \text { questions per skill } & 173 & 200 & 147 \\
-    \text { skills per question } & 1.197 & 1.000 & 2.280 \\
-    \text { attempts per question } & 16 & 51 & 56 \\
-    \text { attempts per skill } & 2,743 & 10,224 & 8,420 \\
-    \hline
-    \end{array}
+	\centering
+	\caption{Dataset Statistics}
+	\label{ch2-tb1}
+	\begin{array}{cccc}
+		\hline                          & \text { ASSIST09 } & \text { ASSIST12 } & \text { EdNet } \\
+		\hline \text { #students }      & 3,852              & 27,485             & 5000            \\
+		\text { #questions }            & 17,737             & 53,065             & 12,161          \\
+		\text { #skills }               & 123                & 265                & 189             \\
+		\text { #exercises }            & 282,619            & 2,709,436          & 676,974         \\
+		\text { questions per skill }   & 173                & 200                & 147             \\
+		\text { skills per question }   & 1.197              & 1.000              & 2.280           \\
+		\text { attempts per question } & 16                 & 51                 & 56              \\
+		\text { attempts per skill }    & 2,743              & 10,224             & 8,420           \\
+		\hline
+	\end{array}
 \end{table}
 
-Note that for each dataset we only use the sequences of which the length is longer than 3 in the experiments as the too short sequences are meaningless. For each dataset, we split 80\% of all the sequences as the training set, 20\% as the test set. To evaluate the results on these datasets, we use the area under the curve (AUC)as the evaluation metric. 
+Note that for each dataset we only use the sequences of which the length is longer than 3 in the experiments as the too short sequences are meaningless. For each dataset, we split 80\% of all the sequences as the training set, 20\% as the test set. To evaluate the results on these datasets, we use the area under the curve (AUC)as the evaluation metric.
 
 \subsection{Baselines}
-In order to evaluate the effeciveness of our proposed model, we use the following models as our baselines. 
+In order to evaluate the effeciveness of our proposed model, we use the following models as our baselines.
 \begin{itemize}
-  \item BKT uses Bayesian inference for prediction, which models the knowledge state of the skill as a binary variable.
-  \item DKT is the first method that uses deep learning to model knowledge tracing task. It uses recurrent neural network to model knowledge state of students
-  \item DKVMN uses memory network to store knowledge state of different concepts respectively instead of using a single hidden state
-  \item DKT-Q is a variant of DKT that we change the input of DKT from skills to questions so that the DKT model directly uses question information for prediction 
-  \item DKIT-QS is a variant of DKT that we change the input of DKT to the concatenation of questions and skills so that the DKT model uses question and skill information simultaneously for prediction
+	\item BKT uses Bayesian inference for prediction, which models the knowledge state of the skill as a binary variable.
+	\item DKT is the first method that uses deep learning to model knowledge tracing task. It uses recurrent neural network to model knowledge state of students
+	\item DKVMN uses memory network to store knowledge state of different concepts respectively instead of using a single hidden state
+	\item DKT-Q is a variant of DKT that we change the input of DKT from skills to questions so that the DKT model directly uses question information for prediction
+	\item DKIT-QS is a variant of DKT that we change the input of DKT to the concatenation of questions and skills so that the DKT model uses question and skill information simultaneously for prediction
 \end{itemize}
-  
+
 
 
 \subsection{Performance}
@@ -218,19 +218,19 @@ Table \ref{ch2-tb2} reports the AUC results of all the compared methods. From th
 	\caption{AUC results over three datasets}
 	\label{ch2-tb2}
 	\begin{tabular}{cccc}
-		\hline Model & ASSIST09 & ASSIST12 & EdNet \\
-		\hline BKT & 0.6571 & 0.6204 & 0.6027 \\
-		KTM & 0.7169 & 0.6788 & 0.6888 \\
-		DKVMN & 0.7550 & 0.7283 & 0.6967 \\
-		DKT & 0.7561 & 0.7286 & 0.6822 \\
-		\hline DKT-Q & 0.7328 & 0.7621 & 0.7285 \\
-		DKT-QS & 0.7715 & 0.7582 & 0.7428 \\
+		\hline Model & ASSIST09                   & ASSIST12                   & EdNet                      \\
+		\hline BKT   & 0.6571                     & 0.6204                     & 0.6027                     \\
+		KTM          & 0.7169                     & 0.6788                     & 0.6888                     \\
+		DKVMN        & 0.7550                     & 0.7283                     & 0.6967                     \\
+		DKT          & 0.7561                     & 0.7286                     & 0.6822                     \\
+		\hline DKT-Q & 0.7328                     & 0.7621                     & 0.7285                     \\
+		DKT-QS       & 0.7715                     & 0.7582                     & 0.7428                     \\
 		\hline GATKT & $\mathbf{0 . 7 8 9 6}^{*}$ & $\mathbf{0 . 7 7 5 4}^{*}$ & $\mathbf{0 . 7 5 2 3}^{*}$ \\
-		\hline	
+		\hline
 	\end{tabular}
 \end{table}
 
 
 
 \section{Summary}
-In this chapter, we propose a knowledge tracing model to employ high-order question-skill relation graphs into question and skill representations. Besides, to model the student's mastery for the question and related skills, we design a recap module to select relevant history states to represent student's ability. Then we extend a generalized interaction module to represent the student's mastery degree of the new question and related skills in a consistent way. 
+In this chapter, we propose a knowledge tracing model to employ high-order question-skill relation graphs into question and skill representations. Besides, to model the student's mastery for the question and related skills, we design a recap module to select relevant history states to represent student's ability. Then we extend a generalized interaction module to represent the student's mastery degree of the new question and related skills in a consistent way.
