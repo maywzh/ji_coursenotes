@@ -2,9 +2,9 @@
 
 % **************************** Define Graphics Path **************************
 \ifpdf
-    \graphicspath{{Chapter5/Figs/Raster/}{Chapter5/Figs/PDF/}{Chapter5/Figs/}}
+  \graphicspath{{Chapter5/Figs/Raster/}{Chapter5/Figs/PDF/}{Chapter5/Figs/}}
 \else
-    \graphicspath{{Chapter5/Figs/Vector/}{Chapter5/Figs/}}
+  \graphicspath{{Chapter5/Figs/Vector/}{Chapter5/Figs/}}
 \fi
 
 \section{First Section of the Third Chapter}
@@ -39,7 +39,7 @@ and here I write more \dots
 
 \section{The Layout of Formal Tables}
 This section has been modified from ``Publication quality tables in \LaTeX*''
- by Simon Fear.
+by Simon Fear.
 
 The layout of a table has been established over centuries of experience and
 should only be altered in extraordinary circumstances.
@@ -64,89 +64,89 @@ typesetters and subeditors:
 
 \begin{enumerate}\setcounter{enumi}{2}
   \item Put the units in the column heading (not in the body of
-          the table).
+        the table).
   \item Always precede a decimal point by a digit; thus 0.1
-      {\em not} just .1.
+          {\em not} just .1.
   \item Do not use `ditto' signs or any other such convention to
-      repeat a previous value. In many circumstances a blank
-      will serve just as well. If it won't, then repeat the value.
+        repeat a previous value. In many circumstances a blank
+        will serve just as well. If it won't, then repeat the value.
 \end{enumerate}
 
 A frequently seen mistake is to use `\textbackslash begin\{center\}' \dots `\textbackslash end\{center\}' inside a figure or table environment. This center environment can cause additional vertical space. If you want to avoid that just use `\textbackslash centering'
 
 
 \begin{table}
-\caption{A badly formatted table}
-\centering
-\label{table:bad_table}
-\begin{tabular}{|l|c|c|c|c|}
-\hline
-& \multicolumn{2}{c}{Species I} & \multicolumn{2}{c|}{Species II} \\
-\hline
-Dental measurement  & mean & SD  & mean & SD  \\ \hline
-\hline
-I1MD & 6.23 & 0.91 & 5.2  & 0.7  \\
-\hline
-I1LL & 7.48 & 0.56 & 8.7  & 0.71 \\
-\hline
-I2MD & 3.99 & 0.63 & 4.22 & 0.54 \\
-\hline
-I2LL & 6.81 & 0.02 & 6.66 & 0.01 \\
-\hline
-CMD & 13.47 & 0.09 & 10.55 & 0.05 \\
-\hline
-CBL & 11.88 & 0.05 & 13.11 & 0.04\\
-\hline
-\end{tabular}
+  \caption{A badly formatted table}
+  \centering
+  \label{table:bad_table}
+  \begin{tabular}{|l|c|c|c|c|}
+    \hline
+                       & \multicolumn{2}{c}{Species I} & \multicolumn{2}{c|}{Species II}                \\
+    \hline
+    Dental measurement & mean                          & SD                              & mean  & SD   \\ \hline
+    \hline
+    I1MD               & 6.23                          & 0.91                            & 5.2   & 0.7  \\
+    \hline
+    I1LL               & 7.48                          & 0.56                            & 8.7   & 0.71 \\
+    \hline
+    I2MD               & 3.99                          & 0.63                            & 4.22  & 0.54 \\
+    \hline
+    I2LL               & 6.81                          & 0.02                            & 6.66  & 0.01 \\
+    \hline
+    CMD                & 13.47                         & 0.09                            & 10.55 & 0.05 \\
+    \hline
+    CBL                & 11.88                         & 0.05                            & 13.11 & 0.04 \\
+    \hline
+  \end{tabular}
 \end{table}
 
 \begin{table}
-\caption{A nice looking table}
-\centering
-\label{table:nice_table}
-\begin{tabular}{l c c c c}
-\hline
-\multirow{2}{*}{Dental measurement} & \multicolumn{2}{c}{Species I} & \multicolumn{2}{c}{Species II} \\
-\cline{2-5}
-  & mean & SD  & mean & SD  \\
-\hline
-I1MD & 6.23 & 0.91 & 5.2  & 0.7  \\
+  \caption{A nice looking table}
+  \centering
+  \label{table:nice_table}
+  \begin{tabular}{l c c c c}
+    \hline
+    \multirow{2}{*}{Dental measurement} & \multicolumn{2}{c}{Species I} & \multicolumn{2}{c}{Species II}                \\
+    \cline{2-5}
+                                        & mean                          & SD                             & mean  & SD   \\
+    \hline
+    I1MD                                & 6.23                          & 0.91                           & 5.2   & 0.7  \\
 
-I1LL & 7.48 & 0.56 & 8.7  & 0.71 \\
+    I1LL                                & 7.48                          & 0.56                           & 8.7   & 0.71 \\
 
-I2MD & 3.99 & 0.63 & 4.22 & 0.54 \\
+    I2MD                                & 3.99                          & 0.63                           & 4.22  & 0.54 \\
 
-I2LL & 6.81 & 0.02 & 6.66 & 0.01 \\
+    I2LL                                & 6.81                          & 0.02                           & 6.66  & 0.01 \\
 
-CMD & 13.47 & 0.09 & 10.55 & 0.05 \\
+    CMD                                 & 13.47                         & 0.09                           & 10.55 & 0.05 \\
 
-CBL & 11.88 & 0.05 & 13.11 & 0.04\\
-\hline
-\end{tabular}
+    CBL                                 & 11.88                         & 0.05                           & 13.11 & 0.04 \\
+    \hline
+  \end{tabular}
 \end{table}
 
 
 \begin{table}
-\caption{Even better looking table using booktabs}
-\centering
-\label{table:good_table}
-\begin{tabular}{l c c c c}
-\toprule
-\multirow{2}{*}{Dental measurement} & \multicolumn{2}{c}{Species I} & \multicolumn{2}{c}{Species II} \\
-\cmidrule{2-5}
-  & mean & SD  & mean & SD  \\
-\midrule
-I1MD & 6.23 & 0.91 & 5.2  & 0.7  \\
+  \caption{Even better looking table using booktabs}
+  \centering
+  \label{table:good_table}
+  \begin{tabular}{l c c c c}
+    \toprule
+    \multirow{2}{*}{Dental measurement} & \multicolumn{2}{c}{Species I} & \multicolumn{2}{c}{Species II}                \\
+    \cmidrule{2-5}
+                                        & mean                          & SD                             & mean  & SD   \\
+    \midrule
+    I1MD                                & 6.23                          & 0.91                           & 5.2   & 0.7  \\
 
-I1LL & 7.48 & 0.56 & 8.7  & 0.71 \\
+    I1LL                                & 7.48                          & 0.56                           & 8.7   & 0.71 \\
 
-I2MD & 3.99 & 0.63 & 4.22 & 0.54 \\
+    I2MD                                & 3.99                          & 0.63                           & 4.22  & 0.54 \\
 
-I2LL & 6.81 & 0.02 & 6.66 & 0.01 \\
+    I2LL                                & 6.81                          & 0.02                           & 6.66  & 0.01 \\
 
-CMD & 13.47 & 0.09 & 10.55 & 0.05 \\
+    CMD                                 & 13.47                         & 0.09                           & 10.55 & 0.05 \\
 
-CBL & 11.88 & 0.05 & 13.11 & 0.04\\
-\bottomrule
-\end{tabular}
+    CBL                                 & 11.88                         & 0.05                           & 13.11 & 0.04 \\
+    \bottomrule
+  \end{tabular}
 \end{table}

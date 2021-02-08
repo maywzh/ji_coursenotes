@@ -2,9 +2,9 @@
 
 % **************************** Define Graphics Path **************************
 \ifpdf
-    \graphicspath{{Chapter4/Figs/Raster/}{Chapter4/Figs/PDF/}{Chapter4/Figs/}}
+  \graphicspath{{Chapter4/Figs/Raster/}{Chapter4/Figs/PDF/}{Chapter4/Figs/}}
 \else
-    \graphicspath{{Chapter4/Figs/Vector/}{Chapter4/Figs/}}
+  \graphicspath{{Chapter4/Figs/Vector/}{Chapter4/Figs/}}
 \fi
 
 \section{Motivation}
@@ -23,7 +23,7 @@
 
 %本文在深入理解自适应参考模型后，进一步优化了模型中领域模型、学生模型、 教学策略，并将优化后的模型运用到构建智能题库系统上。将特征题库按照遗忘度、 抽象度、间接度、综合度、计算复杂度等维度进行信息结构化分类，学生个体通过 训练实时生成反映学生知识掌握能力的个体特征库。运用智能选题算法以个体特 征库为基础，动态从题库中智能选取切合个体的训练集。
 
-High school mathematics intelligent question bank is built by learning from the model of adaptive learning. Adaptive learning is the theoretical abstraction of adaptive learning system model. Many adaptive learning system models focus on the construction of domain model, student model and adaptive engine. This paper proposes an intelligent recommendation algorithm based on individual characteristics, which integrates domain model, student model and adaptive engine The self-adaptive engine abstracts the high school mathematics question bank into the characteristic question bank according to the domain model, and abstracts the student model into the individual characteristic bank. The self-adaptive engine is based on the individual characteristic bank through the intelligent algorithm, dynamically selects the training questions suitable for the individual from the characteristic question bank, and realizes the personalized recommendation of the question bank. 
+High school mathematics intelligent question bank is built by learning from the model of adaptive learning. Adaptive learning is the theoretical abstraction of adaptive learning system model. Many adaptive learning system models focus on the construction of domain model, student model and adaptive engine. This paper proposes an intelligent recommendation algorithm based on individual characteristics, which integrates domain model, student model and adaptive engine The self-adaptive engine abstracts the high school mathematics question bank into the characteristic question bank according to the domain model, and abstracts the student model into the individual characteristic bank. The self-adaptive engine is based on the individual characteristic bank through the intelligent algorithm, dynamically selects the training questions suitable for the individual from the characteristic question bank, and realizes the personalized recommendation of the question bank.
 
 Traditional paper teaching materials are usually printed in large quantities. Due to the limitation of paper space and in order to adapt to the majority of students, one or two representative test questions have to be selected according to each chapter. In order to meet the comprehensiveness of knowledge points and the public adaptability, such teaching aids lead to the small scale of test questions, the incomplete coverage of questions and the failure to meet the requirements of students' targeted training. E-learning has brought a reform in the field of teaching with its flexible learning style, avoiding large class teaching, and students can choose their own learning resources through autonomous navigation. Online question bank with eleaning As the times require, the early online question bank simply moves the offline resources to the Internet. Although students can choose their own topics and find the test questions they want for intensive training, it is lack of interactivity. Students do not get timely and effective feedback after finishing the questions, and can not accurately locate the strengths and weaknesses of students, which is very limited in improving students' performance. In view of these shortcomings, it is the current research direction of intelligent question bank to build a student-centered system, in which students can feed back their mastery of knowledge points in real time by doing questions, and build a complete user portrait of students. The question bank can intelligently diagnose, screen and push targeted questions according to the submission of students' questions.
 
@@ -46,7 +46,7 @@ In this paper, we further optimize the domain model, student model, and teaching
 %1. 练习候选生成。这部分的作用是生成一系列符合学生当前学习状态的练习，并快速筛选出一组初步的练习，后续部分将从这组练习中生成最合适的N个练习，并通过协同过滤算法进行排序。它参考youtube推荐系统设计了一个多层MLP网络。它将知识跟踪生成的学生学习状态嵌入向量与学生的问题记录嵌入、个性化信息等并联作为输入。经过一系列的ReLU网络，然后通过softmax归一化输出所有候选练习的概率分布。
 %2. 第二部分该部分用与上一部分类似的神经网络架构，实现了对推荐试题的排序。它的输入是用户的知识结构，最近练习，以及相似用户的常见练习题。
 
-This chapter proposes an adaptive recommendation method for test questions that combines graph neural network knowledge tracking and collaborative filtering. The method models students' knowledge states through the GAT-based knowledge tracking model model designed in the previous chapter, and uses the clustering method of graph neural networks to perform knowledge-based clustering of test questions so that a series of relevant exercises can be obtained. The first part is the recall part, i.e., candidate test generation, which generates a series of similar exercises, and this is done by clustering the test questions through graph neural networks, which apply graph clustering methods to cluster the test questions based on knowledge points in a reasonable way. The second part is the ranking part, which combines the knowledge state of students obtained from the knowledge tracking system with co-filtering. 
+This chapter proposes an adaptive recommendation method for test questions that combines graph neural network knowledge tracking and collaborative filtering. The method models students' knowledge states through the GAT-based knowledge tracking model model designed in the previous chapter, and uses the clustering method of graph neural networks to perform knowledge-based clustering of test questions so that a series of relevant exercises can be obtained. The first part is the recall part, i.e., candidate test generation, which generates a series of similar exercises, and this is done by clustering the test questions through graph neural networks, which apply graph clustering methods to cluster the test questions based on knowledge points in a reasonable way. The second part is the ranking part, which combines the knowledge state of students obtained from the knowledge tracking system with co-filtering.
 \begin{enumerate}
   \item Exercise candidate generation: The role of this part is to generate a series of exercises that match the student's current learning state, and quickly filter out a preliminary set of exercises, and the subsequent part will generate the most suitable N exercises from this set and sort them by collaborative filtering algorithms. It designs a multi-layer MLP network with reference to the youtube recommendation system. It concatenates the student learning state embedding vector generated by knowledge tracking with the student's problem record embedding, personalized information, etc. as input. After a series of ReLU networks and then output a probability distribution over all candidate exercises by softmax normalization.
   \item Ranking: This part is to generate Top N recommendation exercise. It implements the ranking of the recommended test questions using a neural network architecture similar to that of the previous section. Its inputs are the user's knowledge structure, recent exercises, and common practice questions from similar users.
@@ -55,16 +55,16 @@ This chapter proposes an adaptive recommendation method for test questions that 
 The structure of the recommendation system is like Figure. \ref{fig0}
 
 \begin{figure}[h]
-	\centering
-	\includegraphics[width=1.0\textwidth]{ch4-fig1.png}
-	\caption{The Architecture of Recommendation System}
-	\label{fig0}
+  \centering
+  \includegraphics[width=1.0\textwidth]{ch4-fig1.png}
+  \caption{The Architecture of Recommendation System}
+  \label{fig0}
 \end{figure}
 
 \subsection{Recall Stage}
 In the recall phase, due to the large amount of data, the algorithm of Collaborative Filtering (CF) can achieve half the result with twice the effort. It only needs to calculate the similarity of students' knowledge states $h^\prime$ with other students who have similar knowledge states $h$.
 
-Collaborative Filtering, the most classic type of recommendation algorithm, includes both online collaborative and offline filtering. The so-called online collaborative is to find items that users may like through online data, while offline filtering is to filter out data that are not worth recommending, such as data with low recommendation value ratings, or data that users have already purchased despite high recommendation values. The model of collaborative filtering is generally m recommended items, m users' data, only some users and some data are rated between the data, other parts of the rating is blank, at this time we want to use the existing part of the sparse data to predict the rating relationship between those blank items and data to find the highest rated items recommended to users. 
+Collaborative Filtering, the most classic type of recommendation algorithm, includes both online collaborative and offline filtering. The so-called online collaborative is to find items that users may like through online data, while offline filtering is to filter out data that are not worth recommending, such as data with low recommendation value ratings, or data that users have already purchased despite high recommendation values. The model of collaborative filtering is generally m recommended items, m users' data, only some users and some data are rated between the data, other parts of the rating is blank, at this time we want to use the existing part of the sparse data to predict the rating relationship between those blank items and data to find the highest rated items recommended to users.
 
 Generally speaking, there are three types of collaborative filtering recommendations. The first one is user-based collaborative filtering, the second one is item-based collaborative filtering, and the third one is model-based collaborative filtering.
 
@@ -92,18 +92,18 @@ The algorithm is as \ref{alg:EF}:
   \caption{Exercise Filtering Algorithm}
   \label{alg:EF}
   \begin{algorithmic}
-  \REQUIRE ~~\\ 
-  The target student $s_i$; \\
-  The student represent matrix, $S=\{s_0,s_1,...,s_N\}$;\\
-  The log of recommendation $L=\{L_0,L_1,...,L_N\}$ \\
-  The log-exercise relation: $L_i=\{E_0,...,E_{|L_i|}\}$\\
-  The filtering thread $T$;
-  \ENSURE ~~\\ %算法的输出：Output
-  The filted exercise set $S={E_{s_0},...,E_{s_{N^'}}}$
-  \STATE Calculate the similarity between $s_i$ and other students $Sim$
-  \STATE Sort $Sim$ and get the top $T$ results $R=\{s_{r_0},...,s_{r_T}\}$; 
-  \STATE Aggregate the exercises log of students in $R$, get exercise set $S$
-  \RETURN $S$; %算法的返回值
+    \REQUIRE ~~\\
+    The target student $s_i$; \\
+    The student represent matrix, $S=\{s_0,s_1,...,s_N\}$;\\
+    The log of recommendation $L=\{L_0,L_1,...,L_N\}$ \\
+    The log-exercise relation: $L_i=\{E_0,...,E_{|L_i|}\}$\\
+    The filtering thread $T$;
+    \ENSURE ~~\\ %算法的输出：Output
+    The filted exercise set $S={E_{s_0},...,E_{s_{N^'}}}$
+    \STATE Calculate the similarity between $s_i$ and other students $Sim$
+    \STATE Sort $Sim$ and get the top $T$ results $R=\{s_{r_0},...,s_{r_T}\}$;
+    \STATE Aggregate the exercises log of students in $R$, get exercise set $S$
+    \RETURN $S$; %算法的返回值
   \end{algorithmic}
 \end{algorithm}
 
@@ -117,15 +117,15 @@ In the previous step we obtained a list of recommended exercises for similar stu
 
 
 \begin{figure}[h]
-	\centering
-	\includegraphics[width=1.0\textwidth]{ch4-fig3.png}
-	\caption{The Architecture of Recommendation System}
-	\label{fig:ch4-fig3}
+  \centering
+  \includegraphics[width=1.0\textwidth]{ch4-fig3.png}
+  \caption{The Architecture of Recommendation System}
+  \label{fig:ch4-fig3}
 \end{figure}
 
 The model is a three-layer multi-layer perceptron, with two fully connected layers in the middle, and the output layer uses softmax to output the probabilities of exercise recommendation. The input layer inputs the student's knowledge state vector, knowledge state change vector and exercise knowledge point label vector. The model is a three-layer multi-layer perceptron, with two fully connected layers in the middle, and the output layer uses softmax to output the probabilities of exercise recommendation. The input layer inputs the student's knowledge state vector, knowledge state change vector and exercise knowledge point label vector. The loss function is:
 \begin{align}
-\mathcal{L}=\sum_{i=1}^{T} y_i \log \left(\text{sigmoid}\left(\hat{y}_i\right)\right)+\left(1-y_i \right) \log (1-\text{sigmoid}(\hat{y}_i))
+  \mathcal{L}=\sum_{i=1}^{T} y_i \log \left(\text{sigmoid}\left(\hat{y}_i\right)\right)+\left(1-y_i \right) \log (1-\text{sigmoid}(\hat{y}_i))
 \end{align}
 where $\hat{y}_i$ is the output value, $y_i$ is actual recommended weights for the exercises.
 
