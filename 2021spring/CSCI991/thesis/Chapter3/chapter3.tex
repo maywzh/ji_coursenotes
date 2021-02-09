@@ -70,7 +70,7 @@ The key point of this section is to track students' knowledge. This paper propos
 \subsection{GAT-based Embedding Layer}
 %本节中，采用了图自注意力网络来对问题-知识点关联图进行embedding。它用于降低表征问题数据中知识点的数据稀疏性。我们把第i个问题记作$q_i$，学生对第i个问题的回答记作$a_i$，其中$a_i\in\{0,1\}$，则答题记录记为$X=\{x_1,x_2,...x_{t-1}\}$，其中$x_i=(q_i,a_i)$，我们基于前$t-1$次的答题记录来预测第$t$题的回答正确概率。对于每个问题$q_i$，有一系列的知识点与之相关，这些知识点记作$\{p_1,p_2,...,p_{n_i}\}$。在这里进行embedding计算可以获取问题之间的深层次关联关系，即知识点的相关性。用图结构可以较为理想地做到这一点。从直观上来说，也可以通过对于知识点的掌握情况来推知问题的答对概率。该方法也可以建立对于问题-知识点的更好的表征。
 
-In this section, the graph self attention network is used to embed the problem knowledge point association graph. The embedding method can reduce the sparsity in representing the knowledge points in question data. Let's denoted the i-th question as $q_i$. The answer to question I is $a_i$. The answer record is $x = \{x_1,x_2,...x_{T-1}\}$, where $X_i=(q_i,a_i)$. Based on the answer records of the previous $t-1$ times, we predict the correct probability of the answer to question $t$. For each question $q_i$, there are a series of knowledge points related to it, these knowledge points are denoted as $\{p_1,p_2,...,p_{n_i}\}$, $n_i$ marks the number of knowledge points related to the question $q_i$. Similarly, a knowledge point $p_j$ has also several related question $q_1,...,q_{n_j}$, where $n_j$ is the number of question related to the knowledge point $p_j$. So a graph $\mathcal{G}$ can be used to represent the relation of question-knowledge point, where $\mathcal{G}=\{(q, r_{qp}, p) | q \in \mathcal{Q}, s \in \mathcal{S}}$ and $\mathcal{Q}$ denotes question sets and $\mathcal{P}$ denotes knowledge point sets respectively. $r_{qp}=1$ if $q$ is related to $p$.
+In this section, the graph self attention network is used to embed the problem knowledge point association graph. The embedding method can reduce the sparsity in representing the knowledge points in question data. Let's denoted the i-th question as $q_i$. The answer to question I is $a_i$. The answer record is $x = \{x_1,x_2,...x_{T-1}\}$, where $x_i=(q_i,a_i)$. Based on the answer records of the previous $t-1$ times, we predict the correct probability of the answer to question $t$. For each question $q_i$, there are a series of knowledge points related to it, these knowledge points are denoted as $\{p_1,p_2,...,p_{n_i}\}$, $n_i$ marks the number of knowledge points related to the question $q_i$. Similarly, a knowledge point $p_j$ has also several related question $q_1,...,q_{n_j}$, where $n_j$ is the number of question related to the knowledge point $p_j$. So a graph $\mathcal{G}$ can be used to represent the relation of question-knowledge point, where $\mathcal{G}=\{(q, r_{qp}, p) | q \in \mathcal{Q}, s \in \mathcal{S}\}$ and $\mathcal{Q}$ denotes question sets and $\mathcal{P}$ denotes knowledge point sets respectively. $r_{qp}=1$ if $q$ is related to $p$.
 
 In this part, embedding calculation can obtain the deep correlation between problems, that is, the correlation of knowledge points. This can be achieved with graph structure. Intuitively speaking, we can also infer the correct answer probability of the question by mastering the knowledge points. This method can also establish a better representation of problem knowledge points. In the question-knowledge graph, GAT can capture the high order relation for n-hop neighboring nodes. Also, GAT uses the idea of transformer for reference and introduces masked self attention mechanism. When calculating the representation of each node in the graph, it will assign different weights to its neighbors according to their different characteristics.
 
@@ -182,24 +182,24 @@ To evaluate our model, the experiments are conducted on three widely-used datase
 	\centering
 	\caption{Dataset Statistics}
 	\label{ch2-tb1}
-	\begin{array}{cccc}
-		\hline                          & \text { ASSIST09 } & \text { ASSIST12 } & \text { EdNet } \\
-		\hline \text { #students }      & 3,852              & 27,485             & 5000            \\
-		\text { #questions }            & 17,737             & 53,065             & 12,161          \\
-		\text { #skills }               & 123                & 265                & 189             \\
-		\text { #exercises }            & 282,619            & 2,709,436          & 676,974         \\
-		\text { questions per skill }   & 173                & 200                & 147             \\
-		\text { skills per question }   & 1.197              & 1.000              & 2.280           \\
-		\text { attempts per question } & 16                 & 51                 & 56              \\
-		\text { attempts per skill }    & 2,743              & 10,224             & 8,420           \\
+	\begin{tabular}{cccc}
+		\hline                        & \text { ASSIST09 } & \text { ASSIST12 } & \text { EdNet } \\
+		\hline \text {\#students}     & 3,852              & 27,485             & 5000            \\
+		\text {\#questions}           & 17,737             & 53,065             & 12,161          \\
+		\text {\#skills}              & 123                & 265                & 189             \\
+		\text {\#exercises}           & 282,619            & 2,709,436          & 676,974         \\
+		\text {questions per skill}   & 173                & 200                & 147             \\
+		\text {skills per question}   & 1.197              & 1.000              & 2.280           \\
+		\text {attempts per question} & 16                 & 51                 & 56              \\
+		\text {attempts per skill}    & 2,743              & 10,224             & 8,420           \\
 		\hline
-	\end{array}
+	\end{tabular}
 \end{table}
 
 Note that for each dataset we only use the sequences of which the length is longer than 3 in the experiments as the too short sequences are meaningless. For each dataset, we split 80\% of all the sequences as the training set, 20\% as the test set. To evaluate the results on these datasets, we use the area under the curve (AUC)as the evaluation metric.
 
 \subsection{Baselines}
-In order to evaluate the effeciveness of our proposed model, we use the following models as our baselines.
+In order to evaluate the effectiveness of our proposed model, we use the following models as our baselines.
 \begin{itemize}
 	\item BKT uses Bayesian inference for prediction, which models the knowledge state of the skill as a binary variable.
 	\item DKT is the first method that uses deep learning to model knowledge tracing task. It uses recurrent neural network to model knowledge state of students
@@ -211,7 +211,7 @@ In order to evaluate the effeciveness of our proposed model, we use the followin
 
 
 \subsection{Performance}
-Table \ref{ch2-tb2} reports the AUC results of all the compared methods. From the re sults we observe that our GATKT model achieves the highest performance over three datasets, which verifies the effectiveness of our model. To be specific, our proposed model GATKT achieves at least 1\% higher results than other baselines Among the baseline models, traditional machine learning models like BKT and KTM perform worse than deep learning models, which shows the effectiveness of deep learning methods. DKVMN performs slightly worse than DKT on average as building states for each concept may lose the relation information between concepts. On the other hand, we find that directly using questions as input may achieve superior performance than using skills. For the question-level model DKT-Q, it has comparable or better performance than DKT over ASSIST12 and Ednet datasets. However, DKT-Q performs worse than DKT in ASSIST09 dataset. The reason may be that the average number of attempts per question in ASSIS'T09 dataset is significantly less than other two datasets as observed in Table 1, which illustrates DKT-Q suffers from data sparsity problem. Besides, the AUC results of the model DKT-QS are higher than DKT-Q and DKT, except on ASSIST12 as it is a single-skill dataset, which indicates that considering question and skill information together improves overall performance.
+Table \ref{ch2-tb2} reports the AUC results of all the compared methods. From the re sults we observe that our GATKT model achieves the highest performance over three datasets, which verifies the effectiveness of our model. To be specific, our proposed model GATKT achieves at least 1\% higher results than other baselines Among the baseline models, traditional machine learning models like BKT and KTM perform worse than deep learning models, which shows the effectiveness of deep learning methods. DKVMN performs slightly worse than DKT on average as building states for each concept may lose the relation information between concepts. On the other hand, we find that directly using questions as input may achieve superior performance than using skills. For the question-level model DKT-Q, it has comparable or better performance than DKT over ASSIST12 and Ednet datasets. However, DKT-Q performs worse than DKT in ASSIST09 dataset. The reason may be that the average number of attempts per question in ASSIS'T09 dataset is significantly less than other two datasets as observed in Table \ref{ch2-tb2}, which illustrates DKT-Q suffers from data sparsity problem. Besides, the AUC results of the model DKT-QS are higher than DKT-Q and DKT, except on ASSIST12 as it is a single-skill dataset, which indicates that considering question and skill information together improves overall performance.
 
 \begin{table}[h]
 	\centering
