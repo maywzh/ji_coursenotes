@@ -80,7 +80,7 @@ Similar statistics are used to get neighboring users with similar hobbies or int
   s(u, v)=\frac{h_{u} \cdot h_{v}}{\left\|h_{u}\right\|_{2}\left\|h_{v}\right\|_{2}}
 \end{align}
 where $h_u$ and $h_v$ represent the knowledge mastery state of user $u$ and $v$.
-We can obtain the exercise recommendation history \mathcal{H} of user B, which is closest to user A to be recommended, and then use the exercises in \mathcal{H} as a rough set as the next sorted list of exercises.
+We can obtain the exercise recommendation history \(\mathcal{H}\) of user B, which is closest to user A to be recommended, and then use the exercises in \(\mathcal{H}\) as a rough set as the next sorted list of exercises.
 
 \subsubsection{Exercise Filtering System}
 Through the previous section, we calculated the similarity of students, which comprehensively considers students’ current knowledge proficiency, students’ personalized information and so on. Next, we need to use the collaborative filtering algorithm to generate a rough recommended set of exercises $S_{raw}$.
@@ -99,7 +99,7 @@ The algorithm is as \ref{alg:EF}:
     The log-exercise relation: $L_i=\{E_0,...,E_{|L_i|}\}$\\
     The filtering thread $T$;
     \ENSURE ~~\\ %算法的输出：Output
-    The filted exercise set $S=\{E_{s_0},...,E_{s_{N^'}}\}$
+    The filted exercise set \(S=\{E_{s_0},...,E_{s_N}\}\)
     \STATE Calculate the similarity between $s_i$ and other students $Sim$
     \STATE Sort $Sim$ and get the top $T$ results $R=\{s_{r_0},...,s_{r_T}\}$;
     \STATE Aggregate the exercises log of students in $R$, get exercise set $S$
