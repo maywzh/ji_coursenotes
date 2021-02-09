@@ -2,10 +2,10 @@
 ###
  # @Author       : maywzh
  # @Date         : 2020-12-05 00:00:45
- # @LastEditTime : 2021-01-25 01:18:59
+ # @LastEditTime : 2021-02-09 13:17:38
  # @LastEditors  : maywzh
  # @Description  : 
- # @FilePath     : /ji_coursenotes/2020fall/CSCI991/thesis/compile-thesis.sh
+ # @FilePath     : /ji_coursenotes/2021spring/CSCI991/thesis/compile-thesis.sh
  # @
  # Copyright (c) 2017 maywzh.
  # 
@@ -85,14 +85,14 @@ if [ $1 = $clean ]; then
 	exit
 elif [ $1 = $compile ]; then
 	echo "Compiling your PhD Thesis...please wait...!"
-	pdflatex -interaction=nonstopmode $filename.tex
+	pdflatex -synctex=1 -interaction=nonstopmode -file-line-error $filename.tex
 	bibtex $filename.aux 	
 	makeindex $filename.aux
 	makeindex $filename.idx
 	makeindex $filename.nlo -s nomencl.ist -o $filename.nls
-	pdflatex -interaction=nonstopmode $filename.tex
+	pdflatex -synctex=1 -interaction=nonstopmode -file-line-error  $filename.tex
 	makeindex $filename.nlo -s nomencl.ist -o $filename.nls
-	pdflatex -interaction=nonstopmode $filename.tex
+	pdflatex -synctex=1 -interaction=nonstopmode -file-line-error  $filename.tex
 	echo "Success!"
 	exit
 fi
