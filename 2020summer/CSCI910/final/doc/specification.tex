@@ -76,7 +76,7 @@ Users are the existing offline bank customer who have bank accounts, either savi
 
 
 \section{Requirements constraints}
-The concurrency of the backend server is limited. When the server support more than 10000 users concurrently, it may be down and stop service. 
+The concurrency of the backend server is limited. When the server support more than 10000 users concurrently, it may be down and stop service.
 There also be some delay as server need some time to process business computation. The internet down or the browser or the mobile App crashes may interrupt the function of the system.
 
 % \section{Naming conventions and definitions}
@@ -124,7 +124,7 @@ The purpose of the Internet Banking System is to ease bank account management an
 
 \section{Functional and data requirements}
 \subsection{Login to the online bank account}
-Customer can login their account by inputting the account number and password and press "login" button for authorization. If the authorization is valid, the user can access detail of his account or making money transferring. Otherwise, if the authorization is invalid, the user should re-input the account number and password. The account will be locked for half an hour if the authentication of account number or passwords failed 3 times. 
+Customer can login their account by inputting the account number and password and press "login" button for authorization. If the authorization is valid, the user can access detail of his account or making money transferring. Otherwise, if the authorization is invalid, the user should re-input the account number and password. The account will be locked for half an hour if the authentication of account number or passwords failed 3 times.
 
 \subsection{Check account balances}
 Customers can check their the balances of their accounts. If the account is saving account, the balance should be no less than 0 dollar. Otherwise, if the account is credit account, the saving should be in a range less than overdraft limit.
@@ -154,30 +154,30 @@ As there are browser client and mobile App client, the user interface of differe
 With the aid of instructions for use, each requirement must be met by all adequately trained users on the first attempt to reach established usability goals. All observed errors shall be responsive, intuitive and user-friendly. For appropriate users, they must:
 \begin{itemize}
     \item [1)] Operate with quick and accurate operation feedback.
-    
-    When user click the UI button, there should be some progress indicator tool such as progress bar or loading icon to relieve users' waiting anxiety. If they succeed in using some features, they should get quick response and be redirect to the new state page, else, the failed message or warning page should be displayed.
+
+          When user click the UI button, there should be some progress indicator tool such as progress bar or loading icon to relieve users' waiting anxiety. If they succeed in using some features, they should get quick response and be redirect to the new state page, else, the failed message or warning page should be displayed.
 
     \item [2)] Important information must be clearly displayed.
-    
-    The login session should be intuitive. Other important information including the balance of the account, the credit repayment date and the history of money transferring should be clearly available on the home page. 
+
+          The login session should be intuitive. Other important information including the balance of the account, the credit repayment date and the history of money transferring should be clearly available on the home page.
 
     \item [3)] The redirection of UI page should be quick.
-    
-    The UI response time should be less than 200 milliseconds with some animation. 
+
+          The UI response time should be less than 200 milliseconds with some animation.
 
 
-\end{itemize} 
+\end{itemize}
 \section{Performance requirements}
 The internet banking system service should be available for $24\times 7$ (24 hours per day, 7 days each week). The maximum number of concurrent users should be over 10000 should be supported by the system with less than 1000 milliseconds delay. The backup system should be activated and take over the internet banking system within 10 minutes when the original system is down.
 
 \section{Operational requirements}
 If client disconnection happen due to internet down or browser/mobile App crash, all uncompleted money transferring should be cancelled. The operation should be atomic and consistent. The operation history should be informed to users and the crash log should be kept for analysis of developers.
 \section{Maintainability and portability requirements}
-The product shall follow modular design pattern to be able to be modified to cope with anew class of use. Besides, the client should be portable to all kinds of browsers(Chrome, Firefox, Safari and so on) and all mobile platforms (iOS and Android).  
+The product shall follow modular design pattern to be able to be modified to cope with anew class of use. Besides, the client should be portable to all kinds of browsers(Chrome, Firefox, Safari and so on) and all mobile platforms (iOS and Android).
 \section{Security requirements}
 All data transferring should be encrypted. The login session should be terminated after certain idle time or expired. The data must satisfy confidentiality, integrity and availability.
 \section{Cultural and political requirements}
-The product must support multi-language switching and support instant translation service and perform product localization. The data should be kept on the demand of which country the service is deployed. 
+The product must support multi-language switching and support instant translation service and perform product localization. The data should be kept on the demand of which country the service is deployed.
 \section{Legal requirements}
 The system should be committed to the laws by examining the legislation or asking a local lawyer. The service should be authorized by the local government.
 
@@ -185,7 +185,7 @@ The system should be committed to the laws by examining the legislation or askin
 \section{Open issues}
 There are generally some open issues:
 \begin{enumerate}
-    \item [1)] The data synchronization between original system and backup system. 
+    \item [1)] The data synchronization between original system and backup system.
     \item [2)] The high concurrency issues
 
 \end{enumerate}
