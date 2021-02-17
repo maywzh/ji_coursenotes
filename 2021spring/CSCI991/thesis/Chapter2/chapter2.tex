@@ -337,7 +337,7 @@ Similar to calculating Support, the frequency matrix $E\in \mathbb{R}^{T\times T
 
 Similar to calculating Support, the frequency matrix \(E\in \mathbb{R}^{T\times T}\) of the sample knowledge point label pairs in the exercise training set can be calculated here, where $T$ is the number of knowledge points. $E_{ij}$ represents the number of times the knowledge point $i$ and the knowledge point $j$ appear at the same time. Similarly, knowledge point pairs can be calculated by calculating Confidence to calculate the conditional probability matrix $P$, where $P_{ij}=P(L_i, L_j) / P(L_j)$ means the situation when the knowledge point $j$ appears The conditional probability of the occurrence of the next knowledge point $i$.
 
-It is a simple solution to directly set $P$ as the incidence matrix $A$, but in actual situations, some comprehensive questions in the exercise set contain practically unrelated knowledge points, but these situations are relatively rare. In order to filter the noise caused by the label pairs of rare knowledge points, a minimum knowledge confidence threshold can be set. When $P_{ij}$ is greater than the given threshold \(\tau\), then \(A_{ij}\) is set to $P_{ij}$ , Otherwise $A_{ij}$ is set to 0. The formula is like \ref{fml:confidence}.
+It is a simple solution to directly set $P$ as the incidence matrix $A$, but in actual situations, some comprehensive questions in the exercise set contain practically unrelated knowledge points, but these situations are relatively rare. In order to filter the noise caused by the label pairs of rare knowledge points, a minimum knowledge confidence threshold can be set. When $P_{ij}$ is greater than the given threshold \(\tau\)， naming activating value, then \(A_{ij}\) is set to $P_{ij}$ , Otherwise $A_{ij}$ is set to 0. The formula is like \ref{fml:confidence}.
 
 \begin{align}
 	A_{i j}=\left\{\begin{array}{ll}
@@ -350,13 +350,16 @@ It is a simple solution to directly set $P$ as the incidence matrix $A$, but in 
 %本章提出了一个习题知识点多标签标注的模型，在本节中，先对数据集进行了介绍，接着介绍了一些Baseline性能的模型，然后结合多标签标注提出了对比的性能指标评估方案，最后给出对比结果和分析。
 This chapter proposes a multi-label labeling model for exercise knowledge points. In this section, first introduces the data set, then introduces some baseline performance models, and then combines the multi-label labeling to propose a comparative performance indicator evaluation plan. Finally, Give comparison results and analysis.
 \subsection{Dataset}
-The experimental data in this article comes from high school math test questions in a database of an online education platform. The original data totals 2195, and 1357 test questions are obtained after semi-automatic screening. The original labeled knowledge points are 166 items of original tags. After the mathematical knowledge point map is constructed and replaced, 61 tags are obtained.
+%本文中的实验数据来自于2010-2019年的高考数学考题以及模拟题（包含答案解析），共2236道。
+% The experimental data in this article comes from high school math test questions in a database of an online education platform. The original data totals 2195, and 1357 test questions are obtained after semi-automatic screening. The original labeled knowledge points are 166 items of original tags. After the mathematical knowledge point map is constructed and replaced, 61 tags are obtained.
 
 \subsection{Baseline}
 In the algorithm, the binary relation method (Binary Rele vance, BR), the multi-label KN algorithm (Multijabel KNN, MLKN), and the classifier chain method (Classifier Chain, C) are selected as the comparison algorithm, and the experimental training set test set division ratio It is 1:1.
 
 \subsection{Metrics}
-Usually the evaluation indicators of multi-label tasks are divided into two categories: sample-based measurement methods and label-based measurement methods, and it is not very appropriate to consider only a single indicator in this task, so this article selects the following experimental evaluation indicators:
+%相比于传统学习问题，对多标签数据的标注十分困难，多标签意味着巨大的分类成本。本节的任务中，需要对试题进行多知识点标注，实际上是一个多标签分类问题，则样本维度、数据量、标签维度都会影响标注效果。本节利用了基于标签的评测方法来对提出的试题知识点标注模型进行性能评估。
+Compared with traditional learning problems, it is very difficult to label multi-label data, and multi-label means huge classification cost. In the tasks in this section, the test questions need to be labeled with multiple knowledge points. In fact, it is a multi-label classification problem. The sample dimension, data volume, and label dimension will all affect the labeling effect. This section uses the label-based metrics to evaluate the performance of the proposed test knowledge point labeling model.
+
 \subsubsection{Sample-based Metrics}
 \begin{itemize}
 	\item Subset Accuracy: The ratio of the predicted label set to the true label set is exactly the same, the calculation formula is \ref{fml:metrics1}:
@@ -463,81 +466,3 @@ From the experimental results, it can be seen that, compared with the binary rel
 %现阶段教育活动中的知识点标注主要是凭借教师人工标注, 存在成本高、 效率低、 准确度难以保障等问题。因此, 自动标注试题知识点成为了亟待解决的问题。本章提出一个基于图神经网络和基于注意力机制BiLSTM文本挖掘的习题知识点标注的模型。使用实际背景下的高中数学试题进行了实验, 实验结果表明在实际背景下文本提出的方法要优于已有的基于传统机器学习的多标签文本分类方法。
 At this stage, the knowledge point labeling in educational activities mainly relies on teachers' manual labeling, which has problems such as high cost, low efficiency, and difficulty in ensuring accuracy. Therefore, automatic marking of knowledge points of test questions has become an urgent problem to be solved. This chapter proposes a model based on graph neural network and BiLSTM text mining based on attention mechanism. Experiments were carried out using high school mathematics test questions in the actual context. The experimental results show that the method proposed in the actual context is better than the existing multi-label text classification methods based on traditional machine learning.
 
-% \section{Basic theory of knowledge graph}
-
-% %知识图谱是谷歌在2012年提出的一个新概念。知识图本质上是语义网络的知识库，它以结构化的形式描述客观世界中的概念实体及其关系。从一开始的ogle搜索，到现在的聊天机器人、大数据风控、证券投资、智能医疗、自适应教育、推荐系统，都使用了知识图谱。
-
-% The Knowledge Graph is a new concept introduced by Google in 2012. Knowledge graph is essentially a knowledge base of Semantic Network, which describes conceptual entities and their relationships in the objective world in a structured form. From the beginning of oogle search, to nowadays chatbots, big data risk control, securities investment, intelligent medical care, adaptive education, recommendation system, all use knowledge graph. 
-
-% \subsection{Representation}
-% Knowledge graphs focus on concepts, entities and their relationships, where entities are things in the objective world and concepts are generalizations and abstractions of things with the same properties. Ontology is the basis of knowledge representation of knowledge graph, which can be formally represented as $O=\{C,H,P,A,I\}$, where $C$ is the set of concepts, such as transactional concepts and event-like concepts, $H$ is the set of contextual relations of concepts, $P$ is the set of attributes, which describes the features possessed by concepts, $A$ is the set of rules, which describes the domain rules, and $I$ is the set of instances, which describes the instance-attribute-value.
-
-% The common knowledge graph representations are Resource Description Framework (RDF), Resource Description Framework Schema (RDFS), Web Ontology Language (OWL), etc.
-
-% \begin{enumerate}
-% \item resource description framework RDF is the most commonly used symbolic semantic representation model, which provides a unified standard for describing entities/resources. the basic model of RDF is a directed labeled graph, each edge on the way corresponds to a subject-predicate object triad, and a triad corresponds to a statement of an event. the RDF consists of nodes and edges, the nodes represent entities/resources, attributes, and the edges represent entities and the relationship between entities and attributes. Figure \ref{triad1} shows the relationship between entities and attributes.
-% \item lightweight schema language RDFS is an extension of RDF by adding the definition of class properties and other Schema layers on top of the objective events provided by RDF. rdfs is mainly used to define term sets, class sets and property sets, mainly including classes, subclasses, properties, subclass properties, domains, scopes and other primitives, which can build the basic class hierarchy and These clauses can build the basic class hierarchy and attribute system.
-% \item OWL is the core of the Semantic Web technology stack, which provides fast and flexible data modeling capability and efficient automatic reasoning capability.
-% \end{enumerate}
-
-% \begin{figure}[h]
-%   \centering
-%   \includegraphics[width=0.8\textwidth]{f01}
-%   \caption{Structure of Triad}
-%   \label{triad1}
-% \end{figure}
-
-% \subsection{Storage}
-% There are mainly two kinds of storage for knowledge graphs, one is based on the academic idea of RDF, which is based on triples car storage: the other is based on the industrial idea of attribute graph, which is based on attribute graph storage.
-
-% Using RDF for storage, mainly RDF serialization methods, such as RDF/XML, N- Triples, Turtle, RDFa, JSON-LD, etc.
-
-% The most important feature of the graph database for storing knowledge graphs is that the graph database can store not only the nodes and relations of triples, but also the attributes of their nodes and relations together, and the graph can be traversed efficiently, which is convenient for publishing data and retrieval of knowledge graphs.
-
-% \section{The construction of knowledge graph}
-% In order to convert a large number of standard questions into feature questions in a timely manner, this paper proposes an automatic knowledge extraction method based on knowledge graph for test questions. The method uses natural language processing techniques such as named entity recognition, keyword extraction and calculation of semantic similarity of keywords to collect knowledge points and mathematics-related vocabulary in high school mathematics domain and build up a knowledge map of high school mathematics. The mathematics test questions are divided into words and entities by customized dictionaries and rules, and the candidate keywords are extracted and brought into the knowledge map of high school mathematics for querying.
-
-% \subsection{The extraction of knowledge point}
-% In this paper, the architecture for building the knowledge map of high school mathematics is mainly divided into four modules: corpus collection module, pre-processing module, knowledge map building module and knowledge extraction system module. The high school mathematics mapping consists of two entities: mathematical knowledge points and mathematical vocabulary related to mathematical knowledge points, which are mainly used to provide automatic knowledge extraction function for the construction of intelligent question bank later. The question bank not only contains a large number of mathematical knowledge points, but also contains a lot of mathematical vocabulary related to mathematical knowledge points. The mathematical vocabulary does not only stop at the mathematical concept ontology, mathematical textbook chapter names, mathematical knowledge points, etc., but also includes words or vocabulary that can deduce the knowledge points of the test questions. For example, if the operation symbol of "∩" appears in the question, it can be deduced that the question is probably about "set", "set operation", "set intersection operation", "set element interdependence", "set interval", "set interval", "set interval", "set interdependence", "set interval", etc. "The pre-processing module is to standardize the imported data corpus to form structured data, and then to identify the named entities, which mainly involves the process of entity identification and relationship extraction. High school mathematics is relatively a semi-closed and semi-open subject, the mathematical knowledge is relatively closed, but the mathematical test questions are very different, but the final solution still comes back to the test mathematical knowledge, so it is semi-open. The relevant mathematical knowledge points and concepts obtained through knowledge extraction need to be evaluated by experts to create a valuable and credible knowledge map. The knowledge extraction system plays a key role in the construction of the intelligent question bank by tagging the questions obtained by crawlers on the web after processing. 
-
-% \subsection{Corpus data preprocessing}
-% After importing the textbook and web crawler corpus, although a large amount of valuable text, image information and structured data such as question stems and parses in the question bank have been obtained, there are a large number of mathematical formulas in these data, and these mathematical formulas are not standardized because of the platform, and there is no uniform storage format, so it is necessary to standardize these text data containing mathematical formulas.
-
-
-
-% \begin{itemize}
-% 	\item standardization: The standardization process is mainly for the pictures and mathematical formulas in the corpus, many crawlers get the test information through the pictures, the test information stored in the pictures is very unfavorable to the word separation and naming entity recognition, and the mathematical formulas also exist in a variety of storage methods, currently more common storage and display of mathematical formulas are Office comes with the formula editor plug-in, Mathtype formula editor, Mathml, Latex and so on. For picture information, we use OCR technology for text recognition, and for mathematical formulas, we use Latex format. Mathpix is a software for quickly recognizing mathematical formulas stored in pictures and converting them into Latex format with high recognition accuracy and efficiency, and Latex can extract some useful semantic information for later knowledge extraction when expressing mathematical formulas.
-% 	\item User dictionaries and stopwords: User dictionaries, also known as user-defined dictionaries, are mainly used to enhance the disambiguation and error correction ability of the subscripts by manually adding subscripts rules in the process of named entity recognition, and the subscripts recognition will give priority to the words in the user dictionaries for subscripts after adding the user dictionaries. At present, there is no mature lexical corpus in the field of mathematics, so it is important to build a user lexicon related to mathematics. For example, if we do not add a user lexicon for "function analytic", we will get [function, analytic, equation] if we use the popular third-party corpus Jieba, but we do not want to see such a result when we add the field "analytic" to the user lexicon. When the "parser" field is added to the user's dictionary, the result will be [function,parser]. Deactivated words are also called "dummy words in computer search, non-search words". In search engines, in order to save space and search efficiency, certain words or phrases are usually automatically ignored in search requests, and these words or phrases are called deactivated words. The deactivation dictionary is a filter composed of a number of deactivation words, in the named entity recognition of the word, the system can be based on the deactivation dictionary to filter out some of the words or words that are not useful, to improve the accuracy of the word and the system computing efficiency. Deactivated words mainly include common pronouns, inflectional auxiliaries, adverbs, prepositions, conjunctions, etc., which usually have no obvious meaning of their own and only have a certain role when they are put into a complete sentence, such as: [you, I, he, this, that, the, in, then], etc.
-% 	\item Tokenization: In the process of constructing mathematical knowledge graphs, word separation is mainly used to obtain mathematical knowledge points and related mathematical vocabulary, so there is no strict requirement on the lexicality of the words obtained by word separation. In this paper, we use Hanlp natural language processing toolkit to classify the text by perceptual machine. Hanlp has the features of perfect function, high performance, clear architecture, new corpus and customizable. and can recognize new words
-% \end{itemize}
-
-% \section{Experiment}
-
-% \subsection{Dataset and Environment}
-
-% The accuracy of the knowledge point extraction directly affects the construction of the feature database. The experiment selected 100,000 and 500 high school mathematics test questions with knowledge points in the web crawler as samples, and divided them into two parts for the automatic extraction of knowledge points without and with expert audit. As shown in Table , the accuracy of knowledge point extraction is 72.3\% when there is no expert review and 96.6\% when there is expert review. This experiment shows that the real-time updating of the knowledge map of high school mathematics in the process of automatic knowledge point extraction is the key to improve the accuracy of knowledge point extraction.
-
-% \begin{table}[h]
-% 	\centering
-
-% 	\begin{tabular}{|l|l|l|}
-% 	\hline
-% 				& Without expert review & With expert review \\ \hline
-% 	Sample Size & 100000                & 500                \\ \hline
-% 	Accuracy    & 72.3\%                & 96.6\%             \\ \hline
-% 	\end{tabular}
-% 	\caption{The accuracy comparison table}
-% \end{table}
-
-% \subsection{Performance Indicators}
-
-
-% \subsection{Design of Experiment}
-
-% \subsection{Experiment Review}
-
-
-% \subsection{The Exercise Embedding }
-
-% \section{Summary}
-% This chapter introduces the automatic knowledge extraction method of test questions based on knowledge graph. The intelligent algorithm based on individual features proposes to convert the standard question bank into a feature bank with knowledge feature representation, and defines each dimension in the feature bank, constructs the individual feature bank for users according to individual knowledge points, and explains the recommendation algorithm of test questions in the intelligent question bank; the automatic extraction method of knowledge points of test questions based on knowledge map introduces the whole process of knowledge map of high school mathematics from corpus collection, construction, storage and update. This chapter also introduces the automatic extraction process of knowledge points of high school mathematics test questions. This chapter also presents a comparative experiment on the objectivity of feature database construction and the effectiveness of automatic knowledge point extraction, and the related analysis of the experimental results.
