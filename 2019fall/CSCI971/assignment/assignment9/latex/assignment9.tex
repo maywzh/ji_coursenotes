@@ -164,17 +164,17 @@
 
 \begin{homeworkProblem}
     This protocol is like EIgamal encryption mode.
-    
-    The $sk\leftarrow k , pk \leftarrow g^k$.
-    
-    Alice knows the public key $pk$ and $F(k,m)=H(m)^k$, she chx ge a random $\rho\leftarrow Z_q $ and  sends Bob $\widehat{m}=H(m)\cdot g^\rho$. 
 
-    We assume $v \leftarrow g^\rho, \omega \leftarrow pk^\rho = g^{\rho k} = v^k$. 
-    
+    The $sk\leftarrow k , pk \leftarrow g^k$.
+
+    Alice knows the public key $pk$ and $F(k,m)=H(m)^k$, she chx ge a random $\rho\leftarrow Z_q $ and  sends Bob $\widehat{m}=H(m)\cdot g^\rho$.
+
+    We assume $v \leftarrow g^\rho, \omega \leftarrow pk^\rho = g^{\rho k} = v^k$.
+
     When Bob get the $\widehat{m}$, he respond $res = \widehat{m}^k = H(m)^k\cdot g^{\rho k} = H(m)^k\cdot \omega$ to Alice, as $H(m)$ is random oracle, so Bob cannot know the $m$ from $H(m)$.
-    
-    Wh en Alice get the $res$, she knows $\omega = {g^k}^{\rho}$ so she just get $H(m)^k = res/({g^k}^{\rho})$. 
-    
+
+    Wh en Alice get the $res$, she knows $\omega = {g^k}^{\rho}$ so she just get $H(m)^k = res/({g^k}^{\rho})$.
+
     Because It is hard to get $k$ from $\widehat{m}^k$ as it is a hard problem in number theory. So Alice doesn't know $k$.
 
 \end{homeworkProblem}
@@ -189,7 +189,7 @@
 
     \textbf{Game 1}\\
     Step1: Challenger $\mathcal{C_1}$ generate $pk=u \in G$
-    and $E(pk,m)=[\beta\leftarrow Z_q, \gamma\leftarrow g^\alpha,e\leftarrow\mu^\beta*m]$. Challenger send $pk$ to Adversary. 
+    and $E(pk,m)=[\beta\leftarrow Z_q, \gamma\leftarrow g^\alpha,e\leftarrow\mu^\beta*m]$. Challenger send $pk$ to Adversary.
 
     Step2: Adversary $\mathcal{A}$ genetate $m_0,m_1 ,|m_0|=|m_1|$ and send to Challenger.
 
@@ -198,22 +198,22 @@
     The Adversary knows $g^\alpha, g^\beta, g^{\alpha\beta *m_b}$ because DDH assumption holds in G. The Adversary cannot distinguish $g^{\alpha\beta}$ and $g^\gamma$. $\mathcal{A}$ cannot distinguish $g^{\alpha\beta} * m$ and $g^\gamma * m$. As $g^\gamma$ is a random number, So $g^\gamma * m$ is indistinguishable. Assume $W_b$ as the event, that Adversary output 1 in experiment $b$.
 
     $Adv_SS[\mathcal{A},\mathcal{E}]=|Pr[W_0]-Pr[W_1]|$ is neglibible.
-    
-    \textbf{2)}   
+
+    \textbf{2)}
 
     the CDH assumption is stronger than DDH assuption, so CDH $\Rightarrow$ DDH.
 
     If CDH problem is solvable, Adversary $\mathcal{A}$ can compute $g^{\alpha\beta}$ from $g^\alpha$ and $g^\beta$.As $\mathcal{A}$ can get $u=g^\alpha,v=g^\beta$, he can compute $g^\alpha\beta*m_0$ and $g^\alpha\beta*m_1$ by himself, so $Adv_SS[\mathcal{A},\mathcal{E}]=1$ is not neglibible. So the $E_{MEG}$ is not semantically secure.
 
-    \textbf{3)}   
+    \textbf{3)}
     $$
-    \because E(m_0)*E_(m_1)=(v,e_0)*(v,e_1)=(v^2,e_0*e_1)=E(m_1*m_2)
+        \because E(m_0)*E_(m_1)=(v,e_0)*(v,e_1)=(v^2,e_0*e_1)=E(m_1*m_2)
     $$
     $$
-    D(E(m_0)*E(m_1))=D(sk,(v^2,e_0*e_1))=e_0*e_1/(v_2)^\alpha=\frac{g^\alpha\beta*m_0*g^\alpha\beta*m_1}{(g^{2\beta})^\alpha}
+        D(E(m_0)*E(m_1))=D(sk,(v^2,e_0*e_1))=e_0*e_1/(v_2)^\alpha=\frac{g^\alpha\beta*m_0*g^\alpha\beta*m_1}{(g^{2\beta})^\alpha}
     $$
 
-    
+
     \begin{center}
         $\therefore$ it is possible to create a new ciphertext c which is an encryption of $m_1*m_2$.
     \end{center}
@@ -222,12 +222,12 @@
 \end{homeworkProblem}
 \clearpage
 \begin{homeworkProblem}
-    
+
 
 \end{homeworkProblem}
 
 \begin{homeworkProblem}
-    
+
 
 \end{homeworkProblem}
 
@@ -242,7 +242,7 @@ CDH is hard to solve $\Rightarrow Pr[\mathcal{A}\ know\ g^{\alpha\beta}|\mathcal
 
 We can construct a game, Adversary $\mathcal{A}$ attack in a BLS signature game. Adversary $\mathcal{B}$ attack CDH assumption. $\mathcal{B}$ is $\mathcal{A}$'s Challenger.
 
-in CDH Attack Game, Challenger $\mathcal{C}_1$ generate 
+in CDH Attack Game, Challenger $\mathcal{C}_1$ generate
 he generate $x\longleftarrow{Z_q},pk=g^x, sk=x,h=H(m)$ and send $(g,g^x,h)$ to $\mathcal{B}$, $\mathcal{B}$ give back $h^x$ and win if $(g,g^x,h,h^x)$ is DH-tuple.
 
 For $\mathcal{B}$, he challenge Adversary $\mathcal{A}$ in BLS attack game. $\mathcal{B}$ send $pk=g^x,g$ to $\mathcal{A}$ A query $\mathcal{B}$ with $M_i, i\in\{0,1,...,R_0\}$ ,$\mathcal{B}$ give back $H(M_i),\sigma$ and $\mathcal{A}$ generate fogery $M,\sigma$ to $\mathcal{B}$.

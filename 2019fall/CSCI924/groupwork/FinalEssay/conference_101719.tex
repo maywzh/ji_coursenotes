@@ -13,35 +13,35 @@
 \begin{document}
 
 \title{Recommendation ranking based on online comment mining and sentiment analysis
-% \\
-% {\footnotesize \textsuperscript{*}Note: Sub-titles are not captured in Xplore and
-% should not be used}
-% \thanks{Identify applicable funding agency here. If none, delete this.}
+    % \\
+    % {\footnotesize \textsuperscript{*}Note: Sub-titles are not captured in Xplore and
+    % should not be used}
+    % \thanks{Identify applicable funding agency here. If none, delete this.}
 }
 \author{
-\IEEEauthorblockN{Hongyi Huang}
-\IEEEauthorblockA{\textit{CCNU-UOW Joint-Institude} \\
-\textit{Central China Normal University}\\
-Wuhan, China \\
-hongyi@gmail.com}
-\and
-\IEEEauthorblockN{Wangzhihui Mei}
-\IEEEauthorblockA{\textit{CCNU-UOW Joint-Institude} \\
-\textit{Central China Normal University}\\
-Wuhan, China \\
-maywzh@gmail.com}
-\and
-\IEEEauthorblockN{Yueyue He}
-\IEEEauthorblockA{\textit{CCNU-UOW Joint-Institude} \\
-\textit{Central China Normal University}\\
-Wuhan, China \\
-yueyue@gmail.com}
-\and
-\IEEEauthorblockN{Liting Lyu}
-\IEEEauthorblockA{\textit{CCNU-UOW Joint-Institude} \\
-\textit{Central China Normal University}\\
-Wuhan, China \\
-liting@gmail.com}
+    \IEEEauthorblockN{Hongyi Huang}
+    \IEEEauthorblockA{\textit{CCNU-UOW Joint-Institude} \\
+        \textit{Central China Normal University}\\
+        Wuhan, China \\
+        hongyi@gmail.com}
+    \and
+    \IEEEauthorblockN{Wangzhihui Mei}
+    \IEEEauthorblockA{\textit{CCNU-UOW Joint-Institude} \\
+        \textit{Central China Normal University}\\
+        Wuhan, China \\
+        maywzh@gmail.com}
+    \and
+    \IEEEauthorblockN{Yueyue He}
+    \IEEEauthorblockA{\textit{CCNU-UOW Joint-Institude} \\
+        \textit{Central China Normal University}\\
+        Wuhan, China \\
+        yueyue@gmail.com}
+    \and
+    \IEEEauthorblockN{Liting Lyu}
+    \IEEEauthorblockA{\textit{CCNU-UOW Joint-Institude} \\
+        \textit{Central China Normal University}\\
+        Wuhan, China \\
+        liting@gmail.com}
 
 }
 
@@ -129,12 +129,12 @@ BI-LSTM + Attention is to add an Attention layer to the model of BI-LSTM . InBI-
 
 
 \begin{enumerate}
-    \item Input layer: input sentence to this model; 
-    \item Embedding layer: map each word into a low dimension vector; 
-    \item LSTM layer: utilize BLSTM to get high level features from step 2; 
-    \item Attention layer: produce a weight vector, and merge word-level features from each time step into a sentence-level feature vector, by multiplying the weight vector; 
-    \item (5) Output layer: the sentence-level feature vector is finally used for relation classifification. 
-    In the first step using the X which word2vec produced. Into the input layer ,then Embedding it get a $e_i$ the ei in to the LSTM layer which might help to the time sequence.
+    \item Input layer: input sentence to this model;
+    \item Embedding layer: map each word into a low dimension vector;
+    \item LSTM layer: utilize BLSTM to get high level features from step 2;
+    \item Attention layer: produce a weight vector, and merge word-level features from each time step into a sentence-level feature vector, by multiplying the weight vector;
+    \item (5) Output layer: the sentence-level feature vector is finally used for relation classifification.
+          In the first step using the X which word2vec produced. Into the input layer ,then Embedding it get a $e_i$ the ei in to the LSTM layer which might help to the time sequence.
 \end{enumerate}
 After the LSTM Layer the $h_i$ into the softmax to get a output $tag_i$
 
@@ -166,16 +166,16 @@ $V_L$ represents the type the user likes, $V_h$ represents the type the user hat
 After the above processing, we can conduct emotion analysis and text classification on the sparse comment data set of user matrix. And the scenic spots are evaluated based on classification and analysis to avoid the imprecise push caused by the use of collaborative filtering algorithm. And the accuracy of emotion analysis and text classification can not be matched by a single model.
 
 \begin{thebibliography}{00}
-\bibitem{1} G. Eason, B. Noble, and I. N. Sneddon, ``On certain integrals of Lipschitz-Hankel type involving products of Bessel functions,'' Phil. Trans. Roy. Soc. London, vol. A247, pp. 529--551, April 1955.
-\bibitem{2} J. Clerk Maxwell, A Treatise on Electricity and Magnetism, 3rd ed., vol. 2. Oxford: Clarendon, 1892, pp.68--73.
-\bibitem{3} I. S. Jacobs and C. P. Bean, ``Fine particles, thin films and exchange anisotropy,'' in Magnetism, vol. III, G. T. Rado and H. Suhl, Eds. New York: Academic, 1963, pp. 271--350.
-\bibitem{4} K. Elissa, ``Title of paper if known,'' unpublished.
-\bibitem{5} R. Nicole, ``Title of paper with only first word capitalized,'' J. Name Stand. Abbrev., in press.
-\bibitem{6} Y. Yorozu, M. Hirano, K. Oka, and Y. Tagawa, ``Electron spectroscopy studies on magneto-optical media and plastic substrate interface,'' IEEE Transl. J. Magn. Japan, vol. 2, pp. 740--741, August 1987 [Digests 9th Annual Conf. Magnetics Japan, p. 301, 1982].
-\bibitem{7} M. Young, The Technical Writer's Handbook. Mill Valley, CA: University Science, 1989.
-\bibitem{8} Wenpeng Yin, Hinrich Schutze, Bing Xiang, and Bowen Zhou. Abcnn: Attention-based convolutional neural network for modeling sentence pairs. Transactions of the Association for Computational Linguistics, 4:259–272, 2016. 
-\bibitem{9} Tom Young, Devamanyu Hazarika, Soujanya Poria, and Erik Cambria. Recent trends in deep learning based natural language processing. ieee Computational intelligenCe magazine, 13(3):55–75, 2018. 
-\bibitem{10} Fei Yu, An Zeng, S ́ebastien Gillard, and Matu ́ˇs Medo. Network-based recommendation algorithms: A review. Physica A: Statistical Mechanics and its Applications, 452:192–208, 2016. 
+    \bibitem{1} G. Eason, B. Noble, and I. N. Sneddon, ``On certain integrals of Lipschitz-Hankel type involving products of Bessel functions,'' Phil. Trans. Roy. Soc. London, vol. A247, pp. 529--551, April 1955.
+    \bibitem{2} J. Clerk Maxwell, A Treatise on Electricity and Magnetism, 3rd ed., vol. 2. Oxford: Clarendon, 1892, pp.68--73.
+    \bibitem{3} I. S. Jacobs and C. P. Bean, ``Fine particles, thin films and exchange anisotropy,'' in Magnetism, vol. III, G. T. Rado and H. Suhl, Eds. New York: Academic, 1963, pp. 271--350.
+    \bibitem{4} K. Elissa, ``Title of paper if known,'' unpublished.
+    \bibitem{5} R. Nicole, ``Title of paper with only first word capitalized,'' J. Name Stand. Abbrev., in press.
+    \bibitem{6} Y. Yorozu, M. Hirano, K. Oka, and Y. Tagawa, ``Electron spectroscopy studies on magneto-optical media and plastic substrate interface,'' IEEE Transl. J. Magn. Japan, vol. 2, pp. 740--741, August 1987 [Digests 9th Annual Conf. Magnetics Japan, p. 301, 1982].
+    \bibitem{7} M. Young, The Technical Writer's Handbook. Mill Valley, CA: University Science, 1989.
+    \bibitem{8} Wenpeng Yin, Hinrich Schutze, Bing Xiang, and Bowen Zhou. Abcnn: Attention-based convolutional neural network for modeling sentence pairs. Transactions of the Association for Computational Linguistics, 4:259–272, 2016.
+    \bibitem{9} Tom Young, Devamanyu Hazarika, Soujanya Poria, and Erik Cambria. Recent trends in deep learning based natural language processing. ieee Computational intelligenCe magazine, 13(3):55–75, 2018.
+    \bibitem{10} Fei Yu, An Zeng, S ́ebastien Gillard, and Matu ́ˇs Medo. Network-based recommendation algorithms: A review. Physica A: Statistical Mechanics and its Applications, 452:192–208, 2016.
 \end{thebibliography}
 
 % \bibliography{ref}
