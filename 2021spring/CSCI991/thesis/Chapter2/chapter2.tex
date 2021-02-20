@@ -308,9 +308,9 @@ Similar to calculating Support, the frequency matrix \(E\in \mathbb{R}^{T\times 
 It is a simple solution to directly set \(P\) as the incidence matrix \(A\), but in actual situations, some comprehensive questions in the exercise set contain practically unrelated knowledge points, but these situations are relatively rare. In order to filter the noise caused by the label pairs of rare knowledge points, a minimum knowledge confidence threshold can be set. When \(P_{ij}\) is greater than the given threshold \(\tau \)， naming activating value, then \(A_{ij}\) is set to \(P_{ij}\), Otherwise \(A_{ij}\) is set to 0. The formula is like~\ref{fml:confidence}.
 
 \begin{align}
-	A_{i j}=\{\begin{array}{ll}
-		0,      & \text{ if } P_{i j}<\tau      \\
-		P_{ij}, & \text{ if } P_{i j} \geq \tau
+	A_{ij}=\{\begin{array}{ll}
+		0,      & \text{ if } P_{ij}<\tau      \\
+		P_{ij}, & \text{ if } P_{ij} \geq \tau
 	\end{array}\label{fml:confidence}
 \end{align}
 
@@ -326,7 +326,7 @@ The experimental data in this article comes from the labeled college entrance ex
 	\caption{Knowledge Points of dataset}\label{ch2-fig13}
 \end{figure}
 
-%该数据集的习题知识点数目分布如图所示。不同的知识点所涉及的题目数量不同，我们定义知识点\(j\)涉及的题目集合为\(\mathbb{E}_j\)。记知识点标签出现次数阈值\(\tau^j \),则可以将习题的知识点按照出现的频率进行划分，即\(\{j|\mathbb{E}_j>tau^j \}\) 与\(\{j|\mathbb{E}_j<=tau^j \}\)。
+%该数据集的习题知识点数目分布如图所示。
 The distribution of the number of exercise knowledge points in this data set is shown in the \figurename{\ref{ch2-fig14}}.
 \begin{figure}[htbp!]
 	\centering
@@ -340,9 +340,6 @@ The distribution of the number of exercise knowledge points in this data set is 
 	\end{subfigure}
 	\caption{Distribution of the number of knowledge points of exercise}\label{ch2-fig14}
 \end{figure}
-
-The distribution of the number of exercise knowledge points in this data set is shown in the figure. The number of questions involved in different knowledge points is different. We define the set of questions involved in knowledge points \(j\) as \(\mathbb{E}_j\). Remember the threshold of the number of occurrences of the knowledge point label \(\tau^j \), then the knowledge points of the exercises can be divided according to the frequency of occurrence, that is, \( \{j|\mathbb{E}_j|>tau^j\} \) and \( \{j||\mathbb{E}_j|<=tau^j \} \). According to the different thresholds, the ability of the model to classify knowledge points that appear frequently and that appear sparse can be tested separately.
-
 
 % \begin{figure}[htbp!]
 % 	\centering
@@ -410,11 +407,11 @@ Where \(c\) is the total number of labels.
 % 同样的，我们也可以基于样本统计一些指标。例如准确率，海明损失，查全率和F1值。准确率即预测标签完全正确的样本占总体样本的比例，海明损失为预测标签与真是标签的差距的度量指标，Precision和Recall分别代表真阳性样本占真样本的比例和真阳性样本占阳性样本的比例。它 们的计算公式为
 Similarly, we can also count some indicators based on samples. For example, the accuracy rate \(Accuracy\), Hamming loss \(HmLoss\), precision rate \(Precision\), recall rate \(Recall\) and \(\operatorname{F1}_{score}\) can be calculated. Accuracy is the proportion of samples with completely correct predicted labels in the overall sample. Hamming loss is a measure of the difference between the predicted label and the true label. Precision and Recall represent the proportion of true positive samples in true samples and the proportion of true positive samples in positive samples proportion. Their calculation formula is~\ref{fml:subaccuracy}-\ref{fml:f1scoreh}.
 \begin{align}
-	\operatorname{Accuracy}(h)   & =\frac{1}{p} \sum_{i=1}^{p}[{h}(x_{i}), Y_{i}] \label{fml:subaccuracy}                                                                                  \\
-	\operatorname{HmLoss}(h)     & =\frac{1}{p} \sum_{i=1}^{p} \frac{1}{q}|h(x_{i}) \Delta Y_{i}| \label{fml:hmloss}                                                                       \\
-	\operatorname{Precision}(h)  & =\frac{1}{p} \sum_{i=1}^{p} \frac{|Y_{i} \cap h(x_{i})|}{|h(x_{i})|} \label{fml:Precisionh}                                                             \\
-	\operatorname{Recall}(h)     & =\frac{1}{p} \sum_{i=1}^{P} \frac{|Y_{i} \cap h(x_{i})|}{|Y_{i}|}    \label{fml:Recallh}                                                                \\
-	\operatorname{F1}_{score}(h) & =\frac{2 \cdot \operatorname{Precision(h)} \cdot \operatorname {Recall(h)}}{\operatorname {Precision(h)}+\operatorname{Recall(h)}} \label{fml:f1scoreh}
+	\operatorname{Accuracy}(h)   & =\frac{1}{p} \sum_{i=1}^{p}[{h}(x_{i}), Y_{i}] \label{fml:subaccuracy}                                                                                \\
+	\operatorname{HmLoss}(h)     & =\frac{1}{p} \sum_{i=1}^{p} \frac{1}{q}|h(x_{i}) \Delta Y_{i}| \label{fml:hmloss}                                                                     \\
+	\operatorname{Precision}(h)  & =\frac{1}{p} \sum_{i=1}^{p} \frac{|Y_{i} \cap h(x_{i})|}{|h(x_{i})|} \label{fml:Precisionh}                                                           \\
+	\operatorname{Recall}(h)     & =\frac{1}{p} \sum_{i=1}^{P} \frac{|Y_{i} \cap h(x_{i})|}{|Y_{i}|}    \label{fml:Recallh}                                                              \\
+	\operatorname{F1}_{score}(h) & =\frac{2 \cdot \operatorname{Precision(h)} \cdot \operatorname{Recall(h)}}{\operatorname{Precision(h)}+\operatorname{Recall(h)}} \label{fml:f1scoreh}
 \end{align}
 
 
@@ -441,43 +438,36 @@ Similarly, we can also count some indicators based on samples. For example, the 
 % 	      \end{align}
 % 	\item F1 Score: The harmonic average of the precision and recall of each sample, the calculation formula is:
 % 	      \begin{align}
-% 		      \operatorname{F1}_{\text{Score}}(h)=\frac{2 \cdot \operatorname{precision} \cdot \operatorname {recall }}{\operatorname {precision }+\operatorname {recall }}
+% 		      \operatorname{F1}_{\text{Score}}(h)=\frac{2 \cdot \operatorname{precision} \cdot \operatorname{recall }}{\operatorname{precision }+\operatorname{recall }}
 % 	      \end{align}
 
 % \end{itemize}
 
 \subsection{Setting and Environment}
-%在实验中，设定了200，150，100，50，10五组阈值\(\tau_j \)，过滤出大于该频次阈值的习题作为测试集，并分别统计该习题集的平均知识点数\(L_{avg}\)。
-In the experiment, five sets of thresholds of 200, 150, 100, 50, 10 are set, and the exercises larger than the frequency threshold \(\tau \)are filtered out as the test set, and the average knowledge points  \(L_{avg}\).of the exercise set are counted.
+The distribution of the number of exercise knowledge points in this data set is shown in the figure. The number of questions involved in different knowledge points is different. We define the set of questions involved in knowledge points \(j\) as \(\mathcal{E}_j\). Remember the threshold of the number of occurrences of the knowledge point label \(\tau^{kp} \), then the knowledge points of the exercises can be divided according to the frequency of occurrence, that is, \( \{j|\mathcal{E}_j|>\tau^{kp}\} \) and \( \{j||\mathcal{E}_j|\leq\tau^{kp} \} \). According to the different thresholds, the ability of the model to classify knowledge points that appear frequently and that appear sparse can be tested separately.
 
-\begin{table}[h]
+%在实验中，设定了200，150，100，50，10五组阈值\(\tau_{kp} \)，将具有标签\(j\)的习题记作\(\mathbb{E}_j\)，则可以统计符合要求的标签集\(\mathbb{L}={j||\mathbb{E}_j|\geq\tau_{kp}}\)出习题集大小\(|\mathbb{E}_j|\)和题均知识点数\(LAvg_j \)。
+In the experiment, five sets of thresholds of 200, 150, 100, 50, 10 are set \(\tau_{kp} \), and the exercises with the label \(j\) are recorded as \(\mathcal{E}_j\), the label set that meets the requirements can be counted as \(\mathcal{L}_\tau^{kp}=\{j\mid |\mathcal{E}_j|\geq\tau_{kp}\} \), the exercises containing label in \(\mathcal{L}_\tau^{kp} \) is denoted as \(\mathcal{E}_\tau^{kp} \), within which the average number of labels of the exercise in the set is \(L_Avg_\tau^{kp}\)
+
+\begin{table}[htbp!]
 	\centering
 	\caption{Setting of Experiment}\label{tbl:ch2-ex1}
-	\begin{tabular}{cccc}
-		\hline \text{\(\tau \)} & \text{ Number of Knowledge Points } & \text{ Number of Exercises } & \text{ 标签的勢 } \\
-		\hline 100              & 3                                   & 498                          & 1.02              \\
-		50                      & 17                                  & 940                          & 1.53              \\
-		40                      & 23                                  & 1127                         & 1.51              \\
-		30                      & 30                                  & 1224                         & 1.60              \\
-		20                      & 35                                  & 1270                         & 1.64              \\
-		10                      & 43                                  & 1332                         & 1.66              \\
-		\hline
+	\begin{tabular}{cccc}%{cp{2cm}<{\centering}p{2cm}<{\centering}p{2cm}<{\centering}}
+		\toprule
+		\text{\(\tau^{kp} \)} & \(|\mathcal{L}_{\tau^{kp}}|\) & \(|\mathcal{E}_{\tau^{kp}}| \) & \(LAvg_{\tau^{kp}} \) \\
+		\midrule
+		200                   & 2                             & 463                            & 1.21                  \\
+		100                   & 22                            & 1376                           & 1.55                  \\
+		50                    & 29                            & 2237                           & 1.42                  \\
+		10                    & 57                            & 3158                           & 1.35                  \\
+		\bottomrule
 	\end{tabular}
 \end{table}
 
 
 
 \subsection{Result and Analysis}
-Due to the imbalance of sample data, the gap between the number of test questions labeled by different knowledge points is relatively large, so different thresholds are set to filter the knowledge point labels and corresponding test question data according to the frequency of the labels.
-
-The table~\ref{tbl:ch2-ex1} shows the experimental settings. The tag frequency thresholds are set to 100, 50, 40, 30, 20, and 10 respectively. The label cardinality (label cardinality) represents the average number of knowledge points for each test question, and the label density (label density) is the standardization of the label potential, and its calculation formula is as follows
-
-\begin{align}
-	L_{Card}=\frac{1}{n} \sum_{i=1}^{n}|Y_{i}| \\
-	L_{Den}=\frac{1}{m} L_\text{ Card }
-\end{align}
-Where \(n\) represents the number of test questions in the data set, and \(m\) represents the number of knowledge point labels.
-
+%，对于提出的模型，将标签得到如下的对比实验结果。
 \begin{table}
 	\caption{Even better looking table using booktabs}\label{table:good_table}
 	\centering
