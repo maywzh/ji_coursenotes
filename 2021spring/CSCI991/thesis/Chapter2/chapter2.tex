@@ -23,9 +23,9 @@
 
 In all aspects of the whole recommendation system, including data collection, data mining and data recommendation, the construction of the recommendation data source is the most important cornerstone. Establishing an accurate and complete question bank is the first and important step to build a test recommendation system. The reasonableness of the overall design of the question bank, as well as the quality, is the key to the success or failure of the question bank recommendation system. Question bank construction is also a very complex and difficult work, both hard work and the understanding of education, technical ability to grasp a very high demand of work. In the process of building the question bank is not simply the accumulation of quantity, if not take into account regional differences, different test-taking requirements and effectiveness and other factors. High school mathematics subject has thousands of scale of knowledge points, on average, each knowledge point has dozens of exercises from easy to difficult of different difficulty, a quality mathematics subject question bank of 100,000 scale. In addition to the quantitative requirements, there are two fundamental issues for a quality question bank besides the quality of questions and the matching of educational contents (textbooks): one is the construction of knowledge point relationship network, and the other is the construction of knowledge point-exercise relationship. It is the optimization of these factors that leads to the construction threshold of a quality question bank, and the extremely high cost. The question databases on the market often lack the attention to these factors, resulting in many poor-quality exercise databases. Therefore, the labeling of knowledge points of the topics and the construction of knowledge system is one of the most core issues in the process of building a high-quality question database.
 
-One of the key problems in building a test recommendation system is how to recommend topics in conjunction with knowledge points. When considering a solution to this problem, the first thing we need to consider is what kind of knowledge system and knowledge point labels we need. This is not a very easy question to answer. First of all, there are various descriptions of "knowledge points" in textbooks and syllabi, as well as in various teaching aids. In high school mathematics, knowledge points, such as functions, definition domains, value domains, or analytic equations, have direct concepts, applications of methods, abstractions of topics, clever summaries of similar solutions, etc.-in short, there is no standard system of names, connotations, granularity, hierarchy, or even so-called relationships or connections between knowledge points. The names, connotations, granularity, hierarchy, and even the so-called relationships or connections between knowledge points can vary widely from one source to another. Both the high level of educational experts and the flexible experience of frontline teachers are needed here. Second, as a data mining task, we are concerned with - in terms of the set of tags - whether it is a closed set or an open set, and we are concerned with whether a "knowledge point" tag is a categorical concept or a keyword (or a combination of keywords, phrases). combination of keywords, phrase pairing. The clarity of this definition is crucial to the problem definition of data mining and basically determines the choice of the solution that follows. However, this clarity should not only consider the pedagogical significance, but also the way the product uses the knowledge point label, especially the latter, which may be a more important factor.
+One of the key problems in building a test recommendation system is how to recommend topics in conjunction with knowledge points. When considering a solution to this problem, the first thing we need to consider is what kind of knowledge system and knowledge point labels we need. This is not a very easy question to answer. First of all, there are various descriptions of ``knowledge points'' in textbooks and syllabi, as well as in various teaching aids. In high school mathematics, knowledge points, such as functions, definition domains, value domains, or analytic equations, have direct concepts, applications of methods, abstractions of topics, clever summaries of similar solutions, etc.-in short, there is no standard system of names, connotations, granularity, hierarchy, or even so-called relationships or connections between knowledge points. The names, connotations, granularity, hierarchy, and even the so-called relationships or connections between knowledge points can vary widely from one source to another. Both the high level of educational experts and the flexible experience of frontline teachers are needed here. Second, as a data mining task, we are concerned with - in terms of the set of tags - whether it is a closed set or an open set, and we are concerned with whether a ``knowledge point'' tag is a categorical concept or a keyword (or a combination of keywords, phrases). combination of keywords, phrase pairing. The clarity of this definition is crucial to the problem definition of data mining and basically determines the choice of the solution that follows. However, this clarity should not only consider the pedagogical significance, but also the way the product uses the knowledge point label, especially the latter, which may be a more important factor.
 
-As a system for students to push questions for self-study and visualize the analysis report, then the tags of knowledge points should be able to describe the core knowledge points, methods or ideas of the topic quiz, and be able to distinguish the ability requirement points for students, so as to build a more powerful user model and recommendation engine, while the report is also convenient for targeted analysis and understanding - this time the classification system and tag collection need to be taken, the granularity of its knowledge points should be fine enough, and the level of the knowledge system will be much larger, at the same time, "knowledge points" even if it is not a standard system, it needs to be recognized by most teachers and students or a certain degree of use.
+As a system for students to push questions for self-study and visualize the analysis report, then the tags of knowledge points should be able to describe the core knowledge points, methods or ideas of the topic quiz, and be able to distinguish the ability requirement points for students, so as to build a more powerful user model and recommendation engine, while the report is also convenient for targeted analysis and understanding, this time the classification system and tag collection need to be taken, the granularity of its knowledge points should be fine enough, and the level of the knowledge system will be much larger, at the same time, ``knowledge points'' even if it is not a standard system, it needs to be recognized by most teachers and students or a certain degree of use.
 
 In this chapter, the knowledge point tags are mined for topic recommendation and analysis reports. He requires to improve the knowledge point association of the topic, i.e., to label the topic with a number of corresponding knowledge points, among which there will also be dependencies between the knowledge points, in addition to establishing a complete knowledge map of knowledge points for generating student learning reports. For the first problem, it is actually a knowledge point mining task using the topic text, which is also a classification task. To be more specific, it is a task of hierarchical classification based on the information in the short text of the topic. In this task, we need to use the most basic technologies of natural language processing and machine learning. That is, by learning a large amount of manually labeled topic text and knowledge point labeling results (also called training corpus) - obtaining the features of the topic text through natural language processing techniques and obtaining the classification model through machine learning - the system The system has the ability to do knowledge point classification automatically. In this definition, the object to be classified is a topic (including stem, answer, paraphrase, etc.), and the result is a set of knowledge point labels. The input of the learning system is a set of training corpus, i.e., \(n\) questions that have been labeled and their corresponding knowledge point labels; based on this data experience, the learning system trains (or learns) a model, which can be a functional expression \(y=f(x)\) or a probabilistic expression \(p(y|x)\), and this is the output of the learning system. Based on the classification model of the learning system, the classification system can then make predictions, i.e., a new topic is entered and the classification system automatically identifies its most likely knowledge labels. The second problem is then to construct a knowledge map of high school mathematics knowledge points, which shows the structure and association of high school mathematics knowledge points. Knowledge resources and their carriers are described through visualization techniques to mine, analyze, construct, map, and display knowledge and its interconnections. Meanwhile knowledge graphs, as an important part of artificial intelligence, are now playing an increasingly important role in recommendation systems and question and answer systems. In addition combining the relationship of high school mathematics knowledge points and students' learning state model, it can also better realize the adaptive planning of learning paths.
 
@@ -39,7 +39,7 @@ In this section, a graph neural network-based model is proposed for test questio
 
 %在2019年，提出了一种多标签图像分类模型，受该模型启发，本章提出了一个基于注意力机制习题文本特征提取和基于图神经网络知识点关系挖掘的多知识点标注模型，它通过数据驱动的方式建立知识点关系图描述知识点间的关联关系，对知识点分别建立分类器，然后对习题的文本特征进行多标签分类。其主要架构图如下。
 
-The task of this section is to construct a model for mining the exercise-knowledge point relationship and a model for mining the association between knowledge points. Establishing an exercise-knowledge point relationship means labeling the knowledge points of an exercise, which is a collection of knowledge concepts used to understand and solve the exercise. Therefore, accurately describing the knowledge points of a test question is important for the subsequent knowledge tracking and recommendation process. The two basic classification approaches that already exist are expert labeling and machine learning. The former means that education experts combine their professional knowledge to label the knowledge points of test questions, but when the number of questions or the complexity of the questions is high, manual labeling has problems such as high workload, high subjectivity and imperfect labeling. In addition, considering the association between knowledge points, manual annotation also suffers from the inability to take into account the knowledge interconnection relationship. Another way is to use machine learning or deep learning to automatically annotate the knowledge points of the exercises. Because only a small number of exercises in the exercise set are labeled with knowledge points, while a large number of other exercises are not yet labeled, these knowledge point labeling is often a semi-supervised or unsupervised learning mode. An exercise often has multiple knowledge points, so in effect knowledge point mining is a multi-label classification problem \cite{tsoumakas2007multi,zhang2013review,liu2020emerging}. This chapter also discusses "how to effectively model the relationship between knowledge points" and proposes a multi-label classification model based on graph neural networks. In the knowledge extraction part of the exercises, the textual information of the exercises is often mined to automatically label the knowledge points. In order to improve the feature extraction performance, Multimodal Representation \cite{guo2019deep} can also be considered to extract the illustrations of the exercises, mathematical formulas, etc. as additional features.
+The task of this section is to construct a model for mining the exercise-knowledge point relationship and a model for mining the association between knowledge points. Establishing an exercise-knowledge point relationship means labeling the knowledge points of an exercise, which is a collection of knowledge concepts used to understand and solve the exercise. Therefore, accurately describing the knowledge points of a test question is important for the subsequent knowledge tracking and recommendation process. The two basic classification approaches that already exist are expert labeling and machine learning. The former means that education experts combine their professional knowledge to label the knowledge points of test questions, but when the number of questions or the complexity of the questions is high, manual labeling has problems such as high workload, high subjectivity and imperfect labeling. In addition, considering the association between knowledge points, manual annotation also suffers from the inability to take into account the knowledge interconnection relationship. Another way is to use machine learning or deep learning to automatically annotate the knowledge points of the exercises. Because only a small number of exercises in the exercise set are labeled with knowledge points, while a large number of other exercises are not yet labeled, these knowledge point labeling is often a semi-supervised or unsupervised learning mode. An exercise often has multiple knowledge points, so in effect knowledge point mining is a multi-label classification problem \cite{tsoumakas2007multi,zhang2013review,liu2020emerging}. This chapter also discusses ``how to effectively model the relationship between knowledge points'' and proposes a multi-label classification model based on graph neural networks. In the knowledge extraction part of the exercises, the textual information of the exercises is often mined to automatically label the knowledge points. In order to improve the feature extraction performance, Multimodal Representation \cite{guo2019deep} can also be considered to extract the illustrations of the exercises, mathematical formulas, etc. as additional features.
 
 In 2019, a multi-label image classification model was proposed\cite{chen2019multi}, and inspired by this model, this chapter proposes a multi-knowledge point labeling model based on attention mechanism exercise text feature extraction and graph neural network-based knowledge point relationship mining, which builds a knowledge point relationship graph to describe the association relationship between knowledge points by a data-driven approach, builds classifiers for knowledge points separately, and then performs multi-label classification. Its main architecture diagram is as follows figure \ref{ch2-fig1}.
 
@@ -119,8 +119,8 @@ After the steps of data processing, a clean text token sequence is obtained, and
 In the application of deep learning, Embedding, a way of transforming discrete variables into continuous vectors, has greatly expanded the application of neural networks in various aspects. Embedding is a way to convert discrete variables into continuous vector representation. In neural networks, embedding is very useful, because it can not only reduce the spatial dimension of discrete variables, but also represent the variables meaningfully. For example, in natural language processing, if simple one-hot encoding is used, it will often cause too many dimensions and sparse vectors, and it is impossible to learn the dependencies between vectors. In the process of embedding training, the embedded vector will be updated, which can clearly show the practice between vectors. In 2013, Mikolov et al. proposed an improved CBOW (Continuous Bag-of-Words) and Skip-gram model based on NNLM, RNNLM and C\&W models\cite{mikolov2013efficient}, and in the next few years it became a classic solution for word embedding, the model is like figure \ref{ch2-fig4}. In another paper by Mikolov in the same year, two strategies for training the Skip-gram model: Hierarchical Softmax and Negative Sampling were proposed\cite{mikolov2013distributed}. The principle of CBOW is to predict the word itself based on several words around the input (that is, predict the word through context), while the Skip-gram model predicts several surrounding words based on the input word (that is, the input word predicts the context), like following formula \ref{fml-cbow}--\ref{fml-sg}.
 
 \begin{align}
-	\text { CBOW : context }\left(w_{t}\right)=\left(w_{t-c}, \ldots, w_{t-1}, w_{t+1}, \ldots, w_{t+c}\right) \stackrel{\text { predict }}{\longrightarrow} w_{t} \label{fml-cbow} \\
-	\text { skip-gram: } w_{t} \stackrel{\text { predict }}{\longrightarrow} \text { context }\left(w_{t}\right)=\left(w_{t-c}, \ldots, w_{t-1}, w_{t+1}, \ldots, w_{t+c}\right) \label{fml-sg}
+	\text { CBOW : context }(w_{t})=(w_{t-c}, \ldots, w_{t-1}, w_{t+1}, \ldots, w_{t+c}) \stackrel{\text { predict }}{\longrightarrow} w_{t} \label{fml-cbow} \\
+	\text { skip-gram: } w_{t} \stackrel{\text { predict }}{\longrightarrow} \text { context }(w_{t})=(w_{t-c}, \ldots, w_{t-1}, w_{t+1}, \ldots, w_{t+c}) \label{fml-sg}
 \end{align}
 
 Where \(c\) is the range of predicting words, \(w_i\) represents the ith word and \(context(w_i)\) represents the context of ith word.
@@ -162,34 +162,34 @@ Long short-term memory (Long short-term memory, LSTM) is a special RNN, mainly t
 
 %与仅具有一个传输状态$ h ^ t $的RNN相比，LSTM具有两个传输状态，一个单元状态$ c_t $和一个隐藏状态$ h_t $。 LSTM中的单元状态对应于RNN中隐藏状态的角色。 其中，向下传递的单元状态$ c_t $的变化非常缓慢，而隐藏状态$ h_t $在不同节点下通常具有很大的差异。 LSTM能够通过一种经过精心设计的称为“门”的结构，将信息删除或添加到单元状态。 门是一种选择性地让信息通过的方式。 它们包括一个S型神经网络层和一个逐点乘法运算。 Sigmoid层输出介于0和1之间的值，该值描述每个部分可以通过多少体积。 0表示“不允许通过任何金额”，1表示“允许通过任何金额”。 LSTM具有三个门来保护和控制单元状态。 LSTM中的三种门是忘记门，输入门和输出门：
 
-Compared with RNN which has only one transmission state \(h^t\), LSTM has two transmission states, one cell state \(C_t\), and one hidden state \(h_t\). The cell state in LSTM corresponds to the role of the hidden state in RNN. Among them, the cell state \(C_t\) passed down changes very slowly while the hidden state \(h_t\) often has a big difference under different nodes. LSTM has the ability to remove or add information to the cell state through a well-designed structure called a "gate". A door is a way of letting information through selectively. They include a sigmoid neural network layer and a pointwise multiplication operation. The Sigmoid layer outputs a value between 0 and 1, describing how much volume can pass through each part. 0 means "no amount is allowed to pass", 1 means "allow any amount to pass". LSTM has three gates to protect and control the cell state.
+Compared with RNN which has only one transmission state \(h^t\), LSTM has two transmission states, one cell state \(C_t\), and one hidden state \(h_t\). The cell state in LSTM corresponds to the role of the hidden state in RNN. Among them, the cell state \(C_t\) passed down changes very slowly while the hidden state \(h_t\) often has a big difference under different nodes. LSTM has the ability to remove or add information to the cell state through a well-designed structure called a ``gate''. A door is a way of letting information through selectively. They include a sigmoid neural network layer and a point-wise multiplication operation. The Sigmoid layer outputs a value between 0 and 1, describing how much volume can pass through each part. 0 means ``no amount is allowed to pass'', 1 means ``allow any amount to pass''. LSTM has three gates to protect and control the cell state.
 
 The core part of LSTM is the connection between cell states, which is generally called the cell state. The reason why LSTM can solve the long-term dependence of RNN is because LSTM introduces a gate mechanism to control the circulation and loss of features. The three kind of gate in LSTM is forget gate, input gate and output gate:
 \begin{itemize}
-	\item \textbf{Forget Gate}: The first step in the LSTM is to decide what information to discard from the cell state. This decision is done through a gate called the forgetting gate. The gate reads $h_{t-1}$ and $x_t$ and outputs a value between 0 and 1 to each number in the cell state $C_{t-1}$. 1 means "keep completely" and 0 means "discard completely". The calculation formula is \ref{lstm-forget}:
+	\item \textbf{Forget Gate}: The first step in the LSTM is to decide what information to discard from the cell state. This decision is done through a gate called the forgetting gate. The gate reads \(h_{t-1}\) and \(x_t\) and outputs a value between 0 and 1 to each number in the cell state \(C_{t-1}\). 1 means ``keep completely'' and 0 means ``discard completely''. The calculation formula is \ref{lstm-forget}:
 	      \begin{align}
-		      f_{t}=\sigma\left(W_{f} \cdot\left[h_{t-1}, x_{t}\right]+b_{f}\right) \label{lstm-forget}
+		      f_{t}=\sigma(W_{f} \cdot[h_{t-1}, x_{t}]+b_{f}) \label{lstm-forget}
 	      \end{align}
-	      The LSTM network determines what percentage of the previous content the network will remember through learning. The $W_f$ and $b_f$ is learnable parameter of forget gate.
-	\item \textbf{Input Gate}: The next step is to determine what new information is stored in the cell state. There are two parts here. First, the sigmoid layer called the "input gate layer" determines what values will be updated. Then, a tanh layer creates a new candidate value vector $\widetilde{C}_t$, which will be added to the state. The calculation formula is \ref{lstm-input1}--\ref{lstm-input2}:
+	      The LSTM network determines what percentage of the previous content the network will remember through learning. The \(W_f\) and \(b_f\) is learnable parameter of forget gate.
+	\item \textbf{Input Gate}: The next step is to determine what new information is stored in the cell state. There are two parts here. First, the sigmoid layer called the "input gate layer" determines what values will be updated. Then, a tanh layer creates a new candidate value vector \(\widetilde{C}_t\), which will be added to the state. The calculation formula is \ref{lstm-input1}--\ref{lstm-input2}:
 	      \begin{align}
-		      i_{t}         & =\sigma\left(W_{i} \cdot\left[h_{t-1}, x_{t}\right]+b_{i}\right) \label{lstm-input1} \\
-		      \tilde{C}_{t} & =\tanh \left(W_{C} \cdot\left[h_{t-1}, x_{t}\right]+b_{C}\right) \label{lstm-input2}
+		      i_{t}         & =\sigma(W_{i} \cdot[h_{t-1}, x_{t}]+b_{i}) \label{lstm-input1} \\
+		      \tilde{C}_{t} & =\tanh (W_{C} \cdot[h_{t-1}, x_{t}]+b_{C}) \label{lstm-input2}
 	      \end{align}
-	      $\tilde{C}_{t}$ represents the update value of the unit state, which is obtained from the input data $x_t$ and hidden nodes $h_{t-1}$ through a neural network layer. The activation function of the update value of the unit state usually uses tanh. $i_t$ is called an input gate, which is also a vector with elements in the interval of $[0,1]$ just like $f_t$, which is also calculated by $x_t$ and $h_{t-1}$ through $sigmoid$ activation function. $W_i$, $W_C$, $b_i$, $b_C$ are the learnable parameters of the input gate. $i_t$ is used to control which features of $\tilde{C}_{t}$ are used to update $C_t$, following the same method as $f_t$, like formula \ref{lstm-input3}:
+	      \(\tilde{C}_{t}\) represents the update value of the unit state, which is obtained from the input data \(x_t\) and hidden nodes \(h_{t-1}\) through a neural network layer. The activation function of the update value of the unit state usually uses tanh. $i_t$ is called an input gate, which is also a vector with elements in the interval of $[0,1]$ just like $f_t$, which is also calculated by $x_t$ and $h_{t-1}$ through $sigmoid$ activation function. $W_i$, $W_C$, $b_i$, $b_C$ are the learnable parameters of the input gate. $i_t$ is used to control which features of $\tilde{C}_{t}$ are used to update $C_t$, following the same method as $f_t$, like formula \ref{lstm-input3}:
 	      \begin{align}
 		      C_{t}=f_{t} \times C_{t-1}+i_{t} \times \tilde{C}_{t} \label{lstm-input3}
 	      \end{align}
 
 	\item \textbf{Output gate}: The final step is to determine the output value. This output will be based on the cell state of the network. First, we run a sigmoid layer to determine which part of the cell state will be output. Next, we process the cell state through tanh (get a value between -1 and 1) and multiply it with the output of the sigmoid gate, and finally output the part that determines the output. The calculation is like formula \ref{lstm-output1}--\ref{lstm-output2}:
 	      \begin{align}
-		      o_{t} & =\sigma\left(W_{o}\left[h_{t-1}, x_{t}\right]+b_{o}\right) \label{lstm-output1} \\
-		      h_{t} & =o_{t} * \tanh \left(C_{t}\right) \label{lstm-output2}
+		      o_{t} & =\sigma(W_{o}[h_{t-1}, x_{t}]+b_{o}) \label{lstm-output1} \\
+		      h_{t} & =o_{t} * \tanh (C_{t}) \label{lstm-output2}
 	      \end{align}
-	      The $W_o$ and $b_o$ are learnable parameters of output gate.
+	      The \(W_o\) and \(b_o\) are learnable parameters of output gate.
 \end{itemize}
 
-However, there is still a problem with using one-way LSTM to model sentences: it is impossible to encode information from back to front. In more fine-grained classification, such as the five classification tasks for strong commendation, weak commendation, neutral, weak derogation, and strong derogation, we need to pay attention to the interaction between emotion words, degree words, and negative words. . Two-way LSTM can better capture the two-way semantic dependence. Bidirectional LSTM(BiLSTM) can better capture the two-way semantic dependence. The BiLSTM output can be obtained by inputting the positive sequence and the reverse sequence input sequence into two sets of LSTM networks and perform element-wise addition. The output of positive-order LSTM is $\overrightarrow{h_t}$, the output of reverse-order LSTM is $\overleftarrow{h_t}$, $\bigoplus$ means element-wise addition. The output of bidirectional LSTM is:
+However, there is still a problem with using one-way LSTM to model sentences: it is impossible to encode information from back to front. In more fine-grained classification, such as the five classification tasks for strong commendation, weak commendation, neutral, weak derogation, and strong derogation, we need to pay attention to the interaction between emotion words, degree words, and negative words. Two-way LSTM can better capture the two-way semantic dependence. Bidirectional LSTM(Bi-LSTM) can better capture the two-way semantic dependence. The Bi-LSTM output can be obtained by inputting the positive sequence and the reverse sequence input sequence into two sets of LSTM networks and perform element-wise addition. The output of positive-order LSTM is \(\overrightarrow{h_t}\), the output of reverse-order LSTM is \(\overleftarrow{h_t}\), \(\bigoplus \) means element-wise addition. The output of bidirectional LSTM is:
 \begin{align}
 	\overrightarrow{h_t} & = \overrightarrow{LSTM}(e_t)                       \\
 	\overleftarrow{h_t}  & = \overleftarrow{LSTM}(e_t)                        \\
@@ -236,11 +236,11 @@ Specifically:
 
 
 \begin{align}
-	u_t      & = tanh(W_\omega h_t + b_\omega )                                                   \\
-	\alpha_t & =Softmax(u_t^T u_\omega) = \frac{exp( u_t^T u_\omega)}{\sum_t exp(u_t^T u_\omega)} \\
+	u_t      & = \tanh(W_\omega h_t + b_\omega )                                                    \\
+	\alpha_t & =Softmax(u_t^T u_\omega) = \frac{\exp( u_t^T u_\omega)}{\sum_t \exp(u_t^T u_\omega)} \\
 	r        & = \sum_t{\alpha_t h_t}
 \end{align}
-Where $u_t$ is the hidden representation of $h_t$, $r$ is the output text vector, and the $u_\omega$ is the similarity of the word-level context vector. By measuring the similarity between $u_t$ and $u_\omega$ as the importance of the word, and normalize it with the softmax function to obtain the importance weight $\alpha_{t}$. After that, the entire text is represented as a weighted sum of word annotations based on weights. The context vector $u_\omega$ can be regarded as a high-level representation of the fixed query "what is the word conveying information" and is randomly initialized as a learnable parameter in the training.
+Where $u_t$ is the hidden representation of \(h_t\), \(r\) is the output text vector, and the \(u_\omega\) is the similarity of the word-level context vector. By measuring the similarity between \(u_t\) and \(u_\omega\) as the importance of the word, and normalize it with the softmax function to obtain the importance weight \(\alpha_{t}\). After that, the entire text is represented as a weighted sum of word annotations based on weights. The context vector \(u_\omega \) can be regarded as a high-level representation of the fixed query ``what is the word conveying information''and is randomly initialized as a learnable parameter in the training.
 
 \subsection{The GCN-based Knowledge Point Classifier Generator}
 %在高中数学学科中，知识点之间具有较为复杂的相互关联例如相关、从属、包含、前驱、后继等等。这些复杂的相互关系在欧式空间往往难以建模，或这产生数据稀疏性的问题。而通过图数据结构来建立知识点间的关系则更加直观和拥有更好的解释性。回顾本模型的任务，它给出习题的描述、答案，部分已经标记好知识点，利用这些信息来对为标注知识点的习题进行知识点标注。考虑到知识点之间的依赖关系，一些在浅层特征上无法表征的深层隐藏知识点也可以通过图神经网络输出分类器被正确标注。在本模型中，用到了图卷积神经网络来建模知识点关系图，每个知识点都对应图上的一个节点。经过多个图卷积计算，生成一系列的分类器，这些分类器分别作用在文本挖掘模块产生的文本向量，每个分类器输出一个值表征该知识点与是该习题相关联的概率。其总体架构如图所示。
@@ -253,12 +253,12 @@ In high school mathematics, knowledge points have more complex interrelationship
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[height=1.0\textheight]{ch2-fig12-r.png}
+	\includegraphics[width=1.0\textwidth]{ch2-fig12.png}
 	\caption{The structure of GCN Classifier Generator}
 	\label{fig:ch2-fig12}
 \end{figure}
 
-In the proposed GCN-based model, knowledge point labels are represented by word embedding. Knowledge point set $K=\{k_1,k_2,...,k_T\}$, where $T$ is the total number of knowledge points. For each single knowledge point $k_i$, $k_i \in \mathbb{R}^{T\times d_{ko}}$, $d_{ko}$ is the dimensionality of the embedding vector of knowledge point object. In this paper, a learnable stacked GCN network is used to transform these knowledge point objects one by one into an internally connected knowledge point object classifier $C=[c_1,c_2,...c_n]$, where $c_i\in\mathbb {R}^{T\times d^r}$, $d^r$ is the dimensionality of the text representation vector $r$ output by the text mining module. These classifiers and $r$ can be used to calculate the dot product of each label. The probability of the label.
+In the proposed GCN-based model, knowledge point labels are represented by word embedding. Knowledge point set \(K=\{k_1,k_2,\ldots,k_T\} \), where \(T\) is the total number of knowledge points. For each single knowledge point \(k_i\), \(k_i \in \mathbb{R}^{T\times d_{ko}}\), \(d_{ko}\) is the dimensionality of the embedding vector of knowledge point object. In this paper, a learnable stacked GCN network is used to transform these knowledge point objects one by one into an internally connected knowledge point object classifier \(C=[c_1,c_2,\ldots,c_n]\), where \(c_i\in\mathbb {R}^{T\times d^r}\), \(d^r\) is the dimensionality of the text representation vector \(r\) output by the text mining module. These classifiers and \(r\) can be used to calculate the dot product of each label. The probability of the label.
 
 The reason why this model adopts the GCN structure is that the parameter sharing of GCN for each node allows the learned classifier to retain the associated information in the knowledge association graph, thereby implicitly expressing its spatial semantic structure. Therefore, the output classifier can retain and identify the implicit knowledge label dependent information. For the dependence of knowledge points, refer to the data association method mining algorithm such as apriori algorithm, and calculate the co-relation matrix by calculating the co-occurrence of knowledge points in the exercises.
 
@@ -286,37 +286,38 @@ The reason why this model adopts the GCN structure is that the parameter sharing
 % $ l $层网络的输入为$ H ^ {{（l）} \ in \ mathbb {R} ^ {N \ times D} $（初始输入为$ H ^ {（0）} $） ，$ N $是图中的节点数，每个节点由$ D $维特征向量表示。 $ \ tilde {A} = A + I_N $是添加了自连接的邻接矩阵，$ \ tilde {D} $是度矩阵，$ \ tilde {D_ {ii}} = \ sum_ {j} {\波浪号{A} _ {ij}} $。 \ mathbb {R} ^ {D \ times D} $中的$ W ^ {（l）} \是要训练的参数。 $ \ sigma $是相应的激活函数，例如ReLU。
 
 
-In the real world, many important data sets exist in the form of graphs or networks, such as social networks, knowledge graphs, protein interaction networks, world trade networks, and so on. Some papers reviewed this problem and tried to generalize neural networks and apply them to arbitrary graph structure data\cite{wu2018socialgcn,dettmers2018convolutional}. Currently, most graph neural network models have a common architecture. Known as graph convolutional neural networks (GCNs), these models are convolutional because the filter parameters can be shared at all positions or a local position in the graph. For these models, their goal is to learn a mapping of signals or features on the graph $G=(V,E)$. Their inputs include:
+In the real world, many important data sets exist in the form of graphs or networks, such as social networks, knowledge graphs, protein interaction networks, world trade networks, and so on. Some papers reviewed this problem and tried to generalize neural networks and apply them to arbitrary graph structure data\cite{wu2018socialgcn,dettmers2018convolutional}. Currently, most graph neural network models have a common architecture. Known as graph convolutional neural networks (GCNs), these models are convolutional because the filter parameters can be shared at all positions or a local position in the graph. For these models, their goal is to learn a mapping of signals or features on the graph \(G=(V,E)\). Their inputs include:
 
 \begin{itemize}
 	\item The feature description \(x_i\) of each node \(i\) can be written as an \(N\times D\) feature matrix (\(N\) represents the number of nodes, \(D\) represents the number of input features)
 	\item Characteristic description of graph structure in matrix form, usually in the form of adjacency matrix, denoted as $A$
 \end{itemize}
 
-The model will produce a node-level output $Z$ (an $N\times F$ feature matrix, where $F$ represents the number of output features of each node). Graph-level output can be modeled by introducing some pooling operations.
+The model will produce a node-level output \(Z\) (an \(N\times F\) feature matrix, where \(F\) represents the number of output features of each node). Graph-level output can be modeled by introducing some pooling operations.
 
 Each neural network layer can be written as a nonlinear function:
 \begin{align}
-	H^{(l+1)} & =f\left(H^{(l)}, A\right) \\
-	H^{(0)}   & =X                        \\
+	H^{(l+1)} & =f(H^{(l)}, A) \\
+	H^{(0)}   & =X             \\
 	H^{(L)}   & =Z
 \end{align}
 
 $L$ is the number of layers. The core problem is how the $f$ is selected and parameterized. The $f$ can be represented as \ref{fml:gcn1} by applying the convolutional operation of \cite{kipf2016semi}:
 \begin{align}
-	H^{(l+1)} & =\sigma\left(\tilde{D}^{-\frac{1}{2}} \tilde{A} \tilde{D}^{-\frac{1}{2}} H^{(l)} W^{(l)}\right)\label{fml:gcn1}
+	H^{(l+1)} & =\sigma(\tilde{D}^{-\frac{1}{2}} \tilde{A} \tilde{D}^{-\frac{1}{2}} H^{(l)} W^{(l)})\label{fml:gcn1}
 \end{align}
-the input of the $l$-th layer network is $H^{(l)}\in \mathbb{R}^{N\times D}$ (the initial input is $H^{(0)}$), $N$ is the number of nodes in the graph, and each node is represented by a $D$-dimensional feature vector. $\tilde{A}=A+I_N$ is the adjacency matrix with self-connection added, $\tilde{D}$ is the degree matrix, $\tilde{D_{ii}}=\sum_{j}{\tilde{A}_{ij}}$. $W^{(l)}\in \mathbb{R}^{D\times D}$ is the parameter to be trained. $\sigma$ is the corresponding activation function, such as ReLU.
+
+the input of the $l$-th layer network is \(H^{(l)}\in \mathbb{R}^{N\times D}\) (the initial input is \(H^{(0)}\)), \(N\) is the number of nodes in the graph, and each node is represented by a \(D\)-dimensional feature vector. \(\tilde{A}=A+I_N\) is the adjacency matrix with self-connection added, \(\tilde{D}\) is the degree matrix, \(\tilde{D_{ii}}=\sum_{j}{\tilde{A}_{ij}}\). \(W^{(l)}\in \mathbb{R}^{D\times D}\) is the parameter to be trained. \(\sigma \) is the corresponding activation function, such as ReLU.
 
 \subsubsection{Multi-label Recognition}
-From the stacked GCN network, we can learn interdependent object classifiers $C=\{c_1,c_2,...,c_T\}$, where T represents the number of categories. For the input layer, the input is $r\in \mathbb{R}^{T \times d_{ko}}$, where $d_{ko}$ is the number of dimensions represented by the embedding of the knowledge point object. Each GCN layer 1 takes the node representation from the previous layer $H^{(l)}$ as input and outputs a new node representation $H^{(l+1)}$. The output layer of the last layer is $C$, where $d_r$ represents the dimension of the title text. Finally, the label prediction vector  $\hat{y}$ can be obtained by the dot product product of the learned classifier and the title text representation $r$:
+From the stacked GCN network, we can learn interdependent object classifiers \(C=\{c_1,c_2,\ldots,c_T\} \), where T represents the number of categories. For the input layer, the input is \(r\in \mathbb{R}^{T \times d_{ko}}\), where \(d_{ko}\) is the number of dimensions represented by the embedding of the knowledge point object. Each GCN layer 1 takes the node representation from the previous layer \(H^{(l)}\) as input and outputs a new node representation \(H^{(l+1)}\). The output layer of the last layer is \(C\), where \(d_r\) represents the dimension of the title text. Finally, the label prediction vector \(\hat{y}\) can be obtained by the dot product product of the learned classifier and the title text representation \(r\):
 \begin{align}
 	\hat{y} = C r
 \end{align}
 
-Through manual labeling, the real knowledge point labels of the exercises can be obtained: $y\in \mathbb{R}^C$, $y_i\in \{0,1\}$, $y_i=0$ means that the exercise does not have knowledge points The label of $i$, on the contrary, $y_i=1$ means that the exercise has a label of knowledge point $i$. Through end-to-end training, the loss function $\mathcal{L}$ can be written as:
+Through manual labeling, the real knowledge point labels of the exercises can be obtained: \(y\in \mathbb{R}^C\), \(y_i\in \{0,1\} \), \(y_i=0\) means that the exercise does not have knowledge points The label of \(i\), on the contrary, \(y_i=1\) means that the exercise has a label of knowledge point \(i\). Through end-to-end training, the loss function \(\mathcal{L}\) can be written as:
 \begin{align}
-	\mathcal{L}=\sum_{i=1}^{T} y_i \log \left(\text{sigmoid}\left(\hat{y}_i\right)\right)+\left(1-y_i\right) \log (1-\text{sigmoid}(\hat{y}_i))
+	\mathcal{L}=\sum_{i=1}^{T} y_i \log (\text{sigmoid}(\hat{y}_i))+(1-y_i) \log (1-\text{sigmoid}(\hat{y}_i))
 \end{align}
 
 \subsubsection{Design of Correlation Matrix}
@@ -324,39 +325,65 @@ Through manual labeling, the real knowledge point labels of the exercises can be
 
 %在该模型中，其实只需要找到知识点的对偶关系。因此，知识点关系矩阵可以表示为$R/in \mathbb{R}^{T\time T}$。第一个任务是找到标签集中频繁关联标签的出现次数。$operatorname{Support}$、$operatorname{Confidence}$和$operatorname{Lift}$可以用来评估频繁标签集。支持度是指标签集中标签对的出现次数占总标签集的比例。置信度反映了一个标签$L_i$出现、另一个标签$L_j$出现的概率，或数据的条件概率。提升度表示标签$L_i$同时包含的概率，以及X种群出现概率的比例。
 
-In GCN, the correlation matrix $A$ characterizes the relationship between graph nodes, and GCN information propagation calculation is also based on $A$. Therefore, designing the correlation matrix $A$ is a key step in the GCN model. In this model, the commonly used data association rule mining algorithm Apriori algorithm is used to calculate the knowledge point association by counting the number of occurrences of the knowledge point set.
+In GCN, the correlation matrix \(A\) characterizes the relationship between graph nodes, and GCN information propagation calculation is also based on \(A\). Therefore, designing the correlation matrix \(A\) is a key step in the GCN model. In this model, the commonly used data association rule mining algorithm Apriori algorithm is used to calculate the knowledge point association by counting the number of occurrences of the knowledge point set.
 
-In this model, in fact, only the knowledge pairwise relationship needs to be found. Therefore, the knowledge point relationship matrix can be expressed as $R\in \mathbb{R}^{T\times T}$. The first task is to find the number of occurrences of frequently associated label in the label set. $\operatorname{Support}$, $\operatorname{Confidence}$, and $\operatorname{Lift}$ can be used to evaluate frequent label sets. Support is the proportion of the number of occurrences of label pair in the label set in the total label set. Confidence degree reflects the probability of a label $L_i$ appearing, another label $L_j$ appears, or the conditional probability of the data. Lift represents the probability that the label $L_i$ is contained at the same time, and the ratio of the probability of occurrence of X population:
+In this model, in fact, only the knowledge pairwise relationship needs to be found. Therefore, the knowledge point relationship matrix can be expressed as \(R\in \mathbb{R}^{T\times T}\). The first task is to find the number of occurrences of frequently associated label in the label set. \(\operatorname{Support}\), \(\operatorname{Confidence}\), and \(\operatorname{Lift}\) can be used to evaluate frequent label sets. Support is the proportion of the number of occurrences of label pair in the label set in the total label set. Confidence degree reflects the probability of a label \(L_i\) appearing, another label \(L_j\) appears, or the conditional probability of the data. Lift represents the probability that the label \(L_i\) is contained at the same time, and the ratio of the probability of occurrence of X population:
 \begin{align}
-	\operatorname{Support}(L_i, L_j)              & =P(L_i,L_j)=\frac{\operatorname{number}(L_i,L_j)}{\operatorname{number}(\text { All Samples })} \\
-	\operatorname{Confidence}(L_i \Leftarrow L_j) & =P(L_i \mid L_j)=P(L_i, L_j) / P(L_j)                                                           \\
-	\operatorname{Lift}(L_i \Leftarrow L_j)       & =P(L_i \mid L_j) / P(L_i)=\operatorname{Confidence}(L_i \Leftarrow L_j) / P(L_i)
+	\operatorname{Support}(L_i, L_j)         & =P(L_i,L_j)=\frac{\operatorname{number}(L_i,L_j)}{\operatorname{number}(\text { All Samples })} \\
+	\operatorname{Confidence}(L_i arrow L_j) & =P(L_i \mid L_j)=P(L_i, L_j) / P(L_j)                                                           \\
+	\operatorname{Lift}(L_i arrow L_j)       & =P(L_i \mid L_j) / P(L_i)=\operatorname{Confidence}(L_i arrow L_j) / P(L_i)
 \end{align}
 
-Similar to calculating Support, the frequency matrix $E\in \mathbb{R}^{T\times T}$ of the sample knowledge point label pairs in the exercise training set can be calculated here, where $T$ is the number of knowledge points. $M_{ij}$ represents the number of times the knowledge point $i$ and the knowledge point $j$ appear at the same time. Similarly, the knowledge point pair can be calculated by calculating Confidence to calculate the conditional probability matrix $P$, where $P_{ij}=P(L_i, L_j) / P(L_j)$, where $P_{ij}=P(L_i, L_j) / P(L_j)$ means the situation when the knowledge point $j$ appears The conditional probability of the occurrence of the next knowledge point $i$.
+Similar to calculating Support, the frequency matrix \(E\in \mathbb{R}^{T\times T}\) of the sample knowledge point label pairs in the exercise training set can be calculated here, where \(T\) is the number of knowledge points. \(M_{ij}\) represents the number of times the knowledge point \(i\) and the knowledge point \(j\) appear at the same time. Similarly, the knowledge point pair can be calculated by calculating Confidence to calculate the conditional probability matrix \(P\), where \(P_{ij}=P(L_i, L_j)/P(L_j)\), where \(P_{ij}=P(L_i, L_j)/P(L_j)\) means the situation when the knowledge point \(j\) appears The conditional probability of the occurrence of the next knowledge point \(i\).
 
-Similar to calculating Support, the frequency matrix \(E\in \mathbb{R}^{T\times T}\) of the sample knowledge point label pairs in the exercise training set can be calculated here, where $T$ is the number of knowledge points. $E_{ij}$ represents the number of times the knowledge point $i$ and the knowledge point $j$ appear at the same time. Similarly, knowledge point pairs can be calculated by calculating Confidence to calculate the conditional probability matrix $P$, where $P_{ij}=P(L_i, L_j) / P(L_j)$ means the situation when the knowledge point $j$ appears The conditional probability of the occurrence of the next knowledge point $i$.
+Similar to calculating Support, the frequency matrix \(E\in \mathbb{R}^{T\times T}\) of the sample knowledge point label pairs in the exercise training set can be calculated here, where \(T\) is the number of knowledge points. \(E_{ij}\) represents the number of times the knowledge point \(i\) and the knowledge point \(j\) appear at the same time. Similarly, knowledge point pairs can be calculated by calculating Confidence to calculate the conditional probability matrix \(P\), where \(P_{ij}=P(L_i, L_j)/P(L_j)\) means the situation when the knowledge point \(j\) appears The conditional probability of the occurrence of the next knowledge point \(i\).
 
-It is a simple solution to directly set $P$ as the incidence matrix $A$, but in actual situations, some comprehensive questions in the exercise set contain practically unrelated knowledge points, but these situations are relatively rare. In order to filter the noise caused by the label pairs of rare knowledge points, a minimum knowledge confidence threshold can be set. When $P_{ij}$ is greater than the given threshold \(\tau\)， naming activating value, then \(A_{ij}\) is set to $P_{ij}$ , Otherwise $A_{ij}$ is set to 0. The formula is like \ref{fml:confidence}.
+It is a simple solution to directly set \(P\) as the incidence matrix \(A\), but in actual situations, some comprehensive questions in the exercise set contain practically unrelated knowledge points, but these situations are relatively rare. In order to filter the noise caused by the label pairs of rare knowledge points, a minimum knowledge confidence threshold can be set. When \(P_{ij}\) is greater than the given threshold \(\tau \)， naming activating value, then \(A_{ij}\) is set to \(P_{ij}\), Otherwise \(A_{ij}\) is set to 0. The formula is like~\ref{fml:confidence}.
 
 \begin{align}
-	A_{i j}=\left\{\begin{array}{ll}
+	A_{i j}=\{\begin{array}{ll}
 		0,      & \text { if } P_{i j}<\tau      \\
 		P_{ij}, & \text { if } P_{i j} \geq \tau
-	\end{array}\right.\label{fml:confidence}
+	\end{array}.\label{fml:confidence}
 \end{align}
 
 \section{Experiment}
 %本章提出了一个习题知识点多标签标注的模型，在本节中，先对数据集进行了介绍，接着介绍了一些Baseline性能的模型，然后结合多标签标注提出了对比的性能指标评估方案，最后给出对比结果和分析。
 This chapter proposes a multi-label labeling model for exercise knowledge points. In this section, first introduces the data set, then introduces some baseline performance models, and then combines the multi-label labeling to propose a comparative performance indicator evaluation plan. Finally, Give comparison results and analysis.
 \subsection{Dataset}
-%本文中的实验数据来自于2010-2019年的高考数学考题以及模拟题（包含答案解析），共2236道。
+%本文中的实验数据来自于在线网站koolearn.com的带标签的高考数学考题以及模拟题（包含答案解析），通过爬虫爬取题干、答案解析等文本语料。其部分知识点关联模型可以表示为如下图结构。该数据集经过过滤和人工选择，共3374道试题，包含148个知识点，题均知识点为1.7个，其知识点分布如图所示。
+The experimental data in this article comes from the labeled college entrance examination math test questions and simulation questions (including answer analysis) on the online website koolearn.com. The text corpus such as question stems and answer analysis are crawled through crawlers. Part of the knowledge point association model can be expressed as the following structure. The data set has been filtered and manually selected. There are 3374 test questions, including 148 knowledge points, with an average of 1.7 knowledge points. The distribution of several knowledge points is shown in the figure \ref{ch2-fig13}.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.0\textwidth]{ch2-fig13.png}
+	\caption{Knowledge Points of dataset}
+	\label{ch2-fig13}
+\end{figure}
+
+%该数据集的习题知识点数目分布如图所示。
+The distribution of the number of exercise knowledge points in this data set is shown in the figure \ref{ch2-fig14}.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.5\textwidth]{ch2-fig14.png}
+	\includegraphics[width=0.4\textwidth]{ch2-fig15.png}
+	\caption{Distribution of the number of knowledge points of exercise}
+	\label{ch2-fig14}
+\end{figure}
+
+
+
 % The experimental data in this article comes from high school math test questions in a database of an online education platform. The original data totals 2195, and 1357 test questions are obtained after semi-automatic screening. The original labeled knowledge points are 166 items of original tags. After the mathematical knowledge point map is constructed and replaced, 61 tags are obtained.
 
 \subsection{Baseline}
 % In the algorithm, the binary relation method (Binary Rele vance, BR), the multi-label KN algorithm (Multijabel KNN, MLKN), and the classifier chain method (Classifier Chain, C) are selected as the comparison algorithm, and the experimental training set test set division ratio It is 1:1.
-% 
-
+% 目前，已经有一些进行文本标签标注的算法模型，为了验证本文提出算法的有效性，将与下列的算法进行比较，作为baseline指标。
+At present, there are already some algorithm models for labeling text. In order to verify the effectiveness of the algorithm proposed in this paper, it will be compared with the following algorithm as a baseline indicator.
+\begin{itemize}
+	\item Naive Bayes algorithm(NB): predict the labeling probability of a knowledge point based on the prior probability of text combination, and then convert the binary classification problem into a multi-label problem
+	\item Multi-label KNN(MLKNN): Proposed by Zhang et al.\cite{zhang2007ml}, it find the k samples closest to the sample through the KNN algorithm, count the number of each category in the k samples, use the native bayes algorithm to calculate the probability of each label and finally output
+	\item CNN+word2vec: Use word2vec to convert the test question text into an embedded vector, extract the test text information through CNN, and then output the multi-label prediction
+	\item CNN+BERT: BERT was proposed by the Google AI team\cite{devlin2019bert}, which can be used to replace word2vec for word vector generation. The other parts of the model structure are the same as the previous model.
+\end{itemize}
 
 \subsection{Metrics}
 %相比于传统学习问题，对多标签数据的标注十分困难，多标签意味着巨大的分类成本。本节的任务中，需要对试题进行多知识点标注，实际上是一个多标签分类问题，则样本维度、数据量、标签维度都会影响标注效果。本节利用了基于标签的评测方法来对提出的试题知识点标注模型进行性能评估。
@@ -379,54 +406,67 @@ where \(x_i\) and \(l_j\) represent the i-th exercise and j-th label, \(Y_i\) an
 
 In the confusion matrix, Precision \(\operatorname{P}\) is the proportion of data with correct predictions to the data that is predicted to be positive, and Recall \(\operatorname{R}\) is the proportions of data with predictions that are positive to the actual data. \(\operatorname{F1}\) value is the harmonic mean value of precision rate and recall rate, and it is a comprehensive evaluation index of precision rate and recall rate. The calculation formula is as \ref{fml:Precision} and \ref{fml:Recall}:
 \begin{align}
-	\operatorname{P}  & =\frac{\operatorname{TP}}{\operatorname{TP}+\operatorname{FP}} \label{fml:Precision} \\
-	\operatorname{R}  & =\frac{\operatorname{TP}}{\operatorname{TP}+\operatorname{FN}} \label{fml:Recall}    \\
-	\operatorname{F1} & = \frac{2}{\frac{1}{\operatorname{P}}+\frac{1}{\operatorname{R}}}
+	\operatorname{P}          & =\frac{\operatorname{TP}}{\operatorname{TP}+\operatorname{FP}} \label{fml:Precision} \\
+	\operatorname{R}          & =\frac{\operatorname{TP}}{\operatorname{TP}+\operatorname{FN}} \label{fml:Recall}    \\
+	\operatorname{F1}_{score} & = \frac{2}{\frac{1}{\operatorname{P}}+\frac{1}{\operatorname{R}}}
 \end{align}
 %micro F1 通过先计算总体的TP，FN和FP的数量，再计算F1， 而macro F1 分别计算每个类别的F1，然后做平均（各类别F1的权重相同）
-Similarly, for the multi-label tagging problem, Macro F1 and Micro F1 can be used as the metrics, Micro-F1 first calculates the total number of TP, FN and FP, and then calculates F1, while Macro-F1 calculates the F1 of each category separately, and then averages (the weight of each category F1 is the same).
+Similarly, for the multi-label tagging problem, Macro F1 and Micro F1 can be used as the metrics, Micro-F1 first calculates the total number of TP, FN and FP, and then calculates F1, while Macro-F1 calculates the F1 of each category separately, and then averages (the weight of each category F1 is the same). The formula is \ref{fml:f1-macro} and \ref{fml:f1-micro}.
 \begin{align}
-	\operatorname{F1}_{\text {macro}}(h)=\frac{1}{q} \sum_{j=1}^{q} \operatorname{F1}_{\text {score }}\left(\operatorname{TP}_{j}, \operatorname{FP}_{j}, \operatorname{TN}_{j}, \operatorname{FN}_{j}\right)
+	\operatorname{F1}_{macro}(h) & =\frac{1}{c} \sum_{j=1}^{c} \operatorname{F1}_{score}(\operatorname{TP}_{j}, \operatorname{FP}_{j}, \operatorname{TN}_{j}, \operatorname{FN}_{j}) \label{fml:f1-macro}                                  \\
+	\operatorname{F1}_{micro}(h) & =\operatorname{F1}_{score}(\sum_{j=1}^{c} \operatorname{TP}_{j}, \sum_{j=1}^{c} \operatorname{FP}_{j}, \sum_{j=1}^{c} \operatorname{TN}_{j}, \sum_{j=1}^{c} \operatorname{FN}_{j}) \label{fml:f1-micro}
 \end{align}
+% Coverage: In the average ranking of predicted labels for each sample, how many predicted labels need to be searched to find the true labels of all samples, where \(rank(x,y)\) represents the ranking of predicted labels, namely
+% \begin{align}
+% 	\operatorname{coverage}(h)=\frac{1}{c} \sum_{i=1}^{c} \max _{y \in Y_{i}} \operatorname{rank}_{f}(x_{i}, y)-1
+% \end{align}
+% Average Precision (Average Precision): In the predicted label ranking of all samples, the one that is ranked before the real label is also the average of the probability of the real label, that is
+% \begin{align}
+% 	\operatorname{AP}(h)=\frac{1}{c} \sum_{i=1}^{c} \frac{1}{|Y_{i}|} \sum_{y \in Y_{i}} \frac{|\{y^{\prime} \mid \operatorname{rank}_{f}(x_{i}, y^{\prime}) \leq \operatorname{rank}_{f}(x_{i}, y), y^{\prime} \in Y_{i}\}|}{\operatorname{rank}_{f}(x_{i}, y)}
+% \end{align}
+Where $c$ is the total number of labels.
+
+% 同样的，我们也可以基于样本统计一些指标。例如准确率，海明损失，查全率和F1值。准确率即预测标签完全正确的样本占总体样本的比例，海明损失为预测标签与真是标签的差距的度量指标，Precision和Recall分别代表真阳性样本占真样本的比例和真阳性样本占阳性样本的比例。它 们的计算公式为
+Similarly, we can also count some indicators based on samples. For example, the accuracy rate \(Accuracy\), Hamming loss \(HmLoss\), precision rate \(Precision\), recall rate \(Recall\) and \(\operatorname{F1}_{score}\) can be calculated. Accuracy is the proportion of samples with completely correct predicted labels in the overall sample. Hamming loss is a measure of the difference between the predicted label and the true label. Precision and Recall represent the proportion of true positive samples in true samples and the proportion of true positive samples in positive samples. proportion. Their calculation formula is \ref{fml:subaccuracy}-\ref{fml:f1scoreh}.
 \begin{align}
-	\operatorname{F1}_{\text {micro}}(h)=\operatorname{F1}_{\text {score }}\left(\sum_{j=1}^{q} \operatorname{TP}_{j}, \sum_{j=1}^{q} \operatorname{FP}_{j}, \sum_{j=1}^{q} \operatorname{TN}_{j}, \sum_{j=1}^{q} \operatorname{FN}_{j}\right)
-\end{align}
-Coverage: In the average ranking of predicted labels for each sample, how many predicted labels need to be searched to find the true labels of all samples, where runk(x,y) represents the ranking of predicted labels, namely
-\begin{align}
-	\operatorname{coverage}(h)=\frac{1}{p} \sum_{i=1}^{p} \max _{y \in Y_{i}} \operatorname{rank}_{f}\left(x_{i}, y\right)-1
-\end{align}
-Average Precision (Average Precision): In the predicted label ranking of all samples, the one that is ranked before the real label is also the average of the probability of the real label, that is
-\begin{align}
-	\operatorname{AP}(h)=\frac{1}{p} \sum_{i=1}^{p} \frac{1}{\left|Y_{i}\right|} \sum_{y \in Y_{i}} \frac{\left|\left\{y^{\prime} \mid \operatorname{rank}_{f}\left(x_{i}, y^{\prime}\right) \leq \operatorname{rank}_{f}\left(x_{i}, y\right), y^{\prime} \in Y_{i}\right\}\right|}{\operatorname{rank}_{f}\left(x_{i}, y\right)}
+	\operatorname{Accuracy}(h)   & =\frac{1}{p} \sum_{i=1}^{p}[{h}(x_{i}), Y_{i}] \label{fml:subaccuracy}                                                                                  \\
+	\operatorname{HmLoss}(h)     & =\frac{1}{p} \sum_{i=1}^{p} \frac{1}{q}|h(x_{i}) \Delta Y_{i}| \label{fml:hmloss}                                                                       \\
+	\operatorname{Precision}(h)  & =\frac{1}{p} \sum_{i=1}^{p} \frac{|Y_{i} \cap h(x_{i})|}{|h(x_{i})|} \label{fml:Precisionh}                                                             \\
+	\operatorname{Recall}(h)     & =\frac{1}{p} \sum_{i=1}^{P} \frac{|Y_{i} \cap h(x_{i})|}{|Y_{i}|}    \label{fml:Recallh}                                                                \\
+	\operatorname{F1}_{score}(h) & =\frac{2 \cdot \operatorname{Precision(h)} \cdot \operatorname {Recall(h)}}{\operatorname {Precision(h)}+\operatorname{Recall(h)}} \label{fml:f1scoreh}
 \end{align}
 
-\subsubsection{Sample-based Metrics}
-\begin{itemize}
-	\item Subset Accuracy: The ratio of the predicted label set to the true label set is exactly the same, the calculation formula is \ref{fml:metrics1}:
-	      \begin{align}
-		      \operatorname{SubAcc}(h)=\frac{1}{p} \sum_{i=1}^{p}\left[{h}\left(x_{i}\right), Y_{i}\right] \label{fml:metrics1}
-	      \end{align}
-	      where $\hat{Y}_i=h(x_i)$ represents the predicted label, and $Y_i$ represents the factual label.
-	\item Hamming Loss: The difference between the predicted label and the factual label, the calculation formula is:
-	      \begin{align}
-		      \operatorname{HmLoss}(h)=\frac{1}{p} \sum_{i=1}^{p} \frac{1}{q}\left|h\left(x_{i}\right) \Delta Y_{i}\right|
-	      \end{align}
-	      where $\delta$ represents the symmetric difference between the predicted label set and the factual label set.
-	\item Precision: The ratio of true to true when the prediction is true, the calculation formula is
-	      \begin{align}
-		      \operatorname{ Precision }(h)=\frac{1}{p} \sum_{i=1}^{p} \frac{\left|Y_{i} \cap h\left(x_{i}\right)\right|}{\left|h\left(x_{i}\right)\right|}
-	      \end{align}
-	\item Recall: The ratio of true to true in prediction is true, the calculation formula is
-	      \begin{align}
-		      \operatorname{Recall}(h)=\frac{1}{p} \sum_{i=1}^{P} \frac{\left|Y_{i} \cap h\left(x_{i}\right)\right|}{\left|Y_{i}\right|}
-	      \end{align}
-	\item F1 Score: The harmonic average of the precision and recall of each sample, the calculation formula is:
-	      \begin{align}
-		      \operatorname{F1}_{\text{Score}}(h)=\frac{2 \cdot \operatorname{precision} \cdot \operatorname {recall }}{\operatorname {precision }+\operatorname {recall }}
-	      \end{align}
 
-\end{itemize}
 
+% \subsubsection{Sample-based Metrics}
+% \begin{itemize}
+% 	\item Subset Accuracy: The ratio of the predicted label set to the true label set is exactly the same, the calculation formula is \ref{fml:metrics1}:
+% 	      \begin{align}
+% 		      \operatorname{SubAcc}(h)=\frac{1}{p} \sum_{i=1}^{p}[{h}(x_{i}), Y_{i}] \label{fml:metrics1}
+% 	      \end{align}
+% 	      where $\hat{Y}_i=h(x_i)$ represents the predicted label, and $Y_i$ represents the factual label.
+% 	\item Hamming Loss: The difference between the predicted label and the factual label, the calculation formula is:
+% 	      \begin{align}
+% 		      
+% 	      \end{align}
+% 	      where $\delta$ represents the symmetric difference between the predicted label set and the factual label set.
+% 	\item Precision: The ratio of true to true when the prediction is true, the calculation formula is
+% 	      \begin{align}
+% 		      \operatorname{ Precision }(h)=\frac{1}{p} \sum_{i=1}^{p} \frac{|Y_{i} \cap h(x_{i})|}{|h(x_{i})|}
+% 	      \end{align}
+% 	\item Recall: The ratio of true to true in prediction is true, the calculation formula is
+% 	      \begin{align}
+% 		      \operatorname{Recall}(h)=\frac{1}{p} \sum_{i=1}^{P} \frac{|Y_{i} \cap h(x_{i})|}{|Y_{i}|}
+% 	      \end{align}
+% 	\item F1 Score: The harmonic average of the precision and recall of each sample, the calculation formula is:
+% 	      \begin{align}
+% 		      \operatorname{F1}_{\text{Score}}(h)=\frac{2 \cdot \operatorname{precision} \cdot \operatorname {recall }}{\operatorname {precision }+\operatorname {recall }}
+% 	      \end{align}
+
+% \end{itemize}
+
+\subsection{Setting and Environment}
+%考虑到不同知识点的习题数量存在差距，
 
 
 \subsection{Result and Analysis}
@@ -435,10 +475,10 @@ Due to the imbalance of sample data, the gap between the number of test question
 The table \ref{Table:ch2-ex1} shows the experimental settings. The tag frequency thresholds are set to 100, 50, 40, 30, 20, and 10 respectively. The label cardinality (label cardinality) represents the average number of knowledge points for each test question, and the label density (label density) is the standardization of the label potential, and its calculation formula is as follows
 
 \begin{align}
-	L_{Card}=\frac{1}{n} \sum_{i=1}^{n}\left|Y_{i}\right| \\
+	L_{Card}=\frac{1}{n} \sum_{i=1}^{n}|Y_{i}| \\
 	L_{Den}=\frac{1}{m} L_\text{ Card }
 \end{align}
-Where $n$ represents the number of test questions in the data set, and $m$ represents the number of knowledge point labels.
+Where \(n\) represents the number of test questions in the data set, and \(m\) represents the number of knowledge point labels.
 
 \begin{table}[h]
 	\centering
@@ -456,7 +496,7 @@ Where $n$ represents the number of test questions in the data set, and $m$ repre
 	\end{tabular}
 \end{table}
 
-From the experimental results, it can be seen that, compared with the binary relation method, the multi-label KNN algorithm, and the classifier chain method, the multi-knowledge point labeling method based on ensemble learning proposed in this paper has achieved better results under different knowledge point labels. the result of. In multi-label classification, the evaluation of more stringent indicators—subset accuracy, the method in this paper is always significantly better than the other three methods. Screening the base classifiers with relatively good performance and integrating their results through the majority voting method compensated for the disadvantages of each base classifier and obtained good results. However, as the tag frequency threshold decreases, the number of knowledge points gradually increases, and the difficulty of multi-label classification becomes more and more difficult. One of the reasons is that the knowledge points actually contained in a test question are not completely consistent with the knowledge points that the teacher investigates. As shown in Table 7, in the first three questions, there is no "arithmetic sequence" in the original manually labeled knowledge points, but the content of the test questions contains the term "arithmetic sequence". Questions 4 and 5 The knowledge point is "arithmetic sequence" and there is also "arithmetic sequence" in the question stem. Therefore, when using the trained model to predict the first three questions, the "arithmetic sequence" will be marked as the knowledge point of this question. It is more difficult to further determine the knowledge points of examination questions and the knowledge points contained in the questions based on the existing data. The second reason is that due to the uneven distribution of knowledge points, many knowledge points do not have enough test data for learning, which makes it difficult to predict the knowledge points in the pre-test questions.
+From the experimental results, it can be seen that, compared with the binary relation method, the multi-label KNN algorithm, and the classifier chain method, the multi-knowledge point labeling method based on ensemble learning proposed in this paper has achieved better results under different knowledge point labels. the result of. In multi-label classification, the evaluation of more stringent indicators—subset accuracy, the method in this paper is always significantly better than the other three methods. Screening the base classifiers with relatively good performance and integrating their results through the majority voting method compensated for the disadvantages of each base classifier and obtained good results. However, as the tag frequency threshold decreases, the number of knowledge points gradually increases, and the difficulty of multi-label classification becomes more and more difficult. One of the reasons is that the knowledge points actually contained in a test question are not completely consistent with the knowledge points that the teacher investigates. As shown in Table 7, in the first three questions, there is no ``arithmetic sequence'' in the original manually labeled knowledge points, but the content of the test questions contains the term ``arithmetic sequence''. Questions 4 and 5 The knowledge point is ``arithmetic sequence'' and there is also ``arithmetic sequence'' in the question stem. Therefore, when using the trained model to predict the first three questions, the ``arithmetic sequence'' will be marked as the knowledge point of this question. It is more difficult to further determine the knowledge points of examination questions and the knowledge points contained in the questions based on the existing data. The second reason is that due to the uneven distribution of knowledge points, many knowledge points do not have enough test data for learning, which makes it difficult to predict the knowledge points in the pre-test questions.
 \section{Summary}
 %现阶段教育活动中的知识点标注主要是凭借教师人工标注, 存在成本高、 效率低、 准确度难以保障等问题。因此, 自动标注试题知识点成为了亟待解决的问题。本章提出一个基于图神经网络和基于注意力机制BiLSTM文本挖掘的习题知识点标注的模型。使用实际背景下的高中数学试题进行了实验, 实验结果表明在实际背景下文本提出的方法要优于已有的基于传统机器学习的多标签文本分类方法。
 At this stage, the knowledge point labeling in educational activities mainly relies on teachers' manual labeling, which has problems such as high cost, low efficiency, and difficulty in ensuring accuracy. Therefore, automatic marking of knowledge points of test questions has become an urgent problem to be solved. This chapter proposes a model based on graph neural network and BiLSTM text mining based on attention mechanism. Experiments were carried out using high school mathematics test questions in the actual context. The experimental results show that the method proposed in the actual context is better than the existing multi-label text classification methods based on traditional machine learning.
