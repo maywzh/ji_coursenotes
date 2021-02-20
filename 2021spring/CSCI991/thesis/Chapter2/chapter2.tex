@@ -99,7 +99,7 @@ In the preprocessing stage, it mainly includes word segmentation, cleaning, and 
 After the steps of data processing, a clean text token sequence is obtained, and then the word2vec technology can be used to perform text embedding operations on the Embedding layer.
 
 \subsubsection{Embedding Layer}
-% 在深度学习的应用过程中，Embedding 这样一种将离散变量转变为连续向量的方式为神经网络在各方面的应用带来了极大的扩展。Embedding 是一个将离散变量转为连续向量表示的一个方式。在神经网络中，embedding 是非常有用的，因为它不光可以减少离散变量的空间维数，同时还可以有意义的表示该变量。例如在自然语言处理方面，如果采用朴素的one-hot编码，往往会造成向量的维度过多而稀疏，也无法学习到向量之间的依赖关系。在进行embedding训练的过程中，embedded向量会得到更新，这可以清晰地显示出向量之间的练习。Mikolov等人在2013年提出了基于 NNLM、 RNNLM 和 C&W 模型改进的CBOW(Continuous Bagof-Words)和Skip-gram模型，并在接下来数年成为了实现word embedding的一种经典方案。同年在Mikolov的另一篇文献中，训练Skip-gram模型的两个策略：Hierarchical Softmax和Negative Sampling被提出来。CBOW的原理是通过根据输入周围若干个个词来预测出这个词本身（即通过上下文预测词语），而Skip-gram模型则是根据输入词语来预测周围若干个词（即输入词语预测上下文）。
+% 在深度学习的应用过程中，Embedding 这样一种将离散变量转变为连续向量的方式为神经网络在各方面的应用带来了极大的扩展。Embedding 是一个将离散变量转为连续向量表示的一个方式。在神经网络中，embedding 是非常有用的，因为它不光可以减少离散变量的空间维数，同时还可以有意义的表示该变量。例如在自然语言处理方面，如果采用朴素的one-hot编码，往往会造成向量的维度过多而稀疏，也无法学习到向量之间的依赖关系。在进行embedding训练的过程中，embedded向量会得到更新，这可以清晰地显示出向量之间的练习。Mikolov等人在2013年提出了基于 NNLM、 RNNLM 和 C&W 模型改进的CBOW(Continuous Bag-of-Words)和Skip-gram模型，并在接下来数年成为了实现word embedding的一种经典方案。同年在Mikolov的另一篇文献中，训练Skip-gram模型的两个策略：Hierarchical Softmax和Negative Sampling被提出来。CBOW的原理是通过根据输入周围若干个个词来预测出这个词本身（即通过上下文预测词语），而Skip-gram模型则是根据输入词语来预测周围若干个词（即输入词语预测上下文）。
 
 
 
@@ -112,7 +112,7 @@ After the steps of data processing, a clean text token sequence is obtained, and
 
 %在本层中，我们获取了一个由原始习题文本提取的词token序列。设定该序列为$S=\{t_1,t_2,...,t_l\}$,每一个$t_i$都代表一个token，序列长度为$l$. 将序列设置为$ S = \ {w_1，w_2，...，w_l \} $，每个$ w_i $代表一个单词标记，序列长度为$ l $。 将$ V $设置为包含所有单词$ V = \ {w_1，w_2，... w_ {| V |} \} $的词汇表。经过embedding操作后，每个token都被转化为一个embedded向量$e_i$，即$e_i=E(w_i)$. 在这里$\mathcal{E}(\cdot)$是embedding函数。
 
-In the application of deep learning, Embedding, a way of transforming discrete variables into continuous vectors, has greatly expanded the application of neural networks in various aspects. Embedding is a way to convert discrete variables into continuous vector representation. In neural networks, embedding is very useful, because it can not only reduce the spatial dimension of discrete variables, but also represent the variables meaningfully. For example, in natural language processing, if simple one-hot encoding is used, it will often cause too many dimensions and sparse vectors, and it is impossible to learn the dependencies between vectors. In the process of embedding training, the embedded vector will be updated, which can clearly show the practice between vectors. In 2013, Mikolov et al. proposed an improved CBOW (Continuous Bag-of-Words) and Skip-gram model based on NNLM, RNNLM and C\&W models\cite{mikolov2013efficient}, and in the next few years it became a classic solution for word embedding, the model is like \figurename{\ref{ch2-fig4}}. In another paper by Mikolov in the same year, two strategies for training the Skip-gram model: Hierarchical Softmax and Negative Sampling were proposed\cite{mikolov2013distributed}. The principle of CBOW is to predict the word itself based on several words around the input (that is, predict the word through context), while the Skip-gram model predicts several surrounding words based on the input word (that is, the input word predicts the context), like following formula~\ref{fml-cbow}--\ref{fml-sg}.
+In the application of deep learning, Embedding, a way of transforming discrete variables into continuous vectors, has greatly expanded the application of neural networks in various aspects. Embedding is a way to convert discrete variables into continuous vector representation. In neural networks, embedding is very useful, because it can not only reduce the spatial dimension of discrete variables, but also represent the variables meaningfully. For example, in natural language processing, if simple one-hot encoding is used, it will often cause too many dimensions and sparse vectors, and it is impossible to learn the dependencies between vectors. In the process of embedding training, the embedded vector will be updated, which can clearly show the practice between vectors. In 2013, Mikolov et al. proposed an improved CBOW (Continuous Bag-of-Words) and Skip-gram model based on Neural Network Language Model (NNLM)\cite{bengio2003neural}, Recurrent Neural Network Language Model (RNNLM) \cite{mikolov2011extensions} and C\&W models\cite{mikolov2013efficient}, and in the next few years it became a classic solution for word embedding, the model is like \figurename{\ref{ch2-fig4}}. In another paper by Mikolov in the same year, two strategies for training the Skip-gram model: Hierarchical Softmax and Negative Sampling were proposed\cite{mikolov2013distributed}. The principle of CBOW is to predict the word itself based on several words around the input (that is, predict the word through context), while the Skip-gram model predicts several surrounding words based on the input word (that is, the input word predicts the context), like following formula~\ref{fml-cbow}--\ref{fml-sg}.
 
 \begin{align}
 	\text{ CBOW: context }(w_{t})=(w_{t-c}, \ldots, w_{t-1}, w_{t+1}, \ldots, w_{t+c}) \stackrel{\text{ predict }}{\longrightarrow} w_{t} \label{fml-cbow} \\
@@ -293,12 +293,12 @@ Each neural network layer can be written as a nonlinear function:
 	H^{(L)}   & =Z
 \end{align}
 
-\(L\) is the number of layers. The core problem is how the \(f\) is selected and parameterized. The \(f\) can be represented as~\ref{fml:gcn1} by applying the convolutional operation\cite{kipf2016semi}:
+\(L\) is the number of layers. The core problem is how the \(f\) is selected and parameterized. The \(f\) can be represented as~\ref{fml:gcn1} by applying the convolutional operation \cite{kipf2016semi}:
 \begin{align}
 	H^{(l+1)} & =\sigma(\tilde{D}^{-\frac{1}{2}} \tilde{A} \tilde{D}^{-\frac{1}{2}} H^{(l)} W^{(l)})\label{fml:gcn1}
 \end{align}
 
-the input of the \(l\)-th layer network is \(H^{(l)}\in \mathbb{R}^{N\times D}\) (the initial input is \(H^{(0)}\)), \(N\) is the number of nodes in the graph, and each node is represented by a \(D\)-dimensional feature vector. \(\tilde{A}=A+I_N\) is the adjacency matrix with self-connection added, \(\tilde{D}\) is the degree matrix, \(\tilde{D_{ii}}=\sum_{j}{\tilde{A}_{ij}}\). \(W^{(l)}\in \mathbb{R}^{D\times D}\) is the parameter to be trained. \(\sigma \) is the corresponding activation function, such as ReLU.
+the input of the \(l\)-th layer network is \(H^{(l)}\in \mathbb{R}^{N\times D}\) (the initial input is \(H^{(0)}\)), \(N\) is the number of nodes in the graph, and each node is represented by a \(D\)-dimensional feature vector. \(\tilde{A}=A+I_N\) is the adjacency matrix with self-connection added, \(\tilde{D}\) is the degree matrix, \(\tilde{D_{ii}}=\sum_{j}{\tilde{A}_{ij}}\). \(W^{(l)}\in \mathbb{R}^{D\times D}\) is the parameter to be trained. \(\sigma \) is the corresponding activation function, such as ReLU\@.
 
 \subsubsection{Multi-label Recognition}
 From the stacked GCN network, we can learn interdependent object classifiers \(C=\{c_1,c_2,\ldots,c_T\} \), where T represents the number of categories. For the input layer, the input is \(r\in \mathbb{R}^{T \times d_{ko}}\), where \(d_{ko}\) is the number of dimensions represented by the embedding of the knowledge point object. Each GCN layer 1 takes the node representation from the previous layer \(H^{(l)}\) as input and outputs a new node representation \(H^{(l+1)}\). The output layer of the last layer is \(C\), where \(d_r\) represents the dimension of the title text. Finally, the label prediction vector \(\hat{y}\) can be obtained by the dot product product of the learned classifier and the title text representation \(r\):
@@ -312,7 +312,7 @@ Through manual labeling, the real knowledge point labels of the exercises can be
 \end{align}
 
 \subsubsection{Design of Correlation Matrix}
-%在GCN中，相关矩阵$A$表征了图节点之间的关系，GCN信息传播计算也是基于$A$进行的。因此，设计相关矩阵$A$是GCN模型的关键步骤。在该模型中，采用常用的数据关联规则挖掘算法Apriori算法，通过统计知识点集的出现次数来计算知识点关联。
+%在GCN中，相关矩阵$A$表征了图节点之间的关系，GCN信息传播计算也是基于$A$进行的。因此，设计相关矩阵$A$是GCN模型的关键步骤。在该模型中，采用常用的数据关联规则挖掘算法Apriori算法，通过统计知识点集的出现次数来计算知识点关联。 
 
 %在该模型中，其实只需要找到知识点的对偶关系。因此，知识点关系矩阵可以表示为$R/in \mathbb{R}^{T\time T}$。第一个任务是找到标签集中频繁关联标签的出现次数。$operatorname{Support}$、$operatorname{Confidence}$和$operatorname{Lift}$可以用来评估频繁标签集。支持度是指标签集中标签对的出现次数占总标签集的比例。置信度反映了一个标签$L_i$出现、另一个标签$L_j$出现的概率，或数据的条件概率。提升度表示标签$L_i$同时包含的概率，以及X种群出现概率的比例。
 
@@ -364,14 +364,14 @@ The distribution of the number of exercise knowledge points in this data set is 
 % The experimental data in this article comes from high school math test questions in a database of an online education platform. The original data totals 2195, and 1357 test questions are obtained after semi-automatic screening. The original labeled knowledge points are 166 items of original tags. After the mathematical knowledge point map is constructed and replaced, 61 tags are obtained.
 
 \subsection{Baseline}
-% In the algorithm, the binary relation method (Binary Rele vance, BR), the multi-label KN algorithm (Multijabel KNN, MLKN), and the classifier chain method (Classifier Chain, C) are selected as the comparison algorithm, and the experimental training set test set division ratio It is 1:1.
+% In the algorithm, the binary relation method (Binary Relevance, BR), the multi-label KN algorithm (Multi-label KNN, ML-KNN), and the classifier chain method (Classifier Chain, C) are selected as the comparison algorithm, and the experimental training set test set division ratio It is 1:1.
 % 目前，已经有一些进行文本标签标注的算法模型，为了验证本文提出算法的有效性，将与下列的算法进行比较，作为baseline指标。
 At present, there are already some algorithm models for labeling text. In order to verify the effectiveness of the algorithm proposed in this paper, it will be compared with the following algorithm as a baseline indicator.
 \begin{itemize}
 	\item Naive Bayes algorithm (NB): predict the labeling probability of a knowledge point based on the prior probability of text combination, and then convert the binary classification problem into a multi-label problem
-	\item Multi-label KNN (MLKNN): Proposed by Zhang et al.\cite{zhang2007ml}, it find the k samples closest to the sample through the KNN algorithm, count the number of each category in the k samples, use the native bayes algorithm to calculate the probability of each label and finally output
+	\item Multi-label KNN (ML-KNN): Proposed by Zhang et al.\cite{zhang2007ml}, it find the k samples closest to the sample through the KNN algorithm, count the number of each category in the k samples, use the native bayes algorithm to calculate the probability of each label and finally output
 	\item CNN+word2vec: Use word2vec to convert the test question text into an embedded vector, extract the test text information through CNN, and then output the multi-label prediction
-	\item CNN+BERT: Bidirectional Encoder Representations from Transformers (BERT) was proposed by the Google AI team\cite{devlin2019bert}, which can be used to replace word2vec for word vector generation. The other parts of the model structure are the same as the previous model.
+	\item CNN+BERT\@: Bidirectional Encoder Representations from Transformers (BERT) was proposed by the Google AI team\cite{devlin2019bert}, which can be used to replace word2vec for word vector generation. The other parts of the model structure are the same as the previous model.
 \end{itemize}
 
 \subsection{Metrics}
