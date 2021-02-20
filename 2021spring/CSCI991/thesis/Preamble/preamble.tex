@@ -70,7 +70,24 @@
 \usepackage{booktabs} % For professional looking tables
 \usepackage{multirow}
 \ctexset{
-  tablename={Table}
+  tablename={Table},
+  listfigurename={Figures},
+  listtablename={Tables},
+  contentsname={Table of content},
+  appendixname={Appendix},
+  %contentsname=⟨名字⟩设置目录标题名\contentsname。中文默认为“目录”
+  %listfigurename=⟨名字⟩设置插图目录标题名\listfigurename。中文默认为“插图”
+  %listtablename=⟨名字⟩设置表格目录标题名\listtablename。中文默认为“表格”。
+  %figurename=⟨名字⟩设置图片环境标题名\figurename。中文默认为“图”。
+  %tablename=⟨名字⟩设置表格环境标题名\tablename。中文默认为“表”。
+  %abstractname=⟨名字⟩设置摘要abstract环境标题名\abstractname。中文默认为“摘要”。注意book类没有摘要，该选项无效。
+  %indexname=⟨名字⟩设置索引标题名\indexname。中文默认为“索引”。
+  %appendixname=⟨名字⟩设置附录标题名\appendixname。中文默认为“附录”
+  %bibname=⟨名字⟩设置参考文献标题名\refname（对article）或\bibname（对report、book和beamer）。中文默认为“参考文献”
+  %proofname=⟨名字⟩设置证明环境的名称\proofname。中文默认为“证明”。如果使用ctexbeamer文档类或者在beamer文档类下使用ctex包，还会汉化常用定理类环境的诸如“定义”、“定理”和“引理”等名称。此时，还有下列三个选项。
+  %refname=⟨名字⟩设置参考文献标题名\refname。中文默认为“参考文献”。
+  %algorithmname=⟨名字⟩设置算法环境标题名\algorithmname。中文默认为“算法”。
+  %continuation=⟨名字⟩设置beamer可断页的帧在续页标题中的延续标识\insertcontinuationtext。
 }
 % \usepackage{multicol}
 % \usepackage{longtable}
