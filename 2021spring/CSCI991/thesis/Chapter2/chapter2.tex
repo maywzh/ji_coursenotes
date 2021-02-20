@@ -14,7 +14,7 @@
 \section{Research Motivation}
 %在整个推荐系统的各环节，包括数据收集、数据挖掘和数据推荐，都是以推荐数据源建设为最重要的基石。建立一个精确和完备的题库对于建立一个试题推荐系统是第一步也是重要的一步。题库整体设计的合理性，以及质量，是题库推荐系统成败的关键。题库建设也是一项十分复杂而困难的工作，既是苦活累活又是对教育的理解、技术能力的把握有极高要求的活。在题库建设过程中，并不是简单的数量的堆积，如果不考虑地区差异、应试要求不同和实效性等因素。高中数学学科具有上千规模的知识点，平均每个知识点有从易到难的不同难度的数十道习题，一个优质数学学科题库的规模为十万规模。除去数量上的要求，优质题库除了题目质量，以及对教育内容（教材）的匹配度之外，还有两个根本性问题，其一为知识点关系网络构建，其二为知识点-习题关系构建。而就是对于这些因素的优化，导致了优质题库的建设门槛，以及极高的成本。而市面上的题库往往缺失了对于这些因素的重视，导致出现了许多质量不高的习题数据库。所以，对题目的知识点标签的标注，以及知识体系的构建，是优质题库建设过程中最为核心的问题之一。
 
-%建立试题推荐系统的一个关键问题是如何结合知识点来推荐题目。在考虑这个问题的解决方案的时候，我们首先要考虑的是，我们需要什么样的知识体系和知识点标签。这个问题并不是很容易回答。首先在教材和教学大纲中，以及各种教辅中，会有各种对``知识点"的描述。在高中数学中的知识点，如函数、定义域、值域或解析式等，有直接的概念，也有方法的应用，有专题的抽象，也有相似解法的巧妙汇总，等等——总而言之，这并没有一种标准的体系，就其名称、内涵、粒度、层级，乃至所谓知识点之间的关系或联系，出自各种来源可能是千差万别的。这里既需要教育专家的高屋建瓴，也需要一线教师的灵活经验。其次，作为数据挖掘的任务而言，我们会关心——就标签集合而言，这是一个封闭集还是一个开放集，同时，我们会关心一个``知识点''标签，是一个分类概念还是一个关键词（或者是关键词的组合，短语搭配）。这个定义的明确，对于数据挖掘的问题定义十分关键，也基本决定了后面的方案的选择。但这个明确，不仅要考虑教学意义，同时需要考虑产品对于知识点标签的使用方式，尤其是后者，可能是更加重要的因素。
+%建立试题推荐系统的一个关键问题是如何结合知识点来推荐题目。在考虑这个问题的解决方案的时候，我们首先要考虑的是，我们需要什么样的知识体系和知识点标签。这个问题并不是很容易回答。首先在教材和教学大纲中，以及各种教辅中，会有各种对``知识点''的描述。在高中数学中的知识点，如函数、定义域、值域或解析式等，有直接的概念，也有方法的应用，有专题的抽象，也有相似解法的巧妙汇总，等等——总而言之，这并没有一种标准的体系，就其名称、内涵、粒度、层级，乃至所谓知识点之间的关系或联系，出自各种来源可能是千差万别的。这里既需要教育专家的高屋建瓴，也需要一线教师的灵活经验。其次，作为数据挖掘的任务而言，我们会关心——就标签集合而言，这是一个封闭集还是一个开放集，同时，我们会关心一个``知识点''标签，是一个分类概念还是一个关键词（或者是关键词的组合，短语搭配）。这个定义的明确，对于数据挖掘的问题定义十分关键，也基本决定了后面的方案的选择。但这个明确，不仅要考虑教学意义，同时需要考虑产品对于知识点标签的使用方式，尤其是后者，可能是更加重要的因素。
 
 %作为用于学生的自学推题，并显性化分析报告的试题推荐系统，那么知识点的标签应该要能够描述题目测验的核心知识点、方法或思路，要能够区分对于学生的能力要求点，这样才能构建更为强大的用户模型和推荐引擎，同时报告也方便针对性分析和理解——这个时候需要采取的分类体系和标签集合，其知识点的粒度要足够精细，而知识体系的层级就会大很多，同时，``知识点''即使不是标准体系，也需要大多数的老师和学生认可或一定的使用度。
 
@@ -35,7 +35,7 @@ In this chapter, the knowledge point tags are mined for topic recommendation and
 In this section, a graph neural network-based model is proposed for test question-knowledge point association and knowledge mapping of knowledge points. The model is roughly divided into two parts. The first part is a test-knowledge point association module implemented with a semi-supervised learning algorithm based on graph convolutional neural networks and text mining embedding learning for test knowledge point labeling and association. The second part considers the systematization of knowledge of high school mathematics and combines a priori domain knowledge with an improved R-GCN algorithm to construct a knowledge graph of high school mathematics knowledge points.
 
 \subsection{Model Overview}
-%本节的任务是构造一个挖掘习题-知识点关系的模型和一个挖掘知识点之间关联的模型。建立习题-知识点关系即对习题进行知识点标注，习题的知识点是理解习题和求解习题所用到的知识概念的集合。所以准确描述一道试题的知识点，对于后续的知识追踪和推荐过程十分重要。目前已经存在的基础分类方式有专家标注和机器学习两种方式。前者即教育专家结合自己的专业知识对试题进行知识点标注，但当题量或题目复杂度较高时，人工标注存在工作量大，主观度高和标注不完善等问题。另外考虑到知识点之间的关联，人工标注也存在无法考虑到知识内联关系。另一种方式则是用机器学习或深度学习的方法，来对习题进行自动知识点标注。因为在习题集中只有少量习题被标注知识点，而其他大量的习题尚未被标注，这些知识点标注往往是半监督或无监督学习的模式。一个习题往往具有多个知识点，因此实际上知识点挖掘是一个多标签分类问题\cite{多标签问题}。本章也会对``如何有效建模知识点间的关系”来进行讨论并提出一种基于图神经网络的多标签分类模型。在习题知识提取部分，则往往采用对习题的文本信息挖掘的方式来进行知识点自动标注，为了提升特征提取性能，也可以考虑多模态学习的方式，提取习题的插图、数学公式等等来作为额外特征。
+%本节的任务是构造一个挖掘习题-知识点关系的模型和一个挖掘知识点之间关联的模型。建立习题-知识点关系即对习题进行知识点标注，习题的知识点是理解习题和求解习题所用到的知识概念的集合。所以准确描述一道试题的知识点，对于后续的知识追踪和推荐过程十分重要。目前已经存在的基础分类方式有专家标注和机器学习两种方式。前者即教育专家结合自己的专业知识对试题进行知识点标注，但当题量或题目复杂度较高时，人工标注存在工作量大，主观度高和标注不完善等问题。另外考虑到知识点之间的关联，人工标注也存在无法考虑到知识内联关系。另一种方式则是用机器学习或深度学习的方法，来对习题进行自动知识点标注。因为在习题集中只有少量习题被标注知识点，而其他大量的习题尚未被标注，这些知识点标注往往是半监督或无监督学习的模式。一个习题往往具有多个知识点，因此实际上知识点挖掘是一个多标签分类问题\cite{多标签问题}。本章也会对``如何有效建模知识点间的关系''来进行讨论并提出一种基于图神经网络的多标签分类模型。在习题知识提取部分，则往往采用对习题的文本信息挖掘的方式来进行知识点自动标注，为了提升特征提取性能，也可以考虑多模态学习的方式，提取习题的插图、数学公式等等来作为额外特征。
 
 %在2019年，提出了一种多标签图像分类模型，受该模型启发，本章提出了一个基于注意力机制习题文本特征提取和基于图神经网络知识点关系挖掘的多知识点标注模型，它通过数据驱动的方式建立知识点关系图描述知识点间的关联关系，对知识点分别建立分类器，然后对习题的文本特征进行多标签分类。其主要架构图如下。
 
@@ -43,7 +43,7 @@ The task of this section is to construct a model for mining the exercise-knowled
 
 In 2019, a multi-label image classification model was proposed\cite{chen2019multi}, and inspired by this model, this chapter proposes a multi-knowledge point labeling model based on attention mechanism exercise text feature extraction and graph neural network-based knowledge point relationship mining, which builds a knowledge point relationship graph to describe the association relationship between knowledge points by a data-driven approach, builds classifiers for knowledge points separately, and then performs multi-label classification. Its main architecture diagram is as follows \figurename{\ref{ch2-fig1}}.
 
-\begin{figure}[h]
+\begin{figure}[htbp!]
 	\centering
 	\includegraphics[width=1.0\textwidth]{ch2-fig1.png}
 	\caption{Structure of the Knowledge Tagging Model}\label{ch2-fig1}
@@ -65,7 +65,7 @@ From the structure we can see that there are generally two parts in the model:
 \subsection{The Exercise Description Text Mining}
 %本部分基于Peng等人提出的Attention based Bi-LSTM模型，该模型的结构如图所示\ref{}
 This section is based on the Attention based Bi-LSTM model proposed by Peng et al. The structure of this model is shown in the \figurename{\ref{ch2-fig2}}.
-\begin{figure}[h]
+\begin{figure}[htbp!]
 	\centering
 	\includegraphics[width=1.0\textwidth]{ch2-fig2.png}
 	\caption{Structure of Attention Based Bi-LSTM}\label{ch2-fig2}
@@ -83,7 +83,7 @@ The model include 4 layers: Pre-process Layer, Embedding Layer, Bidirectional LS
 
 In the preprocessing stage, it mainly includes word segmentation, cleaning, and other optional steps. Considering that our research object is a Chinese high school math test, compared with English, there are no intermediate spaces in Chinese sentences, so a word segmentation algorithm must be used to break the sentence into word segmentation. There are many texts in the content that are irrelevant to the meaning of the sentence. If you directly calculate it, it will cause a lot of interference and redundant information, so additional text cleaning is also a necessary step. The \figurename{\ref{ch2-fig3}} shows an example of preprocessing of an exercise text.
 
-\begin{figure}[h]
+\begin{figure}[htbp!]
 	\centering
 	\includegraphics[width=1.0\textwidth]{ch2-fig3.png}
 	\caption{Example of Preprocessing}\label{ch2-fig3}
@@ -99,11 +99,11 @@ In the preprocessing stage, it mainly includes word segmentation, cleaning, and 
 After the steps of data processing, a clean text token sequence is obtained, and then the word2vec technology can be used to perform text embedding operations on the Embedding layer.
 
 \subsubsection{Embedding Layer}
-% 在深度学习的应用过程中，Embedding 这样一种将离散变量转变为连续向量的方式为神经网络在各方面的应用带来了极大的扩展。Embedding 是一个将离散变量转为连续向量表示的一个方式。在神经网络中，embedding 是非常有用的，因为它不光可以减少离散变量的空间维数，同时还可以有意义的表示该变量。例如在自然语言处理方面，如果采用朴素的one-hot编码，往往会造成向量的维度过多而稀疏，也无法学习到向量之间的依赖关系。在进行embedding训练的过程中，embedded向量会得到更新，这可以清晰地显示出向量之间的练习。Mikolov等人在2013年提出了基于 NNLM、 RNNLM 和 C&W 模型改进的CBOW(Continuous Bag-of-Words)和Skip-gram模型，并在接下来数年成为了实现word embedding的一种经典方案。同年在Mikolov的另一篇文献中，训练Skip-gram模型的两个策略：Hierarchical Softmax和Negative Sampling被提出来。CBOW的原理是通过根据输入周围若干个个词来预测出这个词本身（即通过上下文预测词语），而Skip-gram模型则是根据输入词语来预测周围若干个词（即输入词语预测上下文）。
+% 在深度学习的应用过程中，Embedding这样一种将离散变量转变为连续向量的方式为神经网络在各方面的应用带来了极大的扩展。Embedding是一个将离散变量转为连续向量表示的一个方式。在神经网络中，embedding 是非常有用的，因为它不光可以减少离散变量的空间维数，同时还可以有意义的表示该变量。例如在自然语言处理方面，如果采用朴素的one-hot编码，往往会造成向量的维度过多而稀疏，也无法学习到向量之间的依赖关系。在进行embedding训练的过程中，embedded向量会得到更新，这可以清晰地显示出向量之间的练习。Mikolov等人在2013年提出了基于 NNLM、 RNNLM 和 C&W 模型改进的CBOW(Continuous Bag-of-Words)和Skip-gram模型，并在接下来数年成为了实现word embedding的一种经典方案。同年在Mikolov的另一篇文献中，训练Skip-gram模型的两个策略：Hierarchical Softmax和Negative Sampling被提出来。CBOW的原理是通过根据输入周围若干个个词来预测出这个词本身（即通过上下文预测词语），而Skip-gram模型则是根据输入词语来预测周围若干个词（即输入词语预测上下文）。
 
 
 
-\begin{figure}[h]
+\begin{figure}[htbp!]
 	\centering
 	\includegraphics[width=1.0\textwidth]{ch2-fig4.png}
 	\caption{Method of CBOW and Skip-gram}\label{ch2-fig4}
@@ -137,7 +137,7 @@ In order to solve the problem of text sequence learning, recurrent neural networ
 \end{align}
 where \(\sigma \) is linear activation function like sigmoid, ReLU, etc.
 
-\begin{figure}[h]
+\begin{figure}[htbp!]
 	\centering
 	\includegraphics[width=1.0\textwidth]{ch2-fig6.png}
 	\caption{Naive RNN Unit}\label{ch2-fig6}
@@ -147,14 +147,14 @@ One of the key points of RNNs is that they can be used to connect previous infor
 
 Long short-term memory (Long short-term memory, LSTM) is a special RNN, mainly to solve the problem of gradient disappearance and gradient explosion in the training process of long sequences. It was proposed by Hochreiter and Schmidhuber in 1997\cite{lstm1997}, and was improved and promoted by many following work. LSTM has performed very well on a variety of problems and is now widely used. The general model of LSTM is like \figurename{\ref{ch2-fig7}}.
 
-\begin{figure}[h]
+\begin{figure}[htbp!]
 	\centering
 	\includegraphics[width=1.0\textwidth]{ch2-fig7.png}
 	%\includegraphics[width=1.0\textwidth]{ch2-fig8.png}
 	\caption{Structure of LSTM Unit}\label{ch2-fig7}
 \end{figure}
 
-%与仅具有一个传输状态$ h ^ t $的RNN相比，LSTM具有两个传输状态，一个单元状态$ c_t $和一个隐藏状态$ h_t $。 LSTM中的单元状态对应于RNN中隐藏状态的角色。 其中，向下传递的单元状态$ c_t $的变化非常缓慢，而隐藏状态$ h_t $在不同节点下通常具有很大的差异。 LSTM能够通过一种经过精心设计的称为``门”的结构，将信息删除或添加到单元状态。 门是一种选择性地让信息通过的方式。 它们包括一个S型神经网络层和一个逐点乘法运算。 Sigmoid层输出介于0和1之间的值，该值描述每个部分可以通过多少体积。 0表示``不允许通过任何金额”，1表示``允许通过任何金额”。 LSTM具有三个门来保护和控制单元状态。 LSTM中的三种门是忘记门，输入门和输出门：
+%与仅具有一个传输状态$ h ^ t $的RNN相比，LSTM具有两个传输状态，一个单元状态$ c_t $和一个隐藏状态$ h_t $。 LSTM中的单元状态对应于RNN中隐藏状态的角色。 其中，向下传递的单元状态$ c_t $的变化非常缓慢，而隐藏状态$ h_t $在不同节点下通常具有很大的差异。 LSTM能够通过一种经过精心设计的称为``门''的结构，将信息删除或添加到单元状态。 门是一种选择性地让信息通过的方式。 它们包括一个S型神经网络层和一个逐点乘法运算。 Sigmoid层输出介于0和1之间的值，该值描述每个部分可以通过多少体积。 0表示``不允许通过任何金额''，1表示``允许通过任何金额''。 LSTM具有三个门来保护和控制单元状态。 LSTM中的三种门是忘记门，输入门和输出门：
 
 Compared with RNN which has only one transmission state \(h^t\), LSTM has two transmission states, one cell state \(C_t\), and one hidden state \(h_t\). The cell state in LSTM corresponds to the role of the hidden state in RNN. Among them, the cell state \(C_t\) passed down changes very slowly while the hidden state \(h_t\) often has a big difference under different nodes. LSTM has the ability to remove or add information to the cell state through a well-designed structure called a ``gate''. A door is a way of letting information through selectively. They include a sigmoid neural network layer and a point-wise multiplication operation. The Sigmoid layer outputs a value between 0 and 1, describing how much volume can pass through each part. 0 means ``no amount is allowed to pass'', 1 means ``allow any amount to pass''. LSTM has three gates to protect and control the cell state.
 
@@ -191,7 +191,7 @@ However, there is still a problem with using one-way LSTM to model sentences: it
 \end{align}
 The Bi-LSTM Structure is like \figurename{\ref{ch2-fig9}}.
 
-\begin{figure}[h]
+\begin{figure}[htbp!]
 	\centering
 	\includegraphics[width=1.0\textwidth]{ch2-fig9.png}
 	\caption{Structure of Bi-LSTM}\label{ch2-fig9}
@@ -217,7 +217,7 @@ Actually, The essence of the attention mechanism is a series of key-value pairs 
 \end{align}
 Where \(Att\) and \(Sim\) represent attention and similarity.
 
-\begin{figure}[h]
+\begin{figure}[htbp!]
 	\centering
 	\includegraphics[width=1.0\textwidth]{ch2-fig11.png}
 	\caption{The essential idea of Attention mechanism}\label{ch2-fig10}
@@ -243,7 +243,7 @@ Where \(u_t\) is the hidden representation of \(h_t\), \(r\) is the output text 
 
 In high school mathematics, knowledge points have more complex interrelationships such as correlation, subordination, inclusion, predecessor, successor and so on. These complex interrelationships are often difficult to model in Euclidean space, or this creates data sparsity problems. The establishment of relationships between knowledge points through graph data structures is more intuitive and has better interpretability. Recalling the task of this model, it gives descriptions and answers to exercises, some of which have already marked knowledge points, and use this information to mark knowledge points for exercises that are labeled knowledge points. Taking into account the dependence between knowledge points, some deep hidden knowledge points that cannot be represented in shallow features can also be correctly labeled by the graph neural network output classifier. In this model, a graph convolutional neural network is used to model the knowledge point relationship graph, and each knowledge point corresponds to a node on the graph. After multiple graph convolution calculations, a series of classifiers are generated. These classifiers respectively act on the text vector generated by the text mining module. Each classifier outputs a value representing the probability that the knowledge point is associated with the exercise. Its overall structure is shown in the \figurename{\ref{fig:ch2-fig12}}.
 
-\begin{figure}[h]
+\begin{figure}[htbp!]
 	\centering
 	\includegraphics[width=1.0\textwidth]{ch2-fig12.png}
 	\caption{The structure of GCN Classifier Generator}\label{fig:ch2-fig12}
@@ -255,27 +255,6 @@ The reason why this model adopts the GCN structure is that the parameter sharing
 
 \subsubsection{Graph Convolutinal Network}
 %在现实世界中，许多重要数据集以图或网络的形式存在，例如社交网络，知识图，蛋白质相互作用网络，世界贸易网络等。一些论文对此问题进行了回顾，并试图对神经网络进行概括，并将其应用于任意图结构数据\cite{wu2018socialgcn，dettmers2018convolutional}。当前，大多数图神经网络模型具有通用的体系结构。这些模型称为图卷积神经网络（GCN），是卷积的，因为可以在图中的所有位置或局部位置共享过滤器参数。对于这些模型，他们的目标是学习图形$ G =（V，E）$上信号或特征的映射。他们的输入包括：
-
-% \ begin {itemize}
-% \ item每个节点$ i $的特征描述$ x_i $可以写为$ N \ times D $特征矩阵（$ N $代表节点数，$ D $代表输入特征数）
-% \ item以矩阵形式表示的图结构的特征描述，通常以邻接矩阵的形式表示，表示为$ A $
-% \ end {itemize}
-
-% 该模型将产生节点级输出$ Z $（$ N \倍F $特征矩阵，其中$ F $代表每个节点的输出特征数）。图级输出可以通过引入一些池化操作来建模。
-
-% 每个神经网络层都可以写成非线性函数：
-% \ begin {align}
-% H ^ {（l + 1）}＆= f \ left（H ^ {{l）}，A \ right）\\
-% H ^ {（0）}＆= X \\
-% H ^ {（L）}＆= Z
-% \ end {align}
-
-% $ L $是层数。核心问题是如何选择和参数化$ f $。通过应用\cite{kipf2016semi}的卷积运算，可以将$ f $表示为\ ref {fml：gcn1}：
-% \ begin {align}
-% H ^ {（（l + 1）}＆= \ sigma \ left（\ tilde {D} ^ {-\ frac {1} {2}} \ tilde {A} \ tilde {D} ^ {-\ frac {1 } {2}} H ^ {（l）} W ^ {{l}} \ right）\ label {fml：gcn1}
-% \ end {align}
-% $ l $层网络的输入为$ H ^ {{（l）} \ in \ mathbb {R} ^ {N \ times D} $（初始输入为$ H ^ {（0）} $） ，$ N $是图中的节点数，每个节点由$ D $维特征向量表示。 $ \ tilde {A} = A + I_N $是添加了自连接的邻接矩阵，$ \ tilde {D} $是度矩阵，$ \ tilde {D_ {ii}} = \ sum_ {j} {\波浪号{A} _ {ij}} $。 \mathbb {R} ^ {D \ times D} $中的$ W ^ {（l）} \是要训练的参数。 $ \ sigma $是相应的激活函数，例如ReLU。
-
 
 In the real world, many important data sets exist in the form of graphs or networks, such as social networks, knowledge graphs, protein interaction networks, world trade networks, and so on. Some papers reviewed this problem and tried to generalize neural networks and apply them to arbitrary graph structure data\cite{wu2018socialgcn,dettmers2018convolutional}. Currently, most graph neural network models have a common architecture. Known as graph convolutional neural networks (GCNs), these models are convolutional because the filter parameters can be shared at all positions or a local position in the graph. For these models, their goal is to learn a mapping of signals or features on the graph \(G=(V,E)\). Their inputs include:
 
@@ -293,7 +272,7 @@ Each neural network layer can be written as a nonlinear function:
 	H^{(L)}   & =Z
 \end{align}
 
-\(L\) is the number of layers. The core problem is how the \(f\) is selected and parameterized. The \(f\) can be represented as~\ref{fml:gcn1} by applying the convolutional operation \cite{kipf2016semi}:
+\(L\) is the number of layers. The core problem is how the \(f\) is selected and parameterized. The \(f\) can be represented as~\ref{fml:gcn1} by applying the convolutional operation\cite{kipf2016semi}:
 \begin{align}
 	H^{(l+1)} & =\sigma(\tilde{D}^{-\frac{1}{2}} \tilde{A} \tilde{D}^{-\frac{1}{2}} H^{(l)} W^{(l)})\label{fml:gcn1}
 \end{align}
@@ -344,7 +323,7 @@ This chapter proposes a multi-label labeling model for exercise knowledge points
 \subsection{Dataset}
 %本文中的实验数据来自于在线网站koolearn.com的带标签的高考数学考题以及模拟题（包含答案解析），通过爬虫爬取题干、答案解析等文本语料。其部分知识点关联模型可以表示为如下图结构。该数据集经过过滤和人工选择，共3374道试题，包含148个知识点，题均知识点为1.7个，其知识点分布如图所示。
 The experimental data in this article comes from the labeled college entrance examination math test questions and simulation questions (including answer analysis) on the online website koolearn.com. The text corpus such as question stems and answer analysis are crawled through crawlers. Part of the knowledge point association model can be expressed as the following structure. The data set has been filtered and manually selected. There are 3374 test questions, including 148 knowledge points, with an average of 1.7 knowledge points. The distribution of several knowledge points is shown in the \figurename{\ref{ch2-fig13}}.
-\begin{figure}[H]
+\begin{figure}[htbp!]
 	\centering
 	\includegraphics[width=1.0\textwidth]{ch2-fig13.png}
 	\caption{Knowledge Points of dataset}\label{ch2-fig13}
@@ -352,12 +331,25 @@ The experimental data in this article comes from the labeled college entrance ex
 
 %该数据集的习题知识点数目分布如图所示。
 The distribution of the number of exercise knowledge points in this data set is shown in the \figurename{\ref{ch2-fig14}}.
-\begin{figure}[H]
+\begin{figure}[htbp!]
 	\centering
-	\includegraphics[width=0.5\textwidth]{ch2-fig14.png}
-	\includegraphics[width=0.4\textwidth]{ch2-fig15.png}
+	\begin{subfigure}[b]{0.475\textwidth}
+		\includegraphics[width=\textwidth]{ch2-fig14.png}
+		\caption[dis]{Number of Exercises}\label{fig:ch2-fig14-hist}
+	\end{subfigure}
+	\begin{subfigure}[b]{0.475\textwidth}
+		\includegraphics[width=\textwidth]{ch2-fig15.png}
+		\caption{Portion of Exercises}\label{fig:ch2-fig14-pie}
+	\end{subfigure}
 	\caption{Distribution of the number of knowledge points of exercise}\label{ch2-fig14}
 \end{figure}
+
+% \begin{figure}[htbp!]
+% 	\centering
+% 	\includegraphics[width=1.0\textwidth]{minion}
+% 	\caption[Minion]{This is just a long figure caption for the minion in Despicable Me from Pixar}
+% 	\label{fig:minion}
+% 	\end{figure}
 
 
 
@@ -481,6 +473,32 @@ Where \(n\) represents the number of test questions in the data set, and \(m\) r
 		20                      & 35                                  & 1270                         & 1.64              & 0.05              \\
 		10                      & 43                                  & 1332                         & 1.66              & 0.04              \\
 		\hline
+	\end{tabular}
+\end{table}
+
+
+\begin{table}
+	\caption{Even better looking table using booktabs}\label{table:good_table}
+	\centering
+
+	\begin{tabular}{l c c c c}
+		\toprule
+		\multirow{2}{*}{Dental measurement} & \multicolumn{2}{c}{Species I} & \multicolumn{2}{c}{Species II}                \\
+		\cmidrule{2-5}
+		                                    & mean                          & SD                             & mean  & SD   \\
+		\midrule
+		I1MD                                & 6.23                          & 0.91                           & 5.2   & 0.7  \\
+
+		I1LL                                & 7.48                          & 0.56                           & 8.7   & 0.71 \\
+
+		I2MD                                & 3.99                          & 0.63                           & 4.22  & 0.54 \\
+
+		I2LL                                & 6.81                          & 0.02                           & 6.66  & 0.01 \\
+
+		CMD                                 & 13.47                         & 0.09                           & 10.55 & 0.05 \\
+
+		CBL                                 & 11.88                         & 0.05                           & 13.11 & 0.04 \\
+		\bottomrule
 	\end{tabular}
 \end{table}
 
