@@ -49,8 +49,7 @@
 
 \RequirePackage[labelsep=space,tableposition=top]{caption}
 \renewcommand{\figurename}{Fig.} %to support older versions of captions.sty
-
-
+\newcommand{\eqname}[1]{Eq.{#1}}
 % *************************** Graphics and figures *****************************
 
 %\usepackage{rotating}
@@ -128,7 +127,6 @@
   \setcounter{page}{1}
   \renewcommand{\thepage}{\roman{page}}}
 {\newpage\renewcommand{\thepage}{\arabic{page}}}
-
 
 % ******************************************************************************
 % ************************* User Defined Commands ******************************
