@@ -57,7 +57,7 @@ In 2019, a multi-label image classification model was proposed\cite{chen2019mult
 
 From the structure we can see that there are generally two parts in the model:
 \begin{enumerate}
-	\item The first part is the exercise description text mining module , which uses natural language processing techniques to text mine the questions (including question descriptions and answers), and it contains hidden knowledge information. In this paper, an end-to-end network training approach is designed to achieve the overall iterative learning of the model. Specifically, it includes a text preprocessing part that performs the text segmentation, filtering and de-duplication parts, an embedding layer that performs the word vector embedding calculation and an Attention-based bidirectional LSTM network that performs text information mining, which was proposed by Peng et al.\ in 2016\cite{zhou2016attention}, outputs a vector representation for the text of the exercise.
+	\item The first part is the exercise description text mining module, which uses natural language processing techniques to text mine the questions (including question descriptions and answers), and it contains hidden knowledge information. In this paper, an end-to-end network training approach is designed to achieve the overall iterative learning of the model. Specifically, it includes a text preprocessing part that performs the text segmentation, filtering and de-duplication parts, an embedding layer that performs the word vector embedding calculation and an Attention-based bidirectional LSTM network that performs text information mining, which was proposed by Peng et al.\ in 2016\cite{zhou2016attention}, outputs a vector representation for the text of the exercise.
 	\item The second part is a graph convolutional neural network based knowledge point association multi-label classifier, which maps knowledge points to a set of interdependent target classifiers. These classifiers are computed with the vector of exercises outputted in the first part to achieve end-to-end training of the whole network.
 \end{enumerate}
 
@@ -115,13 +115,13 @@ After the steps of data processing, a clean text token sequence is obtained, and
 In the application of deep learning, Embedding, a way of transforming discrete variables into continuous vectors, has greatly expanded the application of neural networks in various aspects. Embedding is a way to convert discrete variables into continuous vector representation. In neural networks, embedding is very useful, because it can not only reduce the spatial dimension of discrete variables, but also represent the variables meaningfully. For example, in natural language processing, if simple one-hot encoding is used, it will often cause too many dimensions and sparse vectors, and it is impossible to learn the dependencies between vectors. In the process of embedding training, the embedded vector will be updated, which can clearly show the practice between vectors. In 2013, Mikolov et al. proposed an improved CBOW (Continuous Bag-of-Words) and Skip-gram model based on NNLM, RNNLM and C\&W models\cite{mikolov2013efficient}, and in the next few years it became a classic solution for word embedding, the model is like \figurename{\ref{ch2-fig4}}. In another paper by Mikolov in the same year, two strategies for training the Skip-gram model: Hierarchical Softmax and Negative Sampling were proposed\cite{mikolov2013distributed}. The principle of CBOW is to predict the word itself based on several words around the input (that is, predict the word through context), while the Skip-gram model predicts several surrounding words based on the input word (that is, the input word predicts the context), like following formula~\ref{fml-cbow}--\ref{fml-sg}.
 
 \begin{align}
-	\text { CBOW : context }(w_{t})=(w_{t-c}, \ldots, w_{t-1}, w_{t+1}, \ldots, w_{t+c}) \stackrel{\text { predict }}{\longrightarrow} w_{t} \label{fml-cbow} \\
-	\text { skip-gram: } w_{t} \stackrel{\text { predict }}{\longrightarrow} \text { context }(w_{t})=(w_{t-c}, \ldots, w_{t-1}, w_{t+1}, \ldots, w_{t+c}) \label{fml-sg}
+	\text{ CBOW: context }(w_{t})=(w_{t-c}, \ldots, w_{t-1}, w_{t+1}, \ldots, w_{t+c}) \stackrel{\text{ predict }}{\longrightarrow} w_{t} \label{fml-cbow} \\
+	\text{ skip-gram: } w_{t} \stackrel{\text{ predict }}{\longrightarrow} \text{ context }(w_{t})=(w_{t-c}, \ldots, w_{t-1}, w_{t+1}, \ldots, w_{t+c}) \label{fml-sg}
 \end{align}
 
 Where \(c\) is the range of predicting words, \(w_i\) represents the ith word and \(context(w_i)\) represents the context of ith word.
 
-In this layer, we obtain a word token sequence extracted from the original exercise text. Set the sequence as \(S=\{w_1,w_2,\ldots,w_l\} \), each \(w_i\) represents a word, and the sequence length is \(l\). Set \(S\) as the size of non-embedded one-hot vector \(v_i\) representing \(w_i\), i.e. \(v_i\in \mathbb{R}^{S}\). After embedding operation, each token is transformed into an embedded vector \(e_i\), that is, \(e_i=\mathcal{E}(w_i)\), where \(\mathcal{E}(\cdot)\) is the embedding function, \(e_i\in \mathbb{R}^{d^{e}}\) and \(d^e\) is the dimension of the embedded vector.In fact, the embedding function can be modeled by a matrix multiplication: \(\mathcal {E} (\cdot) = W^w\times \cdot\), where the learnable parameter \(W^w\in \mathbb {R} ^ {d^{e}\times S}\) is the embedding transition matrix. So
+In this layer, we obtain a word token sequence extracted from the original exercise text. Set the sequence as \(S=\{w_1,w_2,\ldots,w_l\} \), each \(w_i\) represents a word, and the sequence length is \(l\). Set \(S\) as the size of non-embedded one-hot vector \(v_i\) representing \(w_i\), i.e. \(v_i\in \mathbb{R}^{S}\). After embedding operation, each token is transformed into an embedded vector \(e_i\), that is, \(e_i=\mathcal{E}(w_i)\), where \(\mathcal{E}(\cdot)\) is the embedding function, \(e_i\in \mathbb{R}^{d^{e}}\) and \(d^e\) is the dimension of the embedded vector.In fact, the embedding function can be modeled by a matrix multiplication: \(\mathcal {E} (\cdot) = W^w\times \cdot \), where the learnable parameter \(W^w\in \mathbb {R} ^ {d^{e}\times S}\) is the embedding transition matrix. So
 \begin{align}
 	e_i = W^w v_i
 \end{align}
@@ -135,7 +135,7 @@ In order to solve the problem of text sequence learning, recurrent neural networ
 	h^{t+1} & =f(W^h_{t} h^t+W^i x^t) \\
 	y^{t+1} & =f(W^o h^{t+1})
 \end{align}
-where \(\sigma\) is linear activation function like sigmoid, ReLU, etc.
+where \(\sigma \) is linear activation function like sigmoid, ReLU, etc.
 
 \begin{figure}[h]
 	\centering
@@ -183,7 +183,7 @@ The core part of LSTM is the connection between cell states, which is generally 
 	      The \(W_o\) and \(b_o\) are learnable parameters of output gate.
 \end{itemize}
 
-However, there is still a problem with using one-way LSTM to model sentences: it is impossible to encode information from back to front. In more fine-grained classification, such as the five classification tasks for strong commendation, weak commendation, neutral, weak derogation, and strong derogation, we need to pay attention to the interaction between emotion words, degree words, and negative words. Two-way LSTM can better capture the two-way semantic dependence. Bidirectional LSTM(Bi-LSTM) can better capture the two-way semantic dependence. The Bi-LSTM output can be obtained by inputting the positive sequence and the reverse sequence input sequence into two sets of LSTM networks and perform element-wise addition. The output of positive-order LSTM is \(\overrightarrow{h_t}\), the output of reverse-order LSTM is \(\overleftarrow{h_t}\), \(\bigoplus \) means element-wise addition. The output of bidirectional LSTM is:
+However, there is still a problem with using one-way LSTM to model sentences: it is impossible to encode information from back to front. In more fine-grained classification, such as the five classification tasks for strong commendation, weak commendation, neutral, weak derogation, and strong derogation, we need to pay attention to the interaction between emotion words, degree words, and negative words. Two-way LSTM can better capture the two-way semantic dependence. Bidirectional LSTM (Bi-LSTM) can better capture the two-way semantic dependence. The Bi-LSTM output can be obtained by inputting the positive sequence and the reverse sequence input sequence into two sets of LSTM networks and perform element-wise addition. The output of positive-order LSTM is \(\overrightarrow{h_t}\), the output of reverse-order LSTM is \(\overleftarrow{h_t}\), \(\bigoplus \) means element-wise addition. The output of bidirectional LSTM is:
 \begin{align}
 	\overrightarrow{h_t} & = \overrightarrow{LSTM}(e_t)                       \\
 	\overleftarrow{h_t}  & = \overleftarrow{LSTM}(e_t)                        \\
@@ -215,7 +215,7 @@ Actually, The essence of the attention mechanism is a series of key-value pairs 
 \begin{align}
 	Att(Q,S) = \sum_{i=1}^{|S|}Sim(Q,K_i)*V_i
 \end{align}
-Where $Att$ and $Sim$ represent attention and similarity.
+Where \(Att\) and \(Sim\) represent attention and similarity.
 
 \begin{figure}[h]
 	\centering
@@ -298,7 +298,7 @@ Each neural network layer can be written as a nonlinear function:
 	H^{(l+1)} & =\sigma(\tilde{D}^{-\frac{1}{2}} \tilde{A} \tilde{D}^{-\frac{1}{2}} H^{(l)} W^{(l)})\label{fml:gcn1}
 \end{align}
 
-the input of the $l$-th layer network is \(H^{(l)}\in \mathbb{R}^{N\times D}\) (the initial input is \(H^{(0)}\)), \(N\) is the number of nodes in the graph, and each node is represented by a \(D\)-dimensional feature vector. \(\tilde{A}=A+I_N\) is the adjacency matrix with self-connection added, \(\tilde{D}\) is the degree matrix, \(\tilde{D_{ii}}=\sum_{j}{\tilde{A}_{ij}}\). \(W^{(l)}\in \mathbb{R}^{D\times D}\) is the parameter to be trained. \(\sigma \) is the corresponding activation function, such as ReLU.
+the input of the \(l\)-th layer network is \(H^{(l)}\in \mathbb{R}^{N\times D}\) (the initial input is \(H^{(0)}\)), \(N\) is the number of nodes in the graph, and each node is represented by a \(D\)-dimensional feature vector. \(\tilde{A}=A+I_N\) is the adjacency matrix with self-connection added, \(\tilde{D}\) is the degree matrix, \(\tilde{D_{ii}}=\sum_{j}{\tilde{A}_{ij}}\). \(W^{(l)}\in \mathbb{R}^{D\times D}\) is the parameter to be trained. \(\sigma \) is the corresponding activation function, such as ReLU.
 
 \subsubsection{Multi-label Recognition}
 From the stacked GCN network, we can learn interdependent object classifiers \(C=\{c_1,c_2,\ldots,c_T\} \), where T represents the number of categories. For the input layer, the input is \(r\in \mathbb{R}^{T \times d_{ko}}\), where \(d_{ko}\) is the number of dimensions represented by the embedding of the knowledge point object. Each GCN layer 1 takes the node representation from the previous layer \(H^{(l)}\) as input and outputs a new node representation \(H^{(l+1)}\). The output layer of the last layer is \(C\), where \(d_r\) represents the dimension of the title text. Finally, the label prediction vector \(\hat{y}\) can be obtained by the dot product product of the learned classifier and the title text representation \(r\):
@@ -320,8 +320,8 @@ In GCN, the correlation matrix \(A\) characterizes the relationship between grap
 
 In this model, in fact, only the knowledge pairwise relationship needs to be found. Therefore, the knowledge point relationship matrix can be expressed as \(R\in \mathbb{R}^{T\times T}\). The first task is to find the number of occurrences of frequently associated label in the label set. \(\operatorname{Support}\), \(\operatorname{Confidence}\), and \(\operatorname{Lift}\) can be used to evaluate frequent label sets. Support is the proportion of the number of occurrences of label pair in the label set in the total label set. Confidence degree reflects the probability of a label \(L_i\) appearing, another label \(L_j\) appears, or the conditional probability of the data. Lift represents the probability that the label \(L_i\) is contained at the same time, and the ratio of the probability of occurrence of X population:
 \begin{align}
-	\operatorname{Support}(L_i, L_j)         & =P(L_i,L_j)=\frac{\operatorname{number}(L_i,L_j)}{\operatorname{number}(\text { All Samples })} \\
-	\operatorname{Confidence}(L_i arrow L_j) & =P(L_i \mid L_j)=P(L_i, L_j) / P(L_j)                                                           \\
+	\operatorname{Support}(L_i, L_j)         & =P(L_i,L_j)=\frac{\operatorname{number}(L_i,L_j)}{\operatorname{number}(\text{ All Samples })} \\
+	\operatorname{Confidence}(L_i arrow L_j) & =P(L_i \mid L_j)=P(L_i, L_j) / P(L_j)                                                          \\
 	\operatorname{Lift}(L_i arrow L_j)       & =P(L_i \mid L_j) / P(L_i)=\operatorname{Confidence}(L_i arrow L_j) / P(L_i)
 \end{align}
 
@@ -333,8 +333,8 @@ It is a simple solution to directly set \(P\) as the incidence matrix \(A\), but
 
 \begin{align}
 	A_{i j}=\{\begin{array}{ll}
-		0,      & \text { if } P_{i j}<\tau      \\
-		P_{ij}, & \text { if } P_{i j} \geq \tau
+		0,      & \text{ if } P_{i j}<\tau      \\
+		P_{ij}, & \text{ if } P_{i j} \geq \tau
 	\end{array}\label{fml:confidence}
 \end{align}
 
@@ -473,13 +473,13 @@ Where \(n\) represents the number of test questions in the data set, and \(m\) r
 	\centering
 	\caption{Setting of Experiment}\label{tbl:ch2-ex1}
 	\begin{tabular}{ccccc}
-		\hline \text {\(\tau \)} & \text{ Number of Knowledge Points } & \text{ Number of Exercises } & \text{ 标签的勢 } & \text{ 标签密度 } \\
-		\hline 100               & 3                                   & 498                          & 1.02              & 0.34              \\
-		50                       & 17                                  & 940                          & 1.53              & 0.09              \\
-		40                       & 23                                  & 1127                         & 1.51              & 0.07              \\
-		30                       & 30                                  & 1224                         & 1.60              & 0.05              \\
-		20                       & 35                                  & 1270                         & 1.64              & 0.05              \\
-		10                       & 43                                  & 1332                         & 1.66              & 0.04              \\
+		\hline \text{\(\tau \)} & \text{ Number of Knowledge Points } & \text{ Number of Exercises } & \text{ 标签的勢 } & \text{ 标签密度 } \\
+		\hline 100              & 3                                   & 498                          & 1.02              & 0.34              \\
+		50                      & 17                                  & 940                          & 1.53              & 0.09              \\
+		40                      & 23                                  & 1127                         & 1.51              & 0.07              \\
+		30                      & 30                                  & 1224                         & 1.60              & 0.05              \\
+		20                      & 35                                  & 1270                         & 1.64              & 0.05              \\
+		10                      & 43                                  & 1332                         & 1.66              & 0.04              \\
 		\hline
 	\end{tabular}
 \end{table}
