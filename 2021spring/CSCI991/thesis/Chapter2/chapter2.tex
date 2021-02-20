@@ -12,11 +12,11 @@
 
 
 \section{Research Motivation}
-%在整个推荐系统的各个环节，包括数据收集、数据挖掘和数据推荐，都是以推荐数据源建设为最重要的基石。建立一个精确和完备的题库对于建立一个试题推荐系统是第一步也是重要的一步。题库整体设计的合理性，以及质量，是题库推荐系统成败的关键。题库建设也是一项十分复杂而困难的工作，既是苦活累活又是对教育的理解、技术能力的把握有极高要求的活。在题库建设过程中，并不是简单的数量的堆积，如果不考虑地区差异、应试要求不同和实效性等因素。高中数学学科具有上千规模的知识点，平均每个知识点有从易到难的不同难度的数十道习题，一个优质数学学科题库的规模为十万规模。除去数量上的要求，优质题库除了题目质量，以及对教育内容（教材）的匹配度之外，还有两个根本性问题，其一为知识点关系网络构建，其二为知识点-习题关系构建。而就是对于这些因素的优化，导致了优质题库的建设门槛，以及极高的成本。而市面上的题库往往缺失了对于这些因素的重视，导致出现了许多质量不高的习题数据库。所以，对题目的知识点标签的标注，以及知识体系的构建，是优质题库建设过程中最为核心的问题之一。
+%在整个推荐系统的各环节，包括数据收集、数据挖掘和数据推荐，都是以推荐数据源建设为最重要的基石。建立一个精确和完备的题库对于建立一个试题推荐系统是第一步也是重要的一步。题库整体设计的合理性，以及质量，是题库推荐系统成败的关键。题库建设也是一项十分复杂而困难的工作，既是苦活累活又是对教育的理解、技术能力的把握有极高要求的活。在题库建设过程中，并不是简单的数量的堆积，如果不考虑地区差异、应试要求不同和实效性等因素。高中数学学科具有上千规模的知识点，平均每个知识点有从易到难的不同难度的数十道习题，一个优质数学学科题库的规模为十万规模。除去数量上的要求，优质题库除了题目质量，以及对教育内容（教材）的匹配度之外，还有两个根本性问题，其一为知识点关系网络构建，其二为知识点-习题关系构建。而就是对于这些因素的优化，导致了优质题库的建设门槛，以及极高的成本。而市面上的题库往往缺失了对于这些因素的重视，导致出现了许多质量不高的习题数据库。所以，对题目的知识点标签的标注，以及知识体系的构建，是优质题库建设过程中最为核心的问题之一。
 
-%建立试题推荐系统的一个关键问题是如何结合知识点来推荐题目。在考虑这个问题的解决方案的时候，我们首先要考虑的是，我们需要什么样的知识体系和知识点标签。这个问题并不是很容易回答。首先在教材和教学大纲中，以及各种教辅中，会有各种对“知识点”的描述。在高中数学中的知识点，如函数、定义域、值域或解析式等，有直接的概念，也有方法的应用，有专题的抽象，也有相似解法的巧妙汇总，等等——总而言之，这并没有一种标准的体系，就其名称、内涵、粒度、层级，乃至所谓知识点之间的关系或联系，出自各种来源可能是千差万别的。这里既需要教育专家的高屋建瓴，也需要一线教师的灵活经验。其次，作为数据挖掘的任务而言，我们会关心——就标签集合而言，这是一个封闭集还是一个开放集，同时，我们会关心一个“知识点”标签，是一个分类概念还是一个关键词（或者是关键词的组合，短语搭配）。这个定义的明确，对于数据挖掘的问题定义十分关键，也基本决定了后面的方案的选择。但这个明确，不仅要考虑教学意义，同时需要考虑产品对于知识点标签的使用方式，尤其是后者，可能是更加重要的因素。
+%建立试题推荐系统的一个关键问题是如何结合知识点来推荐题目。在考虑这个问题的解决方案的时候，我们首先要考虑的是，我们需要什么样的知识体系和知识点标签。这个问题并不是很容易回答。首先在教材和教学大纲中，以及各种教辅中，会有各种对``知识点"的描述。在高中数学中的知识点，如函数、定义域、值域或解析式等，有直接的概念，也有方法的应用，有专题的抽象，也有相似解法的巧妙汇总，等等——总而言之，这并没有一种标准的体系，就其名称、内涵、粒度、层级，乃至所谓知识点之间的关系或联系，出自各种来源可能是千差万别的。这里既需要教育专家的高屋建瓴，也需要一线教师的灵活经验。其次，作为数据挖掘的任务而言，我们会关心——就标签集合而言，这是一个封闭集还是一个开放集，同时，我们会关心一个``知识点''标签，是一个分类概念还是一个关键词（或者是关键词的组合，短语搭配）。这个定义的明确，对于数据挖掘的问题定义十分关键，也基本决定了后面的方案的选择。但这个明确，不仅要考虑教学意义，同时需要考虑产品对于知识点标签的使用方式，尤其是后者，可能是更加重要的因素。
 
-%作为用于学生的自学推题，并显性化分析报告的试题推荐系统，那么知识点的标签应该要能够描述题目测验的核心知识点、方法或思路，要能够区分对于学生的能力要求点，这样才能构建更为强大的用户模型和推荐引擎，同时报告也方便针对性分析和理解——这个时候需要采取的分类体系和标签集合，其知识点的粒度要足够精细，而知识体系的层级就会大很多，同时，“知识点”即使不是标准体系，也需要大多数的老师和学生认可或一定的使用度。
+%作为用于学生的自学推题，并显性化分析报告的试题推荐系统，那么知识点的标签应该要能够描述题目测验的核心知识点、方法或思路，要能够区分对于学生的能力要求点，这样才能构建更为强大的用户模型和推荐引擎，同时报告也方便针对性分析和理解——这个时候需要采取的分类体系和标签集合，其知识点的粒度要足够精细，而知识体系的层级就会大很多，同时，``知识点''即使不是标准体系，也需要大多数的老师和学生认可或一定的使用度。
 
 %在本章中，挖掘的知识点标签，是用于题目的推荐和分析报告。他要求完善题目的知识点关联，即对题目打上若干对应的知识点标签，其中知识点之间也会存在依赖关系，另外就是要建立完整的知识点知识图谱用于生成学生的学习报告。对于第一个问题，它实际上是用题目文本来进行知识点挖掘的任务，也是一个分类任务。具体一点而言，主要是依据题目短文本信息进行层次化分类的任务。在这个任务中，我们需要使用到最基础的技术是自然语言处理和机器学习。也即，通过对大量人工标注好的题目文本和知识点标签结果（也称为训练语料）的学习——通过自然语言处理的技术获取题目文本的特征，通过机器学习来得到分类模型——从而使得系统具有了自动做知识点分类的能力。在这个定义中，待分类对象为题目（包括题干、答案、解析等等），分类结果是一组知识点标签。学习系统的输入就是一组训练语料，即$n$道已经标注好的题目及其对应的知识点标签；学习系统依据这个数据经验，训练出（或学习出）一个模型，这个模型可以是函数表达形式$y=f(x)$，也可以是概率表达形式$p(y|x)$，这个就是学习系统的输出。基于学习系统的分类模型，分类系统就可以做预测，即输入一道新的题目，分类系统自动识别其最可能的知识点标签。第二个问题则是构建一个高中数学知识点知识图谱，它显示了高中数学知识点的结构和关联。通过可视化技术来描述知识资源及其载体，对知识及其相互联系进行挖掘、分析、构建、绘制和显示。同时知识图谱作为人工智能的重要组成部分，目前在推荐系统和问答系统中发挥着越来越重要的作用。另外结合高中数学知识点的关系和学生的学习状态模型，也可以更好地实现学习路径自适应规划。
 
@@ -35,7 +35,7 @@ In this chapter, the knowledge point tags are mined for topic recommendation and
 In this section, a graph neural network-based model is proposed for test question-knowledge point association and knowledge mapping of knowledge points. The model is roughly divided into two parts. The first part is a test-knowledge point association module implemented with a semi-supervised learning algorithm based on graph convolutional neural networks and text mining embedding learning for test knowledge point labeling and association. The second part considers the systematization of knowledge of high school mathematics and combines a priori domain knowledge with an improved R-GCN algorithm to construct a knowledge graph of high school mathematics knowledge points.
 
 \subsection{Model Overview}
-%本节的任务是构造一个挖掘习题-知识点关系的模型和一个挖掘知识点之间关联的模型。建立习题-知识点关系即对习题进行知识点标注，习题的知识点是理解习题和求解习题所用到的知识概念的集合。所以准确描述一道试题的知识点，对于后续的知识追踪和推荐过程十分重要。目前已经存在的基础分类方式有专家标注和机器学习两种方式。前者即教育专家结合自己的专业知识对试题进行知识点标注，但当题量或题目复杂度较高时，人工标注存在工作量大，主观度高和标注不完善等问题。另外考虑到知识点之间的关联，人工标注也存在无法考虑到知识内联关系。另一种方式则是用机器学习或深度学习的方法，来对习题进行自动知识点标注。因为在习题集中只有少量习题被标注知识点，而其他大量的习题尚未被标注，这些知识点标注往往是半监督或无监督学习的模式。一个习题往往具有多个知识点，因此实际上知识点挖掘是一个多标签分类问题\cite{多标签问题}。本章也会对“如何有效建模知识点间的关系”来进行讨论并提出一种基于图神经网络的多标签分类模型。在习题知识提取部分，则往往采用对习题的文本信息挖掘的方式来进行知识点自动标注，为了提升特征提取性能，也可以考虑多模态学习的方式，提取习题的插图、数学公式等等来作为额外特征。
+%本节的任务是构造一个挖掘习题-知识点关系的模型和一个挖掘知识点之间关联的模型。建立习题-知识点关系即对习题进行知识点标注，习题的知识点是理解习题和求解习题所用到的知识概念的集合。所以准确描述一道试题的知识点，对于后续的知识追踪和推荐过程十分重要。目前已经存在的基础分类方式有专家标注和机器学习两种方式。前者即教育专家结合自己的专业知识对试题进行知识点标注，但当题量或题目复杂度较高时，人工标注存在工作量大，主观度高和标注不完善等问题。另外考虑到知识点之间的关联，人工标注也存在无法考虑到知识内联关系。另一种方式则是用机器学习或深度学习的方法，来对习题进行自动知识点标注。因为在习题集中只有少量习题被标注知识点，而其他大量的习题尚未被标注，这些知识点标注往往是半监督或无监督学习的模式。一个习题往往具有多个知识点，因此实际上知识点挖掘是一个多标签分类问题\cite{多标签问题}。本章也会对``如何有效建模知识点间的关系”来进行讨论并提出一种基于图神经网络的多标签分类模型。在习题知识提取部分，则往往采用对习题的文本信息挖掘的方式来进行知识点自动标注，为了提升特征提取性能，也可以考虑多模态学习的方式，提取习题的插图、数学公式等等来作为额外特征。
 
 %在2019年，提出了一种多标签图像分类模型，受该模型启发，本章提出了一个基于注意力机制习题文本特征提取和基于图神经网络知识点关系挖掘的多知识点标注模型，它通过数据驱动的方式建立知识点关系图描述知识点间的关联关系，对知识点分别建立分类器，然后对习题的文本特征进行多标签分类。其主要架构图如下。
 
@@ -154,7 +154,7 @@ Long short-term memory (Long short-term memory, LSTM) is a special RNN, mainly t
 	\caption{Structure of LSTM Unit}\label{ch2-fig7}
 \end{figure}
 
-%与仅具有一个传输状态$ h ^ t $的RNN相比，LSTM具有两个传输状态，一个单元状态$ c_t $和一个隐藏状态$ h_t $。 LSTM中的单元状态对应于RNN中隐藏状态的角色。 其中，向下传递的单元状态$ c_t $的变化非常缓慢，而隐藏状态$ h_t $在不同节点下通常具有很大的差异。 LSTM能够通过一种经过精心设计的称为“门”的结构，将信息删除或添加到单元状态。 门是一种选择性地让信息通过的方式。 它们包括一个S型神经网络层和一个逐点乘法运算。 Sigmoid层输出介于0和1之间的值，该值描述每个部分可以通过多少体积。 0表示“不允许通过任何金额”，1表示“允许通过任何金额”。 LSTM具有三个门来保护和控制单元状态。 LSTM中的三种门是忘记门，输入门和输出门：
+%与仅具有一个传输状态$ h ^ t $的RNN相比，LSTM具有两个传输状态，一个单元状态$ c_t $和一个隐藏状态$ h_t $。 LSTM中的单元状态对应于RNN中隐藏状态的角色。 其中，向下传递的单元状态$ c_t $的变化非常缓慢，而隐藏状态$ h_t $在不同节点下通常具有很大的差异。 LSTM能够通过一种经过精心设计的称为``门”的结构，将信息删除或添加到单元状态。 门是一种选择性地让信息通过的方式。 它们包括一个S型神经网络层和一个逐点乘法运算。 Sigmoid层输出介于0和1之间的值，该值描述每个部分可以通过多少体积。 0表示``不允许通过任何金额”，1表示``允许通过任何金额”。 LSTM具有三个门来保护和控制单元状态。 LSTM中的三种门是忘记门，输入门和输出门：
 
 Compared with RNN which has only one transmission state \(h^t\), LSTM has two transmission states, one cell state \(C_t\), and one hidden state \(h_t\). The cell state in LSTM corresponds to the role of the hidden state in RNN. Among them, the cell state \(C_t\) passed down changes very slowly while the hidden state \(h_t\) often has a big difference under different nodes. LSTM has the ability to remove or add information to the cell state through a well-designed structure called a ``gate''. A door is a way of letting information through selectively. They include a sigmoid neural network layer and a point-wise multiplication operation. The Sigmoid layer outputs a value between 0 and 1, describing how much volume can pass through each part. 0 means ``no amount is allowed to pass'', 1 means ``allow any amount to pass''. LSTM has three gates to protect and control the cell state.
 
@@ -202,7 +202,7 @@ Here, the Bi-LSTM output a bidirectional sequence as the sum of element-wise add
 \subsubsection{Attention Layer}
 %在此模型中，整个文本挖掘模块实际上是一个编码器-解码器框架。编码阶段对词向量的嵌入表示进行编码，并将其编码为隐藏的语义向量，然后解码器对语义向量进行解码，并输出输出序列。该框架的局限性在于，对于固定长度的语义向量，无法表示整个序列的信息，并且首先输入网络的信息将被后续信息覆盖，并且随着序列的增加，覆盖范围和丢失的信息将变得更糟。
 
-%为了解决编码器-解码器框架中的缺陷，Bahdanau et al。\ cite {bahdanau2014neural}提出了Attention机制。人的注意力是一种从大量信息中快速筛选高价值信息的机制。深度学习注意力机制是受人类注意力机制启发的。此方法广泛用于各种类型的深度学习任务，例如自然语言处理\引用{hu2019简介}，图像分类\引用{fu2017look，sun2018multi}和语音识别\引用{chorowski2015attention}，并取得了显著成果。
+%为了解决编码器-解码器框架中的缺陷，Bahdanau et al。\cite{bahdanau2014neural}提出了Attention机制。人的注意力是一种从大量信息中快速筛选高价值信息的机制。深度学习注意力机制是受人类注意力机制启发的。此方法广泛用于各种类型的深度学习任务，例如自然语言处理\引用{hu2019简介}，图像分类\cite{fu2017look，sun2018multi}和语音识别\cite{chorowski2015attention}，并取得了显著成果。
 
 %按照注意方法，编码器使用Bi-LSTM并获得隐藏状态向量$ h_t = \ overrightarrow {h_t} \ bigoplus \ overleftarrow {h_t} $。在解码器阶段，计算每个编码器隐藏层状态和解码器隐藏层状态之间的相关性，并执行softmax归一化操作以获得每个隐藏层矢量的权重。将$ H $设置为$ H = [h_1，h_2，...，h_l] $的隐藏状态矩阵，我们可以计算嵌入$ r $的练习文本。计算公式如下：
 
@@ -254,7 +254,7 @@ In the proposed GCN-based model, knowledge point labels are represented by word 
 The reason why this model adopts the GCN structure is that the parameter sharing of GCN for each node allows the learned classifier to retain the associated information in the knowledge association graph, thereby implicitly expressing its spatial semantic structure. Therefore, the output classifier can retain and identify the implicit knowledge label dependent information. For the dependence of knowledge points, refer to the data association method mining algorithm such as apriori algorithm, and calculate the co-relation matrix by calculating the co-occurrence of knowledge points in the exercises.
 
 \subsubsection{Graph Convolutinal Network}
-%在现实世界中，许多重要数据集以图或网络的形式存在，例如社交网络，知识图，蛋白质相互作用网络，世界贸易网络等。一些论文对此问题进行了回顾，并试图对神经网络进行概括，并将其应用于任意图结构数据\引用{wu2018socialgcn，dettmers2018convolutional}。当前，大多数图神经网络模型具有通用的体系结构。这些模型称为图卷积神经网络（GCN），是卷积的，因为可以在图中的所有位置或局部位置共享过滤器参数。对于这些模型，他们的目标是学习图形$ G =（V，E）$上信号或特征的映射。他们的输入包括：
+%在现实世界中，许多重要数据集以图或网络的形式存在，例如社交网络，知识图，蛋白质相互作用网络，世界贸易网络等。一些论文对此问题进行了回顾，并试图对神经网络进行概括，并将其应用于任意图结构数据\cite{wu2018socialgcn，dettmers2018convolutional}。当前，大多数图神经网络模型具有通用的体系结构。这些模型称为图卷积神经网络（GCN），是卷积的，因为可以在图中的所有位置或局部位置共享过滤器参数。对于这些模型，他们的目标是学习图形$ G =（V，E）$上信号或特征的映射。他们的输入包括：
 
 % \ begin {itemize}
 % \ item每个节点$ i $的特征描述$ x_i $可以写为$ N \ times D $特征矩阵（$ N $代表节点数，$ D $代表输入特征数）
@@ -270,11 +270,11 @@ The reason why this model adopts the GCN structure is that the parameter sharing
 % H ^ {（L）}＆= Z
 % \ end {align}
 
-% $ L $是层数。核心问题是如何选择和参数化$ f $。通过应用\ cite {kipf2016semi}的卷积运算，可以将$ f $表示为\ ref {fml：gcn1}：
+% $ L $是层数。核心问题是如何选择和参数化$ f $。通过应用\cite{kipf2016semi}的卷积运算，可以将$ f $表示为\ ref {fml：gcn1}：
 % \ begin {align}
 % H ^ {（（l + 1）}＆= \ sigma \ left（\ tilde {D} ^ {-\ frac {1} {2}} \ tilde {A} \ tilde {D} ^ {-\ frac {1 } {2}} H ^ {（l）} W ^ {{l}} \ right）\ label {fml：gcn1}
 % \ end {align}
-% $ l $层网络的输入为$ H ^ {{（l）} \ in \ mathbb {R} ^ {N \ times D} $（初始输入为$ H ^ {（0）} $） ，$ N $是图中的节点数，每个节点由$ D $维特征向量表示。 $ \ tilde {A} = A + I_N $是添加了自连接的邻接矩阵，$ \ tilde {D} $是度矩阵，$ \ tilde {D_ {ii}} = \ sum_ {j} {\波浪号{A} _ {ij}} $。 \ mathbb {R} ^ {D \ times D} $中的$ W ^ {（l）} \是要训练的参数。 $ \ sigma $是相应的激活函数，例如ReLU。
+% $ l $层网络的输入为$ H ^ {{（l）} \ in \ mathbb {R} ^ {N \ times D} $（初始输入为$ H ^ {（0）} $） ，$ N $是图中的节点数，每个节点由$ D $维特征向量表示。 $ \ tilde {A} = A + I_N $是添加了自连接的邻接矩阵，$ \ tilde {D} $是度矩阵，$ \ tilde {D_ {ii}} = \ sum_ {j} {\波浪号{A} _ {ij}} $。 \mathbb {R} ^ {D \ times D} $中的$ W ^ {（l）} \是要训练的参数。 $ \ sigma $是相应的激活函数，例如ReLU。
 
 
 In the real world, many important data sets exist in the form of graphs or networks, such as social networks, knowledge graphs, protein interaction networks, world trade networks, and so on. Some papers reviewed this problem and tried to generalize neural networks and apply them to arbitrary graph structure data\cite{wu2018socialgcn,dettmers2018convolutional}. Currently, most graph neural network models have a common architecture. Known as graph convolutional neural networks (GCNs), these models are convolutional because the filter parameters can be shared at all positions or a local position in the graph. For these models, their goal is to learn a mapping of signals or features on the graph \(G=(V,E)\). Their inputs include:
