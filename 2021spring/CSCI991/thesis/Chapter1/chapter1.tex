@@ -42,7 +42,7 @@ Knowledge composition refers to the organization of knowledge within a subject a
 \end{itemize}
 
 
-Mathematics is a science that specializes in the relationship between quantity and spatial form. Its symbol system is more complete, the formula structure is clear and unique, and the language of expression such as words and images is more vivid and intuitive. The knowledge structure of senior secondary mathematics is a more logical and systematic knowledge system organized on the basis of the knowledge structure of junior secondary mathematics. This is because learning for any discipline needs to be based on the existing cognitive structure in order to progressively effective learning and skills training, so in the process of learning high school mathematics, you need to have a solid foundation of junior high school mathematics discipline knowledge. In the past few years, there have been a number of cases in which the students have been able to learn from each other.
+Mathematics is a science that specializes in the relationship between quantity and spatial form\cite{he2017learning}. Its symbol system is more complete, the formula structure is clear and unique, and the language of expression such as words and images is more vivid and intuitive. The knowledge structure of senior secondary mathematics is a more logical and systematic knowledge system organized on the basis of the knowledge structure of junior secondary mathematics. This is because learning for any discipline needs to be based on the existing cognitive structure in order to progressively effective learning and skills training, so in the process of learning high school mathematics, you need to have a solid foundation of junior high school mathematics discipline knowledge. In the past few years, there have been a number of cases in which the students have been able to learn from each other.
 
 \begin{itemize}
 	\item Highly abstract: Mathematics has a high degree of abstraction, because the discipline's knowledge system is built using many abstract knowledge concepts, and with the help of these concepts and knowledge to learn and expand thinking, forming new abstract conceptual knowledge. The abstraction of mathematics is reflected in the object is not concerned with the introduction of specific content, only the number of relationships between the spatial form. Therefore, abstraction in mathematics is different from abstraction in other disciplines in terms of both object and degree. There are also some differences between mathematics and the natural sciences, because in mathematics the accuracy of calculations, proofs, and inferences can only be verified using rigorous logical methods and cannot be tested by repetitive experiments, whereas in the natural sciences the verification is the opposite.
@@ -51,7 +51,7 @@ Mathematics is a science that specializes in the relationship between quantity a
 \end{itemize}
 
 \subsection{Knowledge relation}
-Knowledge relations represent the connections between knowledge points (or between knowledge blocks and knowledge chunks) in the discipline knowledge structure. It is through these connections that different knowledge points can be formed into knowledge blocks, and different knowledge blocks can be combined to form the whole disciplinary network knowledge structure system. There are many different kinds of knowledge relationships, so that different definitions of knowledge relationships lead to different knowledge structures. Therefore, in order to unify the definition of knowledge relations, we divided them into general relations and special relations based on the general and special characteristics of discipline knowledge structure. The special relationships represent the unique knowledge relationships of a particular discipline, while the universal relationships represent the general relationships of any discipline. Secondly, according to the demands of knowledge graphping research, we divide universal relations into six kinds of knowledge relations: synonymous, fraternal, antecedent, consequent, inclusive and antagonistic; and special relations into four kinds of knowledge relations: detailed, transformative, causal and correlative.
+Knowledge relations represent the connections between knowledge points (or between knowledge blocks and knowledge chunks) in the discipline knowledge structure\cite{wang2017knowledge}. It is through these connections that different knowledge points can be formed into knowledge blocks, and different knowledge blocks can be combined to form the whole disciplinary network knowledge structure system. There are many different kinds of knowledge relationships, so that different definitions of knowledge relationships lead to different knowledge structures. Therefore, in order to unify the definition of knowledge relations, we divided them into general relations and special relations based on the general and special characteristics of discipline knowledge structure. The special relationships represent the unique knowledge relationships of a particular discipline, while the universal relationships represent the general relationships of any discipline. Secondly, according to the demands of knowledge graphing research, we divide universal relations into six kinds of knowledge relations: synonymous, fraternal, antecedent, consequent, inclusive and antagonistic; and special relations into four kinds of knowledge relations: detailed, transformative, causal and correlative.
 \begin{itemize}
 	\item tautology: Expresses the relationship between two points of knowledge that have the same meaning as what is being described, e.g. regular and equilateral triangles.
 	\item fraternity: Expresses the relationship between two knowledge points that have the same parent class.
@@ -76,7 +76,7 @@ There are several kinds of knowledge tracing algorithms:
 \begin{itemize}
 	\item Bayesian knowledge tracing (BKT): Bayesian knowledge tracing is an early and commonly used knowledge tracing model, BKT uses user interaction modeling with real-time feedback to model a learner's potential knowledge state as a set of binary variables, each representing whether or not a knowledge point is understood, and there are dynamic changes in mastery of knowledge points as students continue to practice, BKT maintains binary variables of knowledge point proficiency by using Hidden Markov Models (HMM), the original BKT model does not take into account students' knowledge forgetting, and related studies address students' guesses, personal vivid knowledge mastery and problem difficulty factors on BKT\cite{yudelson2013individualized}.
 	\item Deep Knowledge Tracing (DKT): The DKT model applies neural networks to the knowledge tracing task for the first time\cite{piech2015deep}, using an LSTM model to track the dynamics of student knowledge proficiency over time, and to learn the potential vector representation of student knowledge proficiency directly from the data. The advantage of DKT is that it can record knowledge over a longer period of time based on students' recent answers. In addition, it can update the knowledge state based on each answer, only the last implicit state needs to be saved, no double counting is required, and it is suitable for online deployment. It does not require domain knowledge, works with any user answer dataset and automatically captures associations between similar questions. The disadvantage of DKT is that the model output fluctuates greatly when the answer sequence is disrupted, i.e., the same questions and the same responses yield different knowledge states when the answer sequence is inconsistent. Due to the above-mentioned problems and the fact that students do not necessarily have continuous consistency in their knowledge during the answer process, it leads to bias in the prediction of students' knowledge states influenced by the sequence. There is also the black box problem, which sometimes leads to the strange situation that the first correct answer leads to a high prediction probability for all subsequent ones, while the first wrong answer leads to a low prediction probability for all subsequent ones.
-	\item Dynamic Key-Value Memory Networks for Knowledge Tracing(DKVMN): Dynamic Key-Value Memory Networks for Knowledge Tracing (DKVMN) was proposed in 2017 by  Jian\cite{zhang2017dynamic}. Based on the strengths and weaknesses of BKT and DKT and using the memory augmentation neural network approach, the Dynamic Key-Value Memory Networks (DKVMN) is proposed. It borrows ideas from memory-enhanced neural networks and combines the advantages of BKT and DKT. DKVMN stores all knowledge points with a static matrix key and a dynamic matrix value to store and update the student's knowledge state. In the DKVMN paper, they compare DKVMN with DKT and a sophisticated version of BKT, BKT+. They found that DKVMN achieves excellent performance and is the most advanced model in the KT domain. In addition to improved performance, it has several other advantages over LSTM, including prevention of overfitting, a smaller number of parameters, and automatic discovery of similar practice questions by underlying concepts. In addition, Chaudhry\cite{chaudhry2018modeling} improves the performance of DKVMN by jointly training request cue prediction with knowledge tracing through multi-task learning.
+	\item Dynamic Key-Value Memory Networks for Knowledge Tracing(DKVMN): Dynamic Key-Value Memory Networks for Knowledge Tracing (DKVMN) was proposed in 2017 by Jian\cite{zhang2017dynamic}. Based on the strengths and weaknesses of BKT and DKT and using the memory augmentation neural network approach, the Dynamic Key-Value Memory Networks (DKVMN) is proposed. It borrows ideas from memory-enhanced neural networks and combines the advantages of BKT and DKT. DKVMN stores all knowledge points with a static matrix key and a dynamic matrix value to store and update the student's knowledge state. In the DKVMN paper, they compare DKVMN with DKT and a sophisticated version of BKT, BKT+. They found that DKVMN achieves excellent performance and is the most advanced model in the KT domain. In addition to improved performance, it has several other advantages over LSTM, including prevention of overfitting, a smaller number of parameters, and automatic discovery of similar practice questions by underlying concepts. In addition, Chaudhry\cite{chaudhry2018modeling} improves the performance of DKVMN by jointly training request cue prediction with knowledge tracing through multi-task learning.
 \end{itemize}
 
 % \subsection{Factorization Machine}
@@ -87,42 +87,45 @@ There are several kinds of knowledge tracing algorithms:
 The purpose of this study is to build a high school mathematics learning resource recommendation system based on knowledge tracing and factorization machine algorithm. We use knowledge tracing to model students' knowledge states, which outputs a graphical knowledge state vector, which we use as the next-level input, considering students' individualized differences and knowledge forgetting process, and apply the factorization machine algorithm to the resource recommendation system. For knowledge tracing, we build a graph neural network-based knowledge tracing model, which can well characterize the intrinsic connections of knowledge points in mathematics subjects considering that the knowledge points are a graph-like structure, and output a graph knowledge vector matrix, which can also effectively characterize the connections between problems and knowledge points. The output of the knowledge tracing model is then passed through a factorization machine algorithm to obtain the recommendation degree of the learning resources and output a vector of recommendation weights for different learning resources.
 
 \section{Thesis Organization and Structure}
-Chapter 1 of this paper is an introduction. It introduces the research background of the study, current industry-related research progress and the focus of the study. Then it leads to the three core points of this paper: learning resource representation, knowledge tracing and resource recommendation.
+%本文的第一章是导论。 介绍了研究的研究背景，当前与行业相关的研究进展和研究重点。然后得出本文的三个核心点：习题知识点标注，知识跟踪和习题推荐。本文的第2章着重于习题知识点标注，在习题资源推荐系统中，需要对解析出习题的知识点，然后根据学生当前的知识掌握情况，针对性地推荐学生掌握不足的知识点相关习题。本章节的算法模型分为习题文本信息抽取和标签标注两个部分，在实验部分通过与若干传统模型进行对比来验证模型的有效性。本文的第3章提出了一个基于图神经网络的知识追踪模型，该模型分为习题-知识点关系嵌入学习、知识状态编码和答题预测解码三个部分。文中先对设计思路和相关技术进行理论介绍，然后在实验部分通过在公开数据集上与基准模型进行对比，验证模型的有效性并评估模型性能。本文的第4章提出了一种基于资源召回和资源排序两个阶段的推荐系统模型，该模型的召回阶段，通过协同过滤算法过滤出学习状况相似学生的相关习题，然后基于习题知识点标注模块所标注的习题知识点向量和知识追踪模块的知识状态隐含表征向量，设计一个神经网络模型来进行习题优先级排序。本文的第5章提出了结论和对于模型各个部分的未来的改进方向。
 
-Chapter 2 of this paper concentrates on learning resource representation, which addresses storing learning resources through knowledge graphs. This paper explores some concepts of knowledge graphs, related studies, and then gives the process of knowledge graph building. It is also demonstrated that knowledge graph building can effectively characterize the a priori intrinsic features of subject knowledge.
 
-Chapter 3 of this paper gives a knowledge tracing model of pre-trained graph neural network, which better characterizes the graph-like properties of knowledge. It is able to transform the knowledge tracing task into a time-series node-level classification problem in GNNs. Since the knowledge graph structure is not explicitly provided in most cases, we present various implementations of the graph structure. Empirical tests on two open datasets show that the method improves the prediction of student performance without any additional information and shows more interpretable predictions. The inclusion of pre-training is also attempted during the experiments, which can greatly improve the training efficiency and performance.
+Chapter 1 of this paper is the introduction. Introduces the research background of the research, the research progress and research focus related to the algorithm used in this article. By analyzing the requirements of the exercise recommendation system, three core points of this article are drawn: learning resource representation, knowledge tracking and resource recommendation.
 
-Chapter 4 of this paper proposes the application of a deep factorization machine algorithm with knowledge tracing model data as input to build a learning resource recommendation system. The output is a weight vector of top n, characterizing the recommended resources of top n.
+Chapter 2 of this article focuses on the labeling of exercise knowledge points. In the exercise resource recommendation system, the knowledge points of the exercises need to be parsed, and then based on the students' current knowledge mastery, it is recommended that the students have insufficient knowledge points and related exercises. The algorithm model in this chapter is divided into two parts: text information extraction of exercises and labeling. In the experimental part, the effectiveness of the model is verified by comparing with several traditional models.
 
-Chapter 5 of this paper presents the conclusion.
+Chapter 3 of this article proposes a knowledge tracking model based on graph neural network. The model is divided into three parts: exercise-knowledge point relationship embedding learning, knowledge state encoding and answer prediction decoding. The article first introduces the design ideas and related technologies theoretically, and then compares the benchmark model with the public data set in the experimental part to verify the effectiveness of the model and evaluate the performance of the model.
 
-\nomenclature[z-DEM]{DEM}{Discrete Element Method}
-\nomenclature[z-FEM]{FEM}{Finite Element Method}
-\nomenclature[z-PFEM]{PFEM}{Particle Finite Element Method}
-\nomenclature[z-FVM]{FVM}{Finite Volume Method}
-\nomenclature[z-BEM]{BEM}{Boundary Element Method}
-\nomenclature[z-MPM]{MPM}{Material Point Method}
-\nomenclature[z-LBM]{LBM}{Lattice Boltzmann Method}
-\nomenclature[z-MRT]{MRT}{Multi-Relaxation
-	Time}
-\nomenclature[z-RVE]{RVE}{Representative Elemental Volume}
-\nomenclature[z-GPU]{GPU}{Graphics Processing Unit}
-\nomenclature[z-SH]{SH}{Savage Hutter}
-\nomenclature[z-CFD]{CFD}{Computational Fluid Dynamics}
-\nomenclature[z-LES]{LES}{Large Eddy Simulation}
-\nomenclature[z-FLOP]{FLOP}{Floating Point Operations}
-\nomenclature[z-ALU]{ALU}{Arithmetic Logic Unit}
-\nomenclature[z-FPU]{FPU}{Floating Point Unit}
-\nomenclature[z-SM]{SM}{Streaming Multiprocessors}
-\nomenclature[z-PCI]{PCI}{Peripheral Component Interconnect}
-\nomenclature[z-CK]{CK}{Carman - Kozeny}
-\nomenclature[z-CD]{CD}{Contact Dynamics}
-\nomenclature[z-DNS]{DNS}{Direct Numerical Simulation}
-\nomenclature[z-EFG]{EFG}{Element-Free Galerkin}
-\nomenclature[z-PIC]{PIC}{Particle-in-cell}
-\nomenclature[z-USF]{USF}{Update Stress First}
-\nomenclature[z-USL]{USL}{Update Stress Last}
-\nomenclature[s-crit]{crit}{Critical state}
-\nomenclature[z-DKT]{DKT}{Draft Kiss Tumble}
-\nomenclature[z-PPC]{PPC}{Particles per cell}
+Chapter 4 of this article proposes a recommendation system model based on the two stages of resource recall and resource ranking. In the recall stage of the model, the relevant exercises of students with similar learning conditions are filtered out through collaborative filtering algorithms, and then the module is labeled based on exercise knowledge points The labeled exercise knowledge point vector and the knowledge state implicit representation vector of the knowledge tracking module are designed to design a neural network model to prioritize exercises.
+
+Chapter 5 of this article puts forward conclusions and directions for future improvements in each part of the model.
+
+% \nomenclature[z-DEM]{DEM}{Discrete Element Method}
+% \nomenclature[z-FEM]{FEM}{Finite Element Method}
+% \nomenclature[z-PFEM]{PFEM}{Particle Finite Element Method}
+% \nomenclature[z-FVM]{FVM}{Finite Volume Method}
+% \nomenclature[z-BEM]{BEM}{Boundary Element Method}
+% \nomenclature[z-MPM]{MPM}{Material Point Method}
+% \nomenclature[z-LBM]{LBM}{Lattice Boltzmann Method}
+% \nomenclature[z-MRT]{MRT}{Multi-Relaxation
+% 	Time}
+% \nomenclature[z-RVE]{RVE}{Representative Elemental Volume}
+% \nomenclature[z-GPU]{GPU}{Graphics Processing Unit}
+% \nomenclature[z-SH]{SH}{Savage Hutter}
+% \nomenclature[z-CFD]{CFD}{Computational Fluid Dynamics}
+% \nomenclature[z-LES]{LES}{Large Eddy Simulation}
+% \nomenclature[z-FLOP]{FLOP}{Floating Point Operations}
+% \nomenclature[z-ALU]{ALU}{Arithmetic Logic Unit}
+% \nomenclature[z-FPU]{FPU}{Floating Point Unit}
+% \nomenclature[z-SM]{SM}{Streaming Multiprocessors}
+% \nomenclature[z-PCI]{PCI}{Peripheral Component Interconnect}
+% \nomenclature[z-CK]{CK}{Carman - Kozeny}
+% \nomenclature[z-CD]{CD}{Contact Dynamics}
+% \nomenclature[z-DNS]{DNS}{Direct Numerical Simulation}
+% \nomenclature[z-EFG]{EFG}{Element-Free Galerkin}
+% \nomenclature[z-PIC]{PIC}{Particle-in-cell}
+% \nomenclature[z-USF]{USF}{Update Stress First}
+% \nomenclature[z-USL]{USL}{Update Stress Last}
+% \nomenclature[s-crit]{crit}{Critical state}
+% \nomenclature[z-DKT]{DKT}{Draft Kiss Tumble}
+% \nomenclature[z-PPC]{PPC}{Particles per cell}
