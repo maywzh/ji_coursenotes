@@ -43,18 +43,16 @@ Graph embedding is an important research topic in graph neural networks, which r
 
 
 \section{Proposed Model}
-
 \subsection{Algorithm Overview}
 %本节的关键点是对学生的知识追踪，本文提出了一种基于图自注意力网络和Transformer模型的知识追踪模型GATKT。在实验验证阶段，该模型在几个数据集上的基线性能达到了SOA。本模型的第一层为embedding聚合层，该层用一个GAT来聚合问题embedding和知识点embedding，并展示问题和知识点的内在联系，它可以解决数据稀疏性问题和知识点依赖和复杂关系问题。第二层为一个Transformer-based知识追踪模型，该层参考Google提出的著名的Transformer模型 \cite{vaswani2017attention}，设计了一个基于Transformer机制的知识追踪模型，它输入问题和技能embedding，输出对于下一个问题的答对的预测。通过这种机制，该模型可以实现对long-range的依赖的学习。此外，本模型可以通过解码器来输出隐藏的知识状态，这是下一阶段进行习题推荐的关键。总而言之，该模型的总体架构图可以见图\ref{}，并分为以下几个模块。
 %1. 基于GAT的embedding层：该层用embedding方法来表征问题，知识点和回答。在该图神经网络中，每个问题代表一个节点，它与若干知识点节点连接，这些知识点节点再与与之相关的问题节点连接。而问题与问题不直接连接，考虑到知识点的相关性，知识点与知识点可以直接连接。其结构如图\ref{}。这个embedding层不进行预训练，而是与其他层进行总体训练来优化最终结果。
-%2. 问题与知识点关系图：该图表征问题与相关联的知识点，问题与问题之间不直接相连，而知识点可以与若干问题或知识点相连。
+%2. 基于Transformer的知识状态表征：该模块通过多头注意力机制来学习经过GAT嵌入表示的习题-知识点向量，并学习学生做题记录过程中的知识状态表征。
 %3. 基于Transformer的知识追踪层：该层类似传统Transformer结构，具有encoder和decoder两部分，它学习关联知识点和问题的权值矩阵，可以解决知识点依赖问题。通过注意力机制，它也可以capture关联知识点相似的问题。
 
-
-The key point of this section is to track students' knowledge. This paper proposes a knowledge tracking model based on graph self attention network and Transformer model GATKT. In the experimental verification phase, the baseline performance of the model on several datasets achieves SOTA. The first layer of this model is the embedding aggregation layer. In this layer, a gat is used to aggregate the problem embedding and the knowledge point embedding, and to show the internal relationship between the problem and the knowledge point. It can solve the problem of data sparsity and the problem of knowledge point dependence and complex relationship. The second layer is a transformer based knowledge tracking model. Referring to the famous transformer model proposed by Google Brain \cite{vaswani2017attention}, this layer designs a knowledge tracking model based on the transformer mechanism, which inputs questions and skills embedding, and outputs the prediction of the correct answer to the next question. Through this mechanism, the model can realize the learning of long range dependence. In addition, the model can output the hidden knowledge state through the decoder, which is the key to exercise recommendation in the next stage. In a word, the overall architecture diagram of the model can be seen in \figurename{\ref{fig:ch3-fig1}}, which is divided into the following modules:
+The key point of this section is to track students' knowledge. This paper proposes a knowledge tracing model based on graph self attention network and Transformer model GATKT. In the experimental verification phase, the baseline performance of the model on several datasets achieves SOTA. The first layer of this model is the embedding aggregation layer. In this layer, a gat is used to aggregate the problem embedding and the knowledge point embedding, and to show the internal relationship between the problem and the knowledge point. It can solve the problem of data sparsity and the problem of knowledge point dependence and complex relationship. The second layer is a transformer based knowledge tracing model. Referring to the famous transformer model proposed by Google Brain \cite{vaswani2017attention}, this layer designs a knowledge tracing model based on the transformer mechanism, which inputs questions and skills embedding, and outputs the prediction of the correct answer to the next question. Through this mechanism, the model can realize the learning of long range dependence. In addition, the model can output the hidden knowledge state through the decoder, which is the key to exercise recommendation in the next stage. In a word, the overall architecture diagram of the model can be seen in \figurename{\ref{fig:ch3-fig1}}, which is divided into the following modules:
 \begin{enumerate}
 	\item GAT-based embedding layer: embedding layer based on gat: this layer uses embedding method to represent questions, knowledge points and answers. In the graph neural network, each problem represents a node, which is connected with several knowledge nodes, and these knowledge nodes are connected with the related problem nodes. Considering the relevance of knowledge points, knowledge points and knowledge points can be directly connected. The structure is shown in the \figurename{\ref{fig:ch3-fig2}}. This embedding layer does not carry out pre training, but carries out overall training with other layers to optimize the final result.
-	\item GAT-based knowledge state tracking layer: this layer establishes a graph of knowledge points, which is used to track the students' mastery of knowledge points. This layer updates the knowledge state through the knowledge state, and finally it will be used in the subsequent recommendation process.
+	\item Transformer-based knowledge state encoder: this layer establishes a graph of knowledge points, which is used to track the students' mastery of knowledge points. This layer updates the knowledge state through the knowledge state, and finally it will be used in the subsequent recommendation process.
 	\item Knowledge tracing layer based on Transformer: this layer is similar to the traditional transformer structure, and has two parts: encoder and decoder. It learns the weight matrix of knowledge points and problems, and can solve the problem of knowledge point dependence. Through the attention mechanism, it can also capture similar problems of knowledge points.
 \end{enumerate}
 
@@ -107,13 +105,13 @@ Here, since the graph structure information is to be considered, the concept of 
 \end{align}
 where \(\sigma \) are the non-linear transformation such as ReLU or LeakyReLU. If the edge \(j \to i\) does not exist, we can simply omit the calculation of \(\alpha_{ij}\), which can reduce the calculation. The formula means that the output characteristics of this node are related to all the nodes adjacent to it and are obtained after the nonlinear activation of their linear sum.
 
-To make the result of self-attention more stable. The multi-headed attention mechanism can be used here, like \figurename{\ref{fig:ch3-fig4}}. Multi-head attention is actually a combination of multiple self-attention structures, each head learns features in a different representation space, and multiple heads may learn slightly different attention focus, which gives the model more capacity.
+To make the result of self-attention more stable. The multi-headed attention mechanism can be used here. Multi-head attention is actually a combination of multiple self-attention structures, each head learns features in a different representation space, and multiple heads may learn slightly different attention focus, which gives the model more capacity.
 \(K\) independent attention mechanisms can be achieved by connecting \(k\) features together.
-\begin{figure}[h]
-	\centering
-	\includegraphics[width=1.0\textwidth]{ch2-fig4.png}
-	\caption{Multi-head Attention}\label{fig:ch3-fig4}
-\end{figure}
+% \begin{figure}[h]
+% 	\centering
+% 	\includegraphics[width=1.0\textwidth]{ch2-fig4.png}
+% 	\caption{Multi-head Attention}\label{fig:ch3-fig4}
+% \end{figure}
 \begin{align}
 	\vec{x}_{i}^{\prime}=\|_{k=1}^{K} \sigma(\sum_{j \in \mathcal{N}_{i}} \alpha_{i j}^{k} \mathbf{W}^{k} \vec{x}_{j})
 \end{align}
@@ -130,12 +128,11 @@ There are a total of \(K\) attention mechanisms to consider, with \(k\) denoting
 
 From this layer, we got the embedded question and knowledge point vector \(\hat{q}_{i} =  \vec{x}_{i}^{\prime}\), which would be passed into the Transformer Block in Knowledge tracing module.
 
-\subsection{Transformer-based knowledge tracing}
-
+\subsection{Transformer-based knowledge state encoder}
 The input of transformer Block is the concatenation of the embedded question \(\hat{q}_{i}\) and corresponding answer \(a_i\), i.e. \(e_i=\hat{q}_{i}\|a_i\). The general structure is like \figurename{\ref{fig:ch3-fig5}}. The traditional Transformer model is modified to apply to knowledge tracing task. The Transformer can learn the W-matrix relating underlying knowledge points and questions rather than directly learn the representation of each question. This allows the model to learn deeper connections between problems, resulting in better inference performance. It can cluster problems with similar knowledge points and reduce the variance for less frequent problems.
-\begin{figure}[h]
+\begin{figure}[htbp!]
 	\centering
-	\includegraphics[width=1.0\textwidth]{ch2-fig5.jpeg}
+	\includegraphics[width=1.0\textwidth]{ch3-fig3.png}
 	\caption{The Transformer architecture}
 	\label{fig:ch3-fig5}
 \end{figure}
@@ -168,77 +165,91 @@ A Transformer block also have feedforward layer, normalization layer, and residu
 \end{align}
 
 
-% \subsection{The Knowledge State}
+% \subsection{Transformer-based question mark predict decoder}
+
 
 
 \section{Experiments}
+%本节中，通过多个专用的知识追踪数据集来investigate提出的模型性能，与目前已经提出的Baseline模型进行性能对比。本章先对所用到的数据集进行介绍和统计，然后提出用于模型性能对比的度量标准、实验设置和运行参数环境等，最后得出结果并进行分析。
+In this section, the performance of the proposed model is investigated through multiple dedicated knowledge tracing data sets, and the performance of the proposed baseline model is compared. This chapter first introduces and counts the data sets used, then proposes metrics, experimental settings and operating parameter environments for model performance comparison, and finally draws the results and analyzes them.
 
-%本节中，通过
-In this section, we conduct several experiments to investigate the performance of our model. We first evaluate the prediction error by comparing our model with other baselines on three public datasets. Then the paper make ablation studies on the GAT and GATKT to show their effectiveness. Finally, the paper evaluates the design decisions of the recap module to investigate which design performs better.
+
 \subsection{Datasets}
-To evaluate our model, the experiments are conducted on three widely-used datasets in KT and the detailed statistics are shown in Table~\ref{ch2-tb1}.
+After investigating the existing knowledge tracing model, we selected the more popular ASSISTment data set and Statics data set related to mathematics, preprocessed the data set, cleaned the data, obtained the training set and performed the performance with the Baseline model Compared. Dataset statistics are shown in Table~\ref{tbl:ch2-tb1}.
+
+
+%(1)ASSISTment 2015 是一个用于预测学生考试表现的数据集，它由一系列包含若干知识点标签的问题以及一些学生的答题记录组成。它在2015年于线上教育平台上采集而成。经过数据过滤获得包含19917个学生，约102千个问题，100个知识点标签和约709次交互的数据集。
+%(2)ASSISTment 2017 来源于2017年举办的ASSISTments Longitudinal Data Mining Competition。经过数据预处理和数据过滤，数据集包含1709个学生，4117个问题，102个知识点和约943千次交互。
+%(3)Statics 2011 数据集来源于统计学课程的答题记录。
 \begin{itemize}
-	\item ASSIST12 was collected from the same platform as ASSIST09 during the school year 2012-2013. In this dataset, each question is only related to one skill, but one skill still corresponds to several questions. After the same data processing as ASSIST09, it has 2, 709, 436 exercises with 27, 485 students, 265 skills and 53, 065 questions.
-	\item Ednet was collected by 51. As the whole dataset is too large, we randomly select 5000 students with 189 skills, 12, 161 questions and 676, 974 exercises
+	\item ASSISTment 2015 (ASSIST15) is a data set used to predict student test performance. It consists of a series of questions containing several knowledge point labels and some student answer records. It was collected on an online education platform in 2015. After data filtering, a data set containing 19,917 students, about 102 thousand questions, 100 knowledge point labels and about 709 interactions was obtained.
+	\item ASSISTment 2017 (ASSIST17) is derived from the ASSISTments Longitudinal Data Mining Competition held in 2017. After data preprocessing and data filtering, the data set contains 1709 students, 4117 questions, 102 knowledge points and approximately 943 thousand interactions.
+	\item Statics 2011 (STATICS11) dataset is derived from the answer records of statistics courses. It contains 333 students, 1223 questions, 156 knowledge tags and about 189 thousand interactions.
 \end{itemize}
 
 \begin{table}[h]
 	\centering
-	\caption{Dataset Statistics}\label{ch2-tb1}
-	\begin{tabular}{cccc}
+	\caption{Dataset Statistics}\label{tbl:ch2-tb1}
+	\begin{tabular}{ccccc}
 		\toprule
-		                             & \text{ASSIST09 } & \text{ASSIST12 } & \text{EdNet} \\
+		Dataset   & \#Students & \#Questions & \#Knowledge Points & \#Interactions \\
 		\midrule
-		\text{\#students}            & 3,852            & 27,485           & 5000         \\
-		\text{\#questions}           & 17,737           & 53,065           & 12,161       \\
-		\text{\#skills}              & 123              & 265              & 189          \\
-		\text{\#exercises}           & 282,619          & 2,709,436        & 676,974      \\
-		\text{questions per skill}   & 173              & 200              & 147          \\
-		\text{skills per question}   & 1.197            & 1.000            & 2.280        \\
-		\text{attempts per question} & 16               & 51               & 56           \\
-		\text{attempts per skill}    & 2,743            & 10,224           & 8,420        \\
+		ASSIST15  & 19,917     & 102,396     & 100                & 709K           \\
+		ASSIST17  & 1,709      & 4,117       & 102                & 943K           \\
+		STATICS11 & 333        & 1,223       & 156                & 189K           \\
 		\bottomrule
 	\end{tabular}
 \end{table}
 
-Note that for each dataset we only use the sequences of which the length is longer than 3 in the experiments as the too short sequences are meaningless. For each dataset, we split 80\% of all the sequences as the training set, 20\% as the test set. To evaluate the results on these datasets, we use the area under the curve (AUC) as the evaluation metric.
+\subsection{Settings and Metrics}
+%目前知识追踪领域的论文多以(Area Under Curve)AUC作为对比指标，AUC是一个基于ROC曲线常用的二分类评测手段，具有较好的性能对比能力。在知识追踪任务中，最终预测也是当前时刻的习题的做对与否，本质上为一个二分类问题，因此可以采取这种做法。
+At present, most papers in the field of knowledge tracking use Area Under Curve (AUC) as a comparison indicator. AUC is a commonly used two-category evaluation method based on the ROC curve and has good performance comparison capabilities. In the task of knowledge tracking, the final prediction is also whether the exercises at the current moment are done correctly or not, which is essentially a binary classification problem, so this approach can be adopted.
+
+%对于每个数据集采用70%作为训练集，剩余30%作为测试集。实验运行环境为Ubuntu20.04，TensorFlow 2.23，Python 3.8.6，实验机器为一块Tesla V100计算卡。
+For each dataset, 70\% is used as the training set, and the remaining 30\% is used as the test set. The experimental running environment is Ubuntu20.04, TensorFlow 2.23, Python 3.8.6, and the experimental machine is a Tesla V100 computing card.
 
 \subsection{Baselines}
-In order to evaluate the effectiveness of our proposed model, we use the following models as our baselines.
+%1.BKT是一个知识追踪的经典模型，它基于隐马尔可夫模型（HMM），将学习者的知识状态建模为一组对应知识点掌握情况的二元变量。
+%2.DKT是第一个基于深度学习的知识追踪模型，它应用将学生的做题记录输入到LSTM中，可以捕获学生做题序列上近期做题记录的影响，将学生的做题顺序考虑进模型，DKT也初步考虑了知识点间的内在相关性。
+%3.GKT应用图神经网络到知识追踪任务上，利用图的特性，将知识点间的图状关联表征出来，从而更好地学习知识内在依赖关系，该模型能够学习出学生的隐藏知识状态,也具有较好的可解释性。
+In this experiment, baseline performance comparisons are made by comparing some classic models with new knowledge tracking models proposed recently. The following models participate in performance comparison.
 \begin{itemize}
-	\item BKT uses Bayesian inference for prediction, which models the knowledge state of the skill as a binary variable.
-	\item DKT is the first method that uses deep learning to model knowledge tracing task. It uses recurrent neural network to model knowledge state of students
-	\item DKVMN uses memory network to store knowledge state of different concepts respectively instead of using a single hidden state
-	\item DKT-Q is a variant of DKT that we change the input of DKT from skills to questions so that the DKT model directly uses question information for prediction
-	\item DKIT-QS is a variant of DKT that we change the input of DKT to the concatenation of questions and skills so that the DKT model uses question and skill information simultaneously for prediction
+	\item Bayesian knowledge tracing (BKT)\cite{yudelson2013individualized}: BKT is a classic model of knowledge tracking. It is based on Hidden Markov Model (HMM), which models the knowledge state of learners as a set of binary variables corresponding to the mastery of knowledge points.
+	\item DKT is the first deep learning-based knowledge tracking model, which applies the input of students' doing records into LSTM, and can capture the influence of recent doing records on students' doing sequences, taking students' doing sequences into account into the model, DKT also initially considers the intrinsic correlation between knowledge points.
+	\item Dynamic Key-Value Memory Networks (DKVMN)\cite{zhang2017dynamic}: DKVMN uses key-value pairs as the memory structure, which can avoid over better prediction performance relative to BKT and DKT is achieved by using key-value pairs as the memory structure, which can avoid overfitting, fewer parameters, and automatic discovery of similar exercises through latent concepts.
+	\item Graph-Based Knowledge Tracing (GKT)\cite{nakagawa2019graph}: GKT applies graphical neural networks to knowledge tracking tasks, using the properties of graphs to characterize the graph-like associations between knowledge points for better learning of intrinsic knowledge dependencies, and the model is able to learn students' hidden knowledge states and also has better interpretability.
 \end{itemize}
 
+\subsection{Result and Analysis}
+%实验结果见表，相比于其他模型，提出的模型的性能取得了最优的指标。在所有数据集上，DKT、DKVMN和GKT的标签明显优于BKT模型。在ASSIST15数据集上，提出的模型的AUC值较其他模型高出0.5\%，而GKT的性能优于DKVMN和DKT，这是由于该数据集中的知识点隐藏关联较高，因此能够更好表征知识点内在关联的模型就会明显产生更好的结果。在ASSIST17数据集上，提出的模型略优于对比的模型，而DKT、DKVMN和GKT的性能表现差异较小，这是因为知识点间的关联较小，因此考虑知识点间关联带来的性能提升较小。在STATICS11数据集上，DKVMN的性能表现超越了GKT，其原因在于对知识进行关系建模产生了过拟合现象，因此对性能表现产生了负面影响，结果显示出提出的模型抗过拟合性能较好。
 
-
-\subsection{Performance}
-Table~\ref{ch2-tb2} reports the AUC results of all the compared methods. From the results we observe that our GATKT model achieves the highest performance over three datasets, which verifies the effectiveness of our model. To be specific, our proposed model GATKT achieves at least 1\% higher results than other baselines Among the baseline models, traditional machine learning models like BKT and KTM perform worse than deep learning models, which shows the effectiveness of deep learning methods. DKVMN performs slightly worse than DKT on average as building states for each concept may lose the relation information between concepts. On the other hand, we find that directly using questions as input may achieve superior performance than using skills. For the question-level model DKT-Q, it has comparable or better performance than DKT over ASSIST12 and Ednet datasets. However, DKT-Q performs worse than DKT in ASSIST09 dataset. The reason may be that the average number of attempts per question in ASSIST09 dataset is significantly less than other two datasets as observed in Table~\ref{ch2-tb2}, which illustrates DKT-Q suffers from data sparsity problem. Besides, the AUC results of the model DKT-QS are higher than DKT-Q and DKT, except on ASSIST12 as it is a single-skill dataset, which indicates that considering question and skill information together improves overall performance.
+The experimental results are shown in the Table~\ref{tbl:ch3-tb2}, and the proposed model achieves the best performance metrics compared to other models. The labels of DKT, DKVMN and GKT are significantly better than the BKT model on all datasets. On the ASSIST15 dataset, the AUC value of the proposed model is 0.5\% higher than the other models, while GKT outperforms DKVMN and DKT due to the high hidden association of knowledge points in this dataset, so the model that can better characterize the intrinsic association of knowledge points significantly produces better results. On the ASSIST17 dataset, the proposed model slightly outperforms the compared models, while the performance difference between DKT, DKVMN, and GKT is smaller, due to the smaller association between knowledge points, and thus the performance improvement from considering the association between knowledge points is smaller. On the STATICS11 dataset, the performance of DKVMN outperforms GKT due to the overfitting phenomenon arising from modeling the relationship to knowledge, thus negatively affecting the performance performance, and the results show that the proposed model has better performance against overfitting.
 
 \begin{table}[h]
 	\centering
-	\caption{AUC results over three datasets}\label{ch2-tb2}
+	\caption{AUC results (\%) over three datasets}\label{tbl:ch3-tb2}
 	\begin{tabular}{cccc}
 		\toprule
-		Model  & ASSIST09                     & ASSIST12                     & EdNet                        \\
+		Model    & ASSIST15                    & ASSIST17                   & STATICS11                  \\
 		\midrule
-		BKT    & 0.6571                       & 0.6204                       & 0.6027                       \\
-		KTM    & 0.7169                       & 0.6788                       & 0.6888                       \\
-		DKVMN  & 0.7550                       & 0.7283                       & 0.6967                       \\
-		DKT    & 0.7561                       & 0.7286                       & 0.6822                       \\
+		BKT      & \(62.01\pm 0.03 \)          & \(65.30\pm 0.01\)          & \(64.21\pm 0.01\)          \\
+		DKT      & \(70.83\pm 0.03 \)          & \(72.66\pm 0.01\)          & \(72.46\pm 0.06\)          \\
+		DKVMN    & \(71.06\pm 0.03 \)          & \(72.78\pm 0.02\)          & \(72.67\pm 0.03\)          \\
+		GKT      & \(72.12\pm 0.02 \)          & \(72.85\pm 0.01\)          & \(72.57\pm 0.01\)          \\
 		\midrule
-		DKT-Q  & 0.7328                       & 0.7621                       & 0.7285                       \\
-		DKT-QS & 0.7715                       & 0.7582                       & 0.7428                       \\
-		\midrule
-		GATKT  & \(\mathbf{0 . 7 8 9 6}^{*}\) & \(\mathbf{0 . 7 7 5 4}^{*}\) & \(\mathbf{0 . 7 5 2 3}^{*}\) \\
+		Proposed & \(\mathbf{72.62\pm 0.02} \) & \(\mathbf{72.89\pm 0.02}\) & \(\mathbf{72.73\pm 0.02}\) \\
 		\bottomrule
 	\end{tabular}
 \end{table}
-
-\subsection{Setting and Environment}
-
 \section{Summary}
-In this chapter, we propose a knowledge tracing model to employ high-order question-skill relation graphs into question and skill representations. Besides, to model the student's mastery for the question and related skills, we design a recap module to select relevant history states to represent student's ability. Then we extend a generalized interaction module to represent the student's mastery degree of the new question and related skills in a consistent way.
+%
+In this section, a knowledge tracking model based on graph self-attentive network hungry mbedding with Transformer is proposed, which learns the relationship between exercises and knowledge points through GAT, which can effectively characterize the complex dependencies between knowledge points and can discover the hidden knowledge points in the exercises. In the encoding part, the embedding vectors learned by GAT are encoded by a Transformer model for knowledge state, and a knowledge state sequence is output, which can be used in the subsequent exercise recommendation process. At the same time, the knowledge state sequence and the exercises are used as the input of the subsequent decoder to output a simulation of the correct or incorrect answers to the exercises.
+
+The innovation points of this section are as follows.
+\begin{enumerate}
+	\item Based on the graph self-attentive network, a graph relational network with separation of exercises and knowledge points is designed, and the knowledge state embeddings learned in this way can better characterize the intrinsic dependencies of knowledge points.
+	\item Through the encoder based on Transformer block, the intrinsic knowledge state vector of students is output, and this state vector can be used for subsequent learning resource recommendation.
+	\item With the Transformer block, bidirectional sequence information can be learned to better model the change of students' knowledge states.
+\end{enumerate}
+
+The model is experimentally verified to achieve good prediction performance for both datasets with closely linked knowledge points and those with sparse knowledge point relationships, and overfitting can also be prevented by reasonable tuning of parameters.
