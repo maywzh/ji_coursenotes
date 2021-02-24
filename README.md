@@ -38,10 +38,8 @@
 
 ### CSCI920 Contemporary Topics in Computer Science
 
-### CSCI946 (JI120) Big Data Analytics
-
-### CSCI991 (JIA20) Project
+### CSCI946 Big Data Analytics
 
 ## 2021spring
 
-### CSCI991 (JIA20) Project
+### CSCI991 Project
