@@ -14,7 +14,7 @@
 \section{Research Motivation}
 %在整个推荐系统的各环节，包括数据收集、数据挖掘和数据推荐，都是以推荐数据源建设为最重要的基石。建立一个精确和完备的题库对于建立一个试题推荐系统是第一步也是重要的一步。题库整体设计的合理性，以及质量，是题库推荐系统成败的关键。题库建设也是一项十分复杂而困难的工作，既是苦活累活又是对教育的理解、技术能力的把握有极高要求的活。在题库建设过程中，并不是简单的数量的堆积，如果不考虑地区差异、应试要求不同和实效性等因素。高中数学学科具有上千规模的知识点，平均每个知识点有从易到难的不同难度的数十道习题，一个优质数学学科题库的规模为十万规模。除去数量上的要求，优质题库除了题目质量，以及对教育内容（教材）的匹配度之外，还有两个根本性问题，其一为知识点关系网络构建，其二为知识点-习题关系构建。而就是对于这些因素的优化，导致了优质题库的建设门槛，以及极高的成本。而市面上的题库往往缺失了对于这些因素的重视，导致出现了许多质量不高的习题数据库。所以，对题目的知识点标签的标注，以及知识体系的构建，是优质题库建设过程中最为核心的问题之一。
 
-%建立试题推荐系统的一个关键问题是如何结合知识点来推荐题目。在考虑这个问题的解决方案的时候，我们首先要考虑的是，我们需要什么样的知识体系和知识点标签。这个问题并不是很容易回答。首先在教材和教学大纲中，以及各种教辅中，会有各种对``知识点''的描述。在高中数学中的知识点，如函数、定义域、值域或解析式等，有直接的概念，也有方法的应用，有专题的抽象，也有相似解法的巧妙汇总，等等——总而言之，这并没有一种标准的体系，就其名称、内涵、粒度、层级，乃至所谓知识点之间的关系或联系，出自各种来源可能是千差万别的。这里既需要教育专家的高屋建瓴，也需要一线教师的灵活经验。其次，作为数据挖掘的任务而言，我们会关心——就标签集合而言，这是一个封闭集还是一个开放集，同时，我们会关心一个``知识点''标签，是一个分类概念还是一个关键词（或者是关键词的组合，短语搭配）。这个定义的明确，对于数据挖掘的问题定义十分关键，也基本决定了后面的方案的选择。但这个明确，不仅要考虑教学意义，同时需要考虑产品对于知识点标签的使用方式，尤其是后者，可能是更加重要的因素。
+%建立试题推荐系统的一个关键问题是如何结合知识点来推荐题目。在考虑这个问题的解决方案的时候，我们首先要考虑的是，我们需要什么样的知识体系和知识点标签。这个问题并不是很容易回答。首先在教材和教学大纲中，以及各种教辅中，会有各种对``知识点''的描述。在高中数学中的知识点，如函数、定义域、值域或解析式等，有直接的概念，也有方法的应用，有专题的抽象，也有相似解法的巧妙汇总，等等——总而言之，这并没有一种标准的体系，就其名称、内涵、粒度、层级，乃至所谓知识点之间的关系或联系，出自各种来源可能是千差万别的。这里既需要教育专家的高屋建瓴，也需要一线教师的灵活经验。其次，作为数据挖掘的任务而言，我们会关心——就标签集合而言，这是一个封闭集还是一个开放集，同时，我们会关心一个``知识点''标签，是一个分类概念还是一个关键词（或者是关键词的组合，短语搭配）。
 
 %作为用于学生的自学推题，并显性化分析报告的试题推荐系统，那么知识点的标签应该要能够描述题目测验的核心知识点、方法或思路，要能够区分对于学生的能力要求点，这样才能构建更为强大的用户模型和推荐引擎，同时报告也方便针对性分析和理解——这个时候需要采取的分类体系和标签集合，其知识点的粒度要足够精细，而知识体系的层级就会大很多，同时，``知识点''即使不是标准体系，也需要大多数的老师和学生认可或一定的使用度。
 
@@ -100,7 +100,7 @@ After the steps of data processing, a clean text token sequence is obtained, and
 
 \subsubsection{Embedding Layer}
 %在深度学习的应用过程中，嵌入这样一种将离散变量转变为连续向量的方式为神经网络在各方面的应用带来了极大的扩展。嵌入是一个将离散变量转为连续向量表示的一个方式。在神经网络中，embedding 是非常有用的，因为它不光可以减少离散变量的空间维数，同时还可以有意义的表示该变量。例如在自然语言处理方面，如果采用朴素的one-hot编码，往往会造成向量的维度过多而稀疏，也无法学习到向量之间的依赖关系。在进行embedding训练的过程中，embedded向量会得到更新，这可以清晰地显示出向量之间的练习。Mikolov等人在2013年提出了基于 NNLM、 RNNLM 和 C&W 模型改进的CBOW(Continuous Bag-of-Words)和Skip-gram模型，并在接下来数年成为了实现word embedding的一种经典方案。同年在Mikolov的另一篇文献中，训练Skip-gram模型的两个策略：Hierarchical Softmax和Negative Sampling被提出来。CBOW的原理是通过根据输入周围若干个个词来预测出这个词本身（即通过上下文预测词语），而Skip-gram模型则是根据输入词语来预测周围若干个词（即输入词语预测上下文）。
-%在本层中，我们获取了一个由原始习题文本提取的词token序列。设定该序列为$S=\{t_1,t_2,...,t_l\}$,每一个$t_i$都代表一个token，序列长度为$l$. 将序列设置为$ S = \ {w_1，w_2，...，w_l \} $，每个$ w_i $代表一个单词标记，序列长度为$ l $。 将$ V $设置为包含所有单词$ V = \ {w_1，w_2，... w_ {| V |} \} $的词汇表。经过embedding操作后，每个token都被转化为一个embedded向量$e_i$，即$e_i=E(w_i)$. 在这里$\mathcal{E}(\cdot)$是嵌入函数。
+%在本层中，我们获取了一个由原始习题文本提取的词token序列。设定该序列为$S=\{t_1,t_2,...,t_l\}$,每一个$t_i$都代表一个token，序列长度为$l$. 将序列设置为$ S = \ {w_1，w_2，...，w_l \} $，每个$ w_i $代表一个单词标记，序列长度为$ l $。 将$ V $设置为包含所有单词$ V = \ {w_1，w_2，... w_ {| V |} \} $的词汇表。经过embedding操作后，每个token都被转化为一个embedded向量$e_i$，即$e_i=E(w_i)$. 在这里$\mathbf{E}(\cdot)$是嵌入函数。
 
 In the application of deep learning, Embedding, a way of transforming discrete variables into continuous vectors, has greatly expanded the application of neural networks in various aspects. Embedding is a way to convert discrete variables into continuous vector representation. In neural networks, embedding is very useful, because it can not only reduce the spatial dimension of discrete variables, but also represent the variables meaningfully. For example, in natural language processing, if simple one-hot encoding is used, it will often cause too many dimensions and sparse vectors, and it is impossible to learn the dependencies between vectors. In the process of embedding training, the embedded vector will be updated, which can clearly show the practice between vectors. In 2013, Mikolov et al. proposed an improved CBOW (Continuous Bag-of-Words) and Skip-gram model based on Neural Network Language Model (NNLM)\cite{bengio2003neural}, Recurrent Neural Network Language Model (RNNLM) \cite{mikolov2011extensions} and C\&W models\cite{mikolov2013efficient}, and in the next few years it became a classic solution for word embedding, the model is like \figurename{\ref{ch2-fig4}}. In another paper by Mikolov in the same year, two strategies for training the Skip-gram model: Hierarchical Softmax and Negative Sampling were proposed\cite{mikolov2013distributed}. The principle of CBOW is to predict the word itself based on several words around the input (i.e., predict the word through context), while the Skip-gram model predicts several surrounding words based on the input word (i.e., the input word predicts the context), like following formula~\ref{fml-cbow}--\ref{fml-sg}.
 
@@ -118,7 +118,7 @@ In the application of deep learning, Embedding, a way of transforming discrete v
 
 Where \(c\) is the range of predicting words, \(w_i\) represents the ith word and \(context(w_i)\) represents the context of ith word.
 
-In this layer, we obtain a word token sequence extracted from the original exercise text. Set the sequence as \(S=\{w_1,w_2,\ldots,w_l\} \), each \(w_i\) represents a word, and the sequence length is \(l\). Set \(S\) as the size of non-embedded one-hot vector \(v_i\) representing \(w_i\), i.e. \(v_i\in \mathbb{R}^{S}\). After embedding operation, each token is transformed into an embedded vector \(e_i\), i.e., \(e_i=\mathcal{E}(w_i)\), where \(\mathcal{E}(\cdot)\) is the embedding function, \(e_i\in \mathbb{R}^{d^{e}}\) and \(d^e\) is the dimension of the embedded vector.In fact, the embedding function can be modeled by a matrix multiplication: \(\mathcal {E} (\cdot) = W^w\times \cdot \), where the learnable parameter \(W^w\in \mathbb {R} ^ {d^{e}\times S}\) is the embedding transition matrix. So
+In this layer, we obtain a word token sequence extracted from the original exercise text. Set the sequence as \(S=\{w_1,w_2,\ldots,w_l\} \), each \(w_i\) represents a word, and the sequence length is \(l\). Set \(S\) as the size of non-embedded one-hot vector \(v_i\) representing \(w_i\), i.e. \(v_i\in \mathbb{R}^{S}\). After embedding operation, each token is transformed into an embedded vector \(e_i\), i.e., \(e_i=\mathbf{E}(w_i)\), where \(\mathbf{E}(\cdot)\) is the embedding function, \(e_i\in \mathbb{R}^{d^{e}}\) and \(d^e\) is the dimension of the embedded vector.In fact, the embedding function can be modeled by a matrix multiplication: \(\mathbf {E} (\cdot) = W^w\times \cdot \), where the learnable parameter \(W^w\in \mathbb {R} ^ {d^{e}\times S}\) is the embedding transition matrix. So
 \begin{align}
 	e_i = W^w v_i
 \end{align}
@@ -279,12 +279,12 @@ the input of the \(l\)-th layer network is \(H^{(l)}\in \mathbb{R}^{N\times D}\)
 \subsubsection{Multi-label Recognition}
 From the stacked GCN network, we can learn interdependent object classifiers \(C=\{c_1,c_2,\ldots,c_T\} \), where T represents the number of categories. For the input layer, the input is \(r\in \mathbb{R}^{T \times d_{ko}}\), where \(d_{ko}\) is the number of dimensions represented by the embedding of the knowledge point object. Each GCN layer 1 takes the node representation from the previous layer \(H^{(l)}\) as input and outputs a new node representation \(H^{(l+1)}\). The output layer of the last layer is \(C\), where \(d_r\) represents the dimension of the title text. Finally, the label prediction vector \(\hat{y}\) can be obtained by the dot product product of the learned classifier and the title text representation \(r\):
 \begin{align}
-	\hat{y} = C r
+	\hat{y} = C\times r
 \end{align}
 
-Through manual labeling, the real knowledge point labels of the exercises can be obtained: \(y\in \mathbb{R}^C\), \(y_i\in \{0,1\} \), \(y_i=0\) means that the exercise does not have knowledge points The label of \(i\), on the contrary, \(y_i=1\) means that the exercise has a label of knowledge point \(i\). Through end-to-end training, the loss function \(\mathcal{L}\) can be written as:
+Through manual labeling, the real knowledge point labels of the exercises can be obtained: \(y\in \mathbb{R}^C\), \(y_i\in \{0,1\} \), \(y_i=0\) means that the exercise does not have knowledge points The label of \(i\), on the contrary, \(y_i=1\) means that the exercise has a label of knowledge point \(i\). Through end-to-end training, the loss function \(\mathbf{L}\) can be written as:
 \begin{align}
-	\mathcal{L}=\sum_{i=1}^{T} y_i \log (\text{sigmoid}(\hat{y}_i))+(1-y_i) \log (1-\text{sigmoid}(\hat{y}_i))
+	\mathbf{L}=\sum_{i=1}^{T} y_i \log (\text{sigmoid}(\hat{y}_i))+(1-y_i) \log (1-\text{sigmoid}(\hat{y}_i))
 \end{align}
 
 \subsubsection{Design of Correlation Matrix}
@@ -407,22 +407,22 @@ Similarly, we can also count some indicators based on samples. For example, the 
 \end{align}
 
 \subsection{Setting and Environment}
-The distribution of the number of exercise knowledge points in this data set is shown in the figure. The number of questions involved in different knowledge points is different. We define the set of questions involved in knowledge points \(j\) as \(\mathcal{E}_j\). Remember the threshold of the number of occurrences of the knowledge point label \(\tau^{kp} \), then the knowledge points of the exercises can be divided according to the frequency of occurrence, i.e., \( \{j|\mathcal{E}_j|>\tau^{kp}\} \) and \( \{j||\mathcal{E}_j|\leq\tau^{kp} \} \). According to the different thresholds, the ability of the model to classify knowledge points that appear frequently and that appear sparse can be tested separately.
+The distribution of the number of exercise knowledge points in this data set is shown in the figure. The number of questions involved in different knowledge points is different. We define the set of questions involved in knowledge points \(j\) as \(\mathbf{E}_j\). Remember the threshold of the number of occurrences of the knowledge point label \(\tau^{kp} \), then the knowledge points of the exercises can be divided according to the frequency of occurrence, i.e., \( \{j|\mathbf{E}_j|>\tau^{kp}\} \) and \( \{j||\mathbf{E}_j|\leq\tau^{kp} \} \). According to the different thresholds, the ability of the model to classify knowledge points that appear frequently and that appear sparse can be tested separately.
 
 %在实验中，设定了200，150，100，50，10五组阈值\(\tau_{kp} \)，将具有标签\(j\)的习题记作\(\mathbb{E}_j\)，则可以统计符合要求的标签集\(\mathbb{L}={j||\mathbb{E}_j|\geq\tau_{kp}}\)出习题集大小\(|\mathbb{E}_j|\)和题均知识点数\(LAvg_j \)。
-In the experiment, five sets of thresholds of 200, 150, 100, 50, 10 are set \(\tau_{kp} \), and the exercises with the label \(j\) are recorded as \(\mathcal{E}_j\), the label set that meets the requirements can be counted as \(\mathcal{L}_\tau^{kp}=\{j\mid |\mathcal{E}_j|\geq\tau_{kp}\} \), the exercises containing label in \(\mathcal{L}_\tau^{kp} \) is denoted as \(\mathcal{E}_\tau^{kp} \), within which the average number of labels of the exercise in the set is \(L_Avg_\tau^{kp}\)
+In the experiment, five sets of thresholds of 200, 150, 100, 50, 10 are set \(\tau_{kp} \), and the exercises with the label \(j\) are recorded as \(\mathbf{E}_j\), the label set that meets the requirements can be counted as \(\mathbf{L}_\tau^{kp}=\{j\mid |\mathbf{E}_j|\geq\tau_{kp}\} \), the exercises containing label in \(\mathbf{L}_\tau^{kp} \) is denoted as \(\mathbf{E}_\tau^{kp} \), within which the average number of labels of the exercise in the set is \(L_Avg_\tau^{kp}\)
 
 \begin{table}[htbp!]
 	\centering
 	\caption{Setting of Experiment}\label{tbl:ch2-ex1}
 	\begin{tabular}{cccc}%{cp{2cm}<{\centering}p{2cm}<{\centering}p{2cm}<{\centering}}
 		\toprule
-		\text{\(\tau^{kp} \)} & \(|\mathcal{L}_{\tau^{kp}}|\) & \(|\mathcal{E}_{\tau^{kp}}| \) & \(LAvg_{\tau^{kp}} \) \\
+		\text{\(\tau^{kp} \)} & \(|\mathbf{L}_{\tau^{kp}}|\) & \(|\mathbf{E}_{\tau^{kp}}| \) & \(LAvg_{\tau^{kp}} \) \\
 		\midrule
-		200                   & 2                             & 463                            & 1.21                  \\
-		100                   & 22                            & 1376                           & 1.55                  \\
-		50                    & 29                            & 2237                           & 1.42                  \\
-		10                    & 57                            & 3158                           & 1.35                  \\
+		200                   & 2                            & 463                           & 1.21                  \\
+		100                   & 22                           & 1376                          & 1.55                  \\
+		50                    & 29                           & 2237                          & 1.42                  \\
+		10                    & 57                           & 3158                          & 1.35                  \\
 		\bottomrule
 	\end{tabular}
 \end{table}
