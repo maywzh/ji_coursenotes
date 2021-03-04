@@ -1,0 +1,94 @@
+%*******************************************************************************
+%*********************************** First Chapter *****************************
+%*******************************************************************************
+
+\chapter{Introduction}  %Title of the First Chapter
+
+\ifpdf
+	\graphicspath{{Chapter1/Figs/Raster/}{Chapter1/Figs/PDF/}{Chapter1/Figs/}}
+\else
+	\graphicspath{{Chapter1/Figs/Vector/}{Chapter1/Figs/}}
+\fi
+
+
+%********************************** %First Section  **************************************
+\section{Research Background and Significance} %Section - 1.1
+%
+%人工智能的技术研究和商业化应用部署在近年来产生了加速发展的趋势。各种基于人工智能和大数据分析相关算法的部署上线在加速企业、组织数字化，改善产业链结构和提高信息利用效率方面发挥了积极作用。教育行业作为传统的服务行业，也存在相当大的智能化改进的空间。在传统教育模式中，学生往往以班级为基础教育集体，因而在班级这个基本教学单位中，普遍性的个体知识状态精细监测和评估需要巨大的人工工作量，因而通过教师人工的方式实现实时学生知识状态追踪不切实际。而在近年来，我国发布了一系列促进将人工智能技术应用于教育领域可以大大改善教育质量和效率，从而促成智慧教育的实现。在智慧教育中，自适应学习是一个已经经过大量实践和验证过的商业模式，相当多的在线教育平台部署了自适应学习系统服务。它运用数据分析、深度学习等技术，分析学生的学习行为数据，自动学生进行知识状态的评估和追踪，并结合学生的潜能、优势等等个性化信息向学生提供学习路径规划和学习资源推荐服务。它能够帮助学生提升学习的有效性和效率，在降低教师教学压力的同时提升教师的教学质量。
+
+%在本文中，该研究侧重于对高中数学学科的学习资源的推荐。在这个系统中，一般有两个方面：一方面，科学地，有针对性地获取和跟踪学生的知识状态；另一方面，根据学生的知识掌握状态推荐个性化学习资源。我们使用图神经网络的知识跟踪算法来获取和跟踪学生的知识状态，并使用分解代理来尝试将图神经网络的输出与先验知识相结合以进行资源推荐。
+
+The technical research and commercial application deployment of artificial intelligence have produced a trend of accelerated development in recent years. The deployment and launch of various algorithms based on artificial intelligence and big data analysis have played an active role in accelerating the digitization of enterprises and organizations, improving the structure of the industrial chain, and increasing the efficiency of information utilization. As a traditional service industry, the education industry also has considerable room for intelligent improvement. The application of artificial intelligence technology in the field of education can greatly improve the quality and efficiency of education, thereby contributing to the realization of smart education. In smart education, adaptive learning is a business model that has undergone a lot of practice and verification. Quite a number of online education platforms have deployed adaptive learning system services. It uses data analysis, deep learning and other technologies to analyze students' learning behavior data, automatically evaluate and track students' knowledge status, and combine students' potential, advantages and other personalized information to provide students with learning path planning and learning resource recommendation services . It can help students improve the effectiveness and efficiency of learning, and improve the teaching quality of teachers while reducing teachers' teaching pressure.
+
+In this paper, the study focuses on the recommendation of learning resources for the subject of high school mathematics. In this system, there are two aspects in general: on the one hand, scientific and targeted acquisition and tracing of students' knowledge state, and on the other hand, recommendation of personalized learning resources based on students' knowledge mastery state. We use the knowledge tracing algorithm of graph neural network to acquire and track students' knowledge states, and the factorization agent to try to combine the output of graph neural network with prior knowledge for resource recommendation.
+
+
+%********************************** %Second Section  *************************************
+\section{Research Status} %Section - 1.2
+
+The research object of this paper is the exercise recommendation system based on knowledge tracking, and the technologies involved include graph neural network, natural language processing, knowledge tracking and recommendation system and so on. Next, we will review the research status of these technologies.
+
+\subsection{Graph Neural Network}
+
+
+% \subsection{Property of high school Math}
+% Disciplines and knowledge are closely related to each other, so that disciplinary knowledge denotes the specific knowledge contained in a particular field of study. Disciplines are referred to in this study only for specific subjects in the field of education, such as mathematics, language, chemistry and so on. The first step is to learn how to make the best use of the knowledge that is available. The knowledge is obtained from practice, so after learning it, it can also be applied to social practice. Scientific knowledge is declarative because it can be expressed in a series of symbols, words and diagrams; it is also procedural because it can be arranged and learned according to a specific logical order in the process of concrete learning.
+
+% Mathematics is a science specializing in the study of the relationship between quantities and spatial forms, its symbolic system is more complete, the formula structure is clear and unique, text and images and other expressions of language is also more vivid and intuitive.
+
+% The knowledge that learners need to learn mostly comes from the summaries of the experiences of their predecessors in practical activities. The learning process is a process of cognitive learning of the summarized knowledge and continuous digestion, adjustment and reorganization of the knowledge structure, so as to build a more perfect and suitable knowledge structure, as well as a process of integration with innovative thinking. Thus a good cognitive structure can promote the formation of knowledge structure, and a good knowledge structure can enrich the organization form of cognitive structure. Since the disciplinary knowledge structure consists of two parts: knowledge composition and knowledge dependency, we will analyze the disciplinary knowledge structure from these two aspects, knowledge structure and composition.
+
+\subsection{Knowledge tracing algorithms}
+Knowledge Tracing is a technique that models students' knowledge acquisition based on their past answers to obtain a representation of their current knowledge state. The task is to automatically track the change of students' knowledge level over time based on their historical learning trajectory, in order to be able to accurately predict the students' performance in future learning and to provide appropriate learning tutoring. In this process, the knowledge space is used to describe the level of student knowledge acquisition. A knowledge space is a collection of concepts, and a student's mastery of a part of a collection of concepts constitutes the student's mastery of knowledge. Some educational researchers argue that students' mastery of a particular set of related knowledge points will affect their performance on the exercise, i.e., the set of knowledge that students have mastered is closely related to their external performance on the exercise.
+
+
+\subsection{Recommendation System}
+
+
+%********************************** % Third Section  *************************************
+\section{Research Objectives and Content}  %Section - 1.3
+本研究的目的是建立基于知识跟踪和因子分解机算法的高中数学学习资源推荐系统。我们使用知识跟踪对学生的知识状态进行建模，然后输出图形化的知识状态向量，将其用作下一级输入，同时考虑学生的个性化差异和知识遗忘过程，并将分解机算法应用于资源推荐系统。对于知识跟踪，我们建立了一个基于图神经网络的知识跟踪模型，该模型可以很好地表征数学科目中知识点的内在联系（考虑到知识点是一个类图结构），并输出一个图知识向量矩阵，还可以有效地刻画问题与知识点之间的联系。然后将知识跟踪模型的输出通过分解机算法，以获取学习资源的推荐度，并输出针对不同学习资源的推荐权重向量。
+
+\section{Thesis Organization and Structure}
+%本文的第一章是导论。 介绍了研究的研究背景，当前与行业相关的研究进展和研究重点。然后得出本文的三个核心点：习题知识点标注，知识跟踪和习题推荐。本文的第2章着重于习题知识点标注，在习题资源推荐系统中，需要对解析出习题的知识点，然后根据学生当前的知识掌握情况，针对性地推荐学生掌握不足的知识点相关习题。本章节的算法模型分为习题文本信息抽取和标签标注两个部分，在实验部分通过与若干传统模型进行对比来验证模型的有效性。本文的第3章提出了一个基于图神经网络的知识追踪模型，该模型分为习题-知识点关系嵌入学习、知识状态编码和答题预测解码三个部分。文中先对设计思路和相关技术进行理论介绍，然后在实验部分通过在公开数据集上与基准模型进行对比，验证模型的有效性并评估模型性能。本文的第4章提出了一种基于资源召回和资源排序两个阶段的推荐系统模型，该模型的召回阶段，通过协同过滤算法过滤出学习状况相似学生的相关习题，然后基于习题知识点标注模块所标注的习题知识点向量和知识追踪模块的知识状态隐含表征向量，设计一个神经网络模型来进行习题优先级排序。本文的第5章提出了结论和对于模型各个部分的未来的改进方向。
+
+
+Chapter 1 of this paper is the introduction. Introduces the research background of the research, the research progress and research focus related to the algorithm used in this article. By analyzing the requirements of the exercise recommendation system, three core points of this article are drawn: learning resource representation, knowledge tracking and resource recommendation.
+
+Chapter 2 of this article focuses on the labeling of exercise knowledge points. In the exercise resource recommendation system, the knowledge points of the exercises need to be parsed, and then based on the students' current knowledge mastery, it is recommended that the students have insufficient knowledge points and related exercises. The algorithm model in this chapter is divided into two parts: text information extraction of exercises and labeling. In the experimental part, the effectiveness of the model is verified by comparing with several traditional models.
+
+Chapter 3 of this article proposes a knowledge tracking model based on graph neural network. The model is divided into three parts: exercise-knowledge point relationship embedding learning, knowledge state encoding and answer prediction decoding. The article first introduces the design ideas and related technologies theoretically, and then compares the benchmark model with the public data set in the experimental part to verify the effectiveness of the model and evaluate the performance of the model.
+
+Chapter 4 of this article proposes a recommendation system model based on the two stages of resource recall and resource ranking. In the recall stage of the model, the relevant exercises of students with similar learning conditions are filtered out through collaborative filtering algorithms, and then the module is labeled based on exercise knowledge points The labeled exercise knowledge point vector and the knowledge state implicit representation vector of the knowledge tracking module are designed to design a neural network model to prioritize exercises.
+
+Chapter 5 of this article puts forward conclusions and directions for future improvements in each part of the model.
+
+% \nomenclature[z-DEM]{DEM}{Discrete Element Method}
+% \nomenclature[z-FEM]{FEM}{Finite Element Method}
+% \nomenclature[z-PFEM]{PFEM}{Particle Finite Element Method}
+% \nomenclature[z-FVM]{FVM}{Finite Volume Method}
+% \nomenclature[z-BEM]{BEM}{Boundary Element Method}
+% \nomenclature[z-MPM]{MPM}{Material Point Method}
+% \nomenclature[z-LBM]{LBM}{Lattice Boltzmann Method}
+% \nomenclature[z-MRT]{MRT}{Multi-Relaxation
+% 	Time}
+% \nomenclature[z-RVE]{RVE}{Representative Elemental Volume}
+% \nomenclature[z-GPU]{GPU}{Graphics Processing Unit}
+% \nomenclature[z-SH]{SH}{Savage Hutter}
+% \nomenclature[z-CFD]{CFD}{Computational Fluid Dynamics}
+% \nomenclature[z-LES]{LES}{Large Eddy Simulation}
+% \nomenclature[z-FLOP]{FLOP}{Floating Point Operations}
+% \nomenclature[z-ALU]{ALU}{Arithmetic Logic Unit}
+% \nomenclature[z-FPU]{FPU}{Floating Point Unit}
+% \nomenclature[z-SM]{SM}{Streaming Multiprocessors}
+% \nomenclature[z-PCI]{PCI}{Peripheral Component Interconnect}
+% \nomenclature[z-CK]{CK}{Carman - Kozeny}
+% \nomenclature[z-CD]{CD}{Contact Dynamics}
+% \nomenclature[z-DNS]{DNS}{Direct Numerical Simulation}
+% \nomenclature[z-EFG]{EFG}{Element-Free Galerkin}
+% \nomenclature[z-PIC]{PIC}{Particle-in-cell}
+% \nomenclature[z-USF]{USF}{Update Stress First}
+% \nomenclature[z-USL]{USL}{Update Stress Last}
+% \nomenclature[s-crit]{crit}{Critical state}
+% \nomenclature[z-DKT]{DKT}{Draft Kiss Tumble}
+% \nomenclature[z-PPC]{PPC}{Particles per cell}
