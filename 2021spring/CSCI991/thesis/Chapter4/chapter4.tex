@@ -41,7 +41,6 @@ The adaptive engine, also known as the instructional selection strategy, uses ad
 In this paper, we further optimize the domain model, student model, and teaching strategy in the adaptive reference model, and apply the optimized model to build an intelligent question bank system. The feature database is structured according to the dimensions of forgetfulness, abstractness, indirectness, comprehensiveness, and computational complexity, and individual students are trained to generate a database of individual features reflecting their knowledge acquisition ability in real time. The intelligent question selection algorithm is used to dynamically select the appropriate training set from the question database based on the individual feature database.
 
 \section{Proposed Model}
-%
 \subsection{Algorithm Overview}
 % 本章提出一个结合图神经网络知识追踪和协同过滤的试题自适应推荐方法。该方法通过上一章设计的基于GAT知识追踪模型模型对学生的知识状态进行建模，并利用图神经网络的聚类方法来对试题进行基于知识点的聚类，从而可以获取一系列相关的习题。分为以下几个部分，第一部分为召回部分，即候选试题生成，它产生一系列相似的习题，这是通过图神经网络来对试题进行聚类来进行，它应用图聚类方法，将试题基于知识点来进行合理聚类。第二部分为排序部分，它结合知识追踪系统获取的学生的知识状态，并结合协同过滤算法，来生成一个Top N的习题推荐列表；第三部分为反馈部分，学生做的推荐的习题又回继续输入到知识追踪系统和推荐系统中。
 %1. 练习候选生成。这部分的作用是生成一系列符合学生当前学习状态的练习，并快速筛选出一组初步的练习，后续部分将从这组练习中生成最合适的N个练习，并通过协同过滤算法进行排序。它参考youtube推荐系统设计了一个多层MLP网络。它将知识跟踪生成的学生学习状态嵌入向量与学生的问题记录嵌入、个性化信息等并联作为输入。经过一系列的ReLU网络，然后通过softmax归一化输出所有候选练习的概率分布。
