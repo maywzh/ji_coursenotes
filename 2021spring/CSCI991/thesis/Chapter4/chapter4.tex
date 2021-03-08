@@ -20,6 +20,10 @@ The purpose of this chapter is to recommend exercises based on the knowledge poi
 
 \section{Proposed Model}
 \subsection{Algorithm Overview}
+%本章提出一个基于Matching-Ranking-Feedback三个阶段的数学习题推荐模型，它针对习题库过于庞大导致推荐效率低下的问题，提出了一种基于协同过滤的习题匹配筛选算法用于筛选出一个小规模的习题候选集合。
+
+This chapter proposes a recommendation model based on three stages of Matching-Ranking-Feedback. It addresses the problem of low recommendation efficiency caused by too large exercise database, and proposes a collaborative filtering-based exercise matching screening algorithm to filter out a small scale The candidate set of exercises.
+
 % 分为以下几个部分：第一部分为召回部分，即候选试题生成，它产生一系列相似的习题，这是通过图神经网络来对试题进行聚类来进行，它应用图聚类方法，将试题基于知识点来进行合理聚类。第二部分为排序部分，它结合知识追踪系统获取的学生的知识状态，并结合协同过滤算法，来生成一个Top N的习题推荐列表；第三部分为反馈部分，学生做的推荐的习题又回继续输入到知识追踪系统和推荐系统中。
 %1. 练习候选生成。这部分的作用是生成一系列符合学生当前学习状态的练习，并快速筛选出一组初步的练习，后续部分将从这组练习中生成最合适的N个练习，并通过协同过滤算法进行排序。它参考youtube推荐系统设计了一个多层MLP网络。它将知识跟踪生成的学生学习状态嵌入向量与学生的问题记录嵌入、个性化信息等并联作为输入。经过一系列的ReLU网络，然后通过softmax归一化输出所有候选练习的概率分布。
 %2. 第二部分该部分用与上一部分类似的神经网络架构，实现了对推荐试题的排序。它的输入是用户的知识结构，最近练习，以及相似用户的常见练习题。
