@@ -27,7 +27,7 @@ A recommendation system is essentially an information filtering system. Currentl
 %本章提出一个基于Matching-Ranking-Feedback三个阶段的数学习题推荐模型。考虑到待推荐的习题库较为庞大，因此先采用多因素习题匹配的方式筛选出习题候选集合，然后基于提出的深度推荐模型进行习题推荐优先级排序，最后在反馈阶段由用户打分，判定推荐的合理性。
 This chapter proposes a recommendation model based on three stages of Matching-Ranking-Feedback. It addresses the problem of low recommendation efficiency caused by too large exercise database, and proposes a collaborative filtering-based exercise matching screening algorithm to filter out a small scale The candidate set of exercises.
 
-% 分为以下几个部分：第一部分为召回部分，
+% 分为以下几个部分：第一部分为匹配部分，
 %1. 练习候选生成。这部分的作用是生成一系列符合学生当前学习状态的练习，并快速筛选出一组初步的练习，后续部分将从这组练习中生成最合适的N个练习，并通过协同过滤算法进行排序。它参考youtube推荐系统设计了一个多层MLP网络。它将知识跟踪生成的学生学习状态嵌入向量与学生的问题记录嵌入、个性化信息等并联作为输入。经过一系列的ReLU网络，然后通过softmax归一化输出所有候选练习的概率分布。
 %2. 第二部分该部分用与上一部分类似的神经网络架构，实现了对推荐试题的排序。它的输入是用户的知识结构，最近练习，以及相似用户的常见练习题。
 
@@ -41,25 +41,44 @@ The structure of the recommendation system is like \figurename{\ref{fig:ch4-fig0
 
 \begin{figure}[h]
   \centering
-  \includegraphics[width=1.0\textwidth]{ch4-fig1.png}
+  \includegraphics[width=1.0\textwidth]{ch4-fig-architecture.png }
   \caption{The Architecture of Recommendation System}\label{fig:ch4-fig0}
 \end{figure}
 
-\subsection{Matching Stage}
-%本推荐模型的第一阶段为召回，召回层的目的是在确保一定准确度的情况下快速筛选出候选的推荐习题集合。在上一个知识追踪模型中，已经获得了用户的知识状态表征以及历史知识状态。在习题知识点标注模块中，获得了经过标注知识点的习题。与新闻推荐算法等相比，习题和用户的知识状态都是较为规则化的向量数据，计算习题、用户以及习题-用户交叉特征相似度相对简单，可以利用相似度来应用协同过滤算法作为一种召回策略。用户的历史回答错误错习题、统计的容易答错的习题等对于学生检查知识掌握完整度以及更正误区具有较大意义，因此筛选错误率较高的习题也可以作为一种召回策略。在召回阶段，可以应用不同的自适应参数或算法来控制候选习题集的大小，以适配原始数据集和推荐系统部署环境。
+\subsection{Matching Phase}
+%本推荐模型的第一阶段为匹配，匹配层的目的是在确保一定准确度的情况下快速筛选出候选的推荐习题集合。匹配有多种策略来应对不同的应用场景。例如，与新闻推荐算法等相比，习题和用户的知识状态都是较为规则化的向量数据，计算习题、用户以及习题-用户交叉特征相似度相对简单，因此可以利用相似度匹配来应用协同过滤策略进行推荐项匹配。用户的历史回答错误错习题、统计的容易答错的习题等对于学生检查知识掌握完整度以及更正误区具有较大意义，因此筛选错误率较高的习题也可以作为一种匹配策略。在匹配阶段，可以应用不同的自适应参数或算法来控制候选习题集的大小，以适配原始数据集和推荐系统部署环境。
 
-%
+%采用不同的匹配策略，所对应的推荐侧重点也不同。一方面，不同的匹配策略会带来不同的推荐结果并忽略一部分推荐结果，例如，如果重视热门习题，则将做的人最多的习题作为匹配的结果，如果重视容易出错的习题，则将错误率较高的习题作为匹配的结果，如果重视基于相同兴趣的推荐，则将协同过滤作为匹配的结果。单独采用某一种匹配策略往往具有一定的缺陷，例如采用热门度作为匹配策略，会使得冷门习题几乎得不到被匹配的机会，导致推荐概率失衡，而采用错误率作为匹配策略则会无法匹配所有学生的知识情况。因此单独的匹配策略会丢失大量的推荐信息。另一方面，设计匹配层的时候，``计算速度''与``匹配率''这两个指标是相互矛盾的，也就是说在提高计算速度的时候需要尽量简化匹配策略，这就会导致匹配率不尽人意，同样的，需要提高匹配率时就需要复杂的匹配策略，这样计算速度肯定会相应的降低。在权衡两者后，目前工业界普遍采用多个简单的匹配策略叠加的``多路匹配策略''。``多路匹配策略''就是指采用不同的策略、特征或者简单模型，分别匹配一部分候选集，然后再把这些候选集进行合并、过滤等操作然后供后续排序模型使用的策略。多路匹配综合了多种匹配策略，结合了各个匹配策略的优点。在多路匹配中，每个策略之间毫不相关，所以一般可以写并发多线程同时进行。在实际的生产环境中，可以采取节点集群多线程地来进行召回操作，具备大规模商业应用的前景。
 
-The first stage of the recommendation model is matching. The purpose of the matching layer is to quickly screen out a set of candidate recommended exercises while ensuring a certain degree of accuracy. In the previous knowledge tracking model, the user's knowledge status representation and historical knowledge status have been obtained. In the exercise knowledge point labeling module, the exercises with marked knowledge points are obtained. Compared with recommendation algorithms such as news, the exercises and the user's knowledge state are more regular vector data, so similarity calculations and collaborative filtering algorithms can be applied to the candidate problem sets that are of potential interest to the object to be recommended. In the matching phase, different adaptive parameters or algorithms can be applied to control the size of the candidate set of exercises to fit the original dataset and the recommendation system deployment environment.
+%本节提出一个多路习题推荐项匹配模型，该模型采用了基于热门度、用户兴趣、专家推荐习题、易错题、用户错题集和协同过滤等多个召回策略作为子召回策略，每个子召回策略都基于可学习的参数用于控制该召回策略的权重。当所有的召回策略都返回子召回习题集合后，通过基于加权融合的算法来进行习题的融合、过滤等步骤。其结构如图所示。
 
-In the matching phase, due to the large amount of data, the algorithm of Collaborative Filtering (CF)\cite{salakhutdinov2007restricted} can achieve half the result with twice the effort. It only needs to calculate the similarity of students' knowledge states \(h^\prime \) with other students who have similar knowledge states \(h\).
+The first stage of this recommendation model is matching. The purpose of the matching layer is to quickly filter out a set of candidate recommended exercises while ensuring a certain degree of accuracy. There are multiple strategies for matching to deal with different application scenarios. For example, compared with news recommendation algorithms, the exercises and the user's knowledge state are more regularized vector data. It is relatively simple to calculate the similarity of exercises, users, and exercise-user cross-features, so similarity matching can be used to apply collaborative filtering. The strategy matches recommended items. The user's historical answers to wrong exercises and statistically easy to answer exercises are of great significance for students to check the completeness of their knowledge and correct their misunderstandings. Therefore, screening exercises with a higher error rate can also be used as a matching strategy. In the matching stage, different adaptive parameters or algorithms can be applied to control the size of the candidate problem set to adapt to the original data set and the recommended system deployment environment.
 
-Collaborative Filtering, the most classic type of recommendation algorithm, includes both online collaborative and offline filtering. The so-called online collaborative is to find items that users may like through online data, while offline filtering is to filter out data that are not worth recommending, such as data with low recommendation value ratings, or data that users have already purchased despite high recommendation values. The model of collaborative filtering is generally m recommended items, m users' data, only some users and some data are rated between the data, other parts of the rating is blank, at this time we want to use the existing part of the sparse data to predict the rating relationship between those blank items and data to find the highest rated items recommended to users.
+With different matching strategies, the corresponding recommendation focuses are also different. On the one hand, different matching strategies will lead to different recommendation results and ignore part of the recommendation results. For example, if the most popular exercises are emphasized, the exercises with the most people will be regarded as the matching results. If the exercises that are prone to errors are emphasized, errors will be regarded as the matching result. The exercises with a higher rate are used as the matching result. If the recommendation based on the same interest is emphasized, collaborative filtering will be used as the matching result. Adopting a certain matching strategy alone often has certain drawbacks. For example, using popularity as a matching strategy will make unpopular exercises almost impossible to be matched, resulting in an imbalance in the recommendation probability, while using error rate as a matching strategy will fail to match. Knowledge of all students. Therefore, a single matching strategy will lose a lot of recommendation information. On the other hand, when designing the matching layer, the two indicators of ``calculation speed'' and ``matching rate'' are contradictory. That is to say, the matching strategy needs to be simplified as much as possible when the calculation speed is increased. As a result, the matching rate is unsatisfactory. Similarly, when the matching rate needs to be improved, a complex matching strategy is required, so the calculation speed will definitely be reduced accordingly. After weighing the two, the current industry generally adopts a "multiplex matching strategy" in which multiple simple matching strategies are superimposed. The "multiplex matching strategy" refers to a strategy that uses different strategies, features or simple models to match a part of the candidate set, and then merges, filters, and other operations on these candidate sets, and then uses them for subsequent sorting models. multiplex matching integrates multiple matching strategies and combines the advantages of each matching strategy. In multiplex matching, each strategy is irrelevant, so it is generally possible to write concurrent multiple threads at the same time. In the actual production environment, the node cluster can be used for multi-threaded matching operations, which has the prospect of large-scale commercial applications.
 
-Generally speaking, there are three types of collaborative filtering recommendations. The first one is user-based collaborative filtering, the second one is item-based collaborative filtering, and the third one is model-based collaborative filtering.
+This section proposes a multiplex exercise recommendation item matching model. The model uses multiple matching strategies based on popularity, user interest, expert recommendation exercises, error-prone questions, user error question sets, and collaborative filtering as sub-matching strategies. Matching strategies are based on learnable parameters to control the weight of the matching strategy. After all matching strategies have returned to the sub-matching exercise set, the exercises are merged and filtered through the algorithm based on weighted fusion. Its structure is shown in~\figurename{\ref{fig:ch4-matching-1}}.
 
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=1.0\textwidth]{ch4-matching-model1.png}
+  \caption{The Multiplex Matching Method}\label{fig:ch4-matching-1}
+\end{figure}
+
+\subsubsection{Student-Exercise Collaborative Filtering}
+%协同过滤是multiplex matching中的其中一个匹配策略，对于数学习题来说，由于习题已经经过知识点标注，因此可以根据知识点重合程度来计算相似度。同时，对于学生，在知识追踪阶段获取了学生的知识状态表征向量，因此也可以根据该向量计算学生的知识掌握相似度。本节提出一个基于Student-Exercise两阶段的协同过滤算法，该算法先计算学生的相似度，获取相关的习题，再根据这些习题计算相似的习题加入候选集，经过该方法计算的习题集相对而言较为完备，防止出现经过由于相似用户较少而出现的推荐项目稀疏的问题。
+
+%传统基于用户的协同过滤根据模型选择的用户特征计算用户间的相似度，依据相似度来判定用户的状态相似度，并将相似度最高的前几名用户作为该用户的最近邻居用户，这些邻居用户构成目标用户的最近邻居用户集合。邻居用户集合的形成是之后推荐结果生成的重要前提和基础，对于相似用户的计算方法，目前大多数个性化推荐系统主要采用的有：余弦相似性、修正的余弦相似性、相关相似性，其中余弦相似性是计算两名用户评分向量在向量空 间模型中的向量夹角的余弦值，用评分向量夹角的余弦值大小表示用户间的相似性。而 修正的余弦相似性主要是解决用户受自身或者其它因素影响导致评分数据不稳定的问题，相较于余弦相似性计算用户间的相似度，修正的余弦相似性计算由于考虑因素较多 所以更为准确一些。
+
+Collaborative filtering is one of the matching strategies in multiplex matching. For math learning questions, because the exercises have been labeled with knowledge points, the similarity can be calculated according to the degree of overlap of the knowledge points. At the same time, for students, the student's knowledge state representation vector is obtained in the knowledge tracking stage, so the similarity of the student's knowledge mastery can also be calculated based on the vector. This section proposes a two-stage collaborative filtering algorithm based on Student-Exercise. The algorithm first calculates the similarity of students, obtains related exercises, and then calculates similar exercises based on these exercises and adds them to the candidate set. The exercise set calculated by this method is relatively The language is relatively complete to prevent the problem of sparse recommendation items that have passed due to fewer similar users.
 
 \subsubsection{Student Similarity Calculation}
+%协同过滤的目的是向用户推荐与目标用户相似的推荐用户项目。通过用户的历史行为数据发现基于用户的协同过滤算法，并对这些偏好进行测量和评分。通过给定的算法设置用户的相似度，并在偏好相同的用户之间提出建议。
+
+%基于用户的协同过滤主要考虑用户与用户之间的相似性。只要我们找出相似用户喜欢的项目并预测相应项目的目标用户评分，我们就可以找到评分最高的项目并将其推荐给用户。基于项目的协作过滤类似于基于用户的协作过滤，不同之处在于，我们转向查找项目与用户之间的相似性，并且只有当我们通过目标用户找到某些项目的评分时，我们才能通过高相似度，并向用户推荐评分最高的相似项。
+
+%使用相似的统计数据来获得具有相似爱好或兴趣的邻近用户，因此我们可以使用从先前的知识跟踪模块中获得的用户的知识状态嵌入\(h_t\)，可以将其用作计算相似性的基础。第一步是根据他们的历史行为信息找到与新用户相似的其他用户；同时，根据这些相似用户对其他商品的评价信息，预测当前新用户可能喜欢的商品。给定用户评分数据矩阵R，基于用户的协作过滤算法需要定义相似度函数\(s : U \times U \to R\)以计算用户之间的相似度，然后基于评分数据和相似度矩阵。我们可以使用余弦相似度来计算该值。
+
+
 The purpose of collaborative filtering is to recommend recommended items of users similar to the target user to the user. The user-based collaborative filtering algorithm is discovered through historical behavior data of users, and measures and scores these preferences. Set the similarity of users through a given algorithm, and make recommendations among users who have the same preferences.
 
 User-based collaborative filtering mainly considers the similarity between users and users. As long as we find out the items that similar users like and predict the target users' ratings of the corresponding items, we can find the items with the highest ratings and recommend them to users. The item-based collaborative filtering is similar to the user-based collaborative filtering, except that we turn to find the similarity between items and users, and only if we find the ratings of certain items by target users, then we can predict similar items with high similarity and recommend the highest rated similar items to users. For example, if you buy a machine learning related book online, the website will immediately recommend a bunch of machine learning, big data related books to you, and the idea of collaborative filtering based on items is obviously used here.
@@ -127,5 +146,5 @@ After training the model, sort the output values, and the sorted list is the rec
 %考虑到本推荐系统需要立足于学生的知识状态针对习题进行推荐。目前市面上并没有
 
 \section{Summary}
-%本节提出了一个基于召回-排序的双阶段推荐系统框架，在召回阶段，采用了协同过滤的方式，排序阶段，则采用了多层感知机，来对学生知识状态-习题知识点进行建模，同时考虑到学生的学习速度即知识状态改变，输出习题与当前知识状态匹配度。
+%本节提出了一个基于匹配-排序的双阶段推荐系统框架，在匹配阶段，采用了协同过滤的方式，排序阶段，则采用了多层感知机，来对学生知识状态-习题知识点进行建模，同时考虑到学生的学习速度即知识状态改变，输出习题与当前知识状态匹配度。
 This section proposes a two-stage recommendation system framework based on matching-ranking. In the matching stage, collaborative filtering is used, and in the ranking stage, multi-layer perceptron are used to model students' knowledge state-exercise knowledge points. At the same time, taking into account the student's learning speed, that is, the change of knowledge state, the output exercises match the current knowledge state.
