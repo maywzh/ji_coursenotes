@@ -9,8 +9,6 @@
 
 \section{Research Motivation}
 
-
-
 %本章节为该推荐系统的一个核心部分，即通过知识追踪的方式获取学生的知识掌握状态。知识追踪是根据学生的以往的答题记录来建模学生的知识掌握情况，从而获取学生的知识状态。知识追踪的模型非常丰富，早期的知识追踪模型贝叶斯知识追踪（BKT），它们的基础假设是学生答题基于一系列知识点，这些知识点之间被认为是相互不相关的，因此它们之间是独立表示，这种做法无法捕捉不同概念之间的关系也无法表征复杂的概念转换。在2015年，Piech等人提出了深度知识追踪模型（DKT），首次将长短期记忆网络（LSTM）应用于知识追踪任务，它无需进行知识点标注，而是包含一个知识的隐含状态，当时取得了超过BKT的基线性能，它标志着基于神经网络模型的知识追踪研究的序幕。但DKT无法输出知识的隐藏状态，可解释性不足。而且DKT用将所有记忆存储于一个隐藏向量中，对于长序列的预测性能不够理想。针对这个问题，记忆增强网络（MANN）被提出来，它允许网络保留多个隐藏状态向量，并分别读写这些向量。在2017年，张等人提出了Dynamic Key-Value Memory Networks（DKVMN），它参考了MANN的设计，针对知识追踪任务进行了优化，优化了MANN对于知识追踪任务的输入输出不同域的问题。DKVMN采用了键值对作为存储器结构，能避免过拟合、参数少，以及通过潜在概念自动发现相似练习，取得了相对BKT和DKT更好的预测性能。同时该模型也具有较好的可解释性，它将问题相关潜在概念存储于键矩阵中，对概念掌握程度存储于值矩阵中，通过对输入练习与键矩阵的相关性对值矩阵进行更新。但这些模型仍存在长依赖的问题。为了解决这个问题，设计了一个hop-LSTM结构来聚合相似的习题的隐藏状态的Sequential Key-Value Memory Networks（SKVMN）被提出来。但现有的模型往往对于知识点之间的高阶连接考虑不足，或者简单地将知识点作为相互独立的节点，或者将知识点作为简单的层次模型，但实际上，知识点之间是高阶的图状结构，在这种情况下，采用图神经网络来表征知识点之间的关系，训练问题embedding和概念embedding是更好的选择，因此在本章，我们提出了基于图神经网络的知识追踪模型，它利用高阶问题-知识点关系，来解决稀疏性和复杂知识点依赖问题，同时，它通过问题日志模块，可以学习学生的掌握速度，从而更好表征知识追踪过程。
 
 This section is a core part of this recommendation system, which is to obtain the student's knowledge mastery status by means of knowledge tracing. knowledge tracing is to model students' knowledge mastery based on their past answer records to obtain students' knowledge status. knowledge tracing models are abundant, and early knowledge tracing models are generally based on the Bayesian knowledge tracing (BKT)\cite{yudelson2013individualized} of first-order Markov models, which are based on the assumption that student answers are based on a series of knowledge points that are considered to be unrelated to each other and therefore represented independently of each other, an approach that cannot capture the relationships between different concepts nor characterize complex conceptual transformations. In 2015, Piech et al. proposed the Deep knowledge tracing Model (DKT)\cite{piech2015deep}, the first application of a long short-term memory network (LSTM) to the knowledge tracing task, which does not require knowledge point annotation but contains an implicit state of knowledge, achieving a baseline performance over BKT at that time, and it marked the prologue of knowledge tracing research based on neural network models. However, DKT could not output the hidden state of knowledge, and the interpretability was insufficient. Moreover, DKT used to store all memories in a hidden vector, and the prediction performance was not satisfactory for long sequences. To address this problem, Memory Augmented Neural Network (MANN)\cite{santoro2016meta} was proposed, which allows the network to keep multiple hidden state vectors and read and write these vectors separately. In 2017, Zhang et al. proposed Dynamic Key-Value Memory Networks (DKVMN)\cite{zhang2017dynamic}, which refers to the design of MANN for knowledge tracing tasks and optimizes MANN for knowledge tracing tasks with different input and output domains. DKVMN uses key-value pairs as the memory structure, which can avoid over better prediction performance relative to BKT and DKT is achieved by using key-value pairs as the memory structure, which can avoid overfitting, fewer parameters, and automatic discovery of similar exercises through latent concepts. The model also has better interpretability, as it stores the problem-related potential concepts in the key matrix and the mastery proficiency to the concepts in the value matrix, and updates the value matrix by correlating the input exercises with the key matrix. However, these models still suffer from the problem of long dependencies. To solve this problem, Sequential Key-Value Memory Networks (SKVMN)\cite{Abdelrahman_2019}, which designs a hop-LSTM structure to aggregate the hidden states of similar exercises, was proposed. However, existing models often do not consider enough the higher-order connections between knowledge points, or simply treat knowledge points as mutually independent nodes, or treat knowledge points as simple hierarchical models, but in fact, knowledge points are higher-order graph-like structures, in which case, using graph neural networks to characterize the relationships between knowledge points, training problem embedding and concept embedding is a better choice, so in this chapter, we propose a graph neural network-based knowledge tracing model, which uses higher-order problem-knowledge point relationships to solve the sparsity and complex knowledge point dependency problems, and at the same time, it can learn the mastery speed of students through the problem logging module, so as to better characterize the knowledge tracing process.
@@ -131,7 +129,7 @@ There are a total of \(K\) attention mechanisms to consider, with \(k\) denoting
 
 From this layer, we got the embedded question and knowledge point vector \(\hat{q}_{i} =  \vec{x}_{i}^{\prime}\), which would be passed into the Transformer Block in Knowledge tracing module.
 
-\subsection{Transformer-based knowledge state encoder}
+\subsection{Knowledge State Encoder}
 The input of transformer Block is the concatenation of the embedded question \(\hat{q}_{i}\) and corresponding answer \(a_i\), i.e. \(e_i=\hat{q}_{i}\|a_i\). The general structure is like \figurename{\ref{fig:ch3-fig5}}. The traditional Transformer model is modified to apply to knowledge tracing task. The Transformer can learn the W-matrix relating underlying knowledge points and questions rather than directly learn the representation of each question. This allows the model to learn deeper connections between problems, resulting in better inference performance. It can cluster problems with similar knowledge points and reduce the variance for less frequent problems.
 \begin{figure}[htbp!]
 	\centering
@@ -161,8 +159,8 @@ A Transformer block also have feedforward layer, normalization layer, and residu
 \end{align}
 
 
-% \subsection{Transformer-based question mark predict decoder}
-
+\subsection{Correctness Predict Decoder}
+%本节中，基于Encoder获得的知识状态表征向量集合\(\mathbf{S}=\{S_1,S_2,\ldots,S_{t-1}\}\)来与习题embedding输入到
 
 
 \section{Experiments}
@@ -172,7 +170,6 @@ In this section, the performance of the proposed model is investigated through m
 
 \subsection{Datasets}
 After investigating the existing knowledge tracing model, we selected the more popular ASSISTment data set and Statics data set related to mathematics, preprocessed the data set, cleaned the data, obtained the training set and performed the performance with the Baseline model Compared. Dataset statistics are shown in Table~\ref{tbl:ch2-tb1}.
-
 
 %(1)ASSISTment 2015 是一个用于预测学生考试表现的数据集，它由一系列包含若干知识点标签的问题以及一些学生的答题记录组成。它在2015年于线上教育平台上采集而成。经过数据过滤获得包含19917个学生，约102千个问题，100个知识点标签和约709次交互的数据集。
 %(2)ASSISTment 2017 来源于2017年举办的ASSISTments Longitudinal Data Mining Competition。经过数据预处理和数据过滤，数据集包含1709个学生，4117个问题，102个知识点和约943千次交互。
