@@ -60,60 +60,113 @@ This section proposes a multiplex exercise recommendation item matching model. T
 
 \begin{figure}[h]
   \centering
-  \includegraphics[width=1.0\textwidth]{ch4-matching-model1.png}
+  \includegraphics[width=1.0\textwidth]{ch4-matching-model.png}
   \caption{The Multiplex Matching Method}\label{fig:ch4-matching-1}
 \end{figure}
 
-\subsubsection{Student-Exercise Collaborative Filtering}
+\subsubsection{Student-Exercise Collaborative Filtering Based Matching Strategy}
 %协同过滤是multiplex matching中的其中一个匹配策略，对于数学习题来说，由于习题已经经过知识点标注，因此可以根据知识点重合程度来计算相似度。同时，对于学生，在知识追踪阶段获取了学生的知识状态表征向量，因此也可以根据该向量计算学生的知识掌握相似度。本节提出一个基于Student-Exercise两阶段的协同过滤算法，该算法先计算学生的相似度，获取相关的习题，再根据这些习题计算相似的习题加入候选集，经过该方法计算的习题集相对而言较为完备，防止出现经过由于相似用户较少而出现的推荐项目稀疏的问题。
 
-%传统基于用户的协同过滤根据模型选择的用户特征计算用户间的相似度，依据相似度来判定用户的状态相似度，并将相似度最高的前几名用户作为该用户的最近邻居用户，这些邻居用户构成目标用户的最近邻居用户集合。邻居用户集合的形成是之后推荐结果生成的重要前提和基础，对于相似用户的计算方法，目前大多数个性化推荐系统主要采用的有：余弦相似性、修正的余弦相似性、相关相似性，其中余弦相似性是计算两名用户评分向量在向量空 间模型中的向量夹角的余弦值，用评分向量夹角的余弦值大小表示用户间的相似性。而 修正的余弦相似性主要是解决用户受自身或者其它因素影响导致评分数据不稳定的问题，相较于余弦相似性计算用户间的相似度，修正的余弦相似性计算由于考虑因素较多 所以更为准确一些。
+%传统基于用户的协同过滤根据模型选择的用户特征计算用户间的相似度，依据相似度来判定用户的状态相似度，并将相似度最高的前几名用户作为该用户的最近邻居用户，这些邻居用户构成目标用户的最近邻居用户集合。邻居用户集合的形成是之后推荐结果生成的重要前提和基础，对于相似用户的计算方法，目前大多数个性化推荐系统主要采用的有：余弦相似性、修正的余弦相似性、皮尔森相关系数\cite{Novotn__2018}，其中余弦相似性是计算两名用户评分向量在向量空间模型中的向量夹角的余弦值，用评分向量夹角的余弦值大小表示用户间的相似性。而修正的余弦相似性主要是解决用户受自身或者其它因素影响导致评分数据不稳定的问题，相较于余弦相似性计算用户间的相似度，修正的余弦相似性计算由于考虑因素较多所以更为准确一些。因为余弦相似度计算方法过于粗糙，未考虑到用户受自身或者其它因素影响因素对用户间相似性的影响，所以更多的基于用户的协同过滤推荐系统选择采用修正的余弦相似性方法计算用户间的相似度。其公式如下所示。该公式计算用户\(p\)与用户\(q\)的相似度，其中\(E_{p,q}\)代表用户\(p\)与\(q\)都做过的习题，\(r_{p,i}\)、\(r_{q,i}\)分别代表用户\(p\)与用户\(q\)对于习题i的评分向量。\(\overline{r_{p}},\overline{r_q}\)分别表示用户\(p\)与用户\(q\)的习题评分均值。评分向量包含多个维度，例如用户答出正确答案所用次数、用户对题目的兴趣度、用户对于习题等。
 
-Collaborative filtering is one of the matching strategies in multiplex matching. For math learning questions, because the exercises have been labeled with knowledge points, the similarity can be calculated according to the degree of overlap of the knowledge points. At the same time, for students, the student's knowledge state representation vector is obtained in the knowledge tracking stage, so the similarity of the student's knowledge mastery can also be calculated based on the vector. This section proposes a two-stage collaborative filtering algorithm based on Student-Exercise. The algorithm first calculates the similarity of students, obtains related exercises, and then calculates similar exercises based on these exercises and adds them to the candidate set. The exercise set calculated by this method is relatively The language is relatively complete to prevent the problem of sparse recommendation items that have passed due to fewer similar users.
+%其中 所表示的习题集合代表着那些用户 u 和用户 v 都有过评分的习题， r u 、 r v 分别表示用户 u 和用户 v 的习题评分均值， r u , i 、 r v , i 分别表 示用户 u 和用户 v 对习题 i 的评分值，I u 、I ν 分别表示用户 u 和用户 v 对习题的评分集合， 本文利用用户习题作答情况体现用户对习题的评分，即用户答对习题评分值记为 1，答 错习题，评分值记为 0。
 
-\subsubsection{Student Similarity Calculation}
+
+Traditional user-based collaborative filtering calculates the similarity between users based on the user characteristics selected by the model, determines the similarity of the user's state according to the similarity, and uses the top users with the highest similarity as the user's nearest neighbors. These neighbors The user constitutes the nearest neighbor user set of the target user. The formation of the neighboring user set is an important prerequisite and basis for subsequent recommendation results generation. For the calculation methods of similar users, most of the current personalized recommendation systems mainly use: cosine similarity, modified cosine similarity, and Pearson correlation coefficient\cite{Novotn2018Cosinemeasure}, where cosine similarity is to calculate the cosine value of the angle between the two users' rating vectors in the vector space model, and the cosine value of the angle between the rating vectors represents the similarity between users. The modified cosine similarity is mainly to solve the problem that users are affected by their own or other factors and the scoring data is unstable. Compared with the cosine similarity calculation of the similarity between users, the modified cosine similarity calculation is more important because of more considerations. Be more accurate. Because the cosine similarity calculation method is too rough and does not take into account the influence of the user or other factors on the similarity between users, more user-based collaborative filtering recommendation systems choose to use the modified cosine similarity method to calculate the similarity between users. The similarity. The formula is as follows
+
+Traditional user-based collaborative filtering calculates the similarity between users based on the user characteristics selected by the model, determines the similarity of the user's state according to the similarity, and uses the top users with the highest similarity as the user's nearest neighbors. These neighbors The user constitutes the nearest neighbor user set of the target user. The formation of the neighboring user set is an important prerequisite and basis for the subsequent generation of recommendation results. For the calculation methods of similar users, most of the current personalized recommendation systems mainly use cosine similarity, modified cosine similarity, and correlation similarity. Cosine similarity is to calculate the cosine value of the angle between the two users' rating vectors in the vector space model, and the cosine value of the angle between the rating vectors is used to express the similarity between users. The modified cosine similarity is mainly to solve the problem that users are affected by their own or other factors and the scoring data is unstable. Compared with the cosine similarity calculation of the similarity between users, the modified cosine similarity calculation is more important because of more considerations. Be more accurate. Because the cosine similarity calculation method is too rough and does not take into account the influence of the user or other factors on the similarity between users, more user-based collaborative filtering recommendation systems choose to use the modified cosine similarity method to calculate the user-to-user similarity. The similarity. The formula is Formula \ref{fml:ch4-user_similarity}.
+\begin{align}
+  sim(u, v)=\frac{h_{u} \cdot h_{v}}{\|h_{u}\|\|h_{v}\|}\label{fml:ch4-user_similarity}
+\end{align}
+
+
 %协同过滤的目的是向用户推荐与目标用户相似的推荐用户项目。通过用户的历史行为数据发现基于用户的协同过滤算法，并对这些偏好进行测量和评分。通过给定的算法设置用户的相似度，并在偏好相同的用户之间提出建议。
 
 %基于用户的协同过滤主要考虑用户与用户之间的相似性。只要我们找出相似用户喜欢的项目并预测相应项目的目标用户评分，我们就可以找到评分最高的项目并将其推荐给用户。基于项目的协作过滤类似于基于用户的协作过滤，不同之处在于，我们转向查找项目与用户之间的相似性，并且只有当我们通过目标用户找到某些项目的评分时，我们才能通过高相似度，并向用户推荐评分最高的相似项。
 
 %使用相似的统计数据来获得具有相似爱好或兴趣的邻近用户，因此我们可以使用从先前的知识跟踪模块中获得的用户的知识状态嵌入\(h_t\)，可以将其用作计算相似性的基础。第一步是根据他们的历史行为信息找到与新用户相似的其他用户；同时，根据这些相似用户对其他商品的评价信息，预测当前新用户可能喜欢的商品。给定用户评分数据矩阵R，基于用户的协作过滤算法需要定义相似度函数\(s : U \times U \to R\)以计算用户之间的相似度，然后基于评分数据和相似度矩阵。我们可以使用余弦相似度来计算该值。
 
+% The purpose of collaborative filtering is to recommend recommended items of users similar to the target user to the user. The user-based collaborative filtering algorithm is discovered through historical behavior data of users, and measures and scores these preferences. Set the similarity of users through a given algorithm, and make recommendations among users who have the same preferences.
 
-The purpose of collaborative filtering is to recommend recommended items of users similar to the target user to the user. The user-based collaborative filtering algorithm is discovered through historical behavior data of users, and measures and scores these preferences. Set the similarity of users through a given algorithm, and make recommendations among users who have the same preferences.
+% User-based collaborative filtering mainly considers the similarity between users and users. As long as we find out the items that similar users like and predict the target users' ratings of the corresponding items, we can find the items with the highest ratings and recommend them to users. The item-based collaborative filtering is similar to the user-based collaborative filtering, except that we turn to find the similarity between items and users, and only if we find the ratings of certain items by target users, then we can predict similar items with high similarity and recommend the highest rated similar items to users. For example, if you buy a machine learning related book online, the website will immediately recommend a bunch of machine learning, big data related books to you, and the idea of collaborative filtering based on items is obviously used here.
 
-User-based collaborative filtering mainly considers the similarity between users and users. As long as we find out the items that similar users like and predict the target users' ratings of the corresponding items, we can find the items with the highest ratings and recommend them to users. The item-based collaborative filtering is similar to the user-based collaborative filtering, except that we turn to find the similarity between items and users, and only if we find the ratings of certain items by target users, then we can predict similar items with high similarity and recommend the highest rated similar items to users. For example, if you buy a machine learning related book online, the website will immediately recommend a bunch of machine learning, big data related books to you, and the idea of collaborative filtering based on items is obviously used here.
+% Similar statistics are used to get neighboring users with similar hobbies or interests, so we can use the obtained user's knowledge state embedding \(h_t\) from the previous knowledge tracking module, which can be used as the basis for calculating the similarity. The first step is to find other users who are similar to the new user based on their historical behavior information; at the same time, to predict the items that the current new user may like based on the evaluation information of these similar users on other items. Given the user rating data matrix R, the user-based collaborative filtering algorithm needs to define the similarity function \(s : U \times U \to R\) to calculate the similarity between users, and then calculate the recommendation results based on the rating data and the similarity matrix. We can use the cosine similarity to calculate this value.
 
-Similar statistics are used to get neighboring users with similar hobbies or interests, so we can use the obtained user's knowledge state embedding \(h_t\) from the previous knowledge tracking module, which can be used as the basis for calculating the similarity. The first step is to find other users who are similar to the new user based on their historical behavior information; at the same time, to predict the items that the current new user may like based on the evaluation information of these similar users on other items. Given the user rating data matrix R, the user-based collaborative filtering algorithm needs to define the similarity function \(s : U \times U \to R\) to calculate the similarity between users, and then calculate the recommendation results based on the rating data and the similarity matrix. We can use the cosine similarity to calculate this value.
+% \begin{align}
+%   s(u, v)=\frac{h_{u} \cdot h_{v}}{\|h_{u}\|_{2}\|h_{v}\|_{2}}
+% \end{align}
+% where \(h_u\) and \(h_v\) represent the knowledge mastery state of user \(u\) and \(v\).
+% We can obtain the exercise recommendation history \(\mathcal{H}\) of user B, which is closest to user A to be recommended, and then use the exercises in \(\mathcal{H}\) as a rough set as the next sorted list of exercises.
+\subsubsection{Statistical-based Matching Strategy}
+%本节提出基于习题推荐系统统计数据的推荐项目召回策略，该策略将题目的热门度、正确率、以及是否经过专家推荐这些特征综合考虑，作为习题是否作为召回项的依据。其中热门度是一个结合习题被回答过的次数和习题被用户收藏次数的特征。它将被回答过过次数最多的习题和被收藏次数最多的习题筛选出来进行综合加权排序，记习题排序综合权重为\(w_{(pop)}\)，被回答次数以及对应权重分别记作\(F_{(\#ans)}\)和\(w_{(\#ans)}\)，被收藏次数以及对应权重分别记作\(F_{favorite}\)和\(w_{favorite}\)，被回答错误的次数以及对应权重分别记作\(F_{(\#wrong)})和\(w_{(\#wrong)}\)，是否经过专家推荐以及对应权重分别记作\(F_{expert}\)和\(w_{expert}\)。则综合权重计算公式如下。
+
+%\（F_ {ans} \）的计数将执行用户重复数据删除，也就是说，每个用户的重复答案数仅计算一次，以防止单个用户重复回答而导致数据失真。 实际上，它等于已回答问题的用户在总用户中所占的比例。 同样，\（F_ {favorite} \）和\（F_ {wrong} \）的计算将遵循此统计方法。 因此，每个值都经过归一化，每个值的范围从0到1。对于专家推荐值\（F_ {expert} \），它表示推荐分数，并且值的范围是0-1。 对于没有专家推荐值的练习，默认值为0。
+
+%计算出\(F_{pop}\)后，将习题按照\(F_{pop}\)的大小从大到小排序，将前\(K_{SMS}\)个项目作为推荐项召回集。此处的\(K_{SMS}\)是一个可调的超参数，可以根据业务的需要进行调整，来控制推荐的侧重点。可以根据业务的需要进行调整，来控制推荐的侧重点。
+
+This section proposes a recommendation item recall strategy based on the statistical data of the exercise recommendation system. The strategy considers the topic's popularity, accuracy, and whether it has been recommended by experts, as the basis for whether the exercise is a recall item. Popularity is a feature that combines the number of times the exercises have been answered and the number of times the exercises are favorited by users. It selects the exercises that have been answered the most times and the exercises that have been favorited for comprehensive weighted sorting. The comprehensive weight of the exercise sorting is recorded as \(F_{pop}\), and the number of answers to the exercises and the corresponding weight are recorded as \(F_{ans}\) and \(w_{ans}\), the number of favorites to the exercise and the corresponding weight are respectively denoted as \(F_{favorite}\) and \(w_{favorite} \), the number of incorrect answers and the corresponding weight are recorded as \(F_{wrong}\) and \(w_{wrong}\), whether it is recommended by experts and the corresponding weight are recorded as \(F_{expert}\) and \(w_{expert}\). Then the comprehensive weight calculation formula is \ref{fml:ch4-sbms}.
+\begin{align}
+  F_{pop} & = w_{ans}F_{ans}+w_{favorite}F_{favorite}+w_{wrong}F_{wrong}+w_{expert}F_{expert}\label{fml:ch4-sbms}
+\end{align}
+Where the counting of \(F_{ans}\) will perform user deduplication, that is, the number of repeated answers for each user is only calculated once, which is to prevent data distortion caused by repeated answers by a single user. In fact, it is equal to the proportion of users who have answered the question in the total users. In the same way, the calculation of \(F_{favorite}\) and \(F_{wrong}\) will follow this statistical method. Therefore, each value is normalized, and each value ranges from 0 to 1. For the expert recommended value \(F_{expert}\), it represents the recommended score, and the value ranges from 0-1. For exercises without expert recommended value, the default value is 0.
+
+After calculating \(F_{pop}\), sort the exercises according to the size of \(F_{pop}\) from large to small, and filter the first \(K_{SMS}\) items as the recommended item matching set. Here \(K_{SMS}\) is an adjustable hyperparameter, which can be adjusted according to the needs of the business to control the recommended focus, and can be adjusted according to the needs of the business to control the recommended focus.
+
+\subsubsection{User-Preference based Matching Strategy}
+%本节提出基于用户偏好的推荐项目召回策略，该策略将用户做过的错题、收藏过的习题作为召回项。通过这种方式，可以实现用户对习题推荐结果的定制化。在充分实现智能化推荐的同时，让用户可以基于自己对于知识状态的评估来选择练习题。用户回答错误的习题，设定回答错误次数为\(n_a\)，则掌握度计算为\(F_{userwrong}=\frac{1}{n_a}\)。在习题推荐系统中，为了增强用户对于知识的记忆和掌握程度，多次错误的习题的优先级应当更高。而收藏的习题是用户自己选择，是用户主动对自己知识状态的评估，收藏与否只有两个状态0和1，记做\(F_{userfav}\)。此处设定错题权重为\(w_{userwrong}\)，收藏的习题权值为\(w_{userfav}\)，则习题的综合优先级\(F_{user}\)的计算公式为
+
+%计算出F_{user}值后，将用户错题集和收藏习题集中的习题按照改值进行排序，筛选出前\(K_{UMS}\)个，其中\(K_{UMS}\)为一个可调超参数，如果用户习题集合较小，也可以考虑将\(K_{UMS}\)设置为一个大于集合大小的数，这样就是默认将所有用户偏好习题加入召回习题集。
+
+This section proposes a recall strategy for recommended items based on user preferences. This strategy takes the wrong questions that users have done and the exercises they have collected as recall items. In this way, users can customize the recommended results of exercises. While fully implementing intelligent recommendation, users can choose exercise questions based on their own assessment of their knowledge state. If the user answers the wrong exercises, set the number of wrong answers to \(n_a\), then the mastery degree is calculated as \(F_{userwrong}=\frac{1}{n_a}\). In the exercise recommendation system, in order to enhance the user's memory and mastery of knowledge, the priority of exercises with multiple errors should be higher. The collection of exercises is the user's choice, is the user's active assessment of their own knowledge state, whether to collect or not there are only two states, 0 and 1, denoted as \(F_{userfav}\). The weight of the wrong question is set here as \(w_{userwrong}\), the weight of the collected exercises is \(w_{userfav}\), and the comprehensive priority of the exercises \(F_{user}\) is calculated as Formula \ref{fml:ch4-upbms}
+\begin{align}
+  F_{user} = w_{userwrong}F_{userwrong} + w_{userfav}F_{userfav} \label{fml:ch4-upbms}
+\end{align}
+
+After calculating the value of \(F_{user}\), sort the exercises in the user's wrong problem set and the collection exercise set according to the modified value, and filter out the top \(K_{UMS}\) items, of which \(K_{UMS}\) is a possible Adjust the hyperparameters. If the set of user exercises is small, set \(K_{UMS}\) to a number larger than the size of the set, so that all user-preferred exercises are added to the filtered set of exercises by default.
+
+\subsubsection{Mulplex Matching Merging Method}
+%经过不同的召回策略召回了不同的推荐项集合，每一路召回集合都有不同的侧重点。在融合召回集合的阶段，需要针对推荐的策略选择不同的融合策略。对于每个召回策略，都会相对应拉回前\(K_{strategy}\)个候选集，每一路的\(K_{strategy}\)都属于超参数，该值的大小应当基于实践评估并针对实际的应用场景进行适配，以取得最好的召回效果。
+
+%最终的召回结果由各个召回策略进行融合、排序等方式来产生。对于某个具体的物品，应当综合各个策略的召回结果来进行综合权值计算。也就是说，某个物品\(i\)在策略\(j\)中的输出的权值为\(F_j\)，如果物品不在策略\(j\)的召回结果中，则\(F_i=0\)，否则为公式\ref{fml:ch4-sbms}与\ref{fml:ch4-upbms}的计算结果。记策略\(j\)的融合权重为\(w_j\)则物品的综合召回排名权重为
+
+After different matching strategies, different recommended item sets are screened out, and each set has a different focus. In the merging stage, each matching set needs to be further filtered. For each matching strategy, the first \(K_{strategy}\) candidate sets will be pulled back. The \(K_{strategy}\) of each strategy is a hyperparameter, and the value of this value should be based on practical evaluation And adapt to actual application scenarios to achieve the best multi-channel matching effect.
+
+The final matching result is generated by the merging and sorting methods of each sub-matching strategy. For a specific item, the matching results of each strategy should be integrated to calculate the comprehensive weight. In other words, the output weight of an item \(i\) in the strategy \(j\) is \(F_j\), if the item is not in the matching result of the strategy \(j\), then \(F_i =0\), otherwise it is the calculation result of the formulas \ref{fml:ch4-sbms} and \ref{fml:ch4-upbms}. Remember that the merging weight of the strategy \(j\) is \(w_j\), then the comprehensive matching ranking weight of the item is calculated as Formula~\ref{fml:ch4-mergingrecall}.
 
 \begin{align}
-  s(u, v)=\frac{h_{u} \cdot h_{v}}{\|h_{u}\|_{2}\|h_{v}\|_{2}}
+  F_i = \sum_{j}{w_j F_j}\label{fml:ch4-mergingrecall}
 \end{align}
-where \(h_u\) and \(h_v\) represent the knowledge mastery state of user \(u\) and \(v\).
-We can obtain the exercise recommendation history \(\mathcal{H}\) of user B, which is closest to user A to be recommended, and then use the exercises in \(\mathcal{H}\) as a rough set as the next sorted list of exercises.
 
-\subsubsection{Exercise Filtering System}
-Through the previous section, we calculated the similarity of students, which comprehensively considers students' current knowledge proficiency, students' personalized information and so on. Next, we need to use the collaborative filtering algorithm to generate a rough recommended set of exercises \(S_{raw}\).
+%其中每个策略的权重\(w_i\)的选择也有多种策略，最简单的方式即是平均法，即每个策略的\(w_i\)都相等，或者取固定的权重，这样的\(w_i\)无法随推荐场景变化而变化，不够flexible。因此每个策略的权重都应当基于推荐结果进行调整。目前已经有的调整方法包括基于点击率的动态加权法和基于机器学习的调整方法等等。由于点击率在习题推荐中的意义不明确，在学习资源推荐的应用场景中，应当关注习题推荐的合适程度，因此最佳方法是根据推荐结果反馈进行召回权重调整。基于机器学习的推荐召回策略权重调整方法通过计算总体推荐权重与习题最终推荐合理度的交叉熵来计算损失函数。并且有离线训练和在线训练两种模式，前者通过已有的习题推荐记录进行模型训练，并将模型部署到实际生产环境中，无需再对权重矩阵进行调整，这样做的优点在于降低计算成本，并且部署和迁移成本低。而后者则基于端到端的训练，在推荐的过程中同时进行权重调整，这样做会产生较大的计算开销，但是精度更高。
 
-When the recommendation system is running, the system will record the students' question records. After calculating the similarity of the students, they can be sorted according to the similarity. Given a threshold, list the students whose similarity is greater than the threshold, and divide the students according to the list. The exercises corresponding to the problem record are added to \(S_{raw}\).
+There are also multiple strategies for choosing the weight of each strategy \(w_i\). The simplest way is the average method, that is, the \(w_i\) of each strategy is equal, or a fixed weight is used, such \( w_i\) cannot be changed with the recommended scenario, and it is not flexible enough. Therefore, the weight of each strategy should be adjusted based on the recommended results. The existing adjustment methods include the dynamic weighting method based on click-through rate and the adjustment method based on machine learning and so on. Because the meaning of click-through rate in exercise recommendation is not clear, in the application scenario of learning resource recommendation, attention should be paid to the appropriate degree of exercise recommendation. Therefore, the best method is to adjust the recall weight based on the recommendation result feedback. The weight adjustment method of recommendation matching strategy based on machine learning calculates the loss function by calculating the cross entropy of the overall recommendation weight and the final recommendation rationality of the exercises. And there are two modes of offline training and online training. The former trains the model through the existing exercise recommendation records and deploys the model to the actual production environment. There is no need to adjust the weight matrix. The advantage of this is to reduce the calculation cost. And the deployment and migration costs are low. The latter is based on end-to-end training, and weight adjustment is performed at the same time during the recommendation process. This will incur greater computational overhead, but with higher accuracy.
 
-The algorithm is as~\ref{alg:EF}:
-\begin{algorithm}[h]
-  \caption{Exercise Filtering Algorithm}\label{alg:EF}
-  \begin{algorithmic}
-    \REQUIRE~~\\
-    The target student \(s_i\); \\
-    The student represent matrix, \(S=\{s_0,s_1,\ldots,s_N\} \);\\
-    The log of recommendation \(L=\{L_0,L_1,\ldots,L_N\} \) \\
-    The log-exercise relation: \(L_i=\{E_0,\ldots,E_{|L_i|}\} \) \\
-    The filtering thread \(T\);
-    \ENSURE~~\\ %算法的输出：Output
-    The filtered exercise set \(S=\{E_{s_0},\ldots,E_{s_N}\} \)
-    \STATE~Calculate the similarity between \(s_i\) and other students \(Sim\)
-    \STATE~Sort \(Sim\) and get the top \(T\) results \(R=\{s_{r_0},\ldots,s_{r_T}\} \);
-    \STATE~Aggregate the exercises log of students in \(R\), get exercise set \(S\)
-    \RETURN~\(S\); %算法的返回值
-  \end{algorithmic}
-\end{algorithm}
+%由于召回的目的是为了给最终的排序阶段提供候选推荐项，因此在排序阶段会对每个习题输出一个最终推荐权重用于最终推荐列表的构建。
+
+Since the purpose of recall is to provide candidate recommendations for the final ranking stage, a final recommendation weight will be output for each exercise in the ranking stage for the construction of the final recommendation list.
+
+% Through the previous section, we calculated the similarity of students, which comprehensively considers students' current knowledge proficiency, students' personalized information and so on. Next, we need to use the collaborative filtering algorithm to generate a rough recommended set of exercises \(S_{raw}\).
+
+% When the recommendation system is running, the system will record the students' question records. After calculating the similarity of the students, they can be sorted according to the similarity. Given a threshold, list the students whose similarity is greater than the threshold, and divide the students according to the list. The exercises corresponding to the problem record are added to \(S_{raw}\).
+
+% The algorithm is as~\ref{alg:EF}:
+% \begin{algorithm}[h]
+%   \caption{Exercise Filtering Algorithm}\label{alg:EF}
+%   \begin{algorithmic}
+%     \REQUIRE~~\\
+%     The target student \(s_i\); \\
+%     The student represent matrix, \(S=\{s_0,s_1,\ldots,s_N\} \);\\
+%     The log of recommendation \(L=\{L_0,L_1,\ldots,L_N\} \) \\
+%     The log-exercise relation: \(L_i=\{E_0,\ldots,E_{|L_i|}\} \) \\
+%     The filtering thread \(T\);
+%     \ENSURE~~\\ %算法的输出：Output
+%     The filtered exercise set \(S=\{E_{s_0},\ldots,E_{s_N}\} \)
+%     \STATE~Calculate the similarity between \(s_i\) and other students \(Sim\)
+%     \STATE~Sort \(Sim\) and get the top \(T\) results \(R=\{s_{r_0},\ldots,s_{r_T}\} \);
+%     \STATE~Aggregate the exercises log of students in \(R\), get exercise set \(S\)
+%     \RETURN~\(S\); %算法的返回值
+%   \end{algorithmic}
+% \end{algorithm}
 
 
 
