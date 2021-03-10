@@ -8,11 +8,9 @@
 \fi
 
 \section{Research Motivation}
-
 %随着当今技术的飞速发展，数据量也与日俱增，人们越来越感觉在海量数据面前束手无策。正是为了解决信息过载的问题，人们提出了推荐引擎技术。推荐系统通过用户的历史行为或者用户的兴趣偏好或者用户的人口统计学特征来送给推荐算法，然后推荐系统运用推荐算法来产生用户可能感兴趣的项目列表，同时用户对于搜索引擎是被动的。目前个性化推荐技术被广泛应用于各个行业，它大大节省了用户获取信息的成本，也方便了信息提供商对用户的定向信息推送，因此大大加速了社会的信息交流效率，从而推动了传媒、娱乐、教育等基于信息交流的行业的发展。在教育领域，推荐系统的应用仍停留在较为初级的阶段，很多情况下还依赖人工筛选教育资源进行推荐，这种推荐方式效率低、成效差，且出于成本的原因也无法覆盖到所有的学生。随着推荐系统技术的成功应用和教育行业的进一步成熟，将以往通过人工实现的教育资源推荐系统改用智能化技术来进行的阻力越来越小。在国家提倡智慧教育、精准教学、智慧学习的背景下，一款成熟的具备实用价值的自适应习题推荐系统成为教育业者的期待。
 
 %本章的目的是基于前两个章节所挖掘出的习题知识点和知识状态进行习题推荐，其核心是基于学生的知识状态，寻找出对学生当前知识掌握度改善最大的习题进行推荐，即习题推荐以查漏补缺为目的。因此获取学生的知识状态和习题涉及的知识点是本章前提。但是目前的习题库往往过于庞大，因此，从海量的习题推荐资源中直接应用推荐算法会出现效率较低的情况，不利于商业化大规模部署。在匹配阶段，根据用户特征，从海量的习题库中，快速筛选出一部分潜在适合的习题作为粗筛集合。在排序阶段，将提出的推荐模型应用于粗筛习题集，输出一个按照优先级排序的推荐习题集列表。
-
 
 With the rapid development of today's technology, the amount of data is increasing day by day, and people increasingly feel helpless in the face of massive amounts of data. It is precisely in order to solve the problem of information overload that people propose the recommendation engine technology. The recommendation system sends the recommendation algorithm to the recommendation algorithm through the user's historical behavior or the user's interest preferences or the user's demographic characteristics, and then the recommendation system uses the recommendation algorithm to generate a list of items that the user may be interested in. At the same time, the user is passive to the search engine. At present, personalized recommendation technology is widely used in various industries. It greatly saves the cost for users to obtain information, and it also facilitates information providers to push targeted information to users. Therefore, it greatly accelerates the efficiency of social information exchange, thereby promoting media, The development of industries based on information exchange, such as entertainment and education. In the education field, the application of the recommendation system is still at a relatively primitive stage. In many cases, it still relies on manual screening of educational resources for recommendation. This recommendation method is inefficient, poorly effective, and cannot cover all of them due to cost reasons. student. With the successful application of the recommendation system technology and the further maturity of the education industry, the resistance to the use of intelligent technology in the education resource recommendation system implemented manually in the past is becoming less and less. In the context of the country's promotion of smart education, precise teaching, and smart learning, a mature and practical self-adaptive exercise recommendation system has become the expectation of the education industry. For the purpose of improving education and teaching, this chapter proposes an exercise recommendation model based on students' knowledge mastery.
 
@@ -31,9 +29,9 @@ This chapter proposes a recommendation model based on three stages of Matching-R
 %1. 练习候选生成。这部分的作用是生成一系列符合学生当前学习状态的练习，并快速筛选出一组初步的练习，后续部分将从这组练习中生成最合适的N个练习，并通过协同过滤算法进行排序。它参考youtube推荐系统设计了一个多层MLP网络。它将知识跟踪生成的学生学习状态嵌入向量与学生的问题记录嵌入、个性化信息等并联作为输入。经过一系列的ReLU网络，然后通过softmax归一化输出所有候选练习的概率分布。
 %2. 第二部分该部分用与上一部分类似的神经网络架构，实现了对推荐试题的排序。它的输入是用户的知识结构，最近练习，以及相似用户的常见练习题。
 
-This chapter proposes an adaptive test question recommendation method combining graph neural network knowledge tracking and collaborative filtering. This method uses the GAT knowledge tracking model designed in the previous chapter to model the student's knowledge state, and uses the graph neural network clustering method to cluster the test questions based on knowledge points, so as to obtain a series of related exercise. The first part is the matching part, i.e., candidate test generation, which generates a series of similar exercises, and this is done by clustering the test questions through graph neural networks, which apply graph clustering methods to cluster the test questions based on knowledge points in a reasonable way. The second part is the ranking part, which combines the knowledge state of students obtained from the knowledge tracking system with co-filtering.
+This chapter proposes an adaptive test question recommendation method combining graph neural network knowledge tracing and collaborative filtering. This method uses the GAT knowledge tracing model designed in the previous chapter to model the student's knowledge state, and uses the graph neural network clustering method to cluster the test questions based on knowledge points, so as to obtain a series of related exercise. The first part is the matching part, i.e., candidate test generation, which generates a series of similar exercises, and this is done by clustering the test questions through graph neural networks, which apply graph clustering methods to cluster the test questions based on knowledge points in a reasonable way. The second part is the ranking part, which combines the knowledge state of students obtained from the knowledge tracing system with co-filtering.
 \begin{enumerate}
-  \item Exercise candidate generation: The role of this part is to generate a series of exercises that match the student's current learning state, and quickly filter out a preliminary set of exercises, and the subsequent part will generate the most suitable N exercises from this set and sort them by collaborative filtering algorithms. It designs a multi-layer MLP network with reference to the youtube recommendation system. It concatenates the student learning state embedding vector generated by knowledge tracking with the student's problem record embedding, personalized information, etc.\ as input. After a series of ReLU networks and then output a probability distribution over all candidate exercises by softmax normalization.
+  \item Exercise candidate generation: The role of this part is to generate a series of exercises that match the student's current learning state, and quickly filter out a preliminary set of exercises, and the subsequent part will generate the most suitable N exercises from this set and sort them by collaborative filtering algorithms. It designs a multi-layer MLP network with reference to the youtube recommendation system. It concatenates the student learning state embedding vector generated by knowledge tracing with the student's problem record embedding, personalized information, etc.\ as input. After a series of ReLU networks and then output a probability distribution over all candidate exercises by softmax normalization.
   \item Ranking: This part is to generate Top N recommendation exercise. It implements the ranking of the recommended test questions using a neural network architecture similar to that of the previous section. Its inputs are the user's knowledge structure, recent exercises, and common practice questions from similar users.
 \end{enumerate}
 
@@ -90,7 +88,7 @@ Traditional user-based collaborative filtering calculates the similarity between
 
 % User-based collaborative filtering mainly considers the similarity between users and users. As long as we find out the items that similar users like and predict the target users' ratings of the corresponding items, we can find the items with the highest ratings and recommend them to users. The item-based collaborative filtering is similar to the user-based collaborative filtering, except that we turn to find the similarity between items and users, and only if we find the ratings of certain items by target users, then we can predict similar items with high similarity and recommend the highest rated similar items to users. For example, if you buy a machine learning related book online, the website will immediately recommend a bunch of machine learning, big data related books to you, and the idea of collaborative filtering based on items is obviously used here.
 
-% Similar statistics are used to get neighboring users with similar hobbies or interests, so we can use the obtained user's knowledge state embedding \(h_t\) from the previous knowledge tracking module, which can be used as the basis for calculating the similarity. The first step is to find other users who are similar to the new user based on their historical behavior information; at the same time, to predict the items that the current new user may like based on the evaluation information of these similar users on other items. Given the user rating data matrix R, the user-based collaborative filtering algorithm needs to define the similarity function \(s : U \times U \to R\) to calculate the similarity between users, and then calculate the recommendation results based on the rating data and the similarity matrix. We can use the cosine similarity to calculate this value.
+% Similar statistics are used to get neighboring users with similar hobbies or interests, so we can use the obtained user's knowledge state embedding \(h_t\) from the previous knowledge tracing module, which can be used as the basis for calculating the similarity. The first step is to find other users who are similar to the new user based on their historical behavior information; at the same time, to predict the items that the current new user may like based on the evaluation information of these similar users on other items. Given the user rating data matrix R, the user-based collaborative filtering algorithm needs to define the similarity function \(s : U \times U \to R\) to calculate the similarity between users, and then calculate the recommendation results based on the rating data and the similarity matrix. We can use the cosine similarity to calculate this value.
 
 % \begin{align}
 %   s(u, v)=\frac{h_{u} \cdot h_{v}}{\|h_{u}\|_{2}\|h_{v}\|_{2}}
@@ -139,11 +137,11 @@ The final matching result is generated by the merging and sorting methods of eac
 
 %其中每个策略的权重\(w_i\)的选择也有多种策略，最简单的方式即是平均法，即每个策略的\(w_i\)都相等，或者取固定的权重，这样的\(w_i\)无法随推荐场景变化而变化，不够flexible。因此每个策略的权重都应当基于推荐结果进行调整。目前已经有的调整方法包括基于点击率的动态加权法和基于机器学习的调整方法等等。由于点击率在习题推荐中的意义不明确，在学习资源推荐的应用场景中，应当关注习题推荐的合适程度，因此最佳方法是根据推荐结果反馈进行召回权重调整。基于机器学习的推荐召回策略权重调整方法通过计算总体推荐权重与习题最终推荐合理度的交叉熵来计算损失函数。并且有离线训练和在线训练两种模式，前者通过已有的习题推荐记录进行模型训练，并将模型部署到实际生产环境中，无需再对权重矩阵进行调整，这样做的优点在于降低计算成本，并且部署和迁移成本低。而后者则基于端到端的训练，在推荐的过程中同时进行权重调整，这样做会产生较大的计算开销，但是精度更高。
 
+%经过多路召回融合结算，产生了一个习题候选集\(\mathbb{E}_candidate\)，其中的每个习题都包含对应的权重、来源用以计算推荐损失函数。由于召回的目的是为了给最终的排序阶段提供候选推荐项，因此在排序阶段会对每个习题输出一个最终推荐权重用于最终推荐列表的构建。
+
 There are also multiple strategies for choosing the weight of each strategy \(w_i\). The simplest way is the average method, that is, the \(w_i\) of each strategy is equal, or a fixed weight is used, such \( w_i\) cannot be changed with the recommended scenario, and it is not flexible enough. Therefore, the weight of each strategy should be adjusted based on the recommended results. The existing adjustment methods include the dynamic weighting method based on click-through rate and the adjustment method based on machine learning and so on. Because the meaning of click-through rate in exercise recommendation is not clear, in the application scenario of learning resource recommendation, attention should be paid to the appropriate degree of exercise recommendation. Therefore, the best method is to adjust the recall weight based on the recommendation result feedback. The weight adjustment method of recommendation matching strategy based on machine learning calculates the loss function by calculating the cross entropy of the overall recommendation weight and the final recommendation rationality of the exercises. And there are two modes of offline training and online training. The former trains the model through the existing exercise recommendation records and deploys the model to the actual production environment. There is no need to adjust the weight matrix. The advantage of this is to reduce the calculation cost. And the deployment and migration costs are low. The latter is based on end-to-end training, and weight adjustment is performed at the same time during the recommendation process. This will incur greater computational overhead, but with higher accuracy.
 
-%由于召回的目的是为了给最终的排序阶段提供候选推荐项，因此在排序阶段会对每个习题输出一个最终推荐权重用于最终推荐列表的构建。
-
-Since the purpose of recall is to provide candidate recommendations for the final ranking stage, a final recommendation weight will be output for each exercise in the ranking stage for the construction of the final recommendation list.
+After multi-channel recall fusion settlement, a candidate set of exercises \(\mathbf{E}_{candidate}\) is generated, each of which contains a corresponding weight and source to calculate the recommended loss function. Since the purpose of recall is to provide candidate recommendations for the final ranking stage, a final recommendation weight will be output for each exercise in the ranking stage for the construction of the final recommendation list.
 
 % Through the previous section, we calculated the similarity of students, which comprehensively considers students' current knowledge proficiency, students' personalized information and so on. Next, we need to use the collaborative filtering algorithm to generate a rough recommended set of exercises \(S_{raw}\).
 
@@ -168,29 +166,44 @@ Since the purpose of recall is to provide candidate recommendations for the fina
 %   \end{algorithmic}
 % \end{algorithm}
 
-
-
-
 \subsection{Ranking Stage}
-%本节我们设计了一个基于MLP的试题排序模型，该模型输入学生的知识状态向量$h_t$，以及通过序列嵌入学习的知识状态改变向量$d_h$，以及习题的知识点标注向量。
+%经过习题集推荐召回阶段，获得了习题候选集，该候选集包含来自各类召回策略筛选出的习题。本节基于前一章提出的知识追踪模型，提出一种基于知识状态预测的习题推荐排序方法。
 
-In the previous step we obtained a list of recommended exercises for similar students by collaborative filtering in the matching phase, and in this phase, a ranking of the exercises is needed to further reduce the amount of recommendations and give the ranking sequence of exercise. In this section, we design an MLP-based test ordering model. The model inputs the student's knowledge state vector \(h_t\), the knowledge state change vector \(d_h\) learned through sequence embedding, and the knowledge point labeling vector of the exercises. The architecture is like \figurename{\ref{fig:ch4-fig3}}.
+%知识追踪模型输出对于习题的答题正确概率的预测。由于习题推荐的目的在于加强学生对于不熟悉和掌握程度较低知识点的熟练度，因此推荐的习题应当尽量让学生答错，否则就无法产生对知识点查漏补缺的作用。回顾知识追踪模型，在交互时间t时，可以获取学生的知识状态表征向量\(h_t\)。为了进行习题推荐度排序，应当将习题推荐候选集合\(\mathbf{E}_{candidate}\)中的所有习题都输入进知识追踪模型，进行习题答题预测。将最容易出错的若干项习题作为推荐列表。其结构如图所示。
 
+After the recommended matching stage of the exercise set, a candidate set of exercises is obtained, which contains exercises selected from various matching strategies. Based on the knowledge tracing model proposed in the previous chapter, this section proposes a method for recommending and sorting exercises based on knowledge state prediction.
+
+The knowledge tracing model outputs a prediction of the correct probability of answering the exercises. Since the purpose of exercise recommendation is to strengthen students' proficiency for unfamiliar and relatively low-level knowledge points, the recommended exercises should be made as far as possible to allow students to answer incorrectly, otherwise it will not be able to have the effect of checking for missing knowledge points. Recalling the knowledge tracing model, at the interaction time t, the student's knowledge state representation vector \(h_t\) can be obtained. In order to rank the degree of recommendation of exercises, all exercises in the recommended candidate set of exercises \(\mathbf{E}_{candidate}\) should be input into the knowledge tracing model to predict the answers to the exercises. Make the recommended list of some of the most error-prone exercises. Its structure is shown in the \figurename{\ref{fig:ch4-ranking-1}}.
 
 \begin{figure}[h]
   \centering
-  \includegraphics[width=1.0\textwidth]{ch4-fig3.png}
-  \caption{The Architecture of Recommendation System}\label{fig:ch4-fig3}
+  \includegraphics[width=1.0\textwidth]{ch4-ranking-model.png}
+  \caption{The Ranking Method}\label{fig:ch4-ranking-1}
 \end{figure}
 
-The model is a three-layer multi-layer perceptron, with two fully connected layers in the middle, and the output layer uses softmax to output the probabilities of exercise recommendation. The input layer inputs the student's knowledge state vector, knowledge state change vector and exercise knowledge point label vector. The model is a three-layer multi-layer perceptron, with two fully connected layers in the middle, and the output layer uses softmax to output the probabilities of exercise recommendation. The input layer inputs the student's knowledge state vector, knowledge state change vector and exercise knowledge point label vector. The loss function is:
-\begin{align}
-  \mathcal{L}=\sum_{i=1}^{T} y_i \log (\text{sigmoid}(\hat{y}_i))+(1-y_i ) \log (1-\text{sigmoid}(\hat{y}_i))
-\end{align}
-where \(\hat{y}_i\) is the output value, \(y_i\) is actual recommended weights for the exercises.
+%将候选集习题分别输入知识追踪模型得到预测值，即答对习题的概率，按照从小到大的顺序进行排序，筛选出前\(K_{final}\)项作为推荐习题列表。\(K_{final}\)为一个可调的超参数，它对于推荐结果影响较大，决定一道习题是否出现于最终的推荐列表中。当\(K_{final}\)较大时，推荐的准确率会更高，但是推荐效率会降低。在实际应用中，应当综合考虑学生的知识掌握水平与实际应用场景，设定合理的\(K_{final}\)值。
 
-After training the model, sort the output values, and the sorted list is the recommended problem set.
-%在训练好模型之后，将输出值进行排序，排序的列表即为推荐的习题集。
+The last step of the model is to input the exercises in the candidate set into the knowledge tracking model to get the predicted value, that is, the probability of answering the exercises correctly. Sort them in ascending order, and filter out the top \(K_{final}\) items as a list of recommended exercises. \(K_{final}\) is an adjustable hyperparameter, which has a greater impact on the recommendation result and determines whether an exercise will appear in the final recommendation list. When \(K_{final}\) is larger, the recommended accuracy rate will be higher, but the recommendation efficiency will be reduced. In practical applications, students’ knowledge mastery level and practical application scenarios should be considered comprehensively, and a reasonable value of \(K_{final}\) should be set.
+
+% 本节我们设计了一个基于MLP的试题排序模型，该模型输入学生的知识状态向量$h_t$，以及通过序列嵌入学习的知识状态改变向量$d_h$，以及习题的知识点标注向量。
+
+% In the previous step we obtained a list of recommended exercises for similar students by collaborative filtering in the matching phase, and in this phase, a ranking of the exercises is needed to further reduce the amount of recommendations and give the ranking sequence of exercise. In this section, we design an MLP-based test ordering model. The model inputs the student's knowledge state vector \(h_t\), the knowledge state change vector \(d_h\) learned through sequence embedding, and the knowledge point labeling vector of the exercises. The architecture is like \figurename{\ref{fig:ch4-fig3}}.
+
+
+% \begin{figure}[h]
+%   \centering
+%   \includegraphics[width=1.0\textwidth]{ch4-fig3.png}
+%   \caption{The Architecture of Recommendation System}\label{fig:ch4-fig3}
+% \end{figure}
+
+% The model is a three-layer multi-layer perceptron, with two fully connected layers in the middle, and the output layer uses softmax to output the probabilities of exercise recommendation. The input layer inputs the student's knowledge state vector, knowledge state change vector and exercise knowledge point label vector. The model is a three-layer multi-layer perceptron, with two fully connected layers in the middle, and the output layer uses softmax to output the probabilities of exercise recommendation. The input layer inputs the student's knowledge state vector, knowledge state change vector and exercise knowledge point label vector. The loss function is:
+% \begin{align}
+%   \mathcal{L}=\sum_{i=1}^{T} y_i \log (\text{sigmoid}(\hat{y}_i))+(1-y_i ) \log (1-\text{sigmoid}(\hat{y}_i))
+% \end{align}
+% where \(\hat{y}_i\) is the output value, \(y_i\) is actual recommended weights for the exercises.
+
+% After training the model, sort the output values, and the sorted list is the recommended problem set.
+% %在训练好模型之后，将输出值进行排序，排序的列表即为推荐的习题集。
 
 
 \section{Experiment}
