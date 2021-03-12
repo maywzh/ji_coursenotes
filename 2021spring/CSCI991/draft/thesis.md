@@ -94,3 +94,26 @@ The knowledge graph logically consists of a data layer and a schema layer. The d
 The technical architecture of a knowledge graph generally refers to the architecture of the relevant technologies used in the construction of the knowledge graph and its application. The dotted box shows the specific process of building a knowledge graph and its updating. The construction process of knowledge graph starts from the collection of data sources (unstructured, structured and semi-structured data), using automation, semi-automation and other technical means to extract the research-related knowledge information (including the extraction of knowledge entities, relationships and attributes) from data sources and third-party databases, and then store these knowledge information in a certain logical order into the The knowledge graph is then built into the database. Then, after a series of operations such as knowledge representation, entity alignment, ontology construction, knowledge update and knowledge inference, the knowledge graph can be constructed.
 
 The knowledge graph can be constructed in two ways: bottom-up and top-down. Bottom-up means extracting highly reliable knowledge entities from some open data links and adding them to the ontology knowledge base, and then designing and implementing the top-level ontology of the knowledge graph. The top-down construction method is to define the required knowledge ontologies and data storage forms on the basis of the existing knowledge base, and then store the knowledge entities into the ontology knowledge base one by one. It is found that bottom-up knowledge graph is the most widely used knowledge graph construction method, the most representative applications are the Knowledge Vault designed and developed by Google and the Satori knowledge base designed and built by Microsoft.
+
+
+
+
+%协同过滤的目的是向用户推荐与目标用户相似的推荐用户项目。通过用户的历史行为数据发现基于用户的协同过滤算法，并对这些偏好进行测量和评分。通过给定的算法设置用户的相似度，并在偏好相同的用户之间提出建议。
+
+%基于用户的协同过滤主要考虑用户与用户之间的相似性。只要我们找出相似用户喜欢的项目并预测相应项目的目标用户评分，我们就可以找到评分最高的项目并将其推荐给用户。基于项目的协作过滤类似于基于用户的协作过滤，不同之处在于，我们转向查找项目与用户之间的相似性，并且只有当我们通过目标用户找到某些项目的评分时，我们才能通过高相似度，并向用户推荐评分最高的相似项。
+
+%使用相似的统计数据来获得具有相似爱好或兴趣的邻近用户，因此我们可以使用从先前的知识跟踪模块中获得的用户的知识状态嵌入\(h_t\)，可以将其用作计算相似性的基础。第一步是根据他们的历史行为信息找到与新用户相似的其他用户；同时，根据这些相似用户对其他商品的评价信息，预测当前新用户可能喜欢的商品。给定用户评分数据矩阵R，基于用户的协作过滤算法需要定义相似度函数\(s : U \times U \to R\)以计算用户之间的相似度，然后基于评分数据和相似度矩阵。我们可以使用余弦相似度来计算该值。
+
+% The purpose of collaborative filtering is to recommend recommended items of users similar to the target user to the user. The user-based collaborative filtering algorithm is discovered through historical behavior data of users, and measures and scores these preferences. Set the similarity of users through a given algorithm, and make recommendations among users who have the same preferences.
+
+% User-based collaborative filtering mainly considers the similarity between users and users. As long as we find out the items that similar users like and predict the target users' ratings of the corresponding items, we can find the items with the highest ratings and recommend them to users. The item-based collaborative filtering is similar to the user-based collaborative filtering, except that we turn to find the similarity between items and users, and only if we find the ratings of certain items by target users, then we can predict similar items with high similarity and recommend the highest rated similar items to users. For example, if you buy a machine learning related book online, the website will immediately recommend a bunch of machine learning, big data related books to you, and the idea of collaborative filtering based on items is obviously used here.
+
+% Similar statistics are used to get neighboring users with similar hobbies or interests, so we can use the obtained user's knowledge state embedding \(h_t\) from the previous knowledge tracing module, which can be used as the basis for calculating the similarity. The first step is to find other users who are similar to the new user based on their historical behavior information; at the same time, to predict the items that the current new user may like based on the evaluation information of these similar users on other items. Given the user rating data matrix R, the user-based collaborative filtering algorithm needs to define the similarity function \(s : U \times U \to R\) to calculate the similarity between users, and then calculate the recommendation results based on the rating data and the similarity matrix. We can use the cosine similarity to calculate this value.
+
+% \begin{align}
+%   s(u, v)=\frac{h_{u} \cdot h_{v}}{\|h_{u}\|_{2}\|h_{v}\|_{2}}
+% \end{align}
+% where \(h_u\) and \(h_v\) represent the knowledge mastery state of user \(u\) and \(v\).
+% We can obtain the exercise recommendation history \(\mathcal{H}\) of user B, which is closest to user A to be recommended, and then use the exercises in \(\mathcal{H}\) as a rough set as the next sorted list of exercises.
+
+
