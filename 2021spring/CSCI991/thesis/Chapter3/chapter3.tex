@@ -196,7 +196,7 @@ After investigating the existing knowledge tracing model, we selected the more p
 
 \subsection{Settings and Metrics}
 %目前知识追踪领域的论文多以(Area Under Curve)AUC作为对比指标，AUC是一个基于ROC曲线常用的二分类评测手段，具有较好的性能对比能力。在知识追踪任务中，最终预测也是当前时刻的习题的做对与否，本质上为一个二分类问题，因此可以采取这种做法。
-At present, most papers in the field of knowledge tracking use Area Under Curve (AUC) as a comparison indicator. AUC is a commonly used two-category evaluation method based on the ROC curve and has good performance comparison capabilities. In the task of knowledge tracking, the final prediction is also whether the exercises at the current moment are done correctly or not, which is essentially a binary classification problem, so this approach can be adopted.
+At present, most papers in the field of knowledge tracing use Area Under Curve (AUC) as a comparison indicator. AUC is a commonly used two-category evaluation method based on the ROC curve and has good performance comparison capabilities. In the task of knowledge tracing, the final prediction is also whether the exercises at the current moment are done correctly or not, which is essentially a binary classification problem, so this approach can be adopted.
 
 %对于每个数据集采用70%作为训练集，剩余30%作为测试集。实验运行环境为Ubuntu20.04，TensorFlow 2.23，Python 3.8.6，实验机器为一块Tesla V100计算卡。
 For each dataset, 70\% is used as the training set, and the remaining 30\% is used as the test set. The experimental running environment is Ubuntu20.04, TensorFlow 2.23, Python 3.8.6, and the experimental machine is a Tesla V100 computing card.
@@ -205,12 +205,12 @@ For each dataset, 70\% is used as the training set, and the remaining 30\% is us
 %1.BKT是一个知识追踪的经典模型，它基于隐马尔可夫模型（HMM），将学习者的知识状态建模为一组对应知识点掌握情况的二元变量。
 %2.DKT是第一个基于深度学习的知识追踪模型，它应用将学生的做题记录输入到LSTM中，可以捕获学生做题序列上近期做题记录的影响，将学生的做题顺序考虑进模型，DKT也初步考虑了知识点间的内在相关性。
 %3.GKT应用图神经网络到知识追踪任务上，利用图的特性，将知识点间的图状关联表征出来，从而更好地学习知识内在依赖关系，该模型能够学习出学生的隐藏知识状态,也具有较好的可解释性。
-In this experiment, baseline performance comparisons are made by comparing some classic models with new knowledge tracking models proposed recently. The following models participate in performance comparison.
+In this experiment, baseline performance comparisons are made by comparing some classic models with new knowledge tracing models proposed recently. The following models participate in performance comparison.
 \begin{itemize}
-	\item Bayesian knowledge tracing (BKT)\cite{yudelson2013individualized}: BKT is a classic model of knowledge tracking. It is based on Hidden Markov Model (HMM), which models the knowledge state of learners as a set of binary variables corresponding to the mastery proficiency to knowledge points.
-	\item DKT is the first deep learning-based knowledge tracking model, which applies the input of students' doing records into LSTM, and can capture the influence of recent doing records on students' doing sequences, taking students' doing sequences into account into the model, DKT also initially considers the intrinsic correlation between knowledge points.
+	\item Bayesian knowledge tracing (BKT)\cite{yudelson2013individualized}: BKT is a classic model of knowledge tracing. It is based on Hidden Markov Model (HMM), which models the knowledge state of learners as a set of binary variables corresponding to the mastery proficiency to knowledge points.
+	\item DKT is the first deep learning-based knowledge tracing model, which applies the input of students' doing records into LSTM, and can capture the influence of recent doing records on students' doing sequences, taking students' doing sequences into account into the model, DKT also initially considers the intrinsic correlation between knowledge points.
 	\item Dynamic Key-Value Memory Networks (DKVMN)\cite{zhang2017dynamic}: DKVMN uses key-value pairs as the memory structure, which can avoid over better prediction performance relative to BKT and DKT is achieved by using key-value pairs as the memory structure, which can avoid overfitting, fewer parameters, and automatic discovery of similar exercises through latent concepts.
-	\item Graph-Based Knowledge Tracing (GKT)\cite{nakagawa2019graph}: GKT applies graphical neural networks to knowledge tracking tasks, using the properties of graphs to characterize the graph-like associations between knowledge points for better learning of intrinsic knowledge dependencies, and the model is able to learn students' hidden knowledge states and also has better interpretability.
+	\item Graph-Based Knowledge Tracing (GKT)\cite{nakagawa2019graph}: GKT applies graphical neural networks to knowledge tracing tasks, using the properties of graphs to characterize the graph-like associations between knowledge points for better learning of intrinsic knowledge dependencies, and the model is able to learn students' hidden knowledge states and also has better interpretability.
 \end{itemize}
 
 \subsection{Result and Analysis}
@@ -236,7 +236,7 @@ The aggregated result of the experiment are shown in the Table~\ref{tbl:ch3-tb2}
 \end{table}
 \section{Summary}
 %
-In this section, a knowledge tracking model based on graph self-attentive network hungry embedding with Transformer is proposed, which learns the relationship between exercises and knowledge points through GAT, which can effectively characterize the complex dependencies between knowledge points and can discover the hidden knowledge points in the exercises. In the encoding part, the embedding vectors learned by GAT are encoded by a Transformer model for knowledge state, and a knowledge state sequence is output, which can be used in the subsequent exercise recommendation process. At the same time, the knowledge state sequence and the exercises are used as the input of the subsequent decoder to output a simulation of the correct or incorrect answers to the exercises.
+In this section, a knowledge tracing model based on graph self-attentive network hungry embedding with Transformer is proposed, which learns the relationship between exercises and knowledge points through GAT, which can effectively characterize the complex dependencies between knowledge points and can discover the hidden knowledge points in the exercises. In the encoding part, the embedding vectors learned by GAT are encoded by a Transformer model for knowledge state, and a knowledge state sequence is output, which can be used in the subsequent exercise recommendation process. At the same time, the knowledge state sequence and the exercises are used as the input of the subsequent decoder to output a simulation of the correct or incorrect answers to the exercises.
 
 The innovation points of this section are as follows.
 \begin{enumerate}
