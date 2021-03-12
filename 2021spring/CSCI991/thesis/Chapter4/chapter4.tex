@@ -234,7 +234,7 @@ Considering that this recommendation system needs to recommend exercises based o
 
 The original data set is a fixed sequence of question-answering interaction. In order to measure the recommendation performance, the exercise \(q_t\) answered in timestamp \(t\) can act as the calibration item to check whether it is in the final recommendation result under the simultaneous state. The final recommendation output obtained by the ranking model in the previous section is a list with a capacity of \(K\), and the recommendation effect of the model can be determined by determining whether the exercises that predict the user will answer wrongly are in the list.
 
-%本文的运行在环境如下表所示。在本实验的配置中，选择75\%的交互记录作为训练集，另外25\%作为测试数据。测试运行5次取平均值。在推荐模型的召回阶段和排序阶段选取的超参数如表所示。
+%本文的运行在环境如下表所示。在本实验的配置中，选择75\%的交互记录作为训练集，另外25\%作为测试数据。测试运行5次取平均值。实验取了三种不同的\(\tau \)作为习题正确率判断阈值。在推荐模型的召回阶段和排序阶段选取的超参数如表所示。
 
 The running environment of this article is shown in the Table~\ref{table:ch4-exp-env}. In the configuration of this experiment, 75\% of the interaction records are selected as the training set, and the remaining 25\% as the test dataset. Run the model 5 times and take the average. The hyperparameter settings of the recommendation model are shown in the Table~\ref{table:ch4-hpsetting}. In ranking stage, parameter \(N\) represents the number of Transformer stacking blocks in knowledge tracing model and \(d\) represents sub-layer output's dimension.
 
@@ -301,6 +301,17 @@ The running environment of this article is shown in the Table~\ref{table:ch4-exp
   \end{tabular}
 \end{table}
 
+
+\subsubsection{Baseline}
+%作为对比，将目前较为热门的协同过滤推荐算法与随机推荐算法作为Baseline模型，协同过滤算法省略了matching阶段，直接寻找相似用户的习题作为推荐集合。而随机推荐算法则直接在习题库中随机选择习题进行推荐。
+
+As a comparison, the more popular Collaborative Filtering (CF) recommendation algorithm and the random recommendation algorithm are used as Baseline models.
+\begin{itemize}
+  \item Collaborative Filtering: The collaborative filtering algorithm omits the matching stage and directly finds similar users' exercises as the recommendation set.
+  \item Random: In each interaction, randomly determine whether the exercise will be recommended
+\end{itemize}
+
+
 \subsection{Metrics}
 %本节提出的推荐模型的目标是向用户提出最符合当前知识状态的习题，因此推荐的精准度是一个关键的指标。为了更直观地显示推荐算法对于用户的知识提升作用，本实验将基于两个方面来进行模型性能判定。
 %1. 推荐精准度判定：将知识追踪数据集的交互序列作为知识追踪模型的输入来训练模型。此时，运行推荐模型来生成一个习题推荐集合。记录学生\(s_i\)将序列中的时间\(t\)的习题\(e_{i,t}\)的推荐结果。如果知识追踪模型的对于习题\(e_{i,t}\)的预测概率低于一个判定阈值\(\tau\)时，表示该习题\(e_{i,t}\)对于学生\(s_i\)容易出错，因此应该被推荐。其混淆矩阵如下表
@@ -314,19 +325,38 @@ The goal of the recommendation model proposed in this section is to present the 
   \item True Positive(FN): exercise \(e_{i,t}\) is not in output recommendation exercise set and \(p_{i,t}<\tau \)
   \item True Positive(TN): exercise \(e_{i,t}\) is not in output recommendation exercise set and \(p_{i,t}\geq \tau \)
 \end{itemize}
-
-
-
-
-
-% \begin{itemize}
-%   \item Exercise recommendation precision: Train the model by using the interaction sequence of the knowledge tracking dataset as the input of the knowledge tracking model. Simultaneously, the recommendation model is launched to generate a collection of exercise recommendations. Record the recommended results of the exercise \(e_{i,t}\) for which the student \(s_i\) will be in the sequence of time \(t\). If the prediction probability of the knowledge-tracking model for the exercise \(e_{i,t}\) is lower than a judgment threshold \(\tau \), it means that the exercise \(e_{i,t}\) is error-prone for the student \(s_i\) and thus should be recommended.
-%   \item Knowledge proficiency improving efficiency:
-% \end{itemize}
+Where \(\tau \) is adjustable hyperparameter. This is a classification problem, so the Receiver Operator Characteristic Curve (ROC) curve can be used to determine the performance of the recommendation system. Then, (Area Under Curve) AUC and Accuracy (ACC) metrics can be used to determine the performance of the model.
 
 \subsection{Result and Analysis}
-
+We applied five different \(\tau \) (0.45, 0.5, 0.55) as the threshold for judging the predicting correctness of the exercises. The result is shown in Table~\ref{table:ch4-exp-result}.
+\begin{table}[htbp]
+  \caption{Recommendation Experiment Result}\label{table:ch4-exp-result}
+  \centering
+  \begin{tabular}{c c c}
+    \toprule
+    Model                    & ACC    & AUC    \\
+    \midrule
+    CF                       & 0.5375 & 0.5239 \\
+    Random                   & 0.5073 & 0.5012 \\
+    \midrule
+    Proposed \((\tau=0.45)\) & 0.6542 & 0.6878 \\
+    Proposed \((\tau=0.50)\) & 0.6839 & 0.7375 \\
+    Proposed \((\tau=0.55)\) & 0.6657 & 0.7039 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+%经过对比，我们发现，基于知识追踪模型进行的习题推荐，在ACC和AUC指标上都大幅超越Baseline算法，这说明了提出的模型可以有效筛选出对于学生知识状态增益较大的习题集合，从而实现基于学生的学习状态进行自适应习题推荐。
+After comparison, it can be concluded that the knowledge tracking model-based exercise recommendation significantly outperforms the Baseline algorithm in both ACC and AUC metrics, which indicates that the proposed model can effectively filter out the set of exercises with greater gain for students' knowledge state, thus realizing adaptive exercise recommendation based on students' learning state.
 
 \section{Summary}
-%本章提出一个基于Matching-Ranking双阶段的数学习题推荐模型。其中第一阶段的Matching模型为一个多路习题推荐项匹配模型，该模型采用了基于热门度、用户兴趣、专家推荐习题、易错题、用户错题集和协同过滤等多个召回策略作为子召回策略，每个子召回策略都基于可学习的参数用于控制该召回策略的权重。当所有的召回策略都返回子召回习题集合后，通过基于加权融合的算法来进行习题的融合、过滤等步骤。其结构如图所示。
-This section proposes a two-stage recommendation system framework based on matching-ranking. In the matching stage, collaborative filtering is used, and in the ranking stage, multi-layer perceptron are used to model students' knowledge state-exercise knowledge points. At the same time, taking into account the student's learning speed, that is, the change of knowledge state, the output exercises match the current knowledge state.
+%本章提出一个基于Matching-Ranking双阶段的数学习题推荐模型。其中第一阶段的Matching模型为一个多路习题推荐项匹配模型，该模型采用了基于协同过滤、热门度、用户偏好等多个子召回策略用于分别生成习题推荐候选集合，然后在融合阶段将这些候选集合进行加权融合，形成一个最终的融合习题推荐候选集合。在排序阶段，将Matching阶段获取的习题候选集合中的每个习题输入到知识追踪习题进行正确率预测，将最容易出错的习题的作为优先级最高的推荐项，按照此策略生成推荐习题集。
+%本章的主要贡献有两点：
+%1.将多路召回策略应用于习题的Matching阶段，从而可以利用相对小的计算负载来快速筛选出候选习题集，所有的习题在不同的策略中有不同的推荐分，按照推荐分从高到低的顺序，取前若干个习题作为候选集合。对于不同的策略，可以动态调节它们的权重，来实现对于推荐侧重点的人工控制。
+%2.将习题输出前一章提出的知识追踪模型，将模型输出的习题正确率作为习题的推荐分依据。这种机制将学生最可能答错的习题推荐给学生，从而加强学生对于知识掌握水平较低的知识点的理解。
+
+In this chapter, a two-stage Matching-Ranking based mathematical exercise recommendation model is proposed. The Matching model in the first stage is a multiplexed exercise recommendation item matching model, which employs multiple sub-recall strategies based on collaborative filtering, popularity, user preferences for generating exercise recommendation candidate sets separately, and then these candidate sets are weighted and fused in the fusion stage to form a final fused exercise recommendation candidate set. In the ranking phase, each exercise in the set of exercise candidates obtained in the Matching phase is input to the knowledge tracking exercise for correctness prediction, and the most error-prone exercise's is used as the recommendation item with the highest priority, and the recommended set of exercises is generated according to this strategy.
+The main contribution of this chapter is：
+\begin{enumerate}
+  \item The multiple recall strategy is applied to the Matching stage of the exercises, so that the candidate set of exercises can be filtered quickly with a relatively small computational load, and all the exercises have different recommendation scores in different strategies. For different strategies, their weights can be dynamically adjusted to achieve manual control over the recommendation focus.
+  \item The knowledge-tracking model proposed in the previous chapter is outputted for the exercises, and the correctness of the model output is used as the basis for the recommended score for the exercises. This mechanism recommends the exercises that students are most likely to answer incorrectly, thus enhancing students' understanding of the knowledge points with lower levels of knowledge mastery proficiency.
+\end{enumerate}
