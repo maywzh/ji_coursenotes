@@ -148,37 +148,38 @@ Some words of the original sequence of exercise text words obtained after the wo
 % \end{align}
 
 \subsubsection{Bidirectional LSTM Layer}
-%为了解决文本序列学习的问题，一般用循环神经网络来处理序列数据。相比一般的神经网络来说，他能够处理序列变化的数据。比如某个单词的意思会因为上文提到的内容不同而有不同的含义，RNN就能够很好地解决这类问题。在本节中，任务核心是一个序列到序列(Seq2Seq)的任务，输入一个题目描述的embedding向量，输出一个包含当前训练到的信息序列。最朴素的想法就是用原始的RNN，其结构如图所示。$x$为当前状态下数据的输入， $h$表示接收到的上一个节点的输入。$y$为当前节点状态下的输出，而$h^\prime$为传递到下一个节点的输出。我们获得以下关系:
+%在解决序列化模式数据建模方面，RNN具有良好的解决能力。在本节中，任务核心是一个序列到序列(Seq2Seq)的任务，输入一个题目描述的embedding向量，输出一个包含当前训练到的信息序列。最朴素的想法就是用原始的RNN，其结构如图所示，图中\(x_t\)，\(h_t\)和\(y_t\)分别表示在时间t的输入值、隐藏值和输出值。
 
-In order to solve the problem of text sequence learning, recurrent neural networks are generally used to process sequence data. Compared with the general neural network, it can process the data of the sequence change. For example, the meaning of a word will have different meanings because of the different content mentioned above, and RNN can solve this kind of problem well. In this section, the core of the task is a sequence-to-sequence (Seq2Seq) task. Input a title description embedding vector, and output a sequence containing the current training information. The simplest idea is to use the original RNN, whose structure is shown in the \figurename{\ref{ch2-fig6}}. \(x_t\) is the input of data in the state \(t\), and \(h\) represents the input of the previous node received. \(y_t\) is the output under the current node state \(t\), and \(h^{t}\) is the output passed to the next node. So
-\begin{align}
-	h^{t+1} & =f(W^h_{t} h^t+W^i x^t) \\
-	y^{t+1} & =f(W^o h^{t+1})
-\end{align}
-where \(\sigma \) is linear activation function like sigmoid, ReLU, etc.
+RNNs are well equipped to solve various types of problems and tasks in serialized pattern data modeling. In this section, the core of the task is a sequence-to-sequence (Seq2Seq) task, where an embedding vector described by the topic is input and a sequence containing the currently trained information is output. The most rudimentary idea is to use the original RNN. Its structure is shown in the \figurename{fig:ch2-rnn-model}, where \(x_t\), \(h_t\) and \(y_t\) denote the input, hidden and output values at time \(t\), respectively. Then, the RNN training formula can be written as \ref{fml:rnn-train}:
+\begin{equation}
+	\begin{align}\label{fml:rnn-train}
+		h^{t+1} & =f(W^h_{t} h^t+W^i x^t) \\
+		y^{t+1} & =f(W^o h^{t+1})
+	\end{align}
+\end{equation}
+
 
 \begin{figure}[htbp!]
 	\centering
-	\includegraphics[width=1.0\textwidth]{ch2-fig6.png}
-	\caption{Naive RNN Unit}\label{ch2-fig6}
+	\includegraphics[width=0.8\textwidth]{ch2-rnn-model.pdf}
+	\caption{Naive RNN Unit}\label{fig:ch2-rnn-model}
 \end{figure}
 
-One of the key points of RNNs is that they can be used to connect previous information to the current task. But when the sequence is longer, the problem of long dependency occurs. For example, for a sequence, the current state depends on a state far away from the current state, and the RNNs' ability to learn this state degrades greatly as the interval increases.
+%但是，当序列较长时，就会出现长依赖性的问题。例如，对于一个序列，当前的状态依赖于离当前状态很远的一个状态，随着时间间隔的增加，RNNs学习这个状态的能力会大大降低。LSTM是作为针对RNN的这种缺陷的一种解决方案被提出来，它运用门控机制来实现长期记忆。解决RNN的梯度爆炸或梯度消失等问题。在捕捉序列信息方面也具有良好的性能。其结构如图所示，表示\(t\)时刻的一个LSTM单元内的计算细节。其中，\(\sigma\)为激活函数，\(c_t\)为单元状态表征，\(f_t\)为遗忘门控计算，\(i_t\)为输入门控计算，\(o_t\)为输出门控计算，\(h_t\)为隐藏状态表征。通过由门控控制的遗忘机制，可以有效建模对于远距离序列单元信息。
 
-Long short-term memory (Long short-term memory, LSTM) is a special RNN, mainly to solve the problem of gradient disappearance and gradient explosion in the training process of long sequences. It was proposed by Hochreiter and Schmidhuber in 1997\cite{lstm1997}, and was improved and promoted by many following work. LSTM has performed very well on a variety of problems and is now widely used. The general model of LSTM is like \figurename{\ref{ch2-fig7}}.
+However, when the sequence is long, the problem of long dependencies arises. For example, for a sequence, the current state depends on a state far away from the current state, and as the time interval increases, the ability of RNNs to learn state representation is greatly reduced. Long short-term memory (LSTM)\cite{lstm1997} is proposed as a solution to the shortcomings of RNN, which uses a gating mechanism to achieve long-term memory. It solves the problems such as gradient explosion or gradient disappearance of RNN. It also has good performance in capturing sequence information. The general model of LSTM is like \figurename{\ref{fig:ch2-lstm-model}}, which represents the computational details within an LSTM cell at the moment of \(t\). Among them, \(\sigma\) is the activation function, \(c_t\) is the cell state representation, \(f_t\) is the forgetting gating calculation, \(i_t\) is the input gating calculation, \(o_t\) is the output gating calculation, and \(h_t\) is the hidden state representation. The forgetting mechanism controlled by gating can be effectively modeled for long-range sequential unitary information.
 
 \begin{figure}[htbp!]
 	\centering
-	\includegraphics[width=1.0\textwidth]{ch2-fig7.png}
+	\includegraphics[width=0.8\textwidth]{ch2-lstm-model.pdf}
 	%\includegraphics[width=1.0\textwidth]{ch2-fig8.png}
-	\caption{Structure of LSTM Unit}\label{ch2-fig7}
+	\caption{Structure of LSTM Unit}\label{fig:ch2-lstm-model}
 \end{figure}
 
-%与仅具有一个传输状态$ h ^ t $的RNN相比，LSTM具有两个传输状态，一个单元状态$ c_t $和一个隐藏状态$ h_t $。 LSTM中的单元状态对应于RNN中隐藏状态的角色。 其中，向下传递的单元状态$ c_t $的变化非常缓慢，而隐藏状态$ h_t $在不同节点下通常具有很大的差异。 LSTM能够通过一种经过精心设计的称为``门''的结构，将信息删除或添加到单元状态。 门是一种选择性地让信息通过的方式。 它们包括一个S型神经网络层和一个逐点乘法运算。 Sigmoid层输出介于0和1之间的值，该值描述每个部分可以通过多少体积。 0表示``不允许通过任何金额''，1表示``允许通过任何金额''。 LSTM具有三个门来保护和控制单元状态。 LSTM中的三种门是忘记门，输入门和输出门：
 
-Compared with RNN which has only one transmission state \(h^t\), LSTM has two transmission states, one cell state \(C_t\), and one hidden state \(h_t\). The cell state in LSTM corresponds to the role of the hidden state in RNN\@. Among them, the cell state \(C_t\) passed down changes very slowly while the hidden state \(h_t\) often has a big difference under different nodes. LSTM has the ability to remove or add information to the cell state through a well-designed structure called a ``gate''. A door is a way of letting information through selectively. They include a sigmoid neural network layer and a point-wise multiplication operation. The Sigmoid layer outputs a value between 0 and 1, describing how much volume can pass through each part. 0 means ``no amount is allowed to pass'', 1 means ``allow any amount to pass''. LSTM has three gates to protect and control the cell state.
+% Compared with RNN which has only one transmission state \(h^t\), LSTM has two transmission states, one cell state \(C_t\), and one hidden state \(h_t\). The cell state in LSTM corresponds to the role of the hidden state in RNN\@. Among them, the cell state \(C_t\) passed down changes very slowly while the hidden state \(h_t\) often has a big difference under different nodes. LSTM has the ability to remove or add information to the cell state through a well-designed structure called a ``gate''. A door is a way of letting information through selectively. They include a sigmoid neural network layer and a point-wise multiplication operation. The Sigmoid layer outputs a value between 0 and 1, describing how much volume can pass through each part. 0 means ``no amount is allowed to pass'', 1 means ``allow any amount to pass''. LSTM has three gates to protect and control the cell state.
 
-The core part of LSTM is the connection between cell states, which is generally called the cell state. The reason why LSTM can solve the long-term dependence of RNN is because LSTM introduces a gate mechanism to control the circulation and loss of features. The three kind of gate in LSTM is forget gate, input gate and output gate:
+% The core part of LSTM is the connection between cell states, which is generally called the cell state. The reason why LSTM can solve the long-term dependence of RNN is because LSTM introduces a gate mechanism to control the circulation and loss of features. The three kind of gate in LSTM is forget gate, input gate and output gate:
 % \begin{itemize}
 % 	\item \textbf{Forget Gate}: The first step in the LSTM is to decide what information to discard from the cell state. This decision is done through a gate called the forgetting gate. The gate reads \(h_{t-1}\) and \(x_t\) and outputs a value between 0 and 1 to each number in the cell state \(C_{t-1}\). 1 means ``keep completely'' and 0 means ``discard completely''. The calculation formula is~\ref{lstm-forget}:
 % 	      \begin{align}
@@ -203,7 +204,8 @@ The core part of LSTM is the connection between cell states, which is generally 
 % 	      The \(W_o\) and \(b_o\) are learnable parameters of output gate.
 % \end{itemize}
 
-However, there is still a problem with using single directional LSTM to model sentences: it is impossible to encode information from back to front. In more fine-grained classification, such as the five classification tasks for strong commendation, weak commendation, neutral, weak derogation, and strong derogation, we need to pay attention to the interaction between emotion words, degree words, and negative words. Bi-LSTM can better capture the bidirectional semantic dependence. Bi-LSTM can better capture the bidirectional semantic dependence. The Bi-LSTM output can be obtained by inputting the positive sequence and the reverse sequence input sequence into two sets of LSTM networks and perform element-wise addition. The output of positive-order LSTM is \(\overrightarrow{h_t}\), the output of reverse-order LSTM is \(\overleftarrow{h_t}\), \(\bigoplus \) means element-wise addition. The output of Bi-LSTM is:
+%单向LSTM也有一个固有的缺陷，它只能捕获\(t\)时刻以前的序列状态信息，即只能捕获之前序列输入。双向LSTM通过将反向序列输入LSTM并与正向LSTM序列进行聚合，可以捕获双向的语义信息，同时对双向的依赖建模。
+One-way LSTM also has an inherent drawback that it can only capture the sequence state information before \(t\) moment, i.e., it can only capture the previous sequence input. The bidirectional LSTM (Bi-LSTM)\cite{graves2005framewise} can capture semantic information in both directions by feeding the reverse sequence into the LSTM and aggregating it with the forward LSTM sequence, while modeling the dependencies in both directions. The Bi-LSTM output can be obtained by inputting the positive sequence and the reverse sequence input sequence into two sets of LSTM networks and perform element-wise addition. The output of positive-order LSTM is \(\overrightarrow{h_t}\), the output of reverse-order LSTM is \(\overleftarrow{h_t}\), \(\bigoplus \) means sequence concatenation. The output of Bi-LSTM is:
 \begin{align}
 	\overrightarrow{h_t} & = \overrightarrow{LSTM}(e_t)                       \\
 	\overleftarrow{h_t}  & = \overleftarrow{LSTM}(e_t)                        \\
@@ -211,13 +213,25 @@ However, there is still a problem with using single directional LSTM to model se
 \end{align}
 The Bi-LSTM Structure is like \figurename{\ref{fig:ch2-model-bilstm}}.
 
-\begin{figure}[htbp!]
+\begin{figure}[H]
 	\centering
-	\includegraphics[width=1.0\textwidth]{ch2-model-bilstm.pdf}
+	\includegraphics[width=0.8\textwidth]{ch2-bilstm-model.pdf}
 	\caption{Structure of Bi-LSTM}\label{fig:ch2-model-bilstm}
 \end{figure}
 
-Here, the Bi-LSTM output a bidirectional sequence as the sum of element-wise addition between positive-order and reverse-order LSTM output sequence.
+Here, the Bi-LSTM output a bidirectional sequence as the concatenation of positive-order and reverse-order LSTM output sequence.
+
+% there is still a problem with using single directional LSTM to model sentences: it is impossible to encode information from back to front. In more fine-grained classification, such as the five classification tasks for strong commendation, weak commendation, neutral, weak derogation, and strong derogation, we need to pay attention to the interaction between emotion words, degree words, and negative words. Bi-LSTM can better capture the bidirectional semantic dependence. Bi-LSTM can better capture the bidirectional semantic dependence. The Bi-LSTM output can be obtained by inputting the positive sequence and the reverse sequence input sequence into two sets of LSTM networks and perform element-wise addition. The output of positive-order LSTM is \(\overrightarrow{h_t}\), the output of reverse-order LSTM is \(\overleftarrow{h_t}\), \(\bigoplus \) means element-wise addition. The output of Bi-LSTM is:
+% \begin{align}
+% 	\overrightarrow{h_t} & = \overrightarrow{LSTM}(e_t)                       \\
+% 	\overleftarrow{h_t}  & = \overleftarrow{LSTM}(e_t)                        \\
+% 	h_t                  & =\overrightarrow{h_t}\bigoplus \overleftarrow{h_t}
+% \end{align}
+% The Bi-LSTM Structure is like \figurename{\ref{fig:ch2-model-bilstm}}.
+
+
+
+
 
 \subsubsection{Attention Layer}
 %在此模型中，整个文本挖掘模块实际上是一个编码器-解码器框架。编码阶段对词向量的嵌入表示进行编码，并将其编码为隐藏的语义向量，然后解码器对语义向量进行解码，并输出输出序列。该框架的局限性在于，对于固定长度的语义向量，无法表示整个序列的信息，并且首先输入网络的信息将被后续信息覆盖，并且随着序列的增加，覆盖范围和丢失的信息将变得更糟。
