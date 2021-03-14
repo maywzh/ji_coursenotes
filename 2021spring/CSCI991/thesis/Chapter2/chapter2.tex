@@ -54,7 +54,7 @@ In 2019, a multi-label image classification model was proposed\cite{chen2019mult
 
 From the structure we can see that there are generally two parts in the model:
 \begin{enumerate}
-	\item The first part is the exercise text information mining module , which uses a bidirectional LSTM network with added attention mechanism to text-mine hidden knowledge information on questions (including question descriptions and answers). In this paper, an end-to-end network training approach is designed to achieve the overall iterative learning of the model. Specifically, it consists of a text preprocessing part that performs the text subdivision, filtering and de-duplication parts, an embedding layer that performs the word vector embedding calculation and an Attention-based bidirectional LSTM (Bi-LSTM) network that performs text information mining, which was proposed by Peng et al. in 2016\cite{zhou2016attention}, outputting a textual information representation vector.
+	\item The first part is the exercise text information mining module , which uses a Bi-LSTM network with added attention mechanism to text-mine hidden knowledge information on questions (including question descriptions and answers). In this paper, an end-to-end network training approach is designed to achieve the overall iterative learning of the model. Specifically, it consists of a text preprocessing part that performs the text subdivision, filtering and de-duplication parts, an embedding layer that performs the word vector embedding calculation and an Attention-based Bi-LSTM (Bi-LSTM) network that performs text information mining, which was proposed by Peng et al. in 2016\cite{zhou2016attention}, outputting a textual information representation vector.
 	\item The second part is a graph convolutional neural network-based knowledge point association multi-label classifier, which maps knowledge points to a set of interdependent target classifiers. These classifiers are computed with the exercise information representation vector output from the first part to output a result vector representing the labeling probability of each knowledge point.
 \end{enumerate}
 
@@ -69,7 +69,7 @@ This section is based on the Attention based Bi-LSTM, the structure of which is 
 \end{figure}
 
 %该模型包含4个层: 
-The model include 4 layers: Pre-process Layer, Embedding Layer, Bidirectional LSTM layer, Attention Layer and Output Layer:
+The model include 4 layers: Pre-process Layer, Embedding Layer, Bi-LSTM layer, Attention Layer and Output Layer:
 \subsubsection{Pre-process Layer}
 
 %在预处理阶段，主要包括分词、清洗、正则化等方式。考虑到我们的研究对象为中文高中数学试题，相对于英文，中文句子中间没有中间空格，所以必须用分词算法来将句子分解为分词。内容中有很多对句意表达无关的文本，如果直接进行计算会造成大量的干扰和冗余信息，所以另外的文本清理也是必要的步骤。\figurename{ref{ch2-fig3}}显示了一个预处理练习文本的例子。
@@ -86,6 +86,8 @@ In the pre-processing stage, it mainly includes word separation, cleaning and re
 	\caption{Example of Preprocessing}\label{fig:ch2-model-preprocessing}
 \end{figure}
 
+% - 分词。汉语分词是汉语自然语言处理的基本步骤。在汉语中，一个句子中的词与词之间是没有自然分隔的，所以必须先对句子进行分段，将句子分解成词。分词的效果将直接影响语篇、语法树等模块的效果。选择合适的汉语分词算法可以达到较好的自然语言处理效果，帮助计算机理解复杂的汉语。目前，汉语分词主要分为基于词典规则匹配和基于统计模型的两种算法。与前者相比，后者具有更好的泛化能力和学习能力。它用于先验规则之外的分词，如歧义词和未注册词表现较好。在该模型中，采用了目前流行的jieba分词，实现了基于Trie书结构的词条图扫描，利用阶段规划和HMM模型等算法，找到基于词频的最大分词分组和合并，实现了未来登录词的识别。用户还可以自定义停字和用户字典，实现专有名词识别。
+% - 清理。语料库清理：保留语料库中的有用数据，删除噪声数据。常见的清洗方法包括：人工重删、对齐、删除和标注。对于句子中不需要的词，即停顿词，它们的存在不影响句子的意思。在文本中，会有大量的功能词、代词或没有特定含义的动词和名词。这些词对文本分析没有帮助，所以这些停顿词可以去掉。对于习题文本，有很多数学表达式、符号等，考虑到很多习题中的这些表达式不是文本格式，必须采用OCR技术将数学表达式从图片预处理成文本。因此，在中文文本足够的情况下，可以考虑将数学表达式过滤掉，以减少计算负荷。
 
 \begin{itemize}
 	\item Segmentation: Chinese word segmentation is a basic step of Chinese natural language processing. In Chinese, there is no natural separation between words in a sentence, so the sentence must be segmented first to break the sentence into words. The effect of word segmentation will directly affect the effect of parts of speech, syntax tree and other modules. Choosing an appropriate Chinese word segmentation algorithm can achieve better natural language processing effects and help computers understand complex Chinese language. At present, Chinese word segmentation is mainly divided into two algorithms based on dictionary rule matching and based on statistical model. Compared with the former, the latter has better generalization and learning ability. It is used for word segmentation outside the prior rules such as ambiguous words and unregistered Words perform better. In this model, the current popular jieba word segmentation is used, which realizes word map scanning based on the Trie book structure, and uses algorithms such as stage planning and HMM model to find the largest word frequency-based segmentation grouping and merge to realize the future Recognition of login words. Users can also customize stop words and user dictionaries to realize proper noun recognition.
@@ -93,7 +95,7 @@ In the pre-processing stage, it mainly includes word separation, cleaning and re
 \end{itemize}
 
 %经过数据处理的步骤，得到了一个干净的文本token序列，接下来在Embedding层可以利用word2vec技术来进行文本embedding操作。
-After the steps of data processing, a clean text token sequence is obtained, and then the word2vec technology can be used to perform text embedding operations on the Embedding layer.
+After the data processing step, a clean sequence of text tokens is obtained, and next in the Embedding layer the word2vec technique can be used to perform text embedding operations.
 
 \subsubsection{Embedding Layer}
 %在深度学习的应用过程中，嵌入这样一种将离散变量转变为连续向量的方式为神经网络在各方面的应用带来了极大的扩展。嵌入是一个将离散变量转为连续向量表示的一个方式。在神经网络中，embedding 是非常有用的，因为它不光可以减少离散变量的空间维数，同时还可以有意义的表示该变量。例如在自然语言处理方面，如果采用朴素的one-hot编码，往往会造成向量的维度过多而稀疏，也无法学习到向量之间的依赖关系。在进行embedding训练的过程中，embedded向量会得到更新，这可以清晰地显示出向量之间的练习。Mikolov等人在2013年提出了基于 NNLM、 RNNLM 和 C&W 模型改进的CBOW(Continuous Bag-of-Words)和Skip-gram模型，并在接下来数年成为了实现word embedding的一种经典方案。同年在Mikolov的另一篇文献中，训练Skip-gram模型的两个策略：Hierarchical Softmax和Negative Sampling被提出来。CBOW的原理是通过根据输入周围若干个个词来预测出这个词本身（即通过上下文预测词语），而Skip-gram模型则是根据输入词语来预测周围若干个词（即输入词语预测上下文）。
@@ -120,7 +122,7 @@ In this layer, we obtain a word token sequence extracted from the original exerc
 	e_i = W^w v_i
 \end{align}
 
-\subsubsection{Bidirectional LSTM Layer}
+\subsubsection{Bi-LSTM Layer}
 %为了解决文本序列学习的问题，一般用循环神经网络来处理序列数据。相比一般的神经网络来说，他能够处理序列变化的数据。比如某个单词的意思会因为上文提到的内容不同而有不同的含义，RNN就能够很好地解决这类问题。在本节中，任务核心是一个序列到序列(Seq2Seq)的任务，输入一个题目描述的embedding向量，输出一个包含当前训练到的信息序列。最朴素的想法就是用原始的RNN，其结构如图所示。$x$为当前状态下数据的输入， $h$表示接收到的上一个节点的输入。$y$为当前节点状态下的输出，而$h^\prime$为传递到下一个节点的输出。我们获得以下关系:
 
 
@@ -153,42 +155,42 @@ Long short-term memory (Long short-term memory, LSTM) is a special RNN, mainly t
 Compared with RNN which has only one transmission state \(h^t\), LSTM has two transmission states, one cell state \(C_t\), and one hidden state \(h_t\). The cell state in LSTM corresponds to the role of the hidden state in RNN\@. Among them, the cell state \(C_t\) passed down changes very slowly while the hidden state \(h_t\) often has a big difference under different nodes. LSTM has the ability to remove or add information to the cell state through a well-designed structure called a ``gate''. A door is a way of letting information through selectively. They include a sigmoid neural network layer and a point-wise multiplication operation. The Sigmoid layer outputs a value between 0 and 1, describing how much volume can pass through each part. 0 means ``no amount is allowed to pass'', 1 means ``allow any amount to pass''. LSTM has three gates to protect and control the cell state.
 
 The core part of LSTM is the connection between cell states, which is generally called the cell state. The reason why LSTM can solve the long-term dependence of RNN is because LSTM introduces a gate mechanism to control the circulation and loss of features. The three kind of gate in LSTM is forget gate, input gate and output gate:
-\begin{itemize}
-	\item \textbf{Forget Gate}: The first step in the LSTM is to decide what information to discard from the cell state. This decision is done through a gate called the forgetting gate. The gate reads \(h_{t-1}\) and \(x_t\) and outputs a value between 0 and 1 to each number in the cell state \(C_{t-1}\). 1 means ``keep completely'' and 0 means ``discard completely''. The calculation formula is~\ref{lstm-forget}:
-	      \begin{align}
-		      f_{t}=\sigma(W_{f} \cdot[h_{t-1}, x_{t}]+b_{f}) \label{lstm-forget}
-	      \end{align}
-	      The LSTM network determines what percentage of the previous content the network will remember through learning. The \(W_f\) and \(b_f\) is learnable parameter of forget gate.
-	\item \textbf{Input Gate}: The next step is to determine what new information is stored in the cell state. There are two parts here. First, the sigmoid layer called the ``input gate layer'' determines what values will be updated. Then, a tanh layer creates a new candidate value vector \(\widetilde{C}_t\), which will be added to the state. The calculation formula is~\ref{lstm-input1}--\ref{lstm-input2}:
-	      \begin{align}
-		      i_{t}         & =\sigma(W_{i} \cdot[h_{t-1}, x_{t}]+b_{i}) \label{lstm-input1} \\
-		      \tilde{C}_{t} & =\tanh (W_{C} \cdot[h_{t-1}, x_{t}]+b_{C}) \label{lstm-input2}
-	      \end{align}
-	      \(\tilde{C}_{t}\) represents the update value of the unit state, which is obtained from the input data \(x_t\) and hidden nodes \(h_{t-1}\) through a neural network layer. The activation function of the update value of the unit state usually uses tanh. \(i_t\) is called an input gate, which is also a vector with elements in the interval of \([0,1]\) just like \(f_t\), which is also calculated by \(x_t\) and \(h_{t-1}\) through \(sigmoid\)activation function. \(W_i\), \(W_C\), \(b_i\), \(b_C\) are the learnable parameters of the input gate. \(i_t\) is used to control which features of \(\tilde{C}_{t}\) are used to update \(C_t\), following the same method as \(f_t\), like formula~\ref{lstm-input3}:
-	      \begin{align}
-		      C_{t}=f_{t} \times C_{t-1}+i_{t} \times \tilde{C}_{t} \label{lstm-input3}
-	      \end{align}
+% \begin{itemize}
+% 	\item \textbf{Forget Gate}: The first step in the LSTM is to decide what information to discard from the cell state. This decision is done through a gate called the forgetting gate. The gate reads \(h_{t-1}\) and \(x_t\) and outputs a value between 0 and 1 to each number in the cell state \(C_{t-1}\). 1 means ``keep completely'' and 0 means ``discard completely''. The calculation formula is~\ref{lstm-forget}:
+% 	      \begin{align}
+% 		      f_{t}=\sigma(W_{f} \cdot[h_{t-1}, x_{t}]+b_{f}) \label{lstm-forget}
+% 	      \end{align}
+% 	      The LSTM network determines what percentage of the previous content the network will remember through learning. The \(W_f\) and \(b_f\) is learnable parameter of forget gate.
+% 	\item \textbf{Input Gate}: The next step is to determine what new information is stored in the cell state. There are two parts here. First, the sigmoid layer called the ``input gate layer'' determines what values will be updated. Then, a tanh layer creates a new candidate value vector \(\widetilde{C}_t\), which will be added to the state. The calculation formula is~\ref{lstm-input1}--\ref{lstm-input2}:
+% 	      \begin{align}
+% 		      i_{t}         & =\sigma(W_{i} \cdot[h_{t-1}, x_{t}]+b_{i}) \label{lstm-input1} \\
+% 		      \tilde{C}_{t} & =\tanh (W_{C} \cdot[h_{t-1}, x_{t}]+b_{C}) \label{lstm-input2}
+% 	      \end{align}
+% 	      \(\tilde{C}_{t}\) represents the update value of the unit state, which is obtained from the input data \(x_t\) and hidden nodes \(h_{t-1}\) through a neural network layer. The activation function of the update value of the unit state usually uses tanh. \(i_t\) is called an input gate, which is also a vector with elements in the interval of \([0,1]\) just like \(f_t\), which is also calculated by \(x_t\) and \(h_{t-1}\) through \(sigmoid\)activation function. \(W_i\), \(W_C\), \(b_i\), \(b_C\) are the learnable parameters of the input gate. \(i_t\) is used to control which features of \(\tilde{C}_{t}\) are used to update \(C_t\), following the same method as \(f_t\), like formula~\ref{lstm-input3}:
+% 	      \begin{align}
+% 		      C_{t}=f_{t} \times C_{t-1}+i_{t} \times \tilde{C}_{t} \label{lstm-input3}
+% 	      \end{align}
 
-	\item \textbf{Output gate}: The final step is to determine the output value. This output will be based on the cell state of the network. First, we run a sigmoid layer to determine which part of the cell state will be output. Next, we process the cell state through tanh (get a value between -1 and 1) and multiply it with the output of the sigmoid gate, and finally output the part that determines the output. The calculation is like formula~\ref{lstm-output1}--\ref{lstm-output2}:
-	      \begin{align}
-		      o_{t} & =\sigma(W_{o}[h_{t-1}, x_{t}]+b_{o}) \label{lstm-output1} \\
-		      h_{t} & =o_{t} * \tanh (C_{t}) \label{lstm-output2}
-	      \end{align}
-	      The \(W_o\) and \(b_o\) are learnable parameters of output gate.
-\end{itemize}
+% 	\item \textbf{Output gate}: The final step is to determine the output value. This output will be based on the cell state of the network. First, we run a sigmoid layer to determine which part of the cell state will be output. Next, we process the cell state through tanh (get a value between -1 and 1) and multiply it with the output of the sigmoid gate, and finally output the part that determines the output. The calculation is like formula~\ref{lstm-output1}--\ref{lstm-output2}:
+% 	      \begin{align}
+% 		      o_{t} & =\sigma(W_{o}[h_{t-1}, x_{t}]+b_{o}) \label{lstm-output1} \\
+% 		      h_{t} & =o_{t} * \tanh (C_{t}) \label{lstm-output2}
+% 	      \end{align}
+% 	      The \(W_o\) and \(b_o\) are learnable parameters of output gate.
+% \end{itemize}
 
-However, there is still a problem with using one-way LSTM to model sentences: it is impossible to encode information from back to front. In more fine-grained classification, such as the five classification tasks for strong commendation, weak commendation, neutral, weak derogation, and strong derogation, we need to pay attention to the interaction between emotion words, degree words, and negative words. Two-way LSTM can better capture the two-way semantic dependence. Bidirectional LSTM (Bi-LSTM) can better capture the two-way semantic dependence. The Bi-LSTM output can be obtained by inputting the positive sequence and the reverse sequence input sequence into two sets of LSTM networks and perform element-wise addition. The output of positive-order LSTM is \(\overrightarrow{h_t}\), the output of reverse-order LSTM is \(\overleftarrow{h_t}\), \(\bigoplus \) means element-wise addition. The output of bidirectional LSTM is:
+However, there is still a problem with using single directional LSTM to model sentences: it is impossible to encode information from back to front. In more fine-grained classification, such as the five classification tasks for strong commendation, weak commendation, neutral, weak derogation, and strong derogation, we need to pay attention to the interaction between emotion words, degree words, and negative words. Bi-LSTM can better capture the bidirectional semantic dependence. Bi-LSTM can better capture the bidirectional semantic dependence. The Bi-LSTM output can be obtained by inputting the positive sequence and the reverse sequence input sequence into two sets of LSTM networks and perform element-wise addition. The output of positive-order LSTM is \(\overrightarrow{h_t}\), the output of reverse-order LSTM is \(\overleftarrow{h_t}\), \(\bigoplus \) means element-wise addition. The output of Bi-LSTM is:
 \begin{align}
 	\overrightarrow{h_t} & = \overrightarrow{LSTM}(e_t)                       \\
 	\overleftarrow{h_t}  & = \overleftarrow{LSTM}(e_t)                        \\
 	h_t                  & =\overrightarrow{h_t}\bigoplus \overleftarrow{h_t}
 \end{align}
-The Bi-LSTM Structure is like \figurename{\ref{ch2-fig9}}.
+The Bi-LSTM Structure is like \figurename{\ref{fig:ch2-model-bilstm}}.
 
 \begin{figure}[htbp!]
 	\centering
-	\includegraphics[width=1.0\textwidth]{ch2-fig9.png}
-	\caption{Structure of Bi-LSTM}\label{ch2-fig9}
+	\includegraphics[width=1.0\textwidth]{ch2-model-bilstm.pdf}
+	\caption{Structure of Bi-LSTM}\label{fig:ch2-model-bilstm}
 \end{figure}
 
 Here, the Bi-LSTM output a bidirectional sequence as the sum of element-wise addition between positive-order and reverse-order LSTM output sequence.
@@ -205,7 +207,7 @@ In this model, the entire text mining module is actually an encoder-decoder fram
 
 In order to solve the drawbacks in the encoder-decoder framework, the Attention mechanism was proposed by Bahdanau et al.\cite{bahdanau2014neural}. Human attention is a mechanism for quickly screening high-value information from a large amount of information. The deep learning attention mechanism is inspired by the human attention mechanism. This method is widely used in various types of deep learning tasks such as natural language processing\cite{hu2019introductory}, image classification\cite{fu2017look,sun2018multi}, and speech recognition\cite{chorowski2015attention}, and has achieved remarkable results.
 
-Actually, The essence of the attention mechanism is a series of key-value pairs <K,V> contained in Source \(S\), given an element of Query \(Q\), calculate the similarity between \(Q\) and each \(K\), and remember the weight coefficient of the corresponding value V. It is showed in \figurename{\ref{ch2-fig10}}. Then a weighted sum is performed to obtain the final Attention value. It can be expressed as:
+Actually, The essence of the attention mechanism is a series of key-value pairs <K,V> contained in Source \(S\), given an element of Query \(Q\), calculate the similarity between \(Q\) and each \(K\), and remember the weight coefficient of the corresponding value V. It is showed in \figurename{\ref{fig:ch2-model-attmodel}}. Then a weighted sum is performed to obtain the final Attention value. It can be expressed as:
 \begin{align}
 	Att(Q,S) = \sum_{i=1}^{|S|}Sim(Q,K_i)*V_i
 \end{align}
@@ -213,13 +215,11 @@ Where \(Att\) and \(Sim\) represent attention and similarity.
 
 \begin{figure}[htbp!]
 	\centering
-	\includegraphics[width=1.0\textwidth]{ch2-fig11.png}
-	\caption{The essential idea of Attention mechanism}\label{ch2-fig10}
+	\includegraphics[width=1.0\textwidth]{ch2-model-attmodel.pdf}
+	\caption{The essential idea of Attention mechanism}\label{fig:ch2-model-attmodel}
 \end{figure}
 Following the attention method, the encoder use Bi-LSTM and get hidden state vector \(h_t=\overrightarrow{h_t}\bigoplus \overleftarrow{h_t}\). A word attention mechanism is introduced here. The principle is that not all words have the same effect on the meaning of sentences. Therefore, we introduce an attention mechanism to extract words that are important to the meaning of a sentence, and summarize the representations of those information words to form a sentence vector.
 Specifically:
-
-
 
 \begin{align}
 	u_t      & = \tanh(W_\omega h_t + b_\omega )                                                    \\
@@ -235,12 +235,12 @@ Where \(u_t\) is the hidden representation of \(h_t\), \(r\) is the output text 
 
 %本模型采用GCN结构的原因在于，GCN对于各个节点的参数共享使得学习到的分类器可以保留知识关联图中的关联信息，从而隐式表示其空间语义结构。因此输出的分类器可以保留和识别隐式知识标签依赖信息。 对于知识点的依赖关系参考数据关联方法挖掘算法例如apriori算法，通过计算知识点在习题中的共现度来计算其协关系矩阵。
 
-In high school mathematics, knowledge points have more complex interrelationships such as correlation, subordination, inclusion, predecessor, successor and so on. These complex interrelationships are often difficult to model in Euclidean space, or this creates data sparsity problems. The establishment of relationships between knowledge points through graph data structures is more intuitive and has better interpretability. Recalling the task of this model, it gives descriptions and answers to exercises, some of which have already marked knowledge points, and use this information to mark knowledge points for exercises that are labeled knowledge points. Taking into account the dependence between knowledge points, some deep hidden knowledge points that cannot be represented in shallow features can also be correctly labeled by the graph neural network output classifier. In this model, a graph convolutional neural network is used to model the knowledge point relationship graph, and each knowledge point corresponds to a node on the graph. After multiple graph convolution calculations, a series of classifiers are generated. These classifiers respectively act on the text vector generated by the text mining module. Each classifier outputs a value representing the probability that the knowledge point is associated with the exercise. Its overall structure is shown in the \figurename{\ref{fig:ch2-fig12}}.
+In high school mathematics, knowledge points have more complex interrelationships such as correlation, subordination, inclusion, predecessor, successor and so on. These complex interrelationships are often difficult to model in Euclidean space, or this creates data sparsity problems. The establishment of relationships between knowledge points through graph data structures is more intuitive and has better interpretability. Recalling the task of this model, it gives descriptions and answers to exercises, some of which have already marked knowledge points, and use this information to mark knowledge points for exercises that are labeled knowledge points. Taking into account the dependence between knowledge points, some deep hidden knowledge points that cannot be represented in shallow features can also be correctly labeled by the graph neural network output classifier. In this model, a graph convolutional neural network is used to model the knowledge point relationship graph, and each knowledge point corresponds to a node on the graph. After multiple graph convolution calculations, a series of classifiers are generated. These classifiers respectively act on the text vector generated by the text mining module. Each classifier outputs a value representing the probability that the knowledge point is associated with the exercise. Its overall structure is shown in the \figurename{\ref{fig:ch2-model-gcncls}}.
 
 \begin{figure}[htbp!]
 	\centering
-	\includegraphics[width=1.0\textwidth]{ch2-fig12.png}
-	\caption{The structure of GCN Classifier Generator}\label{fig:ch2-fig12}
+	\includegraphics[width=1.0\textwidth]{ch2-model-gcncls.pdf}
+	\caption{The structure of GCN Classifier Generator}\label{fig:ch2-model-gcncls}
 \end{figure}
 
 In the proposed GCN-based model, knowledge point labels are represented by word embedding. Knowledge point set \(K=\{k_1,k_2,\ldots,k_T\} \), where \(T\) is the total number of knowledge points. For each single knowledge point \(k_i\), \(k_i \in \mathbb{R}^{T\times d_{ko}}\), \(d_{ko}\) is the dimensionality of the embedding vector of knowledge point object. In this paper, a learnable stacked GCN network is used to transform these knowledge point objects one by one into an internally connected knowledge point object classifier \(C=[c_1,c_2,\ldots,c_n]\), where \(c_i\in\mathbb {R}^{T\times d^r}\), \(d^r\) is the dimensionality of the text representation vector \(r\) output by the text mining module. These classifiers and \(r\) can be used to calculate the dot product of each label. The probability of the label.
@@ -316,11 +316,11 @@ It is a simple solution to directly set \(P\) as the incidence matrix \(A\), but
 This chapter proposes a multi-label labeling model for exercise knowledge points. In this section, first introduces the data set, then introduces some baseline performance models, and then combines the multi-label labeling to propose a comparative performance indicator evaluation plan. Finally, Give comparison results and analysis.
 \subsection{Dataset}
 %本文中的实验数据来自于在线网站koolearn.com的带标签的高考数学考题以及模拟题（包含答案解析），通过爬虫爬取题干、答案解析等文本语料。其部分知识点关联模型可以表示为如下图结构。该数据集经过过滤和人工选择，共3374道试题，包含148个知识点，题均知识点为1.7个，其知识点分布如图所示。
-The experimental data in this article comes from the labeled college entrance examination math test questions and simulation questions (including answer analysis) on the online website koolearn.com. The text corpus such as question stems and answer analysis are crawled through crawlers. Part of the knowledge point association model can be expressed as the following structure. The data set has been filtered and manually selected. There are 3374 test questions, including 148 knowledge points, with an average of 1.7 knowledge points. The distribution of several knowledge points is shown in the \figurename{\ref{ch2-fig13}}.
+The experimental data in this article comes from the labeled college entrance examination math test questions and simulation questions (including answer analysis) on the online website koolearn.com. The text corpus such as question stems and answer analysis are crawled through crawlers. Part of the knowledge point association model can be expressed as the following structure. The data set has been filtered and manually selected. There are 3374 test questions, including 148 knowledge points, with an average of 1.7 knowledge points. The distribution of several knowledge points is shown in the \figurename{\ref{fig:ch2-model-knowledgenet}}.
 \begin{figure}[htbp!]
 	\centering
-	\includegraphics[width=1.0\textwidth]{ch2-fig13.png}
-	\caption{Knowledge Points of dataset}\label{ch2-fig13}
+	\includegraphics[width=1.0\textwidth]{ch2-model-knowledgenet.pdf}
+	\caption{Knowledge Points of dataset}\label{fig:ch2-model-knowledgenet.pdf}
 \end{figure}
 
 %该数据集的习题知识点数目分布如图所示。
