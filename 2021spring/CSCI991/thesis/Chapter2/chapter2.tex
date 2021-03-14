@@ -40,7 +40,7 @@ The task of this section is to construct a model for mining the exercise-knowled
 
 In 2019, a multi-label image classification model was proposed\cite{chen2019multi}, and inspired by this model, this chapter proposes a multi-knowledge point labeling model based on attention mechanism exercise text feature extraction and graph neural network-based knowledge point relationship mining, which builds a knowledge point relationship graph to describe the association relationship between knowledge points by a data-driven approach, builds classifiers for knowledge points separately, and then performs multi-label classification. Its main architecture diagram is as follows \figurename{\ref{fig:ch2-modelarchitecture}}.
 
-\begin{figure}[htbp!]
+\begin{figure}[H]
 	\centering
 	\includegraphics[width=1.0\textwidth]{ch2-model-architecture.pdf}
 	\caption{Structure of the Knowledge Tagging Model}\label{fig:ch2-modelarchitecture}
@@ -62,7 +62,7 @@ From the structure we can see that there are generally two parts in the model:
 \subsection{The Exercise Description Text Mining}
 %本部分基于Peng等人提出的Attention based Bi-LSTM模型，该模型的结构如图所示\ref{}
 This section is based on the Attention based Bi-LSTM, whose architecture design is shown in the \figurename{\ref{fig:ch2-model-bilstm}}.
-\begin{figure}[htbp!]
+\begin{figure}[H]
 	\centering
 	\includegraphics[width=1.0\textwidth]{ch2-model-bilstm.pdf}
 	\caption{Structure of Attention Based Bi-LSTM}\label{fig:ch2-model-bilstm}
@@ -80,7 +80,7 @@ The model include 4 layers: Pre-process Layer, Embedding Layer, Bi-LSTM layer, A
 
 In the pre-processing stage, it mainly includes word separation, cleaning and regularization. Considering that our research object is Chinese high school mathematics test questions, compared with English, there is no middle space in the middle of sentences of Chinese language, so it is necessary to use the word separation algorithm to decompose the sentences into subwords. There are many texts in the content that are irrelevant to the sentence expression, which will cause a lot of interference and redundant information if the calculation is performed directly, so additional text cleaning is also a necessary step. The \figurename{\ref{fig:ch2-model-preprocessing}} shows an example of preprocessing of an exercise text.
 
-\begin{figure}[htbp!]
+\begin{figure}[H]
 	\centering
 	\includegraphics[width=1.0\textwidth]{ch2-model-preprocessing.pdf}
 	\caption{Example of Preprocessing}\label{fig:ch2-model-preprocessing}
@@ -117,7 +117,7 @@ In the exercise text, there will be some combinations of words, i.e., groups of 
 
 Some words of the original sequence of exercise text words obtained after the word separation process are processed by WWM, and the marker [CLS] is added at the beginning of the sequence, and the inter-sentence is marked by [SEP] separator. After training, the word embedding vector is output. The output embedding of each word consists of three parts, namely token embedding, segment embedding and position embedding, which characterize the embedding information of the word from different perspectives. Subsequently, the word embedding vector is fed into the feature extraction bidirectional Transformer layer of BERT, and the feature sequence representation vector containing deep semantic features can be obtained. The overall architecture is shown in the \figurename{\ref{fig:ch2-bert-model}}.
 
-\begin{figure}[h]
+\begin{figure}[H]
 	\centering
 	\includegraphics[width=1.0\textwidth]{ch2-bert-model.pdf}
 	\caption{BERT-based Embedding}\label{fig:ch2-bert-model}
@@ -128,7 +128,7 @@ Some words of the original sequence of exercise text words obtained after the wo
 
 % In 2013, Mikolov et al. proposed an improved CBOW (Continuous Bag-of-Words) and Skip-gram model based on Neural Network Language Model (NNLM)\cite{bengio2003neural}, Recurrent Neural Network Language Model (RNNLM) \cite{mikolov2011extensions} and C\&W models\cite{mikolov2013efficient}, and in the next few years it became a classic solution for word embedding, the model is like \figurename{\ref{ch2-fig4}}. In another paper by Mikolov in the same year, two strategies for training the Skip-gram model: Hierarchical Softmax and Negative Sampling were proposed\cite{mikolov2013distributed}. The principle of CBOW is to predict the word itself based on several words around the input (i.e., predict the word through context), while the Skip-gram model predicts several surrounding words based on the input word (i.e., the input word predicts the context), like following formula~\ref{fml-cbow}--\ref{fml-sg}.
 
-% \begin{figure}[htbp!]
+% \begin{figure}[H]
 % 	\centering
 % 	\includegraphics[width=1.0\textwidth]{ch2-fig4.png}
 % 	\caption{Method of CBOW and Skip-gram}\label{ch2-fig4}
@@ -159,9 +159,9 @@ RNNs are well equipped to solve various types of problems and tasks in serialize
 \end{equation}
 
 
-\begin{figure}[htbp!]
+\begin{figure}[H]
 	\centering
-	\includegraphics[width=0.8\textwidth]{ch2-rnn-model.pdf}
+	\includegraphics[width=1.0\textwidth]{ch2-rnn-model.pdf}
 	\caption{Naive RNN Unit}\label{fig:ch2-rnn-model}
 \end{figure}
 
@@ -169,9 +169,9 @@ RNNs are well equipped to solve various types of problems and tasks in serialize
 
 However, when the sequence is long, the problem of long dependencies arises. For example, for a sequence, the current state depends on a state far away from the current state, and as the time interval increases, the ability of RNNs to learn state representation is greatly reduced. Long short-term memory (LSTM)\cite{lstm1997} is proposed as a solution to the shortcomings of RNN, which uses a gating mechanism to achieve long-term memory. It solves the problems such as gradient explosion or gradient disappearance of RNN. It also has good performance in capturing sequence information. The general model of LSTM is like \figurename{\ref{fig:ch2-lstm-model}}, which represents the computational details within an LSTM cell at the moment of \(t\). Among them, \(\sigma\) is the activation function, \(c_t\) is the cell state representation, \(f_t\) is the forgetting gating calculation, \(i_t\) is the input gating calculation, \(o_t\) is the output gating calculation, and \(h_t\) is the hidden state representation. The forgetting mechanism controlled by gating can be effectively modeled for long-range sequential unitary information.
 
-\begin{figure}[htbp!]
+\begin{figure}[H]
 	\centering
-	\includegraphics[width=0.8\textwidth]{ch2-lstm-model.pdf}
+	\includegraphics[width=1.0\textwidth]{ch2-lstm-model.pdf}
 	%\includegraphics[width=1.0\textwidth]{ch2-fig8.png}
 	\caption{Structure of LSTM Unit}\label{fig:ch2-lstm-model}
 \end{figure}
@@ -215,7 +215,7 @@ The Bi-LSTM Structure is like \figurename{\ref{fig:ch2-model-bilstm}}.
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.8\textwidth]{ch2-bilstm-model.pdf}
+	\includegraphics[width=1.0\textwidth]{ch2-bilstm-model.pdf}
 	\caption{Structure of Bi-LSTM}\label{fig:ch2-model-bilstm}
 \end{figure}
 
@@ -234,37 +234,44 @@ Here, the Bi-LSTM output a bidirectional sequence as the concatenation of positi
 
 
 \subsubsection{Attention Layer}
-%在此模型中，整个文本挖掘模块实际上是一个编码器-解码器框架。编码阶段对词向量的嵌入表示进行编码，并将其编码为隐藏的语义向量，然后解码器对语义向量进行解码，并输出输出序列。该框架的局限性在于，对于固定长度的语义向量，无法表示整个序列的信息，并且首先输入网络的信息将被后续信息覆盖，并且随着序列的增加，覆盖范围和丢失的信息将变得更糟。
 
-%为了解决编码器-解码器框架中的缺陷，Bahdanau et al。\cite{bahdanau2014neural}提出了Attention机制。人的注意力是一种从大量信息中快速筛选高价值信息的机制。深度学习注意力机制是受人类注意力机制启发的。此方法广泛用于各种类型的深度学习任务，例如自然语言处理\引用{hu2019简介}，图像分类\cite{fu2017look，sun2018multi}和语音识别\cite{chorowski2015attention}，并取得了显著成果。
+%由于文本挖掘任务中，每个特征词对于总体语义的影响是非对称的，即关键词在决定整个文本的含义方面有决定性的作用。Bahdanau等人提出的\cite{bahdanau2014neural}提出了Attention机制模型正是基于这一原理。人的注意力是一种聚焦于关键信息忽略非关键信息的机制，即各个信息点的权重不一样。
 
 %按照注意方法，编码器使用Bi-LSTM并获得隐藏状态向量$ h_t = \ overrightarrow {h_t} \ bigoplus \ overleftarrow {h_t} $。在解码器阶段，计算每个编码器隐藏层状态和解码器隐藏层状态之间的相关性，并执行softmax归一化操作以获得每个隐藏层矢量的权重。将$ H $设置为$ H = [h_1，h_2，...，h_l] $的隐藏状态矩阵，我们可以计算嵌入$ r $的练习文本。计算公式如下：
 
 
-In this model, the entire text mining module is actually an encoder-decoder framework. The encoding stage encodes the embedding representation of the word vector and encodes it into a hidden semantic vector, and then the decoder decodes the semantic vector and outputs an output sequence. The limitation of this framework is that for a fixed-length semantic vector, the information of the entire sequence cannot be represented, and the information first input to the network will be covered by subsequent information, and as the sequence increases, the coverage and loss of information will get worse.
+Since the impact of each feature word on the overall semantics in a text mining task is asymmetric, i.e., keywords have a decisive role in determining the meaning of the entire text. the proposed Attention mechanism model proposed by Bahdanau et al. is based on this principle \cite{bahdanau2014neural}. Human attention is a mechanism that focuses on key information ignoring non-key information, i.e., individual information points are weighted differently. This method is widely used in different tasks such as image classification\cite{fu2017look,sun2018multi}, language mining\cite{hu2019introductory}, and voice recognition\cite{chorowski2015attention}, and has achieved remarkable results.
+
 
 In order to solve the drawbacks in the encoder-decoder framework, the Attention mechanism was proposed by Bahdanau et al.\cite{bahdanau2014neural}. Human attention is a mechanism for quickly screening high-value information from a large amount of information. The deep learning attention mechanism is inspired by the human attention mechanism. This method is widely used in various types of deep learning tasks such as natural language processing\cite{hu2019introductory}, image classification\cite{fu2017look,sun2018multi}, and speech recognition\cite{chorowski2015attention}, and has achieved remarkable results.
 
-Actually, The essence of the attention mechanism is a series of key-value pairs <K,V> contained in Source \(S\), given an element of Query \(Q\), calculate the similarity between \(Q\) and each \(K\), and remember the weight coefficient of the corresponding value V. It is showed in \figurename{\ref{fig:ch2-model-attmodel}}. Then a weighted sum is performed to obtain the final Attention value. It can be expressed as:
+Actually, The essence of the attention mechanism is a group of key-value pairs <K,V> contained in Source \(S\), given an element of Query \(Q\), which is followed by calculating the \(Q\) similarity to each /(K/) and remembering the weight coefficients of the corresponding values \(V\). It is showed in \figurename{\ref{fig:ch2-model-attmodel}}. Then a weighted sum is performed to obtain the final Attention value. It can be expressed as:
 \begin{align}
 	Att(Q,S) = \sum_{i=1}^{|S|}Sim(Q,K_i)*V_i
 \end{align}
 Where \(Att\) and \(Sim\) represent attention and similarity.
 
-\begin{figure}[htbp!]
+\begin{figure}[H]
 	\centering
-	\includegraphics[width=1.0\textwidth]{ch2-model-attmodel.pdf}
+	\includegraphics[width=0.7\textwidth]{ch2-model-attmodel.pdf}
 	\caption{The essential idea of Attention mechanism}\label{fig:ch2-model-attmodel}
 \end{figure}
-Following the attention method, the encoder use Bi-LSTM and get hidden state vector \(h_t=\overrightarrow{h_t}\bigoplus \overleftarrow{h_t}\). A word attention mechanism is introduced here. The principle is that not all words have the same effect on the meaning of sentences. Therefore, we introduce an attention mechanism to extract words that are important to the meaning of a sentence, and summarize the representations of those information words to form a sentence vector.
-Specifically:
 
-\begin{align}
-	u_t      & = \tanh(W_\omega h_t + b_\omega )                                                    \\
-	\alpha_t & =Softmax(u_t^T u_\omega) = \frac{\exp( u_t^T u_\omega)}{\sum_t \exp(u_t^T u_\omega)} \\
-	r        & = \sum_t{\alpha_t h_t}
-\end{align}
-Where \(u_t\) is the hidden representation of \(h_t\), \(r\) is the output text vector, and the \(u_\omega \) is the similarity of the word-level context vector. By measuring the similarity between \(u_t\) and \(u_\omega \) as the importance of the word, and normalize it with the softmax function to obtain the importance weight \(\alpha_{t}\). After that, the entire text is represented as a weighted sum of word annotations based on weights. The context vector \(u_\omega \) can be regarded as a high-level representation of the fixed query ``what is the word conveying information''and is randomly initialized as a learnable parameter in the training.
+
+%本节的注意力机制的核心原理是计算出对句义影响最大的词，即关键语义词，它们在之后被汇总成为句义表征向量。
+Following the attention method, the encoder use Bi-LSTM and get hidden state vector \(h_t=\overrightarrow{h_t}\bigoplus \overleftarrow{h_t}\). A word attention mechanism is introduced here. The core principle of the attention mechanism in this section is to compute the words that have the greatest influence on sentence meaning, i.e., the key semantic words, which are later aggregated into a vector of sentence meaning representations. The formula is \ref{fml:ch2-att2}, where \(u_t\) is the hidden representation of \(h_t\), \(r\) is the output text vector, and the \(u_\omega \) is the similarity of the text vector of word aspect. By measuring the similarity between \(u_t\) and \(u_\omega \) as the importance of the word, and using the softmax function to calculate normalization and to obtain the importance weight \(\alpha_{t}\). Finally, the entire text is represented as word representation based on semantic contribution weights.
+
+
+After that, the entire text is represented as a weighted sum of word annotations based on weights. The context vector \(u_\omega \) can be regarded as a high-level representation of the fixed query ``what is the word conveying information''and is randomly initialized as a learnable parameter in the training.
+
+\begin{equation}
+	\begin{align}\label{fml:ch2-att2}
+		u_t      & = \tanh(W_\omega h_t + b_\omega )                                                    \\
+		\alpha_t & =Softmax(u_t^T u_\omega) = \frac{\exp( u_t^T u_\omega)}{\sum_t \exp(u_t^T u_\omega)} \\
+		r        & = \sum_t{\alpha_t h_t}
+	\end{align}
+\end{equation}
+
 
 \subsection{The GCN-based Knowledge Point Classifier Generator}
 %在高中数学学科中，知识点之间具有较为复杂的相互关联例如相关、从属、包含、前驱、后继等等。这些复杂的相互关系在欧式空间往往难以建模，或这产生数据稀疏性的问题。而通过图数据结构来建立知识点间的关系则更加直观和拥有更好的解释性。回顾本模型的任务，它给出习题的描述、答案，部分已经标记好知识点，利用这些信息来对为标注知识点的习题进行知识点标注。考虑到知识点之间的依赖关系，一些在浅层特征上无法表征的深层隐藏知识点也可以通过图神经网络输出分类器被正确标注。在本模型中，用到了图卷积神经网络来建模知识点关系图，每个知识点都对应图上的一个节点。经过多个图卷积计算，生成一系列的分类器，这些分类器分别作用在文本挖掘模块产生的文本向量，每个分类器输出一个值表征该知识点与是该习题相关联的概率。其总体架构如图所示。
@@ -273,9 +280,9 @@ Where \(u_t\) is the hidden representation of \(h_t\), \(r\) is the output text 
 
 %本模型采用GCN结构的原因在于，GCN对于各个节点的参数共享使得学习到的分类器可以保留知识关联图中的关联信息，从而隐式表示其空间语义结构。因此输出的分类器可以保留和识别隐式知识标签依赖信息。 对于知识点的依赖关系参考数据关联方法挖掘算法例如apriori算法，通过计算知识点在习题中的共现度来计算其协关系矩阵。
 
-In high school mathematics, knowledge points have more complex interrelationships such as correlation, subordination, inclusion, predecessor, successor and so on. These complex interrelationships are often difficult to model in Euclidean space, or this creates data sparsity problems. The establishment of relationships between knowledge points through graph data structures is more intuitive and has better interpretability. Recalling the task of this model, it gives descriptions and answers to exercises, some of which have already marked knowledge points, and use this information to mark knowledge points for exercises that are labeled knowledge points. Taking into account the dependence between knowledge points, some deep hidden knowledge points that cannot be represented in shallow features can also be correctly labeled by the graph neural network output classifier. In this model, a graph convolutional neural network is used to model the knowledge point relationship graph, and each knowledge point corresponds to a node on the graph. After multiple graph convolution calculations, a series of classifiers are generated. These classifiers respectively act on the text vector generated by the text mining module. Each classifier outputs a value representing the probability that the knowledge point is associated with the exercise. Its overall structure is shown in the \figurename{\ref{fig:ch2-model-gcncls}}.
+In high school mathematics, knowledge points have more complex interrelationships such as correlation, subordination, inclusion, predecessor, successor and so on. These complex interrelationships are often difficult to model in Euclidean space, or this creates data sparsity problems. The establishment of relationships between knowledge points through graph data structures is more intuitive and has better interpretability. Recalling the task of this model, it gives descriptions and answers to exercises, some of which have already marked knowledge points, and use this information to mark knowledge points for exercises that are labeled knowledge points. Taking into account the dependence between knowledge points, some deep hidden knowledge points that cannot be represented in shallow features can also be correctly labeled by the graph neural network output classifier. In this model, a graph convolutional neural network is used to learn and form the knowledge point connection graph, and each knowledge point corresponds to a node on the graph. After multiple graph convolution calculations, a series of classifiers are generated. These classifiers respectively act on the text vector generated by the text mining module. Each classifier outputs a value representing the probability that the knowledge point is associated with the exercise. Its overall structure is shown in the \figurename{\ref{fig:ch2-model-gcncls}}.
 
-\begin{figure}[htbp!]
+\begin{figure}[H]
 	\centering
 	\includegraphics[width=1.0\textwidth]{ch2-model-gcncls.pdf}
 	\caption{The structure of GCN Classifier Generator}\label{fig:ch2-model-gcncls}
@@ -286,46 +293,58 @@ In the proposed GCN-based model, knowledge point labels are represented by word 
 The reason why this model adopts the GCN structure is that the parameter sharing of GCN for each node allows the learned classifier to retain the associated information in the knowledge association graph, thereby implicitly expressing its spatial semantic structure. Therefore, the output classifier can retain and identify the implicit knowledge label dependent information. For the dependence of knowledge points, refer to the data association method mining algorithm such as apriori algorithm, and calculate the co-relation matrix by calculating the co-occurrence of knowledge points in the exercises.
 
 \subsubsection{Graph Convolutinal Network}
-%在现实世界中，许多重要数据集以图或网络的形式存在，例如社交网络，知识图，蛋白质相互作用网络，世界贸易网络等。一些论文对此问题进行了回顾，并试图对神经网络进行概括，并将其应用于任意图结构数据\cite{wu2018socialgcn，dettmers2018convolutional}。当前，大多数图神经网络模型具有通用的体系结构。这些模型称为图卷积神经网络（GCN），是卷积的，因为可以在图中的所有位置或局部位置共享过滤器参数。对于这些模型，他们的目标是学习图形$ G =（V，E）$上信号或特征的映射。他们的输入包括：
+%在现实世界中，许多重要的数据集都以网络的形式产生连接，形成图状结构。一些论文对此问题进行了回顾，并试图对神经网络进行概括，并将其应用于任意图结构数据\cite{wu2018socialgcn，dettmers2018convolutional}。图卷积神经网络(GCN)\cite{kipf2016semi}用于处理传统卷积神经网络难以学习的非欧氏空间数据。它定义在一个图结构\(G=(V,E)\)上，其中\(V\)、\(E\)为图的顶点和边。GCN的输入为维度为\(n^v\times d^{v}\)，其中\(n^v\)为节点数，\(d^v\)为各个顶点的特征维度数。此外，GCN又一个用于描述图结构的维度为\(n^v\times n^v\)的邻接矩阵\(A\)。
 
-In the real world, many important data sets exist in the form of graphs or networks, such as social networks, knowledge graphs, protein interaction networks, world trade networks, and so on. Some papers reviewed this problem and tried to generalize neural networks and apply them to arbitrary graph structure data\cite{wu2018socialgcn,dettmers2018convolutional}. Currently, most graph neural network models have a common architecture. Known as graph convolutional neural networks (GCNs), these models are convolutional because the filter parameters can be shared at all positions or a local position in the graph. For these models, their goal is to learn a mapping of signals or features on the graph \(G=(V,E)\). Their inputs include:
+In the real world, many important data sets generate connections in the form of networks that form graph-like structures. Several papers review this problem and attempt to generalize neural networks and apply them to arbitrary graph structured data \cite{wu2018socialgcn, dettmers2018convolutional}. The graph convolutional neural network (GCN)\cite{kipf2016semi} is used to process non-Euclidean spatial data that are difficult to learn by traditional convolutional neural networks. It is defined on a graph structure \(g=(v,e)\), where \(v\), \(e\) are the vertices and edges of the graph. the input of GCN is of dimension \(n^v\times d_{i}\), where \(n^v\) is the number of nodes and \(d^v\) is the number of feature dimensions of each vertex. In addition, the GCN has another adjacency matrix \(A\) of dimension \(n^v\times n^v\) used to describe the graph structure.
 
-\begin{itemize}
-	\item The feature description \(x_i\) of each node \(i\) can be written as an \(N\times D\) feature matrix (\(N\) represents the number of nodes, \(D\) represents the number of input features)
-	\item Characteristic description of graph structure in matrix form, usually in the form of adjacency matrix, denoted as \(A\)
-\end{itemize}
+%图卷积的学习的核心是传播，即每个节点都会传播信息给邻接的节点。每一层的传播都会被聚合起来形成下一层。GCN的第\(i-1\)层\(H^{i-1}\)到第\(i\)层\(H^i\)转换可以写作公式\ref{fml:ch2-gcnlayer}，其中f为特定的传播方式，例如所有的节点将自身的值均匀扩散给邻接节点。
+The core of graph convolutional learning is propagation, i.e., each node propagates information to neighboring nodes. The propagation of each layer is aggregated to form the next layer. The \(i-1\) layer \(H^{(i)}\in \mathbb{R}^{n_v\times d_v}\) to layer \(H^{(i+1)}\) transformation of GCN can be written in the formula \ref{fml:ch2-gcnlayer}, where f is a specific propagation method, e.g. all nodes spread their own values uniformly to neighboring nodes.
 
-The model will produce a node-level output \(Z\) (an \(N\times F\) feature matrix, where \(F\) represents the number of output features of each node). Graph-level output can be modeled by introducing some pooling operations.
-
-Each neural network layer can be written as a nonlinear function:
 \begin{align}
-	H^{(l+1)} & =f(H^{(l)}, A) \\
-	H^{(0)}   & =X             \\
-	H^{(L)}   & =Z
+	H^{(i+1)}=f(H^{(i)},A) \label{fml:ch2-gcnlayer}
 \end{align}
 
-\(L\) is the number of layers. The core problem is how the \(f\) is selected and parameterized. The \(f\) can be represented as~\ref{fml:gcn1} by applying the convolutional operation\cite{kipf2016semi}:
+%知识点间关系可以通过相关矩阵来表示，即当知识点\(i\)与知识点\(j\)相关，相关矩阵为了学习知识点之间的表示，将知识点建模为GCN中的一个顶点。该关系通过共现概率来进行学习，即对经过标记知识点的习题库进行监督学习。这是基于如下假设：当多个知识点在一个习题中出现概率较大，则其应当存在内在联系。
+
+The relationship between knowledge points can be represented by a correlation matrix, i.e., when a knowledge point \(i\) is related to a knowledge point \(j\), the correlation matrix \(A\) models the knowledge point as a vertex in the GCN in order to learn the representation between knowledge points. The relation is learned by co-occurrence probability, i.e., supervised learning is performed on the library of exercises that have been tagged with knowledge points. This is based on the assumption that when multiple knowledge points have a high probability of occurring in an exercise, they should be intrinsically linked.
+
+%本节中GCN的节点传播方式为\ref{fml:ch2-gcn2}，其中\(\tilde{A}\)为\(A\in \mathbb{R}^{n_v\times n_v}\)的正则化。\(h\)为非线性激活函数，这里选用LeakyReLU\cite{maas2013rectifier}。需要学习的参数矩阵\(W^{(i)}\in \mathbb{R}^{d_{i}\times d_{i+1}}\)可以通过习题知识点的统计关系来计算。
+
+The node propagation of GCN in this section is \ref{fml:ch2-gcn2}, where \(\widehat{A}\) is the regularization of \(A\in \mathbb{R}^{n_v\times n_v}\). \(h\) is the nonlinear activation function, and LeakyReLU\cite{maas2013rectifier} is chosen here. The parameter matrix \(W^{(i)}\in \mathbb{R}^{d_{i}\times d_{i+1}}\) to be learned can be calculated by the statistical relations of the exercise knowledge points.
 \begin{align}
-	H^{(l+1)} & =\sigma(\tilde{D}^{-\frac{1}{2}} \tilde{A} \tilde{D}^{-\frac{1}{2}} H^{(l)} W^{(l)})\label{fml:gcn1}
+	H^{(i+1)} = f(\tilde{A}H^{(i)}W^{(i)})\label{fml:ch2-gcn2}
 \end{align}
 
-the input of the \(l\)-th layer network is \(H^{(l)}\in \mathbb{R}^{N\times D}\) (the initial input is \(H^{(0)}\)), \(N\) is the number of nodes in the graph, and each node is represented by a \(D\)-dimensional feature vector. \(\tilde{A}=A+I_N\) is the adjacency matrix with self-connection added, \(\tilde{D}\) is the degree matrix, \(\tilde{D_{ii}}=\sum_{j}{\tilde{A}_{ij}}\). \(W^{(l)}\in \mathbb{R}^{D\times D}\) is the parameter to be trained. \(\sigma \) is the corresponding activation function, such as ReLU\@.
+% In the real world, many important data sets generate connections in the form of networks that form graph-like structures. Some papers reviewed this problem and tried to generalize neural networks and apply them to arbitrary graph structure data\cite{wu2018socialgcn,dettmers2018convolutional}.
 
-\subsubsection{Multi-label Recognition}
-From the stacked GCN network, we can learn interdependent object classifiers \(C=\{c_1,c_2,\ldots,c_T\} \), where T represents the number of categories. For the input layer, the input is \(r\in \mathbb{R}^{T \times d_{ko}}\), where \(d_{ko}\) is the number of dimensions represented by the embedding of the knowledge point object. Each GCN layer 1 takes the node representation from the previous layer \(H^{(l)}\) as input and outputs a new node representation \(H^{(l+1)}\). The output layer of the last layer is \(C\), where \(d_r\) represents the dimension of the title text. Finally, the label prediction vector \(\hat{y}\) can be obtained by the dot product product of the learned classifier and the title text representation \(r\):
-\begin{align}
-	\hat{y} = C\times r
-\end{align}
+% Currently, most graph neural network models have a common architecture. Known as graph convolutional neural networks (GCNs), these models are convolutional because the filter parameters can be shared at all positions or a local position in the graph. For these models, their goal is to learn a mapping of signals or features on the graph \(G=(V,E)\). Their inputs include:
 
-Through manual labeling, the real knowledge point labels of the exercises can be obtained: \(y\in \mathbb{R}^C\), \(y_i\in \{0,1\} \), \(y_i=0\) means that the exercise does not have knowledge points The label of \(i\), on the contrary, \(y_i=1\) means that the exercise has a label of knowledge point \(i\). Through end-to-end training, the loss function \(\mathbf{L}\) can be written as:
-\begin{align}
-	\mathbf{L}=\sum_{i=1}^{T} y_i \log (\text{sigmoid}(\hat{y}_i))+(1-y_i) \log (1-\text{sigmoid}(\hat{y}_i))
-\end{align}
+% \begin{itemize}
+% 	\item The feature description \(x_i\) of each node \(i\) can be written as an \(N\times D\) feature matrix (\(N\) represents the number of nodes, \(D\) represents the number of input features)
+% 	\item Characteristic description of graph structure in matrix form, usually in the form of adjacency matrix, denoted as \(A\)
+% \end{itemize}
+
+% The model will produce a node-level output \(Z\) (an \(N\times F\) feature matrix, where \(F\) represents the number of output features of each node). Graph-level output can be modeled by introducing some pooling operations.
+
+% Each neural network layer can be written as a nonlinear function:
+% \begin{align}
+% 	H^{(l+1)} & =f(H^{(l)}, A) \\
+% 	H^{(0)}   & =X             \\
+% 	H^{(L)}   & =Z
+% \end{align}
+
+% \(L\) is the number of layers. The core problem is how the \(f\) is selected and parameterized. The \(f\) can be represented as~\ref{fml:gcn1} by applying the convolutional operation\cite{kipf2016semi}:
+% \begin{align}
+% 	H^{(l+1)} & =\sigma(\tilde{D}^{-\frac{1}{2}} \tilde{A} \tilde{D}^{-\frac{1}{2}} H^{(l)} W^{(l)})\label{fml:gcn1}
+% \end{align}
+
+% the input of the \(l\)-th layer network is \(H^{(l)}\in \mathbb{R}^{N\times D}\) (the initial input is \(H^{(0)}\)), \(N\) is the number of nodes in the graph, and each node is represented by a \(D\)-dimensional feature vector. \(\tilde{A}=A+I_N\) is the adjacency matrix with self-connection added, \(\tilde{D}\) is the degree matrix, \(\tilde{D_{ii}}=\sum_{j}{\tilde{A}_{ij}}\). \(W^{(l)}\in \mathbb{R}^{D\times D}\) is the parameter to be trained. \(\sigma \) is the corresponding activation function, such as ReLU\@.
+
 
 \subsubsection{Design of Correlation Matrix}
 %在GCN中，相关矩阵$A$表征了图节点之间的关系，GCN信息传播计算也是基于$A$进行的。因此，设计相关矩阵$A$是GCN模型的关键步骤。在该模型中，采用常用的数据关联规则挖掘算法Apriori算法，通过统计知识点集的出现次数来计算知识点关联。 
 
-%在该模型中，其实只需要找到知识点的对偶关系。因此，知识点关系矩阵可以表示为$R/in \mathbb{R}^{T\time T}$。第一个任务是找到标签集中频繁关联标签的出现次数。$operatorname{Support}$、$operatorname{Confidence}$和$operatorname{Lift}$可以用来评估频繁标签集。支持度是指标签集中标签对的出现次数占总标签集的比例。置信度反映了一个标签$L_i$出现、另一个标签$L_j$出现的概率，或数据的条件概率。提升度表示标签$L_i$同时包含的概率，以及X种群出现概率的比例。
+%在该模型中，其实只需要找到知识点的对偶关系。因此，知识点关系矩阵可以表示为$R/in \mathbb{R}^{T\time T}$。第一个任务是找到标签集中频繁关联标签的出现次数。$operatorname{Support}$、$operatorname{Confidence}$和$operatorname{Lift}$可以用来评估频繁标签集。支持度是指标签集中标签对的出现次数占总标签集的比例。置信度反映了一个标签$L_i$出现、另一个标签$L_j$出现的概率，或数据的条件概率。提4升度表示标签$L_i$同时包含的概率，以及X种群出现概率的比例。
 
 In GCN, the correlation matrix \(A\) characterizes the relationship between graph nodes, and GCN information propagation calculation is also based on \(A\). Therefore, designing the correlation matrix \(A\) is a key step in the GCN model. In this model, the commonly used data association rule mining algorithm Apriori algorithm is used to calculate the knowledge point association by counting the number of occurrences of the knowledge point set.
 
@@ -349,13 +368,25 @@ It is a simple solution to directly set \(P\) as the incidence matrix \(A\), but
 	\end{array}\label{fml:confidence}
 \end{align}
 
+
+\section{Multi-label Recognition}
+From the stacked GCN network, we can learn interdependent object classifiers \(C=\{c_1,c_2,\ldots,c_T\} \), where T represents the number of categories. For the input layer, the input is \(r\in \mathbb{R}^{T \times d_{ko}}\), where \(d_{ko}\) is the number of dimensions represented by the embedding of the knowledge point object. Each GCN layer 1 takes the node representation from the previous layer \(H^{(l)}\) as input and outputs a new node representation \(H^{(l+1)}\). The output layer of the last layer is \(C\), where \(d_r\) represents the dimension of the title text. Finally, the label prediction vector \(\hat{y}\) can be obtained by the dot product product of the learned classifier and the title text representation \(r\):
+\begin{align}
+	\hat{y} = C\times r
+\end{align}
+
+Through manual labeling, the real knowledge point labels of the exercises can be obtained: \(y\in \mathbb{R}^C\), \(y_i\in \{0,1\} \), \(y_i=0\) means that the exercise does not have knowledge points The label of \(i\), on the contrary, \(y_i=1\) means that the exercise has a label of knowledge point \(i\). Through end-to-end training, the loss function \(\mathbf{L}\) can be written as:
+\begin{align}
+	\mathbf{L}=\sum_{i=1}^{T} y_i \log (\text{sigmoid}(\hat{y}_i))+(1-y_i) \log (1-\text{sigmoid}(\hat{y}_i))
+\end{align}
+
 \section{Experiment}
 %本章提出了一个习题知识点多标签标注的模型，在本节中，先对数据集进行了介绍，接着介绍了一些Baseline性能的模型，然后结合多标签标注提出了对比的性能指标评估方案，最后给出对比结果和分析。
 This chapter proposes a multi-label labeling model for exercise knowledge points. In this section, first introduces the data set, then introduces some baseline performance models, and then combines the multi-label labeling to propose a comparative performance indicator evaluation plan. Finally, Give comparison results and analysis.
 \subsection{Dataset}
 %本文中的实验数据来自于在线网站koolearn.com的带标签的高考数学考题以及模拟题（包含答案解析），通过爬虫爬取题干、答案解析等文本语料。其部分知识点关联模型可以表示为如下图结构。该数据集经过过滤和人工选择，共3374道试题，包含148个知识点，题均知识点为1.7个，其知识点分布如图所示。
 The experimental data in this article comes from the labeled college entrance examination math test questions and simulation questions (including answer analysis) on the online website koolearn.com. The text corpus such as question stems and answer analysis are crawled through crawlers. Part of the knowledge point association model can be expressed as the following structure. The data set has been filtered and manually selected. There are 3374 test questions, including 148 knowledge points, with an average of 1.7 knowledge points. The distribution of several knowledge points is shown in the \figurename{\ref{fig:ch2-model-knowledgenet}}.
-\begin{figure}[htbp!]
+\begin{figure}[H]
 	\centering
 	\includegraphics[width=1.0\textwidth]{ch2-model-knowledgenet.pdf}
 	\caption{Knowledge Points of dataset}\label{fig:ch2-model-knowledgenet.pdf}
@@ -363,7 +394,7 @@ The experimental data in this article comes from the labeled college entrance ex
 
 %该数据集的习题知识点数目分布如图所示。
 The distribution of the number of exercise knowledge points in this data set is shown in the \figurename{\ref{ch2-fig14}}.
-\begin{figure}[htbp!]
+\begin{figure}[H]
 	\centering
 	\begin{subfigure}[b]{0.475\textwidth}
 		\includegraphics[width=\textwidth]{ch2-fig14.png}
@@ -376,7 +407,7 @@ The distribution of the number of exercise knowledge points in this data set is 
 	\caption{Distribution of the number of knowledge points of exercise}\label{ch2-fig14}
 \end{figure}
 
-% \begin{figure}[htbp!]
+% \begin{figure}[H]
 % 	\centering
 % 	\includegraphics[width=1.0\textwidth]{minion}
 % 	\caption[Minion]{This is just a long figure caption for the minion in Despicable Me from Pixar}
@@ -447,7 +478,7 @@ The distribution of the number of exercise knowledge points in this data set is 
 %在实验中，设定了200，150，100，50，10五组阈值\(\tau_{kp} \)，将具有标签\(j\)的习题记作\(\mathbb{E}_j\)，则可以统计符合要求的标签集\(\mathbb{L}={j||\mathbb{E}_j|\geq\tau_{kp}}\)出习题集大小\(|\mathbb{E}_j|\)和题均知识点数\(LAvg_j \)。
 In the experiment, five sets of thresholds of 200, 150, 100, 50, 10 are set \(\tau_{kp} \), and the exercises with the label \(j\) are recorded as \(\mathbf{E}_j\), the label set that meets the requirements can be counted as \(\mathbf{L}_\tau^{kp}=\{j\mid |\mathbf{E}_j|\geq\tau_{kp}\} \), the exercises containing label in \(\mathbf{L}_\tau^{kp} \) is denoted as \(\mathbf{E}_\tau^{kp} \), within which the average number of labels of the exercise in the set is \(L_Avg_\tau^{kp}\)
 
-\begin{table}[htbp!]
+\begin{table}[H]
 	\centering
 	\caption{Setting of Experiment}\label{tbl:ch2-ex1}
 	\begin{tabular}{cccc}%{cp{2cm}<{\centering}p{2cm}<{\centering}p{2cm}<{\centering}}
@@ -498,7 +529,7 @@ The running environment is Ubuntu 20.04, TensorFlow 2.23, Python 3.8.6, and the 
 
 The comparison experiment results are divided into the performance comparison of the horizontal Baseline model (obtained in Table~\ref{tbl:bsline1}-Table~\ref{tbl:bsline4}) and the performance comparison of different hyperparameters of the model (Table 2.4).
 
-\begin{table}[htbp!]
+\begin{table}[H]
 	\caption{Result comparison (\(\tau^{kp}=200 \))}\label{tbl:bsline1}
 	\centering
 	\begin{tabular}{cccccccc}
