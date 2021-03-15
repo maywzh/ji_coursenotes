@@ -100,7 +100,7 @@ After the data processing step, a clean sequence of text tokens is obtained, and
 \subsubsection{BERT-Based Embedding Layer}
 %在深度学习的应用过程中，嵌入是一种将符号形式的自然对象、模式等转化为数学空间中的向量的方法，是一种从离散空间到连续空间的转换，为神经网络在各方面的应用带来了极大的扩展。嵌入是一个将离散变量转为连续向量表示的一个方式。在神经网络中，embedding 是非常有用的，因为它不光可以减少离散变量的空间维数，同时还可以有意义的表示该变量。在词嵌入学习的研究中，有one-hot、Word2Vec和BERT等常见的词嵌入学习算法和模型。one-hot编码是最朴素的方法，它将所有的词语二进制化，即所有的词语只有存在或不存在两种情况，因此每个词语都是一个只有一个1其他全是0的二进制向量。当词语量较大时，该向量的长度也会相当长，在后续的计算也会产生大量的无效计算，即稀疏矩阵计算问题。Word2Vec由Google语2013年提出\cite{church2017word2vec}，它通过词语来预测它的上下文或者通过上下文来预测词语，是一种静态的词嵌入学习模式，但在解决多义词等问题上遇到瓶颈。Google于2018年提出的Bidirectional Encoder Representations from Transformers（BERT）模型利用Transformer作为基本单元，预训练masked语言模型，在几乎所有的自然语言处理任务都取得了State of the art（SOTA）的性能表现。它具有极强的语义表征效果。本文利用BERT来作为词Embedding向量学习模块，能更好地在不同习题文本的不同语境中取得更好的泛化和自适应能力。
 
-In the application of deep learning, embedding as a preprocessing approach for generating embedded vectors brings a great extension to the application of neural networks in various aspects.  In the application of deep learning techniques, embedding is an instrumental skillbecause it not only reduces the spatial dimensionality of a discrete variable but also allows a meaningful representation of that variable. For example, in NLP, if plain one-hot coding is used, it often results in too many dimensional and sparse vectors and also fails to learn the dependencies between vectors. During the process of embedding training, the embedded vectors are updated, which can clearly show the exercises between the vectors. The one-hot encoding is the most naive method, which turns all words into binary patterns, i.e., all words are only present or absent in two cases, so each word is a binary vector with only 1-value and all other 0-values. When the amount of words is large, this vector's length will also be quite long, and the subsequent computation will also generate a large number of invalid computations, i.e., the sparse matrix computation problem. word2Vec was proposed by Google Language 2013\cite{church2017word2vec}, which predicts its context by words or predicts words by contexts, a static word embedding learning model, but encounters bottlenecks in solving problems such as polysemous words. The Bidirectional Encoder Representations from Transformers (BERT) model proposed by Google in 2018 utilizes the Transformer as the base unit to pre-train masked language models, achieving State of the art (SOTA) performance in almost all NLP tasks. It has an extremely strong semantic representation effect. In this paper, BERT is utilized as a word Embedding vector learning module to achieve greater  generalization and adaptive capabilities in different contexts of different idiomatic texts.
+In the application of deep learning, embedding as a preprocessing approach for generating embedded vectors brings a great extension to the application of neural networks in various aspects.  In the application of deep learning techniques, embedding is an instrumental skill because it not only reduces the spatial dimensionality of a discrete variable but also allows a meaningful representation of that variable. For example, in NLP, if plain one-hot coding is used, it often results in too many dimensional and sparse vectors and also fails to learn the dependencies between vectors. During the process of embedding training, the embedded vectors are updated, which can clearly show the exercises between the vectors. The one-hot encoding is the most naive method, which turns all words into binary patterns, i.e., all words are only present or absent in two cases, so each word is a binary vector with only 1-value and all other 0-values. When the amount of words is large, this vector's length will also be quite long, and the subsequent computation will also generate a large number of invalid computations, i.e., the sparse matrix computation problem. word2Vec was proposed by Google Language 2013\cite{church2017word2vec}, which predicts its context by words or predicts words by contexts, a static word embedding learning model, but encounters bottlenecks in solving problems such as polysemous words. The Bidirectional Encoder Representations from Transformers (BERT) model proposed by Google in 2018 utilizes the Transformer as the base unit to pre-train masked language models, achieving State of the art (SOTA) performance in almost all NLP tasks. It has an extremely strong semantic representation effect. In this paper, BERT is utilized as a word Embedding vector learning module to achieve greater generalization and adaptive capabilities in different contexts of different idiomatic texts.
 
 %在习题文本中，会出现一些组合词，即由多个词组合而成的具有不可分割词义的词组，由于在BERT的训练样本生成阶段，会对词进行mask操作，因此这些组合词有可能会被分别mask。导致出现歧义，引起训练性能退化。因此，本文应用全词mask的处理方式，该方法由cui等人于2019年提出\cite{cui2019pre}。通过应用全词mask，当一个组合词的一个部分被mask，则该组合词的其他部分也会被mask。如图所示。
 
@@ -217,30 +217,23 @@ After that, the entire text is represented as a weighted sum of word annotations
 
 %本模型采用GCN结构的原因在于，GCN对于各个节点的参数共享使得学习到的分类器可以保留知识关联图中的关联信息，从而隐式表示其空间语义结构。因此输出的分类器可以保留和识别隐式知识标签依赖信息。 对于知识点的依赖关系参考数据关联方法挖掘算法例如apriori算法，通过计算知识点在习题中的共现度来计算其协关系矩阵。
 
-In high school mathematics, knowledge points have more complex interrelationships such as correlation, subordination, inclusion, predecessor, successor, and so on. These complex interrelationships are often difficult to model in Euclidean space, or this creates data sparsity problems. The establishment of relationships between knowledge points through graph data structures is more intuitive and has better interpretability. Recalling the task of this model, it gives descriptions and answers to exercises, some of which have already marked knowledge points, and uses this information to mark knowledge points for exercises that are labeled knowledge points. Taking into account the dependence between knowledge points, some deeply hidden knowledge points that cannot be represented in shallow features can also be correctly labeled by the graph neural network output classifier. In this model, a GCN is used to learn and form the knowledge point connection graph, and each knowledge point corresponds to a node on the graph. After multiple graph convolution calculations, a series of classifiers are generated. These classifiers respectively act on the text vector generated by the text mining module. Each classifier outputs a value representing the probability that the knowledge point is associated with the exercise. Its overall structure is shown in the \figurename{\ref{fig:ch2-model-gcncls}}.
+In high school mathematics, knowledge points have more complex interrelationships such as correlation, subordination, inclusion, predecessor, successor, and so on. These complex interrelationships are often difficult to model in Euclidean space, or this creates data sparsity problems. The establishment of relationships between knowledge points through graph data structures is more intuitive and has better interpretability. Recalling the task of this model, it gives descriptions and answers to exercises, some of which have already marked knowledge points, and uses this information to mark knowledge points for exercises that are labeled knowledge points. Taking into account the dependence between knowledge points, some deeply hidden knowledge points that cannot be represented in shallow features can also be correctly labeled by the graph neural network output classifier. In this model, a GCN is used to learn and form the knowledge point connection graph, and each knowledge point corresponds to a node on the graph. After multiple graph convolution calculations, a series of classifiers are generated. These classifiers respectively act on the text vector generated by the text mining module. Each classifier outputs a value representing the probability that the knowledge point is associated with the exercise. Its overall structure is shown in the \figurename{\ref{fig:ch2-gcn-ov}}.
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=1.0\textwidth]{ch2-model-gcncls.pdf}
-	\caption{The structure of GCN Classifier Generator}\label{fig:ch2-model-gcncls}
+	\includegraphics[width=1.0\textwidth]{ch2-gcn-ov.pdf}
+	\caption{The overview of structure}\label{fig:ch2-gcn-ov}
 \end{figure}
 
 
-%在所提出的基于GCN的模型中，知识点标签用词嵌入来表示。知识点集 \(K={k_1,k_2,\ldots,k_T} \)，其中 \(T\)为知识点的总数。对于每一个单个知识点来说\(k_i\)，\(k_i \in mathbb{R}^{Ttimes d_{ko}})，\(d_{ko})是知识点对象的嵌入向量的维度。本文采用可学习的堆栈式GCN网络将这些知识点对象逐一转化为内部连接的知识点对象分类器\(C=[c_1,c_2,\ldots,c_n]\)，其中\(c_iin\mathbb {R}^{Ttimes d^r}\)，\(d^r\)是文本挖掘模块输出的文本表示向量\(r\)的维度。这些分类器和\(r\)可以用来计算每个标签的点积。
-
-In the proposed GCN-based model, knowledge point labels are represented by word embedding. Knowledge point set \(K=\{k_1,k_2,\ldots,k_T\} \), where \(T\) is the total number of knowledge points. For each single knowledge point \(k_i\), \(k_i \in \mathbb{R}^{T\times d_{ko}}\), \(d_{ko}\) is the dimensionality of the embedding vector of knowledge point object. In this paper, a learnable stacked GCN network is used to transform these knowledge point objects one by one into an internally connected knowledge point object classifier \(C=[c_1,c_2,\ldots,c_n]\), where \(c_i\in\mathbb {R}^{T\times d^r}\), \(d^r\) is the dimensionality of the text representation vector \(r\) output by the text mining module. These classifiers and \(r\) can be used to calculate the dot product of each label.
-
-%该模型之所以采用GCN结构，是因为GCN对每个节点的参数共享，使得学习到的分类器可以在知识关联图中保留相关信息，从而隐性地表达其空间语义结构。因此，输出的分类器可以保留和识别隐含的知识标签依赖信息。对于知识点的依赖性，可以参考数据关联法挖掘算法，如apriori算法，通过计算习题中知识点的共现性来计算共相关矩阵。
-
-The reason why this model adopts the GCN structure is that the parameter sharing of GCN for each node allows the learned classifier to retain the associated information in the knowledge association graph, thereby implicitly expressing its spatial semantic structure. Therefore, the output classifier can retain and identify the implicit knowledge label dependent information. For the dependence of knowledge points, refer to the data association method mining algorithm such as Apriori algorithm\cite{panjaitan2019implementation}, and calculate the co-relation matrix by calculating the co-occurrence of knowledge points in the exercises.
 
 \subsubsection{Graph Convolutinal Network}
 %在现实世界中，许多重要的数据集都以网络的形式产生连接，形成图状结构。一些论文对此问题进行了回顾，并试图对神经网络进行概括，并将其应用于任意图结构数据\cite{wu2018socialgcn，dettmers2018convolutional}。图卷积神经网络(GCN)\cite{kipf2016semi}用于处理传统卷积神经网络难以学习的非欧氏空间数据。它定义在一个图结构\(G=(V,E)\)上，其中\(V\)、\(E\)为图的顶点和边。GCN的输入为维度为\(n^v\times d^{v}\)，其中\(n^v\)为节点数，\(d^v\)为各个顶点的特征维度数。此外，GCN又一个用于描述图结构的维度为\(n^v\times n^v\)的邻接矩阵\(A\)。
 
-In the real world, many important data sets generate connections as networks that form graph-like structures. Several papers reviewed this problem and attempted to generalize neural networks and apply them to arbitrary graph-structured data\cite{wu2018socialgcn, dettmers2018convolutional}. The GCN\cite{kipf2016semi} is used to process non-Euclidean spatial data that are difficult to learn by traditional convolutional neural networks. It is defined on a graph structure \(g=(v,e)\), where \(v\), \(e\) are the vertices and edges of the graph. the input of GCN is of dimension \(n^v\times d_{i}\), where \(n^v\) is the number of nodes and \(d^v\) is the number of feature dimensions of each vertex. In addition, the GCN has another adjacency matrix \(A\) of dimension \(n^v\times n^v\) used to describe the graph structure.
+In the real world, many important data sets generate connections as networks that form graph-like structures. Several papers reviewed this problem and attempted to generalize neural networks and apply them to arbitrary graph-structured data\cite{wu2018socialgcn, dettmers2018convolutional}. The GCN\cite{kipf2016semi} is used to process non-Euclidean spatial data that are difficult to learn by traditional convolutional neural networks. It is defined on a graph structure \(G=(V, E)\), where \(V\) is the denote of vertex and \(E\) is the denote of edge inside the graph. The input of GCN \(X = H^{(0)}\) is the first layer of GCN. The i-th layer is denoted as \(H^{(i)}\), and \(H^{(i)}\in \mathbb{R}^{N^{(v)}\times d_{i}}\), where \(N^{(v)}\) is the denote of number of vertexes and \(d_{i}\) is the number of dimension of each vertex of layer \(i\). The output layer \(Z = H^{(L)}\) where L is the number of layers in GCN\@. Also, the GCN has another adjacency matrix \(A\) of dimension \(N^{(v)}\times N^{(v)}\) used to describe the graph structure.
 
 %图卷积的学习的核心是传播，即每个节点都会传播信息给邻接的节点。每一层的传播都会被聚合起来形成下一层。GCN的第\(i-1\)层\(H^{i-1}\)到第\(i\)层\(H^i\)转换可以写作公式\ref{fml:ch2-gcnlayer}，其中f为特定的传播方式，例如所有的节点将自身的值均匀扩散给邻接节点。
-The core of graph convolutional learning is propagation, i.e., each node propagates information to neighboring nodes. The propagation of each layer is aggregated to form the next layer. The \(i-1\) layer \(H^{(i)}\in \mathbb{R}^{n_v\times d_v}\) to layer \(H^{(i+1)}\) transformation of GCN can be written in the formula \ref{fml:ch2-gcnlayer}, where \(f(\cdot)\) is a specific propagation method, e.g. all nodes spread their own values uniformly to neighboring nodes.
+The core of graph convolutional learning is propagation, i.e., each node propagates information to neighboring nodes. The propagation of each layer is aggregated to form the next layer. The \(i-1\) layer \(H^{(i)}\in \mathbb{R}^{N^{(v)}\times d_v}\) to layer \(H^{(i+1)}\) transformation of GCN can be written in the formula~\ref{fml:ch2-gcnlayer}, where \(f(\cdot)\) is a specific propagation method, e.g. all nodes spread their own values uniformly to neighboring nodes.
 
 \begin{align}
 	H^{(i+1)}=f(H^{(i)},A) \label{fml:ch2-gcnlayer}
@@ -250,48 +243,103 @@ The core of graph convolutional learning is propagation, i.e., each node propaga
 
 The relationship between knowledge points can be represented by a correlation matrix, i.e., when a knowledge point \(i\) is related to a knowledge point \(j\), the correlation matrix \(A\) models the knowledge point as a vertex in the GCN in order to learn the representation between knowledge points. The relation is learned by co-occurrence probability, i.e., supervised learning is performed on the library of exercises that have been tagged with knowledge points. This is based on the assumption that when multiple knowledge points have a high probability of occurring in an exercise, they should be intrinsically linked.
 
-%本节中GCN的节点传播方式为\ref{fml:ch2-gcn2}，其中\(\tilde{A}\)为\(A\in \mathbb{R}^{n_v\times n_v}\)的正则化。\(h\)为非线性激活函数，这里选用LeakyReLU\cite{maas2013rectifier}。需要学习的参数矩阵\(W^{(i)}\in \mathbb{R}^{d_{i}\times d_{i+1}}\)可以通过习题知识点的统计关系来计算。
+%本节中GCN的节点传播方式为\ref{fml:ch2-gcn2}，其中\(\tilde{A}\)为\(A\in \mathbb{R}^{N^{(v)}\times N^{(v)}}\)的正则化。\(h\)为非线性激活函数，这里选用LeakyReLU\cite{maas2013rectifier}。需要学习的参数矩阵\(W^{(i)}\in \mathbb{R}^{d_{i}\times d_{i+1}}\)可以通过习题知识点的统计关系来计算。
 
-The node propagation of GCN in this section is \ref{fml:ch2-gcn2}, where \(\widehat{A}\) is the regularization of \(A\in \mathbb{R}^{n_v\times n_v}\). \(h\) is the nonlinear activation function, and LeakyReLU\cite{maas2013rectifier} is chosen here. The parameter matrix \(W^{(i)}\in \mathbb{R}^{d_{i}\times d_{i+1}}\) to be learned can be calculated by the statistical relations of the exercise knowledge points.
+The node propagation of GCN in this section is \ref{fml:ch2-gcn2}, where \(\widehat{A}\) is the normalization form of \(A\in \mathbb{R}^{N^{(v)}\times N^{(v)}}\). The \(h(\cdot)\) is the nonlinear activation function LeakyReLU\cite{maas2013rectifier}. The parameter matrix \(W^{(i)}\in \mathbb{R}^{d_{i}\times d_{i+1}}\) to be learned can be calculated by the statistical relations of the exercise knowledge points. The training process of Proposed is shown in \figurename{\ref{fig:ch2-gcn-explain}}.
 \begin{align}
 	H^{(i+1)} = f(\tilde{A}H^{(i)}W^{(i)})\label{fml:ch2-gcn2}
 \end{align}
 
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.0\linewidth]{ch2-gcn-modelov.pdf}
+	\caption{The GCN training process}\label{fig:ch2-gcn-explain}
+\end{figure}
+
+% \subsubsection{Design of Correlation Matrix}
+% %在GCN中，相关矩阵\(A\)表征了图节点之间的关系，GCN信息传播计算也是基于\(A\)进行的。因此，设计相关矩阵\(A\)是GCN模型的关键步骤。在该模型中，采用常用的数据关联规则挖掘算法Apriori算法，通过统计知识点集的出现次数来计算知识点关联。 
+
+% %在该模型中，其实只需要找到知识点的对偶关系。因此，知识点关系矩阵可以表示为\(R/in \mathbb{R}^{T\time T}\)。第一个任务是找到标签集中频繁关联标签的出现次数。\(\operatorname{Support}\)、\(\operatorname{Confidence}\)和\(\operatorname{Lift}\)可以用来评估频繁标签集。支持度是指标签集中标签对的出现次数占总标签集的比例。置信度反映了一个标签\(L_i\)出现、另一个标签\(L_j\)出现的概率，或数据的条件概率。提升度表示标签\(L_i\)$同时包含的概率，以及X种群出现概率的比例。
+
+% In GCN, the correlation matrix \(A\) characterizes the relationship between graph nodes, and GCN information propagation calculation is also based on \(A\). Therefore, designing the correlation matrix \(A\) is a key step in the GCN model. In this model, the commonly used data association rule mining algorithm Apriori algorithm is used to calculate the knowledge point association by counting the number of occurrences of the knowledge point set.
+
+% In this model, only the knowledge pairwise relationship needs to be found. Therefore, the knowledge point relationship matrix can be expressed as \(R\in \mathbb{R}^{T\times T}\). The first task is to find the number of occurrences of frequently associated label in the label set. \(\operatorname{Support}\), \(\operatorname{Confidence}\), and \(\operatorname{Lift}\) can be used to evaluate frequent label sets. Support is the proportion of the number of occurrences of label pair in the label set in the total label set. Confidence degree reflects the probability of a label \(L_i\) appearing, another label \(L_j\) appears, or the conditional probability of the data. Lift represents the probability that the label \(L_i\) is contained at the same time, and the ratio of the probability of occurrence of X population:
+% \begin{align}
+% 	\operatorname{Support}(L_i, L_j)       & =P(L_i,L_j)=\frac{\operatorname{number}(L_i,L_j)}{\operatorname{number}(\text{ All Samples })} \\
+% 	\operatorname{Confidence}(L_i \to L_j) & =P(L_i \mid L_j)=P(L_i, L_j) / P(L_j)                                                          \\
+% 	\operatorname{Lift}(L_i \to L_j)       & =P(L_i \mid L_j) / P(L_i)=\operatorname{Confidence}(L_i \to L_j) / P(L_i)
+% \end{align}
+
+% Similar to calculating Support, the frequency matrix \(E\in \mathbb{R}^{T\times T}\) of the sample knowledge point label pairs in the exercise training set can be calculated here, where \(T\) is the number of knowledge points. \(M_{ij}\) represents the number of times the knowledge point \(i\) and the knowledge point \(j\) appear at the same time. Similarly, the knowledge point pair can be calculated by calculating Confidence to calculate the conditional probability matrix \(P\), where \(P_{ij}=P(L_i, L_j)/P(L_j)\), where \(P_{ij}=P(L_i, L_j)/P(L_j)\) means the situation when the knowledge point \(j\) appears The conditional probability of the occurrence of the next knowledge point \(i\).
+
+% Similar to calculating Support, the frequency matrix \(E\in \mathbb{R}^{T\times T}\) of the sample knowledge point label pairs in the exercise training set can be calculated here, where \(T\) is the number of knowledge points. \(E_{ij}\) represents the number of times the knowledge point \(i\) and the knowledge point \(j\) appear at the same time. Similarly, knowledge point pairs can be calculated by calculating Confidence to calculate the conditional probability matrix \(P\), where \(P_{ij}=P(L_i, L_j)/P(L_j)\) means the situation when the knowledge point \(j\) appears The conditional probability of the occurrence of the next knowledge point \(i\).
+
+% It is a simple solution to directly set \(P\) as the incidence matrix \(A\), but in actual situations, some comprehensive questions in the exercise set contain practically unrelated knowledge points, but these situations are relatively rare. In order to filter the noise caused by the label pairs of rare knowledge points, a minimum knowledge confidence threshold can be set. When \(P_{ij}\) is greater than the given threshold \(\tau \)， naming activating value, then \(A_{ij}\) is set to \(P_{ij}\), Otherwise \(A_{ij}\) is set to 0. The formula is like~\ref{fml:confidence}.
+
+% \begin{align}
+% 	A_{ij}=\{\begin{array}{ll}
+% 		0,      & \text{ if } P_{ij}<\tau      \\
+% 		P_{ij}, & \text{ if } P_{ij} \geq \tau
+% 	\end{array}\label{fml:confidence}
+% \end{align}
+
+
+% %该模型之所以采用GCN结构，是因为GCN对每个节点的参数共享，使得学习到的分类器可以在知识关联图中保留相关信息，从而隐性地表达其空间语义结构。因此，输出的分类器可以保留和识别隐含的知识标签依赖信息。对于知识点的依赖性，可以参考数据关联法挖掘算法，如apriori算法，通过计算习题中知识点的共现性来计算共相关矩阵。
+
+% The reason why this model adopts the GCN structure is that the parameter sharing of GCN for each node allows the learned classifier to retain the associated information in the knowledge association graph, thereby implicitly expressing its spatial semantic structure. Therefore, the output classifier can retain and identify the implicit knowledge label dependent information. For the dependence of knowledge points, refer to the data association method mining algorithm such as Apriori algorithm\cite{panjaitan2019implementation}, and calculate the co-relation matrix by calculating the co-occurrence of knowledge points in the exercises.
+
 \subsubsection{Design of Correlation Matrix}
-%在GCN中，相关矩阵\(A\)表征了图节点之间的关系，GCN信息传播计算也是基于\(A\)进行的。因此，设计相关矩阵\(A\)是GCN模型的关键步骤。在该模型中，采用常用的数据关联规则挖掘算法Apriori算法，通过统计知识点集的出现次数来计算知识点关联。 
+%在GCN中，相关矩阵\(A\)表征了图节点之间的关系，GCN信息传播计算也是基于\(A\)进行的。因此，设计相关矩阵\(A\)是GCN模型的关键步骤。在该模型中，采用常用的数据关联规则挖掘算法Apriori算法，通过知识点共现次数统计来计算关联。 
 
-%在该模型中，其实只需要找到知识点的对偶关系。因此，知识点关系矩阵可以表示为\(R/in \mathbb{R}^{T\time T}\)。第一个任务是找到标签集中频繁关联标签的出现次数。\(\operatorname{Support}\)、\(\operatorname{Confidence}\)和\(\operatorname{Lift}\)可以用来评估频繁标签集。支持度是指标签集中标签对的出现次数占总标签集的比例。置信度反映了一个标签\(L_i\)出现、另一个标签\(L_j\)出现的概率，或数据的条件概率。提升度表示标签\(L_i\)$同时包含的概率，以及X种群出现概率的比例。
+%在该模型中，其实只需要找到知识点的对偶关系。因此，知识点关系矩阵可以表示为\(R/in \mathbb{R}^{T\time T}\)。第一个任务是找到标签集中频繁关联标签的出现次数。\(\operatorname{Support}\)、\(\operatorname{Confidence}\)和\(\operatorname{Lift}\)可以用来评估频繁标签集。支持度是指标签集中标签对的出现次数占总标签集的比例。置信度反映了一个标签\(\mathcal{L}_i\)出现、另一个标签\(\mathcal{L}_j\)出现的概率，或数据的条件概率。提升度表示标签\(\mathcal{L}_i\)$同时包含的概率，以及X种群出现概率的比例。
 
-In GCN, the correlation matrix \(A\) characterizes the relationship between graph nodes, and GCN information propagation calculation is also based on \(A\). Therefore, designing the correlation matrix \(A\) is a key step in the GCN model. In this model, the commonly used data association rule mining algorithm Apriori algorithm is used to calculate the knowledge point association by counting the number of occurrences of the knowledge point set.
+In GCN, the correlation matrix \(A\) characterizes the relationship between graph nodes, and GCN information propagation calculation is also based on \(A\). Therefore, designing the correlation matrix \(A\) is a key step in the GCN model. In this model, the commonly used data association rule mining algorithm Apriori algorithm is used to calculate the knowledge point association by knowledge point reference co-occurrence statistics.
 
-In this model, only the knowledge pairwise relationship needs to be found. Therefore, the knowledge point relationship matrix can be expressed as \(R\in \mathbb{R}^{T\times T}\). The first task is to find the number of occurrences of frequently associated label in the label set. \(\operatorname{Support}\), \(\operatorname{Confidence}\), and \(\operatorname{Lift}\) can be used to evaluate frequent label sets. Support is the proportion of the number of occurrences of label pair in the label set in the total label set. Confidence degree reflects the probability of a label \(L_i\) appearing, another label \(L_j\) appears, or the conditional probability of the data. Lift represents the probability that the label \(L_i\) is contained at the same time, and the ratio of the probability of occurrence of X population:
+In this model, only the knowledge pairwise relationship needs to be found. Therefore, the knowledge point relationship matrix can be expressed as \(R\in \mathbb{R}^{T\times T}\). The first task is to find the number of occurrences of frequently associated label in the label set. \(\operatorname{Support}\), \(\operatorname{Confidence}\), and \(\operatorname{Lift}\) can be used to evaluate frequent label sets. Support is the proportion of the number of occurrences of label pair in the label set in the total label set. Confidence degree reflects the probability of a label \(\mathcal{L}_i\) appearing, another label \(\mathcal{L}_j\) appears, or the conditional probability of the data. Lift represents the probability that the label \(\mathcal{L}_i\) is contained at the same time, and the ratio of the probability of occurrence of X population:
 \begin{align}
-	\operatorname{Support}(L_i, L_j)       & =P(L_i,L_j)=\frac{\operatorname{number}(L_i,L_j)}{\operatorname{number}(\text{ All Samples })} \\
-	\operatorname{Confidence}(L_i \to L_j) & =P(L_i \mid L_j)=P(L_i, L_j) / P(L_j)                                                          \\
-	\operatorname{Lift}(L_i \to L_j)       & =P(L_i \mid L_j) / P(L_i)=\operatorname{Confidence}(L_i \to L_j) / P(L_i)
+	\operatorname{Support}(\mathcal{L}_i, \mathcal{L}_j)       & =P(\mathcal{L}_i,\mathcal{L}_j)=\frac{\operatorname{number}(\mathcal{L}_i,\mathcal{L}_j)}{\operatorname{number}(\text{ All Samples })} \\
+	\operatorname{Confidence}(\mathcal{L}_i \to \mathcal{L}_j) & =P(\mathcal{L}_i \mid \mathcal{L}_j)=P(\mathcal{L}_i, \mathcal{L}_j) / P(\mathcal{L}_j)                                                \\
+	\operatorname{Lift}(\mathcal{L}_i \to \mathcal{L}_j)       & =P(\mathcal{L}_i \mid \mathcal{L}_j) / P(\mathcal{L}_i)=\operatorname{Confidence}(\mathcal{L}_i \to \mathcal{L}_j) / P(\mathcal{L}_i)
 \end{align}
 
-Similar to calculating Support, the frequency matrix \(E\in \mathbb{R}^{T\times T}\) of the sample knowledge point label pairs in the exercise training set can be calculated here, where \(T\) is the number of knowledge points. \(M_{ij}\) represents the number of times the knowledge point \(i\) and the knowledge point \(j\) appear at the same time. Similarly, the knowledge point pair can be calculated by calculating Confidence to calculate the conditional probability matrix \(P\), where \(P_{ij}=P(L_i, L_j)/P(L_j)\), where \(P_{ij}=P(L_i, L_j)/P(L_j)\) means the situation when the knowledge point \(j\) appears The conditional probability of the occurrence of the next knowledge point \(i\).
+Similar to calculating Support, the frequency matrix \(E\in \mathbb{R}^{N^{(k)}\times N^{(k)}}\) of the sample knowledge point label pairs in the exercise training set can be calculated here. The \(M_{ij}\) represents the amount of co-occurrence between the knowledge point \(i\) and the knowledge point \(j\) in an exercise reference. Similarly, the knowledge point pair can be calculated by calculating Confidence to calculate the conditional probability matrix \(P\), where \(P_{ij}=P(\mathcal{L}_i, \mathcal{L}_j)/P(\mathcal{L}_j)\), where \(P_{ij}=P(\mathcal{L}_i, \mathcal{L}_j)/P(\mathcal{L}_j)\) means the situation when the knowledge point \(j\) appears The conditional probability of the occurrence of the next knowledge point \(i\).
 
-Similar to calculating Support, the frequency matrix \(E\in \mathbb{R}^{T\times T}\) of the sample knowledge point label pairs in the exercise training set can be calculated here, where \(T\) is the number of knowledge points. \(E_{ij}\) represents the number of times the knowledge point \(i\) and the knowledge point \(j\) appear at the same time. Similarly, knowledge point pairs can be calculated by calculating Confidence to calculate the conditional probability matrix \(P\), where \(P_{ij}=P(L_i, L_j)/P(L_j)\) means the situation when the knowledge point \(j\) appears The conditional probability of the occurrence of the next knowledge point \(i\).
-
-It is a simple solution to directly set \(P\) as the incidence matrix \(A\), but in actual situations, some comprehensive questions in the exercise set contain practically unrelated knowledge points, but these situations are relatively rare. In order to filter the noise caused by the label pairs of rare knowledge points, a minimum knowledge confidence threshold can be set. When \(P_{ij}\) is greater than the given threshold \(\tau \)， naming activating value, then \(A_{ij}\) is set to \(P_{ij}\), Otherwise \(A_{ij}\) is set to 0. The formula is like~\ref{fml:confidence}.
+It is a simple solution to directly set \(P\) as the incidence matrix \(A\), but in actual situations, some comprehensive questions in the exercise set contain practically unrelated knowledge points, but these situations are relatively rare. In order to exclude the interference of accidental circumstances, a minimum knowledge confidence threshold can be set. When \(P_{ij}\) is greater than the given threshold \(\tau^{(k)} \)， naming activating value, then \(A_{ij}\) is set to \(P_{ij}\), Otherwise \(A_{ij}\) is set to 0. The formula is like~\ref{fml:confidence}.
 
 \begin{align}
 	A_{ij}=\{\begin{array}{ll}
-		0,      & \text{ if } P_{ij}<\tau      \\
-		P_{ij}, & \text{ if } P_{ij} \geq \tau
+		0,      & \text{ if } P_{ij}<\tau^{(k)}      \\
+		P_{ij}, & \text{ if } P_{ij} \geq \tau^{(k)}
 	\end{array}\label{fml:confidence}
 \end{align}
 
 
-\section{Multi-label Recognition}
-From the stacked GCN network, we can learn interdependent object classifiers \(C=\{c_1,c_2,\ldots,c_T\} \), where T represents the number of categories. For the input layer, the input is \(r\in \mathbb{R}^{T \times d_{ko}}\), where \(d_{ko}\) is the number of dimensions represented by the embedding of the knowledge point object. Each GCN layer 1 takes the node representation from the previous layer \(H^{(l)}\) as input and outputs a new node representation \(H^{(l+1)}\). The output layer of the last layer is \(C\), where \(d_r\) represents the dimension of the title text. Finally, the label prediction vector \(\hat{y}\) can be obtained by the dot product of the learned classifier and the title text representation \(r\):
+%该模型之所以采用GCN结构，是因为GCN对每个节点的参数共享，使得学习到的分类器可以在知识关联图中保留相关信息，从而隐性地表达其空间语义结构。因此，输出的分类器可以保留和识别隐含的知识标签依赖信息。对于知识点的依赖性，可以参考数据关联法挖掘算法，如apriori算法，通过计算习题中知识点的共现性来计算共相关矩阵。
+
+The reason why this model adopts the GCN structure is that the parameter sharing of GCN for each node allows the learned classifier to retain the associated information in the knowledge association graph, thereby implicitly expressing its spatial semantic structure. Therefore, the output classifier can retain and identify the implicit knowledge label dependent information. For the dependence of knowledge points, refer to the data association method mining algorithm such as Apriori algorithm\cite{panjaitan2019implementation}, and calculate the co-relation matrix by calculating the co-occurrence of knowledge points in the exercises.
+
+
+\subsubsection{Classifier generator}
+
+%在所提出的基于GCN的模型中，知识点标签用词嵌入来表示。知识点集 \(K={k_1,k_2,\ldots,k_T} \)，其中 \(T\)为知识点的总数。对于每一个单个知识点来说\(k_i\)，\(k_i \in mathbb{R}^{Ttimes d^{(k)}})，\(d^{(k)})是知识点对象的嵌入向量的维度。本文采用可学习的堆栈式GCN网络将这些知识点对象逐一转化为内部连接的知识点对象分类器\(C=[c_1,c_2,\ldots,c_n]\)，其中\(c_iin\mathbb {R}^{Ttimes d^{(r)}}\)，\(d^{(r)}\)是文本挖掘模块输出的文本表示向量\(r\)的维度。这些分类器和\(r\)可以用来计算每个标签的点积。
+
+In this paper, a learnable stacked GCN-based model is proposed. The knowledge point labels are represented by knowledge label word embedding. Knowledge point set \(K=\{k_1,k_2,\ldots,k_{N^{(k)}}\} \), where \(N^{(k)}\) denotes the amount of knowledge points. For each single knowledge point \(k_i\), it is constrained that \(k_i \in \mathbb{R}^ {d^{(k)}}\), in which \(d^{(k)}\) is the dimensionality of the embedding vector of knowledge point object. The knowledge label word embedding set is the input of GCN, i.e., \(X = K\). The GCN is used to transform these knowledge point objects one by one into an internally connected knowledge point object classifier \(C=[c_1,c_2,\ldots,c_{N^{(k)}}\), where \(c_i \in \mathbb {R}^{d^{(r)}}\), \(d^{(r)}\) is the dimensionality of the text representation vector \(r\) output by the text mining module. These classifiers and \(r\) can be used to calculate the dot product of each label. The structure overview is proposed in \figurename{\ref{fig:ch2-gcn-clsgen}}.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.0\linewidth]{ch2-gcn-clsgen.pdf}
+	\caption{The structure of GCN-based classifier generator}\label{fig:ch2-gcn-clsgen}
+\end{figure}
+
+\subsection{Multi-label Recognition}
+%  For the input layer, the input is \(r\in \mathbb{R}^{T \times d^{(k)}}\), where \(d^{(k)}\) is the number of dimensions represented by the embedding of the knowledge point object. Each GCN layer 1 takes the node representation from the previous layer \(H^{(l)}\) as input and outputs a new node representation \(H^{(l+1)}\). The output layer of the last layer is \(C\), where \(d_r\) represents the dimension of the title text. 
+
+From the stacked GCN network, we can learn interdependent object classifiers \(C=\{c_1,c_2,\ldots,c_{N^{(k)}}\} \), where \(N^{(k)}\) represents the number of knowledge points. Finally, the label prediction vector \(\hat{y}\) can be obtained by the dot product of the learned classifier and the title text representation \(r\):
 \begin{align}
 	\hat{y} = C\times r
 \end{align}
 
-Through manual labeling, the real knowledge point labels of the exercises can be obtained: \(y\in \mathbb{R}^C\), \(y_i\in \{0,1\} \), \(y_i=0\) means that the exercise does not have knowledge points The label of \(i\), on the contrary, \(y_i=1\) means that the exercise has a label of knowledge point \(i\). Through end-to-end training, the loss function \(\mathbf{L}\) can be written as:
+Through manual labeling, the real knowledge point labels of the exercises can be obtained: \(y\in \mathbb{R}^C\), \(y_i\in \{0,1\} \), \(y_i=0\) means that the exercise does not have knowledge points The label of \(i\), on the contrary, \(y_i=1\) means that the exercise has a label of knowledge point \(i\). The loss function \(\mathbf{L}\) can be written as:
 \begin{align}
 	\mathbf{L}=\sum_{i=1}^{T} y_i \log (\text{sigmoid}(\hat{y}_i))+(1-y_i) \log (1-\text{sigmoid}(\hat{y}_i))
 \end{align}
@@ -340,9 +388,9 @@ The distribution of the number of exercise knowledge points in this data set is 
 At present, there are already some algorithm models for labeling text. In order to verify the effectiveness of the algorithm proposed in this paper, it will be compared with the following algorithm as a baseline indicator.
 \begin{itemize}
 	\item Naive Bayes algorithm (NB): predict the labeling probability of a knowledge point based on the prior probability of text combination, and then convert the binary classification problem into a multi-label problem
-	\item Multi-label KNN (ML-KNN): Proposed by Zhang et al.\cite{zhang2007ml}, it finds the k samples closest to the sample through the KNN algorithm, count the number of each category in the k samples, use the Naive Bayes algorithm to calculate the probability of each label and finally output
+	\item Multi-label KNN (ML-KNN): Proposed by Zhang et al.\cite{zhang2007ml}, it searchs the k instances closest to the instance through the KNN algorithm, count the number of each category in the k samples, use the Naive Bayes algorithm to generate prediction outcomes for each label.
 	\item CNN+word2vec: Use word2vec to convert the test question text into an embedded vector, extract the test text information through CNN, and then output the multi-label prediction
-	\item CNN+BERT\@: Bidirectional Encoder Representations from Transformers (BERT) was proposed by the Google AI team\cite{devlin2019bert}, which can be used to replace word2vec for word vector generation. The other parts of the model structure are the same as the previous model.
+	\item CNN+BERT\@: Use BERT to convert the test question text into an embedded vector, extract the test text information through CNN, and then output the multi-label prediction.
 \end{itemize}
 
 \subsection{Metrics}
@@ -408,6 +456,8 @@ In the experiment, five sets of thresholds of 200, 150, 100, 50, 10 are set \(\t
 		\bottomrule
 	\end{tabular}
 \end{table}
+
+There are many adjustable parameters of the model such as
 
 %本实验中，定义了一个GCN架构用于学习知识点间关联，该架构包含两层GCN层，其维度分别为512和1024。每个节点采用256维word2vec来训练标签文本得到标签embedding表示。对于标签correlation阈值tau则分别设置为多个值来进行模型性能判定。
 
