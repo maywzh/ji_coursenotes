@@ -401,23 +401,29 @@ Compared with traditional learning problems, it is very difficult to label multi
 
 Regarding multi-label classification, considering the relationship between the labels of the exercises, this article uses label-based indicators for model evaluation. The indicator calculates the confusion matrix indicator for each label to calculate the sample values of True Positive (TP), False Positive (FP), True Negative (TN), and False Negative (FN). Then calculate the macro-F1 and micro-F1 metrics for multi-label tagging model performance evaluation.
 
-According to the metrics proposed by Zhou et al.\cite{zhang2013review}, for the j-th label of the i-th example in the \(n\) examples, it can be expressed as the following formula~\ref{fml:mlcm1}-\ref{fml:mlcm4}:
-\begin{align}
-	\operatorname{TP}_j & =| \{x_i| l_j\in Y_{i}\wedge l_j \in \tilde{Y}_i , 1\leq i \leq n\}| \label{fml:mlcm1}       \\
-	\operatorname{FP}_j & =| \{x_i| l_j\notin Y_{i}\wedge l_j \in \tilde{Y}_i , 1\leq i \leq n\}| \label{fml:mlcm2}    \\
-	\operatorname{TN}_j & =| \{x_i| l_j\notin Y_{i}\wedge l_j \notin \tilde{Y}_i , 1\leq i \leq n\}| \label{fml:mlcm3} \\
-	\operatorname{FN}_j & =| \{x_i| l_j\in Y_{i}\wedge l_j \notin \tilde{Y}_i , 1\leq i \leq n\}| \label{fml:mlcm4}
-\end{align}
-where \(x_i\) and \(l_j\) represent the i-th exercise and j-th label, \(Y_i\) and \(\tilde{Y}_i\) represent the real labels and predicted labels of the i-th exercise.
+According to the metrics proposed by Zhou et al.\cite{zhang2013review}, for the j-th label of the i-th example in the \(n\) examples, shown in the formula~\ref{fml:mlcm}.
+\begin{equation}
+	\begin{align}\label{fml:mlcm}
+		\operatorname{TP}_j & =| \{x_i| \mathcal{L}_j\in Y_{i}\wedge \mathcal{L}_j \in \tilde{Y}_i , 1\leq i \leq n\}|       \\
+		\operatorname{FP}_j & =| \{x_i| \mathcal{L}_j\notin Y_{i}\wedge \mathcal{L}_j \in \tilde{Y}_i , 1\leq i \leq n\}|    \\
+		\operatorname{TN}_j & =| \{x_i| \mathcal{L}_j\notin Y_{i}\wedge \mathcal{L}_j \notin \tilde{Y}_i , 1\leq i \leq n\}| \\
+		\operatorname{FN}_j & =| \{x_i| \mathcal{L}_j\in Y_{i}\wedge \mathcal{L}_j \notin \tilde{Y}_i , 1\leq i \leq n\}|
+	\end{align}
+\end{equation}
+
+where \(x_i\) and \(\mathcal{L}_j\) represent the i-th exercise and j-th label, \(Y_i\) and \(\tilde{Y}_i\) represent the real labels and predicted labels of the i-th exercise.
 
 %在混淆矩阵中，Precision为预测正确的正例数据占预测为正例数据的比例，Recall为预测为正例的数据占实际为正例数据的比例。F1值是精确率和召回率的调和均值，它是精确率和召回率的综合评价指标。其计算公式如下：
 
-In the confusion matrix, Precision \(\operatorname{P}\) is the proportion of data with correct predictions to the data that is predicted to be positive, and Recall \(\operatorname{R}\) is the proportions of data with predictions that are positive to the actual data. \(\operatorname{F1}\) value is the harmonic mean value of precision rate and recall rate, and it is a comprehensive evaluation index of precision rate and recall rate. The calculation formula is as~\ref{fml:Precision} and~\ref{fml:f1score}:
-\begin{align}
-	\operatorname{P}          & =\frac{\operatorname{TP}}{\operatorname{TP}+\operatorname{FP}} \label{fml:Precision}  \\
-	\operatorname{R}          & =\frac{\operatorname{TP}}{\operatorname{TP}+\operatorname{FN}} \label{fml:Recall}     \\
-	\operatorname{F1}_{score} & = \frac{2}{\frac{1}{\operatorname{P}}+\frac{1}{\operatorname{R}}} \label{fml:f1score}
-\end{align}
+In the confusion matrix, Precision \(\operatorname{P}\) is the proportion of data with correct predictions to the data that is predicted to be positive, and Recall \(\operatorname{R}\) is the proportions of data with predictions that are positive to the actual data. \(\operatorname{F1}\) value is the harmonic mean value of precision rate and recall rate, and it is a comprehensive evaluation index of precision rate and recall rate. The calculation formula is as~\ref{fml:f1score}:
+\begin{equation}
+	\begin{align}\label{fml:f1score}
+		\operatorname{P}          & =\frac{\operatorname{TP}}{\operatorname{TP}+\operatorname{FP}}    \\
+		\operatorname{R}          & =\frac{\operatorname{TP}}{\operatorname{TP}+\operatorname{FN}}    \\
+		\operatorname{F1}_{score} & = \frac{2}{\frac{1}{\operatorname{P}}+\frac{1}{\operatorname{R}}}
+	\end{align}
+\end{equation}
+
 %micro F1 通过先计算总体的TP，FN和FP的数量，再计算F1， 而macro F1 分别计算每个类别的F1，然后做平均（各类别F1的权重相同）
 Similarly, for the multi-label tagging problem, Macro F1 and Micro F1 can be used as the metrics, Micro-F1 first calculates the total number of TP, FN and FP, and then calculates F1, while Macro-F1 calculates the F1 of each category separately, and then averages (the weight of each category F1 is the same). The formula is~\ref{fml:f1-macro} and~\ref{fml:f1-micro}.
 \begin{align}
@@ -436,23 +442,24 @@ Similarly, we can also count some indicators based on samples. For example, the 
 	\operatorname{F1}_{ML}        & =\frac{2 \cdot \operatorname{Precision} \cdot \operatorname{Recall}}{\operatorname{Precision}+\operatorname{Recall}} \label{fml:f1scoreh}
 \end{align}
 
-\subsection{Setting and Environment}
-The distribution of the number of exercise knowledge points in this data set is shown in the figure. The number of questions involved in different knowledge points is different. We define the set of questions involved in knowledge points \(j\) as \(\mathbf{E}_j\). Remember the threshold of the number of occurrences of the knowledge point label \(\tau^{kp} \), then the knowledge points of the exercises can be divided according to the frequency of occurrence, i.e., \( \{j|\mathbf{E}_j|>\tau^{kp}\} \) and \( \{j||\mathbf{E}_j|\leq\tau^{kp} \} \). According to the different thresholds, the ability of the model to classify knowledge points that appear frequently and that appear sparse can be tested separately.
 
-%在实验中，设定了200，150，100，50，10五组阈值\(\tau_{kp} \)，将具有标签\(j\)的习题记作\(\mathbb{E}_j\)，则可以统计符合要求的标签集\(\mathbb{L}={j||\mathbb{E}_j|\geq\tau_{kp}}\)出习题集大小\(|\mathbb{E}_j|\)和题均知识点数\(LAvg_j \)。
-In the experiment, five sets of thresholds of 200, 150, 100, 50, 10 are set \(\tau_{kp} \), and the exercises with the label \(j\) are recorded as \(\mathbf{E}_j\), the label set that meets the requirements can be counted as \(\mathbf{L}_\tau^{kp}=\{j\mid |\mathbf{E}_j|\geq\tau_{kp}\} \), the exercises containing label in \(\mathbf{L}_\tau^{kp} \) is denoted as \(\mathbf{E}_\tau^{kp} \), within which the average number of labels of the exercise in the set is \(L_Avg_\tau^{kp}\)
+\subsection{Setting and Environment}
+The distribution of the number of exercise knowledge points in this data set is shown in the figure. The number of questions involved in different knowledge points is different. We define the set of questions involved in knowledge points \(j\) as \(\mathbf{E}_j\). Remember the threshold of the number of occurrences of the knowledge point label \(\tau^{(kp)} \), then the knowledge points of the exercises can be divided according to the frequency of occurrence, i.e., \( \{j|\mathbf{E}_j|>\tau^{(kp)}\} \) and \( \{j||\mathbf{E}_j|\leq\tau^{(kp)} \} \). According to the different thresholds, the ability of the model to classify knowledge points that appear frequently and that appear sparse can be tested separately.
+
+%在实验中，设定了200，150，100，50，10五组阈值\(\tau^{(kp)} \)，将具有标签\(j\)的习题记作\(\mathbb{E}_j\)，则可以统计符合要求的标签集\(\mathbb{L}={j||\mathbb{E}_j|\geq\tau^{(kp)}}\)出习题集大小\(|\mathbb{E}_j|\)和题均知识点数\(LAvg_j \)。
+In the experiment, five sets of thresholds of 200, 150, 100, 50, 10 are set \(\tau^{(kp)} \), and the exercises with the label \(j\) are recorded as \(\mathbf{E}_j\), the label set that meets the requirements can be counted as \(\mathbf{L}_\tau^{(kp)}=\{j\mid |\mathbf{E}_j|\geq\tau^{(kp)}\} \), the exercises containing label in \(\mathbf{L}_\tau^{(kp)} \) is denoted as \(\mathbf{E}_\tau^{(kp)} \), within which the average number of knowledge points of the exercise in the set is \(\overline{L}\)
 
 \begin{table}[H]
 	\centering
 	\caption{Setting of Experiment}\label{tbl:ch2-ex1}
 	\begin{tabular}{cccc}%{cp{2cm}<{\centering}p{2cm}<{\centering}p{2cm}<{\centering}}
 		\toprule
-		\text{\(\tau^{kp} \)} & \(|\mathbf{L}_{\tau^{kp}}|\) & \(|\mathbf{E}_{\tau^{kp}}| \) & \(LAvg_{\tau^{kp}} \) \\
+		\text{\(\tau^{(kp)} \)} & \(|\mathbf{L}_{\tau^{(kp)}}|\) & \(|\mathbf{E}_{\tau^{(kp)}}| \) & \(\overline{L}\) \\
 		\midrule
-		200                   & 2                            & 463                           & 1.21                  \\
-		100                   & 22                           & 1376                          & 1.55                  \\
-		50                    & 29                           & 2237                          & 1.42                  \\
-		10                    & 57                           & 3158                          & 1.35                  \\
+		200                     & 2                              & 463                             & 1.21             \\
+		100                     & 22                             & 1376                            & 1.55             \\
+		50                      & 29                             & 2237                            & 1.42             \\
+		10                      & 57                             & 3158                            & 1.35             \\
 		\bottomrule
 	\end{tabular}
 \end{table}
@@ -496,7 +503,7 @@ The running environment is Ubuntu 20.04, TensorFlow 2.23, Python 3.8.6, and the 
 The comparison experiment results are divided into the performance comparison of the horizontal Baseline model (obtained in Table~\ref{tbl:bsline1}-Table~\ref{tbl:bsline4}) and the performance comparison of different hyperparameters of the model (Table 2.4).
 
 \begin{table}[H]
-	\caption{Result comparison (\(\tau^{kp}=200 \))}\label{tbl:bsline1}
+	\caption{Result comparison (\(\tau^{(kp)}=200 \))}\label{tbl:bsline1}
 	\centering
 	\begin{tabular}{cccccccc}
 		\toprule
@@ -514,7 +521,7 @@ The comparison experiment results are divided into the performance comparison of
 
 \begin{table}
 	\centering
-	\caption{Result comparison (\(\tau^{kp}=100 \))}\label{tbl:bsline2}
+	\caption{Result comparison (\(\tau^{(kp)}=100 \))}\label{tbl:bsline2}
 	\begin{tabular}{cccccccc}
 		\toprule
 		Metrics      & \(\operatorname{F1}_{macro}\) & \(\operatorname{F1}_{micro}\) & \(\operatorname{Acc}_{ML}\) & \(\operatorname{HmLoss}\) & \(\operatorname{F1}_{ML}\) \\
@@ -530,7 +537,7 @@ The comparison experiment results are divided into the performance comparison of
 
 \begin{table}
 	\centering
-	\caption{Result comparison (\(\tau^{kp}=50 \))}\label{tbl:bsline3}
+	\caption{Result comparison (\(\tau^{(kp)}=50 \))}\label{tbl:bsline3}
 	\begin{tabular}{cccccccc}
 		\toprule
 		Metrics      & \(\operatorname{F1}_{macro}\) & \(\operatorname{F1}_{micro}\) & \(\operatorname{Acc}_{ML}\) & \(\operatorname{HmLoss}\) & \(\operatorname{F1}_{ML}\) \\
@@ -546,7 +553,7 @@ The comparison experiment results are divided into the performance comparison of
 
 \begin{table}
 	\centering
-	\caption{Result comparison (\(\tau^{kp}=10 \))}\label{tbl:bsline4}
+	\caption{Result comparison (\(\tau^{(kp)}=10 \))}\label{tbl:bsline4}
 	\begin{tabular}{cccccccc}
 		\toprule
 		Metrics      & \(\operatorname{F1}_{macro}\) & \(\operatorname{F1}_{micro}\) & \(\operatorname{Acc}_{ML}\) & \(\operatorname{HmLoss}\) & \(\operatorname{F1}_{ML}\) \\
