@@ -5,6 +5,8 @@ import numpy as np
 import copy
 
 
+class Embedding(nn.Module):
+    pass
 class Feed_Forward_block(nn.Module):
     """
     out =  Relu( M_out*w1 + b1) *w2 + b2
