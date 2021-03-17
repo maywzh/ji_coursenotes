@@ -390,7 +390,7 @@ Compared with traditional learning problems, it is tough to label multi-label da
 
 %关于多标签分类，考虑到习题的标签之间的关系，本文使用了基于标签的指标来进行模型评估。该指标对每个标签分别进行混淆矩阵指标计算计算出True Positive，False Positive，True Negative和False Negative的样本值。然后计算F1指标值，以此进行多标签指标评估。
 
-Regarding multi-label classification, considering the relationship between the labels of the exercises, this article uses label-based indicators for model evaluation. The indicator calculates the confusion matrix indicator for each label to calculate the sample values of True Positive (TP), False Positive (FP), True Negative (TN), and False Negative (FN). Then calculate the macro-F1 and micro-F1 metrics for multi-label tagging model performance evaluation.
+Regarding multi-label classification, considering the relationship between the exercises' labels, this article uses label-based indicators for model evaluation. The indicator calculates the confusion matrix indicator for each label to calculate the sample values of True Positive (TP), False Positive (FP), True Negative (TN), and False Negative (FN). Then calculate the macro-F1 and micro-F1 metrics for multi-label tagging model performance evaluation.
 
 According to the metrics proposed by Zhou et al.~\cite{zhang2013review}, for the j-th label of the i-th example in the \(n\) examples, shown in the formula~\ref{fml:mlcm}.
 \begin{equation}
@@ -434,17 +434,17 @@ Similarly, we can also count some indicators based on samples. For example, the 
 \end{align}
 
 \subsection{Setting and Environment}
-The distribution of the number of exercise knowledge points in this data set is shown in the figure. The number of questions involved in different knowledge points is different. We define the set of questions involved in knowledge points \(j\) as \(\mathbf{E}_j\). Remember the threshold of the number of occurrences of the knowledge point label \(\tau^{(kp)} \), then the knowledge points of the exercises can be divided according to the frequency of occurrence, i.e., \( \{j|\mathbf{E}_j|>\tau^{(KP)}\} \) and \( \{j||\mathbf{E}_j|\leq\tau^{(KP)} \} \). According to the different thresholds, the model's ability to classify knowledge points that appear frequently and that appear sparse can be tested separately.
+The distribution of the number of exercise knowledge points in this data set is shown in the figure. The number of questions involved in different knowledge points is different. We define the set of questions involved in knowledge points \(j\) as \(\mathbf{E}_j\). Remember the threshold of the number of occurrences of the knowledge point label \(\tau^{(KP)} \), then the knowledge points of the exercises can be divided according to the frequency of occurrence, i.e., \( \{j|\mathbf{E}_j|>\tau^{(KP)}\} \) and \( \{j||\mathbf{E}_j|\leq\tau^{(KP)} \} \). According to the different thresholds, the model's ability to classify knowledge points that appear frequently and that appear sparse can be tested separately.
 
-%在实验中，设定了200，150，100，50，10五组阈值\(\tau^{(kp)} \)，将具有标签\(j\)的习题记作\(\mathbb{E}_j\)，则可以统计符合要求的标签集\(\mathbb{L}={j||\mathbb{E}_j|\geq\tau^{(kp)}}\)出习题集大小\(|\mathbb{E}_j|\)和题均知识点数\(LAvg_j \)。
-In the experiment, five sets of thresholds of 200, 150, 100, 50, 10 are set \(\tau^{(kp)} \), and the exercises with the label \(j\) are recorded as \(\mathbf{E}_j\), the label set that meets the requirements can be counted as \(\mathbf{L}_\tau^{(kp)}=\{j\mid |\mathbf{E}_j|\geq\tau^{(kp)}\} \), the exercises containing label in \(\mathbf{L}_\tau^{(kp)} \) is denoted as \(\mathbf{E}_\tau^{(kp)} \), within which the average number of knowledge points of the exercise in the set is \(\overline{L}\)
+%在实验中，设定了200，150，100，50，10五组阈值\(\tau^{(KP)} \)，将具有标签\(j\)的习题记作\(\mathbb{E}_j\)，则可以统计符合要求的标签集\(\mathbb{L}={j||\mathbb{E}_j|\geq\tau^{(KP)}}\)出习题集大小\(|\mathbb{E}_j|\)和题均知识点数\(LAvg_j \)。
+In the experiment, five sets of thresholds of 200, 150, 100, 50, 10 are set \(\tau^{(KP)} \), and the exercises with the label \(j\) are recorded as \(\mathbf{E}_j\), the label set that meets the requirements can be counted as \(\mathbf{L}_\tau^{(KP)}=\{j\mid |\mathbf{E}_j|\geq\tau^{(KP)}\} \), the exercises containing label in \(\mathbf{L}_\tau^{(KP)} \) is denoted as \(\mathbf{E}_\tau^{(KP)} \), within which the average number of knowledge points of the exercise in the set is \(\overline{L}\)
 
 \begin{table}[H]
 	\centering
 	\caption{Setting of Experiment}\label{tbl:ch2-ex1}
 	\begin{tabular}{cccc}%{cp{2cm}<{\centering}p{2cm}<{\centering}p{2cm}<{\centering}}
 		\toprule
-		\text{\(\tau^{(kp)} \)} & \(|\mathbf{L}_{\tau^{(kp)}}|\) & \(|\mathbf{E}_{\tau^{(kp)}}| \) & \(\overline{L}\) \\
+		\text{\(\tau^{(KP)} \)} & \(|\mathbf{L}_{\tau^{(KP)}}|\) & \(|\mathbf{E}_{\tau^{(KP)}}| \) & \(\overline{L}\) \\
 		\midrule
 		200                     & 2                              & 463                             & 1.21             \\
 		100                     & 22                             & 1376                            & 1.55             \\
@@ -538,7 +538,7 @@ There are many adjustable parameters of the model in BERT and GCN. Hyperparamete
 The comparison experiment results are divided into the performance comparison of the horizontal Baseline model (obtained in Table~\ref{tbl:bsline1}-Table~\ref{tbl:bsline4}) and the performance comparison of different hyperparameters of the model (Table 2.4).
 
 \begin{table}[H]
-	\caption{Result comparison (\(\tau^{(kp)}=200 \))}\label{tbl:bsline1}
+	\caption{Result comparison (\(\tau^{(KP)}=200 \))}\label{tbl:bsline1}
 	\centering
 	\begin{tabular}{cccccccc}
 		\toprule
@@ -556,7 +556,7 @@ The comparison experiment results are divided into the performance comparison of
 
 \begin{table}
 	\centering
-	\caption{Result comparison (\(\tau^{(kp)}=100 \))}\label{tbl:bsline2}
+	\caption{Result comparison (\(\tau^{(KP)}=100 \))}\label{tbl:bsline2}
 	\begin{tabular}{cccccccc}
 		\toprule
 		Metrics      & \(\operatorname{F1}_{macro}\) & \(\operatorname{F1}_{micro}\) & \(\operatorname{Acc}_{ML}\) & \(\operatorname{HmLoss}\) & \(\operatorname{F1}_{ML}\) \\
@@ -572,7 +572,7 @@ The comparison experiment results are divided into the performance comparison of
 
 \begin{table}
 	\centering
-	\caption{Result comparison (\(\tau^{(kp)}=50 \))}\label{tbl:bsline3}
+	\caption{Result comparison (\(\tau^{(KP)}=50 \))}\label{tbl:bsline3}
 	\begin{tabular}{cccccccc}
 		\toprule
 		Metrics      & \(\operatorname{F1}_{macro}\) & \(\operatorname{F1}_{micro}\) & \(\operatorname{Acc}_{ML}\) & \(\operatorname{HmLoss}\) & \(\operatorname{F1}_{ML}\) \\
@@ -588,7 +588,7 @@ The comparison experiment results are divided into the performance comparison of
 
 \begin{table}
 	\centering
-	\caption{Result comparison (\(\tau^{(kp)}=10 \))}\label{tbl:bsline4}
+	\caption{Result comparison (\(\tau^{(KP)}=10 \))}\label{tbl:bsline4}
 	\begin{tabular}{cccccccc}
 		\toprule
 		Metrics      & \(\operatorname{F1}_{macro}\) & \(\operatorname{F1}_{micro}\) & \(\operatorname{Acc}_{ML}\) & \(\operatorname{HmLoss}\) & \(\operatorname{F1}_{ML}\) \\
