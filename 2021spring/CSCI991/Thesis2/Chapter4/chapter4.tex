@@ -4,7 +4,7 @@
 \ifpdf
   \graphicspath{{Chapter4/Figs/Raster/}{Chapter4/Figs/PDF/}{Chapter4/Figs/}}
 \else
-  \graphicspath{{Chapter4/Figs/Vector/}{Chapter4/Figs/}}
+  \graphicspath{{Chapter4/Figs/Raster/}{Chapter4/Figs/PDF/}{Chapter4/Figs/}}
 \fi
 
 \section{Research Motivation}
@@ -39,7 +39,7 @@ The overview of the entire model is as follows：
 
 The structure of the recommendation system is like \figurename{\ref{fig:ch4-fig0}}
 
-\begin{figure}[h]
+\begin{figure}[htbp!]
   \centering
   \includegraphics[width=1.0\textwidth]{ch4-fig-architecture.png }
   \caption{The Architecture of Recommendation System}\label{fig:ch4-fig0}
@@ -58,7 +58,7 @@ With different matching strategies, the corresponding recommendation focuses are
 
 This section proposes a multiplex exercise recommendation item matching model. The model uses multiple matching strategies based on popularity, user interest, expert recommendation exercises, error-prone questions, user error question sets, and collaborative filtering as sub-matching strategies. Matching strategies are based on learnable parameters to control the weight of the matching strategy. After all matching strategies have returned to the sub-matching exercise set, the exercises are merged and filtered through the algorithm based on weighted merging. Its structure is shown in~\figurename{\ref{fig:ch4-matching}}.
 
-\begin{figure}[h]
+\begin{figure}[htbp!]
   \centering
   \includegraphics[width=1.0\textwidth]{ch4-model-matching.pdf}
   \caption{The Multiplex Matching Method}\label{fig:ch4-matching}
@@ -73,14 +73,14 @@ This section proposes a multiplex exercise recommendation item matching model. T
 
 Collaborative filtering is one of the matching strategies in multiplex matching. For math learning questions, because the exercises have been labeled with knowledge points, the similarity can be calculated according to the degree of overlap of the knowledge points. At the same time, for students, the student's knowledge state representation vector is obtained in the knowledge tracking stage, so the students' knowledge mastery similarity can also be calculated based on this vector. This section proposes a two-stage collaborative filtering algorithm based on Student-Exercise. The algorithm first calculates the similarity of students, obtains related exercises, and then calculates similar exercises based on these exercises and adds them to the candidate set. The exercise set calculated by this method is relatively The language is relatively complete to prevent the problem of sparse recommendation items that appear due to fewer similar users.
 
-Traditional user-based collaborative filtering calculates the similarity between users based on the user characteristics selected by the model, determines the similarity of the user's state according to the similarity, and uses the top users with the highest similarity as the user's nearest neighbors. The construction of the neighbor user set is an important premise and foundation of the collaborative filtering algorithm. For the calculation methods of similar users, most of the current personalized recommendation sys For the calculation methods of similar users, most of the current personalized recommendation systems mainly use cosine similarity, modified cosine similarity, and correlation similarity. Cosine similarity is to calculate the cosine value of the angle between the two users' rating vectors in the vector space model, and the cosine value of the angle between the rating vectors is used to express the similarity between users. The modified cosine similarity is mainly to solve the problem that users are affected by their own or other factors, and the scoring data is unstable. Compared with the cosine similarity calculation of the similarity between users, the modified cosine similarity calculation is more important because of more considerations. Be more accurate. Because the cosine similarity calculation method is too rough and does not take into account the influence of the user or other factors on the similarity between users, more user-based collaborative filtering recommendation systems choose to use the modified cosine similarity method to calculate the user-to-user similarity. The similarity. The formula is \ref{fml:ch4-user_similarity}, where \(\mathbf{S}^u=(S^u_1,S^u_2,\ldots,S^u_n)\), \(\mathbf{S}^v=(S^v_1,S^v_2,\ldots, S^v_n)\) represent the representation vectors of the knowledge state of users \(u\) and \(v\) output by the knowledge tracing model, respectively.
+Traditional user-based collaborative filtering calculates the similarity between users, determining the similarity of the user's state according to the similarity, and uses the top users with the highest similarity as the user's nearest neighbors. The construction of the neighbor user set is an important premise and foundation of the collaborative filtering algorithm. For the calculation methods of similar users, most of the current personalized recommendation sys For the calculation methods of similar users, most of the current personalized recommendation systems mainly use cosine similarity, modified cosine similarity, and correlation similarity. Cosine similarity is to calculate the cosine value of the angle between the two users' rating vectors in the vector space model, and the cosine value of the angle between the rating vectors is used to express the similarity between users. The modified cosine similarity is mainly to solve the problem that users are affected by their own or other factors, and the scoring data is unstable. Compared with the cosine similarity calculation of the similarity between users, the modified cosine similarity calculation is more important because of more considerations. Be more accurate. Because the cosine similarity calculation method is too rough and does not take into account the influence of the user or other factors on the similarity between users, more user-based collaborative filtering recommendation systems choose to use the modified cosine similarity method to calculate the user-to-user similarity. The similarity. The formula is \ref{fml:ch4-user_similarity}, where \(\mathbf{S}^u=(S^u_1,S^u_2,\ldots,S^u_n)\), \(\mathbf{S}^v=(S^v_1,S^v_2,\ldots, S^v_n)\) represent the representation vectors of the knowledge state of users \(u\) and \(v\) output by the knowledge tracing model, respectively.
 
-\begin{equation}
-  \begin{align}\label{fml:ch4-user_similarity}
+\begin{align}\label{fml:ch4-user_similarity}
+  \begin{split}
     sim(u, v) & =\frac{\mathbf{S}^u \cdot \mathbf{S}^v}{|\mathbf{S}^u|\cdot |\mathbf{S}^v}                                                                 \\
-              & =\frac{\sum\limits_{i = 1}^{n}{S^u_i\cdot S^v_i}}{\sqrt{\sum\limits_{i = 1}^{n}{{S^u_i}^2}}\cdot\sqrt{\sum\limits_{i = 1}^{n}{{S^v_i}^2}}}
-  \end{align}
-\end{equation}
+    & =\frac{\sum\limits_{i = 1}^{n}{S^u_i\cdot S^v_i}}{\sqrt{\sum\limits_{i = 1}^{n}{{S^u_i}^2}}\cdot\sqrt{\sum\limits_{i = 1}^{n}{{S^v_i}^2}}}
+  \end{split}
+\end{align}
 
 After the similarity of students is calculated, a similarity threshold \(\tau^{simuser}\) can be set as the screening criterion for similar students. For user \(u\), the similar user set can be denoted as \(\mathbf{U}_{sim}\), the calculation of which is Formula~\ref{fml:ch4-simuserset}. In order to obtain similar exercises, select the user's mistaken exercise set, or favorites exercise set in \(\mathbf{U}_{sim}\). Denote Aggregation of the mistaken exercise set and favorites exercise set of the user \(i\) as \(\mathbf{E}_{i}\). Finally, the set of wrong questions and the set of favorite exercises of similar users that meet the requirements are merged and deduplicated to obtain the set of target exercises.
 
@@ -89,7 +89,7 @@ After the similarity of students is calculated, a similarity threshold \(\tau^{s
 \end{align}
 
 The general algorithm is as~\ref{alg:ch4-CF}:
-\begin{algorithm}[h]
+\begin{algorithm}[htbp!]
   \caption{Student-Exercise Collaborative Filtering Algorithm}\label{alg:ch4-CF}
   \begin{algorithmic}
     \REQUIRE~~\\
@@ -145,15 +145,15 @@ After calculating the value of \(S^{(UPM)}\), the error answered or favorited ex
 
 %最终的召回结果由各个召回策略进行融合、排序等方式来产生。对于某个具体的物品，应当综合各个策略的召回结果来进行综合权值计算。也就是说，某个物品\(i\)在策略\(j\)中的输出的权值为\(S_j\)，如果物品不在策略\(j\)的召回结果中，则\(S_i=0\)，否则为公式\ref{fml:ch4-sbms}与\ref{fml:ch4-upbms}的计算结果。记策略\(j\)的融合权重为\(w_j\)则物品的综合召回排名权重为
 
-Different recommendation candidate itemsets are filtered out by applying different matching strategies, and each set has a different focus. In the merging stage, each matching set needs to be further merged and filtered. For matching strategy \(s_i\), the first \(K_{s_i}\) candidate items will be filtered out. The \(K_{s_i}\) of each strategy is a hyperparameter, the value of which should be set based on practical evaluation and adapted to actual application scenarios to achieve the best matching effect.
+Different recommendation candidate itemsets are generated by applying different matching strategies, and each set has a different focus. In the merging stage, each matching set needs to be further merged and filtered. For matching strategy \(s_i\), the first \(K_{s_i}\) candidate items will be filtered out. The \(K_{s_i}\) of each strategy is a hyperparameter, the value of which should be set based on practical evaluation and adapted to actual application scenarios to achieve the best matching effect.
 
 The final matching set of recommended items is generated by the merging and sorting of various matching strategies. For a specific item, the matching results of each strategy can vary within different strategies, so the matching score should aggregate all recommendation scores of all sub-matching strategies.  Denoting the recommending score of an item \(i\) in the strategy \(j\) as \(S_{j, i}\) and the merging weight of the strategy \(j\) as \(w_j\), the comprehensive merged matching ranking score of the item is calculated as Formula~\ref{fml:ch4-mergingrecall}. Finally, the exercises are sorted in decreasing order according to the recommended score \(S_i\), and the top \(K_{Merge}\) items are taken.
-\begin{equation}
-  \begin{align}\label{fml:ch4-mergingrecall}
+\begin{align}\label{fml:ch4-mergingrecall}
+  \begin{split}
     S_i & = \sum_{j}{w_j\cdot S_{j,i}}                                                       \\
-        & = w^{(UCF)}\cdot S^{(UCF)}_i+w^{(UPM)}\cdot S^{(UPM)}_i+w^{(PMS)}\cdot S^{(PMS)}_i
-  \end{align}
-\end{equation}
+    & = w^{(UCF)}\cdot S^{(UCF)}_i+w^{(UPM)}\cdot S^{(UPM)}_i+w^{(PMS)}\cdot S^{(PMS)}_i
+  \end{split}
+\end{align}
 
 %其中每个策略的权重\(w_i\)的选择也有多种策略，最简单的方式即是平均法，即每个策略的\(w_i\)都相等，或者取固定的权重，这样的\(w_i\)无法随推荐场景变化而变化，不够flexible。因此每个策略的权重都应当基于推荐结果进行调整。目前已经有的调整方法包括基于点击率的动态加权法和基于机器学习的调整方法等等。由于点击率在习题推荐中的意义不明确，在学习资源推荐的应用场景中，应当关注习题推荐的合适程度，因此最佳方法是根据推荐结果反馈进行召回权重调整。基于机器学习的推荐召回策略权重调整方法通过计算总体推荐权重与习题最终推荐合理度的交叉熵来计算损失函数。并且有离线训练和在线训练两种模式，前者通过已有的习题推荐记录进行模型训练，并将模型部署到实际生产环境中，无需再对权重矩阵进行调整，这样做的优点在于降低计算成本，并且部署和迁移成本低。而后者则基于端到端的训练，在推荐的过程中同时进行权重调整，这样做会产生较大的计算开销，但是精度更高。
 
@@ -168,7 +168,7 @@ After multi-channel matching merging settlement, a candidate set of exercises \(
 % When the recommendation system is running, the system will record the students' question records. After calculating the similarity of the students, they can be sorted according to the similarity. Given a threshold, list the students whose similarity is greater than the threshold, and divide the students according to the list. The exercises corresponding to the problem record are added to \(S_{raw}\).
 
 % The algorithm is as~\ref{alg:EF}:
-% \begin{algorithm}[h]
+% \begin{algorithm}[htbp!]
 %   \caption{Exercise Filtering Algorithm}\label{alg:EF}
 %   \begin{algorithmic}
 %     \REQUIRE~~\\
@@ -195,7 +195,7 @@ After the recommended matching stage of the exercise set, a candidate set of exe
 
 The knowledge tracing model outputs a prediction of the correct probability of answering the exercises. Since the purpose of exercise recommendation is to strengthen students' proficiency for unfamiliar and relatively low-level knowledge points, the recommended exercises should be made as far as possible to allow students to answer incorrectly. Otherwise, it will not be able to have the effect of checking for missing knowledge points. In the knowledge tracing model, at the interaction time \(t\), the student's knowledge state representation vector \(h_t\) can be obtained. In order to rank the degree of the recommendation of exercises, all exercises in the recommended candidate set of exercises \(\mathbf{E}^{(Candidate)}\) should be input into the knowledge tracing model to predict the answers to the exercises. Make the recommended list of some of the most error-prone exercises. Its structure is shown in the \figurename{\ref{fig:ch4-ranking-1}}.
 
-\begin{figure}[h]
+\begin{figure}[htbp!]
   \centering
   \includegraphics[width=1.0\textwidth]{ch4-ranking-model.png}
   \caption{The Ranking Method}\label{fig:ch4-ranking-1}
@@ -206,11 +206,10 @@ The knowledge tracing model outputs a prediction of the correct probability of a
 The last step of the model is to input the exercises in the candidate set into the knowledge tracing model to get the predicted value, that is, the probability of answering the exercises correctly. Sort them in ascending order, and filter out the top \(K_{Rank}\) items as a list of recommended exercises. \(K_{Rank}\) is an adjustable hyperparameter, which has a greater impact on the recommendation result and determines whether an exercise will appear in the final recommendation list. When \(K_{Rank}\) is larger, the recommended accuracy rate will be higher, but the recommendation efficiency will be reduced. In practical applications, students' knowledge mastery level and practical application scenarios should be considered comprehensively, and a reasonable value of \(K_{Rank}\) should be set.
 
 The general algorithm is as~\ref{alg:ch4-Rank}:
-\begin{algorithm}[h]
+\begin{algorithm}[htbp!]
   \caption{Recommendation Ranking Algorithm}\label{alg:ch4-Rank}
   \begin{algorithmic}
     \REQUIRE~~\\
-
     The candidate exercises set \(\mathbf{E}^{(Candidate)}=\{E_1,E_2,\ldots,E_N\} \); \\
     \ENSURE~~\\ %算法的输出：Output
     The ranked recommendation exercise list \(\mathbf{E}^{(RANK)} \)
@@ -238,7 +237,7 @@ The original data set is a fixed sequence of question-answering interaction. In 
 
 The running environment of this article is shown in Table~\ref{table:ch4-exp-env}. In the configuration of this experiment, 75\% of the interaction records are selected as the training set and the remaining 25\% as the test dataset. Run the model 5 times and take the average. The hyperparameter settings of the recommendation model are shown in Table~\ref{table:ch4-hpsetting}. In the ranking stage, parameter \(N\) represents the number of Transformer stacking blocks in the knowledge tracing model, and \(d\) represents the sub-layer output's dimension.
 
-\begin{table}[htbp]
+\begin{table}[htbp!]
   \caption{Experiment Running Environment}\label{table:ch4-exp-env}
   \centering
   \begin{tabular}{l c}
@@ -260,7 +259,7 @@ The running environment of this article is shown in Table~\ref{table:ch4-exp-env
   \end{tabular}
 \end{table}
 
-\begin{table}[htbp]
+\begin{table}[htbp!]
   \caption{Hyperparameter Settings of Recommendation Model}\label{table:ch4-hpsetting}
   \centering
   \begin{tabular}{l c c}
@@ -329,7 +328,7 @@ Where \(\tau \) is an adjustable hyperparameter, this is a classification proble
 
 \subsection{Result and Analysis}
 We applied five different \(\tau \) (0.45, 0.5, 0.55) as the threshold for judging the predicting correctness of the exercises. The result is shown in Table~\ref{table:ch4-exp-result}.
-\begin{table}[htbp]
+\begin{table}[htbp!]
   \caption{Recommendation Experiment Result}\label{table:ch4-exp-result}
   \centering
   \begin{tabular}{c c c}
