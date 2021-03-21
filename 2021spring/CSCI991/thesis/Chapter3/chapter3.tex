@@ -1,11 +1,11 @@
 \chapter{Graph Attention Networks Embedded Knowledge Tracing Model With Transformer}
 
 % **************************** Define Graphics Path **************************
-%\ifpdf
-\graphicspath{{Chapter3/Figs/Raster/}{Chapter3/Figs/PDF/}{Chapter3/Figs/}}
-%\else
-%\graphicspath{{Chapter3/Figs/Vector/}{Chapter3/Figs/}}
-% \fi
+\ifpdf
+	\graphicspath{{Chapter3/Figs/Raster/}{Chapter3/Figs/PDF/}{Chapter3/Figs/}}
+\else
+	\graphicspath{{Chapter3/Figs/Raster/}{Chapter3/Figs/Vector/}{Chapter3/Figs/PDF/}{Chapter3/Figs/}}
+\fi
 
 \section{Research Motivation}
 
@@ -25,7 +25,7 @@ Knowledge tracing provides the conditions for intelligent and adaptive education
 The mathematical representation of the knowledge tracing task is an interactive answer record \(X_t=(x_1,x_2,\ldots,x_{t-1})\) of a student on an exercise sequence, based on which the student's learning status is obtained by modeling and predicting the student's performance in the next exercise \(x_{t}\). Where \(x_t\) is usually represented as an ordered pair \((q_t,a_t)\), the ordered pair indicates that the student answered the exercise \(q_t\) at time \(t\), and \(a_t\) indicates the score of the exercise, also many knowledge tracing tasks are represented by correct or incorrect answers, when \(a_t\) is 0 or 1. In this case, what is actually predicted is the probability of answering correctly for the next exercise \(P(a_{t}=1|a_{t-1},\ldots,a_1)\). As shown in the figure \figurename{\ref{fig:ch3-model-ktdes}}.
 
 \begin{figure}
-	\includegraphics[width=\textwidth]{ch3-model-ktdes.pdf}
+	\includegraphics[width=0.9\textwidth]{ch3-model-ktdes.pdf}
 	\caption{The knowledge tracing pattern}\label{fig:ch3-model-ktdes}
 \end{figure}
 
@@ -57,14 +57,14 @@ The key point of this section is to track students' knowledge. What is issued is
 	\item Knowledge tracing layer based on Transformer: this layer is similar to the traditional transformer structure and has two parts: encoder and Decoder. It learns the weight matrix of knowledge points and problems and can solve the problem of knowledge point dependence. Through the attention mechanism, it can also capture similar problems of knowledge points.
 \end{enumerate}
 
-\begin{figure}[h]
+\begin{figure}[htbp!]
 	\centering
-	\includegraphics[width=1.0\textwidth]{ch3-overview.pdf}
+	\includegraphics[width=0.9\textwidth]{ch3-overview.pdf}
 	\caption{Overview Model Structure}\label{fig:ch3-fig1}
 \end{figure}
-\begin{figure}[h]
+\begin{figure}[htbp!]
 	\centering
-	\includegraphics[width=1.0\textwidth]{ch3-fig2.png}
+	\includegraphics[width=0.9\textwidth]{ch3-fig2.png}
 	\caption{The Graph of Knowledge Point and exercise}\label{fig:ch3-fig2}
 \end{figure}
 
@@ -99,9 +99,9 @@ The \(e_{ij}\) is the contribution degree from vertex \(i\) to vertex \(j\) and 
 
 % The procedure is like \figurename{\ref{fig:ch3-gat-emb}};
 
-% \begin{figure}[h]
+% \begin{figure}[htbp!]
 % 	\centering
-% 	\includegraphics[width=1.0\textwidth]{ch3-emb.png}
+% 	\includegraphics[width=0.9\textwidth]{ch3-emb.png}
 % 	\caption{Feature extraction and attention mechanism}\label{fig:ch3-gat-emb}
 % \end{figure}
 
@@ -123,9 +123,9 @@ From L-layer GAT, we got the embedded vector of exercise \(i\) as \(E^{(e)}_i = 
 
 %GAT获取的exercises，knowledge point和answer的嵌入。分别记作$\mathbf{E}_{p} \in \mathbb{R}^{|\mathcal{P}| \times d}$,$ \mathbf{E}_{q} \in \mathbb{R}^{|\mathcal{Q}| \times d}$, $\mathbf{E}_{a} \in \mathbb{R}^{2 \times d}$，用z代表embedding size。
 
-% \begin{figure}[h]
+% \begin{figure}[htbp!]
 % 	\centering
-% 	\includegraphics[width=1.0\textwidth]{ch2-fig4.png}
+% 	\includegraphics[width=0.9\textwidth]{ch2-fig4.png}
 % 	\caption{Multi-head Attention}\label{fig:ch3-fig4}
 % \end{figure}
 % Denote the vertex as \(i\) and the neighbor vertex set as \(\mathcal{N}_{i}\) and the embedding of vertex as \(x_i\), the input of the graph attention layer is \(x=\{\overrightarrow{x_{1}}, \overrightarrow{x_{2}}, \overrightarrow{x_{3}}, \ldots, \overrightarrow{x_{n}}|\overrightarrow{x_{i}}\in \mathbb{R}_{F}\}\) and the output is \(x=\{\overrightarrow{x_{1}}^{\prime}, \overrightarrow{x_{2}}^{\prime}, \overrightarrow{x_{3}}^{\prime}, \ldots, \overrightarrow{x_{n}}^{\prime}|\overrightarrow{x_{i}}^\prime\in \mathbb{R}_{F^\prime}\} \), where \(n\) is the number of nodes and \(F\) is the number of vertex features.  represents the features of all nodes, and \(F^{\prime}\) denotes the output vertex features. In order to get the corresponding input and output transformations, we need to perform at least one linear transformation based on the input features to get the output features, so we need to train a weight matrix for all nodes: \(W\in \mathbb{R}^{F^{\prime}\times F}\), and this weight matrix is the relationship between the \(F\) features of the input and the \(F^\prime \) features of the output.
@@ -139,26 +139,27 @@ From L-layer GAT, we got the embedded vector of exercise \(i\) as \(E^{(e)}_i = 
 The input of transformer Block is the concatenation of the embedded exercise \(E^{(e)}_i \) and corresponding answer correctness \(a_i\), i.e. \(E_i=E^{(e)}_i\|a_i\). The general structure is like \figurename{\ref{fig:ch3-fig5}}. The traditional Transformer model is modified to apply to knowledge tracing task. The Transformer can learn the W-matrix relating underlying knowledge points and exercises. This allows the model to learn deeper connections between problems, resulting in better inference performance. It can cluster problems with similar knowledge points and reduce the variance for less frequent problems.
 \begin{figure}[htbp!]
 	\centering
-	\includegraphics[width=1.0\textwidth]{ch3-trm.pdf}
+	\includegraphics[width=0.9\textwidth]{ch3-trm.pdf}
 	\caption{The Transformer architecture}
 	\label{fig:ch3-fig5}
 \end{figure}
 
-The output of Embedding layer \(E_i\) is passed into a Transformer Block, of which the first is a masked multi-head attention (MHA) module. The formula is \ref{fml:mha}
-\begin{equation}\label{fml:mha}
-	\begin{align}
+The output of embedding layer \(E_i\) is passed into a Transformer Block, of which the first is a masked multi-head attention (MHA) module. The formula is \ref{fml:mha}
+
+\begin{align}\label{fml:mha}
+	\begin{split}
 		q_{i}   & =Q E_i                                                                \\
 		k_{i}   & =K E_i                                                                \\
 		v_{i}   & =V E_i                                                                \\
 		A_{i j} & =\frac{q_{i} k_{j}+b(\Delta t_{i-j})}{\sqrt{d_{k}}}, \forall j \leq i \\
 		h_{i}   & =\sum_{j \leq i} \operatorname{softmax}(A_{i j}) v_{j}
-	\end{align}
-\end{equation}
-Query, Key and Value sequences are inputed into model. It separately extracts  value\(v_i\), query \(q_i\), and key \(k_i\). Then the attention from \(i\) to \(j\) can be calculated. The time difference \(b(\Delta t_{i-j})\) imports time variance into attention of \(i\) and \(j\). Then the representation of value \(i\), which is \(h_i\) can be obtained. The upper masking should be added into the MHA model to stop the effect from current state to the future state.
+	\end{split}
+\end{align}
+Query, Key, and Value sequences are inputted into model. It separately extracts  value\(v_i\), query \(q_i\), and key \(k_i\). Then the attention from \(i\) to \(j\) can be calculated. The time difference \(b(\Delta t_{i-j})\) imports time variance into attention of \(i\) and \(j\). Then the representation of value \(i\), which is \(h_i\) can be obtained. The upper masking should be added into the MHA model to stop the effect from the current state to the future state.
 
 The MHA output is formula~\ref{fml:mhaout}, where \(N^{(mha)}\) is the number of head and \(W^{(Aggregate)}\) is the aggregate weight matrix.
-\begin{align}\label{fml:mhaout}
-	MHA(Q,K,V) = (h_1\|h_2\|\ldots\|h_t) \times W^{(Aggregate)}
+\begin{align}
+	MHA(Q,K,V) = (h_1\|h_2\|\ldots\|h_t) \times W^{(Aggregate)}\label{fml:mhaout}
 \end{align}
 
 Then it is feeded into feed-forward net (FFN). This if for non-linearity import. The formula is~\ref{fml:ffn}.
@@ -170,15 +171,19 @@ Actually, The knowledge state vectors \(S_i = F_i\)
 The output of FFN is actually the hidden knowledge mastery proficiency state vector. It is the output of the encoder module. In general, the Encoder formula is~\ref{fml:encoder}. The \(SkipCon(\cdot)\) is the skip connection \cite{he2016deep} which can reduces gradient disappearance and network degradation problems, making training easier.. The \(LNorm(\cdot)\) is the Layer normalization \cite{ba2016layer}
 for normalization.
 \begin{align}\label{fml:encoder}
-	M^{(En)} & =SkipCon(MHA(LNorm(Q,K,V))) \\
-	O^{(En)} & =SkipCon(FFN(LNorm(M)))
+	\begin{split}
+		M^{(En)} & =SkipCon(MHA(LNorm(Q,K,V))) \\
+		O^{(En)} & =SkipCon(FFN(LNorm(M)))
+	\end{split}
 \end{align}
 
 The \(O^{(En)}\) is then as the input of Decoder's Key and Value. The Decoder apply one MHA to generate a representation of question information as formula~\ref{fml: Decoder}
 \begin{align}\label{fml:decoder}
-	M^{(De)}_1 & =SkipCon(MHA(LNorm(Q^\prime,K^\prime,V^\prime)))    \\
-	M^{(De)}_2 & =SkipCon(MHA(LNorm(M^{(De)}_1 ,O^{(En)},O^{(En)}))) \\
-	O^{(De)}   & =SkipCon(FFN(LNorm(M^{(De)}_2M)))
+	\begin{split}
+		M^{(De)}_1 & =SkipCon(MHA(LNorm(Q^\prime,K^\prime,V^\prime)))    \\
+		M^{(De)}_2 & =SkipCon(MHA(LNorm(M^{(De)}_1 ,O^{(En)},O^{(En)}))) \\
+		O^{(De)}   & =SkipCon(FFN(LNorm(M^{(De)}_2M)))
+	\end{split}
 \end{align}
 The \(M^{(De)}_i\) is the ith MHA block output of decoder module. The output of decoder \(O^{(De)}\) is the prediction for exercise answering. The prediction is \(\mathbf{p}=(p_1,p_2,\ldots,p_t)\)
 
@@ -199,7 +204,7 @@ After investigating the existing knowledge tracing model, the thesis selected th
 	\item Statics 2011 (STATICS11) dataset is derived from the answer records of statistics courses. It contains 333 students, 1223 exercises, 156 knowledge tags and about 189 thousand interactions.
 \end{itemize}
 
-\begin{table}[h]
+\begin{table}[htbp!]
 	\centering
 	\caption{Dataset Statistics}\label{tbl:ch2-tb1}
 	\begin{tabular}{ccccc}
@@ -237,7 +242,7 @@ In this experiment, baseline performance comparisons are made by comparing some 
 
 The aggregated result of the experiment are shown in the Table~\ref{tbl:ch3-tb2}, and the proposed model achieves the better performance metrics compared to other baseline models. The labels of DKT, DKVMN and GKT are significantly better than the BKT model on all datasets. On the ASSIST15 dataset, the AUC value of the proposed model is 0.5\% higher than the other models, while GKT outperforms DKVMN and DKT due to the high hidden association of knowledge points in this dataset, so the model that can better characterize the intrinsic association of knowledge points significantly produces better results. On the ASSIST17 dataset, the proposed model slightly outperforms the compared models, while the performance difference between DKT, DKVMN, and GKT is smaller, due to the smaller association between knowledge points, and thus the performance improvement from considering the association between knowledge points is smaller. On the STATICS11 dataset, the performance of DKVMN outperforms GKT due to the overfitting phenomenon arising from modeling the relationship to knowledge, thus negatively affecting the performance, and the results show that the proposed model has better performance against overfitting.
 
-\begin{table}[h]
+\begin{table}[htbp!]
 	\centering
 	\caption{AUC results (\%) over three datasets}\label{tbl:ch3-tb2}
 	\begin{tabular}{cccc}

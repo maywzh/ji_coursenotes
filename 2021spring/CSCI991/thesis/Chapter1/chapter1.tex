@@ -5,9 +5,9 @@
 \chapter{Introduction}  %Title of the First Chapter
 
 \ifpdf
-	\graphicspath{{Chapter1/Figs/Raster/}{Chapter1/Figs/PDF/}{Chapter1/Figs/}}
+    \graphicspath{{Chapter1/Figs/Raster/}{Chapter1/Figs/PDF/}{Chapter1/Figs/}}
 \else
-	\graphicspath{{Chapter1/Figs/Vector/}{Chapter1/Figs/}}
+    \graphicspath{{Chapter1/Figs/Vector/}{Chapter1/Figs/}}
 \fi
 
 
@@ -47,9 +47,9 @@ In recent years, the rapid development of neural network models has driven resea
 
 At present, for the graph structure, the machine learning tasks that can be performed can be roughly divided into the following types:
 \begin{enumerate}
-	\item Graph node classification task: For a graph in which each node has a corresponding feature, and the categories of some nodes are known, a classification task can be designed to classify unknown nodes.
-	\item Graph edge structure prediction task: For a graph where the edge relationship between some nodes is known, the edge structure and relationship of the location are mined based on the existing information. This type of task is the edge prediction task, that is, Prediction of the relationship between nodes and nodes.
-	\item Graph classification: For the entire graph, we can also classify the graph. Graph classification is also called the graph isomorphism problem. This is often achieved by aggregating the node characteristics of the graph and then classifying it.
+    \item Graph node classification task: For a graph in which each node has a corresponding feature, and the categories of some nodes are known, a classification task can be designed to classify unknown nodes.
+    \item Graph edge structure prediction task: For a graph where the edge relationship between some nodes is known, the edge structure and relationship of the location are mined based on the existing information. This type of task is the edge prediction task, that is, Prediction of the relationship between nodes and nodes.
+    \item Graph classification: For the entire graph, we can also classify the graph. Graph classification is also called the graph isomorphism problem. This is often achieved by aggregating the node characteristics of the graph and then classifying it.
 \end{enumerate}
 
 %图神经网络在2009年由Franco等人提出，该模型基于不动点理论，目的是获得每个节点的隐藏状态。但当堆叠次数过多时，该状态收敛容易过于平滑而导致难以学习图的特征信息。图神经网络一般以迭代的方式来对节点进行数据传递计算，以此学习目标节点表示。图神经网络的概念和应用经历了不断的发展，接连有新的图神经网络模型被提出来。近年来随着GPU等并行计算设备算力的提高，使得许多过于由于计算能力限制而无法应用的图神经网络模型有了实践应用的可能性。在本文中，主要用到了图卷积神经网络（GCN）和图注意力神经网络（GAT）等。GCN是Kipf于2016年提出的用于半监督分类的模型\cite{kipf2016semi}，GCN的计算是基于层级结构，每一层都是上一层的特征抽取的结果，从节点层面，节点之间互相传播隐藏状态。最终GCN输出经过多层抽象的结果，在对节点特征信息学习和图结构信息的学习方面，在大多数公开节点分类或边预测相关的数据集上GCN几乎均取得了State of the Art（SOTA）的性能表现。GAT是由Veličković等人在2018年提出\cite{veličković2018graph}，该网络在传播过程引入自注意力机制，每个节点的隐藏状态通过注意其邻居节点来计算。该网络采用了局部网络的设计结构，因此在计算过程中只计算相邻节点，降低了计算负载。

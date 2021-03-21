@@ -14,7 +14,7 @@
 \newcommand\fileversion{2.0}
 \newcommand\filedate{2015/06/20}
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{PhDThesisPSnPDF}[\filedate\space A PhD thesis class file
+\ProvidesClass{Classes/PhDThesisPSnPDF}[\filedate\space A PhD thesis class file
  by Krishna Kumar (v\fileversion)]
 \typeout{https://github.com/kks32/phd-thesis-template/}
 
@@ -1182,9 +1182,6 @@ pdfkeywords={\@pdfckeywords}%在pdf元信息中加入关键字
 {\textbf{关键词：}}\parbox[t]{378.59134pt}{\@ckeywords}%插入关键词
 }
 
-
-
-
 \newenvironment{abstract}[5] {
 \ifPHD@abstract
 % Separate abstract as per Student Registry guidelines
@@ -1200,10 +1197,10 @@ pdfkeywords={\@pdfckeywords}%在pdf元信息中加入关键字
   \setsinglecolumn
  \newcommand{\@ekeywords}{
 \ifthenelse{\equal{#1}{}}{必选关键词}{#1}%
-\ifthenelse{\equal{#2}{}}{必选关键词}{，#2}%
-\ifthenelse{\equal{#3}{}}{必选关键词}{，#3}%
-\ifthenelse{\equal{#4}{}}{}{，#4}%
-\ifthenelse{\equal{#5}{}}{}{，#5}%
+\ifthenelse{\equal{#2}{}}{必选关键词}{, #2}%
+\ifthenelse{\equal{#3}{}}{必选关键词}{, #3}%
+\ifthenelse{\equal{#4}{}}{}{, #4}%
+\ifthenelse{\equal{#5}{}}{}{, #5}%
 }
 \ifthenelse{\equal{#5}{}}{
 \ifthenelse{\equal{#4}{}}{
@@ -1220,11 +1217,10 @@ pdfkeywords={\@pdfckeywords}%在pdf元信息中加入关键字
 pdfkeywords={\@pdfckeywords}%在pdf元信息中加入关键字
 }
 \fi
-
 }
-{\newline
-{\bf Keywords:\nbs}\parbox[t]{367.97586pt}{\@ekeywords}%插入关键词
-
+{\newline %摘要后换行
+{\textbf{Keywords: }}\parbox[t]{367.97586pt}{\@ekeywords}%插入关键词
+% {\bf Keywords:\nbs}\parbox[t]{367.97586pt}{\@ekeywords}%插入关键词
 }
 
 
