@@ -1,10 +1,21 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Beamer Presentation
+% LaTeX Template
+% Version 1.0 (10/11/12)
+%
+% This template has been downloaded from:
+% http://www.LaTeXTemplates.com
+%
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND THEMES
+%----------------------------------------------------------------------------------------
+
 \documentclass{beamer}
-\usepackage{fontspec}
-\usepackage{bibentry}
-\setmainfont{Sarasa-Term-SC-Regular}
-\setsansfont{HelveticaNeue}
-\setmonofont{CascadiaCode}
-\setbeamertemplate{frametitle}[default][center]
 
 \mode<presentation> {
 
@@ -53,7 +64,7 @@
 %\usecolortheme{fly}
 %\usecolortheme{lily}
 %\usecolortheme{orchid}
- %\usecolortheme{rose}
+%\usecolortheme{rose}
 %\usecolortheme{seagull}
 %\usecolortheme{seahorse}
 %\usecolortheme{whale}
@@ -72,12 +83,12 @@
 %	TITLE PAGE
 %----------------------------------------------------------------------------------------
 
-\title[Short title]{Research On Exercise Recommendation Based On Knowledge Tracing} % The short title appears at the bottom of every slide, the full title is only on the title page
+\title[Short title]{Research on High School Math Exercise Recommendation Based on Graph Neural Network} % The short title appears at the bottom of every slide, the full title is only on the title page
 
-\author{ Wangzhihui Mei 2019124044} % Your name
-\institute[JI] % Your institution as it will appear on the bottom of every slide, may be shorthand to save space
+\author{Wangzhihui Mei} % Your name
+\institute[UOW] % Your institution as it will appear on the bottom of every slide, may be shorthand to save space
 {
-CCNU-UOW JI \\ % Your institution for the title page
+University of Wollongong \\ % Your institution for the title page
 \medskip
 \textit{maywzh@gmail.com} % Your email address
 }
@@ -99,258 +110,149 @@ CCNU-UOW JI \\ % Your institution for the title page
 %----------------------------------------------------------------------------------------
 
 %------------------------------------------------
-\section{Introduction}
+\section{First Section} % Sections can be created in order to organize your presentation into discrete blocks, all sections and subsections are automatically printed in the table of contents as an overview of the talk
+%------------------------------------------------
+
+\subsection{Subsection Example} % A subsection can be created just before a set of slides with a common theme to further break down your presentation into chunks
+
 \begin{frame}
-  \frametitle{Video Game Playing AI}
-  Video games have long been popular benchmarks for Artificial Intelligence(AI)\cite{1}. Many researches have been done in building a optimal \textbf{Video Game Playing AI(VPAI)}  in certain games.
+  \frametitle{Paragraphs of Text}
+  Sed iaculis dapibus gravida. Morbi sed tortor erat, nec interdum arcu. Sed id lorem lectus. Quisque viverra augue id sem ornare non aliquam nibh tristique. Aenean in ligula nisl. Nulla sed tellus ipsum. Donec vestibulum ligula non lorem vulputate fermentum accumsan neque mollis.\\~\\
 
-  Such attempts comprises Chess, Go, Car Racing games, Ms.PacMan, Real-Time Strategy (RTS) games and Super Mario Bros, etc.
+  Sed diam enim, sagittis nec condimentum sit amet, ullamcorper sit amet libero. Aliquam vel dui orci, a porta odio. Nullam id suscipit ipsum. Aenean lobortis commodo sem, ut commodo leo gravida vitae. Pellentesque vehicula ante iaculis arcu pretium rutrum eget sit amet purus. Integer ornare nulla quis neque ultrices lobortis. Vestibulum ultrices tincidunt libero, quis commodo erat ullamcorper id.
 \end{frame}
-
-\subsection{Research Scope}
-\begin{frame}
-  \frametitle{Research Scope}
-  In this research, we focus on \textbf{General Video Game Playing AI(GVPAI)}.
-
-  GVPAI aims at building an no-human-intervening game-playing agent that is able to playing multiple games rather than specialized VPAI designed for certain one game\cite{1}.
-
-\end{frame}
-
-\subsection{Motivation}
-\begin{frame}
-  \frametitle{Motivation\cite{2}}
-  The objective of General Video Game Playing (GVGP) is to by-pass the addition of game specific knowledge, especially if the algorithm is tested in games that have not been played before.
-
-  Obviously, algorithms that approach GVGP problems may still count on some kind of domain knowledge, and the questions raised above could still be asked. Indeed, many different algorithms can be employed for GVGP, and chances are that heuristics will still make a big difference.
-
-  However, by reducing the game-dependent knowledge, approaches are forced to be more general, and research conducted in this field is closer to the open domain of General Artificial Intelligence.
-
-\end{frame}
-
-
 
 %------------------------------------------------
-\section{Landscapes}
+
 \begin{frame}
-  \frametitle{Landscapes of GVPAI}
+  \frametitle{Bullet Points}
   \begin{itemize}
-    \item Knowledge Representation
-    \item Search
-    \item Planning
-    \item Learning
-    \item Generality
+    \item Lorem ipsum dolor sit amet, consectetur adipiscing elit
+    \item Aliquam blandit faucibus nisi, sit amet dapibus enim tempus eu
+    \item Nulla commodo, erat quis gravida posuere, elit lacus lobortis est, quis porttitor odio mauris at libero
+    \item Nam cursus est eget velit posuere pellentesque
+    \item Vestibulum faucibus velit a augue condimentum quis convallis nulla gravida
   \end{itemize}
 \end{frame}
 
 %------------------------------------------------
-%[General general game AI]
-\subsection{Knowledge Representation}
+
 \begin{frame}
-  \frametitle{Knowledge Representation and Reasoning\cite{3}}
-  GVPAI requires a formal, symbolic language in which the rules of arbitrary games can be described to a system. The general Game Description Language (GDL) has been developed for that purpose. There are several challenging reasoning problems.
-  \begin{itemize}
-    \item Reasoning about actions
-    \item Automated theorem proving
-    \item Other KRR techniques
-  \end{itemize}
+  \frametitle{Blocks of Highlighted Text}
+  \begin{block}{Block 1}
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer lectus nisl, ultricies in feugiat rutrum, porttitor sit amet augue. Aliquam ut tortor mauris. Sed volutpat ante purus, quis accumsan dolor.
+  \end{block}
+
+  \begin{block}{Block 2}
+    Pellentesque sed tellus purus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Vestibulum quis magna at risus dictum tempor eu vitae velit.
+  \end{block}
+
+  \begin{block}{Block 3}
+    Suspendisse tincidunt sagittis gravida. Curabitur condimentum, enim sed venenatis rutrum, ipsum neque consectetur orci, sed blandit justo nisi ac lacus.
+  \end{block}
 \end{frame}
 
-\subsection{Search}
-\begin{frame}
-  \frametitle{Search\cite{12}}
-  Once a GVPAI system is capable of computing legal moves and position updates from the game rules, it can search through the space of possible ways in which the game can proceed
-  \begin{itemize}
-    \item Monte Carlo Tree Search
-    \item Informed search -- Uses problem-specific knowledge.
-  \end{itemize}
-
-\end{frame}
-
-\subsection{Planning}
-\begin{frame}
-  \frametitle{Planning}
-  Planning is closely related to GVGP, as both are instances of general problem solving, where the specifics of a problem are unknown until runtime.
-\end{frame}
-
-\subsection{Learning}
-\begin{frame}
-  \frametitle{Learning}
-  The very idea of general game playing is to build systems that automatically learn to master arbitrary new games.
-
-
-\end{frame}
 %------------------------------------------------
 
-%------------------------------------------------
-\subsection{Generality}
 \begin{frame}
-  \frametitle{Generality\cite{4}}
+  \frametitle{Multiple Columns}
   \begin{columns}[c] % The "c" option specifies centered vertical alignment while the "t" option is used for top vertical alignment
 
     \column{.45\textwidth} % Left column and width
     \textbf{Heading}
     \begin{enumerate}
-      \item Game generality
-      \item Task generality
-      \item Player generality
+      \item Statement
+      \item Explanation
+      \item Example
     \end{enumerate}
 
-
     \column{.5\textwidth} % Right column and width
-    Develop AI methods that work with not just one game, but with multiple game.
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer lectus nisl, ultricies in feugiat rutrum, porttitor sit amet augue. Aliquam ut tortor mauris. Sed volutpat ante purus, quis accumsan dolor.
 
-    Develop methods that can do not only one task but several different related tasks.
-
-    Develop methods that can model, respond or reproduce the large variability among humans in design style, playing style, preferences and abilities.
   \end{columns}
 \end{frame}
 
-\section{Approaches}
+%------------------------------------------------
+\section{Second Section}
+%------------------------------------------------
+
 \begin{frame}
-  \frametitle{Approachs}
-  \begin{itemize}
-    \item Neural Network(NN)
-    \item Reinforcement Learning(RL)
-    \item Monte-Carlo Tree Search(MCTS)
-  \end{itemize}
+  \frametitle{Table}
+  \begin{table}
+    \begin{tabular}{l l l}
+      \toprule
+      \textbf{Treatments} & \textbf{Response 1} & \textbf{Response 2} \\
+      \midrule
+      Treatment 1         & 0.0003262           & 0.562               \\
+      Treatment 2         & 0.0015681           & 0.910               \\
+      Treatment 3         & 0.0009271           & 0.296               \\
+      \bottomrule
+    \end{tabular}
+    \caption{Table caption}
+  \end{table}
 \end{frame}
 
+%------------------------------------------------
 
-\subsection{Neural Network}
 \begin{frame}
-  \frametitle{NN-based GVGP}
-  M. Hausknecht et al. \cite{5} employed evolutionary neural networks to extract higher-dimensional representation forms from the raw game screen.
-
-  All algorithms encode Artificial Neural Networks (ANNs) which are represented by weights and connectivity(topology).
-  \begin{figure}
-    \includegraphics[width=1\linewidth]{figures/m1p1}
-    \caption{ANN topology for 3 different state representation}
-  \end{figure}
+  \frametitle{Theorem}
+  \begin{theorem}[Mass--energy equivalence]
+    $E = mc^2$
+  \end{theorem}
 \end{frame}
 
-\subsection{Reinforcement Learning}
-\begin{frame}[allowframebreaks]
-  \frametitle{RL-based GVGP}
-  Yavar Naddaf \cite{6} used 2 main approaches: RL-based and search-based methods. RL-based methods use feature vectors generated from the game screen as well as the console RAM to learn to play a given game. The search-based methods use the emulator to simulate the consequence of actions into the future, aiming to play as well as possible by only exploring a very small fraction of the state-space.
+%------------------------------------------------
 
-  \begin{figure}
-    \includegraphics[width=0.6\linewidth]{figures/featurevector}
-    \caption{ Conceptual figure of feature vector generation for the game Freeway}
-  \end{figure}
-
-  Bellemare et al. \cite{7} explored the concept of contingency awareness (the recognition that a future observation is under an agent's control and not solely determined by the environment) using Atari 2600 games.
-
-  The research introduced a technique for accurately identifying contingent regions and describe how to exploit this knowledge to generate improved features for value function approximation.
-  \begin{figure}
-    \includegraphics[width=0.5\linewidth]{figures/contingentregions}
-    \caption{ The contingent regions, shown by a transparent overlay, for Freeway (left) and Beam Rider (right)}
-  \end{figure}
-\end{frame}
-
-\subsection{Monte-Carlo Tree Search}
-\begin{frame}[allowframebreaks]
-  \frametitle{MCTS-based GVGP}
-  Perez et. al. \cite{8} explored the performance of a vanilla Monte Carlo Tree Search algorithm, and analyzed the main difficulties encountered when tackling this kind of scenarios and did some modifications to overcome these issues, strengthening the algorithm's ability to gather and discover knowledge, and taking advantage of past experiences.
-
-  \begin{figure}[c]
-    \includegraphics[width=0.6\linewidth]{figures/mctskb}
-    \caption{ MCTS algorithm steps }
-  \end{figure}
-
-  Park and Kim\cite{9} propose to use influence map (IM) to solve
-  the MCTS’s horizon effect problem.
-
-  \begin{figure}[c]
-    \includegraphics[width=0.6\linewidth]{figures/kim}
-    \caption{ Overview of proposed method (blue is good influence and red is bad influence) }
-  \end{figure}
-
-  Sironi et.al.\cite{10} designed three Self-Adaptive MCTS (SA-MCTS) agents that optimize the parameters of a standard non-Self-Adaptive MCTS agent of GVPAI.
-
-  The three agents select the parameter values using Naive Monte-Carlo, an Evolutionary Algorithm and an N-Tuple Bandit Evolutionary Algorithm respectively, and are tested on 20 single-player games.
-
-  \begin{figure}[c]
-    \includegraphics[width=1\linewidth]{figures/figure1}
-    \caption{ Average win rate over 5 levels of each game}
-  \end{figure}
-\end{frame}
-
-\section{Conclusion}
+\begin{frame}[fragile] % Need to use the fragile option when verbatim is used in the slide
+  \frametitle{Verbatim}
+  \begin{example}[Theorem Slide Code]
+    \begin{verbatim}
 \begin{frame}
-  \frametitle{Conclusion}
-  General game playing is an exciting, still young but on the verge of maturing topic, which touches upon a broad range of aspects of artificial intelligence. it provides a rich source of interesting and challenging problems for many an AI researcher.
-
-
+\frametitle{Theorem}
+\begin{theorem}[Mass--energy equivalence]
+$E = mc^2$
+\end{theorem}
+\end{frame}\end{verbatim}
+  \end{example}
 \end{frame}
 
+%------------------------------------------------
 
-\begin{frame}[allowframebreaks]
-  \frametitle{References}
-  \footnotesize{
-    \begin{thebibliography}{99} % Beamer does not support BibTeX so references must be inserted manually as below
-      \bibitem{1}
-      Perez-Liebana, D., Samothrakis, S., Togelius, J., Lucas, S. M., \& Schaul, T. (2016).
-      \newblock General video game AI: Competition, challenges, and opportunities.
-      \newblock In 30th AAAI Conference on Artificial Intelligence, AAAI 2016, 4335–4337.
+\begin{frame}
+  \frametitle{Figure}
+  Uncomment the code on this slide to include your own image from the same directory as the template .TeX file.
+  %\begin{figure}
+  %\includegraphics[width=0.8\linewidth]{test}
+  %\end{figure}
+\end{frame}
 
-      \bibitem{2}
-      Perez, D., Samothrakis, S., \& Lucas, S. (2014).
-      \newblock Knowledge-based fast evolutionary MCTS for general video game playing.
-      \newblock IEEE Conference on Computatonal Intelligence and Games, CIG, 1–8.
+%------------------------------------------------
 
+\begin{frame}[fragile] % Need to use the fragile option when verbatim is used in the slide
+  \frametitle{Citation}
+  An example of the \verb|\cite| command to cite within the presentation:\\~
 
-      \bibitem{3}
-      Yannakakis, G. N. (2012).
-      \newblock Game AI revisited.
-      \newblock In CF ’12 - Proceedings of the ACM Computing Frontiers Conference, 285–292.
+  This statement requires citation~\cite{shamir2010learning}.
+\end{frame}
 
-      \bibitem{4}
-      Togelius, J., \& Yannakakis, G. N. (2016).
-      \newblock General general game AI.
-      \newblock In IEEE Conference on Computatonal Intelligence and Games, CIG, 0, 1–8.
+%------------------------------------------------
 
-      \bibitem{5}
-      Hausknecht, M., Lehman, J., Miikkulainen, R., \& Stone, P. (2014).
-      \newblock A neuroevolution approach to general atari game playing.
-      \newblock In IEEE Transactions on Computational Intelligence and AI in Games, 6(4), 355–366.
+% \begin{frame}
+%     \frametitle{References}
+%     \footnotesize{
+%         \begin{thebibliography}{99} % Beamer does not support BibTeX so references must be inserted manually as below
+%             \bibitem[Smith, 2012]{p1} John Smith (2012)
+%             \newblock Title of the publication
+%             \newblock \emph{Journal Name} 12(3), 45 -- 678.
+%         \end{thebibliography}
+%     }
+% \end{frame}
 
-      \bibitem{6}
-      Naddaf, Y. (2010).
-      \newblock Game-independent AI agents for playing Atari 2600 console games.
-      \newblock In ProQuest Dissertations and Theses, MR60546, 79.
-
-      \bibitem{7}
-      Bellemare, M. G., Veness, J., \& Bowling, M. (2012).
-      \newblock Investigating contingency awareness using Atari 2600 games.
-      \newblock In Proceedings of the National Conference on Artificial Intelligence, 2, 864–871.
-
-      \bibitem{8}
-      Perez, D., Samothrakis, S., \& Lucas, S. (2014).
-      \newblock Knowledge-based fast evolutionary MCTS for general video game playing.
-      \newblock In IEEE Conference on Computatonal Intelligence and Games, CIG, 1–8.
-
-      \bibitem{9}
-      Park, H., \& Kim, K. J. (2015).
-      \newblock MCTS with influence map for general video game playing.
-      \newblock In 2015 IEEE Conference on Computational Intelligence and Games, CIG 2015 - Proceedings, 534–535.
-
-      \bibitem{10}
-      Sironi, C. F., Liu, J., Perez-Liebana, D., Gaina, R. D., Bravi, I., Lucas, S. M., \& Winands, M. H. M. (2018).
-      \newblock Self-adaptive MCTS for General Video Game Playing.
-      \newblock In Lecture Notes in Computer Science (Including Subseries Lecture Notes in Artificial Intelligence and Lecture Notes in Bioinformatics), 10784 LNCS(January), 358–375.
-
-      \bibitem{11}
-      Mendes, A., Togelius, J., \& Nealen, A. (2016).
-      \newblock Hyper-heuristic general video game playing.
-      \newblock In IEEE Conference on Computatonal Intelligence and Games, CIG, 0, 1–8.
-
-      \bibitem{12}
-      Thielscher, M. (2011).
-      \newblock General game playing in AI research and education.
-      \newblock In Lecture Notes in Computer Science (Including Subseries Lecture Notes in Artificial Intelligence and Lecture Notes in Bioinformatics), 7006 LNAI, 26–37.
-
-    \end{thebibliography}
-  }
+\begin{frame}[allowframebreaks]{References}
+  %\bibliographystyle{plain}
+  \bibliographystyle{amsalpha}
+  %\bibliography{mybeamer} also works
+  \bibliography{./ref.bib}
 \end{frame}
 
 %------------------------------------------------
