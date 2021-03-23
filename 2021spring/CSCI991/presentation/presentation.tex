@@ -250,24 +250,72 @@ University of Wollongong \\ % Your institution for the title page
     \column{.45\textwidth} % Left column and width
     \textbf{Modules}
     \begin{enumerate}
-      \item BERT~\cite{devlin2019bert} Embedding Layer
+      \item \textbf{BERT~\cite{devlin2019bert} Embedding Layer} 
       \item Attentional Bi-LSTM Text Representation
-      \item GCN-based Classifier
+      \item GCN-based Classifiers
     \end{enumerate}
     \column{.5\textwidth} % Right column and width
+    \begin{figure}
+      \includegraphics[width=1.0\textwidth]{figures/ch2-bert-model.pdf}
+    \end{figure}
+  \end{columns}
+  Thanks for opensource pre-trained Chinese language models from Cui et.al.~\cite{wwmbertgithub,chinese-bert-wwm}.
+\end{frame}
+
+\begin{frame}
+  \frametitle{Exercise Knowledge Labelling}
+  \framesubtitle{Details}
+  \begin{columns}[c] % The "c" option specifies centered vertical alignment while the "t" option is used for top vertical alignment
+    \column{.45\textwidth} % Left column and width
+    \textbf{Modules}
+    \begin{enumerate}
+      \item BERT~\cite{devlin2019bert} Embedding Layer
+      \item \textbf{Attentional Bi-LSTM Text Representation}
+      \item GCN-based Classifiers
+    \end{enumerate}
+    \column{.5\textwidth} % Right column and width
+    \begin{figure}
+      \includegraphics[width=1.0\textwidth]{figures/ch2-model-bilstm.pdf}
+    \end{figure}
   \end{columns}
 \end{frame}
 
 \begin{frame}
-  \frametitle{}
-
-  
-
+  \frametitle{Exercise Knowledge Labelling}
+  \framesubtitle{Details}
+  \begin{columns}[c] % The "c" option specifies centered vertical alignment while the "t" option is used for top vertical alignment
+    \column{.45\textwidth} % Left column and width
+    \textbf{Modules}
+    \begin{enumerate}
+      \item BERT~\cite{devlin2019bert} Embedding Layer
+      \item Attentional Bi-LSTM Text Representation
+      \item \textbf{GCN-based Classifiers}
+    \end{enumerate}
+    \column{.5\textwidth} % Right column and width
+    \begin{figure}
+      \includegraphics[width=1.0\textwidth]{figures/ch2-gcn-ov.pdf}
+    \end{figure}
+  \end{columns}
 \end{frame}
+
 %------------------------------------------------
+\subsection{Knowledge Tracing}
 
 \begin{frame}
   \frametitle{Knowledge Tracing}
+  \framesubtitle{Problem}
+  \begin{figure}
+    \includegraphics[width=1.0\textwidth]{figures/ch3-model-ktdes.pdf}
+  \end{figure}
+  %~\ref{tbl:t1}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Knowledge Tracing}
+  \framesubtitle{Architecture}
+  \begin{figure}
+    \includegraphics[height=0.9\textheight]{figures/ch3-overview.pdf}
+  \end{figure}
   %~\ref{tbl:t1}
 \end{frame}
 
