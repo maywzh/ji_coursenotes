@@ -80,6 +80,7 @@
 \usepackage{bibentry}
 \usepackage{graphicx} % Allows including images
 \usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+\usepackage{url}
 
 \setmainfont{ArialMT}
 %\setbeamertemplate{frametitle}[default][center]
@@ -132,13 +133,13 @@
 \setbeamercolor{section in toc}{fg=text}
 \setbeamercolor{normal text}{fg=text}
 \setbeamercolor{block title}{fg=main,bg=mygrey!14!white}
-%\setbeamercolor{block body}{fg=black,bg=mygrey!10!white}
-\setbeamercolor{block body}{fg=text}
+\setbeamercolor{block body}{fg=black,bg=mygrey!10!white}
+%\setbeamercolor{block body}{fg=text}
 \setbeamercolor{qed symbol}{fg=main} % 证明结束后的框颜色
 \setbeamercolor{math text}{fg=black}
 % 设置页脚对应位置颜色
-\setbeamercolor{author in head/foot}{fg=black, bg=mygrey!5!white}
-\setbeamercolor{title in head/foot}{fg=black, bg=mygrey!5!white}
+% \setbeamercolor{author in head/foot}{fg=black, bg=mygrey!5!white}
+% \setbeamercolor{title in head/foot}{fg=black, bg=mygrey!5!white}
 \setbeamercolor{structure}{fg=main, bg=mygrey!10!white} % 设置sidebar颜色
 
 % 左右页间距的排版
@@ -147,6 +148,14 @@
 % \setbeamersize{sidebar width left=\swidth}
 % \setbeamerfont{title in sidebar}{size=\scriptsize}
 % \setbeamerfont{section in sidebar}{size=\tiny}
+
+% \setbeamertemplate{frametitle}
+% {\begin{beamercolorbox}[wd=\paperwidth]{frametitle}
+%       \strut\hspace{0.5em}\insertframetitle\strut
+%       \hfill
+%       \raisebox{-2mm}{\includegraphics[width=1cm]{figures/JI-logo.png}}
+%     \end{beamercolorbox}
+% }
 
 %----------------------------------------------------------------------------------------
 %	TITLE PAGE
@@ -212,54 +221,57 @@ University of Wollongong \\ % Your institution for the title page
 \begin{frame}
   \frametitle{Research Cores}
   \begin{block}{Exercise knowledge labelling}
-    A multi-knowledge point labelling algorithm for high school mathematics exercises based on bidirectional LSTM and graph neural network.
+    A multi-knowledge point labeling algorithm for high school mathematics exercises based on bidirectional LSTM (Bi-LSTM)~\cite{chen2017improving} and graph convolutional neural network (GCN)~\cite{kipf2016semi}.
   \end{block}
   \begin{block}{Knowledge tracing}
-    A knowledge tracing model based on Transformer architecture with graph attention network embedding.
+    A knowledge tracing model based on Transformer~\cite{vaswani2017attention} architecture with graph attention network embedding.
   \end{block}
   \begin{block}{Exercise recommendation}
-    A mathematical exercise recommendation model based on Matching-Ranking algorithm.
+    A mathematical exercise recommendation model based on Matching-Ranking~\cite{segev2009context} algorithm.
   \end{block}
 \end{frame}
 %------------------------------------------------
 \section{Proposed Model}
+%------------------------------------------------
 \subsection{Exercise Knowledge Labelling}
 \begin{frame}
   \frametitle{Exercise Knowledge Labelling}
   \framesubtitle{Architecture}
   \begin{figure}
-    \caption{Model architecture}
-    \includegraphics[width=0.9\textwidth]{figures/ch2-model-architecture.pdf}
+    \includegraphics[height=0.8\textheight]{figures/ch2-model-architecture.pdf}
+    \caption{Model architecture}\label{fig:ch2-archi}
   \end{figure}
-
 \end{frame}
-%------------------------------------------------
 
 \begin{frame}
   \frametitle{Exercise Knowledge Labelling}
+  \framesubtitle{Details}
   \begin{columns}[c] % The "c" option specifies centered vertical alignment while the "t" option is used for top vertical alignment
     \column{.45\textwidth} % Left column and width
-    \textbf{Heading}
+    \textbf{Modules}
     \begin{enumerate}
-      \item Statement
-      \item Explanation
-      \item Example Table~\ref{tbl:t1}
+      \item BERT~\cite{devlin2019bert} Embedding Layer
+      \item Attentional Bi-LSTM Text Representation
+      \item GCN-based Classifier
     \end{enumerate}
     \column{.5\textwidth} % Right column and width
   \end{columns}
-
-
-
 \end{frame}
 
+\begin{frame}
+  \frametitle{}
+
+  
+
+\end{frame}
+%------------------------------------------------
 
 \begin{frame}
   \frametitle{Knowledge Tracing}
-
+  %~\ref{tbl:t1}
 \end{frame}
 
 %------------------------------------------------
-
 \begin{frame}
   \frametitle{Exercise Recommendation}
   \begin{block}{Block 1}
@@ -328,13 +340,6 @@ University of Wollongong \\ % Your institution for the title page
 
 %------------------------------------------------
 
-\begin{frame}% Need to use the fragile option when verbatim is used in the slide
-  \frametitle{Citation}
-  This statement requires citation~\cite{shamir2010learning}.
-\end{frame}
-
-%------------------------------------------------
-
 % \begin{frame}
 %     \frametitle{References}
 %     \footnotesize{
@@ -347,8 +352,8 @@ University of Wollongong \\ % Your institution for the title page
 % \end{frame}
 
 \begin{frame}[allowframebreaks]{References}
-  %\bibliographystyle{plain}
-  \bibliographystyle{amsalpha}
+  \bibliographystyle{plain}
+  %\bibliographystyle{amsalpha}
   %\bibliography{mybeamer} also works
   \bibliography{./ref.bib}
 \end{frame}
