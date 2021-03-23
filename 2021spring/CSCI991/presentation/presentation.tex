@@ -86,7 +86,7 @@
 %\setbeamertemplate{frametitle}[default][center]
 
 % 加导航条
-\useoutertheme[width=3\baselineskip,right]{sidebar}
+%\useoutertheme[width=3\baselineskip,right]{sidebar}
 % 目录标数字
 \setbeamertemplate{section in toc}[sections numbered] 
 % 无序列表用实心点
@@ -206,7 +206,7 @@ University of Wollongong \\ % Your institution for the title page
   \frametitle{Problems}
   \begin{description}
     \item[Disorganized exercise] Exercises lacking knowledge tags
-    \item[Knowledge evaluation] Description of second item
+    \item[Knowledge evaluation] Description of second itemd
     \item[Exercise recommendation] Description of third item
   \end{description}
   %\framesubtitle{}
@@ -250,7 +250,7 @@ University of Wollongong \\ % Your institution for the title page
     \column{.45\textwidth} % Left column and width
     \textbf{Modules}
     \begin{enumerate}
-      \item \textbf{BERT~\cite{devlin2019bert} Embedding Layer} 
+      \item \textbf{BERT~\cite{devlin2019bert} Embedding Layer}
       \item Attentional Bi-LSTM Text Representation
       \item GCN-based Classifiers
     \end{enumerate}
@@ -307,36 +307,63 @@ University of Wollongong \\ % Your institution for the title page
   \begin{figure}
     \includegraphics[width=1.0\textwidth]{figures/ch3-model-ktdes.pdf}
   \end{figure}
-  %~\ref{tbl:t1}
 \end{frame}
 
 \begin{frame}
   \frametitle{Knowledge Tracing}
   \framesubtitle{Architecture}
   \begin{figure}
-    \includegraphics[height=0.9\textheight]{figures/ch3-overview.pdf}
+    \includegraphics[height=0.8\textheight]{figures/ch3-overview.pdf}
   \end{figure}
-  %~\ref{tbl:t1}
 \end{frame}
 
 \begin{frame}
   \frametitle{Knowledge Tracing}
   \framesubtitle{Detail}
   \begin{figure}
-    \includegraphics[height=0.9\textheight]{figures/ch3-overview.pdf}
+    \includegraphics[width=0.9\textwidth]{figures/ch3-gat-kq.pdf}
   \end{figure}
-  %~\ref{tbl:t1}
 \end{frame}
+
+\begin{frame}
+  \frametitle{Knowledge Tracing}
+  \framesubtitle{Detail}
+
+\end{frame}
+
+
 \subsection{Exercise Recommendation}
 \begin{frame}
   \frametitle{Exercise Recommendation}
+  \framesubtitle{Architecture}
+  \begin{figure}
+    \includegraphics[width=0.9\textwidth]{figures/ch4-ov.pdf}
+    \caption{Recommendation Architecture}
+  \end{figure}
+\end{frame}
 
+\begin{frame}
+  \frametitle{Exercise Recommendation}
+  \framesubtitle{Detail}
+  \begin{figure}
+    \includegraphics[height=0.7\textheight]{figures/ch4-matching.pdf}
+    \caption{Matching Phase}
+  \end{figure}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Exercise Recommendation}
+  \framesubtitle{Detail}
+  \begin{figure}
+    \includegraphics[width=0.9\textwidth]{figures/ch4-ranking.pdf}
+    \caption{Ranking Phase}
+  \end{figure}
 \end{frame}
 
 %------------------------------------------------
-\section{Results}
+\section{Experiment Design and Analysis}
 \begin{frame}
-  \frametitle{Result}
+  \frametitle{Experiment}
   \framesubtitle{Exercise Knowledge Labeling}
   \begin{table}[htbp!]
     \caption{Result comparison (\(\tau^{(KP)}=200 \))}\label{tbl:bsline1}
@@ -374,27 +401,46 @@ University of Wollongong \\ % Your institution for the title page
   \end{table}
 \end{frame}
 
-%------------------------------------------------
-
 \begin{frame}
-  \frametitle{Theorem}
-  \begin{theorem}[Mass-energy equivalence]
-    \(E = mc^2\)
-  \end{theorem}
+  \frametitle{Result and Analysis}
+  \framesubtitle{Exercise Recommendation}
+  \begin{table}[htbp!]
+    \centering
+    \caption{Setting of Experiment}\label{tbl:ch2-ex1}
+    \begin{tabular}{cccc}%{cp{2cm}<{\centering}p{2cm}<{\centering}p{2cm}<{\centering}}
+      \toprule
+      \text{\(\tau^{(KP)} \)} & \(|\mathbf{L}_{\tau^{(KP)}}|\) & \(|\mathbf{E}_{\tau^{(KP)}}| \) & \(\overline{L}\) \\
+      \midrule
+      200                     & 2                              & 463                             & 1.21             \\
+      100                     & 22                             & 1376                            & 1.55             \\
+      50                      & 29                             & 2237                            & 1.42             \\
+      10                      & 57                             & 3158                            & 1.35             \\
+      \bottomrule
+    \end{tabular}
+  \end{table}
 \end{frame}
 
 %------------------------------------------------
+
+% \begin{frame}
+%   \frametitle{Theorem}
+%   \begin{theorem}[Mass-energy equivalence]
+%     \(E = mc^2\)
+%   \end{theorem}
+% \end{frame}
+
+% %------------------------------------------------
+% \begin{frame}
+%   \frametitle{Figure}
+%   Uncomment the code on this slide to include your own image from the same directory as the template .TeX file.
+% \end{frame}
+
+
+\section{Conclusion}
 \begin{frame}
-  \frametitle{Figure}
-  Uncomment the code on this slide to include your own image from the same directory as the template .TeX file.
-\end{frame}
+  \frametitle{Conclusion}
 
 
-\section{Summary}
-\begin{frame}
-  \frametitle{Summary}
-
-  
 
 \end{frame}
 %------------------------------------------------
