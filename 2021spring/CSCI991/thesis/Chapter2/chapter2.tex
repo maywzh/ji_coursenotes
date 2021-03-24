@@ -248,7 +248,7 @@ A correlation matrix can represent the relationship between knowledge points, i.
 
 %本节中GCN的节点传播方式为\ref{fml:ch2-gcn2}，其中\(\tilde{A}\)为\(A\in \mathbb{R}^{N^{(v)}\times N^{(v)}}\)的正则化。\(h\)为非线性激活函数，这里选用LeakyReLU~\cite{maas2013rectifier}。需要学习的参数矩阵\(W^{(i)}\in \mathbb{R}^{d_{i}\times d_{i+1}}\)可以通过习题知识点的统计关系来计算。
 
-The node propagation of GCN in this section is \ref{fml:ch2-gcn2}, where \(\widehat{A}\) is the normalization form of \(A\in \mathbb{R}^{N^{(v)}\times N^{(v)}}\). The \(h(\cdot)\) is the nonlinear activation function LeakyReLU~\cite{maas2013rectifier}. The parameter matrix \(W^{(i)}\in \mathbb{R}^{d_{i}\times d_{i+1}}\) to be learned can be calculated by the statistical relations of the exercise knowledge points. The training process of Proposed is shown in \figurename{\ref{fig:ch2-gcn-explain}}.
+The node propagation of GCN in this section is~\ref{fml:ch2-gcn2}, where \(\widehat{A}\) is the normalization form of \(A\in \mathbb{R}^{N^{(v)}\times N^{(v)}}\). The \(h(\cdot)\) is the nonlinear activation function LeakyReLU~\cite{maas2013rectifier}. The parameter matrix \(W^{(i)}\in \mathbb{R}^{d_{i}\times d_{i+1}}\) to be learned can be calculated by the statistical relations of the exercise knowledge points. The training process of Proposed is shown in \figurename{\ref{fig:ch2-gcn-explain}}.
 \begin{align}
 	\begin{split}
 		H^{(i+1)} = f(\tilde{A}H^{(i)}W^{(i)})\label{fml:ch2-gcn2}
@@ -309,7 +309,7 @@ In this thesis, a learnable stacked GCN-based model is proposed. The knowledge p
 \subsection{Multi-label Recognition}
 %  For the input layer, the input is \(r\in \mathbb{R}^{T \times d^{(k)}}\), where \(d^{(k)}\) is the number of dimensions represented by the embedding of the knowledge point object. Each GCN layer 1 takes the node representation from the previous layer \(H^{(l)}\) as input and outputs a new node representation \(H^{(l+1)}\). The output layer of the last layer is \(C\), where \(d_r\) represents the dimension of the title text. 
 
-From the stacked GCN network, we can learn interdependent object classifiers \(C=\{c_1,c_2,\ldots,c_{N^{(k)}}\} \), where \(N^{(k)}\) represents the number of knowledge points. Finally, the label prediction vector \(\hat{y}\) can be obtained by the dot product of the learned classifier and the title text representation \(r\):
+From the stacked GCN network, the learn interdependent object classifiers \(C=\{c_1,c_2,\ldots,c_{N^{(k)}}\} \) can be learned, where \(N^{(k)}\) represents the number of knowledge points. Finally, the label prediction vector \(\hat{y}\) can be obtained by the dot product of the learned classifier and the title text representation \(r\):
 \begin{align}
 	\hat{y} = C\times r
 \end{align}
@@ -370,7 +370,7 @@ Compared with traditional learning problems, it is tough to label multi-label da
 
 Regarding multi-label classification, considering the relationship between the exercises' labels, this article uses label-based indicators for model evaluation. The indicator calculates the confusion matrix indicator for each label to calculate the sample values of True Positive (TP), False Positive (FP), True Negative (TN), and False Negative (FN). Then calculate the macro-F1 and micro-F1 metrics for multi-label tagging model performance evaluation.
 
-According to the metrics proposed by Zhou et al.~\cite{zhang2013review}, for the j-th label of the i-th example in the \(n\) examples, shown in the formula~\ref{fml:mlcm}.
+According to the metrics proposed by Zhou et al.~\cite{zhang2013review}, for the jth label of the ith example in the \(n\) examples, shown in the formula~\ref{fml:mlcm}.
 
 \begin{align}\label{fml:mlcm}
 	\begin{split}
@@ -405,7 +405,7 @@ Similarly, for the multi-label tagging problem, Macro F1 and Micro F1 can be use
 Where \(c\) is the total number of labels.
 
 % 同样的，我们也可以基于样本统计一些指标。例如准确率，海明损失，查全率和F1值。准确率即预测标签完全正确的样本占总体样本的比例，海明损失为预测标签与真是标签的差距的度量指标，Precision和Recall分别代表真阳性样本占真样本的比例和真阳性样本占阳性样本的比例。它 们的计算公式为
-Similarly, we can also count some indicators based on samples. For example, the multi-label accuracy rate \(\operatorname{Acc}_{ML}\), Hamming loss \(\operatorname{HmLoss}\), multi-label precision rate \(\operatorname{Precision_{ML}}\), multi-label recall rate \(\operatorname{Recall_{ML}}\) and \(\operatorname{F1}_{ML}\) can be calculated. Accuracy is the proportion of samples with completely correct predicted labels in the overall sample. Hamming loss is a measure of the difference between the predicted label and the true label. Precision and Recall represent the proportion of true positive samples in true samples and the proportion of true positive samples in positive samples proportion. Their calculation formula is~\ref{fml:subaccuracy}-\ref{fml:f1scoreh}.
+Similarly, the statistic of some indicators based on samples can be obtained. For example, the multi-label accuracy rate \(\operatorname{Acc}_{ML}\), Hamming loss \(\operatorname{HmLoss}\), multi-label precision rate \(\operatorname{Precision_{ML}}\), multi-label recall rate \(\operatorname{Recall_{ML}}\) and \(\operatorname{F1}_{ML}\) can be calculated. Accuracy is the proportion of samples with completely correct predicted labels in the overall sample. Hamming loss is a measure of the difference between the predicted label and the true label. Precision and Recall represent the proportion of true positive samples in true samples and the proportion of true positive samples in positive samples proportion. Their calculation formula is~\ref{fml:subaccuracy}-\ref{fml:f1scoreh}.
 \begin{align}
 	\operatorname{Acc}_{ML}       & =\frac{1}{n} |\{i|Y_i=\tilde{Y}_i\}| \label{fml:subaccuracy}                                                                              \\
 	\operatorname{HmLoss}         & =\frac{1}{n} \sum_{i=1}^{n} \frac{\operatorname{XOR}(Y_i,\tilde{Y}_i)}{c} \label{fml:hmloss}                                              \\
@@ -415,7 +415,7 @@ Similarly, we can also count some indicators based on samples. For example, the 
 \end{align}
 
 \subsection{Setting and Environment}
-The distribution of the number of exercise knowledge points in this data set is shown in the figure. The number of questions involved in different knowledge points is different. We define the set of questions involved in knowledge points \(j\) as \(\mathbf{E}_j\). Remember the threshold of the number of occurrences of the knowledge point label \(\tau^{(KP)} \), then the knowledge points of the exercises can be divided according to the frequency of occurrence, i.e., \( \{j|\mathbf{E}_j|>\tau^{(KP)}\} \) and \( \{j||\mathbf{E}_j|\leq\tau^{(KP)} \} \). According to the different thresholds, the model's ability to classify knowledge points that appear frequently and that appear sparse can be tested separately.
+The distribution of the number of exercise knowledge points in this data set is shown in the figure. The number of questions involved in different knowledge points is different. The set of questions involved in knowledge points \(j\) is defined as \(\mathbf{E}_j\). Remember the threshold of the number of occurrences of the knowledge point label \(\tau^{(KP)} \), then the knowledge points of the exercises can be divided according to the frequency of occurrence, i.e., \( \{j|\mathbf{E}_j|>\tau^{(KP)}\} \) and \( \{j||\mathbf{E}_j|\leq\tau^{(KP)} \} \). According to the different thresholds, the model's ability to classify knowledge points that appear frequently and appear sparse can be tested separately.
 
 %在实验中，设定了200，150，100，50，10五组阈值\(\tau^{(KP)} \)，将具有标签\(j\)的习题记作\(\mathbb{E}_j\)，则可以统计符合要求的标签集\(\mathbb{L}={j||\mathbb{E}_j|\geq\tau^{(KP)}}\)出习题集大小\(|\mathbb{E}_j|\)和题均知识点数\(LAvg_j \)。
 In the experiment, five sets of thresholds of 200, 150, 100, 50, 10 are set \(\tau^{(KP)} \), and the exercises with the label \(j\) are recorded as \(\mathbf{E}_j\), the label set that meets the requirements can be counted as \(\mathbf{L}_\tau^{(KP)}=\{j\mid |\mathbf{E}_j|\geq\tau^{(KP)}\} \), the exercises containing label in \(\mathbf{L}_\tau^{(KP)} \) is denoted as \(\mathbf{E}_\tau^{(KP)} \), within which the average number of knowledge points of the exercise in the set is \(\overline{L}\)
