@@ -1,5 +1,4 @@
 \chapter{Conclusion and Future Work}
-
 %在本文中，设计了一个基于图神经网络、Attention-based Bi-LSTM、Transformer以及协同过滤等算法的习题推荐系统。该系统分为三个模块，分别为习题知识点挖掘模块、知识追踪模块和习题推荐模块。习题知识点挖掘模块可以未标注知识点的习题进行知识点标注，并将标注知识点的习题作为知识追踪的输入数据。知识追踪模块追踪学生的做题记录，从而跟踪学生的知识状态。习题推荐模块则结合学生的知识状态和习题标签信息，进行针对性的习题推荐。
 
 %在未来的工作中，可以结合其他的图神经网络模型或者加入一些记忆力机制来解决模型的序列性问题。
@@ -19,4 +18,4 @@ In the exercise recommendation module, a two-stage Matching-Ranking based mathem
 
 %在未来的工作中，对于习题知识点标注模型，可以应用目前较为热门的预训练模型例如BERT,GPT等来进行嵌入学习和命名试题挖掘等工作，这样可以对于习题文本进行更深层次的语义理解，取得更好的效果。对于知识追踪模型，可以考虑应用其他图神经网络模型进行习题-知识点图嵌入学习，将知识点的关系定量化来建模，另外可以设计显式知识点掌握度矩阵来可视化学生对于具体知识点的掌握情况。对于习题推荐模型，可以应用神经网络模型来自适应调整各个召回策略的超参数，降低人工调参成本。
 
-In future work, for the exercise knowledge point labeling model, the popular pre-training models such as BERT, GPT can be applied for embedding learning and named test mining, which can provide a deeper semantic understanding of the exercise text and achieve better results. For the knowledge tracking model, applying other graphical neural network models can be an option to embed the learning of exercise - knowledge point graphs to quantify the relationship of knowledge points to the model. An explicit knowledge mastery matrix can be designed to visualize students' mastery of specific knowledge points. For the exercise recommendation model, neural network models can adaptively adjust each matching strategy's hyperparameters to reduce the cost of manual tuning.
+In future work, for the exercise knowledge point labeling model, the popular pre-training models such as BERT, GPT can be applied for embedding learning and named test mining, which can provide a deeper semantic understanding of the exercise text and achieve better results. For the knowledge tracking model, applying other graphical neural network models can be an option to embed the learning of exercise - knowledge point graphs to quantify the relationship of knowledge points to the model. An explicit knowledge mastery matrix can be designed to visualize students' mastery of specific knowledge points. For the exercise recommendation model, neural network models can adaptively adjust each matching strategy's hyperparameters to reduce manual tuning costs.
