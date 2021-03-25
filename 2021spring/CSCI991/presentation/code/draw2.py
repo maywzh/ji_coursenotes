@@ -1,10 +1,10 @@
 '''
 Author       : maywzh
-Date         : 2021-03-24 23:12:54
-LastEditTime : 2021-03-25 01:58:04
+Date         : 2021-03-25 02:00:22
+LastEditTime : 2021-03-25 11:56:20
 LastEditors  : maywzh
 Description  : 
-FilePath     : /ji_coursenotes/2021spring/CSCI991/presentation/code/draw.py
+FilePath     : /ji_coursenotes/2021spring/CSCI991/presentation/code/draw2.py
 symbol_custom_string_obkoro1: 
 Copyright (c) 2017 maywzh.
 
@@ -14,38 +14,34 @@ The above copyright notice and this permission notice shall be included in all c
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 '''
-import matplotlib.pyplot as plt
 import numpy as np
+import matplotlib.pyplot as plt
 
-# 这两行代码解决 plt 中文显示的问题
-plt.rcParams['font.sans-serif'] = ['SimHei']
-plt.rcParams['axes.unicode_minus'] = False
+def auto_text(rects):
+    for rect in rects:
+        ax.text(rect.get_x(), rect.get_height(), rect.get_height(), ha='left', va='bottom')
 
-# 输入统计数据
+
+size = 3
 waters = ('Accuracy', 'F1_macro', 'F1_micro')
+
 model1 = [69.6, 75.3, 74.2]
 model2 = [73.2, 77.1, 76.2]
 model3 = [76.9, 80.1, 79.9]
 model4 = [77.3, 80.9, 79.1]
+total_width, n =1, 4
+width = total_width / 5
+x = np.arange(size)
 
-bar_width = 0.5  # 条形宽度
-index_1 = np.arange(len(waters))  # 男生条形图的横坐标
-index_2 = index_1 + bar_width/4  # 女生条形图的横坐标
-index_3 = index_2 + bar_width/4
-index_4 = index_3 + bar_width/4
-# 使用两次 bar 函数画出两组条形图
-plt.bar(index_1, height=model1,
-        width=bar_width/4, color='darkorange', label='NB')
-plt.bar(index_2, height=model2,
-        width=bar_width/4, color='tan', label='ML-KNN')
-plt.bar(index_3, height=model3,
-        width=bar_width/4, color='gold', label='CNN+BERT')
-plt.bar(index_4, height=model4,
-        width=bar_width/4, color='olive', label='Proposed')
-plt.legend(bbox_to_anchor=(1,1), loc='center left')  # 显示图例
-# 让横坐标轴刻度显示 waters 里的饮用水， index_male + bar_width/2 为横坐标轴刻度的位置
-plt.xticks(index_2+bar_width/8, waters)
+plt.bar(x, model1,  width=width, label='a',color='darkorange')
+plt.bar(x + width, model2, width=width, label='b',color='tan')
+plt.bar(x + 2 * width, model3, width=width, label='c',color='gold')
+plt.bar(x + 3 * width, model4, width=width, label='d',color='olive')
+plt.xticks(x+1.5*width, waters)
+plt.legend(loc='upper right')
 plt.ylabel('%')  # 纵坐标轴标题
-plt.title('Model Performance')  # 图形标题
+plt.ylim(ymax=110)
+plt.yticks(np.arange(0,101,10))
+plt.title('Model Performance(τ=200)')  # 图形标
 
 plt.show()
