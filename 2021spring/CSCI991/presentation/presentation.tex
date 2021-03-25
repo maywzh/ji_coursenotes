@@ -167,29 +167,24 @@ University of Wollongong \\ % Your institution for the title page
 %------------------------------------------------
 \subsection{Research Background}
 \begin{frame}
-  \frametitle{Background}
+  \frametitle{Research Background}
   \begin{itemize}
     \item Knowledge State Monitoring
     \item Learning Resource Recommendation
-    \item High School Math
+    \item High School Math (Chinese)
   \end{itemize}
 \end{frame}
 
 %------------------------------------------------
 \subsection{Existing Problems}
 \begin{frame}
-  \frametitle{Problems}
+  \frametitle{Existing Problems}
   \begin{description}
-    \item[Disorganized exercise] Exercises lacking knowledge tags
-    \item[Knowledge evaluation] Description of second item
-    \item[Exercise recommendation] Description of third item£
+    \item[Inappropriate Recommendation] Exercise recommendation are not based on knowledge mastery
+    \item[Disorganized exercise] Labelling knowledge for exercises lacking knowledge tags
+    \item[Knowledge evaluation] The difficulty for obtaining knowledge mastery proficiency of student
+    \item[Exercise recommendation] How to recommend appropriate exercises according to their knowledge status
   \end{description}
-  %\framesubtitle{}
-  % \begin{itemize}
-  %   \item Corpus
-  %   \item Hard to evaluate the knowledge mastery status
-  %   \item Difficult to find appropriate exercise for improving knowledge mastery
-  % \end{itemize}
 \end{frame}
 %------------------------------------------------
 \subsection{Research Cores}
@@ -218,60 +213,60 @@ University of Wollongong \\ % Your institution for the title page
   \end{figure}
 \end{frame}
 
-\begin{frame}
-  \frametitle{Exercise Knowledge Labelling}
-  \framesubtitle{Details}
-  \begin{columns}[c] % The "c" option specifies centered vertical alignment while the "t" option is used for top vertical alignment
-    \column{.45\textwidth} % Left column and width
-    \textbf{Modules}
-    \begin{enumerate}
-      \item \textbf{BERT~\cite{devlin2019bert} Embedding Layer}
-      \item Attentional Bi-LSTM Text Representation
-      \item GCN-based Classifiers
-    \end{enumerate}
-    \column{.5\textwidth} % Right column and width
-    \begin{figure}
-      \includegraphics[width=1.0\textwidth]{figures/ch2-bert-model.pdf}
-    \end{figure}
-  \end{columns}
-  Thanks for opensource pre-trained Chinese language models from Cui et.al.~\cite{wwmbertgithub,chinese-bert-wwm}.
-\end{frame}
+% \begin{frame}
+%   \frametitle{Exercise Knowledge Labelling}
+%   \framesubtitle{Details}
+%   \begin{columns}[c] % The "c" option specifies centered vertical alignment while the "t" option is used for top vertical alignment
+%     \column{.45\textwidth} % Left column and width
+%     \textbf{Modules}
+%     \begin{enumerate}
+%       \item \textbf{BERT~\cite{devlin2019bert} Embedding Layer}
+%       \item Attentional Bi-LSTM Text Representation
+%       \item GCN-based Classifiers
+%     \end{enumerate}
+%     \column{.5\textwidth} % Right column and width
+%     \begin{figure}
+%       \includegraphics[width=1.0\textwidth]{figures/ch2-bert-model.pdf}
+%     \end{figure}
+%   \end{columns}
+%   Thanks for opensource pre-trained Chinese language models from Cui et.al.~\cite{wwmbertgithub,chinese-bert-wwm}.
+% \end{frame}
 
-\begin{frame}
-  \frametitle{Exercise Knowledge Labelling}
-  \framesubtitle{Details}
-  \begin{columns}[c] % The "c" option specifies centered vertical alignment while the "t" option is used for top vertical alignment
-    \column{.45\textwidth} % Left column and width
-    \textbf{Modules}
-    \begin{enumerate}
-      \item BERT~\cite{devlin2019bert} Embedding Layer
-      \item \textbf{Attentional Bi-LSTM Text Representation}
-      \item GCN-based Classifiers
-    \end{enumerate}
-    \column{.5\textwidth} % Right column and width
-    \begin{figure}
-      \includegraphics[width=1.0\textwidth]{figures/ch2-model-bilstm.pdf}
-    \end{figure}
-  \end{columns}
-\end{frame}
+% \begin{frame}
+%   \frametitle{Exercise Knowledge Labelling}
+%   \framesubtitle{Details}
+%   \begin{columns}[c] % The "c" option specifies centered vertical alignment while the "t" option is used for top vertical alignment
+%     \column{.45\textwidth} % Left column and width
+%     \textbf{Modules}
+%     \begin{enumerate}
+%       \item BERT~\cite{devlin2019bert} Embedding Layer
+%       \item \textbf{Attentional Bi-LSTM Text Representation}
+%       \item GCN-based Classifiers
+%     \end{enumerate}
+%     \column{.5\textwidth} % Right column and width
+%     \begin{figure}
+%       \includegraphics[width=1.0\textwidth]{figures/ch2-model-bilstm.pdf}
+%     \end{figure}
+%   \end{columns}
+% \end{frame}
 
-\begin{frame}
-  \frametitle{Exercise Knowledge Labelling}
-  \framesubtitle{Details}
-  \begin{columns}[c] % The "c" option specifies centered vertical alignment while the "t" option is used for top vertical alignment
-    \column{.45\textwidth} % Left column and width
-    \textbf{Modules}
-    \begin{enumerate}
-      \item BERT~\cite{devlin2019bert} Embedding Layer
-      \item Attentional Bi-LSTM Text Representation
-      \item \textbf{GCN-based Classifiers}
-    \end{enumerate}
-    \column{.5\textwidth} % Right column and width
-    \begin{figure}
-      \includegraphics[width=1.0\textwidth]{figures/ch2-gcn-ov.pdf}
-    \end{figure}
-  \end{columns}
-\end{frame}
+% \begin{frame}
+%   \frametitle{Exercise Knowledge Labelling}
+%   \framesubtitle{Details}
+%   \begin{columns}[c] % The "c" option specifies centered vertical alignment while the "t" option is used for top vertical alignment
+%     \column{.45\textwidth} % Left column and width
+%     \textbf{Modules}
+%     \begin{enumerate}
+%       \item BERT~\cite{devlin2019bert} Embedding Layer
+%       \item Attentional Bi-LSTM Text Representation
+%       \item \textbf{GCN-based Classifiers}
+%     \end{enumerate}
+%     \column{.5\textwidth} % Right column and width
+%     \begin{figure}
+%       \includegraphics[width=1.0\textwidth]{figures/ch2-gcn-ov.pdf}
+%     \end{figure}
+%   \end{columns}
+% \end{frame}
 
 %------------------------------------------------
 \subsection{Knowledge Tracing}
@@ -339,30 +334,60 @@ University of Wollongong \\ % Your institution for the title page
 \section{Experiment Design}
 \subsection{Exercise Knowledge Labelling}
 \begin{frame}
-  \frametitle{Exercise Knowledge Labelling}
+  \frametitle{Experiment Design}
+  \framesubtitle{Exercise Knowledge Labelling}
   \begin{itemize}
     \item Compared with several baseline models
-    \item Use different frequency of occurrences of knowledge points for testing
+    \item The number of occurrences of the knowledge point label \(\tau^{(KP)} \)
   \end{itemize}
-
-
+  \begin{table}[htbp!]
+    \centering
+    \caption{Setting of Experiment}\label{tbl:ch2-ex1}
+    \begin{tabular}{cccc}%{cp{2cm}<{\centering}p{2cm}<{\centering}p{2cm}<{\centering}}
+      \toprule
+      \text{\(\tau^{(KP)} \)} & \(|\mathbf{L}_{\tau^{(KP)}}|\) & \(|\mathbf{E}_{\tau^{(KP)}}| \) & \(\overline{L}\) \\
+      \midrule
+      200                     & 2                              & 463                             & 1.21             \\
+      100                     & 22                             & 1376                            & 1.55             \\
+      50                      & 29                             & 2237                            & 1.42             \\
+      10                      & 57                             & 3158                            & 1.35             \\
+      \bottomrule
+    \end{tabular}
+  \end{table}
 \end{frame}
 
-\subsection{Knowledge Tracing}
 \begin{frame}
-  \frametitle{Knowledge Tracing}
-
-
-
+  \frametitle{Experiment Design}
+  \framesubtitle{Knowledge Tracing}
+  \begin{block}{Basic Method}
+    Compare with other KT baseline models BKT~\cite{yudelson2013individualized}、DKT~\cite{piech2015deep}、DKVMN~\cite{chen2017improving} and GKT~\cite{nakagawa2019graph}
+  \end{block}
+  \begin{table}[htbp!]
+    \centering
+    \caption{Dataset Statistics}\label{tbl:ch2-tb1}
+    \scalebox{0.7}{
+      \begin{tabular}{ccccc}
+        \toprule
+        Dataset   & \#students & \#exercises & \#knowledge points & \#interactions \\
+        \midrule
+        ASSIST15  & 19,917     & 102,396     & 100                & 709K           \\
+        ASSIST17  & 1,709      & 4,117       & 102                & 943K           \\
+        STATICS11 & 333        & 1,223       & 156                & 189K           \\
+        \bottomrule
+      \end{tabular}}
+  \end{table}
 \end{frame}
 
-\subsection{Exercise Recommendation}
 \begin{frame}
-  \frametitle{Exercise Recommendation}
-
-
-
+  \frametitle{Experiment Design}
+  \framesubtitle{Exercise Recommendation}
+  \begin{itemize}
+    \item Compared with conventional Collaborative Filtering and Random Recommendation
+    \item Using adapted KT dataset for testing
+    \item Check if the selected exercise is in final recommendation list
+  \end{itemize}
 \end{frame}
+
 
 \section{Result and Analysis}
 \begin{frame}
@@ -440,28 +465,30 @@ University of Wollongong \\ % Your institution for the title page
   \end{table}
 \end{frame}
 
-\begin{frame}
-  \frametitle{Result}
-  \framesubtitle{Exercise Recommendation}
-  \begin{figure}
-    \includegraphics[width=0.9\textwidth]{figures/ch2_fg1.png}
-  \end{figure}
-\end{frame}
+% \begin{frame}
+%   \frametitle{Result}
+%   \framesubtitle{Exercise Recommendation}
+%   \begin{figure}
+%     \includegraphics[width=0.9\textwidth]{figures/ch2_fg1.png}
+%   \end{figure}
+% \end{frame}
 
 \begin{frame}
   \frametitle{Result}
   \framesubtitle{Knowledge Tracing}
   \begin{table}[htbp!]
     \centering
-    \caption{Setting of Experiment}\label{tbl:ch2-ex1}
-    \begin{tabular}{cccc}%{cp{2cm}<{\centering}p{2cm}<{\centering}p{2cm}<{\centering}}
+    \caption{AUC results (\%) over three datasets}\label{tbl:ch3-tb2}
+    \begin{tabular}{cccc}
       \toprule
-      \text{\(\tau^{(KP)} \)} & \(|\mathbf{L}_{\tau^{(KP)}}|\) & \(|\mathbf{E}_{\tau^{(KP)}}| \) & \(\overline{L}\) \\
+      Model    & ASSIST15                    & ASSIST17                   & STATICS11                  \\
       \midrule
-      200                     & 2                              & 463                             & 1.21             \\
-      100                     & 22                             & 1376                            & 1.55             \\
-      50                      & 29                             & 2237                            & 1.42             \\
-      10                      & 57                             & 3158                            & 1.35             \\
+      BKT      & \(62.01\pm 0.03 \)          & \(65.30\pm 0.01\)          & \(64.21\pm 0.01\)          \\
+      DKT      & \(70.83\pm 0.03 \)          & \(72.66\pm 0.01\)          & \(72.46\pm 0.06\)          \\
+      DKVMN    & \(71.06\pm 0.03 \)          & \(72.78\pm 0.02\)          & \(72.67\pm 0.03\)          \\
+      GKT      & \(72.12\pm 0.02 \)          & \(72.85\pm 0.01\)          & \(72.57\pm 0.01\)          \\
+      \midrule
+      Proposed & \(\mathbf{72.62\pm 0.02} \) & \(\mathbf{72.89\pm 0.02}\) & \(\mathbf{72.73\pm 0.02}\) \\
       \bottomrule
     \end{tabular}
   \end{table}
@@ -470,46 +497,39 @@ University of Wollongong \\ % Your institution for the title page
 \begin{frame}
   \frametitle{Result and Analysis}
   \framesubtitle{Exercise Recommendation}
+  a given judgment threshold \(\tau \) and the output probability \(p\) of KT and the judgement of error-prone of one exercise \(O\) satisfy:
+  \begin{align}
+    O =\{\begin{array}{ll}
+      1, & \text{ if } \tau<p      \\
+      0, & \text{ if } \tau \geq p
+    \end{array}\notag
+  \end{align}
   \begin{table}[htbp!]
+    \caption{Recommendation Experiment Result}\label{table:ch4-exp-result}
     \centering
-    \caption{Setting of Experiment}\label{tbl:ch2-ex1}
-    \begin{tabular}{cccc}%{cp{2cm}<{\centering}p{2cm}<{\centering}p{2cm}<{\centering}}
+    \begin{tabular}{c c c}
       \toprule
-      \text{\(\tau^{(KP)} \)} & \(|\mathbf{L}_{\tau^{(KP)}}|\) & \(|\mathbf{E}_{\tau^{(KP)}}| \) & \(\overline{L}\) \\
+      Model                    & ACC    & AUC    \\
       \midrule
-      200                     & 2                              & 463                             & 1.21             \\
-      100                     & 22                             & 1376                            & 1.55             \\
-      50                      & 29                             & 2237                            & 1.42             \\
-      10                      & 57                             & 3158                            & 1.35             \\
+      CF                       & 0.5375 & 0.5239 \\
+      Random                   & 0.5073 & 0.5012 \\
+      \midrule
+      Proposed \((\tau=0.45)\) & 0.6542 & 0.6878 \\
+      Proposed \((\tau=0.50)\) & 0.6839 & 0.7375 \\
+      Proposed \((\tau=0.55)\) & 0.6657 & 0.7039 \\
       \bottomrule
     \end{tabular}
   \end{table}
 \end{frame}
 
 
-
-%------------------------------------------------
-
-% \begin{frame}
-%   \frametitle{Theorem}
-%   \begin{theorem}[Mass-energy equivalence]
-%     \(E = mc^2\)
-%   \end{theorem}
-% \end{frame}
-
-% %------------------------------------------------
-% \begin{frame}
-%   \frametitle{Figure}
-%   Uncomment the code on this slide to include your own image from the same directory as the template .TeX file.
-% \end{frame}
-
-
 \section{Conclusion}
 \begin{frame}
   \frametitle{Conclusion}
-
-
-
+  \begin{itemize}
+    \item The three module of proposed model satisfy the requirements of the design
+    \item The proposed model achieves better performance compared with baseline models.
+  \end{itemize}
 \end{frame}
 %------------------------------------------------
 
