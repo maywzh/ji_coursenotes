@@ -300,11 +300,11 @@ University of Wollongong \\ % Your institution for the title page
   \end{figure}
 \end{frame}
 
-\begin{frame}
-  \frametitle{Knowledge Tracing}
-  \framesubtitle{Detail}
+% \begin{frame}
+%   \frametitle{Knowledge Tracing}
+%   \framesubtitle{Detail}
 
-\end{frame}
+% \end{frame}
 
 
 \subsection{Exercise Recommendation}
@@ -336,25 +336,116 @@ University of Wollongong \\ % Your institution for the title page
 \end{frame}
 
 %------------------------------------------------
-\section{Experiment Design and Analysis}
+\section{Experiment Design}
+\subsection{Exercise Knowledge Labelling}
 \begin{frame}
-  \frametitle{Experiment}
+  \frametitle{Exercise Knowledge Labelling}
+  \begin{itemize}
+    \item Compared with several baseline models
+    \item Use different frequency of occurrences of knowledge points for testing
+  \end{itemize}
+
+
+\end{frame}
+
+\subsection{Knowledge Tracing}
+\begin{frame}
+  \frametitle{Knowledge Tracing}
+
+
+
+\end{frame}
+
+\subsection{Exercise Recommendation}
+\begin{frame}
+  \frametitle{Exercise Recommendation}
+
+
+
+\end{frame}
+
+\section{Result and Analysis}
+\begin{frame}
+  \frametitle{Result}
   \framesubtitle{Exercise Knowledge Labeling}
   \begin{table}[htbp!]
     \caption{Result comparison (\(\tau^{(KP)}=200 \))}\label{tbl:bsline1}
     \centering
-    \begin{tabular}{cccccccc}
-      \toprule
-      Metrics      & \(\operatorname{F1}_{macro}\) & \(\operatorname{F1}_{micro}\) & \(\operatorname{Acc}_{ML}\) & \(\operatorname{HmLoss}\) & \(\operatorname{F1}_{ML}\) \\
-      \midrule
-      NB           & 75.3                          & 74.2                          & 69.6                        & 18.2                      & 73.6                       \\
-      ML-KNN       & 77.1                          & 76.2                          & 73.2                        & 17.4                      & 76.3                       \\
-      CNN+word2vec & 79.5                          & 78.4                          & 76.6                        & 14.2                      & 79.6                       \\
-      CNN+BERT     & 80.1                          & \textbf{79.9}                 & 76.9                        & 13.7                      & 79.5                       \\
-      Proposed     & \textbf{80.9}                 & 79.1                          & \textbf{77.3}               & \textbf{13.1}             & \textbf{80.7}              \\
-      \bottomrule
-    \end{tabular}
+    \scalebox{0.7}{
+      \begin{tabular}{cccccccc}
+        \toprule
+        Metrics      & \(\operatorname{F1}_{macro}\) & \(\operatorname{F1}_{micro}\) & \(\operatorname{Acc}_{ML}\) & \(\operatorname{HmLoss}\) & \(\operatorname{F1}_{ML}\) \\
+        \midrule
+        NB           & 75.3                          & 74.2                          & 69.6                        & 18.2                      & 73.6                       \\
+        ML-KNN       & 77.1                          & 76.2                          & 73.2                        & 17.4                      & 76.3                       \\
+        CNN+word2vec & 79.5                          & 78.4                          & 76.6                        & 14.2                      & 79.6                       \\
+        CNN+BERT     & 80.1                          & \textbf{79.9}                 & 76.9                        & 13.7                      & 79.5                       \\
+        Proposed     & \textbf{80.9}                 & 79.1                          & \textbf{77.3}               & \textbf{13.1}             & \textbf{80.7}              \\
+        \bottomrule
+      \end{tabular}}
   \end{table}
+  \begin{table}
+    \centering
+    \caption{Result comparison (\(\tau^{(KP)}=100 \))}\label{tbl:bsline2}
+    \scalebox{0.7}{
+      \begin{tabular}{cccccccc}
+        \toprule
+        Metrics      & \(\operatorname{F1}_{macro}\) & \(\operatorname{F1}_{micro}\) & \(\operatorname{Acc}_{ML}\) & \(\operatorname{HmLoss}\) & \(\operatorname{F1}_{ML}\) \\
+        \midrule
+        NB           & 71.2                          & 72.1                          & 67.2                        & 16.2                      & 71.8                       \\
+        ML-KNN       & 73.2                          & 72.3                          & 69.1                        & 15.9                      & 74.7                       \\
+        CNN+word2vec & 74.3                          & 74.4                          & 72.3                        & 13.2                      & 75.2                       \\
+        CNN+BERT     & 74.4                          & 74.6                          & 72.3                        & 13.1                      & 75.1                       \\
+        Proposed     & \textbf{75.5}                 & \textbf{75.7}                 & \textbf{73.1}               & \textbf{12.7}             & \textbf{74.9}              \\
+        \bottomrule
+      \end{tabular}}
+  \end{table}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Result}
+  \framesubtitle{Exercise Knowledge Labeling}
+  \begin{table}
+    \centering
+    \caption{Result comparison (\(\tau^{(KP)}=50 \))}\label{tbl:bsline3}
+    \scalebox{0.7}{
+      \begin{tabular}{cccccccc}
+        \toprule
+        Metrics      & \(\operatorname{F1}_{macro}\) & \(\operatorname{F1}_{micro}\) & \(\operatorname{Acc}_{ML}\) & \(\operatorname{HmLoss}\) & \(\operatorname{F1}_{ML}\) \\
+        \midrule
+        NB           & 52.3                          & 53.0                          & 42.1                        & 9.2                       & 51.9                       \\
+        ML-KNN       & 44.2                          & 43.9                          & 23.5                        & 10.1                      & 42.1                       \\
+        CNN+word2vec & 56.1                          & \textbf{57.3}                 & 46.2                        & 8.2                       & 56.5                       \\
+        CNN+BERT     & 56.2                          & 56.8                          & \textbf{47.0}               & \textbf{8.1}              & 56.1                       \\
+        Proposed     & \textbf{57.1}                 & 57.2                          & 45.2                        & 8.6                       & \textbf{57.5}              \\
+        \bottomrule
+      \end{tabular}}
+  \end{table}
+
+  \begin{table}
+    \centering
+    \caption{Result comparison (\(\tau^{(KP)}=10 \))}\label{tbl:bsline4}
+    \scalebox{0.7}{
+      \begin{tabular}{cccccccc}
+        \toprule
+        Metrics      & \(\operatorname{F1}_{macro}\) & \(\operatorname{F1}_{micro}\) & \(\operatorname{Acc}_{ML}\) & \(\operatorname{HmLoss}\) & \(\operatorname{F1}_{ML}\) \\
+        \midrule
+        NB           & 36.5                          & 37.1                          & 26.1                        & 4.2                       & 36.5                       \\
+        ML-KNN       & 30.1                          & 32.1                          & 29.1                        & 3.6                       & 32.5                       \\
+        CNN+word2vec & 36.7                          & 38.2                          & 37.5                        & 3.5                       & 37.2                       \\
+        CNN+BERT     & 36.9                          & \textbf{38.6}                 & \textbf{38.6}               & \textbf{3.5}              & 37.5                       \\
+        Proposed     & \textbf{37.1}                 & 38.3                          & 35.4                        & 3.8                       & \textbf{38.6}              \\
+        \bottomrule
+      \end{tabular}}
+  \end{table}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Result}
+  \framesubtitle{Exercise Recommendation}
+  \begin{figure}
+    \includegraphics[width=0.9\textwidth]{figures/ch2_fg1.png}
+  \end{figure}
 \end{frame}
 
 \begin{frame}
@@ -394,6 +485,8 @@ University of Wollongong \\ % Your institution for the title page
     \end{tabular}
   \end{table}
 \end{frame}
+
+
 
 %------------------------------------------------
 

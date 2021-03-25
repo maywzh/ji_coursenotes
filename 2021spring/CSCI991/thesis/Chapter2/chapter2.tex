@@ -14,7 +14,9 @@
 \section{Research Motivation}
 %在推荐系统的各环节，包括数据收集、数据挖掘和数据推荐，都以建立高质量的数据集作为基础。对于本文的研究主题习题推荐系统而言，建立一个规范的习题库对于建立一个试题推荐系统是重要的第一步。题库建设也是一项十分复杂而困难的工作，需要综合考虑习题数据的各个层面，为习题添加足够多的附加信息用于后续的数据挖掘。高中数学具有数百个知识点，平均每个知识点有从易到难的不同难度梯度的数十道习题。一个优质数学学科题库的规模为十万规模。除去数量上的要求，优质题库除了题目质量，以及对教育内容（教材）的匹配度之外，还有两个根本性问题，其一为知识点关系网络构建，其二为知识点-习题关系构建。而就是对于这些因素的优化，导致了优质题库的建设门槛，以及极高的成本。而市面上的题库往往缺失了对于这些因素的重视，导致出现了许多质量不高的习题数据库。所以，对题目的知识点标签的标注，以及知识体系的构建，是优质题库建设过程中最为核心的问题之一。
 
-All aspects of the recommendation system, including data collection, data mining, and data recommendation, are predicated on establishing a high-quality data source. In this thesis's study topic, establishing a standardized and structured exercise database is the critical first step to build a test recommendation system. The construction of an exercise corpus is also a complex and challenging task, requiring comprehensive consideration of all aspects of the exercise data and adding enough additional information to the exercises for subsequent data mining. High school mathematics has hundreds of knowledge points, and on average, each point has dozens of exercises of different difficulty gradients from easy to difficult. The size of a quality math subject exercise corpus is 100,000 scale. In addition to the quantitative requirements, there are two fundamental issues in a quality exercise corpus, in addition to the quality of the questions and the matching of the educational content (textbooks), one is the construction of the knowledge point relationship network, and the other is the construction of the knowledge point-exercise relationship. Moreover, it is the optimization of these factors that leads to the construction threshold of high-quality exercise corpus and the extremely high cost. The question databases on the market often lack attention to these factors, leading to the emergence of many poor-quality exercise databases. Therefore, labeling the knowledge points of the questions and the construction of the knowledge system is one of the most central issues in building a quality exercise corpus.
+All aspects of the recommendation system, including data collection, data mining, and data recommendation, are predicated on establishing a high-quality data source. In this thesis's study topic, establishing a standardized and structured exercise database is the critical first step to build a test recommendation system. The construction of an exercise corpus is also a complex and challenging task, requiring comprehensive consideration of all aspects of the exercise data and adding enough additional information to the exercises for subsequent data mining. High school mathematics has hundreds of knowledge points, and on average, each point has dozens of exercises of different difficulty gradients from easy to difficult. The size of a high-quality math subject exercise corpus is 100,000 scale. In addition to the quantitative requirements, there are two fundamental issues in a quality exercise corpus, in addition to the quality of the questions and the matching of the educational content (textbooks), one is the construction of the knowledge point relationship network, and the other is the construction of the knowledge point-exercise relationship.
+
+Moreover, it is the optimization of these factors that leads to the construction threshold of high-quality exercise corpus and the extremely high cost. The question databases on the market often lack attention to these factors, leading to the emergence of many poor-quality exercise databases. Therefore, labeling the knowledge points of the questions and constructing the knowledge system is one of the most central issues in building a quality exercise corpus.
 
 %建立试题推荐系统的一个关键问题是如何结合知识点来推荐题目。在考虑这个问题的解决方案的时候，我们首先要考虑的是，我们需要什么样的知识体系和知识点标签。在教材和教学大纲中，以及各种教辅中，会有各种对``知识点''的描述。在高中数学中的知识点，如函数、定义域、值域或解析式等，有直接的概念，也有方法的应用，有专题的抽象，也有相似解法的汇总。这并没有一种标准的分类方法，知识点系统构建的方法可能是千差万别的。作为数据挖掘的任务而言，我们更关注其涉及到的概念和技能点，这些可以通过习题文本来进行隐藏信息挖掘。作为一个对学生知识掌握熟练度进行分析的习题推荐系统，那么知识点的标签应该要能够描述题目测验的核心知识点、方法或思路，要能够区分对于学生的能力要求点，这样才能构建更为强大的用户知识点掌握度模型和推荐引擎。
 
@@ -23,7 +25,7 @@ One of the critical problems in building a test recommendation system is recomme
 
 %在本章中，挖掘的知识点标签，是用于题目的推荐和分析报告。它要求完善题目的知识点关联，即对题目打上若干对应的知识点标签，其中知识点之间也会存在依赖关系，另外就是要建立完整的知识点知识图谱用于生成学生的学习报告。对于第一个问题，它实际上是用题目文本来进行知识点挖掘的任务，也是一个分类任务。具体一点而言，主要是依据题目短文本信息进行层次化分类的任务。在这个任务中，我们需要使用到最基础的技术是自然语言处理和机器学习。也即，通过对大量人工标注好的题目文本和知识点标签结果（也称为训练语料）的学习——通过自然语言处理的技术获取题目文本的特征，通过机器学习来得到分类模型——从而使得系统具有了自动做知识点分类的能力。在这个定义中，待分类对象为题目（包括题干、答案、解析等等），分类结果是一组知识点标签。学习系统的输入就是一组训练习题，即\(n\)道已经标注好的题目及其对应的知识点标签；学习系统依据训练数据，训练给定的分类模型。在预测阶段，输入待标注的习题，输出一组对习题知识点的预测标注结果。
 
-In this chapter, the knowledge point labels are mined for topic recommendation and analysis reports. It requires to refine the knowledge point association of the topic, i.e., several corresponding knowledge point tags for the topic, where there will also be dependencies between the knowledge points and build a complete knowledge map of knowledge points for generating student learning reports. The first problem is a knowledge point mining task using the topic text, which is also a classification task. To be more specific, it is a hierarchical classification task based on the topic's short text information. The most basic natural language processing (NLP) technologies and machine learning should be used in this task. By learning a large amount of manually labeled topic text and knowledge point labeling results (also called training corpus) - obtaining the features of the topic text through NLP techniques and obtaining the classification model through machine learning. The system can do knowledge point classification automatically. In this definition, the object to be classified is a topic (including stem, answer, paraphrase, etc.), and the result is a set of knowledge point labels. The input to the learning system is a set of training exercises, i.e., \(n\) questions that have been labeled with their corresponding knowledge labels; the learning system trains the given classification model based on the training data. In the prediction phase, the exercises' input to be labeled is used to output a set of predicted labeling results for the exercises' knowledge points.
+In this chapter, the knowledge point labels are mined for topic recommendation and analysis reports. It requires refining the knowledge point association of the topic, i.e., several corresponding knowledge point tags for the topic, where there will also be dependencies between the knowledge points and build a complete knowledge map of knowledge points for generating student learning reports. The first problem is a knowledge point mining task using the topic text, which is also a classification task. To be more specific, it is a hierarchical classification task based on the topic's short text information. The most basic natural language processing (NLP) technologies and machine learning should be used in this task. By learning a large amount of manually labeled topic text and knowledge point labeling results (also called training corpus) - obtaining the features of the topic text through NLP techniques and obtaining the classification model through machine learning. The system can do knowledge point classification automatically. In this definition, the object to be classified is a topic (including stem, answer, paraphrase, etc.), and the result is a set of knowledge point labels. The input to the learning system is a set of training exercises, i.e., \(n\) questions that have been labeled with their corresponding knowledge labels; the learning system trains the given classification model based on the training data. In the prediction phase, the exercises' input to be labeled is used to output a set of predicted labeling results for the exercises' knowledge points.
 
 \section{Proposed Model}
 %在本节中，提出了一个基于图神经网络的模型用于进行试题-知识点关联和知识点知识图谱的建立。该模型大致分为两个部分，第一个部分用一个基于图卷积神经网络半监督学习和文本挖掘嵌入学习的算法来实现的试题-知识点关联模块，用于实现试题知识点标注和关联。第二部分考虑到高中数学的知识的体系化，结合先验领域知识，用改进的R-GCN算法来构建高中数学知识点知识图谱。
@@ -54,7 +56,7 @@ In 2019, a multi-label image classification model was proposed~\cite{chen2019mul
 
 From the structure, it can be seen that there are generally two parts to the model:
 \begin{enumerate}
-	\item The first part is the exercise description text information mining module, which uses a Bi-LSTM network with an added attention mechanism to text-mine hidden knowledge information on questions (including question descriptions and answers). In this thesis, an end-to-end network training approach is designed to achieve the model's overall iterative learning. Specifically, it consists of a text preprocessing part that performs the text subdivision, filtering, and deduplication parts, an embedding layer that performs the word vector embedding calculation, and an Attention-based Bi-LSTM (Bi-LSTM) network that performs text information mining, which was proposed by Peng et al. in 2016~\cite{zhou2016attention}, outputting a textual information representation vector.
+	\item The first part is the exercise description text information mining module, which uses a Bi-LSTM network with an added attention mechanism to text-mine hidden knowledge information on questions (including question descriptions and answers). In this thesis, an end-to-end network training approach is designed to achieve the model's overall iterative learning. Specifically, it consists of a text preprocessing part that performs the text subdivision, filtering, and deduplication parts, an embedding layer that performs the word vector embedding calculation, and an Attention-based Bi-LSTM (Bi-LSTM) network that performs text information mining, which was proposed by Peng et al.\ in 2016~\cite{zhou2016attention}, outputting a textual information representation vector.
 	\item The second part is a GCN-based knowledge point association multi-label classifier, which maps knowledge points to a set of interdependent target classifiers. These classifiers are computed with the exercise information representation vector outputted by the first part to output a result vector representing each knowledge point's labeling probability.
 \end{enumerate}
 
@@ -415,10 +417,10 @@ Similarly, the statistic of some indicators based on samples can be obtained. Fo
 \end{align}
 
 \subsection{Setting and Environment}
-The distribution of the number of exercise knowledge points in this data set is shown in the figure. The number of questions involved in different knowledge points is different. The set of questions involved in knowledge points \(j\) is defined as \(\mathbf{E}_j\). Remember the threshold of the number of occurrences of the knowledge point label \(\tau^{(KP)} \), then the knowledge points of the exercises can be divided according to the frequency of occurrence, i.e., \( \{j|\mathbf{E}_j|>\tau^{(KP)}\} \) and \( \{j||\mathbf{E}_j|\leq\tau^{(KP)} \} \). According to the different thresholds, the model's ability to classify knowledge points that appear frequently and appear sparse can be tested separately.
+The distribution of the number of exercise knowledge points in this data set is shown in the figure. The number of questions involved in different knowledge points is different. The set of questions involved in knowledge points \(j\) is defined as \(\mathbf{E}_j\). Remember the threshold of the number of occurrences of the knowledge point label \(\tau^{(KP)} \), then the knowledge points of the exercises can be divided according to the frequency of occurrence, i.e., \( \{j|\mathbf{E}_j|>\tau^{(KP)}\} \) and \( \{j||\mathbf{E}_j|\leq\tau^{(KP)} \} \). According to the different thresholds, the model's ability to classify knowledge points frequently and appear sparse can be tested separately.
 
 %在实验中，设定了200，150，100，50，10五组阈值\(\tau^{(KP)} \)，将具有标签\(j\)的习题记作\(\mathbb{E}_j\)，则可以统计符合要求的标签集\(\mathbb{L}={j||\mathbb{E}_j|\geq\tau^{(KP)}}\)出习题集大小\(|\mathbb{E}_j|\)和题均知识点数\(LAvg_j \)。
-In the experiment, five sets of thresholds of 200, 150, 100, 50, 10 are set \(\tau^{(KP)} \), and the exercises with the label \(j\) are recorded as \(\mathbf{E}_j\), the label set that meets the requirements can be counted as \(\mathbf{L}_\tau^{(KP)}=\{j\mid |\mathbf{E}_j|\geq\tau^{(KP)}\} \), the exercises containing label in \(\mathbf{L}_\tau^{(KP)} \) is denoted as \(\mathbf{E}_\tau^{(KP)} \), within which the average number of knowledge points of the exercise in the set is \(\overline{L}\)
+In the experiment, five sets of thresholds of 200, 150, 100, 50, 10 are set \(\tau^{(KP)} \), and the exercises with the label \(j\) are recorded as \(\mathbf{E}_j\), the label set that meets the requirements can be counted as \(\mathbf{L}_\tau^{(KP)}=\{j\mid |\mathbf{E}_j|\geq\tau^{(KP)}\} \), the exercises containing label in \(\mathbf{L}_\tau^{(KP)} \) is denoted as \(\mathbf{E}_\tau^{(KP)} \), within which the average number of knowledge points of the exercise in the set is \(\overline{L}\).
 
 \begin{table}[htbp!]
 	\centering
@@ -435,10 +437,10 @@ In the experiment, five sets of thresholds of 200, 150, 100, 50, 10 are set \(\t
 	\end{tabular}
 \end{table}
 
-The running environment are shown in Table {table:ch2-exp-env}.
+The running environment are shown in Table {\ref{tbl:ch2-exp-env}}.
 
 \begin{table}[htbp!]
-	\caption{Experiment Running Environment}\label{table:ch2-exp-env}
+	\caption{Experiment Running Environment}\label{tbl:ch2-exp-env}
 	\centering
 	\begin{tabular}{l c}
 		\toprule
@@ -460,9 +462,9 @@ The running environment are shown in Table {table:ch2-exp-env}.
 \end{table}
 
 
-There are many adjustable parameters of the model in BERT and GCN\@. Hyperparameters are shown in Table~\ref{table:ch2-hpsetting}.
+There are many adjustable parameters of the model in BERT and GCN\@. Hyperparameters are shown in Table~\ref{tbl:ch2-hpsetting}.
 \begin{table}[htbp!]
-	\caption{Hyperparameter Settings of Recommendation Model}\label{table:ch2-hpsetting}
+	\caption{Hyperparameter Settings of Recommendation Model}\label{tbl:ch2-hpsetting}
 	\centering
 	\begin{tabular}{l c c}
 		\toprule
@@ -492,7 +494,7 @@ There are many adjustable parameters of the model in BERT and GCN\@. Hyperparame
 %，对于提出的模型，将标签得到如下的对比实验结果。
 %对比实验结果分为横向baseline模型性能对比(得到表1和表2.)和模型不同超参数性能对比（表3）。
 % \begin{table}
-% 	\caption{Even better looking table using booktabs}\label{table:good_table}
+% 	\caption{Even better looking table using booktabs}\label{tbl:good_table}
 % 	\centering
 
 % 	\begin{tabular}{l c c c c}
@@ -516,7 +518,7 @@ There are many adjustable parameters of the model in BERT and GCN\@. Hyperparame
 % 	\end{tabular}
 % \end{table}
 
-The comparison experiment results are divided into the performance comparison of the horizontal Baseline model (obtained in Table~\ref{tbl:bsline1}-Table~\ref{tbl:bsline4}) and the performance comparison of different hyperparameters of the model (Table 2.4).
+The comparison experiment results are divided into the performance comparison of the horizontal baseline model (obtained in Table~\ref{tbl:bsline1}-Table~\ref{tbl:bsline4}).
 
 \begin{table}[htbp!]
 	\caption{Result comparison (\(\tau^{(KP)}=200 \))}\label{tbl:bsline1}

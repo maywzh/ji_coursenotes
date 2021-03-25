@@ -1,7 +1,7 @@
 '''
 Author       : maywzh
 Date         : 2021-03-25 02:00:22
-LastEditTime : 2021-03-25 11:56:20
+LastEditTime : 2021-03-25 12:52:22
 LastEditors  : maywzh
 Description  : 
 FilePath     : /ji_coursenotes/2021spring/CSCI991/presentation/code/draw2.py
@@ -17,9 +17,11 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 import numpy as np
 import matplotlib.pyplot as plt
 
+
 def auto_text(rects):
     for rect in rects:
-        ax.text(rect.get_x(), rect.get_height(), rect.get_height(), ha='left', va='bottom')
+        ax.text(rect.get_x(), rect.get_height(),
+                rect.get_height(), ha='left', va='bottom')
 
 
 size = 3
@@ -29,19 +31,19 @@ model1 = [69.6, 75.3, 74.2]
 model2 = [73.2, 77.1, 76.2]
 model3 = [76.9, 80.1, 79.9]
 model4 = [77.3, 80.9, 79.1]
-total_width, n =1, 4
+total_width, n = 1, 4
 width = total_width / 5
 x = np.arange(size)
 
-plt.bar(x, model1,  width=width, label='a',color='darkorange')
-plt.bar(x + width, model2, width=width, label='b',color='tan')
-plt.bar(x + 2 * width, model3, width=width, label='c',color='gold')
-plt.bar(x + 3 * width, model4, width=width, label='d',color='olive')
+plt.bar(x, model1,  width=width, label='NB', color='darkorange')
+plt.bar(x + width, model2, width=width, label='ML-KNN', color='tan')
+plt.bar(x + 2 * width, model3, width=width, label='CNN+BERT', color='gold')
+plt.bar(x + 3 * width, model4, width=width, label='Proposed', color='olive')
 plt.xticks(x+1.5*width, waters)
 plt.legend(loc='upper right')
 plt.ylabel('%')  # 纵坐标轴标题
 plt.ylim(ymax=110)
-plt.yticks(np.arange(0,101,10))
+plt.yticks(np.arange(0, 101, 10))
 plt.title('Model Performance(τ=200)')  # 图形标
 
 plt.show()
