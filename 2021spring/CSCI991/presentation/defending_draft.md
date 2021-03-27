@@ -1,4 +1,4 @@
-# 讲稿
+# Defending Draft
 
 Hi, Everyone, My name is Wangzhihui Mei, and My supervisor is Professor Zhifeng Wang. Today the research topic I'm going to defend today is Research on High School Math Exercise Recommendation Based on Graph Neural Network. 
 
@@ -29,5 +29,11 @@ In the first Exercise Knowledge Labelling model, There are two parts in the modu
 
 In the text mining part, we have pre-processing, embedding, bi-lstm and attention layers to generate the exercise text representation vector. 
 
-In the classifiers generator part, I use GCN to generate knowledge  classifier. Each vertex in the GCN is one knowledge point, the correlation matrix is the based on the co-occurence of knowledge point. 
+In the classifiers generator part, I use GCN to generate knowledge  classifier. Each vertex in the GCN is one knowledge point, the correlation matrix of graph vertexes is the based on the co-occurence of knowledge points. The system is one end-to-end training mode. The generated classifier is then multiplied with the text representing vector to get the predicted label vector.
+
+
+
+In the 
+
+
 
