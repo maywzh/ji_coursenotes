@@ -31,14 +31,14 @@ Knowledge tracing provides the conditions for intelligent and adaptive education
 The mathematical representation of the knowledge tracing task is an interactive answer record \(X_t=(x_1,x_2,\ldots,x_{t-1})\) of a student on an exercise sequence, based on which the student's learning status is obtained by modeling and predicting the student's performance in the next exercise \(x_{t}\). Where \(x_t\) is usually represented as an ordered pair \((q_t,a_t)\), the ordered pair indicates that the student answered the exercise \(q_t\) at time \(t\), and \(a_t\) indicates the score of the exercise, also many knowledge tracing tasks are represented by correct or incorrect answers, when \(a_t\) is 0 or 1. In this case, what is actually predicted is the probability of answering correctly for the next exercise \(P(a_{t}=1|a_{t-1},\ldots,a_1)\). As shown in the figure \figurename{\ref{fig:ch3-model-ktdes}}.
 
 \begin{figure}[htbp!]
-    \includegraphics[width=0.9\textwidth]{ch3-ov-kt.pdf}
+    \includegraphics[width=0.9\textwidth]{ch3-kt-model.pdf}
     \caption{The knowledge tracing pattern}\label{fig:ch3-model-ktdes}
 \end{figure}
 
-\subsection{Dynamic Key-Value Memory Network}
+\subsection{Dynamic Key-Value Memory Networks}
 %在传统的机器学习模型中，逻辑流控制和外部记忆机制往往缺失。因此，许多当前的机器学习模型无法建立复杂的逻辑流控制和外部记忆模块。传统的模型往往无法高效地利用可训练参数来获得较强记忆能力的模型。目前像LSTM和GRU这些结构，具备一定的记忆能力，但该能力受可训练参数数目影响，记忆增强网络通过更强的表征能力来摆脱可训练参数数目与模型的记忆能力之间的联系。它能够模拟人脑的工作记忆机制，例如阅读理解、推理、运算过程等，也可以捕捉复杂的结构信息和建立长距离信息依赖。MANN将中间信息保留在内存中，形成一个信息缓存结构，并利用该信息进行后续的推理学习。在一个MANN网络中往往分为控制器、存储模块和读写器等三个部分。控制器读取前一阶段的状态和当前的输入来获取下一阶段的输出和控制器输出。存储模块是一个数据结构模型，例如栈、队列或数组，每一个时刻都通过一个输出函数处理读取内容和控制器输出来计算序列输出。
 
-%在知识追踪任务中，由于习题所包含的知识点表征与知识点掌握状态表征所处的空间不同，因此无法将掌握程度和知识点表征用一个存储结构来保存，因此需要对MANN模型进行改造来适配知识追踪任务。DKVMN通过将知识点表征保存在一个矩阵\(M^{(k)}\)中作为Keys，将对应知识点掌握表征保存在另一个矩阵\(M\)中，作为Values。
+%在知识追踪任务中，由于习题所包含的知识点表征与知识点掌握状态表征所处的空间不同，因此无法将掌握程度和知识点表征用一个存储结构来保存，因此需要对MANN模型进行改造来适配知识追踪任务。DKVMN通过将知识点表征保存在一个矩阵\(M^{(k)}\)中作为Keys，将对应知识点掌握表征保存在另一个矩阵\(M\)中，作为Values。在输入一个习题表示\(q_t\)时，通过嵌入的方式来与知识点表征模块\(M^{(k)}\)进行相关度计算，得到知识点相关度表示向量\(w_t\)
 
 In traditional machine learning models, logic flow control and external memory mechanisms are often missing. As a result, many current machine learning models cannot build complex logic flow control and external memory modules. Traditional models are often unable to efficiently use trainable parameters to obtain models with strong memory capabilities. Current structures like LSTM and GRU have some memory capability, but that capability is affected by trainable parameters. MANN gets rid of the connection between the number of trainable parameters and the model's memory capability by more robust representational capability. It can simulate the human brain's working memory mechanisms, such as reading comprehension, reasoning, and arithmetic processes, and capture complex structural information and establish long-range information dependencies. MANN keeps intermediate information in memory, forming an information cache structure, and uses that information for subsequent reasoning learning. A MANN network is often divided into three parts such as controller, storage module, and reader. The controller reads the previous stage's state and the current input to obtain the next stage's output and the controller output. The storage module is a data structure model, such as a stack, queue, or array, and at each moment, the sequence output is computed by processing the reads and the controller output through an output function.
 
@@ -51,7 +51,7 @@ In the knowledge tracking task, since the knowledge point representations contai
 
 \section{Proposed Model}
 \subsection{Algorithm Overview}
-%本节的关键点是对学生的知识追踪，本文提出了一种基于图自注意力网络和Transformer模型的知识追踪模型GATKT。在实验验证阶段，该模型在几个数据集上的基线性能达到了SOA。本模型的第一层为embedding聚合层，该层用一个GAT来聚合问题embedding和知识点embedding，并展示问题和知识点的内在联系，它可以解决数据稀疏性问题和知识点依赖和复杂关系问题。第二层为一个Transformer-based知识追踪模型，该层参考Google提出的著名的Transformer模型 ~\cite{vaswani2017attention}，设计了一个基于Transformer机制的知识追踪模型，它输入问题和技能embedding，输出对于下一个问题的答对的预测。通过这种机制，该模型可以实现对long-range的依赖的学习。此外，本模型可以通过解码器来输出隐藏的知识状态，这是下一阶段进行习题推荐的关键。总而言之，该模型的总体架构图可以见图\ref{}，并分为以下几个模块。
+%本节的关键点是对学生的知识追踪，本文提出了一种基于图网络的记忆增强型网络，GKVMN。在实验验证阶段，该模型在几个数据集上的基线性能达到了SOA。本模型的第一层为embedding聚合层，该层用一个GAT来聚合问题embedding和知识点embedding，并展示问题和知识点的内在联系，它可以解决数据稀疏性问题和知识点依赖和复杂关系问题。第二层为一个Transformer-based知识追踪模型，该层参考Google提出的著名的Transformer模型 ~\cite{vaswani2017attention}，设计了一个基于Transformer机制的知识追踪模型，它输入问题和技能embedding，输出对于下一个问题的答对的预测。通过这种机制，该模型可以实现对long-range的依赖的学习。此外，本模型可以通过解码器来输出隐藏的知识状态，这是下一阶段进行习题推荐的关键。总而言之，该模型的总体架构图可以见图\ref{}，并分为以下几个模块。
 %1. 基于GAT的embedding层：该层用embedding方法来表征问题，知识点和回答。在该图神经网络中，每个问题代表一个节点，它与若干知识点节点连接，这些知识点节点再与与之相关的问题节点连接。而问题与问题不直接连接，考虑到知识点的相关性，知识点与知识点可以直接连接。其结构如图\ref{}。这个embedding层不进行预训练，而是与其他层进行总体训练来优化最终结果。
 %2. 基于Transformer的知识状态表征：该模块通过多头注意力机制来学习经过GAT嵌入表示的习题-知识点向量，并学习学生做题记录过程中的知识状态表征。
 %3. 基于Transformer的知识追踪层：该层类似传统Transformer结构，具有encoder和decoder两部分，它学习关联知识点和问题的权值矩阵，可以解决知识点依赖问题。通过注意力机制，它也可以capture关联知识点相似的问题。
