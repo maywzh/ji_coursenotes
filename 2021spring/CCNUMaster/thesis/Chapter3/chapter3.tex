@@ -52,27 +52,27 @@ Graph embedding is an important research topic in graph neural networks, represe
 
 The key point of this section is to track students' knowledge. What is issued is a knowledge tracing model based on graph attention network and Transformer model. In the experimental verification phase, the baseline performance of the model on several datasets achieves SOTA performance. The first layer of this model is the embedding aggregation layer. In this layer, a GAT embedding is used to aggregate the problem embedding and the knowledge point embedding and how the internal relationship between the problem and the knowledge point. It can solve the problem of knowledge point dependence and complex relationships. The second layer is a transformer-based knowledge tracing model. Referring to the famous transformer model proposed by Google Brain~\cite{vaswani2017attention}, this layer designs a knowledge tracing model with Transformer-structure, which inputs exercises and skills embedding and outputs the prediction correctness to the next exercise. Through this mechanism, the model can realize the learning of long-range dependence. Also, the model can output the hidden knowledge state through the Decoder, which is the Key to exercise recommendation in the next stage. In a word, the overall architecture diagram of the model is in \figurename{\ref{fig:ch3-fig1}}, which is segmented into the following modules:
 \begin{enumerate}
-	\item GAT-based embedding layer: embedding layer based on gat: this layer uses the embedding method to represent exercises, knowledge points, and answers. In the graph neural network, each problem represents a vertex connected with several knowledge nodes, and these knowledge nodes are connected with the related problem nodes. Due to the relevance of knowledge points, they can be directly connected with other ones. The structure is shown in the \figurename{\ref{fig:ch3-fig2}}. This embedding layer does not carry out pre-training but carries out overall training with other layers to optimize the final result.
+	\item GAT-based embedding layer: embedding layer based on gat: this layer uses the embedding method to represent exercises, knowledge points, and answers. In the graph neural network, each problem represents a vertex connected with several knowledge nodes, and these knowledge nodes are connected with the related problem nodes. Due to the relevance of knowledge points, they can be directly connected with other ones. The structure is shown in the \figurename{\ref{fig:ch3-kq-relationgraph}}. This embedding layer does not carry out pre-training but carries out overall training with other layers to optimize the final result.
+	      \begin{figure}[htbp!]
+		      \centering
+		      \includegraphics[width=0.9\textwidth]{ch3-kq-relationgraph.pdf}
+		      \caption{The relation graph between knowledge point and exercise}\label{fig:ch3-kq-relationgraph}
+	      \end{figure}
 	\item Transformer-based knowledge state encoder: this layer establishes a graph of knowledge points applied to track the students' mastery proficiency to knowledge points. This layer updates the knowledge state through the knowledge state, and finally, it will be applied in the subsequent recommendation process.
 	\item Knowledge tracing layer based on Transformer: this layer is similar to the traditional transformer structure and has two parts: encoder and Decoder. It learns the weight matrix of knowledge points and problems and can solve knowledge point dependence. Through the attention mechanism, it can also capture similar problems of knowledge points.
 \end{enumerate}
 
 \begin{figure}[htbp!]
 	\centering
-	\includegraphics[width=0.9\textwidth]{ch3-overview.pdf}
-	\caption{Overview Model Structure}\label{fig:ch3-fig1}
-\end{figure}
-\begin{figure}[htbp!]
-	\centering
-	\includegraphics[width=0.9\textwidth]{ch3-fig2.png}
-	\caption{The Graph of Knowledge Point and exercise}\label{fig:ch3-fig2}
+	\includegraphics[width=0.9\textwidth]{ch3-ov.pdf}
+	\caption{Model structure overview}\label{fig:ch3-fig1}
 \end{figure}
 
 
 \subsection{GAT-based Embedding Layer}
 %本节中，采用了图自注意力网络来对问题-知识点关联图进行embedding。它用于降低表征问题数据中知识点的数据稀疏性。我们把第i个问题记作$q_i$，学生对第i个问题的回答记作$a_i$，回答的结果为对或者错，则可以将其记作$a_i\in\{0,1\}$，则答题记录记为$X=\{x_1,x_2,...x_{t-1}\}$，其中$x_i=(q_i,a_i)$，我们基于前$t-1$次的答题记录来预测第$t$题的回答正确概率。对于每个问题$q_i$，有一系列的知识点与之相关，这些知识点记作$\{p_1,p_2,...,p_{n_i}\}$。在这里进行embedding计算可以获取问题之间的深层次关联关系，即知识点的相关性。用图结构可以较为理想地做到这一点。从直观上来说，也可以通过对于知识点的掌握情况来推知问题的答对概率。该方法也可以建立对于问题-知识点的更好的表征。
 
-In this section, a graph self-attention network (GAT) is introduced to embed the problem-knowledge point association graph, which can reduce the data sparsity of the knowledge points in the problem data. The ith exercise can be recorded as \(q_i\), the student's answer to the ith exercise as \(a_i\), and the answer is correct or wrong, so it can be recorded as \(a_i\in \{0,1\} \), the answer record is recorded as \(X=\{x_1,x_2,\ldots,x_{t-1}\} \), where \(x_i=(q_i,a_i)\). It is based on the previous \(t-1\) times to predict the exercise's correctness in \(t\). For each exercise \(q_i\), there are a series of knowledge points related to it. These knowledge points are denoted as \( \{p_1,p_2,\ldots,p_{n_i}\} \). The embedding calculation can obtain the deep-level relationship between the problems, i.e., the relevance of knowledge points. This can be done ideally with a graph structure. Intuitively, you can also infer the probability of answering the exercise through mastery proficiency to the knowledge points. This method can also establish a better representation of the problem-knowledge point.
+In this section, a graph self-attention network (GAT) is introduced to embed the problem-knowledge point association graph, reducing the data sparsity of the knowledge points in the problem data. The ith exercise can be recorded as \(q_i\), the student's answer to the ith exercise as \(a_i\), and the answer is correct or wrong, so it can be recorded as \(a_i\in \{0,1\} \), the answer record is recorded as \(X=\{x_1,x_2,\ldots,x_{t-1}\} \), where \(x_i=(q_i,a_i)\). It is based on the previous \(t-1\) times to predict the exercise's correctness in \(t\). For each exercise \(q_i\), there are a series of knowledge points related to it. These knowledge points are denoted as \( \{p_1,p_2,\ldots,p_{n_i}\} \). The embedding calculation can obtain the deep-level relationship between the problems, i.e., the relevance of knowledge points. This can be done ideally with a graph structure. Intuitively, the probability of answering the exercise can be inferred through mastery proficiency to the knowledge points. This method can also establish a better representation of the problem-knowledge point.
 
 Embedding calculation can obtain the deep correlation between problems, i.e., the correlation of referred knowledge points. This can be achieved with graph structure. Intuitively speaking, it also infers the correct answer probability of the exercise by mastering the knowledge points. This method can also establish a better representation of problem knowledge points. In the exercise-knowledge graph, GAT can capture the high order relation for n-hop neighboring nodes. Also, GAT uses the idea of Transformer for reference and introduces a masked self-attention mechanism. When calculating each vertex's representation in the graph, it will assign different weights to its neighbors according to their different characteristics.
 
@@ -115,14 +115,22 @@ K-averaging is used to replace the join operation and to delay the application o
 	\overrightarrow{h}^{(e)}_{l+1,i}=\sigma(\frac{1}{K} \sum_{k=1}^{K} \sum_{j \in \mathcal{N}^i} \alpha_{i j}^{k} \mathbf{W}_l^{k} \overrightarrow{h}^{(e)}_{i,j})\label{fml:gat-emb3}
 \end{align}
 
-From L-layer GAT, the embedded vector of exercise \(i\) are denoted as \(E^{(e)}_i = \overrightarrow{h}^{(e)}_{L, i}\), which would be passed into the Transformer Block in Knowledge tracing module.
+From L-layer GAT, the embedded vector of exercise \(i\) are denoted as \(E^{(e)}_i = \overrightarrow{h}^{(e)}_{L, i}\), which would be passed into the Transformer Block in Knowledge tracing module. The general process of embedding layer is in \figurename{\ref{fig:ch3-gat}}
+
+
+\begin{figure}[htbp!]
+	\centering
+	\includegraphics[width=0.9\textwidth]{ch3-gat.pdf}
+	\caption{General process of embedding layer}\label{fig:ch3-gat}
+\end{figure}
+
 
 \subsection{Transformer Based Knowledge Tracing}
 The input of transformer Block is the concatenation of the embedded exercise \(E^{(e)}_i \) and corresponding answer correctness \(a_i\), i.e. \(E_i=E^{(e)}_i\|a_i\). The general structure is like \figurename{\ref{fig:ch3-fig5}}. The traditional Transformer model is modified to apply to the knowledge tracing task. The Transformer can learn the W-matrix relating underlying knowledge points and exercises. This allows the model to learn deeper connections between problems, resulting in better inference performance. It can cluster problems with similar knowledge points and reduce the variance for less frequent problems.
 \begin{figure}[htbp!]
 	\centering
-	\includegraphics[width=0.9\textwidth]{ch3-trm.pdf}
-	\caption{The Transformer architecture}
+	\includegraphics[width=0.9\textwidth]{ch3-ov-kt.pdf}
+	\caption{The knowledge tracing architecture}
 	\label{fig:ch3-fig5}
 \end{figure}
 
@@ -188,7 +196,7 @@ After investigating the existing knowledge tracing model, the thesis selected th
 
 \begin{table}[htbp!]
 	\centering
-	\caption{Dataset Statistics}\label{tbl:ch2-tb1}
+	\caption{Dataset statistics}\label{tbl:ch2-tb1}
 	\begin{tabular}{ccccc}
 		\toprule
 		Dataset   & \#Students & \#exercises & \#Knowledge Points & \#Interactions \\

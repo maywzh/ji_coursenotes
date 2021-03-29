@@ -39,12 +39,12 @@ The overview of the entire model is as follows：
   \item Ranking: The purpose of this part is to apply the knowledge tracing recommendation model to the candidate recommended exercise set generated in the previous matching stage, sort the exercise recommendation degree according to the prediction of the exercise answer, and generate a final exercise recommendation list.
 \end{enumerate}
 
-The structure of the recommendation system is like \figurename{\ref{fig:ch4-fig0}}
+The structure of the recommendation system is like \figurename{\ref{fig:ch4-model-architecture}}
 
 \begin{figure}[htbp!]
   \centering
-  \includegraphics[width=0.9\textwidth]{ch4-fig-architecture.png}
-  \caption{The Architecture of Recommendation System}\label{fig:ch4-fig0}
+  \includegraphics[width=0.9\textwidth]{ch4-model-architecture.pdf}
+  \caption{The architecture of recommendation system}\label{fig:ch4-model-architecture}
 \end{figure}
 
 \subsection{Matching Phase}
@@ -63,7 +63,7 @@ This section proposes a multiplex exercise recommendation item matching model. T
 \begin{figure}[htbp!]
   \centering
   \includegraphics[width=0.8\textwidth]{ch4-model-matching.pdf}
-  \caption{The Multiplex Matching Method}\label{fig:ch4-matching}
+  \caption{The multiplex matching method}\label{fig:ch4-matching}
 \end{figure}
 
 \subsubsection{Student-Exercise Collaborative Filtering Based Matching Strategy}
@@ -92,7 +92,7 @@ After the similarity of students is obtained, a similarity threshold \(\tau^{sim
 
 The general algorithm is as~\ref{alg:ch4-CF}:
 \begin{algorithm}[htbp!]
-  \caption{Student-Exercise Collaborative Filtering Algorithm}\label{alg:ch4-CF}
+  \caption{Student-exercise collaborative filtering algorithm}\label{alg:ch4-CF}
   \begin{algorithmic}
     \REQUIRE~~\\
     The target student \(u\); \\
@@ -170,12 +170,12 @@ After multi-channel matching merging settlement, a candidate exercises set \(\ma
 
 After the exercise set's recommended matching stage, a candidate set of exercises is obtained, which contains exercises selected from various matching strategies. Based on the knowledge tracing model proposed in the previous chapter, this section proposes a method for recommending and sorting exercises based on knowledge state prediction.
 
-The knowledge tracing model outputs a prediction of the correct probability of answering the exercises. Since the purpose of exercise recommendation is to strengthen students' proficiency for unfamiliar and relatively low-level knowledge points, the recommended exercises should be made as far as possible to allow students to answer incorrectly. Otherwise, it will not be able to have the effect of checking for missing knowledge points. In the knowledge tracing model, at the interaction time \(t\), the student's knowledge state representation vector \(h_t\) can be obtained. In order to rank the degree of the recommendation of exercises, all exercises in the recommended candidate set of exercises \(\mathbf{E}^{(Candidate)}\) should be input into the knowledge tracing model to predict the answers to the exercises. Make the recommended list of some of the most error-prone exercises. Its structure is shown in the \figurename{\ref{fig:ch4-ranking-1}}.
+The knowledge tracing model outputs a prediction of the correct probability of answering the exercises. Since the purpose of exercise recommendation is to strengthen students' proficiency for unfamiliar and relatively low-level knowledge points, the recommended exercises should be made as far as possible to allow students to answer incorrectly. Otherwise, it will not be able to have the effect of checking for missing knowledge points. In the knowledge tracing model, at the interaction time \(t\), the student's knowledge state representation vector \(h_t\) can be obtained. In order to rank the degree of the recommendation of exercises, all exercises in the recommended candidate set of exercises \(\mathbf{E}^{(Candidate)}\) should be input into the knowledge tracing model to predict the answers to the exercises. Make the recommended list of some of the most error-prone exercises. Its structure is shown in the \figurename{\ref{fig:ch4-model-ranking}}.
 
 \begin{figure}[htbp!]
   \centering
-  \includegraphics[width=0.9\textwidth]{ch4-ranking-model.png}
-  \caption{The Ranking Method}\label{fig:ch4-ranking-1}
+  \includegraphics[width=0.9\textwidth]{ch4-model-ranking.pdf}
+  \caption{The ranking method}\label{fig:ch4-model-ranking}
 \end{figure}
 
 %将候选集习题分别输入知识追踪模型得到预测值，即答对习题的概率，按照从小到大的顺序进行排序，筛选出前\(K_{Rank}\)项作为推荐习题列表。\(K_{Rank}\)为一个可调的超参数，它对于推荐结果影响较大，决定一道习题是否出现于最终的推荐列表中。当\(K_{Rank}\)较大时，推荐的准确率会更高，但是推荐效率会降低。在实际应用中，应当综合考虑学生的知识掌握水平与实际应用场景，设定合理的\(K_{Rank}\)值。
@@ -184,7 +184,7 @@ The last step of the model is to input the candidate's exercises into the knowle
 
 The general algorithm is as~\ref{alg:ch4-Rank}:
 \begin{algorithm}[htbp!]
-  \caption{Recommendation Ranking Algorithm}\label{alg:ch4-Rank}
+  \caption{Recommendation ranking algorithm}\label{alg:ch4-Rank}
   \begin{algorithmic}
     \REQUIRE~~\\
     The candidate exercises set \(\mathbf{E}^{(Candidate)}=\{E_1,E_2,\ldots,E_N\} \); \\
@@ -215,7 +215,7 @@ The original data set is a fixed sequence of question-answering interaction. To 
 The running environment of this article is shown in Table~\ref{table:ch4-exp-env}. In this experiment's configuration, 75\% of the interaction records are selected as the training set and the remaining 25\% as the test dataset. Run the model 5 times and take the average. The hyperparameter settings of the recommendation model are shown in Table~\ref{table:ch4-hpsetting}. In the ranking stage, parameter \(N\) represents the number of Transformer stacking blocks in the knowledge tracing model, and \(d\) represents the sub-layer output's dimension.
 
 \begin{table}[htbp!]
-  \caption{Experiment Running Environment}\label{table:ch4-exp-env}
+  \caption{Experiment running environment}\label{table:ch4-exp-env}
   \centering
   \begin{tabular}{l c}
     \toprule
@@ -237,7 +237,7 @@ The running environment of this article is shown in Table~\ref{table:ch4-exp-env
 \end{table}
 
 \begin{table}[htbp!]
-  \caption{Hyperparameter Settings of Recommendation Model}\label{table:ch4-hpsetting}
+  \caption{Hyperparameter settings of recommendation model}\label{table:ch4-hpsetting}
   \centering
   \begin{tabular}{l c c}
     \toprule
@@ -306,7 +306,7 @@ Where \(\tau \) is an adjustable hyperparameter, this is a classification proble
 \subsection{Result and Analysis}
 Five different \(\tau \) (0.45, 0.5, 0.55) are applied as the threshold for judging the predicting correctness of the exercises. The result is shown in Table~\ref{table:ch4-exp-result}.
 \begin{table}[htbp!]
-  \caption{Recommendation Experiment Result}\label{table:ch4-exp-result}
+  \caption{Recommendation experiment result}\label{table:ch4-exp-result}
   \centering
   \begin{tabular}{c c c}
     \toprule

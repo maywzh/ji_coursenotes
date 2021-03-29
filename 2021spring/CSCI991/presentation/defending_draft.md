@@ -35,5 +35,3 @@ In the classifiers generator part, I use GCN to generate knowledge  classifier. 
 
 Then, in the second Knowledge Tracing model, I introduced Transformer architecture and Graph Attention network into it. The exercise id, related knowledge points and positional tag are fed into the GAT and embedded into question embedding vector. The vector is then inputted into the Encoder module. 
 
-
-

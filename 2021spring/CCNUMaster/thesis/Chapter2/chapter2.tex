@@ -45,7 +45,7 @@ In 2019, a multi-label image classification model was proposed~\cite{chen2019mul
 \begin{figure}[htbp!]
 	\centering
 	\includegraphics[width=1.0\textwidth]{ch2-model-architecture.pdf}
-	\caption{Structure of the Knowledge Tagging Model}\label{fig:ch2-modelarchitecture}
+	\caption{Structure of the knowledge labeling model}\label{fig:ch2-modelarchitecture}
 \end{figure}
 
 %从结构上我们可以看到，模型中一般有两部分，其中
@@ -67,7 +67,7 @@ This section is based on the Attention based Bi-LSTM, whose architecture design 
 \begin{figure}[htbp!]
 	\centering
 	\includegraphics[width=1.0\textwidth]{ch2-model-bilstm.pdf}
-	\caption{Structure of Attention Based Bi-LSTM}\label{fig:ch2-model-bilstm}
+	\caption{Structure of attention based Bi-LSTM}\label{fig:ch2-model-bilstm}
 \end{figure}
 
 %该模型包含4个层: 
@@ -85,7 +85,7 @@ The preprocessing stage mainly includes word separation, cleaning, and regulariz
 \begin{figure}[htbp!]
 	\centering
 	\includegraphics[width=1.0\textwidth]{ch2-model-preprocessing.pdf}
-	\caption{Example of Preprocessing}\label{fig:ch2-model-preprocessing}
+	\caption{Example of preprocessing}\label{fig:ch2-model-preprocessing}
 \end{figure}
 
 % - 分词。相对于其他表音语言如英语、西班牙语，中文语言预处理需要额外的分词步骤。在汉语中的词与词之间不存在自然分隔，因此需要人为对句子按照词义进行分割。选择合适的汉语分词算法可以为后续的处理奠定基础，提高整体模型性能。目前，汉语分词主要分为基于词典规则匹配和基于统计模型的两种算法。与前者相比，后者具有更好的泛化能力和学习能力。它用于先验规则之外的分词，如歧义词和未注册词表现较好。在该模型中，采用了目前流行的jieba分词，实现了基于Trie书结构的词条图扫描，利用阶段规划和HMM模型等算法，找到基于词频的最大分词分组和合并，实现了未来登录词的识别。用户还可以自定义停字和用户字典，实现专有名词识别。
@@ -122,7 +122,7 @@ WWM processes some words of the original sequence of exercise description text w
 \begin{figure}[htbp!]
 	\centering
 	\includegraphics[width=1.0\textwidth]{ch2-bert-model.pdf}
-	\caption{BERT-based Embedding}\label{fig:ch2-bert-model}
+	\caption{BERT-based embedding}\label{fig:ch2-bert-model}
 \end{figure}
 
 \subsubsection{Bidirectional LSTM Layer}
@@ -141,7 +141,7 @@ RNNs are well equipped to solve various types of problems and tasks in serialize
 \begin{figure}[htbp!]
 	\centering
 	\includegraphics[width=1.0\textwidth]{ch2-rnn-model.pdf}
-	\caption{Naive RNN Unit}\label{fig:ch2-rnn-model}
+	\caption{Naive RNN unit}\label{fig:ch2-rnn-model}
 \end{figure}
 
 %但是，当序列较长时，就会出现长依赖性的问题。例如，对于一个序列，当前的状态依赖于离当前状态很远的一个状态，随着时间间隔的增加，RNNs学习这个状态的能力会大大降低。LSTM是作为针对RNN的这种缺陷的一种解决方案被提出来，它运用门控机制来实现长期记忆。解决RNN的梯度爆炸或梯度消失等问题。在捕捉序列信息方面也具有良好的性能。其结构如图所示，表示\(t\)时刻的一个LSTM单元内的计算细节。其中，\(\sigma\)为激活函数，\(c_t\)为单元状态表征，\(f_t\)为遗忘门控计算，\(i_t\)为输入门控计算，\(o_t\)为输出门控计算，\(h_t\)为隐藏状态表征。通过由门控控制的遗忘机制，可以有效建模对于远距离序列单元信息。
@@ -152,7 +152,7 @@ However, when the sequence is long, the problem of long dependencies arises. For
 	\centering
 	\includegraphics[width=1.0\textwidth]{ch2-lstm-model.pdf}
 	%\includegraphics[width=1.0\textwidth]{ch2-fig8.png}
-	\caption{Structure of LSTM Unit}\label{fig:ch2-lstm-model}
+	\caption{Structure of LSTM unit}\label{fig:ch2-lstm-model}
 \end{figure}
 
 %单向LSTM也有一个固有的缺陷，它只能捕获\(t\)时刻以前的序列状态信息，即只能捕获之前序列输入。双向LSTM通过将反向序列输入LSTM并与正向LSTM序列进行聚合，可以捕获双向的语义信息，同时对双向的依赖建模。
@@ -191,7 +191,7 @@ Human attention is a mechanism for quickly screening high-value information from
 \begin{figure}[htbp!]
 	\centering
 	\includegraphics[width=0.7\textwidth]{ch2-model-attmodel.pdf}
-	\caption{The essential idea of Attention mechanism}\label{fig:ch2-model-attmodel}
+	\caption{The essential idea of attention mechanism}\label{fig:ch2-model-attmodel}
 \end{figure}
 
 
@@ -333,7 +333,7 @@ The data set has been filtered and manually selected. There are 3374 test questi
 \begin{figure}[htbp!]
 	\centering
 	\includegraphics[width=1.0\textwidth]{ch2-model-knowledgenet.pdf}
-	\caption{Knowledge Points of dataset}\label{fig:ch2-model-knowledgenet}
+	\caption{Knowledge points of dataset}\label{fig:ch2-model-knowledgenet}
 \end{figure}
 
 %该数据集的习题知识点数目分布如图所示。
@@ -342,11 +342,11 @@ The distribution of the number of exercise knowledge points in this data set is 
 	\centering
 	\begin{subfigure}[b]{0.475\textwidth}
 		\includegraphics[width=0.9\textwidth]{ch2-fig14.pdf}
-		\caption[dis]{Number of Exercises}\label{fig:ch2-fig14-hist}
+		\caption[dis]{Number of exercises}\label{fig:ch2-fig14-hist}
 	\end{subfigure}
 	\begin{subfigure}[b]{0.475\textwidth}
 		\includegraphics[width=0.9\textwidth]{ch2-fig15.pdf}
-		\caption{Portion of Exercises}\label{fig:ch2-fig14-pie}
+		\caption{Portion of exercises}\label{fig:ch2-fig14-pie}
 	\end{subfigure}
 	\caption{Distribution of the number of knowledge points of exercise}\label{ch2-fig14}
 \end{figure}
@@ -424,7 +424,7 @@ In the experiment, five sets of thresholds of 200, 150, 100, 50, 10 are set \(\t
 
 \begin{table}[htbp!]
 	\centering
-	\caption{Setting of Experiment}\label{tbl:ch2-ex1}
+	\caption{Setting of experiment}\label{tbl:ch2-ex1}
 	\begin{tabular}{cccc}%{cp{2cm}<{\centering}p{2cm}<{\centering}p{2cm}<{\centering}}
 		\toprule
 		\text{\(\tau^{(KP)} \)} & \(|\mathbf{L}_{\tau^{(KP)}}|\) & \(|\mathbf{E}_{\tau^{(KP)}}| \) & \(\overline{L}\) \\
@@ -440,7 +440,7 @@ In the experiment, five sets of thresholds of 200, 150, 100, 50, 10 are set \(\t
 The running environment are shown in Table {\ref{tbl:ch2-exp-env}}.
 
 \begin{table}[htbp!]
-	\caption{Experiment Running Environment}\label{tbl:ch2-exp-env}
+	\caption{Experiment running environment}\label{tbl:ch2-exp-env}
 	\centering
 	\begin{tabular}{l c}
 		\toprule
@@ -464,7 +464,7 @@ The running environment are shown in Table {\ref{tbl:ch2-exp-env}}.
 
 There are many adjustable parameters of the model in BERT and GCN\@. Hyperparameters are shown in Table~\ref{tbl:ch2-hpsetting}.
 \begin{table}[htbp!]
-	\caption{Hyperparameter Settings of Recommendation Model}\label{tbl:ch2-hpsetting}
+	\caption{Hyperparameter settings of recommendation model}\label{tbl:ch2-hpsetting}
 	\centering
 	\begin{tabular}{l c c}
 		\toprule
