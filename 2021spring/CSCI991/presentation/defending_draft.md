@@ -29,11 +29,11 @@ In the first Exercise Knowledge Labelling model, There are two parts in the modu
 
 In the text mining part, we have pre-processing, embedding, bi-lstm and attention layers to generate the exercise text representation vector. 
 
-In the classifiers generator part, I use GCN to generate knowledge  classifier. Each vertex in the GCN is one knowledge point, the correlation matrix of graph vertexes is the based on the co-occurence of knowledge points. The system is one end-to-end training mode. The generated classifier is then multiplied with the text representing vector to get the predicted label vector.
+In the classifiers generator part, I use GCN to generate knowledge  classifier. Each vertex in the GCN is one knowledge point, the correlation matrix of graph vertexes is the based on the co-occurence of knowledge points. The system is in end-to-end training mode. The generated classifier is then multiplied with the text representing vector to get the predicted label vector.
 
 
 
-In the 
+Then, in the second Knowledge Tracing model, I introduced Transformer architecture and Graph Attention network into it. The exercise id, related knowledge points and positional tag are fed into the GAT and embedded into question embedding vector. The vector is then inputted into the Encoder module. 
 
 
 
