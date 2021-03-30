@@ -152,27 +152,27 @@ The MHA output is formula~\ref{fml:mhaout}, where \(N^{(MHA)}\) is the number of
 	\operatorname{MHA}(Q,K,V) = (h_1\|h_2\|\ldots \|h_t) \times W^{(Aggregate)}\label{fml:mhaout}
 \end{align}
 
-Then it is needed into the feed-forward net (FFN), which is for non-linearity import. The formula is~\ref{fml:ffn}.
+Then it is needed into the feed-forward net (FFN), which is for non-linearity import. The formula is~\ref{fml:ffn}. where the knowledge state vectors \(S_i = F_i\).
+
 \begin{align}\label{fml:ffn}
 	F & = \operatorname{FFN}(\operatorname{MHA}(Q,K,V)) \\&=(F_1,F_2,\ldots,F_t)
 \end{align}
-The knowledge state vectors \(S_i = F_i\)
 
-The output of FFN is actually the hidden knowledge mastery proficiency state vector. It is the output of the encoder module. In general, the Encoder formula is~\ref{fml:encoder}. The \(SkipCon(\cdot)\) is the skip connection~\cite{he2016deep} which can reduces gradient disappearance and network degradation problems, making training easier.. The \(LNorm(\cdot)\) is the Layer normalization~\cite{ba2016layer}
+The output of FFN is actually the hidden knowledge mastery proficiency state vector. It is the output of the encoder module. In general, the Encoder formula is~\ref{fml:encoder}. The \(\operatorname{SkipCon}(\cdot)\) is the skip connection~\cite{he2016deep} which can reduces gradient disappearance and network degradation problems, making training easier.. The \(\operatorname{LNorm}(\cdot)\) is the Layer normalization~\cite{ba2016layer}
 for normalization.
 \begin{align}\label{fml:encoder}
 	\begin{split}
-		M^{(En)} & =SkipCon(\operatorname{MHA}(LNorm(Q,K,V))) \\
-		O^{(En)} & =SkipCon(\operatorname{FFN}(LNorm(M)))
+		M^{(En)} & =\operatorname{SkipCon}(\operatorname{MHA}(\operatorname{LNorm}(Q,K,V))) \\
+		O^{(En)} & =\operatorname{SkipCon}(\operatorname{FFN}(\operatorname{LNorm}(M)))
 	\end{split}
 \end{align}
 
 The \(O^{(En)}\) is then as the input of Decoder's Key and Value. The Decoder apply one MHA to generate a representation of question information as formula~\ref{fml:decoder}
 \begin{align}\label{fml:decoder}
 	\begin{split}
-		M^{(De)}_1 & =SkipCon(\operatorname{MHA}(LNorm(Q^\prime,K^\prime,V^\prime)))    \\
-		M^{(De)}_2 & =SkipCon(\operatorname{MHA}(LNorm(M^{(De)}_1 ,O^{(En)},O^{(En)}))) \\
-		O^{(De)}   & =SkipCon(\operatorname{FFN}(LNorm(M^{(De)}_2M)))
+		M^{(De)}_1 & =\operatorname{SkipCon}(\operatorname{MHA}(\operatorname{LNorm}(Q^\prime,K^\prime,V^\prime)))    \\
+		M^{(De)}_2 & =\operatorname{SkipCon}(\operatorname{MHA}(\operatorname{LNorm}(M^{(De)}_1 ,O^{(En)},O^{(En)}))) \\
+		O^{(De)}   & =\operatorname{SkipCon}(\operatorname{FFN}(\operatorname{LNorm}(M^{(De)}_2M)))
 	\end{split}
 \end{align}
 The \(M^{(De)}_i\) is the ith MHA block output of decoder module. The output of decoder \(O^{(De)}\) is the prediction for exercise answering. The prediction is \(\mathbf{p}=(p_1,p_2,\ldots,p_t)\)
