@@ -51,24 +51,21 @@ In the knowledge tracking task, since the knowledge point representations contai
     \caption{Dynamic key-value memory network architecture}\label{fig:ch3-dkvmn-model}
 \end{figure}
 
-In the reading process, the model weights and calculates the weight vector \(w_t\) with the knowledge point mastery matrix \(M^{(v)}\) to obtain the user's mastery representation vector \(r_t\) for the knowledge point. And \(r_t\) is spliced with the current exercise embedding vector \(k_t\), and \(f_t\) is derived after the full-linked activation layer loses \(Tanh(\cdot)\), which indicates the user's mastery of the exercise. \(f_t\) goes through a final \(Sigmoid(\cdot)\) activation function to output a predicted probability of answering the exercise correctly \(p_t\). During the writing process, the current actual response performance will have an impact on the student's knowledge acquisition status, which is a re-evaluation process. The current interaction record \(x_t=(q_t,a_t)\) will be used as the input to the model. Its embedding representation \(v_t\) will be used to compute the knowledge reduction vector \(e_t\) and the knowledge increase vector \(a_t\), and the reduction and increase vectors will be weighted with \(w_t\) and act on \(M^{(v)}\) thus realizing the change for the student's knowledge state. The training anthem is performed by minimizing the cross-entropy loss of \(p_t\) with the true label \(a_t\) of the correctness of the answers to the exercises. The whole model is microscopic and thus can be trained efficiently using stochastic gradient descent.
+In the reading process, the model weights and calculates the weight vector \(w_t\) with the knowledge point mastery matrix \(M^{(v)}\) to obtain the user's mastery representation vector \(r_t\) for the knowledge point. And \(r_t\) is spliced with the current exercise embedding vector \(k_t\), and \(f_t\) is derived after the full-linked activation layer loses \(Tanh(\cdot)\), which indicates the user's mastery of the exercise. \(f_t\) goes through a final \(Sigmoid(\cdot)\) activation function to output a predicted probability of answering the exercise correctly \(p_t\). During the writing process, the current actual response performance will have an impact on the student's knowledge acquisition status, which is a re-evaluation process. The current interaction record \(x_t=(q_t,a_t)\) will be used as the input to the model. Its embedding representation \(v_t\) will be used to compute the knowledge reduction vector \(e_t\) and the knowledge increase vector \(a_t\), and the reduction and increase vectors will be weighted with \(w_t\) and act on \(M^{(v)}\) thus realizing the change for the student's knowledge state. The training process is performed by minimizing the cross-entropy loss of \(p_t\) with the true label \(a_t\) of the correctness of the answers to the exercises. The whole model is microscopic and thus can be trained efficiently using stochastic gradient descent.
 
 \section{Proposed Model}
 \subsection{Algorithm Overview}
 %本节的关键点是对学生的知识追踪，本文提出了一种针对DKVMN的改进型知识追踪网络模型，它在原模型的基础上增加了额外的用户答题特征，并通过图网络来改进知识点掌握度表征存储模块，从而为模型增加知识点间关系表征能力。本模型依然具有习题-知识点关联度计算、读取过程、写入过程和知识网络传播过程和预测过程等多个子模块。其模型框架如图。
 
-The key point of this section is the knowledge tracking of students. In this paper, we propose an improved knowledge tracking network model for DKVMN, which adds additional user answer features to the original model and improves the knowledge point mastery representation storage module by graph networks, thus adding inter-knowledge point relationship representation capability to the model. The model still has several sub-modules such as exercise-knowledge point association degree calculation, reading process, writing process and knowledge network propagation process and prediction process. Its model framework is shown in \figurename{}.
+The key point of this section is the knowledge tracking of students. In this paper, we propose an improved knowledge tracking network model for DKVMN, which adds additional user answer features to the original model and improves the knowledge point mastery representation storage module by graph networks, thus adding inter-knowledge point relationship representation capability to the model. The model still has several sub-modules such as exercise-knowledge point association degree calculation, reading process, writing process and knowledge network propagation process, and prediction process. Its model framework is shown in \figurename{\ref{fig:ch3-gkvmn-model}}.
+
+\begin{figure}[htbp!]
+    \includegraphics[width=0.9\textwidth]{ch3-gkvmn-model.pdf}
+    \caption{Graph key-value memory network architecture}\label{fig:ch3-gkvmn-model}
+\end{figure}
 
 
-
-%本模型的第一层为embedding聚合层，该层用一个GAT来聚合问题embedding和知识点embedding，并展示问题和知识点的内在联系，它可以解决数据稀疏性问题和知识点依赖和复杂关系问题。第二层为一个Transformer-based知识追踪模型，该层参考Google提出的著名的Transformer模型 ~\cite{vaswani2017attention}，设计了一个基于Transformer机制的知识追踪模型，它输入问题和技能embedding，输出对于下一个问题的答对的预测。通过这种机制，该模型可以实现对long-range的依赖的学习。此外，本模型可以通过解码器来输出隐藏的知识状态，这是下一阶段进行习题推荐的关键。总而言之，该模型的总体架构图可以见图\ref{}，并分为以下几个模块。
-%1. 基于GAT的embedding层：该层用embedding方法来表征问题，知识点和回答。在该图神经网络中，每个问题代表一个节点，它与若干知识点节点连接，这些知识点节点再与与之相关的问题节点连接。而问题与问题不直接连接，考虑到知识点的相关性，知识点与知识点可以直接连接。其结构如图\ref{}。这个embedding层不进行预训练，而是与其他层进行总体训练来优化最终结果。
-%2. 基于Transformer的知识状态表征：该模块通过多头注意力机制来学习经过GAT嵌入表示的习题-知识点向量，并学习学生做题记录过程中的知识状态表征。
-%3. 基于Transformer的知识追踪层：该层类似传统Transformer结构，具有encoder和decoder两部分，它学习关联知识点和问题的权值矩阵，可以解决知识点依赖问题。通过注意力机制，它也可以capture关联知识点相似的问题。
-
-The key point of this section is to track students' knowledge.
-
-\subsection{GAT-based Embedding Layer}
+\subsection{Knowledge Extraction}
 %
 \subsection{Transformer Based Knowledge Tracing}
 
