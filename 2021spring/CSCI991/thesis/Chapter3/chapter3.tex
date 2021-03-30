@@ -84,11 +84,11 @@ The proposed method treats all the exercises as nodes of GAT. For the exercises 
 
 To achieve better high dimension feature representation, at least one linear transformation from low-dimensional should be embedded to high-dimensional features. Therefore, a linear transformation is first done for the vertex features and then the coefficients are calculated. The attention mechanism of self-attention is implemented for each vertex, and the attention coefficients (Attention coefficients) and its softmax value are calculated in formula~\ref{fml:gatembeij} and~\ref{fml:gatembalphaij}:
 
-
 \begin{align}
 	e_{ij}      & =a(\mathbf{W}_l\overrightarrow{h}^{(e)}_i, \mathbf{W}_l\overrightarrow{h}^{(e)}_j)    \label{fml:gatembeij}                \\
 	\alpha_{ij} & =\operatorname{softmax}_{j}(e_{ij})=\frac{\exp(e_{ij})}{\sum_{k\in \mathcal{N}_{i}}\exp(e_{ik})} \label{fml:gatembalphaij}
 \end{align}
+
 The \(e_{ij}\) is the contribution degree from vertex \(i\) to vertex \(j\) and the \(\alpha_{ij} \) is the normalized contribution degree, and the \(\mathbf{W}_l\) is the ith layer's weight matrix. Here, since the graph structure information is to be considered, the concept of masked attention is introduced, which means that the denominator of the softmax considers only the first-order information about the neighbors. By this method, each vertex then gets a weight about the neighboring nodes, and then the combined representation of the nodes is obtained by summing. That is, the attention weighted summing can be calculated to generate aggregate neighboring features. The relative formula is~\ref{fml:gatwsum}, where \(\sigma \) are the non-linear transformation such as ReLU or LeakyReLU. If the edge \(j \to i\) does not exist,  the calculation of \(\alpha_{ij}\), which can reduce the calculation, can be performed. The formula means that this vertex's output characteristics are related to all the nodes adjacent to it and are obtained after the nonlinear activation of their linear sum.
 
 \begin{align}
@@ -134,32 +134,32 @@ The input of transformer Block is the concatenation of the embedded exercise \(E
 	\label{fig:ch3-fig5}
 \end{figure}
 
-The output of embedding layer \(E_i\) is passed into a Transformer Block, of which the first is a masked multi-head attention (MHA) module. The formula is~\ref{fml:mha}
+The output of embedding layer \(E_i\) is passed into a Transformer Block, of which the first is a masked multi-head attention (MHA) module. The formula is~\ref{fml:mha}.
 
 \begin{align}\label{fml:mha}
 	\begin{split}
-		q_{i}   & =Q E_i                                                                \\
-		k_{i}   & =K E_i                                                                \\
-		v_{i}   & =V E_i                                                                \\
+		q_{i}   & =W^{(Q)}_i E_i                                                                \\
+		k_{i}   & =W^{(K)}_i E_i                                                                \\
+		v_{i}   & =W^{(V)}_i E_i                                                                \\
 		A_{i j} & =\frac{q_{i} k_{j}+b(\Delta t_{i-j})}{\sqrt{d_{k}}}, \forall j \leq i \\
 		h_{i}   & =\sum_{j \leq i} \operatorname{softmax}(A_{i j}) v_{j}
 	\end{split}
 \end{align}
-Query, Key, and Value sequences are fed into the model. It separately extracts  value\(v_i\), query \(q_i\), and key \(k_i\). Then the attention from \(i\) to \(j\) can be calculated. The time difference \(b(\Delta t_{i-j})\) imports time variance into attention of \(i\) and \(j\). Then the representation of value \(i\), which is \(h_i\), can be obtained. The upper masking should be added into the MHA model to stop the effect from the current state to the future state.
+Query, Key, and Value sequences are fed into the model. It separately extracts value \(v_i\), query \(q_i\), and key \(k_i\). Then the attention from \(i\) to \(j\) can be calculated. The time difference \(b(\Delta t_{i-j})\) imports time variance into attention of \(i\) and \(j\). Then the head \(i\) representation, which is \(h_i\), can be obtained. The upper masking should be added into the MHA model to avoid the effect from the current state to the future state.
 
-The MHA output is formula~\ref{fml:mhaout}, where \(N^{(MHA)}\) is the number of head and \(W^{(Aggregate)}\) is the aggregate weight matrix.
+The MHA output is formula~\ref{fml:mhaout}, where \(N^{(\text{MHA})}\) is the number of head and \(W^{(Aggregate)}\) is the aggregate weight matrix. The \(\| \) represents concatenation.
 \begin{align}
 	\operatorname{MHA}(Q,K,V) = (h_1\|h_2\|\ldots \|h_t) \times W^{(Aggregate)}\label{fml:mhaout}
 \end{align}
 
-Then it is needed into the feed-forward net (FFN), which is for non-linearity import. The formula is~\ref{fml:ffn}. where the knowledge state vectors \(S_i = F_i\).
+Then it is needed into the feed-forward net (FFN), which is for non-linearity import. The formula is~\ref{fml:ffn}, where the knowledge state vectors \(S_i = F_i\).
 
 \begin{align}\label{fml:ffn}
 	F & = \operatorname{FFN}(\operatorname{MHA}(Q,K,V)) \\&=(F_1,F_2,\ldots,F_t)
 \end{align}
 
-The output of FFN is actually the hidden knowledge mastery proficiency state vector. It is the output of the encoder module. In general, the Encoder formula is~\ref{fml:encoder}. The \(\operatorname{SkipCon}(\cdot)\) is the skip connection~\cite{he2016deep} which can reduces gradient disappearance and network degradation problems, making training easier.. The \(\operatorname{LNorm}(\cdot)\) is the Layer normalization~\cite{ba2016layer}
-for normalization.
+The output of FFN is actually the hidden knowledge mastery proficiency state vector. It is the output of the encoder module. In general, the Encoder formula is~\ref{fml:encoder}. The \(\operatorname{SkipCon}(\cdot)\) is the skip connection~\cite{he2016deep} which can reduces gradient disappearance and network degradation problems, making training easier. The \(\operatorname{LNorm}(\cdot)\) is the Layer normalization~\cite{ba2016layer} for normalization.
+
 \begin{align}\label{fml:encoder}
 	\begin{split}
 		M^{(En)} & =\operatorname{SkipCon}(\operatorname{MHA}(\operatorname{LNorm}(Q,K,V))) \\
