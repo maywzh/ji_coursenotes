@@ -38,20 +38,30 @@ The mathematical representation of the knowledge tracing task is an interactive 
 \subsection{Dynamic Key-Value Memory Networks}
 %在传统的机器学习模型中，逻辑流控制和外部记忆机制往往缺失。因此，许多当前的机器学习模型无法建立复杂的逻辑流控制和外部记忆模块。传统的模型往往无法高效地利用可训练参数来获得较强记忆能力的模型。目前像LSTM和GRU这些结构，具备一定的记忆能力，但该能力受可训练参数数目影响，记忆增强网络通过更强的表征能力来摆脱可训练参数数目与模型的记忆能力之间的联系。它能够模拟人脑的工作记忆机制，例如阅读理解、推理、运算过程等，也可以捕捉复杂的结构信息和建立长距离信息依赖。MANN将中间信息保留在内存中，形成一个信息缓存结构，并利用该信息进行后续的推理学习。在一个MANN网络中往往分为控制器、存储模块和读写器等三个部分。控制器读取前一阶段的状态和当前的输入来获取下一阶段的输出和控制器输出。存储模块是一个数据结构模型，例如栈、队列或数组，每一个时刻都通过一个输出函数处理读取内容和控制器输出来计算序列输出。
 
-%在知识追踪任务中，由于习题所包含的知识点表征与知识点掌握状态表征所处的空间不同，因此无法将掌握程度和知识点表征用一个存储结构来保存，因此需要对MANN模型进行改造来适配知识追踪任务。DKVMN通过将知识点表征保存在一个矩阵\(M^{(k)}\)中作为Keys，将对应知识点掌握表征保存在另一个矩阵\(M\)中，作为Values。在输入一个习题表示\(q_t\)时，通过嵌入的方式来与知识点表征模块\(M^{(k)}\)进行相关度计算，得到知识点相关度表示向量\(w_t\)
+%在知识追踪任务中，由于习题所包含的知识点表征与知识点掌握状态表征所处的空间不同，因此无法将掌握程度和知识点表征用一个存储结构来保存，因此需要对MANN模型进行改造来适配知识追踪任务。DKVMN通过将知识点表征保存在一个矩阵\(M^{(k)}\)中作为Keys，将对应知识点掌握表征保存在另一个矩阵\(M^{(v)}\)中，作为Values。在输入一个习题表示\(q_t\)时，模型将\(q_t\)的嵌入表示向量\(k_t\)与知识点表征模块\(M^{(k)}\)进行相关度计算，得到习题的知识点相关度表示向量\(w_t\)。每个习题都可以表示为一个与知识点的相关度向量，代表了与知识点的相互关系。在DKVMN模型中，有读取过程和写入过程。
 
-In traditional machine learning models, logic flow control and external memory mechanisms are often missing. As a result, many current machine learning models cannot build complex logic flow control and external memory modules. Traditional models are often unable to efficiently use trainable parameters to obtain models with strong memory capabilities. Current structures like LSTM and GRU have some memory capability, but that capability is affected by trainable parameters. MANN gets rid of the connection between the number of trainable parameters and the model's memory capability by more robust representational capability. It can simulate the human brain's working memory mechanisms, such as reading comprehension, reasoning, and arithmetic processes, and capture complex structural information and establish long-range information dependencies. MANN keeps intermediate information in memory, forming an information cache structure, and uses that information for subsequent reasoning learning. A MANN network is often divided into three parts such as controller, storage module, and reader. The controller reads the previous stage's state and the current input to obtain the next stage's output and the controller output. The storage module is a data structure model, such as a stack, queue, or array, and at each moment, the sequence output is computed by processing the reads and the controller output through an output function.
+%在读取过程中，模型将权重向量\(w_t\)与知识点掌握矩阵\(M^{(v)}\)进行加权和计算，获得用户对于知识点的掌握表征向量\(r_t\)。并将\(r_t\)与当前的习题嵌入向量\(k_t\)进行拼接，经过全联接激活层输\(Tanh(\cdot)\)出\(f_t\)，它表示用户对于习题的掌握程度。\(f_t\)会经过一个最终的\(Sigmoid(\cdot)\)激活函数来输出一个习题回答正确的预测概率\(p_t\)。在写入过程中，当前的实际回答表现会对学生的知识掌握状态产生影响，这是一个重新评估的过程。当前的交互记录\(x_t=(q_t,a_t)\)会作为模型的输入。它的嵌入表示\(v_t\)会用于计算知识减少向量\(e_t\)与知识增加向量\(a_t\)，减少向量与增加向量会经过与\(w_t\)的加权和作用于\(M^{(v)}\)从而实现对于学生知识状态的更改。训练国歌通过最小化\(p_t\)与习题作答正确性真实标签\(a_t\)的交叉熵损失来进行。整个模型是可微的，因此可以有效利用随机梯度下降来训练。
 
-In the knowledge tracking task, since the knowledge point representations contained in the exercises are in a different space from the knowledge point mastery state representations, it is not possible to keep the mastery degree and knowledge point representations in one storage structure, so the MANN model needs to be adapted to the knowledge tracking task.DKVMN saves the knowledge point representations in a matrix \(M^{(k)}\) as keys by keeping the corresponding knowledge point mastery representations in another matrix \(M^{(k)}\) as Values. The corresponding knowledge point mastery representations are saved in another matrix \(M^{(v)}\) as values. The DKVMN model is shown in \figurename{\ref{fig:ch3-dkvmn-model}}.
+In traditional machine learning models, logic flow control and external memory mechanisms are often missing. As a result, many current machine learning models cannot build complex logic flow control and external memory modules. Traditional models are often unable to efficiently use trainable parameters to obtain models with strong memory capabilities. Current structures like LSTM and GRU have some memory capability, but that capability is affected by trainable parameters. MANN gets rid of the connection between the number of trainable parameters and the model's memory capability by more robust representational capability. It can simulate the human brain's working memory mechanisms, such as reading comprehension, reasoning, and arithmetic processes, and capture complex structural information and establish long-range information dependencies. MANN keeps intermediate information in memory, forming an information cache structure, and uses that information for subsequent reasoning learning. A MANN network is commonly divided into three parts such as controller, storage module, and reader. The controller reads the previous stage's state and the current input to obtain the next stage's output and the controller output. The storage module is a data structure model, such as a stack, queue, or array, and at each moment, the sequence output is computed by processing the reads and the controller output through an output function.
+
+In the knowledge tracking task, since the knowledge point representations contained in the exercises are in a different space from the knowledge point mastery proficiency state representations, it is not possible to keep the mastery degree and knowledge point representations in one storage structure, so the MANN model needs to be adapted to the knowledge tracking task. In 2017, DKVMN\cite{zhang2017dynamic} was proposed. The DKVMN model is shown in \figurename{\ref{fig:ch3-dkvmn-model}}. DKVMN saves the knowledge point representations in a matrix \(M^{(k)}\) as keys by keeping the corresponding knowledge point mastery representations in another matrix \(M^{(k)}\) as Values. The corresponding knowledge point mastery representations are saved in another matrix \(M^{(v)}\) as values. On inputting an exercise representation \(q_t\), the model computes the embedding representation vector \(k_t\) of \(q_t\) with the knowledge point representation module \(M^{(k)}\) to obtain the knowledge point relevance representation vector \(w_t\) of the exercise. Each exercise can be represented as a correlation vector with a knowledge point, representing the interrelationship with the knowledge point. In the DKVMN model, there is a read process and a write process.
 
 \begin{figure}[htbp!]
     \includegraphics[width=0.9\textwidth]{ch3-dkvmn-model.pdf}
     \caption{Dynamic key-value memory network architecture}\label{fig:ch3-dkvmn-model}
 \end{figure}
 
+In the reading process, the model weights and calculates the weight vector \(w_t\) with the knowledge point mastery matrix \(M^{(v)}\) to obtain the user's mastery representation vector \(r_t\) for the knowledge point. And \(r_t\) is spliced with the current exercise embedding vector \(k_t\), and \(f_t\) is derived after the full-linked activation layer loses \(Tanh(\cdot)\), which indicates the user's mastery of the exercise. \(f_t\) goes through a final \(Sigmoid(\cdot)\) activation function to output a predicted probability of answering the exercise correctly \(p_t\). During the writing process, the current actual response performance will have an impact on the student's knowledge acquisition status, which is a re-evaluation process. The current interaction record \(x_t=(q_t,a_t)\) will be used as the input to the model. Its embedding representation \(v_t\) will be used to compute the knowledge reduction vector \(e_t\) and the knowledge increase vector \(a_t\), and the reduction and increase vectors will be weighted with \(w_t\) and act on \(M^{(v)}\) thus realizing the change for the student's knowledge state. The training anthem is performed by minimizing the cross-entropy loss of \(p_t\) with the true label \(a_t\) of the correctness of the answers to the exercises. The whole model is microscopic and thus can be trained efficiently using stochastic gradient descent.
+
 \section{Proposed Model}
 \subsection{Algorithm Overview}
-%本节的关键点是对学生的知识追踪，本文提出了一种基于图网络的记忆增强型网络，GKVMN。在实验验证阶段，该模型在几个数据集上的基线性能达到了SOA。本模型的第一层为embedding聚合层，该层用一个GAT来聚合问题embedding和知识点embedding，并展示问题和知识点的内在联系，它可以解决数据稀疏性问题和知识点依赖和复杂关系问题。第二层为一个Transformer-based知识追踪模型，该层参考Google提出的著名的Transformer模型 ~\cite{vaswani2017attention}，设计了一个基于Transformer机制的知识追踪模型，它输入问题和技能embedding，输出对于下一个问题的答对的预测。通过这种机制，该模型可以实现对long-range的依赖的学习。此外，本模型可以通过解码器来输出隐藏的知识状态，这是下一阶段进行习题推荐的关键。总而言之，该模型的总体架构图可以见图\ref{}，并分为以下几个模块。
+%本节的关键点是对学生的知识追踪，本文提出了一种针对DKVMN的改进型知识追踪网络模型，它在原模型的基础上增加了额外的用户答题特征，并通过图网络来改进知识点掌握度表征存储模块，从而为模型增加知识点间关系表征能力。本模型依然具有习题-知识点关联度计算、读取过程、写入过程和知识网络传播过程和预测过程等多个子模块。其模型框架如图。
+
+The key point of this section is the knowledge tracking of students. In this paper, we propose an improved knowledge tracking network model for DKVMN, which adds additional user answer features to the original model and improves the knowledge point mastery representation storage module by graph networks, thus adding inter-knowledge point relationship representation capability to the model. The model still has several sub-modules such as exercise-knowledge point association degree calculation, reading process, writing process and knowledge network propagation process and prediction process. Its model framework is shown in \figurename{}.
+
+
+
+%本模型的第一层为embedding聚合层，该层用一个GAT来聚合问题embedding和知识点embedding，并展示问题和知识点的内在联系，它可以解决数据稀疏性问题和知识点依赖和复杂关系问题。第二层为一个Transformer-based知识追踪模型，该层参考Google提出的著名的Transformer模型 ~\cite{vaswani2017attention}，设计了一个基于Transformer机制的知识追踪模型，它输入问题和技能embedding，输出对于下一个问题的答对的预测。通过这种机制，该模型可以实现对long-range的依赖的学习。此外，本模型可以通过解码器来输出隐藏的知识状态，这是下一阶段进行习题推荐的关键。总而言之，该模型的总体架构图可以见图\ref{}，并分为以下几个模块。
 %1. 基于GAT的embedding层：该层用embedding方法来表征问题，知识点和回答。在该图神经网络中，每个问题代表一个节点，它与若干知识点节点连接，这些知识点节点再与与之相关的问题节点连接。而问题与问题不直接连接，考虑到知识点的相关性，知识点与知识点可以直接连接。其结构如图\ref{}。这个embedding层不进行预训练，而是与其他层进行总体训练来优化最终结果。
 %2. 基于Transformer的知识状态表征：该模块通过多头注意力机制来学习经过GAT嵌入表示的习题-知识点向量，并学习学生做题记录过程中的知识状态表征。
 %3. 基于Transformer的知识追踪层：该层类似传统Transformer结构，具有encoder和decoder两部分，它学习关联知识点和问题的权值矩阵，可以解决知识点依赖问题。通过注意力机制，它也可以capture关联知识点相似的问题。
@@ -59,103 +69,8 @@ In the knowledge tracking task, since the knowledge point representations contai
 The key point of this section is to track students' knowledge.
 
 \subsection{GAT-based Embedding Layer}
-%本节中，采用了图自注意力网络来对问题-知识点关联图进行embedding。它用于降低表征问题数据中知识点的数据稀疏性。我们把第i个问题记作$q_i$，学生对第i个问题的回答记作$a_i$，回答的结果为对或者错，则可以将其记作$a_i\in\{0,1\}$，则答题记录记为$X=\{x_1,x_2,...x_{t-1}\}$，其中$x_i=(q_i,a_i)$，我们基于前$t-1$次的答题记录来预测第$t$题的回答正确概率。对于每个问题$q_i$，有一系列的知识点与之相关，这些知识点记作$\{p_1,p_2,...,p_{n_i}\}$。在这里进行embedding计算可以获取问题之间的深层次关联关系，即知识点的相关性。用图结构可以较为理想地做到这一点。从直观上来说，也可以通过对于知识点的掌握情况来推知问题的答对概率。该方法也可以建立对于问题-知识点的更好的表征。
-
-In this section, a graph self-attention network (GAT) is introduced to embed the problem-knowledge point association graph, reducing the data sparsity of the problem data's knowledge points. The ith exercise can be recorded as \(q_i\), the student's answer to the ith exercise as \(a_i\), and the answer is correct or wrong, so it can be recorded as \(a_i\in \{0,1\} \), the answer record is recorded as \(X=\{x_1,x_2,\ldots,x_{t-1}\} \), where \(x_i=(q_i,a_i)\). It is based on the previous \(t-1\) times to predict the exercise's correctness in \(t\). For each exercise \(q_i\), there are a series of knowledge points related to it. These knowledge points are denoted as \( \{p_1,p_2,\ldots,p_{n_i}\} \). The embedding calculation can obtain the deep-level relationship between the problems, i.e., the relevance of knowledge points. This can be done ideally with a graph structure. Intuitively, you can also infer the probability of answering the exercise through mastery proficiency to the knowledge points. This method can also establish a better representation of the problem-knowledge point.
-
-Embedding calculation can obtain the deep correlation between problems, i.e., the correlation of referred knowledge points. This can be achieved with graph structure. Intuitively speaking, it also infers the correct answer probability of the exercise by mastering the knowledge points. This method can also establish a better representation of problem knowledge points. In the exercise-knowledge graph, GAT can capture the high order relation for n-hop neighboring nodes. Also, GAT uses the idea of Transformer for reference and introduces a masked self-attention mechanism. When calculating each vertex's representation in the graph, it will assign different weights to its neighbors according to their different characteristics.
-
-GAT applies an attention mechanism to the weighted summation of neighboring vertex features. The weights of the neighboring vertex features depend entirely on the vertex features and are independent of the graph structure. In GAT, each vertex in the graph can be assigned different weights to neighboring nodes based on their characteristics. With the introduction of the attention mechanism, it is only relevant to adjacent nodes, i.e., nodes that share edges, without getting information about the whole graph. Specifically, the vertex of the GAT network represents the knowledge point embedding or exercise embedding.
-
-%提出的方法将习题都作为GAT的节点。对于习题\(i\)，输入特征为\(\overrightarrow{h^(e)}_i\)，特征包括习题位置，习题的作答正确性，以及习题包含的知识点。可以从习题类别来建立习题的邻接矩阵\(A\)，即当多个习题为同一类，则为邻居节点，这样进行预处理可以减少后续的计算量，防止无效的连接带来的干扰。例如当习题1与习题3都属于线性代数这个类别，则\(A[1,3]=1\)，它们会在图计算中进行特征聚合。GAT的输入层可以写作\(\mathbb{h^{(e)}}_0=\{\overrightarrow{h^{(e)}}_1,\overrightarrow{h^{(e)}}_2,\ldots,\overrightarrow{h^{(e)}}_{\mathcal{V}^i}\} \)
-
-The proposed method treats all the exercises as nodes of GAT. For the exercises \(i\) in an exercise set of size \(N^{(e)}\), the input features are \(\overrightarrow{h}^{(e)}_i\), and the features include the location of the exercises, the correctness of the answers to the exercises, and the knowledge points contained in the exercises. The adjacency matrix \(A\) of the exercises can be established from the exercises category, i.e., when multiple exercises are of the same category, they are neighbor nodes, so preprocessing can reduce the subsequent computation and prevent the interference caused by invalid connections. For example, when both Exercise 1 and Exercise 3 belong to the category of linear algebra, \(A[1,3]=1\), they will be aggregated in the graph computation for features. The neighboring vertex set of vertex \(i\) is marked as \(\mathcal{V}^i\). Input of GAT can be denoted as \(\mathbf{h}^{(e)}_0=\{\overrightarrow{h}^{(e)}_{0,1},\overrightarrow{h}^{(e)}_{0,2}\ldots,\overrightarrow{h}^{(e)}_{0,N^{(e)}}\} \), in which \(\overrightarrow{h}^{(e)}_i\in\mathbb{R}^{F^{(e)}}\) and \(F^{(e)}\) is the amount of feature of exercise.
-
-To achieve better high dimension feature representation, at least one linear transformation from low-dimensional should be embedded to high-dimensional features. Therefore, a linear transformation is first done for the vertex features and then the coefficients are calculated. The attention mechanism of self-attention is implemented for each vertex, and the attention coefficients (Attention coefficients) and its softmax value are calculated in formula~\ref{fml:gatembeij} and~\ref{fml:gatembalphaij}:
-
-\begin{align}
-    e_{ij}      & =a(\mathbf{W}_l\overrightarrow{h}^{(e)}_i, \mathbf{W}_l\overrightarrow{h}^{(e)}_j)    \label{fml:gatembeij}                \\
-    \alpha_{ij} & =\operatorname{softmax}_{j}(e_{ij})=\frac{\exp(e_{ij})}{\sum_{k\in \mathcal{N}_{i}}\exp(e_{ik})} \label{fml:gatembalphaij}
-\end{align}
-The \(e_{ij}\) is the contribution degree from vertex \(i\) to vertex \(j\) and the \(\alpha_{ij} \) is the normalized contribution degree, and the \(\mathbf{W}_l\) is the ith layer's weight matrix. Here, since the graph structure information is to be considered, the concept of masked attention is introduced, which means that the denominator of the softmax considers only the first-order information about the neighbors. By this method, each vertex then gets a weight about the neighboring nodes, and then the combined representation of the nodes is obtained by summing. That is, the attention weighted summing can be calculated to generate aggregate neighboring features. The relative formula is~\ref{fml:gatwsum}, where \(\sigma \) are the non-linear transformation such as ReLU or LeakyReLU. If the edge \(j \to i\) does not exist,  the calculation of \(\alpha_{ij}\), which can reduce the calculation, can be performed. The formula means that this vertex's output characteristics are related to all the nodes adjacent to it and are obtained after the nonlinear activation of their linear sum.
-
-\begin{align}
-    \overrightarrow{h}^{(e)}_{l+1,i}=\sigma(\sum_{j \in \mathcal{N}^i} \alpha_{i j} \mathbf{W}_l \overrightarrow{h}^{(e)}_{i,j})\label{fml:gatwsum}
-\end{align}
-
-% The procedure is like \figurename{\ref{fig:ch3-gat-emb}};
-
-% \begin{figure}[htbp!]
-% 	\centering
-% 	\includegraphics[width=0.9\textwidth]{ch3-emb.png}
-% 	\caption{Feature extraction and attention mechanism}\label{fig:ch3-gat-emb}
-% \end{figure}
-
-To make the result of self-attention more stable. The multi-headed attention mechanism can be used here.\(K\) independent attention mechanisms can be achieved by connecting \(k\) features together. The formula is like~\ref{fml:gat-emb2}.
-
-\begin{align}
-    \overrightarrow{h}^{(e)}_{l+1,i}=\|_{k=1}^{K} \sigma(\sum_{j \in \mathcal{N}^i} \alpha_{i j}^{k} \mathbf{W}_l^{k} \overrightarrow{h}^{(e)}_{i,j})\label{fml:gat-emb2}
-\end{align}
-
-K-averaging is used to replace the join operation and to delay the application of the final nonlinear function. The attention coefficients between different nodes after regularization are obtained by the above operation and can predict each vertex's characteristics. The formula is like~\ref{fml:gat-emb2}.
-
-\begin{align}
-    \overrightarrow{h}^{(e)}_{l+1,i}=\sigma(\frac{1}{K} \sum_{k=1}^{K} \sum_{j \in \mathcal{N}^i} \alpha_{i j}^{k} \mathbf{W}_l^{k} \overrightarrow{h}^{(e)}_{i,j})\label{fml:gat-emb3}
-\end{align}
-
-From L-layer GAT, the embedded vector of exercise \(i\) are denoted as \(E^{(e)}_i = \overrightarrow{h}^{(e)}_{L, i}\), which would be passed into the Transformer Block in Knowledge tracing module.
-
+%
 \subsection{Transformer Based Knowledge Tracing}
-The input of transformer Block is the concatenation of the embedded exercise \(E^{(e)}_i \) and corresponding answer correctness \(a_i\), i.e. \(E_i=E^{(e)}_i\|a_i\). The general structure is like \figurename{\ref{fig:ch3-fig5}}. The traditional Transformer model is modified to apply to the knowledge tracing task. The Transformer can learn the W-matrix relating underlying knowledge points and exercises. This allows the model to learn deeper connections between problems, resulting in better inference performance. It can cluster problems with similar knowledge points and reduce the variance for less frequent problems.
-\begin{figure}[htbp!]
-    \centering
-    \includegraphics[width=0.9\textwidth]{ch3-ov-kt.pdf}
-    \caption{The Transformer architecture}
-    \label{fig:ch3-fig5}
-\end{figure}
-
-The output of embedding layer \(E_i\) is passed into a Transformer Block, of which the first is a masked multi-head attention (MHA) module. The formula is~\ref{fml:mha}
-
-\begin{align}\label{fml:mha}
-    \begin{split}
-        q_{i}   & =Q E_i                                                                \\
-        k_{i}   & =K E_i                                                                \\
-        v_{i}   & =V E_i                                                                \\
-        A_{i j} & =\frac{q_{i} k_{j}+b(\Delta t_{i-j})}{\sqrt{d_{k}}}, \forall j \leq i \\
-        h_{i}   & =\sum_{j \leq i} \operatorname{softmax}(A_{i j}) v_{j}
-    \end{split}
-\end{align}
-Query, Key, and Value sequences are fed into the model. It separately extracts  value\(v_i\), query \(q_i\), and key \(k_i\). Then the attention from \(i\) to \(j\) can be calculated. The time difference \(b(\Delta t_{i-j})\) imports time variance into attention of \(i\) and \(j\). Then the representation of value \(i\), which is \(h_i\), can be obtained. The upper masking should be added into the MHA model to stop the effect from the current state to the future state.
-
-The MHA output is formula~\ref{fml:mhaout}, where \(N^{(MHA)}\) is the number of head and \(W^{(Aggregate)}\) is the aggregate weight matrix.
-\begin{align}
-    \operatorname{MHA}(Q,K,V) = (h_1\|h_2\|\ldots \|h_t) \times W^{(Aggregate)}\label{fml:mhaout}
-\end{align}
-
-Then it is needed into the feed-forward net (FFN), which is for non-linearity import. The formula is~\ref{fml:ffn}.
-\begin{align}\label{fml:ffn}
-    F & = \operatorname{FFN}(\operatorname{MHA}(Q,K,V)) \\&=(F_1,F_2,\ldots,F_t)
-\end{align}
-The knowledge state vectors \(S_i = F_i\)
-
-The output of FFN is actually the hidden knowledge mastery proficiency state vector. It is the output of the encoder module. In general, the Encoder formula is~\ref{fml:encoder}. The \(SkipCon(\cdot)\) is the skip connection~\cite{he2016deep} which can reduces gradient disappearance and network degradation problems, making training easier.. The \(LNorm(\cdot)\) is the Layer normalization~\cite{ba2016layer}
-for normalization.
-\begin{align}\label{fml:encoder}
-    \begin{split}
-        M^{(En)} & =SkipCon(\operatorname{MHA}(LNorm(Q,K,V))) \\
-        O^{(En)} & =SkipCon(\operatorname{FFN}(LNorm(M)))
-    \end{split}
-\end{align}
-
-The \(O^{(En)}\) is then as the input of Decoder's Key and Value. The Decoder apply one MHA to generate a representation of question information as formula~\ref{fml:decoder}
-\begin{align}\label{fml:decoder}
-    \begin{split}
-        M^{(De)}_1 & =SkipCon(\operatorname{MHA}(LNorm(Q^\prime,K^\prime,V^\prime)))    \\
-        M^{(De)}_2 & =SkipCon(\operatorname{MHA}(LNorm(M^{(De)}_1 ,O^{(En)},O^{(En)}))) \\
-        O^{(De)}   & =SkipCon(\operatorname{FFN}(LNorm(M^{(De)}_2M)))
-    \end{split}
-\end{align}
-The \(M^{(De)}_i\) is the ith MHA block output of decoder module. The output of decoder \(O^{(De)}\) is the prediction for exercise answering. The prediction is \(\mathbf{p}=(p_1,p_2,\ldots,p_t)\)
 
 \section{Experiments}
 %本节中，通过多个专用的知识追踪数据集来investigate提出的模型性能，与目前已经提出的Baseline模型进行性能对比。本章先对所用到的数据集进行介绍和统计，然后提出用于模型性能对比的度量标准、实验设置和运行参数环境等，最后得出结果并进行分析。
