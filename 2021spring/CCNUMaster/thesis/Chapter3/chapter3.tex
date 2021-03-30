@@ -12,8 +12,6 @@
 
 %尽管该模型取得了较好的性能，但该模型将知识点建模为相互独立的点，而未考虑知识点之间的关联性。在高中数学知识网络中，知识点与知识点间有网状的关联关系，而习题是基于这些知识点建立的。因此习题与习题之间也存在隐含的间接关联关系，因此设计一种将考虑知识点间关联的模型来表征该模型是一种合理的解决方案。除了考虑习题知识点的掌握程度，对于学生的答题行为也可以作为额外的特征加入该模型，这样可以为模型增加更多的考虑因素，从而增强模型的预测性能。本文提出了一种用图神经网络结合记忆增强网络的知识追踪模型。该模型相对于原始的DKVMN模型，用图神经网络改造了知识点表征矩阵，并将学生的额外答题行为特征作为模型输入。
 
-
-
 This section is a core part of this recommendation system to obtain the student's knowledge mastery status using knowledge tracing. Knowledge tracing is used to model students' knowledge mastery based on their previous answer records to obtain their knowledge status. There is a wealth of models for knowledge tracing, early models of knowledge tracing Bayesian Knowledge Tracing (BKT)~\cite{yudelson2013individualized}, which issued the assumption that students' solutions to exercises are based on a set of knowledge points that are considered to be unrelated to each other and are therefore represented independently of each other. This approach fails to capture the relationships between different concepts nor to characterize complex conceptual transformations. In 2015, Piech et al. proposed the deep knowledge tracing model (DKT), which first applied RNN to the knowledge tracing task, which contains an implicit state of knowledge, and achieved a baseline performance over BKT at that time, and it marked the prologue of knowledge tracing research based on neural network models. However, DKT cannot output the hidden state of knowledge and is not sufficiently interpretable.
 Moreover, DKT uses to store all memories in a hidden vector, and the prediction performance for long sequences is not satisfactory enough. Memory Augmented Neural Network (MANN)~\cite{santoro2016meta} was proposed to address this problem, which allows the network to keep multiple hidden state vectors and read and write these vectors separately. In 2017, Dynamic Key-Value Memory Networks (DKVMN)~\cite{zhang2017dynamic} referring to the design of MANN for knowledge tracing tasks and optimizes MANN for knowledge tracing tasks with different input and output domains. DKVMN uses key-value pairs as the memory structure, which can avoid over better prediction performance relative to BKT, and DKT is achieved by using key-value pairs as the memory structure, which can avoid overfitting. The model also has better interpretability. It stores the problem-related potential concepts in the key matrix and the mastery proficiency to the concepts in the value matrix and updates the value matrix by correlating the input exercises with the key matrix.
 
@@ -54,6 +52,9 @@ In the knowledge tracking task, since the knowledge point representations contai
 In the reading process, the model weights and calculates the weight vector \(w_t\) with the knowledge point mastery matrix \(M^{(v)}\) to obtain the user's mastery representation vector \(r_t\) for the knowledge point. And \(r_t\) is spliced with the current exercise embedding vector \(k_t\), and \(f_t\) is derived after the full-linked activation layer loses \(Tanh(\cdot)\), which indicates the user's mastery of the exercise. \(f_t\) goes through a final \(Sigmoid(\cdot)\) activation function to output a predicted probability of answering the exercise correctly \(p_t\). During the writing process, the current actual response performance will have an impact on the student's knowledge acquisition status, which is a re-evaluation process. The current interaction record \(x_t=(q_t,a_t)\) will be used as the input to the model. Its embedding representation \(v_t\) will be used to compute the knowledge reduction vector \(e_t\) and the knowledge increase vector \(a_t\), and the reduction and increase vectors will be weighted with \(w_t\) and act on \(M^{(v)}\) thus realizing the change for the student's knowledge state. The training process is performed by minimizing the cross-entropy loss of \(p_t\) with the true label \(a_t\) of the correctness of the answers to the exercises. The whole model is microscopic and thus can be trained efficiently using stochastic gradient descent.
 
 \section{Proposed Model}
+%DKVMN模型有如下的问题，第一，该模型未考虑学生的特性，每个学生对于潜在知识点的掌握程度会导致不同的结果，即，当两个知识点掌握程度相同的学生可能对于一个习题的作答结果会产生不同的预测度。第二，该模型未考虑知识点的内在联系，该模型将知识点作为存储结构中的一个slot，各个slot之间相互独立。这隔绝了知识点变化引起的相关知识点的变化。在高中数学学科中，有许多相互相关的知识点，因此，需要结合领域特征，加入知识点关联学习网络。本文基于上述两点，对DKVMN模型进行改进。
+
+The DKVMN model has the following problems. First, the model does not take into account the characteristics of students, and each student's mastery of potential knowledge points will lead to different results, i.e., when two students with the same level of mastery of knowledge points may have different prediction degrees for the answer results of an exercise. Second, the model does not consider the intrinsic connection of the knowledge points, which are treated as a slot in the storage structure, and each slot is independent of each other. This isolates the changes in related knowledge points caused by changes in knowledge points. In high school mathematics subjects, there are many interrelated knowledge points, therefore, it is necessary to incorporate the domain characteristics and join the knowledge point associated learning network. In this thesis, the DKVMN model is improved based on the above two points.
 \subsection{Algorithm Overview}
 %本节的关键点是对学生的知识追踪，本文提出了一种针对DKVMN的改进型知识追踪网络模型，它在原模型的基础上增加了额外的用户答题特征，并通过图网络来改进知识点掌握度表征存储模块，从而为模型增加知识点间关系表征能力。本模型依然具有习题-知识点关联度计算、读取过程、写入过程和知识网络传播过程和预测过程等多个子模块。其模型框架如图。
 
@@ -63,10 +64,11 @@ The key point of this section is the knowledge tracking of students. In this pap
     \includegraphics[width=0.9\textwidth]{ch3-gkvmn-model.pdf}
     \caption{Graph key-value memory network architecture}\label{fig:ch3-gkvmn-model}
 \end{figure}
+\subsection{Student Behavior Capturing}
 
 
-\subsection{Knowledge Extraction}
-%
+\subsection{Question Knowledge Correlation Calculation}
+
 \subsection{Transformer Based Knowledge Tracing}
 
 \section{Experiments}
