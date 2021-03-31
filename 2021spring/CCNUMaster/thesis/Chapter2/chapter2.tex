@@ -107,7 +107,7 @@ In applying deep learning, embedding as a preprocessing approach for generating 
 %在习题文本中，会出现一些组合词，即由多个词组合而成的具有不可分割词义的词组，由于在BERT的训练样本生成阶段，会对词进行mask操作，因此这些组合词有可能会被分别mask。导致出现歧义，引起训练性能退化。因此，本文应用全词mask的处理方式，该方法由cui等人于2019年提出~\cite{cui2019pre}。通过应用全词mask，当一个组合词的一个部分被mask，则该组合词的其他部分也会被mask。如图所示。
 
 
-In the exercise description text, there will be some combinations of words, i.e., groups of words with indivisible lexical meanings formed by combining multiple words. Since the words are masked during the training sample generation phase of BERT, these combinations may be masked separately, resulting in ambiguity and causing training performance degradation. Therefore, this thesis applies Whole Word Mask processing (WWM), which was proposed by Cui et al. in 2019~\cite{cui2019pre}. By applying WWM, when one part of a combined word is masked, then the other parts of that combined word are also masked, as shown in \figurename{\ref{fig:ch2-bert-wwm}}.
+In the exercise description text, there will be some combinations of words, i.e., groups of words with indivisible lexical meanings formed by combining multiple words. Since the words are masked during the BERT training sample generation phase, these combinations may be masked separately, resulting in ambiguity and causing training performance degradation. Therefore, this thesis applies Whole Word Mask processing (WWM), proposed by Cui et al.\ in 2019~\cite{cui2019pre}. By applying WWM, when one part of a combined word is masked, then the other parts of that combined word are also masked, as shown in \figurename{\ref{fig:ch2-bert-wwm}}.
 
 \begin{figure}[htbp!]
 	\centering
