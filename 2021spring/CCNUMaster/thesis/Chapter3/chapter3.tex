@@ -68,9 +68,9 @@ The key point of this section is the knowledge tracking of students. In this the
 \end{figure}
 
 \subsection{Student Behavior Capturing}
-%在本文中，提出了一种利用DNN来进行学生答题特征表征的机制，它与习题特征向量共同形成cross-feature向量，该向量用于后续的习题知识点权重向量计算，该模块的计算
+%在本文中，提出了一种利用DNN来捕捉学生答题特征表征的机制，它与习题特征向量共同形成cross-feature向量，该向量用于后续的习题知识点权重向量计算，该模块的计算
 \subsection{Knowledge-Question Correlation Calculation}
-%计算的方式很复杂为恨栓噩梦
+%
 
 \subsection{Transformer Based Knowledge Tracing}
 
@@ -86,9 +86,8 @@ After investigating the existing knowledge tracing model, the thesis selected th
 %(2)ASSISTment 2017 来源于2017年举办的ASSISTments Longitudinal Data Mining Competition。经过数据预处理和数据过滤，数据集包含1709个学生，4117个问题，102个知识点和约943千次交互。
 %(3)Statics 2011 数据集来源于统计学课程的答题记录。
 \begin{itemize}
-    \item ASSISTment 2015 (ASSIST15) is a data set used to predict student test performance. It consists of a series of exercises containing several knowledge point labels and some student answer records. It was collected on an online education platform in 2015. After data filtering, a data set containing 19,917 students, about 102 thousand exercises, 100 knowledge point labels, and about 709 interactions was obtained.
+    \item ASSISTment 2015 (ASSIST15)~\cite{assistmentdata2015} is a data set used to predict student test performance. It consists of a series of exercises containing several knowledge point labels and some student answer records. It was collected on an online education platform in 2015. After data filtering, a data set containing 19,917 students, about 102 thousand exercises, 100 knowledge point labels, and about 709 interactions was obtained.
     \item ASSISTment 2017 (ASSIST17) is derived from the ASSISTments Longitudinal Data Mining Competition held in 2017. After data preprocessing and data filtering, the data set contains 1709 students, 4117 exercises, 102 knowledge points, and approximately 943 thousand interactions.
-    \item Statics 2011 (STATICS11) dataset is derived from the answer records of statistics courses. It contains 333 students, 1223 exercises, 156 knowledge tags, and about 189 thousand interactions.
 \end{itemize}
 
 \begin{table}[htbp!]
@@ -96,11 +95,10 @@ After investigating the existing knowledge tracing model, the thesis selected th
     \caption{Dataset Statistics}\label{tbl:ch2-tb1}
     \begin{tabular}{ccccc}
         \toprule
-        Dataset   & \#Students & \#exercises & \#Knowledge Points & \#Interactions \\
+        Dataset  & \#Students & \#exercises & \#Knowledge Points & \#Interactions \\
         \midrule
-        ASSIST15  & 19,917     & 102,396     & 100                & 709K           \\
-        ASSIST17  & 1,709      & 4,117       & 102                & 943K           \\
-        STATICS11 & 333        & 1,223       & 156                & 189K           \\
+        ASSIST15 & 19,917     & 102,396     & 100                & 709K           \\
+        ASSIST17 & 1,709      & 4,117       & 102                & 943K           \\
         \bottomrule
     \end{tabular}
 \end{table}
@@ -134,14 +132,14 @@ The experiment's result is shown in \tblname{\ref{tbl:ch3-tb2}}, and the propose
     \caption{AUC results (\%) over three datasets}\label{tbl:ch3-tb2}
     \begin{tabular}{cccc}
         \toprule
-        Model    & ASSIST15                    & ASSIST17                   & STATICS11                  \\
+        Model    & ASSIST15                    & ASSIST17                   \\
         \midrule
-        BKT      & \(62.01\pm 0.03 \)          & \(65.30\pm 0.01\)          & \(64.21\pm 0.01\)          \\
-        DKT      & \(70.83\pm 0.03 \)          & \(72.66\pm 0.01\)          & \(72.46\pm 0.06\)          \\
-        DKVMN    & \(71.06\pm 0.03 \)          & \(72.78\pm 0.02\)          & \(72.67\pm 0.03\)          \\
-        GKT      & \(72.12\pm 0.02 \)          & \(72.85\pm 0.01\)          & \(72.57\pm 0.01\)          \\
+        BKT      & \(62.01\pm 0.03 \)          & \(65.30\pm 0.01\)          \\
+        DKT      & \(70.83\pm 0.03 \)          & \(72.66\pm 0.01\)          \\
+        DKVMN    & \(71.06\pm 0.03 \)          & \(72.78\pm 0.02\)          \\
+        GKT      & \(72.12\pm 0.02 \)          & \(72.85\pm 0.01\)          \\
         \midrule
-        Proposed & \(\mathbf{72.62\pm 0.02} \) & \(\mathbf{72.89\pm 0.02}\) & \(\mathbf{72.73\pm 0.02}\) \\
+        Proposed & \(\mathbf{72.62\pm 0.02} \) & \(\mathbf{72.89\pm 0.02}\) \\
         \bottomrule
     \end{tabular}
 \end{table}
