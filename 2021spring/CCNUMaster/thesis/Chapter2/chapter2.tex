@@ -40,7 +40,7 @@ This section aims to construct a model for mining the exercise-knowledge point r
 
 %在2019年，提出了一种多标签图像分类模型，受该模型启发，本章提出了一个基于注意力机制习题文本特征提取和基于图神经网络知识点关系挖掘的多知识点标注模型，它通过数据驱动的方式建立知识点关系图描述知识点间的关联关系，对知识点分别建立分类器，然后对习题的文本特征进行多标签分类。其主要架构图如下。
 
-In 2019, a multi-label image classification model was proposed~\cite{chen2019multi}. Inspired by this model, this chapter proposes a multi-knowledge point labeling model based on attention mechanism exercise description text feature extraction and graph convolutional neural network (GCN) based knowledge point relationship mining, which builds a knowledge point relationship graph to describe the association relationship between knowledge points by a data-driven approach, builds classifiers for knowledge points separately, and then performs multi-label classification. Its main architecture diagram is shown in \figurename{\ref{fig:ch2-modelarchitecture}}.
+In 2019, a multi-label image classification model was proposed~\cite{chen2019multi}. Inspired by this model, this chapter proposes a multi-knowledge point labeling model based on attention mechanism exercise description text feature extraction and graph convolutional neural network (GCN) based knowledge point relationship mining, which builds a knowledge point relationship graph to describe the association relationship between knowledge points by a data-driven approach, builds classifiers for knowledge points separately, and then performs multi-label classification. Its main architecture diagram is shown in \figname{\ref{fig:ch2-modelarchitecture}}.
 
 \begin{figure}[htbp!]
 	\centering
@@ -63,7 +63,7 @@ From the structure, it can be seen that there are generally two parts to the mod
 
 \subsection{The Exercise Description Text Mining}
 %本部分基于Peng等人提出的Attention based Bi-LSTM模型，该模型的结构如图所示\ref{}
-This section is based on the Attention based Bi-LSTM, whose architecture design is shown in \figurename{\ref{fig:ch2-model-bilstm}}.
+This section is based on the Attention based Bi-LSTM, whose architecture design is shown in \figname{\ref{fig:ch2-model-bilstm}}.
 \begin{figure}[htbp!]
 	\centering
 	\includegraphics[width=1.0\textwidth]{ch2-model-bilstm.pdf}
@@ -74,13 +74,13 @@ This section is based on the Attention based Bi-LSTM, whose architecture design 
 The model includes four layers: Preprocess Layer, Embedding Layer, Bi-LSTM layer, Attention Layer, and Output Layer:
 \subsubsection{Pre-process Layer}
 
-%在预处理阶段，主要包括分词、清洗、正则化等方式。考虑到我们的研究对象为中文高中数学试题，相对于英文，中文句子中间没有中间空格，所以必须用分词算法来将句子分解为分词。内容中有很多对句意表达无关的文本，如果直接进行计算会造成大量的干扰和冗余信息，所以另外的文本清理也是必要的步骤。\figurename{ref{ch2-fig3}}显示了一个预处理练习文本的例子。
+%在预处理阶段，主要包括分词、清洗、正则化等方式。考虑到我们的研究对象为中文高中数学试题，相对于英文，中文句子中间没有中间空格，所以必须用分词算法来将句子分解为分词。内容中有很多对句意表达无关的文本，如果直接进行计算会造成大量的干扰和冗余信息，所以另外的文本清理也是必要的步骤。\figname{ref{ch2-fig3}}显示了一个预处理练习文本的例子。
 
 % - 中文分词是中文自然语言处理的一个基本步骤，在中文中，一个句子中词与词之间没有自然分隔，因此必须先对句子进行分词操作，将句子分解为词。分词效果将直接影响词性、句法树等模块的效果。选择合适的的中文分词算法能够达到更好的自然语言处理效果，帮助计算机理解复杂的中文语言。目前，中文分词主要分为基于词典规则匹配和基于统计模型两种算法，相对于前者，后者具有更好的泛化性和学习能力，对先验规则之外的分词例如歧义词和未登录词表现更好。在本模型中，采用了目前较为热门的jieba分词器，它采用了基于汉字成词能力的 HMM 模型，能够找出基于词频的最大切分组合。用户也可以自定义停用词和用户词典来实现对于专有名词的识别。
 
 % - 清洗：在对习题进行文本挖掘时，会遇到大量无关的文本信息，例如对于以下习题：
 
-The preprocessing stage mainly includes word separation, cleaning, and regularization. Considering that our research object is Chinese high school mathematics test questions, compared with English, there is no middle space in the middle of sentences of Chinese language, so it is necessary to use the word separation algorithm to decompose the sentences into subwords. There are many texts in the content that are irrelevant to the sentence expression, which will cause much interference and redundant information if the calculation is performed directly, so additional text cleaning is also a necessary step. The \figurename{\ref{fig:ch2-model-preprocessing}} shows an example of preprocessing of an exercise description text.
+The preprocessing stage mainly includes word separation, cleaning, and regularization. Considering that our research object is Chinese high school mathematics test questions, compared with English, there is no middle space in the middle of sentences of Chinese language, so it is necessary to use the word separation algorithm to decompose the sentences into subwords. There are many texts in the content that are irrelevant to the sentence expression, which will cause much interference and redundant information if the calculation is performed directly, so additional text cleaning is also a necessary step. The \figname{\ref{fig:ch2-model-preprocessing}} shows an example of preprocessing of an exercise description text.
 
 \begin{figure}[htbp!]
 	\centering
@@ -107,7 +107,7 @@ In applying deep learning, embedding as a preprocessing approach for generating 
 %在习题文本中，会出现一些组合词，即由多个词组合而成的具有不可分割词义的词组，由于在BERT的训练样本生成阶段，会对词进行mask操作，因此这些组合词有可能会被分别mask。导致出现歧义，引起训练性能退化。因此，本文应用全词mask的处理方式，该方法由cui等人于2019年提出~\cite{cui2019pre}。通过应用全词mask，当一个组合词的一个部分被mask，则该组合词的其他部分也会被mask。如图所示。
 
 
-In the exercise description text, there will be some combinations of words, i.e., groups of words with indivisible lexical meanings formed by combining multiple words. Since the words are masked during the BERT training sample generation phase, these combinations may be masked separately, resulting in ambiguity and causing training performance degradation. Therefore, this thesis applies Whole Word Mask processing (WWM), proposed by Cui et al.\ in 2019~\cite{cui2019pre}. By applying WWM, when one part of a combined word is masked, then the other parts of that combined word are also masked, as shown in \figurename{\ref{fig:ch2-bert-wwm}}.
+In the exercise description text, there will be some combinations of words, i.e., groups of words with indivisible lexical meanings formed by combining multiple words. Since the words are masked during the BERT training sample generation phase, these combinations may be masked separately, resulting in ambiguity and causing training performance degradation. Therefore, this thesis applies Whole Word Mask processing (WWM), proposed by Cui et al.\ in 2019~\cite{cui2019pre}. By applying WWM, when one part of a combined word is masked, then the other parts of that combined word are also masked, as shown in \figname{\ref{fig:ch2-bert-wwm}}.
 
 \begin{figure}[htbp!]
 	\centering
@@ -117,7 +117,7 @@ In the exercise description text, there will be some combinations of words, i.e.
 
 %将经过分词处理得到的习题文本词原始序列的部分词进行WWM处理，在序列的开头添加标记[CLS]，句子间用[SEP]分隔符标示。经过训练，输出词embedding向量。每个词的输出embedding由三个部分组成，即token embedding、segment embedding和position embedding，它们从不同的角度对词进行嵌入信息表征。随后，将词嵌入向量输入BERT的特征提取双向Transformer层，可以获得包含深度语义特征的特征序列表征向量。整体架构如图所示。
 
-WWM processes some words of the original sequence of exercise description text words obtained after the word separation process, and the marker [CLS] is added at the beginning of the sequence, and the inter-sentence is marked by [SEP] separator. After training, the word embedding vector is output. Each word's output embedding consists of three parts: token embedding, segment embedding, and position embedding, which characterize the word's embedding information from different perspectives. Subsequently, the word embedding vector is fed into the feature extraction bidirectional Transformer layer of BERT, and the feature sequence representation vector containing deep semantic features can be obtained. The overall architecture is shown in the \figurename{\ref{fig:ch2-bert-model}}.
+WWM processes some words of the original sequence of exercise description text words obtained after the word separation process, and the marker [CLS] is added at the beginning of the sequence, and the inter-sentence is marked by [SEP] separator. After training, the word embedding vector is output. Each word's output embedding consists of three parts: token embedding, segment embedding, and position embedding, which characterize the word's embedding information from different perspectives. Subsequently, the word embedding vector is fed into the feature extraction bidirectional Transformer layer of BERT, and the feature sequence representation vector containing deep semantic features can be obtained. The overall architecture is shown in the \figname{\ref{fig:ch2-bert-model}}.
 
 \begin{figure}[htbp!]
 	\centering
@@ -128,7 +128,7 @@ WWM processes some words of the original sequence of exercise description text w
 \subsubsection{Bidirectional LSTM Layer}
 %在解决序列化模式数据建模方面，RNN具有良好的解决能力。在本节中，任务核心是一个序列到序列(Seq2Seq)的任务，输入一个题目描述的embedding向量，输出一个包含当前训练到的信息序列。最朴素的想法就是用原始的RNN，其结构如图所示，图中\(x_t\)，\(h_t\)和\(y_t\)分别表示在时间t的输入值、隐藏值和输出值。
 
-RNNs are well equipped to solve various types of problems and tasks in serialized pattern data modeling. In this section, the core of the task is a sequence-to-sequence (Seq2Seq) task, where an embedding vector described by the topic is input and a sequence containing the currently trained information is output. The most rudimentary idea is to use the original RNN.\@ Its structure is shown in the \figurename{fig:ch2-rnn-model}, where \(x_t\), \(h_t\) and \(y_t\) denote the input, hidden and output values at time \(t\), respectively. Then, the RNN training formula can be written as~\ref{fml:rnn-train}:
+RNNs are well equipped to solve various types of problems and tasks in serialized pattern data modeling. In this section, the core of the task is a sequence-to-sequence (Seq2Seq) task, where an embedding vector described by the topic is input and a sequence containing the currently trained information is output. The most rudimentary idea is to use the original RNN.\@ Its structure is shown in the \figname{\ref{fig:ch2-rnn-model}}, where \(x_t\), \(h_t\) and \(y_t\) denote the input, hidden and output values at time \(t\), respectively. Then, the RNN training formula can be written as~\eqname{\ref{fml:rnn-train}}:
 
 \begin{align}\label{fml:rnn-train}
 	\begin{split}
@@ -146,7 +146,7 @@ RNNs are well equipped to solve various types of problems and tasks in serialize
 
 %但是，当序列较长时，就会出现长依赖性的问题。例如，对于一个序列，当前的状态依赖于离当前状态很远的一个状态，随着时间间隔的增加，RNNs学习这个状态的能力会大大降低。LSTM是作为针对RNN的这种缺陷的一种解决方案被提出来，它运用门控机制来实现长期记忆。解决RNN的梯度爆炸或梯度消失等问题。在捕捉序列信息方面也具有良好的性能。其结构如图所示，表示\(t\)时刻的一个LSTM单元内的计算细节。其中，\(\sigma\)为激活函数，\(c_t\)为单元状态表征，\(f_t\)为遗忘门控计算，\(i_t\)为输入门控计算，\(o_t\)为输出门控计算，\(h_t\)为隐藏状态表征。通过由门控控制的遗忘机制，可以有效建模对于远距离序列单元信息。
 
-However, when the sequence is long, the problem of long dependencies arises. For example, for a sequence, the current state depends on a state far away from the current state, and as the time interval increases, the ability of RNNs to learn state representation is greatly reduced. Long short-term memory (LSTM)~\cite{lstm1997}, as a solution to overcome shortcomings of RNN, which uses a gating mechanism to achieve long-term memory. It solves the problems such as gradient explosion or gradient disappearance of RNN. It also has a good performance in capturing sequence information. The general model of LSTM is like \figurename{\ref{fig:ch2-lstm-model}}, which represents the computational details within an LSTM cell at the moment of \(t\). Among them, \(\sigma\) is the activation function, \(c_t\) is the cell state representation, \(f_t\) is the forgetting gating calculation, \(i_t\) is the input gating calculation, \(o_t\) is the output gating calculation, and \(h_t\) is the hidden state representation. The forgetting mechanism controlled by gating can be effectively modeled for long-range sequential unitary information.
+However, when the sequence is long, the problem of long dependencies arises. For example, for a sequence, the current state depends on a state far away from the current state, and as the time interval increases, the ability of RNNs to learn state representation is greatly reduced. Long short-term memory (LSTM)~\cite{lstm1997}, as a solution to overcome shortcomings of RNN, which uses a gating mechanism to achieve long-term memory. It solves the problems such as gradient explosion or gradient disappearance of RNN. It also has a good performance in capturing sequence information. The general model of LSTM is like \figname{\ref{fig:ch2-lstm-model}}, which represents the computational details within an LSTM cell at the moment of \(t\). Among them, \(\sigma\) is the activation function, \(c_t\) is the cell state representation, \(f_t\) is the forgetting gating calculation, \(i_t\) is the input gating calculation, \(o_t\) is the output gating calculation, and \(h_t\) is the hidden state representation. The forgetting mechanism controlled by gating can be effectively modeled for long-range sequential unitary information.
 
 \begin{figure}[htbp!]
 	\centering
@@ -164,7 +164,7 @@ One-way LSTM also has an inherent drawback that it can only capture the sequence
 		h_t                  & =\overrightarrow{h_t}\bigoplus \overleftarrow{h_t}
 	\end{split}
 \end{align}
-The Bi-LSTM Structure is like \figurename{\ref{fig:ch2-model-bilstm}}.
+The Bi-LSTM Structure is like \figname{\ref{fig:ch2-model-bilstm}}.
 
 \begin{figure}[htbp!]
 	\centering
@@ -195,13 +195,13 @@ Human attention is a mechanism for quickly screening high-value information from
 \end{figure}
 
 
-The essence of the attention mechanism is a group of key-value pairs \(<K, V>\) contained in Source \(S\), given an element of Query \(Q\), which is followed by calculating the \(Q\) similarity to each \(K\) and remembering the weight coefficients of the corresponding values \(V\). It is showed in \figurename{\ref{fig:ch2-model-attmodel}}. Then a weighted sum is performed to obtain the final Attention value. It can be expressed as~\ref{fml:ch2-attention}, where \(Att\) and \(Sim\) represent attention and similarity.
+The essence of the attention mechanism is a group of key-value pairs \(<K, V>\) contained in Source \(S\), given an element of Query \(Q\), which is followed by calculating the \(Q\) similarity to each \(K\) and remembering the weight coefficients of the corresponding values \(V\). It is showed in \figname{\ref{fig:ch2-model-attmodel}}. Then a weighted sum is performed to obtain the final Attention value. It can be expressed as \eqname{\ref{fml:ch2-attention}}, where \(Att\) and \(Sim\) represent attention and similarity.
 \begin{align}\label{fml:ch2-attention}
 	Att(Q,S) = \sum_{i=1}^{|S|}Sim(Q,K_i)*V_i
 \end{align}
 
 %本节的注意力机制的核心原理是计算出对句义影响最大的词，即关键语义词，它们在之后被汇总成为句义表征向量。
-Following the attention method, the encoder use Bi-LSTM and get hidden state vector \(h_t=\overrightarrow{h_t}\bigoplus \overleftarrow{h_t}\). A word attention mechanism is introduced here. The core principle of the attention mechanism in this section is to compute the words that have the greatest influence on sentence meaning, i.e., the key semantic words, which are later aggregated into a vector of sentence meaning representations. The formula is~\ref{fml:ch2-att2}, where \(u_t\) is the hidden representation of \(h_t\), \(r\) is the output text vector, and the \(u_\omega \) is the similarity of the text vector of word aspect. By measuring the similarity between \(u_t\) and \(u_\omega \) as the importance of the word, and using the softmax function to calculate normalization and to obtain the importance weight \(\alpha_{t}\). Finally, the entire text is transformed to word representation based on semantic contribution weights.
+Following the attention method, the encoder use Bi-LSTM and get hidden state vector \(h_t=\overrightarrow{h_t}\bigoplus \overleftarrow{h_t}\). A word attention mechanism is introduced here. The core principle of the attention mechanism in this section is to compute the words that have the greatest influence on sentence meaning, i.e., the key semantic words, which are later aggregated into a vector of sentence meaning representations. The formula is \eqname{\ref{fml:ch2-att2}}, where \(u_t\) is the hidden representation of \(h_t\), \(r\) is the output text vector, and the \(u_\omega \) is the similarity of the text vector of word aspect. By measuring the similarity between \(u_t\) and \(u_\omega \) as the importance of the word, and using the softmax function to calculate normalization and to obtain the importance weight \(\alpha_{t}\). Finally, the entire text is transformed to word representation based on semantic contribution weights.
 
 %
 After that, the entire text is represented as a weighted sum of word vectors. The context vector \(u_\omega \) can be regarded as a high-level representation of the fixed query ``what is the word conveying information'' and is randomly initialized as a learnable parameter in training.
@@ -220,7 +220,7 @@ After that, the entire text is represented as a weighted sum of word vectors. Th
 
 %本模型采用GCN结构的原因在于，GCN对于各个节点的参数共享使得学习到的分类器可以保留知识关联图中的关联信息，从而隐式表示其空间语义结构。因此输出的分类器可以保留和识别隐式知识标签依赖信息。 对于知识点的依赖关系参考数据关联方法挖掘算法例如apriori算法，通过计算知识点在习题中的共现度来计算其协关系矩阵。
 
-In high school mathematics, knowledge points have more complex interrelationships such as correlation, subordination, inclusion, predecessor, successor, etc. These complex interrelationships are often difficult to model in Euclidean space, or this creates data sparsity problems. The establishment of relationships between knowledge points through graph data structures is more intuitive and has better interpretability. Recalling this model's task, it gives descriptions and answers to exercises, some of which have already marked knowledge points, and uses this information to mark knowledge points for exercises that are labeled knowledge points. Considering the dependence between knowledge points, some deeply hidden knowledge points that cannot be represented in shallow features can also be correctly labeled by the graph neural network output classifier. In this model, a GCN is used to learn and form the knowledge point connection graph, and each knowledge point corresponds to a node on the graph. After multiple graph convolution calculations, a series of classifiers are generated. These classifiers respectively act on the text vector generated by the text mining module. Each classifier outputs a value representing the probability that the knowledge point is associated with the exercise. Its overall structure is shown in the \figurename{\ref{fig:ch2-gcn-ov}}.
+In high school mathematics, knowledge points have more complex interrelationships such as correlation, subordination, inclusion, predecessor, successor, etc. These complex interrelationships are often difficult to model in Euclidean space, or this creates data sparsity problems. The establishment of relationships between knowledge points through graph data structures is more intuitive and has better interpretability. Recalling this model's task, it gives descriptions and answers to exercises, some of which have already marked knowledge points, and uses this information to mark knowledge points for exercises that are labeled knowledge points. Considering the dependence between knowledge points, some deeply hidden knowledge points that cannot be represented in shallow features can also be correctly labeled by the graph neural network output classifier. In this model, a GCN is used to learn and form the knowledge point connection graph, and each knowledge point corresponds to a node on the graph. After multiple graph convolution calculations, a series of classifiers are generated. These classifiers respectively act on the text vector generated by the text mining module. Each classifier outputs a value representing the probability that the knowledge point is associated with the exercise. Its overall structure is shown in the \figname{\ref{fig:ch2-gcn-ov}}.
 
 \begin{figure}[htbp!]
 	\centering
@@ -236,7 +236,7 @@ In high school mathematics, knowledge points have more complex interrelationship
 In the real world, many important data sets generate connections as networks that form graph-like structures. Several papers reviewed this problem and attempted to generalize neural networks and apply them to arbitrary graph-structured data~\cite{wu2018socialgcn, dettmers2018convolutional}. The GCN~\cite{kipf2016semi} is used to process non-Euclidean spatial data that are difficult to learn by traditional convolutional neural networks. It is defined on a graph structure \(G=(V, E)\), where \(V\) is the denote of vertex and \(E\) is the denote of edge inside the graph. The input of GCN \(X = H^{(0)}\) is the first layer of GCN. The ith layer is denoted as \(H^{(i)}\), and \(H^{(i)}\in \mathbb{R}^{N^{(v)}\times d_{i}}\), where \(N^{(v)}\) is the denote of number of vertexes and \(d_{i}\) is the number of dimension of each vertex of layer \(i\). The output layer \(Z = H^{(L)}\) where L is the number of layers in GCN\@. Also, the GCN has another adjacency matrix \(A\) of dimension \(N^{(v)}\times N^{(v)}\) used to describe the graph structure.
 
 %图卷积的学习的核心是传播，即每个节点都会传播信息给邻接的节点。每一层的传播都会被聚合起来形成下一层。GCN的第\(i-1\)层\(H^{i-1}\)到第\(i\)层\(H^i\)转换可以写作公式\ref{fml:ch2-gcnlayer}，其中f为特定的传播方式，例如所有的节点将自身的值均匀扩散给邻接节点。
-The core of graph convolutional learning is propagation, i.e., each node propagates information to neighboring nodes. The propagation of each layer is aggregated to form the next layer. The \(i-1\) layer \(H^{(i)}\in \mathbb{R}^{N^{(v)}\times d_v}\) to layer \(H^{(i+1)}\) transformation of GCN can be written in the formula~\ref{fml:ch2-gcnlayer}, where \(f(\cdot)\) is a specific propagation method, e.g. all nodes spread their own values uniformly to neighboring nodes.
+The core of graph convolutional learning is propagation, i.e., each node propagates information to neighboring nodes. The propagation of each layer is aggregated to form the next layer. The \(i-1\) layer \(H^{(i)}\in \mathbb{R}^{N^{(v)}\times d_v}\) to layer \(H^{(i+1)}\) transformation of GCN can be written in the formula \eqname{\ref{fml:ch2-gcnlayer}}, where \(f(\cdot)\) is a specific propagation method, e.g. all nodes spread their own values uniformly to neighboring nodes.
 
 \begin{align}
 	\begin{split}
@@ -250,7 +250,7 @@ A correlation matrix can represent the relationship between knowledge points, i.
 
 %本节中GCN的节点传播方式为\ref{fml:ch2-gcn2}，其中\(\tilde{A}\)为\(A\in \mathbb{R}^{N^{(v)}\times N^{(v)}}\)的正则化。\(h\)为非线性激活函数，这里选用LeakyReLU~\cite{maas2013rectifier}。需要学习的参数矩阵\(W^{(i)}\in \mathbb{R}^{d_{i}\times d_{i+1}}\)可以通过习题知识点的统计关系来计算。
 
-The node propagation of GCN in this section is~\ref{fml:ch2-gcn2}, where \(\widehat{A}\) is the normalization form of \(A\in \mathbb{R}^{N^{(v)}\times N^{(v)}}\). The \(h(\cdot)\) is the nonlinear activation function LeakyReLU~\cite{maas2013rectifier}. The parameter matrix \(W^{(i)}\in \mathbb{R}^{d_{i}\times d_{i+1}}\) to be learned can be calculated by the statistical relations of the exercise knowledge points. The training process of Proposed is shown in \figurename{\ref{fig:ch2-gcn-explain}}.
+The node propagation of GCN in this section is~\eqname{\ref{fml:ch2-gcn2}}, where \(\widehat{A}\) is the normalization form of \(A\in \mathbb{R}^{N^{(v)}\times N^{(v)}}\). The \(h(\cdot)\) is the nonlinear activation function LeakyReLU~\cite{maas2013rectifier}. The parameter matrix \(W^{(i)}\in \mathbb{R}^{d_{i}\times d_{i+1}}\) to be learned can be calculated by the statistical relations of the exercise knowledge points. The training process of Proposed is shown in \figname{\ref{fig:ch2-gcn-explain}}.
 \begin{align}
 	\begin{split}
 		H^{(i+1)} = f(\tilde{A}H^{(i)}W^{(i)})\label{fml:ch2-gcn2}
@@ -281,7 +281,7 @@ In this model, only the knowledge pairwise relationship needs to be found. There
 
 Similar to calculating Support, the frequency matrix \(E\in \mathbb{R}^{N^{(k)}\times N^{(k)}}\) of the sample knowledge point label pairs in the exercise training set can be calculated here. The \(M_{ij}\) represents the amount of co-occurrence between the knowledge point \(i\) and the knowledge point \(j\) in an exercise reference. Similarly, the knowledge point pair can be calculated by calculating Confidence to calculate the conditional probability matrix \(P\), where \(P_{ij}=P(\mathcal{L}_i, \mathcal{L}_j)/P(\mathcal{L}_j)\), where \(P_{ij}=P(\mathcal{L}_i, \mathcal{L}_j)/P(\mathcal{L}_j)\) means the situation when the knowledge point \(j\) appears The conditional probability of the occurrence of the following knowledge point \(i\).
 
-It is a simple solution to directly set \(P\) as the incidence matrix \(A\), but in actual situations, some comprehensive questions in the exercise set contain practically unrelated knowledge points, but these situations are relatively rare. In order to exclude the interference of accidental circumstances, a minimum knowledge confidence threshold can be set. When \(P_{ij}\) is greater than the given threshold \(\tau^{(k)} \)， naming activating value, then \(A_{ij}\) is set to \(P_{ij}\), Otherwise \(A_{ij}\) is set to 0. The formula is like~\ref{fml:confidence}.
+It is a simple solution to directly set \(P\) as the incidence matrix \(A\), but in actual situations, some comprehensive questions in the exercise set contain practically unrelated knowledge points, but these situations are relatively rare. In order to exclude the interference of accidental circumstances, a minimum knowledge confidence threshold can be set. When \(P_{ij}\) is greater than the given threshold \(\tau^{(k)} \)， naming activating value, then \(A_{ij}\) is set to \(P_{ij}\), Otherwise \(A_{ij}\) is set to 0. The formula is like \eqname{\ref{fml:confidence}}.
 
 \begin{align}
 	A_{ij}=\{\begin{array}{ll}
@@ -300,7 +300,7 @@ This model adopts the GCN structure because the parameter sharing of GCN for eac
 
 %在所提出的基于GCN的模型中，知识点标签用词嵌入来表示。知识点集 \(K={k_1,k_2,\ldots,k_T} \)，其中 \(T\)为知识点的总数。对于每一个单个知识点来说\(k_i\)，\(k_i \in mathbb{R}^{Ttimes d^{(k)}})，\(d^{(k)})是知识点对象的嵌入向量的维度。本文采用可学习的堆栈式GCN网络将这些知识点对象逐一转化为内部连接的知识点对象分类器\(C=[c_1,c_2,\ldots,c_n]\)，其中\(c_iin\mathbb {R}^{Ttimes d^{(r)}}\)，\(d^{(r)}\)是文本挖掘模块输出的文本表示向量\(r\)的维度。这些分类器和\(r\)可以用来计算每个标签的点积。
 
-In this thesis, a learnable stacked GCN-based model is proposed. The knowledge point labels are represented by knowledge label word embedding. Knowledge point set \(K=\{k_1,k_2,\ldots,k_{N^{(k)}}\} \), where \(N^{(k)}\) denotes the amount of knowledge points. For each single knowledge point \(k_i\), it is constrained that \(k_i \in \mathbb{R}^ {d^{(k)}}\), in which \(d^{(k)}\) is the dimensionality of the embedding vector of knowledge point object. The knowledge label word embedding set is the input of GCN, i.e., \(X = K\). The GCN is used to transform these knowledge point objects one by one into an internally connected knowledge point object classifier \(C=[c_1,c_2,\ldots,c_{N^{(k)}}\), where \(c_i \in \mathbb {R}^{d^{(r)}}\), \(d^{(r)}\) is the dimensionality of the text representation vector \(r\) output by the text mining module. These classifiers and \(r\) can be used to calculate the dot product of each label. The structure overview is proposed in \figurename{\ref{fig:ch2-gcn-clsgen}}.
+In this thesis, a learnable stacked GCN-based model is proposed. The knowledge point labels are represented by knowledge label word embedding. Knowledge point set \(K=\{k_1,k_2,\ldots,k_{N^{(k)}}\} \), where \(N^{(k)}\) denotes the amount of knowledge points. For each single knowledge point \(k_i\), it is constrained that \(k_i \in \mathbb{R}^ {d^{(k)}}\), in which \(d^{(k)}\) is the dimensionality of the embedding vector of knowledge point object. The knowledge label word embedding set is the input of GCN, i.e., \(X = K\). The GCN is used to transform these knowledge point objects one by one into an internally connected knowledge point object classifier \(C=[c_1,c_2,\ldots,c_{N^{(k)}}\), where \(c_i \in \mathbb {R}^{d^{(r)}}\), \(d^{(r)}\) is the dimensionality of the text representation vector \(r\) output by the text mining module. These classifiers and \(r\) can be used to calculate the dot product of each label. The structure overview is proposed in \figname{\ref{fig:ch2-gcn-clsgen}}.
 
 \begin{figure}[htbp!]
 	\centering
@@ -329,7 +329,7 @@ This chapter proposes a multi-label labeling model for exercise knowledge points
 The experimental data comes from the labeled college entrance examination math test questions and simulation questions (including answer analysis) on the online website. The text corpus, such as question stems and answer analysis, are crawled through crawlers. Part of the knowledge point association model can be expressed as the following structure.
 
 
-The data set has been filtered and manually selected. There are 3374 test questions, including 148 knowledge points, with an average of 1.7 knowledge points. The distribution of several knowledge points is shown in the \figurename{\ref{fig:ch2-model-knowledgenet}}.
+The data set has been filtered and manually selected. There are 3374 test questions, including 148 knowledge points, with an average of 1.7 knowledge points. The distribution of several knowledge points is shown in the \figname{\ref{fig:ch2-model-knowledgenet}}.
 \begin{figure}[htbp!]
 	\centering
 	\includegraphics[width=1.0\textwidth]{ch2-model-knowledgenet.pdf}
@@ -337,7 +337,7 @@ The data set has been filtered and manually selected. There are 3374 test questi
 \end{figure}
 
 %该数据集的习题知识点数目分布如图所示。
-The distribution of the number of exercise knowledge points in this data set is shown in the \figurename{\ref{ch2-fig14}}.
+The distribution of the number of exercise knowledge points in this data set is shown in the \figname{\ref{ch2-fig14}}.
 \begin{figure}[htbp!]
 	\centering
 	\begin{subfigure}[b]{0.475\textwidth}
@@ -372,7 +372,7 @@ Compared with traditional learning problems, it is tough to label multi-label da
 
 Regarding multi-label classification, considering the relationship between the exercises' labels, this article uses label-based indicators for model evaluation. The indicator calculates the confusion matrix indicator for each label to calculate the sample values of True Positive (TP), False Positive (FP), True Negative (TN), and False Negative (FN). Then calculate the macro-F1 and micro-F1 metrics for multi-label tagging model performance evaluation.
 
-According to the metrics proposed by Zhou et al.~\cite{zhang2013review}, for the jth label of the ith example in the \(n\) examples, shown in the formula~\ref{fml:mlcm}.
+According to the metrics proposed by Zhou et al.~\cite{zhang2013review}, for the jth label of the ith example in the \(n\) examples, shown in the \eqname{\ref{fml:mlcm}}.
 
 \begin{align}\label{fml:mlcm}
 	\begin{split}
@@ -387,7 +387,7 @@ where \(x_i\) and \(\mathcal{L}_j\) represent the i-th exercise and j-th label, 
 
 %在混淆矩阵中，Precision为预测正确的正例数据占预测为正例数据的比例，Recall为预测为正例的数据占实际为正例数据的比例。F1值是精确率和召回率的调和均值，它是精确率和召回率的综合评价指标。其计算公式如下：
 
-In the confusion matrix, Precision \(\operatorname{P}\) is the proportion of data with correct predictions to the data that is predicted to be positive, and Recall \(\operatorname{R}\) is the proportions of data with predictions that are positive to the actual data. \(\operatorname{F1}\) value is the harmonic mean value of precision rate and recall rate, and it is a comprehensive evaluation index of precision rate and recall rate. The calculation formula is as~\ref{fml:f1score}:
+In the confusion matrix, Precision \(\operatorname{P}\) is the proportion of data with correct predictions to the data that is predicted to be positive, and Recall \(\operatorname{R}\) is the proportions of data with predictions that are positive to the actual data. \(\operatorname{F1}\) value is the harmonic mean value of precision rate and recall rate, and it is a comprehensive evaluation index of precision rate and recall rate. The calculation formula is as \eqname{\ref{fml:f1score}}:
 
 \begin{align}\label{fml:f1score}
 	\begin{split}
@@ -399,7 +399,7 @@ In the confusion matrix, Precision \(\operatorname{P}\) is the proportion of dat
 
 
 %micro F1 通过先计算总体的TP，FN和FP的数量，再计算F1， 而macro F1 分别计算每个类别的F1，然后做平均（各类别F1的权重相同）
-Similarly, for the multi-label tagging problem, Macro F1 and Micro F1 can be used as the metrics. Micro-F1 first calculates the total number of TP, FN, and FP, and then calculates F1, while Macro-F1 calculates the F1 of each category separately and then averages (the weight of each category F1 is the same). The formula is~\ref{fml:f1-macro} and~\ref{fml:f1-micro}.
+Similarly, for the multi-label tagging problem, Macro F1 and Micro F1 can be used as the metrics. Micro-F1 first calculates the total number of TP, FN, and FP, and then calculates F1, while Macro-F1 calculates the F1 of each category separately and then averages (the weight of each category F1 is the same). The formula is \eqname{\ref{fml:f1-macro}} and \eqname{\ref{fml:f1-micro}}.
 \begin{align}
 	\operatorname{F1}_{macro} & =\frac{1}{c} \sum_{j=1}^{c} \operatorname{F1}_{score}(\operatorname{TP}_{j}, \operatorname{FP}_{j}, \operatorname{TN}_{j}, \operatorname{FN}_{j}) \label{fml:f1-macro}                                  \\
 	\operatorname{F1}_{micro} & =\operatorname{F1}_{score}(\sum_{j=1}^{c} \operatorname{TP}_{j}, \sum_{j=1}^{c} \operatorname{FP}_{j}, \sum_{j=1}^{c} \operatorname{TN}_{j}, \sum_{j=1}^{c} \operatorname{FN}_{j}) \label{fml:f1-micro}
@@ -407,7 +407,7 @@ Similarly, for the multi-label tagging problem, Macro F1 and Micro F1 can be use
 Where \(c\) is the total number of labels.
 
 % 同样的，我们也可以基于样本统计一些指标。例如准确率，海明损失，查全率和F1值。准确率即预测标签完全正确的样本占总体样本的比例，海明损失为预测标签与真是标签的差距的度量指标，Precision和Recall分别代表真阳性样本占真样本的比例和真阳性样本占阳性样本的比例。它 们的计算公式为
-Similarly, the statistic of some indicators based on samples can be obtained. For example, the multi-label accuracy rate \(\operatorname{Acc}_{ML}\), Hamming loss \(\operatorname{HmLoss}\), multi-label precision rate \(\operatorname{Precision_{ML}}\), multi-label recall rate \(\operatorname{Recall_{ML}}\) and \(\operatorname{F1}_{ML}\) can be calculated. Accuracy is the proportion of samples with completely correct predicted labels in the overall sample. Hamming loss is a measure of the difference between the predicted label and the true label. Precision and Recall represent the proportion of true positive samples in true samples and the proportion of true positive samples in positive samples proportion. Their calculation formula is~\ref{fml:subaccuracy}-\ref{fml:f1scoreh}.
+Similarly, the statistic of some indicators based on samples can be obtained. For example, the multi-label accuracy rate \(\operatorname{Acc}_{ML}\), Hamming loss \(\operatorname{HmLoss}\), multi-label precision rate \(\operatorname{Precision_{ML}}\), multi-label recall rate \(\operatorname{Recall_{ML}}\) and \(\operatorname{F1}_{ML}\) can be calculated. Accuracy is the proportion of samples with completely correct predicted labels in the overall sample. Hamming loss is a measure of the difference between the predicted label and the true label. Precision and Recall represent the proportion of true positive samples in true samples and the proportion of true positive samples in positive samples proportion. Their calculation formulas are \eqname{\ref{fml:subaccuracy}}-{\ref{fml:f1scoreh}}.
 \begin{align}
 	\operatorname{Acc}_{ML}       & =\frac{1}{n} |\{i|Y_i=\tilde{Y}_i\}| \label{fml:subaccuracy}                                                                              \\
 	\operatorname{HmLoss}         & =\frac{1}{n} \sum_{i=1}^{n} \frac{\operatorname{XOR}(Y_i,\tilde{Y}_i)}{c} \label{fml:hmloss}                                              \\
@@ -437,7 +437,7 @@ In the experiment, five sets of thresholds of 200, 150, 100, 50, 10 are set \(\t
 	\end{tabular}
 \end{table}
 
-The running environment are shown in Table~{\ref{tbl:ch2-exp-env}}.
+The running environment are shown in \tblname{{\ref{tbl:ch2-exp-env}}}.
 
 \begin{table}[htbp!]
 	\caption{Experiment running environment}\label{tbl:ch2-exp-env}
@@ -462,7 +462,7 @@ The running environment are shown in Table~{\ref{tbl:ch2-exp-env}}.
 \end{table}
 
 
-There are many adjustable parameters of the model in BERT and GCN\@. Hyperparameters are shown in Table~\ref{tbl:ch2-hpsetting}.
+There are many adjustable parameters of the model in BERT and GCN\@. Hyperparameters are shown in \tblname{\ref{tbl:ch2-hpsetting}}.
 \begin{table}[htbp!]
 	\caption{Hyperparameter settings of recommendation model}\label{tbl:ch2-hpsetting}
 	\centering
@@ -518,7 +518,7 @@ There are many adjustable parameters of the model in BERT and GCN\@. Hyperparame
 % 	\end{tabular}
 % \end{table}
 
-The comparison experiment results are divided into the performance comparison of the horizontal baseline model (obtained in Table~\ref{tbl:bsline1}-\ref{tbl:bsline4}).
+The comparison experiment results are divided into the performance comparison of the horizontal baseline model (obtained in \tblname{\ref{tbl:bsline1}}-\ref{tbl:bsline4}).
 
 \begin{table}[htbp!]
 	\caption{Result comparison (\(\tau^{(KP)}=200 \))}\label{tbl:bsline1}

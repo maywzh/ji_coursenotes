@@ -39,7 +39,7 @@ The overview of the entire model is as follows：
   \item Ranking: The purpose of this part is to apply the knowledge tracing recommendation model to the candidate recommended exercise set generated in the previous matching stage, sort the exercise recommendation degree according to the prediction of the exercise answer, and generate a final exercise recommendation list.
 \end{enumerate}
 
-The structure of the recommendation system is like \figurename{\ref{fig:ch4-model-architecture}}
+The structure of the recommendation system is like \figname{\ref{fig:ch4-model-architecture}}
 
 \begin{figure}[htbp!]
   \centering
@@ -58,7 +58,7 @@ The first stage of this recommendation model is matching. The purpose of the mat
 
 With different matching strategies, the corresponding recommendation focuses are also different. On the one hand, different matching strategies will lead to different recommendation results and ignore part of the recommendation results. For example, if the most popular exercises are emphasized, the exercises with the most individuals' records will be regarded as the matching results. If the exercises that are prone to errors are emphasized, errors will be regarded as the matching result. The exercises with a higher rate are used as the matching result. If the recommendation based on the same interest is emphasized, collaborative filtering will be used as the matching result. Adopting a certain matching strategy alone often has certain drawbacks. For example, using popularity as a matching strategy will make unpopular exercises almost impossible to be matched, resulting in an imbalance in the recommendation probability, while using the mistaken rate as a matching strategy will fail to match all students' knowledge mastery proficiency. Therefore, a single matching strategy will lose a lot of recommendation information. On the other hand, when designing the matching layer, the two indicators of ``calculation speed'' and ``matching rate'' are contradictory. The matching strategy needs to be simplified as much as possible when the calculation speed is increased. As a result, the matching rate is unsatisfactory. Similarly, when the matching rate needs to be improved, a complex matching strategy is required. Accordingly, the calculation speed will definitely be reduced. After weighing the two, the current industry generally adopts a "multiplex matching strategy" in which multiple simple matching strategies are superimposed. The "multiplex matching strategy" refers to a strategy that uses different strategies, features, or simple models to match a part of the candidate set, and then merges, filters, and other operations on these candidate sets, and then uses them for subsequent sorting models. Multiplex matching integrates multiple matching strategies and combines the advantages of each matching strategy. In multiplex matching, each strategy is irrelevant. Accordingly, it is generally possible to write multiple concurrent threads at the same time. In the actual production environment, the node cluster can be used for multi-threaded matching operations, which has the prospect of large-scale commercial applications.
 
-This section proposes a multiplex exercise recommendation item matching model. The model uses multiple matching strategies based on popularity, user interest, expert recommendation exercises, error-prone questions, user error question sets, and collaborative filtering as sub-matching strategies. Matching strategies are based on learnable parameters to control the weight of the matching strategy. After all matching strategies have returned to the sub-matching exercise set, the exercises are merged and filtered through the weighted merging algorithm. Its structure is shown in~\figurename{\ref{fig:ch4-matching}}.
+This section proposes a multiplex exercise recommendation item matching model. The model uses multiple matching strategies based on popularity, user interest, expert recommendation exercises, error-prone questions, user error question sets, and collaborative filtering as sub-matching strategies. Matching strategies are based on learnable parameters to control the weight of the matching strategy. After all matching strategies have returned to the sub-matching exercise set, the exercises are merged and filtered through the weighted merging algorithm. Its structure is shown in~\figname{\ref{fig:ch4-matching}}.
 
 \begin{figure}[htbp!]
   \centering
@@ -90,7 +90,7 @@ After the similarity of students is obtained, a similarity threshold \(\tau^{sim
   \mathbf{U}_{sim} & =\{i|sim(u,i)>\tau^{simuser}\}  \label{fml:ch4-simuserset}
 \end{align}
 
-The general algorithm is as~\ref{alg:ch4-CF}:
+The general algorithm is as \algoname{\ref{alg:ch4-CF}}:
 \begin{algorithm}[htbp!]
   \caption{Student-exercise collaborative filtering algorithm}\label{alg:ch4-CF}
   \begin{algorithmic}
@@ -170,7 +170,7 @@ After multi-channel matching merging settlement, a candidate exercises set \(\ma
 
 After the exercise set's recommended matching stage, a candidate set of exercises is obtained, which contains exercises selected from various matching strategies. Based on the knowledge tracing model proposed in the previous chapter, this section proposes a method for recommending and sorting exercises based on knowledge state prediction.
 
-The knowledge tracing model outputs a prediction of the correct probability of answering the exercises. Since the purpose of exercise recommendation is to strengthen students' proficiency for unfamiliar and relatively low-level knowledge points, the recommended exercises should be made as far as possible to allow students to answer incorrectly. Otherwise, it will not be able to have the effect of checking for missing knowledge points. In the knowledge tracing model, at the interaction time \(t\), the student's knowledge state representation vector \(h_t\) can be obtained. In order to rank the degree of the recommendation of exercises, all exercises in the recommended candidate set of exercises \(\mathbf{E}^{(Candidate)}\) should be input into the knowledge tracing model to predict the answers to the exercises. Make the recommended list of some of the most error-prone exercises. Its structure is shown in the \figurename{\ref{fig:ch4-model-ranking}}.
+The knowledge tracing model outputs a prediction of the correct probability of answering the exercises. Since the purpose of exercise recommendation is to strengthen students' proficiency for unfamiliar and relatively low-level knowledge points, the recommended exercises should be made as far as possible to allow students to answer incorrectly. Otherwise, it will not be able to have the effect of checking for missing knowledge points. In the knowledge tracing model, at the interaction time \(t\), the student's knowledge state representation vector \(h_t\) can be obtained. In order to rank the degree of the recommendation of exercises, all exercises in the recommended candidate set of exercises \(\mathbf{E}^{(Candidate)}\) should be input into the knowledge tracing model to predict the answers to the exercises. Make the recommended list of some of the most error-prone exercises. Its structure is shown in the \figname{\ref{fig:ch4-model-ranking}}.
 
 \begin{figure}[htbp!]
   \centering
@@ -182,7 +182,7 @@ The knowledge tracing model outputs a prediction of the correct probability of a
 
 The last step of the model is to input the candidate's exercises into the knowledge tracing model to get the predicted value, that is, the probability of answering the exercises correctly. Sort them in ascending order, and filter out the top \(K_{Rank}\) items as a list of recommended exercises. \(K_{Rank}\) is an adjustable hyperparameter, which has a more significant impact on the recommendation result and determines whether an exercise will appear in the final recommendation list. When \(K_{Rank}\) is larger, the recommended accuracy rate will be higher, but the recommendation efficiency will be reduced. In practical applications, students' knowledge mastery level and practical application scenarios should be considered comprehensively, and a reasonable value of \(K_{Rank}\) should be set.
 
-The general algorithm is as~\ref{alg:ch4-Rank}:
+The general algorithm is as \algoname{\ref{alg:ch4-Rank}}:
 \begin{algorithm}[htbp!]
   \caption{Recommendation ranking algorithm}\label{alg:ch4-Rank}
   \begin{algorithmic}
@@ -212,10 +212,10 @@ The original data set is a fixed sequence of question-answering interaction. To 
 
 %本文的运行在环境如下表所示。在本实验的配置中，选择75\%的交互记录作为训练集，另外25\%作为测试数据。测试运行5次取平均值。实验取了三种不同的\(\tau \)作为习题正确率判断阈值。在推荐模型的召回阶段和排序阶段选取的超参数如表所示。
 
-The running environment of this article is shown in Table~\ref{table:ch4-exp-env}. In this experiment's configuration, 75\% of the interaction records are selected as the training set and the remaining 25\% as the test dataset. Run the model 5 times and take the average. The hyperparameter settings of the recommendation model are shown in Table~\ref{table:ch4-hpsetting}. In the ranking stage, parameter \(N\) represents the number of Transformer stacking blocks in the knowledge tracing model, and \(d\) represents the sub-layer output's dimension.
+The running environment of this article is shown in \tblname{\ref{tbl:ch4-exp-env}}. In this experiment's configuration, 75\% of the interaction records are selected as the training set and the remaining 25\% as the test dataset. Run the model 5 times and take the average. The hyperparameter settings of the recommendation model are shown in \tblname{\ref{tbl:ch4-hpsetting}}. In the ranking stage, parameter \(N\) represents the number of Transformer stacking blocks in the knowledge tracing model, and \(d\) represents the sub-layer output's dimension.
 
 \begin{table}[htbp!]
-  \caption{Experiment running environment}\label{table:ch4-exp-env}
+  \caption{Experiment running environment}\label{tbl:ch4-exp-env}
   \centering
   \begin{tabular}{l c}
     \toprule
@@ -237,7 +237,7 @@ The running environment of this article is shown in Table~\ref{table:ch4-exp-env
 \end{table}
 
 \begin{table}[htbp!]
-  \caption{Hyperparameter settings of recommendation model}\label{table:ch4-hpsetting}
+  \caption{Hyperparameter settings of recommendation model}\label{tbl:ch4-hpsetting}
   \centering
   \begin{tabular}{l c c}
     \toprule
@@ -304,9 +304,9 @@ The goal of the recommendation model proposed in this section is to present the 
 Where \(\tau \) is an adjustable hyperparameter, this is a classification problem, so the Receiver Operator Characteristic Curve (ROC) curve can be used to determine the performance of the recommendation system. Then, (Area Under Curve) AUC and Accuracy (ACC) metrics can be used to determine the performance of the model.
 
 \subsection{Result and Analysis}
-Five different \(\tau \) (0.45, 0.5, 0.55) are applied as the threshold for judging the predicting correctness of the exercises. The result is shown in \tblname{\ref{table:ch4-exp-result}}. %~\ref{table:ch4-exp-result}.
+Five different \(\tau \) (0.45, 0.5, 0.55) are applied as the threshold for judging the predicting correctness of the exercises. The result is shown in \tblname{\ref{tbl:ch4-exp-result}}. %~\ref{tbl:ch4-exp-result}.
 \begin{table}[htbp!]
-  \caption{Recommendation experiment result}\label{table:ch4-exp-result}
+  \caption{Recommendation experiment result}\label{tbl:ch4-exp-result}
   \centering
   \begin{tabular}{c c c}
     \toprule
