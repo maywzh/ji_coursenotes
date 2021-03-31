@@ -13,15 +13,19 @@ https://docs.djangoproject.com/en/dev/ref/settings/
 """
 
 import os
+from django.conf import global_settings
 from kombu import Exchange, Queue
+from rest_framework import ISO_8601
 
 from . import local_settings as ls
 from .local_settings import *  # NOQA
 from .constance import CONSTANCE_CONFIG  # NOQA
 from .celery_annotations import celery_annotations_dict
 
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/dev/howto/deployment/checklist/
@@ -30,18 +34,19 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 DEBUG = os.environ.get('IS_DEBUG', '1') != '0'
 
-ALLOWED_HOSTS = [
-    '*',
-]
+ALLOWED_HOSTS = ['*', ]
 
-REDIS_CACHE_URL = 'redis://%s%s@%s:%s/%d' % (':' if ls.REDIS_PASSWORD else '',
-                                             ls.REDIS_PASSWORD, ls.REDIS_HOST,
-                                             ls.REDIS_PORT, ls.REDIS_CACHE_DB)
+REDIS_CACHE_URL = 'redis://%s%s@%s:%s/%d' % (
+    ':' if ls.REDIS_PASSWORD else '',
+    ls.REDIS_PASSWORD,
+    ls.REDIS_HOST,
+    ls.REDIS_PORT,
+    ls.REDIS_CACHE_DB)
+
 
 # Application definition
 
 INSTALLED_APPS = [
-    'grappelli',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -51,8 +56,7 @@ INSTALLED_APPS = [
     'channels',
     'rest_framework',
     'constance',
-    'import_export',
-    'apiview',
+    'cool',
     'apps.wechat',
     'apps.meetings',
 ]
@@ -61,11 +65,9 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'apiview.middlewares.RequestCompatMiddleware',
 ]
 
 SESSION_ENGINE = "redis_sessions.session"
@@ -100,19 +102,22 @@ CACHES = {
     },
 }
 
-WSGI_APPLICATION = 'meeting.wsgi.application'
 
-CHANNELS_WS_PROTOCOLS = "apiview"
+WSGI_APPLICATION = 'meeting.wsgi.application'
+ASGI_APPLICATION = "meeting.routing.application"
 
 CHANNEL_LAYERS = {
     "default": {
-        "ROUTING": "meeting.routing.channel_routing",
-        "BACKEND": "asgi_redis.RedisChannelLayer",
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
         "CONFIG": {
             "hosts": [
-                'redis://%s%s@%s:%s/%d' %
-                (':' if ls.REDIS_PASSWORD else '', ls.REDIS_PASSWORD,
-                 ls.REDIS_HOST, ls.REDIS_PORT, ls.REDIS_CHANNEL_DB)
+                'redis://%s%s@%s:%s/%d' % (
+                    ':' if ls.REDIS_PASSWORD else '',
+                    ls.REDIS_PASSWORD,
+                    ls.REDIS_HOST,
+                    ls.REDIS_PORT,
+                    ls.REDIS_CHANNEL_DB
+                )
             ]
         }
     },
@@ -144,20 +149,16 @@ DATABASES = {
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME':
-        'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
     },
     {
-        'NAME':
-        'django.contrib.auth.password_validation.MinimumLengthValidator',
+        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
     },
     {
-        'NAME':
-        'django.contrib.auth.password_validation.CommonPasswordValidator',
+        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
     },
     {
-        'NAME':
-        'django.contrib.auth.password_validation.NumericPasswordValidator',
+        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
 
@@ -169,7 +170,7 @@ AUTHENTICATION_BACKENDS = (
 # Internationalization
 # https://docs.djangoproject.com/en/dev/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'zh-hans'
 
 TIME_ZONE = 'Asia/Shanghai'
 
@@ -179,10 +180,10 @@ USE_L10N = True
 
 USE_TZ = True
 
-KILL_CSRF = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/dev/howto/static-files/
+
 
 CONSTANCE_BACKEND = 'constance.backends.redisd.RedisBackend'
 
@@ -199,8 +200,9 @@ TIME_FORMAT = '%H:%M:%S'
 DATETIME_FORMAT = DATE_FORMAT + ' ' + TIME_FORMAT
 
 REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES':
-    ('rest_framework.authentication.SessionAuthentication', ),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'core.authentication.SessionAuthenticationWithOutCSRF',
+    ),
     'DEFAULT_PARSER_CLASSES': [
         'rest_framework.parsers.FormParser',
         'rest_framework.parsers.MultiPartParser',
@@ -209,22 +211,22 @@ REST_FRAMEWORK = {
     ],
     'DEFAULT_RENDERER_CLASSES': [
         'rest_framework.renderers.JSONRenderer',
-        'apiview.renderers.JSONPRenderer',
     ],
-    'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.AllowAny', ),
-    'DATETIME_FORMAT':
-    DATETIME_FORMAT,
-    'TIME_FORMAT':
-    TIME_FORMAT,
-    'DATE_FORMAT':
-    DATE_FORMAT,
+    'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.AllowAny',),
+    'DATE_FORMAT': DATE_FORMAT,
+    'DATE_INPUT_FORMATS': [ISO_8601] + global_settings.DATE_INPUT_FORMATS,
+
+    'DATETIME_FORMAT': DATETIME_FORMAT,
+    'DATETIME_INPUT_FORMATS': [ISO_8601] + global_settings.DATETIME_INPUT_FORMATS,
+
+    'TIME_FORMAT': TIME_FORMAT,
+    'TIME_INPUT_FORMATS': [ISO_8601] + global_settings.TIME_INPUT_FORMATS,
 }
 
 if DEBUG:
-    REST_FRAMEWORK['DEFAULT_RENDERER_CLASSES'].append(
-        'apiview.renderers.BrowsableAPIRenderer')
+    REST_FRAMEWORK['DEFAULT_RENDERER_CLASSES'].append('rest_framework.renderers.BrowsableAPIRenderer')
 
-GRAPPELLI_ADMIN_TITLE = u'Admin Control Panel'
+EMAIL_SUBJECT_PREFIX = '[meeting]'
 
 ROOT_URLCONF = 'meeting.urls'
 
@@ -253,8 +255,7 @@ LOGGING = {
     'disable_existing_loggers': True,
     'formatters': {
         'standard': {
-            'format':
-            '%(asctime)s %(process)s.%(thread)s %(levelname)s %(module)s.%(funcName)s %(message)s',
+            'format': '%(asctime)s %(process)s.%(thread)s %(levelname)s %(module)s.%(funcName)s %(message)s',
             'datefmt': "%y/%m/%d %H:%M:%S",
         },
     },
@@ -273,31 +274,22 @@ LOGGING = {
     },
     'loggers': {
         'daphne': {
-            'handlers': [
-                'console',
-            ],
+            'handlers': ['console', ],
             'level': 'DEBUG',
             'propagate': True
         },
         'django': {
-            'handlers': [
-                'console',
-            ],
+            'handlers': ['console', ],
             'level': 'INFO',
             'propagate': True
         },
         'django.db': {
-            'handlers': [
-                'console',
-            ],
+            'handlers': ['console', ],
             'level': 'DEBUG',
             'propagate': False,
         },
         'django.request': {
-            'handlers': [
-                'console',
-                'mail_admins',
-            ],
+            'handlers': ['console', 'mail_admins', ],
             'level': 'ERROR',
             'propagate': False,
         },
@@ -307,17 +299,13 @@ LOGGING = {
             'propagate': False
         },
         '': {
-            'handlers': [
-                'console',
-            ],
+            'handlers': ['console', ],
             'level': 'DEBUG',
             'propagate': True
         }
     },
     'root': {
-        'handlers': [
-            'console',
-        ],
+        'handlers': ['console', ],
         'level': 'DEBUG',
         'propagate': True
     }
@@ -327,16 +315,17 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'upload')
 STATIC_ROOT = os.path.join(BASE_DIR, 'www_static')
 
-STATICFILES_FINDERS = (
-    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-    'django.contrib.staticfiles.finders.FileSystemFinder',
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static/'),
 )
-STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static/'), )
 # celery settings
 
 CELERY_BROKER_URL = 'redis://%s%s@%s:%s/%d' % (
-    ':' if ls.REDIS_PASSWORD else '', ls.REDIS_PASSWORD, ls.REDIS_HOST,
-    ls.REDIS_PORT, ls.REDIS_CELERY_DB)
+    ':' if ls.REDIS_PASSWORD else '',
+    ls.REDIS_PASSWORD,
+    ls.REDIS_HOST,
+    ls.REDIS_PORT,
+    ls.REDIS_CELERY_DB)
 
 CELERY_RESULT_BACKEND = CELERY_BROKER_URL
 
@@ -354,27 +343,30 @@ CELERY_RESULT_SERIALIZER = 'pickle'
 CELERY_ACCEPT_CONTENT = ['pickle', 'json']
 
 # 定义执行队列
-CELERY_TASK_QUEUES = (Queue('default',
-                            Exchange('default'),
-                            routing_key='default'),
-                      Queue('crontab',
-                            Exchange('crontab'),
-                            routing_key='crontab'),
-                      Queue('async', Exchange('async'), routing_key='async'))
+CELERY_TASK_QUEUES = (
+    Queue('default', Exchange('default'), routing_key='default'),
+    Queue('crontab', Exchange('crontab'), routing_key='crontab'),
+    Queue('async', Exchange('async'), routing_key='async')
+)
 
 # 制定特定任务路由到特定执行队列
 CELERY_TASK_ROUTES = {
-    'meeting.celery._async_call': {
-        'queue': 'async',
-        'routing_key': 'async'
-    },
+    'meeting.celery._async_call': {'queue': 'async', 'routing_key': 'async'},
 }
 
 CELERY_TASK_ANNOTATIONS = {'*': celery_annotations_dict}
 
-ERROR_CODE_DEFINE = (
-    ('ERR_PAGE_SIZE_ERROR', -1001, '页码大小超限'),
-    ('ERR_WECHAT_LOGIN', 10001, '需要登录'),
-    ('ERR_MEETING_ROOM_TIMEOVER', 20001, '时间已过'),
-    ('ERR_MEETING_ROOM_INUSE', 20002, '时间冲突'),
-)
+DJANGO_COOL = {
+    'API_WS_REQ_ID_NAME': 'reqid',
+    'API_EXCEPTION_DEFAULT_STATUS_CODE': 200,
+    'API_PARAM_ERROR_STATUS_CODE': 200,
+
+    'API_ERROR_CODES': (
+        ('ERR_WECHAT_LOGIN', (10001, '需要登录')),
+
+        ('ERR_MEETING_ROOM_TIMEOVER', (20001, '时间已过')),
+        ('ERR_MEETING_ROOM_INUSE', (20002, '时间冲突')),
+        ('ERR_MEETING_ROOM_NOT_FOUND', (20003, '会议室未找到')),
+        ('ERR_MEETING_NOT_FOUND', (20004, '会议室未找到')),
+    )
+}

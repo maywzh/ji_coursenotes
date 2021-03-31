@@ -11,7 +11,7 @@
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "Meeting room",
+    "navigationBarTitleText": "会议室",
     "navigationBarTextStyle": "black"
   },
   "sitemapLocation": "sitemap.json"

@@ -7,8 +7,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    tags: ["Watch", "Create", ""],
-    tabs: ["Watching", "Created"],
+    tags: ["关注", "创建", ""],
+    tabs: ["我关注的", "我创建的"],
     activeIndex: 0,
     rooms: [null, null, null],
     shareSelect: []
@@ -20,9 +20,9 @@ Page({
         this.data.rooms[0] = res
         this.data.rooms[2] = []
         let ids = []
-        for (let index in [0, 1]) {
-          for (let i in this.data.rooms[index]) {
-            if (ids.indexOf(this.data.rooms[index][i].id) < 0) {
+        for(let index in [0,1]){
+          for (let i in this.data.rooms[index]){
+            if (ids.indexOf(this.data.rooms[index][i].id) < 0){
               ids.push(this.data.rooms[index][i].id)
               this.data.rooms[index][i].checked = false
               this.data.rooms[2].push(this.data.rooms[index][i])
@@ -31,28 +31,28 @@ Page({
         }
         let setdata = {
           rooms: this.data.rooms,
-          tabs: ["Watching", "Created"]
+          tabs: ["我关注的", "我创建的"]
         }
-        if (this.data.rooms[2].length > 1) {
-          setdata.tabs.push("Share all")
-        } else if (this.data.activeIndex == 2) {
+        if (this.data.rooms[2].length > 1){
+          setdata.tabs.push("批量分享")
+        }else if (this.data.activeIndex == 2){
           setdata.activeIndex = 0
         }
         this.setData(setdata)
       })
     })
   },
-  refresh: function () {
+  refresh: function(){
     this.refreshShareRooms()
   },
-  reserve: function (e) {
+  reserve: function(e){
     wx.navigateTo({
       url: '../meeting/reserve',
     })
   },
-  shareSelectChange(e) {
+  shareSelectChange(e){
     this.data.shareSelect = e.detail.value.map(n => { return parseInt(n) })
-    for (let i in this.data.rooms[2]) {
+    for(let i in this.data.rooms[2]){
       this.data.rooms[2][i].checked = this.data.shareSelect.indexOf(this.data.rooms[2][i].id) >= 0
     }
     this.setData({
@@ -65,14 +65,14 @@ Page({
       url: '../meeting/my',
     })
   },
-  create: function (e) {
+  create: function(e){
     wx.navigateTo({
       url: 'edit',
     })
   },
-  detail: function (e) {
+  detail: function(e){
     wx.navigateTo({
-      url: 'detail?room_id=' + e.currentTarget.id
+      url: 'detail?room_id='+e.currentTarget.id
     })
   },
   tabClick: function (e) {
@@ -86,7 +86,7 @@ Page({
   },
   adError: function (options) {
     console.log("adError", options)
-    this.setData({ show_ad: false })
+    this.setData({ show_ad: false})
   },
   adClose: function (options) {
     this.setData({ show_ad: false })
@@ -97,16 +97,16 @@ Page({
   onLoad: function (options) {
     let room_ids = options.room_ids
     if (room_ids) {
-      app.api.api_meeting_room_follow({ room_id: room_ids }).then(res => {
+      app.api.api_meeting_room_follow({room_id: room_ids}).then(res => {
         this.refresh()
       })
     }
     app.config().then(res => {
-      if (res.banner_ad_unit_id) {
+      if (res.banner_ad_unit_id){
         let data = {}
         data.ad_unit_id = res.banner_ad_unit_id
         data.show_ad = true
-        if (res.banner_ad_intervals) {
+        if (res.banner_ad_intervals){
           data.ad_intervals = res.banner_ad_intervals
         }
         this.setData(data)
@@ -161,8 +161,8 @@ Page({
       return {}
     }
     let title = []
-    for (let i in this.data.rooms[2]) {
-      if (this.data.shareSelect.indexOf(this.data.rooms[2][i].id) >= 0) {
+    for(let i in this.data.rooms[2]){
+      if (this.data.shareSelect.indexOf(this.data.rooms[2][i].id) >= 0){
         title.push(this.data.rooms[2][i].name)
       }
     }

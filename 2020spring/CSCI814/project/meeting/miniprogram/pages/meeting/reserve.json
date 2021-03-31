@@ -3,5 +3,5 @@
     "date_select": "/components/date_select",
     "time_table": "/components/time_table"
   },
-  "navigationBarTitleText": "Meeting Booking"
+  "navigationBarTitleText": "会议预约"
 }

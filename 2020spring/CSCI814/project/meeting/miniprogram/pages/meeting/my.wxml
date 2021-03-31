@@ -5,7 +5,7 @@
     <time_table
       id="time_table"
       binddata_click="data_click"
-      no_title_desc="No meeting"
+      no_title_desc="没有会议"
       title_label=""></time_table>
   </view>
 </view>

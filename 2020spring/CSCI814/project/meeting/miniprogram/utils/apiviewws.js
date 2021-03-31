@@ -13,7 +13,7 @@ const TASK_STATUS = {
 }
 const ApiViewWS = function (ws_path, common_listener) {
   this.listenerList = {}
-  this.common_listener = common_listener
+  this.common_listener = common_listener 
   this.gen_reqid = function () {
     return "apiview_" + parseInt(Math.random() * 9000000000 + 1000000000)
   }
@@ -46,12 +46,12 @@ const ApiViewWS = function (ws_path, common_listener) {
   this._failall = () => {
     for (let reqid in this.listenerList) {
       if (typeof this.listenerList[reqid] === "function") {
-        this.listenerList[reqid](false, { status_code: -1 })
+        this.listenerList[reqid](false, {status_code: -1})
       }
     }
   }
   this._connects_callback = (index, data) => {
-    while (this.connects.length > 0) {
+    while(this.connects.length > 0){
       let connect = this.connects.pop()
       connect[index](data)
     }
@@ -59,7 +59,7 @@ const ApiViewWS = function (ws_path, common_listener) {
   this._new_task = () => {
     this.showLoading = true
     wx.showLoading({
-      title: 'loading',
+      title: '加载中',
     })
     let header = {
       'Cookie': httpCookie.getCookieForReq()
@@ -74,23 +74,26 @@ const ApiViewWS = function (ws_path, common_listener) {
       success: res => {
       },
       fail: res => {
-        this._connects_callback(1, "连接错误")
-        if (this.showLoading) {
+        console.log("ws connectSocket fail", res)
+        this._connects_callback(1, "网络错误")
+        if (this.showLoading){
           this.showLoading = false
           wx.hideLoading()
         }
       }
     })
     this.task.onClose(res => {
+      console.log("ws onClose", res)
       this._failall()
       if (this.task_status === TASK_STATUS.RECONNECTING) {
         //this._new_task()
-      } else if (this.task_status === TASK_STATUS.CLOSEING) {
+      } else if (this.task_status === TASK_STATUS.CLOSEING){
         this.task_status = TASK_STATUS.CLOSE
-        this._connects_callback(1, "关闭错误")
+        this._connects_callback(1, "网络错误")
       }
     })
     this.task.onError(res => {
+      console.log("ws onError", res)
       this.task_status = TASK_STATUS.ERROR
       if (this.showLoading) {
         this.showLoading = false
@@ -100,7 +103,13 @@ const ApiViewWS = function (ws_path, common_listener) {
       this._connects_callback(1, "网络错误")
     })
     this.task.onMessage(res => {
-      this._proc_data(JSON.parse(res.data))
+      let data = JSON.parse(res.data)
+      if(data && data.status_code && data.reqid){
+        console.log("ws onMessage", data.reqid, data.status_code, data.data && data.data.code)
+      }else{
+        console.log("ws onMessage", res)
+      }
+      this._proc_data(data)
     })
     this.task.onOpen(res => {
       this.task_status = TASK_STATUS.OK
@@ -114,39 +123,39 @@ const ApiViewWS = function (ws_path, common_listener) {
   this.connect = () => {
     return new Promise((resolve, reject) => {
       //console.log("connect", this.task_status, this.task)
-      if (this.task_status === TASK_STATUS.OK) {
-        if (this.task.readyState === 1) {
+      if (this.task_status === TASK_STATUS.OK){
+        if (this.task.readyState === 1){
           resolve(this)
           return
-        } else {
+        }else{
           this.task_status = TASK_STATUS.ERROR
         }
       }
       this.connects.push([resolve, reject])
-      if (this.task_status < 0) {
+      if (this.task_status < 0){
         this._new_task()
       }
     })
-
+    
   }
   this.close = () => {
     this.task_status = TASK_STATUS.CLOSEING
-    if (this.task) {
+    if(this.task){
       this.task.close()
     }
   }
   this.reconnect = () => {
     this.task_status = TASK_STATUS.RECONNECTING
-    if (this.task) {
+    if(this.task){
       this.task.close()
     }
     this._new_task()
   }
   this.check_and_reconnect = (check_time) => {
-    if (this.task_status > 0 || !app) {
+    if (this.task_status > 0 || !app){
       return
     }
-    if (this.task_status === TASK_STATUS.OK && this.last_msg_time && (app.nowDate() - this.last_msg_time) < (check_time * 1000)) {
+    if (this.task_status === TASK_STATUS.OK && this.last_msg_time && (app.nowDate() - this.last_msg_time) < (check_time * 1000)){
       return
     }
     this.reconnect()
@@ -158,11 +167,13 @@ const ApiViewWS = function (ws_path, common_listener) {
     }
     this.listenerList[reqid] = listener
     const req_data = { path: path, reqid: reqid, data: data }
+    console.log("ws send", reqid, path)
     this.task.send({
       data: JSON.stringify(req_data),
       success: res => {
       },
       fail: res => {
+        console.log("ws send fail", reqid, path)
         listener(false, {})
       }
     })

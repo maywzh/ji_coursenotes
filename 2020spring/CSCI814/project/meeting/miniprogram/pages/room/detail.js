@@ -34,47 +34,47 @@ Page({
       show_qr_code: false
     })
   },
-  show_qrcode: function () {
+  show_qrcode: function(){
     this.setData({
-      show_qr_code: true
+      show_qr_code:true
     })
     // wx.previewImage({
     //   current: this.data.info.qr_code,
     //   urls: [this.data.info.qr_code]
     // })
   },
-  home: function () {
+  home: function(){
     app.gotoHome()
   },
   date_select_change: function (e) {
     this.refresh()
   },
-  reserve: function () {
+  reserve: function(){
     wx.navigateTo({
       url: '../meeting/reserve?room_ids=' + this.data.room_id + "&date=" + this.selectComponent("#date_select").data.select_date
     })
   },
-  unfollow: function () {
-    app.api.api_meeting_room_un_follow({ room_id: this.data.room_id }).then(res => {
+  unfollow: function(){
+    app.api.api_meeting_room_un_follow({ room_id: this.data.room_id}).then(res => {
       this.data.info.is_follow = false
-      this.setData({ info: this.data.info })
+      this.setData({info: this.data.info})
     })
   },
-  follow: function () {
+  follow: function(){
     app.api.api_meeting_room_follow({ room_id: this.data.room_id }).then(res => {
       this.data.info.is_follow = true
       this.setData({ info: this.data.info })
     })
   },
-  edit: function () {
+  edit: function(){
     wx.navigateTo({
       url: 'edit?room_id=' + this.data.room_id
     })
   },
-  del: function () {
+  del: function() {
     wx.showModal({
-      title: 'Confirmation',
-      content: 'Confirming Removal？',
+      title: '提示',
+      content: '确定要删除吗？',
       success: sm => {
         if (sm.confirm) {
           app.api.api_meeting_room_delete({ room_id: this.data.room_id }).then(res => {
@@ -97,22 +97,22 @@ Page({
     const scene = decodeURIComponent(options.scene)
     let room_id = ''
     scene.split("&").map(s => {
-      if (s.substring(0, s.indexOf("=")) == "room_id") {
+      if(s.substring(0, s.indexOf("=")) == "room_id"){
         room_id = s.substring(s.indexOf("=") + 1, s.length)
       }
     })
     let from_scene = false
-    if (room_id) {
+    if(room_id){
       from_scene = true
-    } else {
+    }else{
       room_id = options.room_id
     }
-    if (options.date) {
+    if(options.date){
       this.selectComponent("#date_select").setData({ select_date: options.date })
     }
     if (room_id) {
       this.setData({ room_id: parseInt(room_id) })
-      if (from_scene) {
+      if(from_scene){
         this.follow()
       }
     }
