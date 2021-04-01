@@ -530,8 +530,10 @@ GitHub.sublime-settings
 
 *__latexindent_temp*.tex
 
-2021spring/CSCI991/thesis/thesis.pdf
+2021spring/CSCI991/thesis/thesis.pdf`
 2021spring/CSCI991/presentation/presentation.pdf
 2021spring/CCNUMaster/thesis/thesis.pdf
 2021spring/CCNUMaster/presentation/presentation.pdf
 2021spring/CCNUMaster/exp/dataspider/data/*
+2021spring/CCNUMaster/exp/chapter2/Bert-BiLSTM-CRF-pytorch-master/pretrained_model/*
+**/pretrained_model/*

@@ -1,7 +1,7 @@
 '''
 Author       : maywzh
 Date         : 2021-04-01 19:11:05
-LastEditTime : 2021-04-01 20:14:22
+LastEditTime : 2021-04-02 02:06:08
 LastEditors  : maywzh
 Description  : 
 FilePath     : /ji_coursenotes/2021spring/CCNUMaster/exp/chapter2/dataspider/makedata.py
@@ -29,8 +29,13 @@ def readcate_labels(filename):
 cl = readcate_labels("./data/labels.csv")
 
 
-def txtpreprocess(txt):
-    return re.sub(r'[^\u4e00-\u9fa5]', '', txt).replace("答案解析", "")
+def txtpreprocess(txt, removenoncn=True, removetrim=True, trimwords="答案解析"):
+    res = txt
+    if removenoncn:
+        res = re.sub(r'[^\u4e00-\u9fa5]', '', txt)
+    if removetrim:
+        res.replace(trimwords, "")
+    return res.replace("\n", "").replace("\"", "").strip("\"")
 
 
 def readexercisefiles(path):
@@ -43,8 +48,11 @@ def readexercisefiles(path):
             with open(fn) as f:
                 ls = f.readlines()
                 for l in ls:
-                    df = df.append({"exercise_text": txtpreprocess(
-                        l), "labels": predf_labels}, ignore_index=True)
+                    exertext = txtpreprocess(
+                        l, removenoncn=False, removetrim=True)
+
+                    df = df.append({"exercise_text": exertext,
+                                    "labels": predf_labels}, ignore_index=True)
     return df
 
 
