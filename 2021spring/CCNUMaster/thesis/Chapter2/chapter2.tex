@@ -236,7 +236,7 @@ In high school mathematics, knowledge points have more complex interrelationship
 In the real world, many important data sets generate connections as networks that form graph-like structures. Several researchs reviewed this problem and attempted to generalize neural networks and apply them to arbitrary graph-structured data~\cite{wu2018socialgcn, dettmers2018convolutional}. The GCN~\cite{kipf2016semi} is used to process non-Euclidean spatial data that are difficult to learn by traditional convolutional neural networks. It is defined on a graph structure \(G=(V, E)\), where \(V\) is the denote of vertex and \(E\) is the denote of edge inside the graph. The input of GCN \(X = H^{(0)}\) is the first layer of GCN. The ith layer is denoted as \(H^{(i)}\), and \(H^{(i)}\in \mathbb{R}^{N^{(v)}\times d_{i}}\), where \(N^{(v)}\) is the denote of number of vertexes and \(d_{i}\) is the number of dimension of each vertex of layer \(i\). The output layer \(Z = H^{(L)}\) where L is the number of layers in GCN\@. Also, the GCN has another adjacency matrix \(A\) of dimension \(N^{(v)}\times N^{(v)}\) used to describe the graph structure.
 
 %图卷积的学习的核心是传播，即每个节点都会传播信息给邻接的节点。每一层的传播都会被聚合起来形成下一层。GCN的第\(i-1\)层\(H^{i-1}\)到第\(i\)层\(H^i\)转换可以写作公式\ref{fml:ch2-gcnlayer}，其中f为特定的传播方式，例如所有的节点将自身的值均匀扩散给邻接节点。
-The core of graph convolutional learning is propagation, i.e., each node propagates information to neighboring nodes. The propagation of each layer is aggregated to form the next layer. The \(i-1\) layer \(H^{(i)}\in \mathbb{R}^{N^{(v)}\times d_v}\) to layer \(H^{(i+1)}\) transformation of GCN can be written in the formula \eqname{\ref{fml:ch2-gcnlayer}}, where \(f(\cdot)\) is a specific propagation method, e.g. all nodes spread their own values uniformly to neighboring nodes.
+The core of graph convolutional learning is propagation, i.e., each node propagates information to neighboring nodes. The propagation of each layer is aggregated to form the next layer. The \(i-1\) layer \(H^{(i)}\in \mathbb{R}^{N^{(v)}\times d_v}\) to layer \(H^{(i+1)}\) transformation of GCN can be written in the formula \eqname{\ref{fml:ch2-gcnlayer}}, where \(f(\cdot)\) is a specific propagation method, e.g.\ all nodes spread their own values uniformly to neighboring nodes.
 
 \begin{align}
     \begin{split}
@@ -266,20 +266,20 @@ The node propagation of GCN in this section is~\eqname{\ref{fml:ch2-gcn2}}, wher
 \subsubsection{Design of Correlation Matrix}
 %在GCN中，相关矩阵\(A\)表征了图节点之间的关系，GCN信息传播计算也是基于\(A\)进行的。因此，设计相关矩阵\(A\)是GCN模型的关键步骤。在该模型中，采用常用的数据关联规则挖掘算法Apriori算法，通过知识点共现次数统计来计算关联。 
 
-%在该模型中，其实只需要找到知识点的对偶关系。因此，知识点关系矩阵可以表示为\(R/in \mathbb{R}^{T\time T}\)。第一个任务是找到标签集中频繁关联标签的出现次数。\(\operatorname{Support}\)、\(\operatorname{Confidence}\)和\(\operatorname{Lift}\)可以用来评估频繁标签集。支持度是指标签集中标签对的出现次数占总标签集的比例。置信度反映了一个标签\(\mathcal{L}_i\)出现、另一个标签\(\mathcal{L}_j\)出现的概率，或数据的条件概率。提升度表示标签\(\mathcal{L}_i\)$同时包含的概率，以及X种群出现概率的比例。
+%在该模型中，其实只需要找到知识点的对偶关系。因此，知识点关系矩阵可以表示为\(R/in \mathbb{R}^{T\time T}\)。第一个任务是找到标签集中频繁关联标签的出现次数。\(\operatorname{Support}\)、\(\operatorname{Confidence}\)和\(\operatorname{Lift}\)可以用来评估频繁标签集。支持度是指标签集中标签对的出现次数占总标签集的比例。置信度反映了一个标签\(L_i\)出现、另一个标签\(L_j\)出现的概率，或数据的条件概率。提升度表示标签\(L_i\)$同时包含的概率，以及X种群出现概率的比例。
 
 In GCN, the correlation matrix \(A\) characterizes the relationship between graph nodes, and GCN information propagation calculation is also based on \(A\). Therefore, designing the correlation matrix \(A\) is a crucial step in the GCN model. In this model, the commonly used data association rule mining algorithm Apriori algorithm calculates knowledge point association by knowledge point reference co-occurrence statistics.
 
-In this model, only the knowledge pairwise relationship needs to be found. Therefore, the knowledge point relationship matrix can be expressed as \(R\in \mathbb{R}^{T\times T}\). The first task is to find the number of occurrences of frequently associated label in the label set. The \(\operatorname{Support}\), \(\operatorname{Confidence}\), and \(\operatorname{Lift}\) can be used to evaluate frequent label sets. Support is the proportion of the number of occurrences of label pair in the label set in the total label set. Confidence degree reflects the probability of a label \(\mathcal{L}_i\) appearing, another label \(\mathcal{L}_j\) appears, or the conditional probability of the data. Lift represents the probability that the label \(\mathcal{L}_i\) is contained at the same time, and the ratio of the probability of occurrence of X population:
+In this model, only the knowledge pairwise relationship needs to be found. Therefore, the knowledge point relationship matrix can be expressed as \(R\in \mathbb{R}^{T\times T}\). The first task is to find the number of occurrences of frequently associated label in the label set. The \(\operatorname{Support}\), \(\operatorname{Confidence}\), and \(\operatorname{Lift}\) can be used to evaluate frequent label sets. Support is the proportion of the number of occurrences of label pair in the label set in the total label set. Confidence degree reflects the probability of a label \(L_i\) appearing, another label \(L_j\) appears, or the conditional probability of the data. Lift represents the probability that the label \(L_i\) is contained at the same time, and the ratio of the probability of occurrence of X population:
 \begin{align}
     \begin{split}
-        \operatorname{Support}(\mathcal{L}_i, \mathcal{L}_j)       & =P(\mathcal{L}_i,\mathcal{L}_j)=\frac{\operatorname{number}(\mathcal{L}_i,\mathcal{L}_j)}{\operatorname{number}(\text{ All Samples })} \\
-        \operatorname{Confidence}(\mathcal{L}_i \to \mathcal{L}_j) & =P(\mathcal{L}_i \mid \mathcal{L}_j)=P(\mathcal{L}_i, \mathcal{L}_j) / P(\mathcal{L}_j)                                                \\
-        \operatorname{Lift}(\mathcal{L}_i \to \mathcal{L}_j)       & =P(\mathcal{L}_i \mid \mathcal{L}_j) / P(\mathcal{L}_i)=\operatorname{Confidence}(\mathcal{L}_i \to \mathcal{L}_j) / P(\mathcal{L}_i)
+        \operatorname{Support}(L_i, L_j)       & =P(L_i,L_j)=\frac{\operatorname{number}(L_i,L_j)}{\operatorname{number}(\text{ All Samples })} \\
+        \operatorname{Confidence}(L_i \to L_j) & =P(L_i \mid L_j)=P(L_i, L_j) / P(L_j)                                                \\
+        \operatorname{Lift}(L_i \to L_j)       & =P(L_i \mid L_j) / P(L_i)=\operatorname{Confidence}(L_i \to L_j) / P(L_i)
     \end{split}
 \end{align}
 
-Similar to calculating Support, the frequency matrix \(E\in \mathbb{R}^{N^{(k)}\times N^{(k)}}\) of the sample knowledge point label pairs in the exercise training set can be calculated here. The \(M_{ij}\) represents the amount of co-occurrence between the knowledge point \(i\) and the knowledge point \(j\) in an exercise reference. Similarly, the knowledge point pair can be calculated by calculating Confidence to calculate the conditional probability matrix \(P\), where \(P_{ij}=P(\mathcal{L}_i, \mathcal{L}_j)/P(\mathcal{L}_j)\), where \(P_{ij}=P(\mathcal{L}_i, \mathcal{L}_j)/P(\mathcal{L}_j)\) means the situation when the knowledge point \(j\) appears The conditional probability of the occurrence of the following knowledge point \(i\).
+Similar to calculating Support, the frequency matrix \(E\in \mathbb{R}^{N^{(k)}\times N^{(k)}}\) of the sample knowledge point label pairs in the exercise training set can be calculated here. The \(M_{ij}\) represents the amount of co-occurrence between the knowledge point \(i\) and the knowledge point \(j\) in an exercise reference. Similarly, the knowledge point pair can be calculated by calculating Confidence to calculate the conditional probability matrix \(P\), where \(P_{ij}=P(L_i, L_j)/P(L_j)\), where \(P_{ij}=P(L_i, L_j)/P(L_j)\) means the situation when the knowledge point \(j\) appears The conditional probability of the occurrence of the following knowledge point \(i\).
 
 It is a simple solution to directly set \(P\) as the incidence matrix \(A\), but in actual situations, some comprehensive questions in the exercise set contain practically unrelated knowledge points, but these situations are relatively rare. In order to exclude the interference of accidental circumstances, a minimum knowledge confidence threshold can be set. When \(P_{ij}\) is greater than the given threshold \(\tau^{(k)} \)， naming activating value, then \(A_{ij}\) is set to \(P_{ij}\), Otherwise \(A_{ij}\) is set to 0. The formula is like \eqname{\ref{fml:confidence}}.
 
@@ -376,14 +376,14 @@ According to the metrics proposed by Zhou et al.~\cite{zhang2013review}, for the
 
 \begin{align}\label{fml:mlcm}
     \begin{split}
-        \operatorname{TP}_j & =| \{x_i| \mathcal{L}_j\in Y_{i}\wedge \mathcal{L}_j \in \tilde{Y}_i , 1\leq i \leq n\}|       \\
-        \operatorname{FP}_j & =| \{x_i| \mathcal{L}_j\notin Y_{i}\wedge \mathcal{L}_j \in \tilde{Y}_i , 1\leq i \leq n\}|    \\
-        \operatorname{TN}_j & =| \{x_i| \mathcal{L}_j\notin Y_{i}\wedge \mathcal{L}_j \notin \tilde{Y}_i , 1\leq i \leq n\}| \\
-        \operatorname{FN}_j & =| \{x_i| \mathcal{L}_j\in Y_{i}\wedge \mathcal{L}_j \notin \tilde{Y}_i , 1\leq i \leq n\}|
+        \operatorname{TP}_j & =| \{x_i| L_j\in Y_{i}\wedge L_j \in \tilde{Y}_i , 1\leq i \leq n\}|       \\
+        \operatorname{FP}_j & =| \{x_i| L_j\notin Y_{i}\wedge L_j \in \tilde{Y}_i , 1\leq i \leq n\}|    \\
+        \operatorname{TN}_j & =| \{x_i| L_j\notin Y_{i}\wedge L_j \notin \tilde{Y}_i , 1\leq i \leq n\}| \\
+        \operatorname{FN}_j & =| \{x_i| L_j\in Y_{i}\wedge L_j \notin \tilde{Y}_i , 1\leq i \leq n\}|
     \end{split}
 \end{align}
 
-where \(x_i\) and \(\mathcal{L}_j\) represent the i-th exercise and j-th label, \(Y_i\) and \(\tilde{Y}_i\) represent the real labels and predicted labels of the i-th exercise.
+where \(x_i\) and \(L_j\) represent the i-th exercise and j-th label, \(Y_i\) and \(\tilde{Y}_i\) represent the real labels and predicted labels of the i-th exercise.
 
 %在混淆矩阵中，Precision为预测正确的正例数据占预测为正例数据的比例，Recall为预测为正例的数据占实际为正例数据的比例。F1值是精确率和召回率的调和均值，它是精确率和召回率的综合评价指标。其计算公式如下：
 

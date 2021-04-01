@@ -68,11 +68,38 @@ The key point of this section is the knowledge tracking of students. In this the
 \end{figure}
 
 \subsection{Student Behavior Capturing}
-%在本文中，提出了一种利用DNN来捕捉学生答题特征表征的机制，它与习题特征向量共同形成cross-feature向量，该向量用于后续的习题知识点权重向量计算，该模块的计算
+%在本文中，提出了一种利用DNN来捕捉学生答题特征表征的机制，它与习题特征向量共同形成cross-feature向量，该向量用于后续的习题知识点权重向量计算，它将用户的答题行为特征（例如：是否hint、答题时间、尝试次数）向量\(b_1^t,b_2^t,\ldots,\b_N^t\)输入一个基于多层感知机的特征提取网络中，输出一个对于用户答题能力表征向量\(c_t\)。该向量与原始习题表示向量\(q_t\)进行特征交叉，生成融合用户特征的习题表征向量。具体过程如公式\eqname{\ref{fml:sbcap}}。
+
+In this model, a mechanism is proposed to capture the student's answer feature representation using DNN, which together with the exercise feature vector forms the cross-feature vector that is used for the subsequent calculation of the exercise knowledge point weight vector, which takes the user's answer behavior features (e.g., whether hint, answer time, number of attempts) vector \(b_1^t,b_2^t,\ldots,b_N^t\) into a multilayer perceptron based feature extraction network and outputs a vector \(c_t\) for the user's answering ability representation. This vector is feature-crossed with the original exercise representation vector \(q_t\) to generate an exercise representation vector that incorporates user features. The specific process is shown in \eqname{\ref{fml:sbcap}}. The \(\| \) represents concatenation.
+
+\begin{align}\label{fml:sbcap}
+    \begin{split}
+        b^{\prime}_t &= \operatorname{DNN}(b_1^t,b_2^t,\ldots,b_N^t) \\
+        c_t &= q_t\|b^{\prime}_t
+    \end{split}
+\end{align}
+
+%通过这种机制,模型引入了学生的个性化答题特征，从而可以实现对于习题知识点个性化权重计算。它充分利用了神经网络的特征表征能力，抽取出影响学生答题正确性的隐藏因素，从而提高模型整体的可靠性。
+Through this mechanism, the model introduces students' personalized answering characteristics, thus enabling the calculation of personalized weights for the knowledge points of the exercises. It makes full use of neural networks' feature characterization ability to extract the hidden factors that affect the correctness of students' answers, thus improving the overall reliability of the model.
+
 \subsection{Knowledge-Question Correlation Calculation}
+%在学生进行习题练习的过程中，一个习题与多个知识点相关，根据认知诊断理论，学生对于知识点的掌握程度与学生的内在学习能力决定了学生答题的正确性。
+
+\subsection{Knowledge Mastery Calculation Process}
 %
 
-\subsection{Transformer Based Knowledge Tracing}
+
+\subsection{Knowledge Erase and Add Process with Graph Propagation}
+%
+
+\subsubsection{Statistics-based Method}
+
+\subsubsection{Multi-head Attention Based}
+
+
+\subsection{Prediction}
+
+\subsection{Knowledge Mastery}
 
 \section{Experiments}
 %本节中，通过多个专用的知识追踪数据集来investigate提出的模型性能，与目前已经提出的Baseline模型进行性能对比。本章先对所用到的数据集进行介绍和统计，然后提出用于模型性能对比的度量标准、实验设置和运行参数环境等，最后得出结果并进行分析。
@@ -90,25 +117,9 @@ After investigating the existing knowledge tracing model, the thesis selected th
     \item ASSISTment 2017 (ASSIST17) is derived from the ASSISTments Longitudinal Data Mining Competition held in 2017. After data preprocessing and data filtering, the data set contains 1709 students, 4117 exercises, 102 knowledge points, and approximately 943 thousand interactions.
 \end{itemize}
 
-\begin{table}[htbp!]
-    \centering
-    \caption{Dataset Statistics}\label{tbl:ch2-tb1}
-    \begin{tabular}{ccccc}
-        \toprule
-        Dataset  & \#Students & \#exercises & \#Knowledge Points & \#Interactions \\
-        \midrule
-        ASSIST15 & 19,917     & 102,396     & 100                & 709K           \\
-        ASSIST17 & 1,709      & 4,117       & 102                & 943K           \\
-        \bottomrule
-    \end{tabular}
-\end{table}
 
 \subsection{Settings and Metrics}
-%目前知识追踪领域的论文多以(Area Under Curve)AUC作为对比指标，AUC是一个基于ROC曲线常用的二分类评测手段，具有较好的性能对比能力。在知识追踪任务中，最终预测也是当前时刻的习题的做对与否，本质上为一个二分类问题，因此可以采取这种做法。
-At present, most papers in the field of knowledge tracing use Area Under Curve (AUC) as a comparison indicator. AUC is a commonly used two-category evaluation method based on the ROC curve and has good performance comparison capabilities. In the task of knowledge tracing, the final prediction is whether the exercises at the current moment are done correctly or not, which is essentially a binary classification problem so that this approach can be adopted.
 
-%对于每个数据集采用70%作为训练集，剩余30%作为测试集。实验运行环境为Ubuntu20.04，TensorFlow 2.23，Python 3.8.6，实验机器为一块Tesla V100计算卡。
-For each dataset, 70\% is used as the training set, and the remaining 30\% is taken as the test set. The experimental running environment is Ubuntu20.04, TensorFlow 2.23, Python 3.8.6, and the experimental machine is a Tesla V100 computing card.
 
 \subsection{Baselines}
 %1.BKT是一个知识追踪的经典模型，它基于隐马尔可夫模型（HMM），将学习者的知识状态建模为一组对应知识点掌握情况的二元变量。
@@ -119,39 +130,10 @@ In this experiment, baseline performance comparisons are made by comparing some 
     \item BKT~\cite{yudelson2013individualized}: BKT is a probabilistic model that predicts the probability of correctness of answers according to the basic assumption that knowledge points are independent.
     \item DKT~\cite{piech2015deep}: DKT applies the input of students' doing records into LSTM and can capture the influence of recent doing records on students' doing sequences, taking students' doing sequences into account into the model; DKT also initially considers the intrinsic correlation between knowledge points.
     \item Dynamic Key-Value Memory Networks (DKVMN)~\cite{zhang2017dynamic}: DKVMN uses key-value pairs as the memory structure, which can avoid over better prediction performance relative to BKT, and DKT is achieved by using key-value pairs as the memory structure.
-    \item Graph-Based Knowledge Tracing (GKT)~\cite{nakagawa2019graph}: GKT applies graphical neural networks to knowledge tracing tasks, using the properties of graphs to characterize the graph-like associations between knowledge points for better learning of intrinsic knowledge dependencies, and the model is able to learn students' hidden knowledge states and also has better interpretability.
 \end{itemize}
 
 \subsection{Result and Analysis}
 %实验结果见表，相比于其他模型，提出的模型的性能取得了最优的指标。在所有数据集上，DKT、DKVMN和GKT的标签明显优于BKT模型。在ASSIST15数据集上，提出的模型的AUC值较其他模型高出0.5\%，而GKT的性能优于DKVMN和DKT，这是由于该数据集中的知识点隐藏关联较高，因此能够更好表征知识点内在关联的模型就会明显产生更好的结果。在ASSIST17数据集上，提出的模型略优于对比的模型，而DKT、DKVMN和GKT的性能表现差异较小，这是因为知识点间的关联较小，因此考虑知识点间关联带来的性能提升较小。在STATICS11数据集上，DKVMN的性能表现超越了GKT，其原因在于对知识进行关系建模产生了过拟合现象，因此对性能表现产生了负面影响，结果显示出提出的模型抗过拟合性能较好。
 
-The experiment's result is shown in \tblname{\ref{tbl:ch3-tb2}}, and the proposed model achieves better performance metrics than other baseline models. The labels of DKT, DKVMN, and GKT are significantly better than the BKT model on all datasets. On the ASSIST15 dataset, the AUC value of the proposed model is 0.5\% higher than the other models. At the same time, GKT outperforms DKVMN and DKT due to the high hidden association of knowledge points in this dataset, so the model that can better characterize the intrinsic association of knowledge points significantly produces better results. On the ASSIST17 dataset, the proposed model slightly outperforms the compared models. Besides, the performance difference between DKT, DKVMN, and GKT is minor due to the weak association between knowledge points, and thus the performance improvement from considering the association between knowledge points is more diminutive. On the STATICS11 dataset, the performance of DKVMN outperforms GKT due to the overfitting phenomenon arising from modeling the relationship to knowledge, thus negatively affecting the performance, and the results show that the proposed model has better performance against overfitting.
-
-\begin{table}[htbp!]
-    \centering
-    \caption{AUC results (\%) over three datasets}\label{tbl:ch3-tb2}
-    \begin{tabular}{cccc}
-        \toprule
-        Model    & ASSIST15                    & ASSIST17                   \\
-        \midrule
-        BKT      & \(62.01\pm 0.03 \)          & \(65.30\pm 0.01\)          \\
-        DKT      & \(70.83\pm 0.03 \)          & \(72.66\pm 0.01\)          \\
-        DKVMN    & \(71.06\pm 0.03 \)          & \(72.78\pm 0.02\)          \\
-        GKT      & \(72.12\pm 0.02 \)          & \(72.85\pm 0.01\)          \\
-        \midrule
-        Proposed & \(\mathbf{72.62\pm 0.02} \) & \(\mathbf{72.89\pm 0.02}\) \\
-        \bottomrule
-    \end{tabular}
-\end{table}
 \section{Summary}
 %
-In this section, a knowledge tracing model based on graph self-attentive network hungry embedding with Transformer is proposed, which learns the relationship between exercises and knowledge points through GAT, which can effectively characterize the complex dependencies between knowledge points and can discover the hidden knowledge points in the exercises. In the encoding part, the embedding vectors learned by GAT are encoded by a Transformer model for knowledge state, and a knowledge state sequence is an output, which can be used in the subsequent exercise recommendation process. Also, the knowledge state sequence and the exercises are used as the subsequent decoder's input to output a simulation of the correct or incorrect answers to the exercises.
-
-The innovation points of this section are as follows.
-\begin{enumerate}
-    \item Based on the graph self-attentive network, a relational graph network with separation of exercises and knowledge points are designed, and the knowledge state embeddings learned in this way can better characterize the intrinsic dependencies of knowledge points.
-    \item Through the encoder based on Transformer block, the intrinsic knowledge state vector of students is output, and this state vector can be used for subsequent learning resource recommendation.
-    \item With the Transformer block, bidirectional sequence information can be learned better to model students' knowledge states' change.
-\end{enumerate}
-
-The model is experimentally verified to achieve good prediction performance for both datasets with closely linked knowledge points and those with sparse knowledge point relationships, and overfitting can also be prevented by proper tuning of parameters.
