@@ -70,9 +70,9 @@ The key point of this section is the knowledge tracking of students. In this the
 \subsection{Student Behavior Capturing}
 %在本文中，提出了一种利用DNN来捕捉学生答题特征表征的机制，它与习题特征向量共同形成cross-feature向量，该向量用于后续的习题知识点权重向量计算，它将用户的答题行为特征（例如：是否hint、答题时间、尝试次数）向量\(b_1^t,b_2^t,\ldots,\b_N^t\)输入一个基于多层感知机的特征提取网络中，输出一个对于用户答题能力表征向量\(c_t\)。该向量与原始习题表示向量\(q_t\)进行特征交叉，生成融合用户特征的习题表征向量。具体过程如公式\eqname{\ref{fml:sbcap}}。
 
-In this model, a mechanism is proposed to capture the student's answer feature representation using DNN, which together with the exercise feature vector forms the cross-feature vector that is used for the subsequent calculation of the exercise knowledge point weight vector, which takes the user's answer behavior features (e.g., whether hint, answer time, number of attempts) vector \(b_1^t,b_2^t,\ldots,b_N^t\) into a multilayer perceptron based feature extraction network and outputs a vector \(c_t\) for the user's answering ability representation. This vector is feature-crossed with the original exercise representation vector \(q_t\) to generate an exercise representation vector that incorporates user features. The specific process is shown in \eqname{\ref{fml:sbcap}}. The \(\| \) represents concatenation.
+In this model, a mechanism is proposed to capture the student's answer feature representation using DNN, which together with the exercise feature vector forms the cross-feature vector that is used for the subsequent calculation of the exercise knowledge point weight vector, which takes the user's answer behavior features (e.g., whether hint, answer time, number of attempts) vector \(b_1^t,b_2^t,\ldots,b_N^t\) into a multilayer perceptron based feature extraction network and outputs a vector \(c_t\) for the user's answering ability representation. This vector is feature-crossed with the original exercise representation vector \(q_t\) to generate an exercise representation vector that incorporates user features. The specific process is shown in \eqname{\ref{fml:ch3-sbcap}}. The \(\| \) represents concatenation.
 
-\begin{align}\label{fml:sbcap}
+\begin{align}\label{fml:ch3-sbcap}
     \begin{split}
         b^{\prime}_t &= \operatorname{DNN}(b_1^t,b_2^t,\ldots,b_N^t) \\
         c_t &= q_t\|b^{\prime}_t
@@ -83,43 +83,158 @@ In this model, a mechanism is proposed to capture the student's answer feature r
 Through this mechanism, the model introduces students' personalized answering characteristics, thus enabling the calculation of personalized weights for the knowledge points of the exercises. It makes full use of neural networks' feature characterization ability to extract the hidden factors that affect the correctness of students' answers, thus improving the overall reliability of the model.
 
 \subsection{Knowledge-Question Correlation Calculation}
-%在学生进行习题练习的过程中，一个习题与多个知识点相关，根据认知诊断理论，学生对于知识点的掌握程度与学生的内在学习能力决定了学生答题的正确性。
+%在学生进行习题练习的过程中，一个习题与多个知识点相关，根据认知诊断理论\cite{chiu2018cognitive}，学生对于知识点的掌握程度与学生的内在学习能力决定了学生答题的正确性。与DKVMN类似，本模型用Key矩阵\(M^{(k)}\)来保存习题相关的所有潜在知识点。假设共有\(N^{(K)}\)个知识点，则\(M^{(k)}\in\mathbb{R}^{N^{(K)}}\times d_k\)，其中\(d_k\)为知识点表征向量的维度。
+
+In the process of students' exercise practice, an exercise is associated with multiple knowledge points, and according to the cognitive diagnosis theory~\cite{chiu2018cognitive}, students' mastery of the knowledge points and students' intrinsic learning ability determine the correctness of their answers. Similar to DKVMN, this model uses the Key matrix \(M^{(k)}\) to keep all potential knowledge points related to the exercises. Suppose there are \(N^{(K)}\) knowledge points, then \(M^{(k)}\in\mathbb{R}^{{N^{(K)}}\times d_k}\), where \(d_k\) is the dimensionality of the knowledge point representation vector.
+
+%在\eqname{\ref{fml:sbcap}}中，已经获取了融合学生个性化信息的习题表征向量\(c_t\)，其中\(c_t\in\mathbb{R}^{d_k}\)，对于第\(i\)个知识点概念，习题与知识点\(i\)的相关度\(w_t(i)\)的计算公式为\eqname{\ref{fml:ch3-corkq}}，其中\(\sigma(\cdot)\)为softmax函数。
+
+In \eqname{\ref{fml:ch3-sbcap}}, the exercise representation vector \(c_t\) incorporating students' personalized information has been obtained, where \(c_t\in\mathbb{R}^{d_k}\), and the correlation \(w_t(i)\) between the exercise and the knowledge point \(i\) for the \(i\)th knowledge point concept is calculated by is \eqname{\ref{fml:ch3-corkq}}, where \(\sigma(\cdot)\) is the softmax function.
+
+\begin{align}\label{fml:ch3-corkq}
+    \begin{split}
+        w_t(i)=\sigma(c_t M^{(k)}(i))
+    \end{split}
+\end{align}
+
+%由于\(M^{(k)}\)实际上是一个矩阵，因此可以通过矩阵运算来获得总体的相关向量\(\mathbf{w}_t=(w_t(1),w_t(2),\ldots,w_t(N^{(K)}))\)。
+Since \(M^{(k)}\) is a matrix, the correlation vector \(\mathbf{w}_t=(w_t(1),w_t(2),\ldots,w_t(N^{(K)}))\) can be obtained by matrix operations like \eqname{\ref{fml:ch3-corkq-mat}}.
+
+\begin{align}\label{fml:ch3-corkq-mat}
+    \begin{split}
+        \mathbf{w}_t=\sigma(c_t M^{(k)})
+    \end{split}
+\end{align}
+
+%该向量代表习题与知识点的相关度表征，且经过融合用户的答题特征，能够捕获更多答题行为的影响因素。
+The vector \(\mathbf{w}_t\) represents the relevance representation of the exercises and knowledge points, and after fusing the user's answer characteristics, it can capture more influencing factors of the answer behavior.
 
 \subsection{Knowledge Mastery Calculation Process}
-%
+%本节的目的是计算用户对习题的潜在掌握程度，它是通过计算用户对习题相关知识点的掌握程度来完成。用户对于知识点的掌握程度通过一个矩阵\(M^{(v)}\in\mathbb{R}^{N^{(K)}\times d_v}\)来保存，其中\(d_v\)代表知识点掌握表征向量的维度。该矩阵与DKVMN的区别在于，矩阵会在后续经过图节点信息传播来对相关知识点进行掌握度修改。
 
+The purpose of this section is to calculate the user's potential mastery of the exercise, which is done by calculating the user's mastery of the knowledge points associated with the exercise. The user's mastery of the knowledge points is kept by a matrix \(M^{(v)}\in\mathbb{R}^{N^{(K)}\times d_v}\), where \(d_v\) represents the dimensionality of the knowledge point mastery representation vector. The difference between this matrix and DKVMN is that the matrix will be subsequently modified by the graph node information propagation to the relevant knowledge points in terms of mastery.
+
+%将前一节计算得到的习题与知识点的相关度表征向量\(\mathbf{w}_t\)与当前用户知识点掌握矩阵\(M^{(v)}\)进行加权和计算，如公式\eqname{\ref{}}所示
+The correlation representation vector \(\mathbf{w}_t\) of the exercises and knowledge points calculated in the previous section is weighted and calculated with the current user knowledge mastery matrix \(M^{(v)}\), as shown in equation \eqname{\ref{fml:ch3-read}}.
+
+\begin{align}\label{fml:ch3-read}
+    \begin{split}
+        r_t=\mathbf{w}_t M^{(v)}
+    \end{split}
+\end{align}
+
+%计算得到的\(r_t\in\mathbb{R}^{d_v}\)表示用户对于习题的掌握程度，该向量考虑了用户的答题特征，相对于DKVMN融合了更多特征。本模型中，读取过程位于图传播计算之前，其目的在于防止图信息重复传播导致的信息增益爆炸。
+
+In the model, the read process is located before the graph propagation calculation, and its purpose is to prevent the information gain explosion caused by repeated propagation of graph information.
 
 \subsection{Knowledge Erase and Add Process with Graph Propagation}
-%
+%本节是计算用户在实际答题后，对于知识掌握的重新评估值。本节加入了图传播机制，它考虑了知识点的掌握程度变化引起的相关知识点的熟练度变化。本节的输入是\x_t=(c_t,a_t)\in\mathbb{R}^{(d_k+1)\times d_v}\)，其中\(a_t\)是学生对于习题\(q_t\)的回答正确性嵌入表示，它与习题表征向量\(c_t\)共同用于计算答题记录嵌入表征向量\(v_t\)，知识掌握增加向量\(A_t\)与知识掌握减少向量\(E_t\)。\(v_t\)的计算公式为\eqname{\ref{fml:ch3-write-vt}}. 
+This section calculates the reassessment value of the user's knowledge mastery after actually answering the questions. This section incorporates a graph propagation mechanism, which takes into account the change in proficiency of the relevant knowledge points caused by the change in mastery of the knowledge points. The input of this section is \(x_t=(c_t,a_t)\in\mathbb{R}^{(d_k+1)\times d_v} \), where \(a_t\) is the embedded representation of the correctness of students' answers to the exercise \(q_t\), which is used together with the exercise representation vector \(c_t\) to compute the answer record embedding representation vector \(v_t\). the knowledge acquisition increase vector \(A_t\) and the knowledge acquisition decrease vector \(E_t\). The formula for \(v_t\) is \eqname{\ref{fml:ch3-write-vt}}.
 
-\subsubsection{Statistics-based Method}
+\begin{align}\label{fml:ch3-write-vt}
+    \begin{split}
+        v_t &= \operatorname{Emb}(x_t)
+    \end{split}
+\end{align}
 
-\subsubsection{Multi-head Attention Based}
+%知识掌握减少向量\(E_t\in\mathbb{R}^{d_v}\)通过\(v_t\)来计算，它被首先应用于知识掌握矩阵\(M^{(v)}\)。该计算通过加权和的方式完成。权重来自于前文计算得到的习题知识点相关矩阵\(\mathbf{w}_t\),对于第\(i\)个知识点知识掌握减少量\(\Delta{M^{(v)}(i)}_a\)和知识掌握增加量\(\Delta{M^{(v)}(i)}_e\)的计算公式是\eqname{\ref{fml:ch3-write-delta}}。其中\(W^{(e)}\in\mathbb{R}^{d_v \times d_v}\)和\(W^{(a)}\in\mathbb{R}^{d_v \times d_v}\)分别是\(E_t\)和\(A_t\)的转换矩阵，\(b^{(e)}\)和\(b^{(a)}\)分别为对应的偏置量。
+
+The knowledge mastery reduction vector \(E_t\in\mathbb{R}^{d_v}\) is computed by \(v_t\), which is first applied to the knowledge mastery matrix \(M^{(v)}\). This calculation is done by means of a weighted sum. The weights are derived from the exercise knowledge point correlation matrix \(\mathbf{w}_t\) obtained from the previous calculation, and for the \(i\)th knowledge point knowledge mastery decrease \(\Delta_e{M^{(v)}(i)}\) and knowledge mastery increase \(\Delta_a{M^{(v)}(i)}\) are calculated as \eqname{\ref{fml:ch3-write-delta}}, where \(W^{(e)}\in\mathbb{R}^{d_v \times d_v}\) and \(W^{(a)}\in\mathbb{R}^{d_v \times d_v}\) are the transformation matrices of \(E_t\) and \(A_t\), respectively, and \(b^{(e)}\) and \(b^{(a)} \) are the corresponding biases, respectively.
+
+\begin{align}\label{fml:ch3-write-delta}
+    \begin{split}
+        E_t &= \operatorname{Sigmoid}(W^{(e)}v_t+b^{(e)})\\
+        A_t &= \operatorname{Tanh}(W^{(a)}v_t+b^{(a)})\\
+        \Delta_e{M^{(v)}_t(i)} & = w_t(i) E_t \\
+        \Delta_a{M^{(v)}_t(i)} & = w_t(i) A_t
+    \end{split}
+\end{align}
+
+%在进行知识掌握熟练度更改时，先将原始的知识掌握向量的每个key slot与\(\Delta_e{M^{(v)}(i)}\)进行加权减法，然后加上知识掌握增益\Delta_a{M^{(v)}(i)} \如公式所示。
+
+For the knowledge mastery proficiency change, each key slot of the original knowledge mastery vector is first weighted and subtracted from \(\Delta_e{M^{(v)}(i)}\), and then the knowledge mastery gain \(\Delta_a{M^{(v)}(i)}\) is added as shown in \eqname{\ref{fml:ch3-modify}}.
+
+\begin{align}\label{fml:ch3-modify}
+    \begin{split}
+        \tilde{M^{(v)}_t}(i) &= M^{(v)}(i)(1-\Delta_e{M^{(v)}(i)}) \\
+        \tilde{M^{(v)}_{t+1}}(i) &= \tilde{M^{(v)_t}}(i) + \Delta_a{M^{(v)}_t(i)}
+    \end{split}
+\end{align}
+
+%最后，每个知识点的变化会对相邻知识点产生影响，因此此处引入了图网络传播机制，对整个知识掌握矩阵进行值重新分布。类似于图卷积神经网络的网络传播机制，则有公式\eqname{\ref{fml:ch3-graphpropagate}}。其中\(\tilde{M^{(v)}_{t+1}}(i))\in\mathbb{R}^{N^{(K)}\times d_v}\)为图网络的上一层和输入。\(M^{(v)}_{t+1}(i)\)为图网络的下一层。\(\tilde{A}=A+I_{N^{(K)}}\)为自连接邻接矩阵。\(\tilde{D}\)为度矩阵，即\(\tilde{D}_ii=\sum_j{\tilde{A}_ij}\)，\(W_t\in\mathbb{R}^{d_v \times d_v}\)为待训练的权重矩阵。\(\sigma(\cdot)\)为激活函数，在此处使用\(LeakyReLU(\cdot)\)。
+
+Finally, changes in each knowledge point have an impact on neighboring knowledge points, so a graph network propagation mechanism is introduced here to redistribute the values across the knowledge mastery matrix. Similar to the network propagation mechanism of graph convolutional neural network, then there is the formula \eqname{\ref{fml:ch3-graphpropagate}}, where \(\tilde{M^{(v)}_{t+1}}(i)\in\mathbb{R}^{N^{(K)}\times d_v}\) is the upper layer of the graph network and the input. \(M^{(v)}_{t+1}(i)\) is the next layer of the graph network. \(\tilde{A}=A+I_{N^{(K)}}\) is the self-connected adjacency matrix. \(\tilde{D}\) is the degree matrix, i.e. \(\tilde{D}_{ii}=\sum_j{\tilde{A}_{ij}}\), \(W_t\in\mathbb{R}^{d_v \times d_v}\) is the matrix of weights to be trained. \(\sigma(\cdot)\) is the activation function, and \(LeakyReLU(\cdot)\) is used here.
+
+\begin{align}\label{fml:ch3-graphpropagate}
+    M^{(v)}_{t+1}(i) \leftarrow \sigma(\tilde{D}^{-\frac{1}{2}}\tilde{A}\tilde{D}^{\frac{1}{2}}\tilde{M^{(v)}_{t+1}}(i)W_t)
+\end{align}
+
+%由此可见，知识点的邻接矩阵是图传播的关键，本文提出了基于统计的方式来计算知识点邻接矩阵\(A\)，即当知识点\(i,j\)共现次数超过某一阈值时，将\(i，j\)知识点设置为相关。如公式\eqname{\ref{fml:ch3-confidence}}所示。
+
+It can be seen that the adjacency matrix of knowledge points is the key to graph propagation, and this paper proposes a statistical-based approach to calculate the knowledge point adjacency matrix \(A\), i.e., when the number of co-occurrences of knowledge points \(i,j\) exceeds a certain threshold, \(i,j\) knowledge points are set to be relevant. As shown in equation \eqname{\ref{fml:ch3-confidence}}, the \(P_{ij}\) represents the probability that exercise \(i\) and exercise \(j\) exist in one exercise.
+\begin{align}\label{fml:ch3-confidence}
+    A_{ij}=\{\begin{array}{ll}
+        0, & \text{ if } P_{ij}<\tau^{(k)}      \\
+        1, & \text{ if } P_{ij} \geq \tau^{(k)}
+    \end{array}
+\end{align}
+
+
+Finally, changes in each knowledge point have an impact on neighboring knowledge points, so a graph network propagation mechanism is introduced here to redistribute the values across the knowledge mastery matrix.
+
+
+% \subsubsection{Statistics-based Method}
+
+
+% \subsubsection{Multi-head Attention Based}
 
 
 \subsection{Prediction}
+%经过计算得到的知识点掌握熟练度表征\(r_t\)可以用于计算习题回答正确的概率。它通过中间和向量\(f_t\)来计算，其中\(f_t\)包含了习题相关知识点的掌握程度和习题本身的信息。计算公式如\eqname{\ref{fml:ch3-predicting-function-f}}}所示,其中权重转移矩阵\(W_f\)和偏置向量\(b_f\)为待训练参数。
+The computed knowledge point mastery proficiency representation \(r_t\) can be used to calculate the probability of answering the exercise correctly. It is calculated by the intermediate sum vector \(f_t\), where \(f_t\) contains information about the mastery of the knowledge points related to the exercise and the exercise itself. The calculation formula is shown in \eqname{\ref{fml:ch3-predicting-function-f}}, where the weight transfer matrix \(W_f\) and the bias vector \(b_f\) are the parameters to be trained.
+\begin{align}\label{fml:ch3-predicting-function-f}
+    f_t = \operatorname{Tanh}(W_f^T[r_t,c_t] + b_f)
+\end{align}
+
+%然后经过一个全连接激活层，输出对于习题\(q_t\)的正确性预测\(p_t\)。计算公式如\eqname{\ref{fml:ch3-predicting-function-p}},其中权重转移矩阵\(W_p\)和偏置向量\(b_p\)为待训练参数。
+Then after a fully connected activation layer, the correctness prediction \(p_t\) for the exercise \(q_t\) is output. The formula is calculated as \eqname{\ref{fml:ch3-predicting-function-p}}, where the weight transfer matrix \(W_p\) and the bias vector \(b_p\) are the parameters to be trained.
+\begin{align}\label{fml:ch3-predicting-function-p}
+    p_t = \operatorname{Sigmoid}(W_p^T f_t + b_p)
+\end{align}
+
+%整个网络通过端到端的训练来进行，真实的正确性为\(a_t\)，整体的损失函数为
+The whole network is trained in an end-to-end manner j with true correctness \(a_t\), and the overall loss function is \eqname{\ref{fml:ch3-loss}}.
+\begin{align}\label{fml:ch3-loss}
+    \mathcal{L} = -\sum\limits_{t}{(a_t\log(p_t)+(1-a_t)\log(1-p_t))}
+\end{align}
+
 
 \subsection{Knowledge Mastery}
+Due to the nature of GKVMN, the knowledge mastery \(M^{(v)}\) is explicit, so it can be directly used as a kind of recommendation system for judgment. And it can be subsequently used as a student knowledge mastery state analysis.
 
 \section{Experiments}
 %本节中，通过多个专用的知识追踪数据集来investigate提出的模型性能，与目前已经提出的Baseline模型进行性能对比。本章先对所用到的数据集进行介绍和统计，然后提出用于模型性能对比的度量标准、实验设置和运行参数环境等，最后得出结果并进行分析。
 In this section, algorithms, including the performance, are investigated through multiple dedicated knowledge tracing data sets, and the performance of the proposed baseline model is compared. This chapter first introduces and counts the data sets used, then proposes metrics, experimental settings, and operating parameter environments for model performance comparison, and finally draws the results and analyzes them.
 
-
 \subsection{Datasets}
-After investigating the existing knowledge tracing model, the thesis selected the more popular ASSISTment data set and Statics data set related to mathematics, preprocessed the data set, cleaned the data, obtained the training set, and performed the performance with the Baseline model Compared. Dataset statistics are shown in \tblname{\ref{tbl:ch2-tb1}}.
+After investigating the existing knowledge tracing model, the thesis selected the more popular ASSISTment data set and Statics data set related to mathematics, preprocessed the data set, cleaned the data, obtained the training set, and performed the performance with the Baseline model Compared. Dataset statistics are shown in \tblname{}.
 
 %(1)ASSISTment 2015 是一个用于预测学生考试表现的数据集，它由一系列包含若干知识点标签的问题以及一些学生的答题记录组成。它在2015年于线上教育平台上采集而成。经过数据过滤获得包含19917个学生，约102千个问题，100个知识点标签和约709次交互的数据集。
 %(2)ASSISTment 2017 来源于2017年举办的ASSISTments Longitudinal Data Mining Competition。经过数据预处理和数据过滤，数据集包含1709个学生，4117个问题，102个知识点和约943千次交互。
 %(3)Statics 2011 数据集来源于统计学课程的答题记录。
 \begin{itemize}
+    \item ASSISTment 2009-2010~\cite{assistmentdata2009} is a data set used to predict student test performance. It consists of a series of exercises containing several knowledge point labels and some student answer records. It was collected on an online education platform in 2015. After data filtering, a data set containing 19,917 students, about 102 thousand exercises, 100 knowledge point labels, and about 709 interactions was obtained.
     \item ASSISTment 2015 (ASSIST15)~\cite{assistmentdata2015} is a data set used to predict student test performance. It consists of a series of exercises containing several knowledge point labels and some student answer records. It was collected on an online education platform in 2015. After data filtering, a data set containing 19,917 students, about 102 thousand exercises, 100 knowledge point labels, and about 709 interactions was obtained.
     \item ASSISTment 2017 (ASSIST17) is derived from the ASSISTments Longitudinal Data Mining Competition held in 2017. After data preprocessing and data filtering, the data set contains 1709 students, 4117 exercises, 102 knowledge points, and approximately 943 thousand interactions.
 \end{itemize}
 
 
 \subsection{Settings and Metrics}
+%目前知识追踪领域的论文多以(Area Under Curve)AUC作为对比指标，AUC是一个基于ROC曲线常用的二分类评测手段，具有较好的性能对比能力。在知识追踪任务中，最终预测也是当前时刻的习题的做对与否，本质上为一个二分类问题，因此可以采取这种做法。
+At present, most papers in the field of knowledge tracing use Area Under Curve (AUC) as a comparison indicator. AUC is a commonly used two-category evaluation method based on the ROC curve and has good performance comparison capabilities. In the task of knowledge tracing, the final prediction is also whether the exercises at the current moment are done correctly or not, which is essentially a binary classification problem so that this approach can be adopted.
 
+%对于每个数据集采用70%作为训练集，剩余30%作为测试集。实验运行环境为Ubuntu20.04，TensorFlow 2.23，Python 3.8.6，实验机器为一块Tesla V100计算卡。
+For each dataset, 70\% is used as the training set, and the remaining 30\% is taken as the test set. The experimental running environment is Ubuntu20.04, TensorFlow 2.23, Python 3.8.6, and the experimental machine is a Tesla V100 computing card.
 
 \subsection{Baselines}
 %1.BKT是一个知识追踪的经典模型，它基于隐马尔可夫模型（HMM），将学习者的知识状态建模为一组对应知识点掌握情况的二元变量。
