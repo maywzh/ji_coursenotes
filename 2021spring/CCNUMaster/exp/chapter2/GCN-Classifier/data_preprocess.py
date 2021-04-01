@@ -1,10 +1,10 @@
 '''
 Author       : maywzh
-Date         : 2021-04-01 11:25:17
-LastEditTime : 2021-04-01 19:07:41
+Date         : 2021-04-01 16:22:51
+LastEditTime : 2021-04-01 19:10:54
 LastEditors  : maywzh
-Description  : 
-FilePath     : /ji_coursenotes/2021spring/CCNUMaster/exp/chapter2/dataspider/dataclass.py
+Description  : Read and preprocess_data
+FilePath     : /ji_coursenotes/2021spring/CCNUMaster/exp/chapter2/GCN-Classifier/data_preprocess.py
 symbol_custom_string_obkoro1: 
 Copyright (c) 2017 maywzh.
 
@@ -16,23 +16,14 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 '''
 
 
-class Category():
-    def __init__(self):
-        self.labels = []
-
-
 class Exercise():
-    def __init__(self):
-        self.labels = []
-
-    def __init__(self, category):
-        self.category = category
-        self.labels.extend(self.category.labels)
-
-    def addlabel(self, label):
-        self.labels.append(label)
+    def __init__(self, text):
+        self.text = text
 
 
 class Label():
-    def __init__(self):
-        self.text = ""
+    pass
+
+
+def readoriginal(filename):
+    cate = filename[-4]

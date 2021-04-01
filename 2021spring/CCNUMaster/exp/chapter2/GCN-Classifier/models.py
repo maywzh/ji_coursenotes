@@ -1,8 +1,25 @@
+'''
+Author       : maywzh
+Date         : 2021-04-01 09:45:35
+LastEditTime : 2021-04-01 15:50:33
+LastEditors  : maywzh
+Description  : 
+FilePath     : /ji_coursenotes/2021spring/CCNUMaster/exp/chapter2/GCN-Classifier/models.py
+symbol_custom_string_obkoro1: 
+Copyright (c) 2017 maywzh.
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+'''
 import torchvision.models as models
 from torch.nn import Parameter
 from util import *
 import torch
 import torch.nn as nn
+
 
 class GraphConvolution(nn.Module):
     """
@@ -36,8 +53,8 @@ class GraphConvolution(nn.Module):
 
     def __repr__(self):
         return self.__class__.__name__ + ' (' \
-               + str(self.in_features) + ' -> ' \
-               + str(self.out_features) + ')'
+            + str(self.in_features) + ' -> ' \
+            + str(self.out_features) + ')'
 
 
 class GCNResnet(nn.Module):
@@ -71,7 +88,6 @@ class GCNResnet(nn.Module):
         feature = self.pooling(feature)
         feature = feature.view(feature.size(0), -1)
 
-
         inp = inp[0]
         adj = gen_adj(self.A).detach()
         x = self.gc1(inp, adj)
@@ -84,11 +100,10 @@ class GCNResnet(nn.Module):
 
     def get_config_optim(self, lr, lrp):
         return [
-                {'params': self.features.parameters(), 'lr': lr * lrp},
-                {'params': self.gc1.parameters(), 'lr': lr},
-                {'params': self.gc2.parameters(), 'lr': lr},
-                ]
-
+            {'params': self.features.parameters(), 'lr': lr * lrp},
+            {'params': self.gc1.parameters(), 'lr': lr},
+            {'params': self.gc2.parameters(), 'lr': lr},
+        ]
 
 
 def gcn_resnet101(num_classes, t, pretrained=False, adj_file=None, in_channel=300):

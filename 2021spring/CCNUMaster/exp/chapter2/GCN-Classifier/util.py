@@ -7,6 +7,7 @@ import numpy as np
 import random
 import torch.nn.functional as F
 
+
 class Warp(object):
     def __init__(self, size, interpolation=Image.BILINEAR):
         self.size = int(size)
@@ -16,23 +17,26 @@ class Warp(object):
         return img.resize((self.size, self.size), self.interpolation)
 
     def __str__(self):
-        return self.__class__.__name__ + ' (size={size}, interpolation={interpolation})'.format(size=self.size,
-                                                                                                interpolation=self.interpolation)
-class MultiScaleCrop(object):
+        return self.__class__.__name__ + ' (size={size}, interpolation={interpolation})'.format(size=self.size, interpolation=self.interpolation)
 
+
+class MultiScaleCrop(object):
     def __init__(self, input_size, scales=None, max_distort=1, fix_crop=True, more_fix_crop=True):
         self.scales = scales if scales is not None else [1, 875, .75, .66]
         self.max_distort = max_distort
         self.fix_crop = fix_crop
         self.more_fix_crop = more_fix_crop
-        self.input_size = input_size if not isinstance(input_size, int) else [input_size, input_size]
+        self.input_size = input_size if not isinstance(input_size, int) else [
+            input_size, input_size]
         self.interpolation = Image.BILINEAR
 
     def __call__(self, img):
         im_size = img.size
         crop_w, crop_h, offset_w, offset_h = self._sample_crop_size(im_size)
-        crop_img_group = img.crop((offset_w, offset_h, offset_w + crop_w, offset_h + crop_h))
-        ret_img_group = crop_img_group.resize((self.input_size[0], self.input_size[1]), self.interpolation)
+        crop_img_group = img.crop(
+            (offset_w, offset_h, offset_w + crop_w, offset_h + crop_h))
+        ret_img_group = crop_img_group.resize(
+            (self.input_size[0], self.input_size[1]), self.interpolation)
         return ret_img_group
 
     def _sample_crop_size(self, im_size):
@@ -41,8 +45,10 @@ class MultiScaleCrop(object):
         # find a crop size
         base_size = min(image_w, image_h)
         crop_sizes = [int(base_size * x) for x in self.scales]
-        crop_h = [self.input_size[1] if abs(x - self.input_size[1]) < 3 else x for x in crop_sizes]
-        crop_w = [self.input_size[0] if abs(x - self.input_size[0]) < 3 else x for x in crop_sizes]
+        crop_h = [self.input_size[1] if abs(
+            x - self.input_size[1]) < 3 else x for x in crop_sizes]
+        crop_w = [self.input_size[0] if abs(
+            x - self.input_size[0]) < 3 else x for x in crop_sizes]
 
         pairs = []
         for i, h in enumerate(crop_h):
@@ -55,12 +61,14 @@ class MultiScaleCrop(object):
             w_offset = random.randint(0, image_w - crop_pair[0])
             h_offset = random.randint(0, image_h - crop_pair[1])
         else:
-            w_offset, h_offset = self._sample_fix_offset(image_w, image_h, crop_pair[0], crop_pair[1])
+            w_offset, h_offset = self._sample_fix_offset(
+                image_w, image_h, crop_pair[0], crop_pair[1])
 
         return crop_pair[0], crop_pair[1], w_offset, h_offset
 
     def _sample_fix_offset(self, image_w, image_h, crop_w, crop_h):
-        offsets = self.fill_fix_offset(self.more_fix_crop, image_w, image_h, crop_w, crop_h)
+        offsets = self.fill_fix_offset(
+            self.more_fix_crop, image_w, image_h, crop_w, crop_h)
         return random.choice(offsets)
 
     @staticmethod
@@ -87,7 +95,6 @@ class MultiScaleCrop(object):
             ret.append((3 * w_step, 3 * h_step))  # lower righ quarter
 
         return ret
-
 
     def __str__(self):
         return self.__class__.__name__
@@ -129,7 +136,8 @@ def download_url(url, destination=None, progress_bar=True):
 
     if progress_bar:
         with tqdm(unit='B', unit_scale=True, miniters=1, desc=url.split('/')[-1]) as t:
-            filename, _ = urlretrieve(url, filename=destination, reporthook=my_hook(t))
+            filename, _ = urlretrieve(
+                url, filename=destination, reporthook=my_hook(t))
     else:
         filename, _ = urlretrieve(url, filename=destination)
 
@@ -222,7 +230,8 @@ class AveragePrecisionMeter(object):
             scores = self.scores[:, k]
             targets = self.targets[:, k]
             # compute average precision
-            ap[k] = AveragePrecisionMeter.average_precision(scores, targets, self.difficult_examples)
+            ap[k] = AveragePrecisionMeter.average_precision(
+                scores, targets, self.difficult_examples)
         return ap
 
     @staticmethod
@@ -267,7 +276,6 @@ class AveragePrecisionMeter(object):
                 scores[i, ind] = 1 if tmp[i, ind] >= 0 else -1
         return self.evaluation(scores, targets)
 
-
     def evaluation(self, scores_, targets_):
         n, n_class = scores_.shape
         Nc, Np, Ng = np.zeros(n_class), np.zeros(n_class), np.zeros(n_class)
@@ -288,6 +296,7 @@ class AveragePrecisionMeter(object):
         CF1 = (2 * CP * CR) / (CP + CR)
         return OP, OR, OF1, CP, CR, CF1
 
+
 def gen_A(num_classes, t, adj_file):
     import pickle
     result = pickle.load(open(adj_file, 'rb'))
@@ -300,6 +309,7 @@ def gen_A(num_classes, t, adj_file):
     _adj = _adj * 0.25 / (_adj.sum(0, keepdims=True) + 1e-6)
     _adj = _adj + np.identity(num_classes, np.int)
     return _adj
+
 
 def gen_adj(A):
     D = torch.pow(A.sum(1).float(), -0.5)

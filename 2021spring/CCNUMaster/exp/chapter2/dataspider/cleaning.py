@@ -1,10 +1,10 @@
 '''
 Author       : maywzh
-Date         : 2021-04-01 11:25:17
-LastEditTime : 2021-04-01 19:07:41
+Date         : 2021-04-01 20:13:25
+LastEditTime : 2021-04-01 20:19:00
 LastEditors  : maywzh
 Description  : 
-FilePath     : /ji_coursenotes/2021spring/CCNUMaster/exp/chapter2/dataspider/dataclass.py
+FilePath     : /ji_coursenotes/2021spring/CCNUMaster/exp/chapter2/dataspider/cleaning.py
 symbol_custom_string_obkoro1: 
 Copyright (c) 2017 maywzh.
 
@@ -14,25 +14,10 @@ The above copyright notice and this permission notice shall be included in all c
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 '''
+import pandas as pd
 
+# 寻找特定关键词 添加标签
 
-class Category():
-    def __init__(self):
-        self.labels = []
+# 移除无意义的习题
 
-
-class Exercise():
-    def __init__(self):
-        self.labels = []
-
-    def __init__(self, category):
-        self.category = category
-        self.labels.extend(self.category.labels)
-
-    def addlabel(self, label):
-        self.labels.append(label)
-
-
-class Label():
-    def __init__(self):
-        self.text = ""
+# 同义词替换
