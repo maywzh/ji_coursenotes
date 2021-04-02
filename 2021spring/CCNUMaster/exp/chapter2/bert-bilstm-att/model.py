@@ -1,7 +1,7 @@
 '''
 Author       : maywzh
 Date         : 2021-01-19 10:22:58
-LastEditTime : 2021-04-02 13:30:35
+LastEditTime : 2021-04-02 15:30:40
 LastEditors  : maywzh
 Description  : 
 FilePath     : /ji_coursenotes/2021spring/CCNUMaster/exp/chapter2/bert-bilstm-att/model.py
