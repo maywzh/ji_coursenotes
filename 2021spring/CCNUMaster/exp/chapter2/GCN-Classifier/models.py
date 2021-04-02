@@ -1,7 +1,7 @@
 '''
 Author       : maywzh
 Date         : 2021-04-01 09:45:35
-LastEditTime : 2021-04-01 15:50:33
+LastEditTime : 2021-04-02 12:03:20
 LastEditors  : maywzh
 Description  : 
 FilePath     : /ji_coursenotes/2021spring/CCNUMaster/exp/chapter2/GCN-Classifier/models.py

@@ -1,10 +1,10 @@
 '''
 Author       : maywzh
 Date         : 2021-04-02 02:01:19
-LastEditTime : 2021-04-02 02:42:58
+LastEditTime : 2021-04-02 14:38:56
 LastEditors  : maywzh
 Description  : 
-FilePath     : /ji_coursenotes/2021spring/CCNUMaster/exp/chapter2/Bert-BiLSTM-CRF-pytorch-master/bert.py
+FilePath     : /ji_coursenotes/2021spring/CCNUMaster/exp/chapter2/bert-bilstm-att/bert.py
 symbol_custom_string_obkoro1: 
 Copyright (c) 2017 maywzh.
 
@@ -16,6 +16,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 '''
 import numpy as np
 import torch
+from torch.nn.functional import embedding_bag
 from transformers import BertModel, BertConfig, BertTokenizer
 from scipy.spatial.distance import cosine
 
@@ -87,25 +88,6 @@ class BertSeqVec(object):
                                        input_masks_tensors)  # text_hashCodes是bert模型的文本特征
         return text_hashCodes[0].detach().numpy()
 
-
-# if __name__ == '__main__':
-#     texts = ["若“”为真命题，则下列命题一定为假命题的是（）A．B．C．D．答案D解析试题分析：由“”为真命题，知命题p与q至少有一个是真命题，因此与可能为真命题，排除A，B；当p与q都为真命题时，为真命题；与至少有一个假命题，所以为假命题，故选D．",
-#              "逻辑",
-#              "数学",
-#              "函数图像"
-#              ]
-#     last_vec = None
-#     distances = []
-#     text_net = BertTextNet()  # 选择一个文本向量化模型
-#     seq2vec = BertSeqVec(text_net)  # 将模型实例给向量化对象。
-#     for text in texts:
-#         vec = seq2vec.seq2vec(text)  # 向量化
-#         print(vec)
-#         if last_vec is None:
-#             last_vec = vec
-#         else:
-#             dis = cosine(vec, last_vec)
-#             distances.append(dis)
-#             last_vec = vec
-#     print(np.array(distances))
-#     print('done')
+    def Embed(self, text):
+        embedded = torch.Tensor(self.seq2vec(text)),
+        return embedded,
