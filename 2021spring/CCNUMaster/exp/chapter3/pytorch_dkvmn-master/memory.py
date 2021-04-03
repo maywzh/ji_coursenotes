@@ -108,6 +108,12 @@ class DKVMN(nn.Module):
         self.memory_value = memory_value
 
     def attention(self, control_input):
+        '''
+        计算相关度
+
+        :param control_input: Shape (batch_size * control_input_dim)
+        :return: cor_weight  Shape (batch_size, memory_size)
+        '''
         correlation_weight = self.key_head.addressing(control_input=control_input, memory=self.memory_key)
         return correlation_weight
 

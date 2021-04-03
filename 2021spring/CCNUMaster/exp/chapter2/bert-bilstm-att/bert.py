@@ -1,7 +1,7 @@
 '''
 Author       : maywzh
 Date         : 2021-04-02 02:01:19
-LastEditTime : 2021-04-02 14:38:56
+LastEditTime : 2021-04-02 22:22:05
 LastEditors  : maywzh
 Description  : 
 FilePath     : /ji_coursenotes/2021spring/CCNUMaster/exp/chapter2/bert-bilstm-att/bert.py
@@ -34,7 +34,7 @@ al_vocab_path = 'model/albert_tiny/vocab.txt'
 class BertTextNet(nn.Module):
     def __init__(self):
         """
-        bert模型。
+        bert模型
         """
         super(BertTextNet, self).__init__()
         modelConfig = BertConfig.from_pretrained(config_path)
@@ -47,6 +47,56 @@ class BertTextNet(nn.Module):
                                     attention_mask=input_masks)
         text_embeddings = output[0][:, 0, :]
         return text_embeddings
+
+
+class BertEmbeddings(nn.Module):
+    def __init__(self, text):
+        """
+        bert模型
+        """
+        super(BertEmbeddings, self).__init__()
+        modelConfig = BertConfig.from_pretrained(config_path)
+        self.to_embed_text = text
+        self.textExtractor = BertModel.from_pretrained(
+            model_path, config=modelConfig)
+        self.tokenizer = BertTokenizer.from_pretrained(vocab_path)
+
+    def forward(self, tokens, segments, input_masks):
+        output = self.textExtractor(tokens, token_type_ids=segments,
+                                    attention_mask=input_masks)
+        text_embeddings = output[0][:, 0, :]
+        return text_embeddings
+
+    def seq2vec(self):
+        """
+        对文本向量化。
+        :param text:str，未分词的文本。
+        :return:
+        """
+        self.to_embed_text = "[CLS] {} [SEP]".format(self.to_embed_text)
+        tokens, segments, input_masks = [], [], []
+
+        tokenized_text = self.tokenizer.tokenize(
+            self.to_embed_text)  # 用tokenizer对句子分词
+        indexed_tokens = self.tokenizer.convert_tokens_to_ids(
+            tokenized_text)  # 索引列表
+        tokens.append(indexed_tokens)
+        segments.append([0] * len(indexed_tokens))
+        input_masks.append([1] * len(indexed_tokens))
+
+        max_len = max([len(single) for single in tokens])  # 最大的句子长度
+
+        for j in range(len(tokens)):
+            padding = [0] * (max_len - len(tokens[j]))
+            tokens[j] += padding
+            segments[j] += padding
+            input_masks[j] += padding
+        tokens_tensor = torch.tensor(tokens)
+        segments_tensors = torch.tensor(segments)
+        input_masks_tensors = torch.tensor(input_masks)
+        text_hashCodes = self.text_net(tokens_tensor, segments_tensors,
+                                       input_masks_tensors)  # text_hashCodes是bert模型的文本特征
+        return text_hashCodes[0].detach().numpy()
 
 
 class BertSeqVec(object):

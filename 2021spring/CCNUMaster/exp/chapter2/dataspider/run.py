@@ -95,7 +95,7 @@ def get_category(target_url, server, headers):
         full_url = server + each.get('href')
         qs = parse_qs(urlparse(full_url).query)
         cid = qs.get('cid')
-        if cid and int(cid[0]) >= 1378:
+        if cid and int(cid[0]) >= 1394:
             category.append(full_url)
     print(category)
     return category
@@ -118,7 +118,7 @@ if __name__ == "__main__":
 
         while counting < 100 and cid:
             cheak_parsing_url = get_url(target_url, server, headers)
-            if int(cid[0]) >= 1378:
+            if int(cid[0]) >= 1394:
                 get_html(cheak_parsing_url, file_path+cid[0], headers)
             target_url = change_page(target_url, server, headers)
 

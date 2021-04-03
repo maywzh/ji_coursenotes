@@ -27,12 +27,18 @@ High school mathematics is a relatively tricky subject at the high school level.
 
 %********************************** %Second Section  *************************************
 \section{Research Status}
-%本文的研究课题为高中数学习题推荐系统，第一个部分为基于图神经网络和自然语言处理的习题知识点标注，第二个部分为基于图注意力网络与Transformer的知识追踪模型，第三个部分为基于协同过滤和神经网络的习题推荐模块， 的知识跟踪与推荐系统等。因而本文涉及的技术包括高中数学图神经网络，自然语言处理，多标签分类，推荐系统等研究课题， 接下来，本节将回顾这些技术的研究现状。
 
-The first part of this thesis is a graph neural network, and natural language processing (NLP) based knowledge point labeling for high school math exercises, the second part is a graph attention network and Transformer based knowledge tracing model, and the third part is a matching and ranking based exercise recommendation module. Thus, the techniques covered in this thesis include high school mathematics subjects, graph neural networks, natural language processing, multi-label classification, recommendation systems, and other research topics. Next, this section reviews the current state of research on these techniques.
 
-\subsection{Related Research}
-%在习题推荐领域，目前较为
+
+%本文的研究课题为高中数学习题推荐系统，
+
+%如wang等人提出结合神经网络的认知诊断模型NeuralCD，在预测精度和可解释性上均有所提升。一种流行的方法是是通过认知诊断的方式来对学生的知识掌握状态进行评估，然后基于学生的知识状态来进行对应的习题推荐。
+
+%第一个部分为基于图神经网络和自然语言处理的习题知识点标注，第二个部分为基于图注意力网络与Transformer的知识追踪模型，第三个部分为基于协同过滤和神经网络的习题推荐模块， 的知识跟踪与推荐系统等。因而本文涉及的技术包括高中数学图神经网络，自然语言处理，多标签分类，推荐系统等研究课题， 接下来，本节将回顾这些技术的研究现状。
+The research topic of this paper is a recommendation system for high school mathematics exercises, for which there have been several studies and applications. A popular approach is to assess students' knowledge mastery status by means of cognitive diagnosis, and then recommend corresponding exercises based on students' knowledge status. For example, wang et al. proposed NeuralCD~\cite{wang_neural_2020}, a cognitive diagnostic model combined with neural networks, which has improved in both prediction accuracy and interpretability. There is also an exercise recommendation algorithm designed by Qi et al. combining matrix decomposition and cognitive diagnosis~\cite{qicd_2019}, which has also improved in recommendation efficiency and performance performance.
+
+
+The first part of this thesis is a graph neural network, and natural language processing (NLP) based knowledge point labeling for high school math exercises, the second part is a graph attention network and Transformer based knowledge tracing model, and the third part is a matching and ranking based exercise recommendation module. Thus, the techniques covered in this thesis include high school mathematics subjects, graph neural networks, natural language processing, multi-label classification, recommendation systems, and other research topics. Next, this section reviews the currenat state of research on these techniques.
 
 \subsection{High School Mathematics}
 %无论在基础教育还是科学研究中，数学都是一门必要的的学科。数学是一门专门研究数量与空间形式之间关系的科学，其符号系统更加完整，公式结构清晰独特，文字和图像等语言表达方式也更加生动直观。在数学学科中，知识结构和认知结构的建立对于该学科的学习起着相当重要的作用。``认知结构''表示在人大脑当中陈述性知识的组织形式，而经过学习内化后的认知结构通过网络结构或图形展示出来的就是知识结构~\cite{tanujaya2017relationship}。学习者所需要学习的知识内容大多来源于前人在实践活动中的经验总结，其学习的过程就是对这些归纳好的知识进行认知学习，并不断对知识的结构进行消化、调整、重组，从而构建更为完善和适合自己的知识结构的过程，也是一个与创新思维结合的过程。在数学学科中，知识的掌握往往来自于实践，例如习题练习、证明推导等等。数学学科作为中学阶段的主要科目，具有高度抽象性、严密逻辑性与广泛应用性等特点。该学科知识体系是利用众多的抽象性知识概念建立起来的，并借助对这些概念知识进行学习与思维拓展，形成新的抽象性概念知识。此外，数学逻辑性十分严密，因为数学学科当中得出的任何结论，都需要经过严密的逻辑推理与严格的证明才能被认为是合理的。它是我们参与社会实践活动或科学研究的重要手段和工具，在各行各业以及社会的各个领域当中都离不开对数学的学习。数学知识点之间也具有内在关联性，因而它们可以在具体学习过程中根据特定的逻辑顺序进行安排和学习。这些内在关联关系可以分为同义关系、前驱关系、后继关系、包含关系、兄弟关系、对立关系等几种。通过对知识点进行分析，可以建立知识点关联网络，便于进行后续的知识状态追踪。
@@ -93,7 +99,7 @@ Chapter 1 of this thesis is an introduction. The study's research background, th
 
 Chapter 2 of this thesis focuses on the knowledge point annotation of the exercises. In the exercise resource recommendation system, it is necessary to analyze the exercises' knowledge points and then recommend exercises related to the knowledge points that students have insufficient mastery according to their current knowledge mastery. This chapter's algorithmic model is divided into two parts: exercise text information extraction and label annotation. In the experimental part, the model's effectiveness is verified by conducting performance comparison experiments with several baseline models.
 
-Chapter 3 of this paper proposes an improved knowledge tracking model for DKVMN, which is divided into parts such as student answering behavior characterization, exercise knowledge weight calculation, knowledge mastery calculation, and knowledge mastery modification. The paper starts with a theoretical introduction of the design idea and related techniques, and then verifies the validity of the model and evaluates the model performance by comparing it with the benchmark model on a publicly available dataset in the experimental part.
+Chapter 3 of this thesis proposes an improved knowledge tracking model for DKVMN, which is divided into parts such as student answering behavior characterization, exercise knowledge weight calculation, knowledge mastery calculation, and knowledge mastery modification. The paper starts with a theoretical introduction of the design idea and related techniques, and then verifies the validity of the model and evaluates the model performance by comparing it with the benchmark model on a publicly available dataset in the experimental part.
 
 Chapter 4 of this thesis proposes a recommendation system model based on two phases: matching and ranking. In the matching phase of the model, multiple candidate exercise subsets are generated separately by a multiplex-matching algorithm and then merged into the weighted ranking candidate exercises' final set. In the model's ranking phase, the candidate set exercises are used as the input to the knowledge tracing model, and then the correct probabilities of the exercises are collected and prioritized to obtain a list of recommended exercises.
 

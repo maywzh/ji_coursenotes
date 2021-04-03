@@ -50,7 +50,7 @@ In the knowledge tracking task, since the knowledge point representations contai
 
 \begin{figure}[htbp!]
     \includegraphics[width=0.9\textwidth]{ch3-dkvmn-model.pdf}
-    \caption{The original Dynamic key-value memory network model}\label{fig:ch3-dkvmn-model}
+    \caption{The original dynamic key-value memory network model}\label{fig:ch3-dkvmn-model}
 \end{figure}
 
 In the reading process, the model weights and calculates the weight vector \(w_t\) with the knowledge point mastery matrix \(M^{(v)}\) to obtain the user's mastery representation vector \(r_t\) for the knowledge point. And \(r_t\) is spliced with the current exercise embedding vector \(k_t\), and \(f_t\) is derived after the full-linked activation layer loses \(Tanh(\cdot)\), which indicates the user's mastery of the exercise. The \(f_t\) goes through a final \(Sigmoid(\cdot)\) activation function to output a predicted probability of answering the exercise correctly \(p_t\). During the writing process, the current actual response performance will impact the student's knowledge acquisition status, which is a re-evaluation process. The current interaction record \(x_t=(q_t,a_t)\) will be used as the input to the model. Its embedding representation \(v_t\) will be used to compute the knowledge reduction vector \(e_t\) and the knowledge increase vector \(a_t\), and the reduction and increase vectors will be weighted with \(w_t\) and act on \(M^{(v)}\) thus realizing the change for the student's knowledge state. The training process is performed by minimizing the cross-entropy loss of \(p_t\) with the true label \(a_t\) of the correctness of the answers to the exercises. The whole model is microscopic and thus can be trained efficiently using stochastic gradient descent.
@@ -64,7 +64,7 @@ The key point of this section is the knowledge tracking of students. In this the
 
 \begin{figure}[htbp!]
     \includegraphics[width=0.9\textwidth]{ch3-gkvmn-model.pdf}
-    \caption{Graph key-value memory network architecture}\label{fig:ch3-gkvmn-model}
+    \caption{The graph key-value memory network architecture}\label{fig:ch3-gkvmn-model}
 \end{figure}
 
 \subsection{Student Behavior Capturing}
