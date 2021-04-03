@@ -88,7 +88,7 @@ def main():
     params.lr = params.init_lr
     params.memory_key_state_dim = params.q_embed_dim  # 存储key的dim==q嵌入的dim
     params.memory_value_state_dim = params.qa_embed_dim  # 存储value的dim==qa嵌入的dim
-
+    train_log = []
     print(params)
     data_path = './data/assist2009_raw/skill_builder_data_corrected.csv'
 
@@ -140,6 +140,7 @@ def main():
             idx, model, params, optimizer, train_q_data, train_qa_data)
         print('Epoch %d/%d, loss : %3.5f, auc : %3.5f, accuracy : %3.5f' %
               (idx + 1, params.max_iter, train_loss, train_auc, train_accuracy))
+        train_log.append([train_loss, train_auc, train_accuracy])
         valid_loss, valid_accuracy, valid_auc = test(
             model, params, optimizer, valid_q_data, valid_qa_data)
         print('Epoch %d/%d, valid auc : %3.5f, valid accuracy : %3.5f' %
