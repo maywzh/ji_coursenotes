@@ -537,4 +537,9 @@ GitHub.sublime-settings
 2021spring/CCNUMaster/exp/dataspider/data/*
 2021spring/CCNUMaster/exp/chapter2/Bert-BiLSTM-CRF-pytorch-master/pretrained_model/*
 2021spring/CCNUMaster/exp/chapter3/pytorch_dkvmn-master/data/*
+2021spring/CCNUMaster/exp/chapter3/KT-master/dataset/*
+2021spring/CCNUMaster/exp/chapter3/Deep-Knowledge-Tracing-master/data/*
+2021spring/CCNUMaster/exp/chapter3/pytorch-GAT-main/.ipynb_checkpoints/*
+**/data/*
 **/pretrained_model/*
+**/.idea/*
