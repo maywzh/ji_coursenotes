@@ -20,45 +20,45 @@ class DATA(object):
         """
         self.seqlen = seqlen
 
-    ### data format
-    ### 15
-    ### 1,1,1,1,7,7,9,10,10,10,10,11,11,45,54
-    ### 0,1,1,1,1,1,0,0,1,1,1,1,1,0,0
+    # data format
+    # 15
+    # 1,1,1,1,7,7,9,10,10,10,10,11,11,45,54
+    # 0,1,1,1,1,1,0,0,1,1,1,1,1,0,0
     def load_data(self, path):
-        f_data = open(path , 'r')
+        f_data = open(path, 'r')
         q_data = []
         qa_data = []
         for lineID, line in enumerate(f_data):
-            line = line.strip( )
+            line = line.strip()
             # lineID starts from 0
             if lineID % 3 == 1:
                 Q = line.split(self.separate_char)
-                if len( Q[len(Q)-1] ) == 0:
+                if len(Q[len(Q)-1]) == 0:
                     Q = Q[:-1]
-                #print(len(Q))
+                # print(len(Q))
             elif lineID % 3 == 2:
                 A = line.split(self.separate_char)
-                if len( A[len(A)-1] ) == 0:
+                if len(A[len(A)-1]) == 0:
                     A = A[:-1]
-                #print(len(A),A)
+                # print(len(A),A)
 
                 # start split the data
                 n_split = 1
-                #print('len(Q):',len(Q))
+                # print('len(Q):',len(Q))
                 if len(Q) > self.seqlen:
                     n_split = math.floor(len(Q) / self.seqlen)
                     if len(Q) % self.seqlen:
                         n_split = n_split + 1
-                #print('n_split:',n_split)
+                # print('n_split:',n_split)
                 for k in range(n_split):
                     question_sequence = []
                     answer_sequence = []
                     if k == n_split - 1:
-                        endINdex  = len(A)
+                        endINdex = len(A)
                     else:
                         endINdex = (k+1) * self.seqlen
                     for i in range(k * self.seqlen, endINdex):
-                        if len(Q[i]) > 0 :
+                        if len(Q[i]) > 0:
                             # int(A[i]) is in {0,1}
                             Xindex = int(Q[i]) + int(A[i]) * self.n_question
                             question_sequence.append(int(Q[i]))
@@ -70,7 +70,7 @@ class DATA(object):
                     qa_data.append(answer_sequence)
         f_data.close()
         ### data: [[],[],[],...] <-- set_max_seqlen is used
-        ### convert data into ndarrays for better speed during training
+        # convert data into ndarrays for better speed during training
         q_dataArray = np.zeros((len(q_data), self.seqlen))
         for j in range(len(q_data)):
             dat = q_data[j]
@@ -97,8 +97,15 @@ class DATA_RAW(object):
         self.seqlen = seqlen
 
     def max_len_adjust(self, students, num_steps):
+        '''
+        将超过num_steps长度的做题序列分割为数段
+
+        students:  np.array([List_s1[[],[],[]],List_s2[[][][]]],...,List_s3[[][]]])
+        num_steps: 最大序列长度
+        '''
         students_expand = []
         for s in students:
+            # 将超过长度的做题序列分割
             if len(s) > num_steps:
                 segs = int(np.ceil(len(s) / num_steps))
                 for seg in range(segs):
@@ -108,8 +115,14 @@ class DATA_RAW(object):
                 students_expand.append(s)
         return students_expand
 
-
     def get_q_qa(self, students, all_skills, num_skills):
+        '''
+        获取 q 和 qa 关系
+
+        students:  np.array([List_s1[[skill_id],[correct],[user_id]],List_s2[[][][]]],...,List_s3[[][]]])
+        all_skills: List of skill id
+        num_skills: len(all_skills) + 1
+        '''
         all_qa = []
         all_q = []
 
@@ -117,14 +130,16 @@ class DATA_RAW(object):
             qs = []
             qas = []
             for attempt in s:
+                # 找出skill_id在all_skills数组中的位置
                 q = all_skills.index(int(attempt[0])) + 1
+                # 找出答对+位置 未答对不加
                 qa = q + num_skills * int(attempt[1])
                 qs.append(q)
                 qas.append(qa)
             all_q.append(qs)
             all_qa.append(qas)
 
-        ### convert data into ndarrays for better speed during training
+        # convert data into ndarrays for better speed during training
         q_dataArray = np.zeros((len(all_q), self.seqlen))
         for j in range(len(all_q)):
             dat = all_q[j]
@@ -137,7 +152,6 @@ class DATA_RAW(object):
         # dataArray: [ array([[],[],..])] Shape: (3633, 200)
 
         return q_dataArray, qa_dataArray
-
 
     def get_processed_data(self, file_name):
 
@@ -156,13 +170,14 @@ class DATA_RAW(object):
             train_students = self.max_len_adjust(train_students, num_steps)
             test_students = self.max_len_adjust(test_students, num_steps)
 
-            train_q, train_qa = self.get_q_qa(train_students, all_skills, num_skills)
-            test_q, test_qa = self.get_q_qa(test_students, all_skills, num_skills)
+            train_q, train_qa = self.get_q_qa(
+                train_students, all_skills, num_skills)
+            test_q, test_qa = self.get_q_qa(
+                test_students, all_skills, num_skills)
 
             all_data.append((train_q, train_qa, test_q, test_qa))
 
         return all_data
-
 
     def load_raw_data(self, file_name):
 
@@ -176,7 +191,6 @@ class DATA_RAW(object):
         features = ['assignment_id', 'assistment_id', 'problem_id', 'user_id', 'original', 'correct', 'attempt_count',
                     'ms_first_response',
                     'skill_id', 'hint_count', 'hint_total', 'first_action', 'bottom_hint']
-
 
         selected_features = ['skill_id', 'correct', 'user_id']
         if not path.exists('students.pickle'):
@@ -194,9 +208,11 @@ class DATA_RAW(object):
                 if row['user_id'] not in users_id:
                     users_id.append(int(row['user_id']))
                 if row['user_id'] in students:
-                    students[row['user_id']].append(row[selected_features].values.tolist())
+                    students[row['user_id']].append(
+                        row[selected_features].values.tolist())
                 else:
-                    students[row['user_id']] = [row[selected_features].values.tolist()]
+                    students[row['user_id']] = [
+                        row[selected_features].values.tolist()]
 
             # for user_id in users_id:
             #     students[user_id] = sorted(students[user_id], key=cmp_to_key(custom_sort), reverse=True)
@@ -214,7 +230,6 @@ class DATA_RAW(object):
             skills = pickle_data['skills']
             users_id = pickle_data['users_id']
 
-
         for user_id in users_id:
             if len(students[user_id]) > max_steps:
                 max_steps = len(students[user_id])
@@ -228,6 +243,5 @@ class DATA_RAW(object):
         print('Max step:', max_steps)
         print('Num of skills:', len(skills))
         print('Num of students:', len(users_id))
-
+        # np.array([List_s1[[],[],[]],List_s2[[][][]]],...,List_s3[[][]]])
         return np.array(students_list), skills, max_steps
-

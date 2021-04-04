@@ -53,6 +53,9 @@ class MODEL(nn.Module):
             2 * self.n_question + 1, self.qa_embed_dim, padding_idx=0)
 
     def init_params(self):
+        '''
+        初始化参数权重矩阵
+        '''
         nn.init.kaiming_normal_(self.predict_linear.weight)
         nn.init.kaiming_normal_(self.read_embed_linear.weight)
         nn.init.constant_(self.read_embed_linear.bias, 0)
@@ -61,7 +64,9 @@ class MODEL(nn.Module):
         # nn.init.normal(self.input_embed_linear.weight, std=0.02)
 
     def init_embeddings(self):
-
+        '''
+        初始化embedding 向量
+        '''
         nn.init.kaiming_normal_(self.q_embed.weight)
         nn.init.kaiming_normal_(self.qa_embed.weight)
 
@@ -93,7 +98,7 @@ class MODEL(nn.Module):
             q = slice_q_embed_data[i].squeeze(1)
             correlation_weight = self.mem.attention(q)
             if_memory_write = slice_q_data[i].squeeze(1).ge(1)
-            if_memory_write = utils.varible(
+            if_memory_write = utils.variable(
                 torch.FloatTensor(if_memory_write.data.tolist()), self.gpu)
 
             # Read Process

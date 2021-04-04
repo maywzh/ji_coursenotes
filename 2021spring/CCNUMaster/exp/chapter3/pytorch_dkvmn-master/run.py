@@ -30,9 +30,9 @@ def train(epoch_num, model, params, optimizer, q_data, qa_data):
 
         target = (target - 1) / params.n_question
         target = np.floor(target)
-        input_q = utils.varible(torch.LongTensor(q_one_seq), params.gpu)
-        input_qa = utils.varible(torch.LongTensor(qa_batch_seq), params.gpu)
-        target = utils.varible(torch.FloatTensor(target), params.gpu)
+        input_q = utils.variable(torch.LongTensor(q_one_seq), params.gpu)
+        input_qa = utils.variable(torch.LongTensor(qa_batch_seq), params.gpu)
+        target = utils.variable(torch.FloatTensor(target), params.gpu)
         target_to_1d = torch.chunk(target, params.batch_size, 0)
         target_1d = torch.cat([target_to_1d[i]
                                for i in range(params.batch_size)], 1)
@@ -92,9 +92,9 @@ def test(model, params, optimizer, q_data, qa_data):
         target = (target - 1) / params.n_question
         target = np.floor(target)
 
-        input_q = utils.varible(torch.LongTensor(q_one_seq), params.gpu)
-        input_qa = utils.varible(torch.LongTensor(qa_batch_seq), params.gpu)
-        target = utils.varible(torch.FloatTensor(target), params.gpu)
+        input_q = utils.variable(torch.LongTensor(q_one_seq), params.gpu)
+        input_qa = utils.variable(torch.LongTensor(qa_batch_seq), params.gpu)
+        target = utils.variable(torch.FloatTensor(target), params.gpu)
 
         target_to_1d = torch.chunk(target, params.batch_size, 0)
         target_1d = torch.cat([target_to_1d[i]

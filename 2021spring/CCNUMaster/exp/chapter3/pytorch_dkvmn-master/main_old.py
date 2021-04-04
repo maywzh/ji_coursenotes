@@ -11,7 +11,7 @@ from data_loader import DATA
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--gpu', type=int, default=0,
+    parser.add_argument('--gpu', type=int, default=-1,
                         help='the gpu will be used, e.g "0,1,2,3"')
     parser.add_argument('--max_iter', type=int, default=300,
                         help='number of iterations')

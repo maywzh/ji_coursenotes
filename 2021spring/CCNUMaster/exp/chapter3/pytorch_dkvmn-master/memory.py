@@ -3,6 +3,7 @@ import utils as utils
 from torch import nn
 import numpy as np
 
+
 class DKVMNHeadGroup(nn.Module):
     def __init__(self, memory_size, memory_state_dim, is_write):
         super(DKVMNHeadGroup, self).__init__()
@@ -16,16 +17,19 @@ class DKVMNHeadGroup(nn.Module):
         self.memory_state_dim = memory_state_dim
         self.is_write = is_write
         if self.is_write:
-            self.erase = torch.nn.Linear(self.memory_state_dim, self.memory_state_dim, bias=True)
-            self.add = torch.nn.Linear(self.memory_state_dim, self.memory_state_dim, bias=True)
+            self.erase = torch.nn.Linear(
+                self.memory_state_dim, self.memory_state_dim, bias=True)
+            self.add = torch.nn.Linear(
+                self.memory_state_dim, self.memory_state_dim, bias=True)
             nn.init.kaiming_normal_(self.erase.weight)
             nn.init.kaiming_normal_(self.add.weight)
             nn.init.constant_(self.erase.bias, 0)
             nn.init.constant_(self.add.bias, 0)
 
-
     def addressing(self, control_input, memory):
         """
+        wt = Softmax(kt*Mk(i))
+
         Parameters
             control_input:          Shape (batch_size, control_state_dim)
             memory:                 Shape (memory_size, memory_state_dim)
@@ -33,21 +37,27 @@ class DKVMNHeadGroup(nn.Module):
             correlation_weight:     Shape (batch_size, memory_size)
         """
         similarity_score = torch.matmul(control_input, torch.t(memory))
-        correlation_weight = torch.nn.functional.softmax(similarity_score, dim=1) # Shape: (batch_size, memory_size)
+        correlation_weight = torch.nn.functional.softmax(
+            similarity_score, dim=1)  # Shape: (batch_size, memory_size)
         return correlation_weight
 
     def read(self, memory, control_input=None, read_weight=None):
         """
+        rt = wt * M
+
         Parameters
             control_input:  Shape (batch_size, control_state_dim)
-            memory:         Shape (batch_size, memory_size, memory_state_dim)
+            memory:         Shape (memory_size, memory_state_dim)
             read_weight:    Shape (batch_size, memory_size)
         Returns
             read_content:   Shape (batch_size,  memory_state_dim)
         """
         if read_weight is None:
-            read_weight = self.addressing(control_input=control_input, memory=memory)
+            read_weight = self.addressing(
+                control_input=control_input, memory=memory)
+        # Shape (batch_size* memory_size, 1)
         read_weight = read_weight.view(-1, 1)
+        #
         memory = memory.view(-1, self.memory_state_dim)
         rc = torch.mul(read_weight, memory)
         read_content = rc.view(-1, self.memory_size, self.memory_state_dim)
@@ -56,16 +66,19 @@ class DKVMNHeadGroup(nn.Module):
 
     def write(self, control_input, memory, write_weight=None):
         """
+
+
         Parameters
             control_input:      Shape (batch_size, control_state_dim)
             write_weight:       Shape (batch_size, memory_size)
-            memory:             Shape (batch_size, memory_size, memory_state_dim)
+            memory:             Shape (memory_size, memory_state_dim)
         Returns
             new_memory:         Shape (batch_size, memory_size, memory_state_dim)
         """
         assert self.is_write
         if write_weight is None:
-            write_weight = self.addressing(control_input=control_input, memory=memory)
+            write_weight = self.addressing(
+                control_input=control_input, memory=memory)
         erase_signal = torch.sigmoid(self.erase(control_input))
         add_signal = torch.tanh(self.add(control_input))
         erase_reshape = erase_signal.view(-1, 1, self.memory_state_dim)
@@ -114,11 +127,13 @@ class DKVMN(nn.Module):
         :param control_input: Shape (batch_size * control_input_dim)
         :return: cor_weight  Shape (batch_size, memory_size)
         '''
-        correlation_weight = self.key_head.addressing(control_input=control_input, memory=self.memory_key)
+        correlation_weight = self.key_head.addressing(
+            control_input=control_input, memory=self.memory_key)
         return correlation_weight
 
     def read(self, read_weight):
-        read_content = self.value_head.read(memory=self.memory_value, read_weight=read_weight)
+        read_content = self.value_head.read(
+            memory=self.memory_value, read_weight=read_weight)
 
         return read_content
 
