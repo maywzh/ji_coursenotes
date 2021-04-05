@@ -16,7 +16,7 @@ This section is a core part of this recommendation system to obtain the student'
 
 Moreover, DKT uses to store all memories in a hidden vector, and the prediction performance for long sequences is not satisfactory enough. Memory Augmented Neural Network (MANN)~\cite{santoro2016meta} was proposed to address this problem, which allows the network to keep multiple hidden state vectors and read and write these vectors separately. In 2017, Dynamic Key-Value Memory Networks (DKVMN)~\cite{zhang2017dynamic} referring to the design of MANN for knowledge tracing tasks and optimizes MANN for knowledge tracing tasks with different input and output domains. DKVMN uses key-value pairs as the memory structure, which can avoid over better prediction performance relative to BKT, and DKT is achieved by using key-value pairs as the memory structure, which can avoid overfitting. The model also has better interpretability. It stores the problem-related potential concepts in the key matrix and the mastery proficiency to the concepts in the value matrix and updates the value matrix by correlating the input exercises with the key matrix.
 
-Although the model achieved better performance, the model modeled knowledge points as mutually independent points without considering the correlations. There are web-like correlations between knowledge points in the high school mathematics knowledge network, and the exercises are built based on these knowledge points. Therefore, there are also implicit and indirect correlations between the exercises and the exercises, so it is reasonable to design a model that will consider the correlations between knowledge points to characterize the model. In addition to considering the degree of mastery of the exercises' knowledge points, the students' answering behaviors can also be added to the model as additional features, adding more considerations to the model and thus enhancing the model's predictive performance. This thesis proposes a knowledge tracing model using graph neural networks combined with memory enhancement networks. The model transforms the knowledge point representation matrix with graph neural networks relative to the original DKVMN model and uses additional characteristics of students' answering behaviors as model inputs.
+Although the model achieved better performance, the model modeled knowledge points as mutually independent points without considering the correlations. There are web-like correlations between knowledge points in the high school mathematics knowledge network, and the exercises are built based on these knowledge points. Therefore, there are also implicit and indirect correlations between the exercises and the exercises, so it is reasonable to design a model that will consider the correlations between knowledge points to characterize the model. In addition to considering the degree of mastery of the exercises' knowledge points, the students' answering behaviors can also be added to the model as additional features, adding more consideration to the model and enhancing the model's predictive performance. This thesis proposes a knowledge tracing model using graph neural networks combined with memory enhancement networks. The model transforms the knowledge point representation matrix with graph neural networks relative to the original DKVMN model and uses additional characteristics of students' answering behaviors as model inputs.
 
 \section{Research Contribution}
 %DKVMN模型有如下的问题，第一，该模型未考虑学生的特性，每个学生对于潜在知识点的掌握程度会导致不同的结果，即，当两个知识点掌握程度相同的学生可能对于一个习题的作答结果会产生不同的预测度。第二，该模型未考虑知识点的内在联系，该模型将知识点作为存储结构中的一个slot，各个slot之间相互独立。这隔绝了知识点变化引起的相关知识点的变化。在高中数学学科中，有许多相互相关的知识点，因此，需要结合领域特征，加入知识点关联学习网络。本文基于上述两点，对DKVMN模型进行改进。
@@ -33,6 +33,7 @@ Knowledge tracing provides the conditions for intelligent and adaptive education
 The mathematical representation of the knowledge tracing task is an interactive answer record \(X_t=(x_1,x_2,\ldots,x_{t-1})\) of a student on an exercise sequence, based on which the student's learning status is obtained by modeling and predicting the student's performance in the next exercise \(x_{t}\). Where \(x_t\) is usually represented as an ordered pair \((q_t,a_t)\), the ordered pair indicates that the student answered the exercise \(q_t\) at time \(t\), and \(a_t\) indicates the score of the exercise, also many knowledge tracing tasks are represented by correct or incorrect answers, when \(a_t\) is 0 or 1. In this case, what is actually predicted is the probability of answering correctly for the next exercise \(P(a_{t}=1|a_{t-1},\ldots,a_1)\). As shown in the figure \figname{\ref{fig:ch3-model-ktdes}}.
 
 \begin{figure}[htbp!]
+    \centering
     \includegraphics[width=0.9\textwidth]{ch3-kt-model.pdf}
     \caption{The knowledge tracing pattern}\label{fig:ch3-model-ktdes}
 \end{figure}
@@ -49,6 +50,7 @@ In traditional machine learning models, logic flow control and external memory m
 In the knowledge tracing task, since the knowledge point representations contained in the exercises are in a different space from the knowledge point mastery proficiency state representations, it is not possible to keep the mastery degree and knowledge point representations in one storage structure, so the MANN model needs to be adapted to the knowledge tracing task. In 2017, DKVMN~\cite{zhang2017dynamic} was proposed. The DKVMN model is shown in \figname{\ref{fig:ch3-dkvmn-model}}. DKVMN saves the knowledge point representations in a matrix \(M^{(k)}\) as keys by keeping the corresponding knowledge point mastery representations in another matrix \(M^{(k)}\) as Values. The corresponding knowledge point mastery representations are saved in another matrix \(M^{(v)}\) as values. On inputting an exercise representation \(q_t\), the model computes the embedding representation vector \(k_t\) of \(q_t\) with the knowledge point representation module \(M^{(k)}\) to obtain the knowledge point relevance representation vector \(w_t\) of the exercise. Each exercise can be represented as a correlation vector with a knowledge point, representing the interrelationship with the knowledge point. In the DKVMN model, there is a read process and a write process.
 
 \begin{figure}[htbp!]
+    \centering
     \includegraphics[width=0.9\textwidth]{ch3-dkvmn-model.pdf}
     \caption{The original dynamic key-value memory network model}\label{fig:ch3-dkvmn-model}
 \end{figure}
@@ -63,6 +65,7 @@ In the reading process, the model weights and calculates the weight vector \(w_t
 The key point of this section is the knowledge tracing of students. In this thesis, an improved knowledge tracing network model for DKVMN was proposed, which adds additional user answer features to the original model and improves the knowledge point mastery representation storage module by graph networks, thus adding inter-knowledge point relationship representation capability to the model. The model still has several sub-modules such as exercise-knowledge point association degree calculation, reading process, writing process and knowledge network propagation process, and prediction process. Its model framework is shown in \figname{\ref{fig:ch3-gkvmn-model}}.
 
 \begin{figure}[htbp!]
+    \centering
     \includegraphics[width=0.9\textwidth]{ch3-gkvmn-model.pdf}
     \caption{The graph key-value memory network architecture}\label{fig:ch3-gkvmn-model}
 \end{figure}
@@ -70,7 +73,7 @@ The key point of this section is the knowledge tracing of students. In this thes
 \subsection{Student Behavior Capturing}
 %在本文中，提出了一种利用DNN来捕捉学生答题特征表征的机制，它与习题特征向量共同形成cross-feature向量，该向量用于后续的习题知识点权重向量计算，它将用户的答题行为特征（例如：是否hint、答题时间、尝试次数）向量\(b_1^t,b_2^t,\ldots,\b_N^t\)输入一个基于多层感知机的特征提取网络中，输出一个对于用户答题能力表征向量\(c_t\)。该向量与原始习题表示向量\(q_t\)进行特征交叉，生成融合用户特征的习题表征向量。具体过程如公式\eqname{\ref{fml:sbcap}}。
 
-In this model, a mechanism is proposed to capture the student's answer feature representation using DNN, which together with the exercise feature vector forms the cross-feature vector that is used for the subsequent calculation of the exercise knowledge point weight vector, which takes the user's answer behavior features (e.g., whether hint, answer time, number of attempts) vector \(b_1^t,b_2^t,\ldots,b_N^t\) into a multilayer perceptron based feature extraction network and outputs a vector \(c_t\) for the user's answering ability representation. This vector is feature-crossed with the original exercise representation vector \(q_t\) to generate an exercise representation vector that incorporates user features. The specific process is shown in \eqname{\ref{fml:ch3-sbcap}}. The \(\| \) represents concatenation.
+In this model, a mechanism is proposed to capture the student's answer feature representation using DNN, which together with the exercise feature vector forms the cross-feature vector that is used for the subsequent calculation of the exercise knowledge point weight vector, which takes the user's answer behavior features (e.g., whether hint, answer time, number of attempts) vector \(b_1^t,b_2^t,\ldots,b_N^t\) into a multilayer perceptron based feature extraction network and outputs a vector \(c_t\) for the user is answering ability representation. This vector is feature-crossed with the original exercise representation vector \(q_t\) to generate an exercise representation vector that incorporates user-related features. The specific process is shown in \eqname{\ref{fml:ch3-sbcap}}. The \(\| \) represents concatenation.
 
 \begin{align}\label{fml:ch3-sbcap}
     \begin{split}
@@ -80,7 +83,7 @@ In this model, a mechanism is proposed to capture the student's answer feature r
 \end{align}
 
 %通过这种机制,模型引入了学生的个性化答题特征，从而可以实现对于习题知识点个性化权重计算。它充分利用了神经网络的特征表征能力，抽取出影响学生答题正确性的隐藏因素，从而提高模型整体的可靠性。
-Through this mechanism, the model introduces students' personalized answering characteristics, thus enabling the calculation of personalized weights for the knowledge points of the exercises. It makes full use of neural networks' feature characterization ability to extract the hidden factors that affect the correctness of students' answers, thus improving the overall reliability of the model.
+Through this mechanism, the model introduces students' personalized answering characteristics, thus enabling the calculation of personalized weights for the exercises' knowledge points. It makes full use of neural networks' feature characterization ability to extract the hidden factors that affect the correctness of students' answers, thus improving the overall reliability of the model.
 
 \subsection{Knowledge-Question Correlation Calculation}
 %在学生进行习题练习的过程中，一个习题与多个知识点相关，根据认知诊断理论\cite{chiu2018cognitive}，学生对于知识点的掌握程度与学生的内在学习能力决定了学生答题的正确性。与DKVMN类似，本模型用Key矩阵\(M^{(k)}\)来保存习题相关的所有潜在知识点。假设共有\(N^{(K)}\)个知识点，则\(M^{(k)}\in\mathbb{R}^{N^{(K)}}\times d_k\)，其中\(d_k\)为知识点表征向量的维度。
@@ -112,7 +115,7 @@ The vector \(\mathbf{w}_t\) represents the relevance representation of the exerc
 \subsection{Knowledge Mastery Calculation Process}
 %本节的目的是计算用户对习题的潜在掌握程度，它是通过计算用户对习题相关知识点的掌握程度来完成。用户对于知识点的掌握程度通过一个矩阵\(M^{(v)}\in\mathbb{R}^{N^{(K)}\times d_v}\)来保存，其中\(d_v\)代表知识点掌握表征向量的维度。该矩阵与DKVMN的区别在于，矩阵会在后续经过图节点信息传播来对相关知识点进行掌握度修改。
 
-The purpose of this section is to calculate the user's potential mastery of the exercise, which is performed by calculating the user's mastery of the knowledge points associated with the exercise. The user's mastery of the knowledge points is kept by a matrix \(M^{(v)}\in\mathbb{R}^{N^{(K)}\times d_v}\), where \(d_v\) represents the dimensionality of the knowledge point mastery representation vector. The difference between this matrix and DKVMN is that the matrix will be subsequently modified by the graph node information propagation to the relevant knowledge points in terms of mastery.
+The purpose of this section is to calculate the user's potential mastery of the exercise, which is performed by calculating the user's mastery of the knowledge points associated with the exercise. A matrix \ keeps the user's mastery of the knowledge points \((M^{(v)}\in\mathbb{R}^{N^{(K)}\times d_v}\), where \(d_v\) represents the dimensionality of the knowledge point mastery representation vector. The difference between this matrix and DKVMN is that the graph node information propagation will subsequently modify the matrix to the relevant knowledge points in terms of mastery.
 
 %将前一节计算得到的习题与知识点的相关度表征向量\(\mathbf{w}_t\)与当前用户知识点掌握矩阵\(M^{(v)}\)进行加权和计算，如公式\eqname{\ref{}}所示
 The correlation representation vector \(\mathbf{w}_t\) of the exercises and knowledge points calculated in the previous section is weighted and calculated with the current user knowledge mastery matrix \(M^{(v)}\), as shown in equation \eqname{\ref{fml:ch3-read}}.
@@ -171,7 +174,7 @@ Finally, changes in each knowledge point have an impact on neighboring knowledge
 
 %由此可见，知识点的邻接矩阵是图传播的关键，本文提出了基于统计的方式来计算知识点邻接矩阵\(A\)，即当知识点\(i,j\)共现次数超过某一阈值时，将\(i，j\)知识点设置为相关。如公式\eqname{\ref{fml:ch3-confidence}}所示。
 
-It can be seen that the adjacency matrix of knowledge points is the key to graph propagation, and this paper proposes a statistical-based approach to calculate the knowledge point adjacency matrix \(A\), i.e. when the number of co-occurrences of knowledge points \(i,j\) exceeds a certain threshold, \(i,j\) knowledge points are set to be relevant. As shown in equation \eqname{\ref{fml:ch3-confidence}}, the \(P_{ij}\) represents the probability that exercise \(i\) and exercise \(j\) exist in one exercise.
+It can be seen that the adjacency matrix of knowledge points is the key to graph propagation, and this thesis proposes a statistical-based approach to calculate the knowledge point adjacency matrix \(A\), i.e., when the number of co-occurrences of knowledge points \(i,j\) exceeds a certain threshold, \(i,j\) knowledge points are set to be relevant. As shown in equation \eqname{\ref{fml:ch3-confidence}}, the \(P_{ij}\) represents the probability that exercise \(i\) and exercise \(j\) exist in one exercise.
 \begin{align}\label{fml:ch3-confidence}
     A_{ij}=\{\begin{array}{ll}
         0, & \text{ if } P_{ij}<\tau^{(k)}      \\
@@ -282,12 +285,63 @@ In this experiment, the length of the longest training sequence is set as the hy
 %(2)ASSISTment 2017 来源于2017年举办的ASSISTments Longitudinal Data Mining Competition。经过数据预处理和数据过滤，数据集包含1709个学生，4117个问题，102个知识点和约943千次交互。
 %(3)Statics 2011 数据集来源于统计学课程的答题记录。
 
+\subsubsection{Data Analysis}
+%在进行模型训练之前，针对数据集进行因果分析，来筛选出合理的变量作为模型输入可以有效提高模型性能。在本节，从经过预处理的原始数据，选取出可能对最终产生影响的若干特征，进行可视化分析。然后选择合适的特征进行输入。
+Before model training, a dependent variable analysis is performed for the dataset to filter out reasonable variables as model inputs can effectively improve model performance. In this section, from the preprocessed raw data, several features that may impact the final are selected for visualization and analysis. The appropriate features are then selected for input.
+%首先，可以对原数据源进行列相关度分析，获取各个输入特征与输出结果标签的相关度。绘制的列相关度热力图如图所示。可见是与习题答题正确性最相关的几个特征。因此本实验将这些特征作为用户的行为特征加入模型。
+First, column correlation analysis can be performed on the original data source to obtain each input feature's correlation with the output result labels. The plotted column correlation heat map is shown in \figname{\ref{fig:ch3-dataset-heatmap}}.
+
+\begin{figure}[htbp!]
+    \centering
+    \includegraphics[width=0.85\textwidth]{ch3-dataset-heatmap.pdf}
+    \caption{The heat map of original dataset ASSISTment 2009}\label{fig:ch3-dataset-heatmap}
+\end{figure}
+
+%然后，结合热力图，分别对筛选出来的特征绘制互相关性图与分布图，得到. 由此可见，这些特征存在一定的互相关性。
+Then, combined with the heat map, the mutual correlation map and distribution map are plotted for the filtered features respectively. The figure is \figname{\ref{fig:ch3-dataset-corrplot}}. It can be seen that there is a certain mutual correlation of these features.
+\begin{figure}[htbp!]
+    \centering
+    \includegraphics[width=1.0\textwidth]{ch3-dataset-corrplot.png}
+    \caption{The correlation plot between features and correctness}\label{fig:ch3-dataset-corrplot}
+\end{figure}
+
+
+%接下来，将每个特征与答题正确性分别绘制互相关图，分析各个特征与目标特征的关系。
+Next, each feature was plotted separately against the correctness of the answer, and the relationship between each feature and the target feature was analyzed, as shown in \figname{\ref{fig:ch3-jointplots}}.
+\begin{figure}[htbp!]
+    \centering
+    \begin{subfigure}[b]{0.475\textwidth}
+        \centering
+        \includegraphics[width=0.9\textwidth]{ch3-jointplot-hc.png}
+        \caption[dis]{The joint-plot of hint\_count}\label{fig:ch3-jointplot-hc}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.475\textwidth}
+        \centering
+        \includegraphics[width=0.9\textwidth]{ch3-jointplot-fc.png}
+        \caption{The joint-plot of first\_action}\label{fig:ch3-jointplot-fc}
+    \end{subfigure}
+    \\
+    \begin{subfigure}[b]{0.475\textwidth}
+        \centering
+        \includegraphics[width=0.9\textwidth]{ch3-jointplot-htc.png}
+        \caption[dis]{The joint-plot of hint\_total}\label{fig:ch3-jointplot-htc}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.475\textwidth}
+        \centering
+        \includegraphics[width=0.9\textwidth]{ch3-jointplot-atc.png}
+        \caption{The joint-plot of attempt\_count}\label{fig:ch3-jointplot-atc}
+    \end{subfigure}
+    \caption{The joint-plots between input features and target feature}\label{fig:ch3-jointplots}
+\end{figure}
+
+%经过上述分析，可以将上述四个特征作为模型的额外输入特征，可以作为判断最终输出的重要依据。
+After the above analysis, the above four features can be used as additional input features for the model, which can be used as an important basis for judging the final output.
 \subsection{Settings and Metrics}
 %目前知识追踪领域的论文多以(Area Under Curve)AUC作为对比指标，AUC是一个基于ROC曲线常用的二分类评测手段，具有较好的性能对比能力。在知识追踪任务中，最终预测也是当前时刻的习题的做对与否，本质上为一个二分类问题，因此可以采取这种做法。
 At present, most papers in the field of knowledge tracing use Area Under Curve (AUC) as a comparison indicator. AUC is a commonly used two-category evaluation method based on the ROC curve and has good performance comparison capabilities. In the task of knowledge tracing, the final prediction is also whether the exercises at the current moment are done correctly or not, which is essentially a binary classification problem so that this approach can be adopted.
 
 %对于每个数据集采用70%作为训练集，剩余30%作为测试集。实验运行环境为Ubuntu20.04，TensorFlow 2.23，Python 3.8.6，实验机器为一块Tesla V100计算卡。
-For each dataset, 70\% is used as the training set, and the remaining 30\% is taken as the test set. The experimental running environment is Ubuntu20.04, TensorFlow 2.23, Python 3.8.6, and the experimental machine is a Tesla V100 computing card.
+For each dataset, 70\% is used as the training set, and the remaining 30\% is taken as the validation set. The experimental running environment is Ubuntu20.04, Python 3.8.6, Pytorch 1.8,  and the running machine is equipped with a Tesla V100 computing card.
 
 \subsection{Baselines}
 %1.BKT是一个知识追踪的经典模型，它基于隐马尔可夫模型（HMM），将学习者的知识状态建模为一组对应知识点掌握情况的二元变量。
