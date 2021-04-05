@@ -16,7 +16,7 @@ This section is a core part of this recommendation system to obtain the student'
 
 Moreover, DKT uses to store all memories in a hidden vector, and the prediction performance for long sequences is not satisfactory enough. Memory Augmented Neural Network (MANN)~\cite{santoro2016meta} was proposed to address this problem, which allows the network to keep multiple hidden state vectors and read and write these vectors separately. In 2017, Dynamic Key-Value Memory Networks (DKVMN)~\cite{zhang2017dynamic} referring to the design of MANN for knowledge tracing tasks and optimizes MANN for knowledge tracing tasks with different input and output domains. DKVMN uses key-value pairs as the memory structure, which can avoid over better prediction performance relative to BKT, and DKT is achieved by using key-value pairs as the memory structure, which can avoid overfitting. The model also has better interpretability. It stores the problem-related potential concepts in the key matrix and the mastery proficiency to the concepts in the value matrix and updates the value matrix by correlating the input exercises with the key matrix.
 
-Although the model achieved better performance, the model modeled knowledge points as mutually independent points without considering the correlations. There are web-like correlations between knowledge points in the high school mathematics knowledge network, and the exercises are built based on these knowledge points. Therefore, there are also implicit and indirect correlations between the exercises and the exercises, so it is reasonable to design a model that will consider the correlations between knowledge points to characterize the model. In addition to considering the degree of mastery of the exercises' knowledge points, the students' answering behaviors can also be added to the model as additional features, adding more considerations to the model and thus enhancing the model's predictive performance. This thesis proposes a knowledge tracking model using graph neural networks combined with memory enhancement networks. The model transforms the knowledge point representation matrix with graph neural networks relative to the original DKVMN model and uses additional characteristics of students' answering behaviors as model inputs.
+Although the model achieved better performance, the model modeled knowledge points as mutually independent points without considering the correlations. There are web-like correlations between knowledge points in the high school mathematics knowledge network, and the exercises are built based on these knowledge points. Therefore, there are also implicit and indirect correlations between the exercises and the exercises, so it is reasonable to design a model that will consider the correlations between knowledge points to characterize the model. In addition to considering the degree of mastery of the exercises' knowledge points, the students' answering behaviors can also be added to the model as additional features, adding more considerations to the model and thus enhancing the model's predictive performance. This thesis proposes a knowledge tracing model using graph neural networks combined with memory enhancement networks. The model transforms the knowledge point representation matrix with graph neural networks relative to the original DKVMN model and uses additional characteristics of students' answering behaviors as model inputs.
 
 \section{Research Contribution}
 %DKVMN模型有如下的问题，第一，该模型未考虑学生的特性，每个学生对于潜在知识点的掌握程度会导致不同的结果，即，当两个知识点掌握程度相同的学生可能对于一个习题的作答结果会产生不同的预测度。第二，该模型未考虑知识点的内在联系，该模型将知识点作为存储结构中的一个slot，各个slot之间相互独立。这隔绝了知识点变化引起的相关知识点的变化。在高中数学学科中，有许多相互相关的知识点，因此，需要结合领域特征，加入知识点关联学习网络。本文基于上述两点，对DKVMN模型进行改进。
@@ -46,7 +46,7 @@ The mathematical representation of the knowledge tracing task is an interactive 
 
 In traditional machine learning models, logic flow control and external memory mechanisms are often missing. As a result, many current machine learning models cannot build complex logic flow control and external memory modules. Traditional models are often unable to efficiently use trainable parameters to obtain models with strong memory capabilities. Current structures like LSTM and GRU have some memory capability, but that capability is affected by trainable parameters. MANN gets rid of the connection between the number of trainable parameters and the model's memory capability by more robust representational capability. It can simulate the human brain's working memory mechanisms, such as reading comprehension, reasoning, and arithmetic processes, and capture complex structural information and establish long-range information dependencies. MANN keeps intermediate information in memory, forming an information cache structure, and uses that information for subsequent reasoning learning. A MANN network is commonly divided into three parts such as controller, storage module, and reader. The controller reads the previous stage's state and the current input to obtain the next stage's output and the controller output. The storage module is a data structure model, such as a stack, queue, or array, and at each moment, the sequence output is computed by processing the reads and the controller output through an output function.
 
-In the knowledge tracking task, since the knowledge point representations contained in the exercises are in a different space from the knowledge point mastery proficiency state representations, it is not possible to keep the mastery degree and knowledge point representations in one storage structure, so the MANN model needs to be adapted to the knowledge tracking task. In 2017, DKVMN~\cite{zhang2017dynamic} was proposed. The DKVMN model is shown in \figname{\ref{fig:ch3-dkvmn-model}}. DKVMN saves the knowledge point representations in a matrix \(M^{(k)}\) as keys by keeping the corresponding knowledge point mastery representations in another matrix \(M^{(k)}\) as Values. The corresponding knowledge point mastery representations are saved in another matrix \(M^{(v)}\) as values. On inputting an exercise representation \(q_t\), the model computes the embedding representation vector \(k_t\) of \(q_t\) with the knowledge point representation module \(M^{(k)}\) to obtain the knowledge point relevance representation vector \(w_t\) of the exercise. Each exercise can be represented as a correlation vector with a knowledge point, representing the interrelationship with the knowledge point. In the DKVMN model, there is a read process and a write process.
+In the knowledge tracing task, since the knowledge point representations contained in the exercises are in a different space from the knowledge point mastery proficiency state representations, it is not possible to keep the mastery degree and knowledge point representations in one storage structure, so the MANN model needs to be adapted to the knowledge tracing task. In 2017, DKVMN~\cite{zhang2017dynamic} was proposed. The DKVMN model is shown in \figname{\ref{fig:ch3-dkvmn-model}}. DKVMN saves the knowledge point representations in a matrix \(M^{(k)}\) as keys by keeping the corresponding knowledge point mastery representations in another matrix \(M^{(k)}\) as Values. The corresponding knowledge point mastery representations are saved in another matrix \(M^{(v)}\) as values. On inputting an exercise representation \(q_t\), the model computes the embedding representation vector \(k_t\) of \(q_t\) with the knowledge point representation module \(M^{(k)}\) to obtain the knowledge point relevance representation vector \(w_t\) of the exercise. Each exercise can be represented as a correlation vector with a knowledge point, representing the interrelationship with the knowledge point. In the DKVMN model, there is a read process and a write process.
 
 \begin{figure}[htbp!]
     \includegraphics[width=0.9\textwidth]{ch3-dkvmn-model.pdf}
@@ -60,7 +60,7 @@ In the reading process, the model weights and calculates the weight vector \(w_t
 \subsection{Algorithm Overview}
 %本节的关键点是对学生的知识追踪，本文提出了一种针对DKVMN的改进型知识追踪网络模型，它在原模型的基础上增加了额外的用户答题特征，并通过图网络来改进知识点掌握度表征存储模块，从而为模型增加知识点间关系表征能力。本模型依然具有习题-知识点关联度计算、读取过程、写入过程和知识网络传播过程和预测过程等多个子模块。其模型框架如图。
 
-The key point of this section is the knowledge tracking of students. In this thesis, an improved knowledge tracking network model for DKVMN was proposed, which adds additional user answer features to the original model and improves the knowledge point mastery representation storage module by graph networks, thus adding inter-knowledge point relationship representation capability to the model. The model still has several sub-modules such as exercise-knowledge point association degree calculation, reading process, writing process and knowledge network propagation process, and prediction process. Its model framework is shown in \figname{\ref{fig:ch3-gkvmn-model}}.
+The key point of this section is the knowledge tracing of students. In this thesis, an improved knowledge tracing network model for DKVMN was proposed, which adds additional user answer features to the original model and improves the knowledge point mastery representation storage module by graph networks, thus adding inter-knowledge point relationship representation capability to the model. The model still has several sub-modules such as exercise-knowledge point association degree calculation, reading process, writing process and knowledge network propagation process, and prediction process. Its model framework is shown in \figname{\ref{fig:ch3-gkvmn-model}}.
 
 \begin{figure}[htbp!]
     \includegraphics[width=0.9\textwidth]{ch3-gkvmn-model.pdf}
@@ -112,7 +112,7 @@ The vector \(\mathbf{w}_t\) represents the relevance representation of the exerc
 \subsection{Knowledge Mastery Calculation Process}
 %本节的目的是计算用户对习题的潜在掌握程度，它是通过计算用户对习题相关知识点的掌握程度来完成。用户对于知识点的掌握程度通过一个矩阵\(M^{(v)}\in\mathbb{R}^{N^{(K)}\times d_v}\)来保存，其中\(d_v\)代表知识点掌握表征向量的维度。该矩阵与DKVMN的区别在于，矩阵会在后续经过图节点信息传播来对相关知识点进行掌握度修改。
 
-The purpose of this section is to calculate the user's potential mastery of the exercise, which is done by calculating the user's mastery of the knowledge points associated with the exercise. The user's mastery of the knowledge points is kept by a matrix \(M^{(v)}\in\mathbb{R}^{N^{(K)}\times d_v}\), where \(d_v\) represents the dimensionality of the knowledge point mastery representation vector. The difference between this matrix and DKVMN is that the matrix will be subsequently modified by the graph node information propagation to the relevant knowledge points in terms of mastery.
+The purpose of this section is to calculate the user's potential mastery of the exercise, which is performed by calculating the user's mastery of the knowledge points associated with the exercise. The user's mastery of the knowledge points is kept by a matrix \(M^{(v)}\in\mathbb{R}^{N^{(K)}\times d_v}\), where \(d_v\) represents the dimensionality of the knowledge point mastery representation vector. The difference between this matrix and DKVMN is that the matrix will be subsequently modified by the graph node information propagation to the relevant knowledge points in terms of mastery.
 
 %将前一节计算得到的习题与知识点的相关度表征向量\(\mathbf{w}_t\)与当前用户知识点掌握矩阵\(M^{(v)}\)进行加权和计算，如公式\eqname{\ref{}}所示
 The correlation representation vector \(\mathbf{w}_t\) of the exercises and knowledge points calculated in the previous section is weighted and calculated with the current user knowledge mastery matrix \(M^{(v)}\), as shown in equation \eqname{\ref{fml:ch3-read}}.
@@ -129,7 +129,7 @@ In the model, the read process is located before the graph propagation calculati
 
 \subsection{Knowledge Erase and Add Process with Graph Propagation}
 %本节是计算用户在实际答题后，对于知识掌握的重新评估值。本节加入了图传播机制，它考虑了知识点的掌握程度变化引起的相关知识点的熟练度变化。本节的输入是\x_t=(c_t,a_t)\in\mathbb{R}^{(d_k+1)\times d_v}\)，其中\(a_t\)是学生对于习题\(q_t\)的回答正确性嵌入表示，它与习题表征向量\(c_t\)共同用于计算答题记录嵌入表征向量\(v_t\)，知识掌握增加向量\(A_t\)与知识掌握减少向量\(E_t\)。\(v_t\)的计算公式为\eqname{\ref{fml:ch3-write-vt}}. 
-This section calculates the reassessment value of the user's knowledge mastery after actually answering the questions. This section incorporates a graph propagation mechanism, which takes into account the change in proficiency of the relevant knowledge points caused by the change in mastery of the knowledge points. The input of this section is \(x_t=(c_t,a_t)\in\mathbb{R}^{(d_k+1)\times d_v} \), where \(a_t\) is the embedded representation of the correctness of students' answers to the exercise \(q_t\), which is used together with the exercise representation vector \(c_t\) to compute the answer record embedding representation vector \(v_t\). the knowledge acquisition increase vector \(A_t\) and the knowledge acquisition decrease vector \(E_t\). The formula for \(v_t\) is \eqname{\ref{fml:ch3-write-vt}}.
+This section calculates the reassessment value of the user's knowledge mastery after actually answering the questions. This section incorporates a graph propagation mechanism, which takes into account the change in the proficiency of the relevant knowledge points caused by the change in the mastery of the knowledge points. The input of this section is \(x_t=(c_t,a_t)\in\mathbb{R}^{(d_k+1)\times d_v} \), where \(a_t\) is the embedded representation of the correctness of students' answers to the exercise \(q_t\), which is used together with the exercise representation vector \(c_t\) to compute the answer record embedding representation vector \(v_t\). the knowledge acquisition increase vector \(A_t\), and the knowledge acquisition decrease vector \(E_t\). The formula for \(v_t\) is \eqname{\ref{fml:ch3-write-vt}}.
 
 \begin{align}\label{fml:ch3-write-vt}
     \begin{split}
@@ -171,7 +171,7 @@ Finally, changes in each knowledge point have an impact on neighboring knowledge
 
 %由此可见，知识点的邻接矩阵是图传播的关键，本文提出了基于统计的方式来计算知识点邻接矩阵\(A\)，即当知识点\(i,j\)共现次数超过某一阈值时，将\(i，j\)知识点设置为相关。如公式\eqname{\ref{fml:ch3-confidence}}所示。
 
-It can be seen that the adjacency matrix of knowledge points is the key to graph propagation, and this paper proposes a statistical-based approach to calculate the knowledge point adjacency matrix \(A\), i.e., when the number of co-occurrences of knowledge points \(i,j\) exceeds a certain threshold, \(i,j\) knowledge points are set to be relevant. As shown in equation \eqname{\ref{fml:ch3-confidence}}, the \(P_{ij}\) represents the probability that exercise \(i\) and exercise \(j\) exist in one exercise.
+It can be seen that the adjacency matrix of knowledge points is the key to graph propagation, and this paper proposes a statistical-based approach to calculate the knowledge point adjacency matrix \(A\), i.e. when the number of co-occurrences of knowledge points \(i,j\) exceeds a certain threshold, \(i,j\) knowledge points are set to be relevant. As shown in equation \eqname{\ref{fml:ch3-confidence}}, the \(P_{ij}\) represents the probability that exercise \(i\) and exercise \(j\) exist in one exercise.
 \begin{align}\label{fml:ch3-confidence}
     A_{ij}=\{\begin{array}{ll}
         0, & \text{ if } P_{ij}<\tau^{(k)}      \\
@@ -210,7 +210,7 @@ The whole network is trained in an end-to-end manner j with true correctness \(a
 
 
 \subsection{Knowledge Mastery}
-Due to the nature of GKVMN, the knowledge mastery \(M^{(v)}\) is explicit, so it can be directly used as a kind of recommendation system for judgment. And it can be subsequently used as a student knowledge mastery state analysis.
+Due to the nature of GKVMN, the knowledge mastery \(M^{(v)}\) is explicit so that it can be directly used as a kind of recommendation system for judgment. Moreover, it can be subsequently used as a student knowledge mastery state analysis.
 
 \section{Experiments}
 %本节中，通过多个专用的知识追踪数据集来investigate提出的模型性能，与目前已经提出的Baseline模型进行性能对比。本章先对所用到的数据集进行介绍和统计，然后提出用于模型性能对比的度量标准、实验设置和运行参数环境等，最后得出结果并进行分析。
@@ -218,16 +218,69 @@ In this section, algorithms, including the performance, are investigated through
 
 \subsection{Datasets}
 After investigating the existing knowledge tracing model, the thesis selected the more popular ASSISTment data set and Statics data set related to mathematics, preprocessed the data set, cleaned the data, obtained the training set, and performed the performance with the Baseline model Compared. Dataset statistics are shown in \tblname{}.
+%本实验主要采用ASSISTment2009数据集用于测试，该数据集是在2009-2010学年于ASSISTment教学平台上采集的真实教育数据。该数据集包含一个Skill builder问题集合，当学生达到一定的标准时，即被认为是掌握了某个技能。当学生掌握某个技能后，将不会有关于该技能的习题推送。
 
+The experiment was conducted using the ASSISTment 2009 dataset, which is a collection of real educational data collected on the ASSISTment teaching platform during the 2009-2010 academic year. The dataset contains a set of Skill builder questions, where students are considered to have mastered a skill when they meet specific criteria. Once a student has mastered a skill, there will be no exercises pushed for that skill.
+
+
+\subsubsection{Data Description}
+%在该数据集的基础记录中，每一行为一个问题的答题记录，包含一系列的特征，例如问题的Id表示problem_id，学生的ID表示user_id,学生的答题次数attempt_count,学生答题用时ms_first_response,问题的相关技能ID表示skill_id等，具体的描述如下:
+
+In the base record of this dataset, each row is a question answering record, containing a series of features, such as problem\_id, user\_id, attempt\_count, ms\_first\_response skill\_id, etc. The specific description is as \tblname{\ref{tbl:ch3-assist2009-heading}}.
+
+\begin{table}[htbp!]
+    \centering
+    \caption{The column heading of ASSISTment Dataset}\label{tbl:ch3-assist2009-heading}
+    \begin{tabular}{lc}
+        \toprule
+        column heading & description                                                       \\
+        \midrule
+        problem\_id    & problem or exercise ID                                            \\
+        user\_id       & the ID of the user                                                \\
+        correct        & a binary value, 1 represents correct while 0 represents incorrect \\
+        attempt\_count & Number of student attempts on the exercise                        \\
+        skill\_id      & skill ID associated with the exercise                             \\
+        hint\_count    & Number of student attempts on this problem                        \\
+        first\_action  & The Whether or not the student asks for all hints                 \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+%经过统计，数据集的一些基本统计数据如下
+The statistical information of the dataset ASSISTment 2009 after data pre-processing is shown in the \tblname{\ref{tbl:ch3-assist2009-stat}}.
+\begin{table}
+    \centering
+    \caption{Statistics of ASSISTment 2009 dataset}\label{tbl:ch3-assist2009-stat}
+    \begin{tabular}{ccccc}
+        \toprule
+        Statistics      & \makecell[c]{Number                          \\ of Students} & \makecell[c]{Number                         \\of Skills }& \makecell[c]{Number                         \\of Questions }& \makecell[c]{Number                         \\ of Records} \\
+        \midrule
+        ASSISTment 2009 & 4,032               & 124 & 17,748 & 459,092 \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+% Total number of students: 4032
+% Training set size: 2580
+% Validation set size: 645
+% Testing set size: 806
+% Number of skills: 123
+% Number of features in the input: 246
+
+\subsubsection{Data Preprocessing}
+%数据预处理是进行模型训练的重要前置步骤。在原始数据中，部分关键的特征出现了缺失，因此应当首先进行数据清洗，清除这些行。例如：缺失关键的skill\_id，correctness和user\_id的行会被剔除。由于知识追踪等任务是基于个体层面进行，因此一个知识追踪的输入序列必须属于同一个用户。而在原始数据集中，这样的序列是乱序的，因此需要对用户的答题序列基于用户个体做聚合排序处理。为了将答题的正确性融入到特征，需要进行特征交叉，在此处的特征交叉是将skill_id与correct两个特征进行加权相加和平移来进行。特征交叉可以为模型带来非线性。
+Data preprocessing is an important antecedent step to perform model training. Some key features are missing in the raw dataset, so data cleaning should be performed first to remove these rows. For example, rows missing the key skill\_id, correctness, and user\_id will be excluded. Since knowledge tracing is performed on an individual level, the input sequence of knowledge tracing must belong to the same user. In the original dataset, such sequences are disordered, so it is necessary to perform aggregated sorting of the user's answer sequences based on individual users. In order to incorporate the correctness of the answers into the new features, feature crossover is required, where the feature crossover is performed by weighting the two features, skill\_id and correct, by summing and translating them. Feature crossing can introduce nonlinearity into the model.
+% \begin{itemize}
+%     \item problem\_id: problem or exercise ID.\
+%     \item user\_id: the ID of the user.
+%     \item correct: a binary value, 1 represents correct while 0 represents incorrect.
+%     \item attempt_count:
+% \end{itemize}
+
+%本实验设置了最长训练序列长度作为超参数，因此对于超过最长训练序列的输入序列，需要进行分割。
+In this experiment, the length of the longest training sequence is set as the hyperparameter, so for the input sequence that exceeds the longest training sequence, segmentation is required.
 %(1)ASSISTment 2015 是一个用于预测学生考试表现的数据集，它由一系列包含若干知识点标签的问题以及一些学生的答题记录组成。它在2015年于线上教育平台上采集而成。经过数据过滤获得包含19917个学生，约102千个问题，100个知识点标签和约709次交互的数据集。
 %(2)ASSISTment 2017 来源于2017年举办的ASSISTments Longitudinal Data Mining Competition。经过数据预处理和数据过滤，数据集包含1709个学生，4117个问题，102个知识点和约943千次交互。
 %(3)Statics 2011 数据集来源于统计学课程的答题记录。
-\begin{itemize}
-    \item ASSISTment 2009-2010~\cite{assistmentdata2009} is a data set used to predict student test performance. It consists of a series of exercises containing several knowledge point labels and some student answer records. It was collected on an online education platform in 2015. After data filtering, a data set containing 19,917 students, about 102 thousand exercises, 100 knowledge point labels, and about 709 interactions was obtained.
-    \item ASSISTment 2015 (ASSIST15)~\cite{assistmentdata2015} is a data set used to predict student test performance. It consists of a series of exercises containing several knowledge point labels and some student answer records. It was collected on an online education platform in 2015. After data filtering, a data set containing 19,917 students, about 102 thousand exercises, 100 knowledge point labels, and about 709 interactions was obtained.
-    \item ASSISTment 2017 (ASSIST17) is derived from the ASSISTments Longitudinal Data Mining Competition held in 2017. After data preprocessing and data filtering, the data set contains 1709 students, 4117 exercises, 102 knowledge points, and approximately 943 thousand interactions.
-\end{itemize}
-
 
 \subsection{Settings and Metrics}
 %目前知识追踪领域的论文多以(Area Under Curve)AUC作为对比指标，AUC是一个基于ROC曲线常用的二分类评测手段，具有较好的性能对比能力。在知识追踪任务中，最终预测也是当前时刻的习题的做对与否，本质上为一个二分类问题，因此可以采取这种做法。

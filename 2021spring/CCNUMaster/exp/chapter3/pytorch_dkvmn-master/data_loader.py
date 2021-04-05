@@ -153,8 +153,71 @@ class DATA_RAW(object):
 
         return q_dataArray, qa_dataArray
 
-    def get_processed_data(self, file_name):
+    def get_q_qa_with_bh(self, students, all_skills, num_skills):
+        '''
+        获取 q 和 qa 关系 包含行为信息
 
+        students:  np.array([List_s1[[skill_id],[correct],[user_id]],List_s2[[][][]]],...,List_s3[[][]]])
+        all_skills: List of skill id
+        num_skills: len(all_skills) + 1
+        '''
+        all_qa = []
+        all_q = []
+        all_bh1 = []
+        all_bh2 = []
+        all_bh3 = []
+        for s in students:
+            qs = []
+            qas = []
+            bh1s, bh2s, bh3s = [], [], []
+            for attempt in s:
+                # 找出skill_id在all_skills数组中的位置
+                q = all_skills.index(int(attempt[0])) + 1
+                # 找出答对+位置 未答对不加
+                qa = q + num_skills * int(attempt[1])
+                bh1 = int(attempt[3])
+                bh2 = int(attempt[4])
+                bh3 = int(attempt[5])
+                qs.append(q)
+                qas.append(qa)
+                bh1s.append(bh1)
+                bh2s.append(bh2)
+                bh3s.append(bh3)
+            all_q.append(qs)
+            all_qa.append(qas)
+            all_bh1.append(bh1s)
+            all_bh2.append(bh2s)
+            all_bh3.append(bh3s)
+        # convert data into ndarrays for better speed during training
+        q_dataArray = np.zeros((len(all_q), self.seqlen))
+        for j in range(len(all_q)):
+            dat = all_q[j]
+            q_dataArray[j, :len(dat)] = dat
+
+        qa_dataArray = np.zeros((len(all_qa), self.seqlen))
+        for j in range(len(all_qa)):
+            dat = all_qa[j]
+            qa_dataArray[j, :len(dat)] = dat
+        # dataArray: [ array([[],[],..])] Shape: (3633, 200)
+        bh1_dataArray = np.zeros((len(all_bh1), self.seqlen))
+        for j in range(len(all_bh1)):
+            dat = all_bh1[j]
+            bh1_dataArray[j, :len(dat)] = dat
+        bh2_dataArray = np.zeros((len(all_bh2), self.seqlen))
+        for j in range(len(all_bh2)):
+            dat = all_bh2[j]
+            bh2_dataArray[j, :len(dat)] = dat
+        bh3_dataArray = np.zeros((len(all_bh3), self.seqlen))
+        for j in range(len(all_bh3)):
+            dat = all_bh3[j]
+            bh3_dataArray[j, :len(dat)] = dat
+
+        return q_dataArray, qa_dataArray, bh1_dataArray, bh2_dataArray, bh3_dataArray
+
+    def get_processed_data(self, file_name):
+        '''
+        获取专用于kt的序列
+        '''
         all_students, all_skills, num_steps = self.load_raw_data(file_name)
         num_skills = len(all_skills) + 1
         kf = KFold(n_splits=5, shuffle=True, random_state=3)
@@ -179,8 +242,40 @@ class DATA_RAW(object):
 
         return all_data
 
-    def load_raw_data(self, file_name):
+    def get_processed_data_with_bh(self, file_name):
+        '''
+        获取专用于kt的序列
+        '''
+        all_students, all_skills, num_steps = self.load_raw_data(file_name)
+        num_skills = len(all_skills) + 1
+        kf = KFold(n_splits=5, shuffle=True, random_state=3)
+        num_steps = 200
+        all_data = []
 
+        for train_indexes, test_indexes in kf.split(all_students):
+
+            train_students = all_students[train_indexes].tolist()
+            test_students = all_students[test_indexes].tolist()
+
+            # Truncated BPTT
+            train_students = self.max_len_adjust(train_students, num_steps)
+            test_students = self.max_len_adjust(test_students, num_steps)
+
+            train_q, train_qa, train_bh1, train_bh2, train_bh3 = self.get_q_qa_with_bh(
+                train_students, all_skills, num_skills)
+            test_q, test_qa, test_bh1, test_bh2, test_bh3 = self.get_q_qa_with_bh(
+                test_students, all_skills, num_skills)
+
+            all_data.append((train_q, train_qa, train_bh1, train_bh2,
+                             train_bh3, test_q, test_qa, test_bh1, test_bh2, test_bh3))
+
+        return all_data
+
+    def load_raw_data(self, file_name):
+        '''
+        获取原始数据
+
+        '''
         pickle_data = {}
         students = {}
         students_list = []
@@ -192,7 +287,8 @@ class DATA_RAW(object):
                     'ms_first_response',
                     'skill_id', 'hint_count', 'hint_total', 'first_action', 'bottom_hint']
 
-        selected_features = ['skill_id', 'correct', 'user_id']
+        selected_features = ['skill_id', 'correct',
+                             'user_id', 'ms_first_response', 'attempt_count', 'hint_count']
         if not path.exists('students.pickle'):
             print('Pickle file not found, creating one...')
             all_data = pd.read_csv(file_name, encoding='ISO-8859-1')

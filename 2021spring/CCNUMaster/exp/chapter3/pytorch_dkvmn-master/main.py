@@ -1,8 +1,8 @@
 import torch
 
 import argparse
-from model import MODEL
-from run import train, test
+from model import MODEL, MODEL_BH
+from run import train, test, train_with_bh, test_with_bh
 import numpy as np
 import torch.optim as optim
 
@@ -37,7 +37,8 @@ def main():
                         default=50.0, help='maximum gradient norm')
     parser.add_argument('--final_fc_dim', type=float,
                         default=50, help='hidden state dim for final fc layer')
-
+    parser.add_argument('--use_additional_feature', type=bool,
+                        default=True, help='use additional feature')
     dataset = 'assist2009_updated'
 
     if dataset == 'assist2009_updated':
@@ -96,21 +97,23 @@ def main():
                    seqlen=params.seqlen, separate_char=',')
     # train_data_path = params.data_dir + "/" + "test5.1.txt"
 
-    all_data = dat.get_processed_data(data_path)
+    all_data = dat.get_processed_data_with_bh(data_path)
+    train_q_data, train_qa_data, train_bh1_data, train_bh2_data, train_bh3_data, valid_q_data, valid_qa_data, valid_bh1_data, valid_bh2_data, valid_bh3_data = all_data[
+        0]
+
     # first fold
-    train_q_data, train_qa_data, valid_q_data, valid_qa_data = all_data[0]
 
     params.memory_key_state_dim = params.q_embed_dim
     params.memory_value_state_dim = params.qa_embed_dim
 
-    model = MODEL(n_question=params.n_question,
-                  batch_size=params.batch_size,
-                  q_embed_dim=params.q_embed_dim,
-                  qa_embed_dim=params.qa_embed_dim,
-                  memory_size=params.memory_size,
-                  memory_key_state_dim=params.memory_key_state_dim,
-                  memory_value_state_dim=params.memory_value_state_dim,
-                  final_fc_dim=params.final_fc_dim, gpu=params.gpu)
+    model = MODEL_BH(n_question=params.n_question,
+                     batch_size=params.batch_size,
+                     q_embed_dim=params.q_embed_dim,
+                     qa_embed_dim=params.qa_embed_dim,
+                     memory_size=params.memory_size,
+                     memory_key_state_dim=params.memory_key_state_dim,
+                     memory_value_state_dim=params.memory_value_state_dim,
+                     final_fc_dim=params.final_fc_dim, gpu=params.gpu)
 
     model.init_embeddings()
     model.init_params()
@@ -134,38 +137,70 @@ def main():
     # shuffle_index = np.random.permutation(train_q_data.shape[0])
     # q_data_shuffled = train_q_data[shuffle_index]
     # qa_data_shuffled = train_qa_data[shuffle_index]
+    if params.use_additional_feature:
+        for idx in range(params.max_iter):
+            train_loss, train_accuracy, train_auc = train_with_bh(
+                idx, model, params, optimizer, train_q_data, train_qa_data, train_bh1_data, train_bh2_data, train_bh3_data)
+            print('Epoch %d/%d, loss : %3.5f, auc : %3.5f, accuracy : %3.5f' %
+                  (idx + 1, params.max_iter, train_loss, train_auc, train_accuracy))
+            train_log.append([train_loss, train_auc, train_accuracy])
+            valid_loss, valid_accuracy, valid_auc = test_with_bh(
+                model, params, optimizer, valid_q_data, valid_qa_data, valid_bh1_data, valid_bh2_data, valid_bh3_data)
+            print('Epoch %d/%d, valid auc : %3.5f, valid accuracy : %3.5f' %
+                  (idx + 1, params.max_iter, valid_auc, valid_accuracy))
 
-    for idx in range(params.max_iter):
-        train_loss, train_accuracy, train_auc = train(
-            idx, model, params, optimizer, train_q_data, train_qa_data)
-        print('Epoch %d/%d, loss : %3.5f, auc : %3.5f, accuracy : %3.5f' %
-              (idx + 1, params.max_iter, train_loss, train_auc, train_accuracy))
-        train_log.append([train_loss, train_auc, train_accuracy])
-        valid_loss, valid_accuracy, valid_auc = test(
-            model, params, optimizer, valid_q_data, valid_qa_data)
-        print('Epoch %d/%d, valid auc : %3.5f, valid accuracy : %3.5f' %
-              (idx + 1, params.max_iter, valid_auc, valid_accuracy))
+            all_train_auc[idx + 1] = train_auc
+            all_train_accuracy[idx + 1] = train_accuracy
+            all_train_loss[idx + 1] = train_loss
+            all_valid_loss[idx + 1] = valid_loss
+            all_valid_accuracy[idx + 1] = valid_accuracy
+            all_valid_auc[idx + 1] = valid_auc
+            #
+            # output the epoch with the best validation auc
+            if valid_auc > best_valid_auc:
+                print('%3.4f to %3.4f' % (best_valid_auc, valid_auc))
+                best_valid_auc = valid_auc
+        #         best_epoch = idx+1
+        #         best_valid_acc = valid_accuracy
+        #         best_valid_loss = valid_loss
+                # test_loss, test_accuracy, test_auc = test(model, params, optimizer, test_q_data, test_qa_data)
+                # print("test_auc: %.4f\ttest_accuracy: %.4f\ttest_loss: %.4f\t" % (test_auc, test_accuracy, test_loss))
 
-        all_train_auc[idx + 1] = train_auc
-        all_train_accuracy[idx + 1] = train_accuracy
-        all_train_loss[idx + 1] = train_loss
-        all_valid_loss[idx + 1] = valid_loss
-        all_valid_accuracy[idx + 1] = valid_accuracy
-        all_valid_auc[idx + 1] = valid_auc
-        #
-        # output the epoch with the best validation auc
-        if valid_auc > best_valid_auc:
-            print('%3.4f to %3.4f' % (best_valid_auc, valid_auc))
-            best_valid_auc = valid_auc
-    #         best_epoch = idx+1
-    #         best_valid_acc = valid_accuracy
-    #         best_valid_loss = valid_loss
-            # test_loss, test_accuracy, test_auc = test(model, params, optimizer, test_q_data, test_qa_data)
-            # print("test_auc: %.4f\ttest_accuracy: %.4f\ttest_loss: %.4f\t" % (test_auc, test_accuracy, test_loss))
+        # print("best outcome: best epoch: %.4f" % (best_epoch))
+        # print("valid_auc: %.4f\tvalid_accuracy: %.4f\tvalid_loss: %.4f\t" % (best_valid_auc, best_valid_acc, best_valid_loss))
+        # print("test_auc: %.4f\ttest_accuracy: %.4f\ttest_loss: %.4f\t" % (test_auc, test_accuracy, test_loss))
+    else:
+        for idx in range(params.max_iter):
+            train_loss, train_accuracy, train_auc = train(
+                idx, model, params, optimizer, train_q_data, train_qa_data)
+            print('Epoch %d/%d, loss : %3.5f, auc : %3.5f, accuracy : %3.5f' %
+                  (idx + 1, params.max_iter, train_loss, train_auc, train_accuracy))
+            train_log.append([train_loss, train_auc, train_accuracy])
+            valid_loss, valid_accuracy, valid_auc = test(
+                model, params, optimizer, valid_q_data, valid_qa_data)
+            print('Epoch %d/%d, valid auc : %3.5f, valid accuracy : %3.5f' %
+                  (idx + 1, params.max_iter, valid_auc, valid_accuracy))
 
-    # print("best outcome: best epoch: %.4f" % (best_epoch))
-    # print("valid_auc: %.4f\tvalid_accuracy: %.4f\tvalid_loss: %.4f\t" % (best_valid_auc, best_valid_acc, best_valid_loss))
-    # print("test_auc: %.4f\ttest_accuracy: %.4f\ttest_loss: %.4f\t" % (test_auc, test_accuracy, test_loss))
+            all_train_auc[idx + 1] = train_auc
+            all_train_accuracy[idx + 1] = train_accuracy
+            all_train_loss[idx + 1] = train_loss
+            all_valid_loss[idx + 1] = valid_loss
+            all_valid_accuracy[idx + 1] = valid_accuracy
+            all_valid_auc[idx + 1] = valid_auc
+            #
+            # output the epoch with the best validation auc
+            if valid_auc > best_valid_auc:
+                print('%3.4f to %3.4f' % (best_valid_auc, valid_auc))
+                best_valid_auc = valid_auc
+        #         best_epoch = idx+1
+        #         best_valid_acc = valid_accuracy
+        #         best_valid_loss = valid_loss
+                # test_loss, test_accuracy, test_auc = test(model, params, optimizer, test_q_data, test_qa_data)
+                # print("test_auc: %.4f\ttest_accuracy: %.4f\ttest_loss: %.4f\t" % (test_auc, test_accuracy, test_loss))
+
+        # print("best outcome: best epoch: %.4f" % (best_epoch))
+        # print("valid_auc: %.4f\tvalid_accuracy: %.4f\tvalid_loss: %.4f\t" % (best_valid_auc, best_valid_acc, best_valid_loss))
+        # print("test_auc: %.4f\ttest_accuracy: %.4f\ttest_loss: %.4f\t" % (test_auc, test_accuracy, test_loss))
 
 
 if __name__ == "__main__":

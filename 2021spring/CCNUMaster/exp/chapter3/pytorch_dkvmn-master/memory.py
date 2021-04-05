@@ -132,6 +132,10 @@ class DKVMN(nn.Module):
         return correlation_weight
 
     def read(self, read_weight):
+        """
+
+        Output : Shape Batch_size * memory_dim
+        """
         read_content = self.value_head.read(
             memory=self.memory_value, read_weight=read_weight)
 
