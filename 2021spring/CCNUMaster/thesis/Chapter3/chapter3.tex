@@ -220,7 +220,7 @@ Due to the nature of GKVMN, the knowledge mastery \(M^{(v)}\) is explicit so tha
 In this section, algorithms, including the performance, are investigated through multiple dedicated knowledge tracing data sets, and the performance of the proposed baseline model is compared. This chapter first introduces and counts the data sets used, then proposes metrics, experimental settings, and operating parameter environments for model performance comparison, and finally draws the results and analyzes them.
 
 \subsection{Datasets}
-After investigating the existing knowledge tracing model, the thesis selected the more popular ASSISTment data set and Statics data set related to mathematics, preprocessed the data set, cleaned the data, obtained the training set, and performed the performance with the Baseline model Compared. Dataset statistics are shown in \tblname{}.
+After investigating the existing knowledge tracing model, the thesis selected the more popular ASSISTment data set and Statics data set related to mathematics, preprocessed the data set, cleaned the data, obtained the training set, and performed the performance with the Baseline model Compared.
 %本实验主要采用ASSISTment2009数据集用于测试，该数据集是在2009-2010学年于ASSISTment教学平台上采集的真实教育数据。该数据集包含一个Skill builder问题集合，当学生达到一定的标准时，即被认为是掌握了某个技能。当学生掌握某个技能后，将不会有关于该技能的习题推送。
 
 The experiment was conducted using the ASSISTment 2009 dataset, which is a collection of real educational data collected on the ASSISTment teaching platform during the 2009-2010 academic year. The dataset contains a set of Skill builder questions, where students are considered to have mastered a skill when they meet specific criteria. Once a student has mastered a skill, there will be no exercises pushed for that skill.
@@ -345,7 +345,7 @@ Knowledge tracing is essentially a classification problem, where the commonly us
     \caption{The confusion matrix}\label{fig:ch3-conmat}
 \end{figure}
 
-Then, the formula for these classification indicators can be represented as \eqname{\ref{fml:ch3-conmat}}. The TP, TN, FP, FN represent true positive, true negative, false positive, and false negative. Although the Accuracy can determine the correct overall rate, the imbalance between positive and negative sample sizes can lead to high accuracy rates that do not fully measure the system's recognition performance for both categories, while Precision represents the proportion of true positive samples predicted as positive samples, which measures the Accuracy of prediction of positive sample results, and Recall represents the bi l of true positive samples identified correctly. When Precision and Recall are plotted against each other, a P-R curve can be obtained. As Recall increases, Precision decreases overall, so a trade-off between the two is required. The F1 is a comprehensive indicator for weighing Precision and Recall.
+Then, the formula for these classification indicators can be represented as \eqname{\ref{fml:ch3-conmat}}. The TP, TN, FP, FN represent true positive, true negative, false positive, and false negative. Although the Accuracy can determine the correct overall rate, the imbalance between positive and negative sample sizes can lead to high accuracy rates that do not fully measure the system's recognition performance for both categories. Additionally, Precision represents the proportion of true positive samples predicted as positive samples, which measures the accuracy of prediction of positive sample results, and Recall represents the bi l of true positive samples identified correctly. When Precision and Recall are plotted against each other, a P-R curve can be obtained. As Recall increases, Precision decreases overall, so a trade-off between the two is required. The F1 is a comprehensive indicator for weighing Precision and Recall.
 \begin{align}\label{fml:ch3-conmat}
     \begin{split}
         \operatorname{Accuracy} &= \frac{TP+TN}{TP+TN+FP+FN} \\
@@ -354,12 +354,37 @@ Then, the formula for these classification indicators can be represented as \eqn
         \operatorname{F1} &= \frac{2\times \operatorname{Precision}\times\operatorname{Recall}}{\operatorname{Precision}+\operatorname{Recall}}
     \end{split}
 \end{align}
-%目前知识追踪领域的论文多以(Area Under Curve)AUC作为对比指标，AUC是一个基于ROC曲线常用的二分类评测手段，具有较好的性能对比能力。在知识追踪任务中，最终预测也是当前时刻的习题的做对与否，本质上为一个二分类问题，因此可以采取这种做法。
-At present, most papers in the field of knowledge tracing use Area Under Curve (AUC) as a comparison indicator. AUC is a commonly used two-category evaluation method based on the ROC curve and has good performance comparison capabilities. In the task of knowledge tracing, the final prediction is also whether the exercises at the current moment are done correctly or not, which is essentially a binary classification problem so that this approach can be adopted.
+%为了解决样本不平衡的问题，即答对习题和答错习题量差别较大的情况，需要分别对正样本和负样本采用特定的统计特征。因此可以采取这种做法。其中\(\operatorname{TPR}=\operatorname{TP}/(\operatorname{TP}+\operatorname{FN})\)与\(\operatorname{FPR}=\operatorname{FP}/\operatorname{FP}+\operatorname{TN}\)基于实际的正样本和负样本进行统计，排除了样本不平衡的影响。FPR 表示模型虚报的响应程度，TRP表示出模型预测相应的覆盖程度。将FPR作为x轴，TPR作为y轴，则可以绘制出Receiver Operating Characteristic曲线，该曲线可以评价模型的预测能力。随着不断遍历所有的分类阈值，FPR和TPR会随着ROC曲线变动。根据上述统计量可以推知，当TPR 越高，同时 FPR 越低，ROC曲线越陡峭，那么模型的性能就越好。 它可以解决样本不平衡的问题。
+To address the problem of sample imbalance, i.e., a large difference in the amount of correct and incorrect answers to an exercise, specific statistical characteristics need to be applied to the positive and negative samples, respectively. The \(\operatorname{TPR}=\operatorname{TP}/(\operatorname{TP}+\operatorname{FN})\) and \(\operatorname{FPR}=\operatorname{FP}/\operatorname{FP}+\operatorname{TN}\) based on the actual positive and negative samples can be applied for the statistics, excluding the effect of sample imbalance. \(\operatorname{FPR}\) indicates the degree of response that the model falsely reports, and \(\operatorname{TPR}\) indicates the corresponding degree of coverage predicted by the model. Taking FPR as the x-axis and TPR as the y-axis, a Receiver Operating Characteristic (ROC) curve can be plotted, which evaluates the model's predictive ability. As all the classification thresholds are traversed, the FPR and TPR will change with the ROC curve. The ROC curve is also plotted by traversing all the classification thresholds, which can solve the problem of sample imbalance. Based on the above analysis, it can be inferred that when the TPR is higher and at the same time the FPR is lower, the steeper the ROC curve is, then the performance of the model is better. It can solve the problem of sample imbalance.
+
+
+%目前知识追踪领域的论文多以(Area Under Curve)AUC作为对比指标，AUC是一个基于ROC曲线常用的二分类评测手段，具有较好的性能对比能力。在知识追踪任务中，最终预测也是当前时刻的习题的做对与否，本质上为一个二分类问题，
+To measure the ROC curve's steepness, Area Under Curve (AUC) can be a suitable statistic. AUC is a commonly used two-category evaluation method based on the ROC curve and has good performance comparison capabilities. The closer the AUC is to 1, the stronger the predictive performance of the model. At present, most papers in the field of knowledge tracing use AUC as a comparison indicator. In the task of knowledge tracing, the final prediction is whether the exercises at the current moment are done correctly or not, which is essentially a binary classification problem so that this approach can be adopted.
 
 \subsection{Experiment Settings}
-%本实验采用KFold方法分割测试集和验证集，取\(K=5\)。原始数据经过处理，会将每个学生的做题序列进行隔离，超过预定最长序列长度的学生会被分割成若干个不超过最长长度的序列。实验运行环境为Ubuntu20.04，TensorFlow 2.23，Python 3.8.6，实验机器为一块Tesla V100计算卡。
-For each dataset, 70\% is used as the training set, and the remaining 30\% is taken as the validation set. The experimental running environment is Ubuntu20.04, Python 3.8.6, Pytorch 1.8,  and the running machine is equipped with a Tesla V100 computing card.
+%本实验采用KFold方法分割测试集和验证集，取\(K=5\)。原始数据经过处理，会将每个学生的做题序列进行隔离，超过预定最长序列长度的学生会被分割成若干个不超过最长长度的序列。而实验可以采用不同的知识追踪对象进行交叉验证实验，可以有效衡量模型的预测性能。
+This experiment uses the KFold method to partition the test and validation sets, taking \(K=5\). The raw data are processed to segregate the sequence of questions done by each student, and students who exceed the predetermined longest sequence length are split into several sequences that do not exceed the longest length. Moreover, the experiments can use different knowledge tracking objects for cross-validation experiments, which can effectively measure the model's prediction performance.
+%本实验主要运行在深度学习服务器上，运行环境见表.
+
+This experiment runs on a dedicated GPU computing server, and the running environment is shown in \tblname{\ref{tbl:ch3-exp-env}}.
+\begin{table}[htbp!]
+    \caption{Experiment running environment}\label{tbl:ch3-exp-env}
+    \centering
+    \begin{tabular}{l c}
+        \toprule
+        Software/Hardware & Configuration   \\
+        \midrule
+        CPU               & Xeon Gold 6139  \\
+        GPU               & Tesla V100      \\
+        VRAM              & 16G             \\
+        Operating System  & Ubuntu 18.04    \\
+        Python            & 3.8.6           \\
+        PyTorch           & 1.8.0           \\
+        GPU Driver        & Cuda11.2/cudnn8 \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
 
 \subsection{Baselines}
 %1.BKT是一个知识追踪的经典模型，它基于隐马尔可夫模型（HMM），将学习者的知识状态建模为一组对应知识点掌握情况的二元变量。
@@ -367,15 +392,81 @@ For each dataset, 70\% is used as the training set, and the remaining 30\% is ta
 %3.GKT应用图神经网络到知识追踪任务上，利用图的特性，将知识点间的图状关联表征出来，从而更好地学习知识内在依赖关系，该模型能够学习出学生的隐藏知识状态,也具有较好的可解释性。
 In this experiment, baseline performance comparisons are made by comparing some classic models with new knowledge tracing models proposed recently. The following models participate in performance comparison.
 \begin{itemize}
-    \item BKT~\cite{yudelson2013individualized}: BKT is a probabilistic model that predicts the probability of correctness of answers according to the basic assumption that knowledge points are independent.
-    \item DKT~\cite{piech2015deep}: DKT applies the input of students' doing records into LSTM and can capture the influence of recent doing records on students' doing sequences, taking students' doing sequences into account into the model; DKT also initially considers the intrinsic correlation between knowledge points.
-    \item Dynamic Key-Value Memory Networks (DKVMN)~\cite{zhang2017dynamic}: DKVMN uses key-value pairs as the memory structure, which can avoid over better prediction performance relative to BKT, and DKT is achieved by using key-value pairs as the memory structure.
+    \item Deep knowledge tracing~\cite{piech2015deep}: DKT applies the input of students' doing records into LSTM and can capture the influence of recent doing records on students' doing sequences, taking students' doing sequences into account into the model; DKT also initially considers the intrinsic correlation between knowledge points.
+    \item Dynamic key-value memory networks (DKVMN)~\cite{zhang2017dynamic}: DKVMN uses key-value pairs as the memory structure, which can avoid over better prediction performance relative to BKT, and DKT is achieved by using key-value pairs as the memory structure.
+    \item Self-attentive model for knowledge tracing (SAKT)~\cite{sakt2019}: The SAKT model takes into account the correlation between exercises in terms of potential knowledge points, and introduces the Transformer structure to calculate the attention between input sequences of exercises, so that the relevance of current exercises can be calculated based on previous exercises and reasonable predictions can be made.
+    \item Neural pedagogical agent (NPA)~\cite{Lee2019CreatingAN}: NPA applied Attention based Bi-LSTM model to knowledge tracing task, which takes into account the bidirectional information of the question-answering sequence, and the subsequent answer sequence interactions also correct the previous predictions.
 \end{itemize}
 
-\subsection{Hyperparameter Adjusting and Model Training}
+\subsection{Model Training}
+%本模型需要预定义一些训练参数，经过参数调整，得到如表\figname{\ref{tbl:ch3-hpsetting}}所示的参数组合
+This model requires some predefined training parameters, and after parameter adjustment, the parameter combinations shown in \tblname{\ref{tbl:ch3-hpsetting}} are obtained.
+\begin{table}[htbp!]
+    \caption{Hyperparameter settings of proposed model}\label{tbl:ch3-hpsetting}
+    \centering
+    \begin{tabular}{l c c}
+        \toprule
+        Hyperparameter & Description                             & Value \\
+        \midrule
+        lr             & learning rate                           & 0.01  \\
+        opt            & optimizer                               & Adam  \\
+        batch\_size    & batch size                              & 32    \\
+        maxseqlen      & maximum sequence length                 & 200   \\
+        q\_embed\_dim  & exercise embedding dimension            & 50    \\
+        qa\_embed\_dim & exercise  answering embedding dimension & 20    \\
+        memory\_size   & number of memory slots                  & 20    \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+%实验总共进行了三次训练，选取了平均的训练过程参数进行训练数据图绘制，得到损失训练图和模型性能训练图，如图所示。
+The experiments were conducted a total of three times, and the average training output was selected for training data plotting to obtain the loss training plot and the model performance training plot, as shown in \figname{\ref{fig:ch3-train}}.
+\begin{figure}[htbp!]
+    \centering
+    \begin{subfigure}[b]{0.475\textwidth}
+        \centering
+        \includegraphics[width=0.9\textwidth]{ch3-train-loss.png}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.475\textwidth}
+        \centering
+        \includegraphics[width=0.9\textwidth]{ch3-train-acc.png}
+    \end{subfigure}
+    \caption{The training process of proposed model}\label{fig:ch3-train}
+\end{figure}
+%结果显示，经过约150个epoch的训练，模型的预测性能可以稳定收敛。
 
+The results show that the model's prediction performance can converge stably after about 150 epochs of training.
 \subsection{Result and Analysis}
-%实验结果见表，相比于其他模型，提出的模型的性能取得了最优的指标。在所有数据集上，DKT、DKVMN和GKT的标签明显优于BKT模型。在ASSIST15数据集上，提出的模型的AUC值较其他模型高出0.5\%，而GKT的性能优于DKVMN和DKT，这是由于该数据集中的知识点隐藏关联较高，因此能够更好表征知识点内在关联的模型就会明显产生更好的结果。在ASSIST17数据集上，提出的模型略优于对比的模型，而DKT、DKVMN和GKT的性能表现差异较小，这是因为知识点间的关联较小，因此考虑知识点间关联带来的性能提升较小。在STATICS11数据集上，DKVMN的性能表现超越了GKT，其原因在于对知识进行关系建模产生了过拟合现象，因此对性能表现产生了负面影响，结果显示出提出的模型抗过拟合性能较好。
+%实验结果见表\cite{\ref{tbl:ch3-performance}}，相比于其他模型，提出的模型的性能在关键指标accuracy和AUC取得了最优的指标。有两点原因，一是因为模型考虑了用户的额外特征，因此引入了新的影响因素，二是模型考虑了潜在概念之间的模型，并利用图状结构来表征这种联系，从而为模型引入了高阶的知识点关系特征。综上所述，模型为知识追踪任务引入了新的解释特征，因此在模型的最终性能指标上取得了较大的提升。
+The experimental results are presented in \tblname{\ref{tbl:ch3-performance}}, and the performance of the proposed model achieves optimal metrics in key indicators accuracy and AUC compared to other models. There are two reasons for this, one is because the model considers additional features of the user and therefore introduces new influencing factors, and the other is that the model considers the model between potential concepts and uses graph-like structures to characterize such connections, thus introducing higher-order knowledge point relationship features to the model. In summary, the model introduces new explanatory features for the knowledge tracking task and therefore achieves a large improvement in the final performance metrics of the model.
 
+\begin{table}[htbp!]
+    \centering
+    \caption{Performance comparison between baseline and proposed models}\label{tbl:ch3-performance}
+    \begin{tabular}{cccc}
+        \toprule
+        Model    & ACC (\%)                    & AUC (\%)                   & Training time (sec) \\
+        \midrule
+        DKT      & \(76.99\pm 0.08 \)          & \(81.79\pm 0.09\)          & \(2,731\)           \\
+        DKVMN    & \(75.63\pm 0.19 \)          & \(79.58\pm 0.27\)          & \(3,378\)           \\
+        NPA      & \(77.09\pm 0.08\)           & \(81.81\pm 0.13\)          & \(3,872\)           \\
+        SAKT     & \(76.37\pm 0.15\)           & \(80.77\pm 0.09\)          & \(4,367\)           \\
+        \midrule
+        Proposed & \(\mathbf{81.34\pm 0.25} \) & \(\mathbf{83.20\pm 0.25}\) & \(4,597\)           \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+%而在模型训练耗时上，本模型由于需要额外的图信息传播过程，因此相较于原始DKVMN模型训练效率会有所降低，为了解决该问题，可以考虑将图传播的方式通过矩阵运算的方式来进行计算，可以充分利用计算设备并行计算的能力。
+As for the model training time consumption, this model will have a reduced training efficiency compared to the original DKVMN model because of the additional graph information propagation process. To solve this problem, the graph propagation can be considered to be computed by means of matrix operations, which can make full use of the parallel computing capability of computing devices.
 \section{Summary}
-%
+In this section, an improved GKVMN model based on DKVMN is proposed, which adds the ability to characterize the relationships between knowledge points to the model by transforming the storage module that characterizes the potential concepts of the exercises into a graph structure. On the other hand, the model introduces the student's answer characteristics to introduce more influencing factors, thus enhancing the predictive power for the model. In addition, the value storage module of the model can be used as the student's knowledge point mastery representation, which can explicitly output the student's mastery of potential concepts, thus adding more recommended input features for the subsequent exercise recommendation.
+
+The main contributions of this section are as follows.
+\begin{enumerate}
+    \item the graph structure is used to characterize the relationship between the potential concepts of the exercises, taking into account the impact of the increase in mastery of the relevant knowledge points on the overall knowledge mastery. A graph propagation calculation is used to characterize the change in mastery of the relevant knowledge points.
+    \item additional student characteristics are introduced as inputs to the model, which adds more predictors to the model and takes into account the impact of various situations on the final correctness of the answers.
+    \item the knowledge mastery proficiency of the model can be output explicitly, which improves the interpretability of the model.
+\end{enumerate}
+
+%在实验阶段，首先对原始数据集进行数据清洗、格式转换，然后对数据集进行特征相关性分析，目标-特征相关性分析，选取最佳的学生答题特征作为额外的输入特征。然后与一系列baseline知识追踪模型进行性能对比。实验显示，提出的模型在各项指标上都优于基线模型。
+In the experimental phase, the original dataset is firstly cleaned and formatted with data, and then the dataset is analyzed with feature correlation analysis and target-feature correlation analysis to select the best student answer features as additional input features. Then the performance is compared with a series of baseline knowledge tracking models. The experiments show that the proposed model outperforms the baseline model in all metrics.

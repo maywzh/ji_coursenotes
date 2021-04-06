@@ -1,7 +1,7 @@
 '''
 Author       : maywzh
 Date         : 2021-04-05 22:28:39
-LastEditTime : 2021-04-06 08:37:31
+LastEditTime : 2021-04-06 17:48:57
 LastEditors  : maywzh
 Description  : 
 FilePath     : /ji_coursenotes/2021spring/CCNUMaster/exp/chapter3/gkvmn/draw.py
@@ -46,16 +46,17 @@ for l in ls:
         vacc.append(float(l[start+26:start+33]))
     # if mat:
     # print(l[mat[1]:])
-print(cnt)
-print(loss)
-plt.figure(dpi=300)
-#plt.plot(range(200), loss, label="training loss")
-plt.plot(range(200), auc, label="training AUC")
-plt.plot(range(200), acc, label="training accuracy")
-plt.plot(range(200), vauc, label="validate AUC")
-plt.plot(range(200), vacc, label="validate accuracy")
-#plt.title("Training Process")
-plt.xlabel("Epoch")
-plt.ylabel("")
-plt.legend()
-plt.show()
+a, b = np.array(vauc[150:]).max(), np.array(vauc[150:]).min()
+print(a, b, (a+b)/2, (a-b)/2)
+
+# plt.figure(dpi=300)
+# #plt.plot(range(200), loss, label="training loss")
+# plt.plot(range(200), auc, label="training AUC")
+# plt.plot(range(200), acc, label="training accuracy")
+# plt.plot(range(200), vauc, label="validate AUC")
+# plt.plot(range(200), vacc, label="validate accuracy")
+# #plt.title("Training Process")
+# plt.xlabel("Epoch")
+# plt.ylabel("")
+# plt.legend()
+# plt.show()
