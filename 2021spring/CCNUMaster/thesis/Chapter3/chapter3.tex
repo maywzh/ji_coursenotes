@@ -291,7 +291,7 @@ Before model training, a dependent variable analysis is performed for the datase
 %首先，可以对原数据源进行列相关度分析，获取各个输入特征与输出结果标签的相关度。绘制的列相关度热力图如图所示。可见是与习题答题正确性最相关的几个特征。因此本实验将这些特征作为用户的行为特征加入模型。
 First, column correlation analysis can be performed on the original data source to obtain each input feature's correlation with the output result labels. The plotted column correlation heat map is shown in \figname{\ref{fig:ch3-dataset-heatmap}}.
 
-\begin{figure}[htbp!]
+\begin{figure}[htb]
     \centering
     \includegraphics[width=0.85\textwidth]{ch3-dataset-heatmap.pdf}
     \caption{The heat map of original dataset ASSISTment 2009}\label{fig:ch3-dataset-heatmap}
@@ -419,18 +419,17 @@ This model requires some predefined training parameters, and after parameter adj
     \end{tabular}
 \end{table}
 %实验总共进行了三次训练，选取了平均的训练过程参数进行训练数据图绘制，得到损失训练图和模型性能训练图，如图所示。
-The experiments were conducted a total of three times, and the average training output was selected for training data plotting to obtain the loss training plot and the model performance training plot, as shown in \figname{\ref{fig:ch3-train}}.
+The experiments were conducted a total of three times, and the average training output was selected for training data plotting to obtain the loss training plot and the model performance training plot, as shown in \figname{\ref{fig:ch3-train-loss}} and \figname{\ref{fig:ch3-train-acc}}.
 \begin{figure}[htbp!]
     \centering
-    \begin{subfigure}[b]{0.475\textwidth}
-        \centering
-        \includegraphics[width=0.9\textwidth]{ch3-train-loss.png}
-    \end{subfigure}
-    \begin{subfigure}[b]{0.475\textwidth}
-        \centering
-        \includegraphics[width=0.9\textwidth]{ch3-train-acc.png}
-    \end{subfigure}
-    \caption{The training process of proposed model}\label{fig:ch3-train}
+    \includegraphics[width=0.9\textwidth]{ch3-train-loss.png}
+    \caption{The training process of proposed model}\label{fig:ch3-train-loss}
+\end{figure}
+
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=0.9\textwidth]{ch3-train-acc.png}
+    \caption{The training acc/auc of proposed model}\label{fig:ch3-train-acc}
 \end{figure}
 %结果显示，经过约150个epoch的训练，模型的预测性能可以稳定收敛。
 
@@ -439,7 +438,7 @@ The results show that the model's prediction performance can converge stably aft
 %实验结果见表\cite{\ref{tbl:ch3-performance}}，相比于其他模型，提出的模型的性能在关键指标accuracy和AUC取得了最优的指标。有两点原因，一是因为模型考虑了用户的额外特征，因此引入了新的影响因素，二是模型考虑了潜在概念之间的模型，并利用图状结构来表征这种联系，从而为模型引入了高阶的知识点关系特征。综上所述，模型为知识追踪任务引入了新的解释特征，因此在模型的最终性能指标上取得了较大的提升。
 The experimental results are presented in \tblname{\ref{tbl:ch3-performance}}, and the performance of the proposed model achieves optimal metrics in key indicators accuracy and AUC compared to other models. There are two reasons for this, one is because the model considers additional features of the user and therefore introduces new influencing factors, and the other is that the model considers the model between potential concepts and uses graph-like structures to characterize such connections, thus introducing higher-order knowledge point relationship features to the model. In summary, the model introduces new explanatory features for the knowledge tracking task and therefore achieves a large improvement in the final performance metrics of the model.
 
-\begin{table}[htbp!]
+\begin{table}[htb]
     \centering
     \caption{Performance comparison between baseline and proposed models}\label{tbl:ch3-performance}
     \begin{tabular}{cccc}

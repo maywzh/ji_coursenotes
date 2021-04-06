@@ -41,7 +41,7 @@ This section aims to construct a model for mining the exercise-knowledge point r
 
 In 2019, a multi-label image classification model was proposed~\cite{chen2019multi}. Inspired by this model, this chapter proposes a multi-knowledge point labeling model based on attention mechanism exercise description text feature extraction and graph convolutional neural network (GCN) based knowledge point relationship mining, which builds a knowledge point relationship graph to describe the association relationship between knowledge points by a data-driven approach, builds classifiers for knowledge points separately, and then performs multi-label classification. Its main architecture diagram is shown in \figname{\ref{fig:ch2-modelarchitecture}}.
 
-\begin{figure}[htbp!]
+\begin{figure}[htb]
     \centering
     \includegraphics[width=1.0\textwidth]{ch2-model-architecture.pdf}
     \caption{Structure of the knowledge labeling model}\label{fig:ch2-modelarchitecture}
@@ -118,9 +118,9 @@ In the exercise description text, there will be some combinations of words, i.e.
 
 WWM processes some words of the original sequence of exercise description text words obtained after the word separation process, and the marker [CLS] is added at the beginning of the sequence, and the inter-sentence is marked by [SEP] separator. After training, the word embedding vector is output. Each word's output embedding consists of three parts: token embedding, segment embedding, and position embedding, which characterize the word's embedding information from different perspectives. Subsequently, the word embedding vector is fed into the feature extraction bidirectional Transformer layer of BERT, and the feature sequence representation vector containing deep semantic features can be obtained. The overall architecture is shown in the \figname{\ref{fig:ch2-bert-model}}.
 
-\begin{figure}[htbp!]
+\begin{figure}[htb]
     \centering
-    \includegraphics[width=1.0\textwidth]{ch2-bert-model.pdf}
+    \includegraphics[width=0.8\textwidth]{ch2-bert-model.pdf}
     \caption{BERT-based embedding}\label{fig:ch2-bert-model}
 \end{figure}
 
@@ -165,9 +165,9 @@ One-way LSTM also has an inherent drawback that it can only capture the sequence
 \end{align}
 The Bi-LSTM Structure is like \figname{\ref{fig:ch2-model-bilstm}}.
 
-\begin{figure}[htbp!]
+\begin{figure}[htb]
     \centering
-    \includegraphics[width=1.0\textwidth]{ch2-bilstm-model.pdf}
+    \includegraphics[width=.9\textwidth]{ch2-bilstm-model.pdf}
     \caption{Structure of Bi-LSTM}\label{fig:ch2-model-bilstm}
 \end{figure}
 
@@ -187,7 +187,7 @@ Since each feature word's impact on the overall semantics in a text mining task 
 
 Human attention is a mechanism for quickly screening high-value information from massive information. The human attention mechanism inspires the deep learning attention mechanism. This method is widely used in various types of deep learning tasks such as NLP~\cite{hu2019introductory}, image classification~\cite{fu2017look,sun2018multi}, and speech recognition~\cite{chorowski2015attention}, and has achieved remarkable results.
 
-\begin{figure}[htbp!]
+\begin{figure}[htb]
     \centering
     \includegraphics[width=0.7\textwidth]{ch2-model-attmodel.pdf}
     \caption{The essential idea of attention mechanism}\label{fig:ch2-model-attmodel}

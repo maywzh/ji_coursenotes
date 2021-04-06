@@ -1,131 +1,17 @@
 % ******************************* Thesis Appendix A ****************************
-\chapter{How to Install \LaTeX}
+\chapter{宅}
+%Please list 3-5 keywords, and replace them with "keyword1", "keyword2", "keyword3",...
+\begin{abstractC}{图神经网络}{知识点标注}{知识追踪}{习题推荐}{}
+	2010年后，人工智能技术逐渐成为计算机技术领域的研究热点。尤其是机器围棋手AlphaGo的问世，引发了业界对于人工智能前景的极大关注。这带来行业的爆发式发展，也提出了大量的研究课题。在人工智能相关研究中，各种算法创新、理论突破和模型应用层出不穷，为各个行业的智能化奠定了基础。人工智能技术在教育领域的应用也催生了智能教育概念的出现。其中，自适应学习是智能教育中的热门的应用领域之一\cite{chen2018recommendation}。自适应学习模型一般是通过结合对海量学生群体学习数据的大数据分析和对目标学生个体数据的精准化数据分析来追踪学生的学习状态，从而针对学生的个体特征和知识掌握熟练度来生成个性化学习路径\cite{soltani2019adaptive}。自适应学习技术可以将以往需要大量人工劳动的学生评估和教学计划等工作，通过自动化机器学习算法来完成，这可以系统性缓解目前国内教育资源稀缺和分配不均的问题也可以减轻教育从业者和学生的负担。它也具有极大的的发展前景和商业价值，市面上也有越来越多的人工智能研究团队和智能化教育技术公司专注于自适应学习工具的研发和应用，部分智能教育科技公司已开始将自适应学习用作其产品要核心功能或主要卖点。自适应教育技术可以综合分析学生个体层面的学习能力、知识熟练度和群体层面的热门学习资源、易错题等，从而可以将最适合的学习路径和学习资源例如习题、资料、知识点推送给学生。系统会根据学生的知识状态自动调整推送学习资源的知识侧重点，防止重复练习已经掌握的知识点或者缺乏练习未掌握的知识点。一方面，教师可以根据系统输出的数据或可视化图表来制作每个学生的学习状态评估报告分析整个班级的知识掌握熟练度，适应性地调整总体教学计划。另一方面，学生可以通过系统来分析自己的知识薄弱项，从而针对性的进行习题训练。因此，适应性学习是在线教育中``学生知识掌握状态自动评估和教学方案生成''问题潜在可行解决方案之一。
 
-\section*{Windows OS}
+	本文以高中数学学科为主要研究背景，目的是提出一种基于知识追踪的高中数学习题推荐模型。在高中数学学科中，练习习题为学生主要的学习能力提高手段。但是目前高中数学教学中，教师或学生需要从庞大的习题库中去寻找合适的习题进行练习，它们往往存在过于庞大、重复度高和组织混乱等问题。在习题库中存在相当多低质量的未标注知识点的习题，需要人工进行知识点标注。有部分学生通过题海战术来进行学习，但这样效率较低，且往往出现熟悉知识点的重复练习和不熟悉知识点的缺乏练习等情况。为了提高学生进行习题练习的效果，从而提升知识掌握的熟练度和全面性，需要经验丰富的教学人员进行学生知识状态分析，从习题库中筛选出合适的习题进行推荐。该方法人工工作量大，依赖专家先验知识，且包含大量的重复性工作，因此存在不经济且低效的问题。此外，传统习题推荐以学生群体为单位，没有针对特定学生的知识掌握情况进行推荐，也没有考虑不同学生的学习能力不同的问题，因此导致推荐的效果精细度较差。为了改善传统习题推荐方法存在的问题，可以通过应用知识追踪技术来追踪学生的学习情况，从而针对性地进行自动化习题推荐。本文的目标在于设计一个基于知识点标注、知识追踪和资源推荐技术的习题推荐系统，从而推出一个在习题推荐方面的智能自适应学习的解决方案。
 
-\subsection*{TeXLive package - full version}
-\begin{enumerate}
-\item	Download the TeXLive ISO (2.2GB) from\\
-\href{https://www.tug.org/texlive/}{https://www.tug.org/texlive/}
-\item	Download WinCDEmu (if you don't have a virtual drive) from \\
-\href{http://wincdemu.sysprogs.org/download/}
-{http://wincdemu.sysprogs.org/download/}
-\item	To install Windows CD Emulator follow the instructions at\\
-\href{http://wincdemu.sysprogs.org/tutorials/install/}
-{http://wincdemu.sysprogs.org/tutorials/install/}
-\item	Right click the iso and mount it using the WinCDEmu as shown in \\
-\href{http://wincdemu.sysprogs.org/tutorials/mount/}{
-http://wincdemu.sysprogs.org/tutorials/mount/}
-\item	Open your virtual drive and run setup.pl
-\end{enumerate}
+	本文提出的高中数学习题推荐系统包括三个模块，分别为习题知识点标注模块、知识追踪模块和推荐模块。习题知识点标签模块的作用是为未标注知识点的习题进行知识点标注，从而将传统的人工知识点标注以自动化的形式代替。知识点标注是习题推荐的前置工作，经过知识标注的习题可以作为习题推荐系统的数据源。知识追踪模块通过追踪学生的习题练习记录，计算学生的知识熟练度状态向量，它是学生对于学科知识点、概念和技能的掌握度的表征。知识追踪是整个系统的核心部分。在最后的习题推荐模块，具有召回和排序两个阶段，前者应用于习题库上应用多种召回策略对习题进行快速筛选，生成推荐候选习题集合，后者输入该集合在排序阶段输入知识追踪系统中进行精细化推荐排序，生成最终的推荐结果。
+	\begin{itemize}
+		\item 第二章提出了一种基于双向LSTM与图神经网络嵌入学习的高中数学习题多知识点标注方法，习题知识点标注模块包含习题文本挖掘和多知识点标签分类两个子模块。由于习题库的大多数习题只包含文本信息等非结构化数据，因此本文主要通过习题文本挖掘的方式来进行知识点提取。它应用了加入注意力机制的双向LSTM网络来进行习题文本挖掘，习题首先经过分词、清洗、正则化等预处理步骤，得到词序列的同时过滤掉大量的无关信息的干扰。接下来，通过预训练BERT模型生成的方式而非简单的one-hot编码方式来作为学习词嵌入向量，这样做可以防止输入词向量矩阵稀疏带来的维数灾难等问题。而且，通过嵌入学习的方式，也可以表征词向量间的隐藏依赖关系，有利于构建知识点间依赖关系。之后，通过双向LSTM模型进行文本信息抽取，能够更好地解决文本中上下文元素长程依赖的问题。另外，为了在分类模型上捕捉知识点间依赖关系，本文提出了一个基于图卷积网络（GCN）的多标签知识点标注模型，每个标签由知识点的图嵌入表示，经过多轮迭代学习，将标签图映射为一组内在依赖的知识点分类器。随后，将前一个子网络提取的习题文本词向量输入知识点分类器组，得出多知识点预测概率向量，从而实现多知识点标签标注任务。实验阶段，通过在自制的高中数学习题数据集上进行实验，将本论文提出的方法与一系列基准模型进行对比，并采用一系列多标签分类指标来进行模型性能比较和评估。实验结果显示该方法在知识点关系较为复杂的习题集上取得了更加优越的性能。
+		\item 第三章提出了一种针对动态键值记忆网络（DKVMN）的改进模型。该模型继承了原始DKVMN模型的基于知识点权重计算习题和学生掌握相关度的思想，相对于原始的DKVMN模型有如下改进。第一个改进是尝试在模型中融入答题延迟、请求提示等学生答题特征，从而捕捉学生的个性化特征对于习题解答的影响。另外，原始DKVMN模型未考虑到相关知识点的相互影响，而是将知识点作为独立的记忆单元。针对这一点，模型的第二个改进点是将图神经网络的信息传播思想融入模型，在对模型进行知识点掌握熟练度进行修正的过程中，运用图网络相邻节点传播机制，对相关知识点重新调整熟练度变化，从而为模型增加了对于知识点间关系的表征能力。在实验阶段，在公开的数据集上与原始DKVMN模型和一些其他的基线模型进行多方面的对比。结果显示，模型的性能和可解释性相对于原始的DKVMN模型以及其他的基线模型有一定的提升。
+		\item 第四章提出了基于召回-排序两阶段的数学习题推荐模型。第一阶段为召回模型，它是一个基于多召回策略的混合模型，它具有多路召回和融合两个过程。在多路召回过程，采用了基于协同过滤、热门度、用户偏好等多个召回策略用于分别生成习题推荐候选集合。然后在融合过程，将这些候选集合进行加权排序合并，形成一个最终的习题推荐候选集合。第二个阶段为基于知识追踪的推荐项排序模型，将前一阶段获取的习题候选集合中的每个习题输入到前一章提出的知识追踪模型，进行正确率预测，将最容易出错的习题的作为优先级最高的推荐项。该模型主要解决的是传统模型往往需要用户主动评分来进行推荐模型构建，而无法基于用户的知识掌握熟练度状态进行高效推荐的问题。经过在公开数据集上的性能测试和与baseline模型的对照实验，提出的模型在对于学生的掌握薄弱知识的追踪性能较为优越，并能依据追踪得到的的知识掌握熟练度状态推荐合适的习题。
+	\end{itemize}
 
-or
-
-\subsection*{Basic MikTeX - \TeX~ distribution}
-\begin{enumerate}
-\item	Download Basic-MiK\TeX (32bit or 64bit) from\\
-\href{http://miktex.org/download}{http://miktex.org/download}
-\item	Run the installer
-\item	To add a new package go to Start >> All Programs >> MikTex >> Maintenance (Admin) and choose Package Manager
-\item	Select or search for packages to install
-\end{enumerate}
-
-\subsection*{TexStudio - \TeX~ editor}
-\begin{enumerate}
-\item	Download TexStudio from\\
-\href{http://texstudio.sourceforge.net/\#downloads}
-{http://texstudio.sourceforge.net/\#downloads}
-\item	Run the installer
-\end{enumerate}
-
-\section*{Mac OS X}
-\subsection*{MacTeX - \TeX~ distribution}
-\begin{enumerate}
-\item	Download the file from\\
-\href{https://www.tug.org/mactex/}{https://www.tug.org/mactex/}
-\item	Extract and double click to run the installer. It does the entire configuration, sit back and relax.
-\end{enumerate}
-
-\subsection*{TexStudio - \TeX~ editor}
-\begin{enumerate}
-\item	Download TexStudio from\\
-\href{http://texstudio.sourceforge.net/\#downloads}
-{http://texstudio.sourceforge.net/\#downloads}
-\item	Extract and Start
-\end{enumerate}
-
-
-\section*{Unix/Linux}
-\subsection*{TeXLive - \TeX~ distribution}
-\subsubsection*{Getting the distribution:}
-\begin{enumerate}
-\item	TexLive can be downloaded from\\
-\href{http://www.tug.org/texlive/acquire-netinstall.html}
-{http://www.tug.org/texlive/acquire-netinstall.html}.
-\item	TexLive is provided by most operating system you can use (rpm,apt-get or yum) to get TexLive distributions
-\end{enumerate}
-
-\subsubsection*{Installation}
-\begin{enumerate}
-\item	Mount the ISO file in the mnt directory
-\begin{verbatim}
-mount -t iso9660 -o ro,loop,noauto /your/texlive####.iso /mnt
-\end{verbatim}
-
-\item	Install wget on your OS (use rpm, apt-get or yum install)
-\item	Run the installer script install-tl.
-\begin{verbatim}
-	cd /your/download/directory
-	./install-tl
-\end{verbatim}
-\item	Enter command `i' for installation
-
-\item	Post-Installation configuration:\\
-\href{http://www.tug.org/texlive/doc/texlive-en/texlive-en.html\#x1-320003.4.1}
-{http://www.tug.org/texlive/doc/texlive-en/texlive-en.html\#x1-320003.4.1}
-\item	Set the path for the directory of TexLive binaries in your .bashrc file
-\end{enumerate}
-
-\subsubsection*{For 32bit OS}
-For Bourne-compatible shells such as bash, and using Intel x86 GNU/Linux and a default directory setup as an example, the file to edit might be \begin{verbatim}
-edit $~/.bashrc file and add following lines
-PATH=/usr/local/texlive/2011/bin/i386-linux:$PATH;
-export PATH
-MANPATH=/usr/local/texlive/2011/texmf/doc/man:$MANPATH;
-export MANPATH
-INFOPATH=/usr/local/texlive/2011/texmf/doc/info:$INFOPATH;
-export INFOPATH
-\end{verbatim}
-\subsubsection*{For 64bit OS}
-\begin{verbatim}
-edit $~/.bashrc file and add following lines
-PATH=/usr/local/texlive/2011/bin/x86_64-linux:$PATH;
-export PATH
-MANPATH=/usr/local/texlive/2011/texmf/doc/man:$MANPATH;
-export MANPATH
-INFOPATH=/usr/local/texlive/2011/texmf/doc/info:$INFOPATH;
-export INFOPATH
-
-\end{verbatim}
-
-
-
-%\subsection{Installing directly using Linux packages}
-\subsubsection*{Fedora/RedHat/CentOS:}
-\begin{verbatim}
-sudo yum install texlive
-sudo yum install psutils
-\end{verbatim}
-
-
-\subsubsection*{SUSE:}
-\begin{verbatim}
-sudo zypper install texlive
-\end{verbatim}
-
-
-\subsubsection*{Debian/Ubuntu:}
-\begin{verbatim}
-sudo apt-get install texlive texlive-latex-extra
-sudo apt-get install psutils
-\end{verbatim}
+	本文通过分析系统的需求，将整个推荐系统合理化分为多个模块，并针对各个模块设计了不同的神经网络模型和算法来实现和优化上述三个模块，在算法设计和实验验证方法方面都具有一定的创新性。经过实验验证，具备相对于同类模型更好的性能。
+\end{abstractC}
