@@ -250,6 +250,7 @@ In the base record of this dataset, each row is a question answering record, con
         skill\_id      & skill ID associated with the exercise                             \\
         hint\_count    & Number of student attempts on this problem                        \\
         first\_action  & The Whether or not the student asks for all hints                 \\
+        hint\_total    & Number of possible hints on this problem.                         \\
         \bottomrule
     \end{tabular}
 \end{table}
@@ -409,7 +410,7 @@ This model requires some predefined training parameters, and after parameter adj
 \begin{table}[htbp!]
     \caption{Hyperparameter settings of proposed model}\label{tbl:ch3-hpsetting}
     \centering
-    \begin{tabular}{l c c}
+    \begin{tabular}{l l c}
         \toprule
         Hyperparameter & Description                             & Value \\
         \midrule
@@ -423,9 +424,9 @@ This model requires some predefined training parameters, and after parameter adj
         \bottomrule
     \end{tabular}
 \end{table}
-%实验总共进行了三次训练，选取了平均的训练过程参数进行训练数据图绘制，得到损失训练图和模型性能训练图，如图所示。
-The experiments were conducted a total of three times, and the average training output was selected for training data plotting to obtain the loss training plot and the model performance training plot, as shown in \figname{\ref{fig:ch3-train-loss}} and \figname{\ref{fig:ch3-train-acc}}.
-\begin{figure}[htbp!]
+%实验总共进行了三次训练，选取了平均的训练过程参数进行训练数据图绘制，得到损失训练图和模型性能训练图，如图所示。可见在150轮时，模型基本上收敛。
+The experiments were conducted a total of three times, and the average training output was selected for training data plotting to obtain the loss training plot and the model performance training plot, as shown in \figname{\ref{fig:ch3-train-loss}} and \figname{\ref{fig:ch3-train-acc}}. It can be seen that the model basically converges after about 150 epochs.
+\begin{figure}[htb]
     \centering
     \includegraphics[width=0.9\textwidth]{ch3-train-loss.png}
     \caption{The training process of proposed model}\label{fig:ch3-train-loss}
