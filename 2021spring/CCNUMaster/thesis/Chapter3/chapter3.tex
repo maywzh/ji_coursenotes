@@ -88,8 +88,13 @@ Through this mechanism, the model introduces students' personalized answering ch
 \subsection{Knowledge-Question Correlation Calculation}
 %在学生进行习题练习的过程中，一个习题与多个知识点相关，根据认知诊断理论\cite{chiu2018cognitive}，学生对于知识点的掌握程度与学生的内在学习能力决定了学生答题的正确性。与DKVMN类似，本模型用Key矩阵\(M^{(k)}\)来保存习题相关的所有潜在知识点。假设共有\(N^{(K)}\)个知识点，则\(M^{(k)}\in\mathbb{R}^{N^{(K)}}\times d_k\)，其中\(d_k\)为知识点表征向量的维度。
 
-In the process of students' exercise practice, an exercise is associated with multiple knowledge points, and according to the cognitive diagnosis theory~\cite{chiu2018cognitive}, students' mastery of the knowledge points and students' intrinsic learning ability determine the correctness of their answers. Similar to DKVMN, this model uses the Key matrix \(M^{(k)}\) to keep all potential knowledge points related to the exercises. Suppose there are \(N^{(K)}\) knowledge points, then \(M^{(k)}\in\mathbb{R}^{{N^{(K)}}\times d_k}\), where \(d_k\) is the dimensionality of the knowledge point representation vector.
+In the process of students' exercise practice, an exercise question is associated with multiple knowledge points, shown in \figname{\ref{fig:ch3-kq-relationgraph}}. According to the cognitive diagnosis theory~\cite{chiu2018cognitive}, students' mastery of the knowledge points and students' intrinsic learning ability determine the correctness of their answers. Similar to DKVMN, this model uses the Key matrix \(M^{(k)}\) to keep all potential knowledge points related to the exercises. Suppose there are \(N^{(K)}\) knowledge points, then \(M^{(k)}\in\mathbb{R}^{{N^{(K)}}\times d_k}\), where \(d_k\) is the dimensionality of the knowledge point representation vector.
 
+\begin{figure}[htbp!]
+    \centering
+    \includegraphics[width=\textwidth]{ch3-kq-relationgraph.pdf}
+    \caption{Relation between exercise question and knowledge points}\label{fig:ch3-kq-relationgraph}
+\end{figure}
 %在\eqname{\ref{fml:sbcap}}中，已经获取了融合学生个性化信息的习题表征向量\(c_t\)，其中\(c_t\in\mathbb{R}^{d_k}\)，对于第\(i\)个知识点概念，习题与知识点\(i\)的相关度\(w_t(i)\)的计算公式为\eqname{\ref{fml:ch3-corkq}}，其中\(\sigma(\cdot)\)为softmax函数。
 
 In \eqname{\ref{fml:ch3-sbcap}}, the exercise representation vector \(c_t\) incorporating students' personalized information has been obtained, where \(c_t\in\mathbb{R}^{d_k}\), and the correlation \(w_t(i)\) between the exercise and the knowledge point \(i\) for the \(i\)th knowledge point concept is calculated by is \eqname{\ref{fml:ch3-corkq}}, where \(\sigma(\cdot)\) is the softmax function.
@@ -174,7 +179,7 @@ Finally, changes in each knowledge point have an impact on neighboring knowledge
 
 %由此可见，知识点的邻接矩阵是图传播的关键，本文提出了基于统计的方式来计算知识点邻接矩阵\(A\)，即当知识点\(i,j\)共现次数超过某一阈值时，将\(i，j\)知识点设置为相关。如公式\eqname{\ref{fml:ch3-confidence}}所示。
 
-It can be seen that the adjacency matrix of knowledge points is the key to graph propagation, and this thesis proposes a statistical-based approach to calculate the knowledge point adjacency matrix \(A\), i.e., when the number of co-occurrences of knowledge points \(i,j\) exceeds a certain threshold, \(i,j\) knowledge points are set to be relevant. As shown in equation \eqname{\ref{fml:ch3-confidence}}, the \(P_{ij}\) represents the probability that exercise \(i\) and exercise \(j\) exist in one exercise.
+It can be seen that the adjacency matrix of knowledge points is the key to graph propagation, and this thesis proposes a statistical-based approach to calculate the knowledge point adjacency matrix \(A\), i.e. when the number of co-occurrences of knowledge points \(i,j\) exceeds a certain threshold, \(i,j\) knowledge points are set to be relevant. As shown in equation \eqname{\ref{fml:ch3-confidence}}, the \(P_{ij}\) represents the probability that exercise \(i\) and exercise \(j\) exist in one exercise.
 \begin{align}\label{fml:ch3-confidence}
     A_{ij}=\{\begin{array}{ll}
         0, & \text{ if } P_{ij}<\tau^{(k)}      \\

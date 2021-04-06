@@ -360,7 +360,6 @@ At present, there are already some algorithm models for labeling text. To verify
 \begin{itemize}
     \item Naive Bayes algorithm (NB): predict the labeling probability of a knowledge point based on the prior probability of text combination, and then convert the binary classification problem into a multi-label problem
     \item Multi-label KNN (ML-KNN): Proposed by Zhang et al.~\cite{zhang2007ml}, it searches the k instances closest to the instance through the KNN algorithm, counts the number of each category in the k samples, uses the Naive Bayes algorithm to generate prediction outcomes for each label.
-    \item CNN+word2vec: Use word2vec to convert the test question text into an embedded vector, extract the test text information through CNN, and then output the multi-label prediction
     \item CNN+BERT\@: Use BERT to convert the test question text into an embedded vector, extract the test text information through CNN, and then output the multi-label prediction.
 \end{itemize}
 
@@ -520,13 +519,12 @@ The comparison experiment results are divided into the performance comparison of
     \centering
     \begin{tabular}{cccccccc}
         \toprule
-        Metrics      & \(\operatorname{F1}_{macro}\) & \(\operatorname{F1}_{micro}\) & \(\operatorname{Acc}_{ML}\) & \(\operatorname{HmLoss}\) & \(\operatorname{F1}_{ML}\) \\
+        Metrics  & \(\operatorname{F1}_{macro}\) & \(\operatorname{F1}_{micro}\) & \(\operatorname{Acc}_{ML}\) & \(\operatorname{HmLoss}\) & \(\operatorname{F1}_{ML}\) \\
         \midrule
-        NB           & 75.3                          & 74.2                          & 69.6                        & 18.2                      & 73.6                       \\
-        ML-KNN       & 77.1                          & 76.2                          & 73.2                        & 17.4                      & 76.3                       \\
-        CNN+word2vec & 79.5                          & 78.4                          & 76.6                        & 14.2                      & 79.6                       \\
-        CNN+BERT     & 80.1                          & \textbf{79.9}                 & 76.9                        & 13.7                      & 79.5                       \\
-        Proposed     & \textbf{80.9}                 & 79.1                          & \textbf{77.3}               & \textbf{13.1}             & \textbf{80.7}              \\
+        NB       & 75.3                          & 74.2                          & 69.6                        & 18.2                      & 73.6                       \\
+        ML-KNN   & 77.1                          & 76.2                          & 73.2                        & 17.4                      & 76.3                       \\
+        CNN+BERT & 80.1                          & \textbf{79.9}                 & 76.9                        & 13.7                      & 79.5                       \\
+        Proposed & \textbf{80.9}                 & 79.1                          & \textbf{77.3}               & \textbf{13.1}             & \textbf{80.7}              \\
         \bottomrule
     \end{tabular}
 \end{table}
@@ -536,13 +534,12 @@ The comparison experiment results are divided into the performance comparison of
     \caption{Result comparison (\(\tau^{(KP)}=100 \))}\label{tbl:bsline2}
     \begin{tabular}{cccccccc}
         \toprule
-        Metrics      & \(\operatorname{F1}_{macro}\) & \(\operatorname{F1}_{micro}\) & \(\operatorname{Acc}_{ML}\) & \(\operatorname{HmLoss}\) & \(\operatorname{F1}_{ML}\) \\
+        Metrics  & \(\operatorname{F1}_{macro}\) & \(\operatorname{F1}_{micro}\) & \(\operatorname{Acc}_{ML}\) & \(\operatorname{HmLoss}\) & \(\operatorname{F1}_{ML}\) \\
         \midrule
-        NB           & 71.2                          & 72.1                          & 67.2                        & 16.2                      & 71.8                       \\
-        ML-KNN       & 73.2                          & 72.3                          & 69.1                        & 15.9                      & 74.7                       \\
-        CNN+word2vec & 74.3                          & 74.4                          & 72.3                        & 13.2                      & 75.2                       \\
-        CNN+BERT     & 74.4                          & 74.6                          & 72.3                        & 13.1                      & 75.1                       \\
-        Proposed     & \textbf{75.5}                 & \textbf{75.7}                 & \textbf{73.1}               & \textbf{12.7}             & \textbf{74.9}              \\
+        NB       & 71.2                          & 72.1                          & 67.2                        & 16.2                      & 71.8                       \\
+        ML-KNN   & 73.2                          & 72.3                          & 69.1                        & 15.9                      & 74.7                       \\
+        CNN+BERT & 74.4                          & 74.6                          & 72.3                        & 13.1                      & 75.1                       \\
+        Proposed & \textbf{75.5}                 & \textbf{75.7}                 & \textbf{73.1}               & \textbf{12.7}             & \textbf{74.9}              \\
         \bottomrule
     \end{tabular}
 \end{table}
@@ -568,13 +565,12 @@ The comparison experiment results are divided into the performance comparison of
     \caption{Result comparison (\(\tau^{(KP)}=10 \))}\label{tbl:bsline4}
     \begin{tabular}{cccccccc}
         \toprule
-        Metrics      & \(\operatorname{F1}_{macro}\) & \(\operatorname{F1}_{micro}\) & \(\operatorname{Acc}_{ML}\) & \(\operatorname{HmLoss}\) & \(\operatorname{F1}_{ML}\) \\
+        Metrics  & \(\operatorname{F1}_{macro}\) & \(\operatorname{F1}_{micro}\) & \(\operatorname{Acc}_{ML}\) & \(\operatorname{HmLoss}\) & \(\operatorname{F1}_{ML}\) \\
         \midrule
-        NB           & 36.5                          & 37.1                          & 26.1                        & 4.2                       & 36.5                       \\
-        ML-KNN       & 30.1                          & 32.1                          & 29.1                        & 3.6                       & 32.5                       \\
-        CNN+word2vec & 36.7                          & 38.2                          & 37.5                        & 3.5                       & 37.2                       \\
-        CNN+BERT     & 36.9                          & \textbf{38.6}                 & \textbf{38.6}               & \textbf{3.5}              & 37.5                       \\
-        Proposed     & \textbf{37.1}                 & 38.3                          & 35.4                        & 3.8                       & \textbf{38.6}              \\
+        NB       & 36.5                          & 37.1                          & 26.1                        & 4.2                       & 36.5                       \\
+        ML-KNN   & 30.1                          & 32.1                          & 29.1                        & 3.6                       & 32.5                       \\
+        CNN+BERT & 36.9                          & \textbf{38.6}                 & \textbf{38.6}               & \textbf{3.5}              & 37.5                       \\
+        Proposed & \textbf{37.1}                 & 38.3                          & 35.4                        & 3.8                       & \textbf{38.6}              \\
         \bottomrule
     \end{tabular}
 \end{table}
