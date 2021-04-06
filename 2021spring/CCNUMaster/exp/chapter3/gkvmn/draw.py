@@ -1,10 +1,10 @@
 '''
 Author       : maywzh
 Date         : 2021-04-05 22:28:39
-LastEditTime : 2021-04-06 02:28:54
+LastEditTime : 2021-04-06 08:37:31
 LastEditors  : maywzh
 Description  : 
-FilePath     : /ji_coursenotes/2021spring/CCNUMaster/exp/chapter3/pytorch_dkvmn-master/draw.py
+FilePath     : /ji_coursenotes/2021spring/CCNUMaster/exp/chapter3/gkvmn/draw.py
 symbol_custom_string_obkoro1: 
 Copyright (c) 2017 maywzh.
 
@@ -19,8 +19,43 @@ import numpy as np
 from numpy.linalg import cholesky
 import matplotlib.pyplot as plt
 import pandas as pd
-file_name = './data/assist2009_raw/skill_builder_data_corrected.csv'
-df = pd.read_csv(file_name, encoding='ISO-8859-1', low_memory=False)
-selected_features =
-sns.heatmap(df.corr(method="kendall"))
+import re
+file_name = './train.txt'
+ls = []
+loss = []
+auc = []
+acc = []
+vauc = []
+vacc = []
+with open(file_name) as f:
+    ls = f.readlines()
+cnt = 0
+for l in ls:
+    matloss = re.search('loss : ', l)
+    matvalid = re.search('valid auc : ', l)
+    if matloss:
+        start = matloss.span()[1]
+        #print(l[start:start+7], l[start+15:start+22], l[start+35:start+42])
+        loss.append(float(l[start:start+7]))
+        auc.append(float(l[start+15:start+22]))
+        acc.append(float(l[start+35:start+42]))
+        cnt += 1
+    if matvalid:
+        start = matvalid.span()[1]
+        vauc.append(float(l[start:start+7]))
+        vacc.append(float(l[start+26:start+33]))
+    # if mat:
+    # print(l[mat[1]:])
+print(cnt)
+print(loss)
+plt.figure(dpi=300)
+#plt.plot(range(200), loss, label="training loss")
+plt.plot(range(200), auc, label="training AUC")
+plt.plot(range(200), acc, label="training accuracy")
+plt.plot(range(200), vauc, label="validate AUC")
+plt.plot(range(200), vacc, label="validate accuracy")
+#plt.title("Training Process")
+plt.xlabel("Epoch")
+plt.ylabel("")
+plt.legend()
 plt.show()

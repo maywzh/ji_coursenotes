@@ -166,28 +166,32 @@ class DATA_RAW(object):
         all_bh1 = []
         all_bh2 = []
         all_bh3 = []
+        all_bh4 = []
         for s in students:
             qs = []
             qas = []
-            bh1s, bh2s, bh3s = [], [], []
+            bh1s, bh2s, bh3s, bh4s = [], [], [], []
             for attempt in s:
                 # 找出skill_id在all_skills数组中的位置
                 q = all_skills.index(int(attempt[0])) + 1
                 # 找出答对+位置 未答对不加
                 qa = q + num_skills * int(attempt[1])
-                bh1 = int(attempt[3])
-                bh2 = int(attempt[4])
-                bh3 = int(attempt[5])
+                bh1 = int(attempt[2])
+                bh2 = int(attempt[3])
+                bh3 = int(attempt[4])
+                bh4 = int(attempt[5])
                 qs.append(q)
                 qas.append(qa)
                 bh1s.append(bh1)
                 bh2s.append(bh2)
                 bh3s.append(bh3)
+                bh4s.append(bh4)
             all_q.append(qs)
             all_qa.append(qas)
             all_bh1.append(bh1s)
             all_bh2.append(bh2s)
             all_bh3.append(bh3s)
+            all_bh4.append(bh4s)
         # convert data into ndarrays for better speed during training
         q_dataArray = np.zeros((len(all_q), self.seqlen))
         for j in range(len(all_q)):
@@ -211,7 +215,11 @@ class DATA_RAW(object):
         for j in range(len(all_bh3)):
             dat = all_bh3[j]
             bh3_dataArray[j, :len(dat)] = dat
-        return q_dataArray, qa_dataArray, bh1_dataArray, bh2_dataArray, bh3_dataArray
+        bh4_dataArray = np.zeros((len(all_bh4), self.seqlen))
+        for j in range(len(all_bh4)):
+            dat = all_bh4[j]
+            bh4_dataArray[j, :len(dat)] = dat
+        return q_dataArray, qa_dataArray, bh1_dataArray, bh2_dataArray, bh3_dataArray, bh4_dataArray
 
     def get_processed_data(self, file_name):
         '''
@@ -220,7 +228,7 @@ class DATA_RAW(object):
         all_students, all_skills, num_steps = self.load_raw_data(file_name)
         num_skills = len(all_skills) + 1
         kf = KFold(n_splits=5, shuffle=True, random_state=3)
-        num_steps = 200
+        #num_steps = 200
         all_data = []
 
         for train_indexes, test_indexes in kf.split(all_students):
@@ -248,34 +256,32 @@ class DATA_RAW(object):
         all_students, all_skills, num_steps = self.load_raw_data(file_name)
         num_skills = len(all_skills) + 1
         kf = KFold(n_splits=5, shuffle=True, random_state=3)
-        num_steps = 200
         all_data = []
-        with open("assist2009_fixed_bh.csv") as f:
-
-            pass
         for train_indexes, test_indexes in kf.split(all_students):
 
             train_students = all_students[train_indexes].tolist()
             test_students = all_students[test_indexes].tolist()
 
             # Truncated BPTT
-            train_students = self.max_len_adjust(train_students, num_steps)
-            test_students = self.max_len_adjust(test_students, num_steps)
+            train_students = self.max_len_adjust(train_students, self.seqlen)
+            test_students = self.max_len_adjust(test_students, self.seqlen)
 
-            train_q, train_qa, train_bh1, train_bh2, train_bh3 = self.get_q_qa_with_bh(
+            train_q, train_qa, train_bh1, train_bh2, train_bh3, train_bh4 = self.get_q_qa_with_bh(
                 train_students, all_skills, num_skills)
-            test_q, test_qa, test_bh1, test_bh2, test_bh3 = self.get_q_qa_with_bh(
+            test_q, test_qa, test_bh1, test_bh2, test_bh3, test_bh4 = self.get_q_qa_with_bh(
                 test_students, all_skills, num_skills)
 
             all_data.append((train_q, train_qa, train_bh1, train_bh2,
-                             train_bh3, test_q, test_qa, test_bh1, test_bh2, test_bh3))
+                             train_bh3, train_bh4, test_q, test_qa, test_bh1, test_bh2, test_bh3, test_bh4))
 
         return all_data
 
     def load_raw_data(self, file_name):
         '''
         获取原始数据
-
+        output : students shape(n_students * n_rec * n_features)
+                skills shape(n_skills) 所有的skill_id
+                max_steps max(n_rec)
         '''
         pickle_data = {}
         students = {}
@@ -284,12 +290,12 @@ class DATA_RAW(object):
         users_id = []
         max_steps = -1
         min_steps = float('inf')
-        features = ['assignment_id', 'assistment_id', 'problem_id', 'user_id', 'original', 'correct', 'attempt_count',
-                    'ms_first_response',
-                    'skill_id', 'hint_count', 'hint_total', 'first_action', 'bottom_hint']
+        features = ['assignment_id', 'assistment_id', 'problem_id', 'user_id', 'original', 'correct',
+                    'ms_first_response', 'skill_id', 'hint_count', 'first_action', 'hint_total', 'attempt_count']
 
         selected_features = ['skill_id', 'correct',
-                             'user_id', 'ms_first_response', 'attempt_count', 'hint_count']
+                             'hint_count', 'first_action', 'hint_total', 'attempt_count']
+
         if not path.exists('students.pickle'):
             print('Pickle file not found, creating one...')
             all_data = pd.read_csv(file_name, encoding='ISO-8859-1')

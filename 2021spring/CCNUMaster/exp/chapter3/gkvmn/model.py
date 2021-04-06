@@ -40,7 +40,7 @@ class MODEL(nn.Module):
         # 写过程
         self.mem = DKVMN(memory_size=self.memory_size,
                          memory_key_state_dim=self.memory_key_state_dim,
-                         memory_value_state_dim=self.memory_value_state_dim, init_memory_key=self.init_memory_key)
+                         memory_value_state_dim=self.memory_value_state_dim, init_memory_key=self.init_memory_key, gpu=self.gpu)
         #
         memory_value = nn.Parameter(torch.cat(
             [self.init_memory_value.unsqueeze(0) for _ in range(batch_size)], 0).data)
@@ -162,7 +162,7 @@ class MODEL_BH(nn.Module):
         # 计算 f_t=W1(r_t, k_t, bh1_t, bh2_t, bh3_t)+b1
 
         self.read_embed_linear = nn.Linear(
-            self.memory_value_state_dim + self.final_fc_dim + 3, self.final_fc_dim, bias=True)
+            self.memory_value_state_dim + self.final_fc_dim + 1, self.final_fc_dim, bias=True)
 
         # 计算 p_t=Sigmoid(W2f_t+b2)
         self.predict_linear = nn.Linear(
@@ -178,7 +178,7 @@ class MODEL_BH(nn.Module):
         # 写过程
         self.mem = DKVMN(memory_size=self.memory_size,
                          memory_key_state_dim=self.memory_key_state_dim,
-                         memory_value_state_dim=self.memory_value_state_dim, init_memory_key=self.init_memory_key)
+                         memory_value_state_dim=self.memory_value_state_dim, init_memory_key=self.init_memory_key, gpu=self.gpu)
         #
         memory_value = nn.Parameter(torch.cat(
             [self.init_memory_value.unsqueeze(0) for _ in range(batch_size)], 0).data)
@@ -210,7 +210,7 @@ class MODEL_BH(nn.Module):
         nn.init.kaiming_normal_(self.q_embed.weight)
         nn.init.kaiming_normal_(self.qa_embed.weight)
 
-    def forward(self, q_data, qa_data, bh1_data, bh2_data, bh3_data, target, student_id=None):
+    def forward(self, q_data, qa_data, target, bh1_data, bh2_data, bh3_data, bh4_data, student_id=None):
         """
         q_data : batch_size * seqlen
         qa_data : batch_size * seqlen
@@ -249,9 +249,14 @@ class MODEL_BH(nn.Module):
         input_embed_l = []  # seqlen * batch_size * emb_size
         predict_logs = []
         # seqlen*batch_size*1
+
         input_bh1 = bh1_data.unsqueeze(2)
+
         input_bh2 = bh2_data.unsqueeze(2)
+
         input_bh3 = bh3_data.unsqueeze(2)
+
+        input_bh4 = bh4_data.unsqueeze(2)
         # bh1_t1 = []
         # bh2_t1 = []
         # bh3_t1 = []
@@ -291,7 +296,7 @@ class MODEL_BH(nn.Module):
         # input_embed_content = input_embed_content.view(batch_size, seqlen, -1)
 
         predict_input = torch.cat(
-            [all_read_value_content, input_embed_content, input_bh1, input_bh2, input_bh3], 2)
+            [all_read_value_content, input_embed_content, input_bh1], 2)
 
         read_content_embed = torch.tanh(self.read_embed_linear(
             predict_input.view(batch_size*seqlen, -1)))

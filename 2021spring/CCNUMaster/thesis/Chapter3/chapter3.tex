@@ -12,7 +12,7 @@
 
 %尽管该模型取得了较好的性能，但该模型将知识点建模为相互独立的点，而未考虑知识点之间的关联性。在高中数学知识网络中，知识点与知识点间有网状的关联关系，而习题是基于这些知识点建立的。因此习题与习题之间也存在隐含的间接关联关系，因此设计一种将考虑知识点间关联的模型来表征该模型是一种合理的解决方案。除了考虑习题知识点的掌握程度，对于学生的答题行为也可以作为额外的特征加入该模型，这样可以为模型增加更多的考虑因素，从而增强模型的预测性能。本文提出了一种用图神经网络结合记忆增强网络的知识追踪模型。该模型相对于原始的DKVMN模型，用图神经网络改造了知识点表征矩阵，并将学生的额外答题行为特征作为模型输入。
 
-This section is a core part of this recommendation system to obtain the student's knowledge mastery status using knowledge tracing. The model is used to assess the student's knowledge acquisition status, which is used as the basis for recommendations in the subsequent recommendation model. Knowledge tracking is a common model used for cognitive diagnosis of students, which models students' knowledge acquisition based on their previous answer records to obtain their knowledge status~\cite{gonzalez2014general}. There is a wealth of models for knowledge tracing, early models of knowledge tracing Bayesian Knowledge Tracing (BKT)~\cite{yudelson2013individualized}, which issued the assumption that students' solutions to exercises are based on a set of knowledge points that are considered to be unrelated to each other and are therefore represented independently of each other. This approach fails to capture the relationships between different concepts nor to characterize complex conceptual transformations. In 2015, Piech et al. proposed the deep knowledge tracing model (DKT), which first applied RNN to the knowledge tracing task, which contains an implicit state of knowledge, and achieved a baseline performance over BKT at that time, and it marked the prologue of knowledge tracing research based on neural network models. However, DKT cannot output the hidden state of knowledge and is not sufficiently interpretable.
+This section is a core part of this recommendation system to obtain the student's knowledge mastery status using knowledge tracing. The model is used to assess the student's knowledge acquisition status, which is used as the basis for recommendations in the subsequent recommendation model. Knowledge tracing is a common model used for cognitive diagnosis of students, which models students' knowledge acquisition based on their previous answer records to obtain their knowledge status~\cite{gonzalez2014general}. There is a wealth of models for knowledge tracing, early models of knowledge tracing Bayesian Knowledge Tracing (BKT)~\cite{yudelson2013individualized}, which issued the assumption that students' solutions to exercises are based on a set of knowledge points that are considered to be unrelated to each other and are therefore represented independently of each other. This approach fails to capture the relationships between different concepts nor to characterize complex conceptual transformations. In 2015, Piech et al. proposed the deep knowledge tracing model (DKT), which first applied RNN to the knowledge tracing task, which contains an implicit state of knowledge, and achieved a baseline performance over BKT at that time, and it marked the prologue of knowledge tracing research based on neural network models. However, DKT cannot output the hidden state of knowledge and is not sufficiently interpretable.
 
 Moreover, DKT uses to store all memories in a hidden vector, and the prediction performance for long sequences is not satisfactory enough. Memory Augmented Neural Network (MANN)~\cite{santoro2016meta} was proposed to address this problem, which allows the network to keep multiple hidden state vectors and read and write these vectors separately. In 2017, Dynamic Key-Value Memory Networks (DKVMN)~\cite{zhang2017dynamic} referring to the design of MANN for knowledge tracing tasks and optimizes MANN for knowledge tracing tasks with different input and output domains. DKVMN uses key-value pairs as the memory structure, which can avoid over better prediction performance relative to BKT, and DKT is achieved by using key-value pairs as the memory structure, which can avoid overfitting. The model also has better interpretability. It stores the problem-related potential concepts in the key matrix and the mastery proficiency to the concepts in the value matrix and updates the value matrix by correlating the input exercises with the key matrix.
 
@@ -287,7 +287,7 @@ In this experiment, the length of the longest training sequence is set as the hy
 
 \subsubsection{Data Analysis}
 %在进行模型训练之前，针对数据集进行因果分析，来筛选出合理的变量作为模型输入可以有效提高模型性能。在本节，从经过预处理的原始数据，选取出可能对最终产生影响的若干特征，进行可视化分析。然后选择合适的特征进行输入。
-Before model training, a dependent variable analysis is performed for the dataset to filter out reasonable variables as model inputs can effectively improve model performance. In this section, from the preprocessed raw data, several features that may impact the final are selected for visualization and analysis. The appropriate features are then selected for input.
+Before model training, a dependent variable analysis is performed for the dataset to filter out reasonable variables as model inputs can effectively improve model performance. In this section, several features that may impact the final are selected for visualization and analysis from the preprocessed raw data. The appropriate features are then selected for input.
 %首先，可以对原数据源进行列相关度分析，获取各个输入特征与输出结果标签的相关度。绘制的列相关度热力图如图所示。可见是与习题答题正确性最相关的几个特征。因此本实验将这些特征作为用户的行为特征加入模型。
 First, column correlation analysis can be performed on the original data source to obtain each input feature's correlation with the output result labels. The plotted column correlation heat map is shown in \figname{\ref{fig:ch3-dataset-heatmap}}.
 
@@ -298,7 +298,7 @@ First, column correlation analysis can be performed on the original data source 
 \end{figure}
 
 %然后，结合热力图，分别对筛选出来的特征绘制互相关性图与分布图，得到. 由此可见，这些特征存在一定的互相关性。
-Then, combined with the heat map, the mutual correlation map and distribution map are plotted for the filtered features respectively. The figure is \figname{\ref{fig:ch3-dataset-corrplot}}. It can be seen that there is a certain mutual correlation of these features.
+Then, combined with the heat map, the mutual correlation map and distribution map are plotted for the filtered features, respectively. The figure is \figname{\ref{fig:ch3-dataset-corrplot}}. It can be seen that there is a certain mutual correlation of these features.
 \begin{figure}[htbp!]
     \centering
     \includegraphics[width=1.0\textwidth]{ch3-dataset-corrplot.png}
@@ -336,11 +336,29 @@ Next, each feature was plotted separately against the correctness of the answer,
 
 %经过上述分析，可以将上述四个特征作为模型的额外输入特征，可以作为判断最终输出的重要依据。
 After the above analysis, the above four features can be used as additional input features for the model, which can be used as an important basis for judging the final output.
-\subsection{Settings and Metrics}
+\subsection{Metrics}
+%知识追踪本质上是一个分类问题，在机器学习领域中，常用的分类指标有Accuracy，Precision，Recall，F1 Score，AUC等。在二分类问题中，有如图\figname{\ref{fig:ch3-conmat}}的混淆矩阵，则这些分类指标的公式可以写作
+Knowledge tracing is essentially a classification problem, where the commonly used classification metrics are Accuracy, Precision, Recall, F1 Score, etc. In the binary classification problem, there is the confusion matrix as shown in \figname{\ref{fig:ch3-conmat}}.
+\begin{figure}[htbp!]
+    \centering
+    \includegraphics[width=0.85\textwidth]{ch3-conmat.pdf}
+    \caption{The confusion matrix}\label{fig:ch3-conmat}
+\end{figure}
+
+Then, the formula for these classification indicators can be represented as \eqname{\ref{fml:ch3-conmat}}. The TP, TN, FP, FN represent true positive, true negative, false positive, and false negative. Although the Accuracy can determine the correct overall rate, the imbalance between positive and negative sample sizes can lead to high accuracy rates that do not fully measure the system's recognition performance for both categories, while Precision represents the proportion of true positive samples predicted as positive samples, which measures the Accuracy of prediction of positive sample results, and Recall represents the bi l of true positive samples identified correctly. When Precision and Recall are plotted against each other, a P-R curve can be obtained. As Recall increases, Precision decreases overall, so a trade-off between the two is required. The F1 is a comprehensive indicator for weighing Precision and Recall.
+\begin{align}\label{fml:ch3-conmat}
+    \begin{split}
+        \operatorname{Accuracy} &= \frac{TP+TN}{TP+TN+FP+FN} \\
+        \operatorname{Precision} &= \frac{TP}{TP+FP} \\
+        \operatorname{Recall} &= \frac{TP}{TP+FN} \\
+        \operatorname{F1} &= \frac{2\times \operatorname{Precision}\times\operatorname{Recall}}{\operatorname{Precision}+\operatorname{Recall}}
+    \end{split}
+\end{align}
 %目前知识追踪领域的论文多以(Area Under Curve)AUC作为对比指标，AUC是一个基于ROC曲线常用的二分类评测手段，具有较好的性能对比能力。在知识追踪任务中，最终预测也是当前时刻的习题的做对与否，本质上为一个二分类问题，因此可以采取这种做法。
 At present, most papers in the field of knowledge tracing use Area Under Curve (AUC) as a comparison indicator. AUC is a commonly used two-category evaluation method based on the ROC curve and has good performance comparison capabilities. In the task of knowledge tracing, the final prediction is also whether the exercises at the current moment are done correctly or not, which is essentially a binary classification problem so that this approach can be adopted.
 
-%对于每个数据集采用70%作为训练集，剩余30%作为测试集。实验运行环境为Ubuntu20.04，TensorFlow 2.23，Python 3.8.6，实验机器为一块Tesla V100计算卡。
+\subsection{Experiment Settings}
+%本实验采用KFold方法分割测试集和验证集，取\(K=5\)。原始数据经过处理，会将每个学生的做题序列进行隔离，超过预定最长序列长度的学生会被分割成若干个不超过最长长度的序列。实验运行环境为Ubuntu20.04，TensorFlow 2.23，Python 3.8.6，实验机器为一块Tesla V100计算卡。
 For each dataset, 70\% is used as the training set, and the remaining 30\% is taken as the validation set. The experimental running environment is Ubuntu20.04, Python 3.8.6, Pytorch 1.8,  and the running machine is equipped with a Tesla V100 computing card.
 
 \subsection{Baselines}
@@ -353,6 +371,8 @@ In this experiment, baseline performance comparisons are made by comparing some 
     \item DKT~\cite{piech2015deep}: DKT applies the input of students' doing records into LSTM and can capture the influence of recent doing records on students' doing sequences, taking students' doing sequences into account into the model; DKT also initially considers the intrinsic correlation between knowledge points.
     \item Dynamic Key-Value Memory Networks (DKVMN)~\cite{zhang2017dynamic}: DKVMN uses key-value pairs as the memory structure, which can avoid over better prediction performance relative to BKT, and DKT is achieved by using key-value pairs as the memory structure.
 \end{itemize}
+
+\subsection{Hyperparameter Adjusting and Model Training}
 
 \subsection{Result and Analysis}
 %实验结果见表，相比于其他模型，提出的模型的性能取得了最优的指标。在所有数据集上，DKT、DKVMN和GKT的标签明显优于BKT模型。在ASSIST15数据集上，提出的模型的AUC值较其他模型高出0.5\%，而GKT的性能优于DKVMN和DKT，这是由于该数据集中的知识点隐藏关联较高，因此能够更好表征知识点内在关联的模型就会明显产生更好的结果。在ASSIST17数据集上，提出的模型略优于对比的模型，而DKT、DKVMN和GKT的性能表现差异较小，这是因为知识点间的关联较小，因此考虑知识点间关联带来的性能提升较小。在STATICS11数据集上，DKVMN的性能表现超越了GKT，其原因在于对知识进行关系建模产生了过拟合现象，因此对性能表现产生了负面影响，结果显示出提出的模型抗过拟合性能较好。

@@ -36,7 +36,7 @@ This chapter proposes a recommendation model based on Matching-Ranking two-stage
 The overview of the entire model is as follows：
 \begin{enumerate}
     \item Matching: The purpose of this part is to generate a series of candidate recommendation exercises. In this thesis, a multi-path matching strategy is applied, in which multiple matching strategies are applied to form corresponding sub-candidate sets and then merged into a candidate set by the merging method. Three matching strategies based on collaborative filtering, statistical information, and user preferences are respectively applied in this thesis, and the weighted average method is used for ranking and merging.
-    \item Ranking: The purpose of this part is to apply the knowledge tracing recommendation model to the candidate recommended exercise set generated in the previous matching stage, sort the exercise recommendation degree according to the prediction of the exercise answer, and generate a final exercise recommendation list.
+    \item Ranking: The purpose of this part is to apply the knowledge tracing recommendation model to the candidate recommended exercise set generated in the previous matching stage, sort the exercise recommendation degree according to the exercise answer's prediction, and generate a final exercise recommendation list.
 \end{enumerate}
 
 The structure of the recommendation system is like \figname{\ref{fig:ch4-model-architecture}}
@@ -223,17 +223,13 @@ The running environment of this research is shown in \tblname{\ref{tbl:ch4-exp-e
         \toprule
         Software/Hardware & Configuration   \\
         \midrule
-        CPU               & i7 9700K        \\
-
+        CPU               & Xeon Gold 6139  \\
         GPU               & Tesla V100      \\
-
-        Operating System  & Ubuntu 20.04    \\
-
+        VRAM              & 16G             \\
+        Operating System  & Ubuntu 18.04    \\
         Python            & 3.8.6           \\
-
-        PyTorch           & 1.6.0           \\
-
-        GPU Driver        & Cuda10.1/cudnn7 \\
+        PyTorch           & 1.8.0           \\
+        GPU Driver        & Cuda11.2/cudnn8 \\
         \bottomrule
     \end{tabular}
 \end{table}

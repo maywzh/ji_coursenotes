@@ -91,7 +91,7 @@ class DKVMNHeadGroup(nn.Module):
 
 
 class DKVMN(nn.Module):
-    def __init__(self, memory_size, memory_key_state_dim, memory_value_state_dim, init_memory_key):
+    def __init__(self, memory_size, memory_key_state_dim, memory_value_state_dim, init_memory_key, gpu=-1):
         super(DKVMN, self).__init__()
         """
         :param memory_size:             scalar
@@ -116,6 +116,9 @@ class DKVMN(nn.Module):
 
         # self.memory_value = self.init_memory_value
         self.memory_value = None
+        self.gpu = gpu
+        self.AdjMat = utils.variable(
+            torch.zeros(memory_size, memory_size), self.gpu)
 
     def init_value_memory(self, memory_value):
         self.memory_value = memory_value
@@ -148,5 +151,6 @@ class DKVMN(nn.Module):
         # if_write_memory = torch.cat([if_write_memory.unsqueeze(1) for _ in range(self.memory_value_state_dim)], 1)
 
         self.memory_value = nn.Parameter(memory_value.data)
+        # Graph Propagation
 
         return self.memory_value

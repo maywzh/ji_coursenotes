@@ -71,7 +71,7 @@ def train(epoch_num, model, params, optimizer, q_data, qa_data):
     return epoch_loss/N, accuracy, auc
 
 
-def train_with_bh(epoch_num, model, params, optimizer, q_data, qa_data, bh1_data, bh2_data, bh3_data):
+def train_with_bh(epoch_num, model, params, optimizer, q_data, qa_data, bh1_data, bh2_data, bh3_data, bh4_data):
     """
     添加行为数据
     """
@@ -98,6 +98,8 @@ def train_with_bh(epoch_num, model, params, optimizer, q_data, qa_data, bh1_data
                                  params.batch_size:(idx + 1) * params.batch_size, :]
         bh3_batch_seq = bh3_data[idx *
                                  params.batch_size:(idx + 1) * params.batch_size, :]
+        bh4_batch_seq = bh4_data[idx *
+                                 params.batch_size:(idx + 1) * params.batch_size, :]
         target = qa_data[idx *
                          params.batch_size:(idx + 1) * params.batch_size, :]
 
@@ -108,6 +110,7 @@ def train_with_bh(epoch_num, model, params, optimizer, q_data, qa_data, bh1_data
         input_bh1 = utils.variable(torch.LongTensor(bh1_batch_seq), params.gpu)
         input_bh2 = utils.variable(torch.LongTensor(bh2_batch_seq), params.gpu)
         input_bh3 = utils.variable(torch.LongTensor(bh3_batch_seq), params.gpu)
+        input_bh4 = utils.variable(torch.LongTensor(bh4_batch_seq), params.gpu)
         target = utils.variable(torch.FloatTensor(target), params.gpu)
         target_to_1d = torch.chunk(target, params.batch_size, 0)
         target_1d = torch.cat([target_to_1d[i]
@@ -116,7 +119,7 @@ def train_with_bh(epoch_num, model, params, optimizer, q_data, qa_data, bh1_data
 
         model.zero_grad()
         loss, filtered_pred, filtered_target = model.forward(
-            input_q, input_qa, input_bh1, input_bh2, input_bh3, target_1d)
+            input_q, input_qa, target_1d, input_bh1, input_bh2, input_bh3, input_bh4)
         loss.backward()
         nn.utils.clip_grad_norm_(model.parameters(), params.maxgradnorm)
         optimizer.step()
@@ -200,7 +203,7 @@ def test(model, params, optimizer, q_data, qa_data):
     return epoch_loss/N, accuracy, auc
 
 
-def test_with_bh(model, params, optimizer, q_data, qa_data, bh1_data, bh2_data, bh3_data):
+def test_with_bh(model, params, optimizer, q_data, qa_data, bh1_data, bh2_data, bh3_data, bh4_data):
     N = int(math.floor(len(q_data) / params.batch_size))
 
     pred_list = []
@@ -221,6 +224,8 @@ def test_with_bh(model, params, optimizer, q_data, qa_data, bh1_data, bh2_data, 
                                  params.batch_size:(idx + 1) * params.batch_size, :]
         bh3_batch_seq = bh3_data[idx *
                                  params.batch_size:(idx + 1) * params.batch_size, :]
+        bh4_batch_seq = bh4_data[idx *
+                                 params.batch_size:(idx + 1) * params.batch_size, :]
         target = qa_data[idx *
                          params.batch_size:(idx + 1) * params.batch_size, :]
 
@@ -232,6 +237,7 @@ def test_with_bh(model, params, optimizer, q_data, qa_data, bh1_data, bh2_data, 
         input_bh1 = utils.variable(torch.LongTensor(bh1_batch_seq), params.gpu)
         input_bh2 = utils.variable(torch.LongTensor(bh2_batch_seq), params.gpu)
         input_bh3 = utils.variable(torch.LongTensor(bh3_batch_seq), params.gpu)
+        input_bh4 = utils.variable(torch.LongTensor(bh3_batch_seq), params.gpu)
         target = utils.variable(torch.FloatTensor(target), params.gpu)
 
         target_to_1d = torch.chunk(target, params.batch_size, 0)
@@ -240,7 +246,7 @@ def test_with_bh(model, params, optimizer, q_data, qa_data, bh1_data, bh2_data, 
         target_1d = target_1d.permute(1, 0)
 
         loss, filtered_pred, filtered_target = model.forward(
-            input_q, input_qa, input_bh1, input_bh2, input_bh3, target_1d)
+            input_q, input_qa, target_1d, input_bh1, input_bh2, input_bh3, input_bh4)
 
         right_target = np.asarray(filtered_target.data.tolist())
         right_pred = np.asarray(filtered_pred.data.tolist())
@@ -257,6 +263,6 @@ def test_with_bh(model, params, optimizer, q_data, qa_data, bh1_data, bh2_data, 
     all_pred[all_pred >= 0.5] = 1.0
     all_pred[all_pred < 0.5] = 0.0
     accuracy = metrics.accuracy_score(all_target, all_pred)
-    # f1 = metrics.f1_score(all_target, all_pred)
+    f1 = metrics.f1_score(all_target, all_pred)
 
     return epoch_loss/N, accuracy, auc

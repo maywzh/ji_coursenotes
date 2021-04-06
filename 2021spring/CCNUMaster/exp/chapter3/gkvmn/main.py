@@ -98,7 +98,7 @@ def main():
     # train_data_path = params.data_dir + "/" + "test5.1.txt"
 
     all_data = dat.get_processed_data_with_bh(data_path)
-    train_q_data, train_qa_data, train_bh1_data, train_bh2_data, train_bh3_data, valid_q_data, valid_qa_data, valid_bh1_data, valid_bh2_data, valid_bh3_data = all_data[
+    train_q_data, train_qa_data, train_bh1_data, train_bh2_data, train_bh3_data, train_bh4_data, valid_q_data, valid_qa_data, valid_bh1_data, valid_bh2_data, valid_bh3_data, valid_bh4_data = all_data[
         0]
 
     # first fold
@@ -140,12 +140,12 @@ def main():
     if params.use_additional_feature:
         for idx in range(params.max_iter):
             train_loss, train_accuracy, train_auc = train_with_bh(
-                idx, model, params, optimizer, train_q_data, train_qa_data, train_bh1_data, train_bh2_data, train_bh3_data)
+                idx, model, params, optimizer, train_q_data, train_qa_data, train_bh1_data, train_bh2_data, train_bh3_data, train_bh4_data)
             print('Epoch %d/%d, loss : %3.5f, auc : %3.5f, accuracy : %3.5f' %
                   (idx + 1, params.max_iter, train_loss, train_auc, train_accuracy))
             train_log.append([train_loss, train_auc, train_accuracy])
             valid_loss, valid_accuracy, valid_auc = test_with_bh(
-                model, params, optimizer, valid_q_data, valid_qa_data, valid_bh1_data, valid_bh2_data, valid_bh3_data)
+                model, params, optimizer, valid_q_data, valid_qa_data, valid_bh1_data, valid_bh2_data, valid_bh3_data, valid_bh4_data)
             print('Epoch %d/%d, valid auc : %3.5f, valid accuracy : %3.5f' %
                   (idx + 1, params.max_iter, valid_auc, valid_accuracy))
 
