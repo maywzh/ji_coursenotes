@@ -313,32 +313,59 @@ Then, combined with the heat map, the mutual correlation map and distribution ma
 
 
 %接下来，将每个特征与答题正确性分别绘制互相关图，分析各个特征与目标特征的关系。
-Next, each feature was plotted separately against the correctness of the answer, and the relationship between each feature and the target feature was analyzed, as shown in \figname{\ref{fig:ch3-jointplots}}.
+Next, each feature was plotted separately against the correctness of the answer, and the relationship between each feature and the target feature was analyzed, as shown in \figname{\ref{fig:ch3-jointplot-hc}} to \figname{\ref{fig:ch3-jointplot-atc}}.
+
 \begin{figure}[htb]
     \centering
-    \begin{subfigure}[b]{0.475\textwidth}
-        \centering
-        \includegraphics[width=0.9\textwidth]{ch3-jointplot-hc.png}
-        \caption[dis]{The joint-plot of hint\_count}\label{fig:ch3-jointplot-hc}
-    \end{subfigure}
-    \begin{subfigure}[b]{0.475\textwidth}
-        \centering
-        \includegraphics[width=0.9\textwidth]{ch3-jointplot-fc.png}
-        \caption{The joint-plot of first\_action}\label{fig:ch3-jointplot-fc}
-    \end{subfigure}
-    \\
-    \begin{subfigure}[b]{0.475\textwidth}
-        \centering
-        \includegraphics[width=0.9\textwidth]{ch3-jointplot-htc.png}
-        \caption[dis]{The joint-plot of hint\_total}\label{fig:ch3-jointplot-htc}
-    \end{subfigure}
-    \begin{subfigure}[b]{0.475\textwidth}
-        \centering
-        \includegraphics[width=0.9\textwidth]{ch3-jointplot-atc.png}
-        \caption{The joint-plot of attempt\_count}\label{fig:ch3-jointplot-atc}
-    \end{subfigure}
-    \caption{The joint-plots between input features and target feature}\label{fig:ch3-jointplots}
+    \includegraphics[width=0.85\textwidth]{ch3-jointplot-hc.png}
+    \caption[dis]{The joint-plot of hint\_count}\label{fig:ch3-jointplot-hc}
 \end{figure}
+
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=0.85\textwidth]{ch3-jointplot-fc.png}
+    \caption{The joint-plot of first\_action}\label{fig:ch3-jointplot-fc}
+\end{figure}
+
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=0.85\textwidth]{ch3-jointplot-htc.png}
+    \caption[dis]{The joint-plot of hint\_total}\label{fig:ch3-jointplot-htc}
+\end{figure}
+
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=0.85\textwidth]{ch3-jointplot-atc.png}
+    \caption{The joint-plot of attempt\_count}\label{fig:ch3-jointplot-atc}
+\end{figure}
+
+% \begin{figure}[htb]
+%     \centering
+%     \begin{subfigure}[b]{0.85\textwidth}
+%         \centering
+%         \includegraphics[width=0.9\textwidth]{ch3-jointplot-hc.png}
+%         \caption[dis]{The joint-plot of hint\_count}\label{fig:ch3-jointplot-hc}
+%     \end{subfigure}
+%     \\
+%     \begin{subfigure}[b]{0.85\textwidth}
+%         \centering
+%         \includegraphics[width=0.9\textwidth]{ch3-jointplot-fc.png}
+%         \caption{The joint-plot of first\_action}\label{fig:ch3-jointplot-fc}
+%     \end{subfigure}
+%     \\
+%     \begin{subfigure}[b]{0.85\textwidth}
+%         \centering
+%         \includegraphics[width=0.9\textwidth]{ch3-jointplot-htc.png}
+%         \caption[dis]{The joint-plot of hint\_total}\label{fig:ch3-jointplot-htc}
+%     \end{subfigure}
+%     \\
+%     \begin{subfigure}[b]{0.85\textwidth}
+%         \centering
+%         \includegraphics[width=0.9\textwidth]{ch3-jointplot-atc.png}
+%         \caption{The joint-plot of attempt\_count}\label{fig:ch3-jointplot-atc}
+%     \end{subfigure}
+%     \caption{The joint-plots between input features and target feature}\label{fig:ch3-jointplots}
+% \end{figure}
 
 %经过上述分析，可以将上述四个特征作为模型的额外输入特征，可以作为判断最终输出的重要依据。
 After the above analysis, the above four features can be used as additional input features for the model, which can be used as an important basis for judging the final output.
