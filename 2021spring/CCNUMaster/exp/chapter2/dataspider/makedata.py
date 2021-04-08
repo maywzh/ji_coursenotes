@@ -1,7 +1,7 @@
 '''
 Author       : maywzh
 Date         : 2021-04-01 19:11:05
-LastEditTime : 2021-04-03 00:29:52
+LastEditTime : 2021-04-07 23:18:01
 LastEditors  : maywzh
 Description  : 
 FilePath     : /ji_coursenotes/2021spring/CCNUMaster/exp/chapter2/dataspider/makedata.py
@@ -64,3 +64,7 @@ df_final = pd.concat([tl['exercise_text'], pd.DataFrame(
     mlb_result, columns=list(mlb.classes_))], axis=1)
 
 df_final.to_csv("./data/candidate_exercises.csv", index=False)
+df_final[df_final.index % 2 == 0].to_csv(
+    "./data/train.csv", index=False)
+df_final[df_final.index % 2 == 1].to_csv(
+    "./data/test.csv", index=False)

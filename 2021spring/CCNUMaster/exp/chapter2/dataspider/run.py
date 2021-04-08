@@ -95,14 +95,14 @@ def get_category(target_url, server, headers):
         full_url = server + each.get('href')
         qs = parse_qs(urlparse(full_url).query)
         cid = qs.get('cid')
-        if cid and int(cid[0]) >= 1394:
+        if cid and int(cid[0]) >= 1477:
             category.append(full_url)
     print(category)
     return category
 
 
 if __name__ == "__main__":
-    main_url = "https://tiku.21cnjy.com/tiku.php?mod=quest&channel=3&cid=1378&xd=3"
+    main_url = "https://tiku.21cnjy.com/tiku.php?mod=quest&channel=3&cid=1377&xd=3"
     server = "https://tiku.21cnjy.com/"
     save_dir = "./data"
     subject_file = "senior_Math"
@@ -118,7 +118,7 @@ if __name__ == "__main__":
 
         while counting < 100 and cid:
             cheak_parsing_url = get_url(target_url, server, headers)
-            if int(cid[0]) >= 1394:
+            if int(cid[0]) >= 1477:
                 get_html(cheak_parsing_url, file_path+cid[0], headers)
             target_url = change_page(target_url, server, headers)
 

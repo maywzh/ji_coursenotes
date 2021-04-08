@@ -1,7 +1,7 @@
 '''
 Author       : maywzh
 Date         : 2021-04-02 02:01:19
-LastEditTime : 2021-04-02 22:22:05
+LastEditTime : 2021-04-07 18:23:30
 LastEditors  : maywzh
 Description  : 
 FilePath     : /ji_coursenotes/2021spring/CCNUMaster/exp/chapter2/bert-bilstm-att/bert.py
@@ -140,4 +140,4 @@ class BertSeqVec(object):
 
     def Embed(self, text):
         embedded = torch.Tensor(self.seq2vec(text)),
-        return embedded,
+        return embedded

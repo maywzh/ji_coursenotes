@@ -1,7 +1,7 @@
 '''
 Author       : maywzh
 Date         : 2021-01-19 10:22:58
-LastEditTime : 2021-04-02 15:30:40
+LastEditTime : 2021-04-07 18:27:59
 LastEditors  : maywzh
 Description  : 
 FilePath     : /ji_coursenotes/2021spring/CCNUMaster/exp/chapter2/bert-bilstm-att/model.py
@@ -18,6 +18,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 from bert import BertSeqVec, BertTextNet
+import math
 
 
 class Att_BiLSTM(nn.Module):
@@ -66,8 +67,44 @@ class Att_BiLSTM(nn.Module):
         return logits
 
 
+class GraphConvolution(nn.Module):
+    """
+    Simple GCN layer, similar to https://arxiv.org/abs/1609.02907
+    """
+
+    def __init__(self, in_features, out_features, bias=False):
+        super(GraphConvolution, self).__init__()
+        self.in_features = in_features
+        self.out_features = out_features
+        self.weight = Parameter(torch.Tensor(in_features, out_features))
+        if bias:
+            self.bias = Parameter(torch.Tensor(1, 1, out_features))
+        else:
+            self.register_parameter('bias', None)
+        self.reset_parameters()
+
+    def reset_parameters(self):
+        stdv = 1. / math.sqrt(self.weight.size(1))
+        self.weight.data.uniform_(-stdv, stdv)
+        if self.bias is not None:
+            self.bias.data.uniform_(-stdv, stdv)
+
+    def forward(self, input, adj):
+        support = torch.matmul(input, self.weight)
+        output = torch.matmul(adj, support)
+        if self.bias is not None:
+            return output + self.bias
+        else:
+            return output
+
+    def __repr__(self):
+        return self.__class__.__name__ + ' (' \
+            + str(self.in_features) + ' -> ' \
+            + str(self.out_features) + ')'
+
+
 if __name__ == '__main__':
     txt = "数学习题"
     emb = BertSeqVec(BertTextNet())
-    a, H = emb.Embed(txt)
-    print(a, H)
+    a = emb.Embed(txt)
+    print(a, a[0].shape)

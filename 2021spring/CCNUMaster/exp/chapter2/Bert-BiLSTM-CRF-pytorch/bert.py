@@ -1,7 +1,7 @@
 '''
 Author       : maywzh
 Date         : 2021-04-02 02:01:19
-LastEditTime : 2021-04-04 00:57:58
+LastEditTime : 2021-04-08 02:20:01
 LastEditors  : maywzh
 Description  : 
 FilePath     : /ji_coursenotes/2021spring/CCNUMaster/exp/chapter2/Bert-BiLSTM-CRF-pytorch/bert.py
@@ -40,6 +40,16 @@ class BertTextNet(nn.Module):
         self.textExtractor = BertModel.from_pretrained(
             model_path, config=modelConfig)
         self.tokenizer = BertTokenizer.from_pretrained(vocab_path)
+
+    def embed(text):
+        text = "[CLS] {} [SEP]".format(text)
+        tokens, segments, input_masks = [], [], []
+        tokenized_text = self.tokenizer.tokenize(text)  # 用tokenizer对句子分词
+        indexed_tokens = self.tokenizer.convert_tokens_to_ids(
+            tokenized_text)  # 索引列表
+        tokens.append(indexed_tokens)
+        segments.append([0] * len(indexed_tokens))
+        input_masks.append([1] * len(indexed_tokens))
 
     def forward(self, tokens, segments, input_masks):
         output = self.textExtractor(tokens, token_type_ids=segments,
@@ -89,10 +99,8 @@ class BertSeqVec(object):
 
 
 if __name__ == '__main__':
-    texts = ["若“”为真命题，则下列命题一定为假命题的是（）A．B．C．D．答案D解析试题分析：由“”为真命题，知命题p与q至少有一个是真命题，因此与可能为真命题，排除A，B；当p与q都为真命题时，为真命题；与至少有一个假命题，所以为假命题，故选D．",
-             "逻辑",
-             "数学",
-             "函数图像"
+    texts = ["已知等比数列中则其前项的和的取值范围是解等比数列中当公比为时当公比为时从而淘汰故选解等比数列中当公比时当公比时故选考点此题重点考察等比数列前项和的意义等比数列的通项公式以及均值不等式的应用突破特殊数列入手淘汰重视等比数列的通项公式前项和以及均值不等式的应用特别是均值不等式使用的条件",
+             "等比数列"
              ]
     last_vec = None
     distances = []
