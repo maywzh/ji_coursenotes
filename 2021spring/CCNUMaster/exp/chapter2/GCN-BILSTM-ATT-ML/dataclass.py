@@ -1,11 +1,11 @@
 '''
 Author       : maywzh
 Date         : 2021-04-01 11:25:17
-LastEditTime : 2021-04-01 19:07:41
+LastEditTime : 2021-04-09 01:18:47
 LastEditors  : maywzh
 Description  : 
-FilePath     : /ji_coursenotes/2021spring/CCNUMaster/exp/chapter2/dataspider/dataclass.py
-symbol_custom_string_obkoro1: 
+FilePath     : /ji_coursenotes/2021spring/CCNUMaster/exp/chapter2/GCN-BILSTM-ATT-ML/dataclass.py
+License      : 
 Copyright (c) 2017 maywzh.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
