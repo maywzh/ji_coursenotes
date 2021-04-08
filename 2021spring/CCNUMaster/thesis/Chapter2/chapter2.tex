@@ -14,7 +14,7 @@
 \section{Research Motivation}
 %在推荐系统的各环节，包括数据收集、数据挖掘和数据推荐，都以建立高质量的数据集作为基础。对于本文的研究主题习题推荐系统而言，建立一个规范的习题库对于建立一个试题推荐系统是重要的第一步。题库建设也是一项十分复杂而困难的工作，需要综合考虑习题数据的各个层面，为习题添加足够多的附加信息用于后续的数据挖掘。高中数学具有数百个知识点，平均每个知识点有从易到难的不同难度梯度的数十道习题。一个优质数学学科题库的规模为十万规模。除去数量上的要求，优质题库除了题目质量，以及对教育内容（教材）的匹配度之外，还有两个根本性问题，其一为知识点关系网络构建，其二为知识点-习题关系构建。而就是对于这些因素的优化，导致了优质题库的建设门槛，以及极高的成本。而市面上的题库往往缺失了对于这些因素的重视，导致出现了许多质量不高的习题数据库。所以，对题目的知识点标签的标注，以及知识体系的构建，是优质题库建设过程中最为核心的问题之一。
 
-All aspects of the recommendation system, including data collection, data mining, and data recommendation, are predicated on establishing a high-quality data source. In this thesis's study topic, establishing a standardized and structured exercise database is the critical first step to build a test recommendation system. The construction of an exercise corpus is also a complex and challenging task, requiring comprehensive consideration of all aspects of the exercise data and adding enough additional information to the exercises for subsequent data mining. High school mathematics has hundreds of knowledge points, and on average, each point has dozens of exercises of different difficulty gradients from easy to difficult. The size of a high-quality math subject exercise corpus is 100,000 scale. In addition to the quantitative requirements, there are two fundamental issues in a quality exercise corpus, in addition to the quality of the questions and the matching of the educational content (textbooks), one is the construction of the knowledge point relationship network, and the other is the construction of the knowledge point-exercise relationship.
+All aspects of the recommendation system, including data collection, data mining, and data recommendation, are predicated on establishing a high-quality data source. In this thesis's study topic, establishing a standardized and structured exercise database is the critical first step to build a test recommendation system. The construction of an exercise corpus is also a complex and challenging task, requiring consideration of all aspects of the exercise data and adding enough additional information to the exercises for subsequent data mining. High school mathematics has hundreds of knowledge points, and on average, each point has dozens of exercises of different difficulty gradients from easy to difficult. The size of a high-quality math subject exercise corpus is 100,000 scale. In addition to the quantitative requirements, there are two fundamental issues in a quality exercise corpus, in addition to the quality of the questions and the matching of the educational content (textbooks), one is the construction of the knowledge point relationship network, and the other is the construction of the knowledge point-exercise relationship.
 
 Moreover, it is the optimization of these factors that leads to the construction threshold of high-quality exercise corpus and the extremely high cost. The question databases on the market often lack attention to these factors, leading to the emergence of many poor-quality exercise databases. Therefore, labeling the questions' knowledge points and constructing the knowledge system is one of the most central issues in building a quality exercise corpus.
 
@@ -24,7 +24,7 @@ One of the critical problems in building a test recommendation system is recomme
 %在本章中，挖掘的知识点标签，是用于题目的推荐和分析报告。它要求完善题目的知识点关联，即对题目打上若干对应的知识点标签，其中知识点之间也会存在依赖关系，另外就是要建立完整的知识点知识图谱用于生成学生的学习报告。对于第一个问题，它实际上是用题目文本来进行知识点挖掘的任务，也是一个分类任务。具体一点而言，主要是依据题目短文本信息进行层次化分类的任务。在这个任务中，我们需要使用到最基础的技术是自然语言处理和机器学习。也即，通过对大量人工标注好的题目文本和知识点标签结果（也称为训练语料）的学习——通过自然语言处理的技术获取题目文本的特征，通过机器学习来得到分类模型——从而使得系统具有了自动做知识点分类的能力。在这个定义中，待分类对象为题目（包括题干、答案、解析等等），分类结果是一组知识点标签。学习系统的输入就是一组训练习题，即\(n\)道已经标注好的题目及其对应的知识点标签；学习系统依据训练数据，训练给定的分类模型。在预测阶段，输入待标注的习题，输出一组对习题知识点的预测标注结果。
 
 \section{Research Contribution}
-In this chapter, a multi-knowledge point labeling classification method for exercises is proposed. The method is divided into textual information characterization using Attentional bidirectional LSTM and multi-knowledge point labeling classifier generation using the GCN embedding learning method. Finally,, the classifier is used to perform knowledge point labeling task on the exercises. The knowledge point labels are mined for topic recommendation and analysis reports. It requires refining the knowledge point association of the topic, i.e., several corresponding knowledge point tags for the topic. There will also be dependencies between the knowledge points and build a complete knowledge map of knowledge points for generating student learning reports. The first problem is a knowledge point mining task using the topic text, which is also a classification task. To be more specific, it is a hierarchical classification task based on the topic's short text information. The most basic natural language processing (NLP) technologies and machine learning should be used in this task. By learning a large amount of manually labeled topic text and knowledge point labeling results (also called training corpus) - obtaining the features of the topic text through NLP techniques and obtaining the classification model through machine learning. The system can do knowledge point classification automatically. In this definition, the object to be classified is a topic (including stem, answer, paraphrase, etc.), and the result is a set of knowledge point labels. The input to the learning system is a set of training exercises, i.e., \(n\) questions that have been labeled with their corresponding knowledge labels; the learning system trains the given classification model based on the training data. In the prediction phase, the exercises' input to be labeled is used to output a set of predicted labeling results for the exercises' knowledge points.
+In this chapter, a multi-knowledge point labeling classification method for exercises is proposed. The method is divided into textual information characterization using Attentional bidirectional LSTM and multi-knowledge point labeling classifier generation using the GCN embedding learning method. Finally, the classifier is used to perform the knowledge point labeling tasks on the exercises. The knowledge point labels are mined for topic recommendation and analysis reports. It requires refining the knowledge point association of the topic, i.e., several corresponding knowledge point tags for the topic. There will also be dependencies between the knowledge points and build a complete knowledge map of knowledge points for generating student learning reports. The first problem is a knowledge point mining task using the topic text, which is also a classification task. To be more specific, it is a hierarchical classification task based on the topic's short text information. The most basic natural language processing (NLP) technologies and machine learning should be used in this task. By learning a large amount of manually labeled topic text and knowledge point labeling results (also called training corpus) - obtaining the features of the topic text through NLP techniques and obtaining the classification model through machine learning. The system can do knowledge point classification automatically. In this definition, the object to be classified is a topic (including stem, answer, paraphrase, etc.), and the result is a set of knowledge point labels. The input to the learning system is a set of training exercises, i.e., \(n\) questions that have been labeled with their corresponding knowledge labels; the learning system trains the given classification model based on the training data. In the prediction phase, the exercises' input to be labeled is used to output a set of predicted labeling results for the exercises' knowledge points.
 
 \section{Proposed Model}
 %在本节中，提出了一个基于图神经网络的模型用于进行试题-知识点关联和知识点知识图谱的建立。该模型大致分为两个部分，第一个部分用一个基于图卷积神经网络半监督学习和文本挖掘嵌入学习的算法来实现的试题-知识点关联模块，用于实现试题知识点标注和关联。第二部分考虑到高中数学的知识的体系化，结合先验领域知识，用改进的R-GCN算法来构建高中数学知识点知识图谱。
@@ -324,43 +324,87 @@ Through manual labeling, the real knowledge point labels of the exercises can be
 %本章提出了一个习题知识点多标签标注的模型，在本节中，先对数据集进行了介绍，接着介绍了一些Baseline性能的模型，然后结合多标签标注提出了对比的性能指标评估方案，最后给出对比结果和分析。
 This chapter proposes a multi-label labeling model for exercise knowledge points. This section first introduces the data set, then introduces some baseline performance models, and then combines the multi-label labeling to propose a comparative performance indicator evaluation plan. Finally, Give comparison results and analysis.
 \subsection{Dataset}
-%本文中的实验数据来自于在线网站koolearn.com的带标签的高考数学考题以及模拟题（包含答案解析），通过爬虫爬取题干、答案解析等文本语料。其部分知识点关联模型可以表示为如下图结构。该数据集经过过滤和人工选择，共3374道试题，包含148个知识点，题均知识点为1.7个，其知识点分布如图所示。
-The experimental data comes from the labeled college entrance examination math test questions and simulation questions (including answer analysis) on the online website. The text corpus, such as question stems and answer analysis, are crawled through crawlers. Part of the knowledge point association model can be expressed as the following structure.
-
-
-The data set has been filtered and manually selected. There are 3374 test questions, including 148 knowledge points, with an average of 1.7 knowledge points. The distribution of several knowledge points is shown in the \figname{\ref{fig:ch2-model-knowledgenet}}.
+%本文中的实验数据来自于在线网站tiku.21cnjy.com的带标签的高考数学考题以及模拟题（包含答案解析），通过爬虫爬取题干、答案解析等文本语料。其部分知识点关联模型可以表示为如下图结构。该数据集经过过滤和人工选择，共3374道试题，包含148个知识点，题均知识点为1.7个，其知识点分布如图所示。
+The experimental data are the labeled math examination questions and practicing exercises (including answer analysis) fetched from the online exercise website tiku.21cnjy.com. The text corpus, such as exercise texts and answer analysis, are crawled through web crawlers. The raw data are roughly classified text records that contain a lot of repetitive redundancy and error information, so a data preprocessing process is needed to filter out the appropriate data. The knowledge graph of the original dataset is shown in the \figname{\ref{fig:ch2-model-knowledgenet}}.
 \begin{figure}[htbp!]
     \centering
     \includegraphics[width=1.0\textwidth]{ch2-model-knowledgenet.pdf}
-    \caption{Knowledge points of dataset}\label{fig:ch2-model-knowledgenet}
+    \caption{Knowledge point relation graph of original dataset}\label{fig:ch2-model-knowledgenet}
 \end{figure}
 
-%该数据集的习题知识点数目分布如图所示。
-The distribution of the number of exercise knowledge points in this data set is shown in the \figname{\ref{ch2-fig14}}.
-\begin{figure}[htbp!]
+\subsubsection{Data Preprocess}
+Crawlers obtain the data in this section, so the original data obtained is a large number of unstructured exercises with irregular mathematical symbols, which will bring errors, so the unrecognizable characters will be replaced in the preprocessing process. There is also a large amount of nonsensical text. Besides, since some of the exercises are not fully labeled with knowledge points, manual assistance is required to label the knowledge points.
+
+
+\subsubsection{Data Analysis}
+Since there are many images in the original set of exercises that cannot be identified, this question screens out irrelevant image URL information. Also, this model does not consider textual information such as formulas and mathematical symbols, so only Chinese text will be screened out. Samples with too low text length will be removed.
+
+In this experiment, a few of the more representative categories were selected to construct the dataset, and a total of 7 categories of knowledge points were selected, within which two categories are correlating. After deduplication and removal of invalid data, 3969 pieces of data were finally obtained. The filtered data are shown in the \tblname{\ref{tbl:ch2-rawdata}} and the distribution of the number of dependent exercises for each category is shown in the \tblname{\ref{tbl:ch2-rawdata-dist}} and \figname{\ref{fig:ch2-data-belonging}}. The distribution of length of exercise texts is shown in \figname{\ref{fig:ch2-data-lendis}}
+
+\begin{table}[htb]
+    \caption{The filtered data examples}\label{tbl:ch2-rawdata}
     \centering
-    \begin{subfigure}[b]{0.475\textwidth}
-        \includegraphics[width=0.9\textwidth]{ch2-fig14.pdf}
-        \caption[dis]{Number of exercises}\label{fig:ch2-fig14-hist}
-    \end{subfigure}
-    \begin{subfigure}[b]{0.475\textwidth}
-        \includegraphics[width=0.9\textwidth]{ch2-fig15.pdf}
-        \caption{Portion of exercises}\label{fig:ch2-fig14-pie}
-    \end{subfigure}
-    \caption{Distribution of the number of knowledge points of exercise}\label{ch2-fig14}
+    \begin{tabular}{l c}
+        \toprule
+        Exercise text                      & Knowledge labels \\
+        \midrule
+        设偶函数的定义域为当时是增函\ldots & 函数奇偶性/导数  \\
+        设奇函数的定义域为若当时的图\ldots & 函数奇偶性       \\
+        设全集是实数集函数的定义域为\ldots & 集合             \\
+        命题的逆命题是\ldots               & 逻辑与命题关系   \\
+        \ldots                             & \ldots           \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\begin{table}[htb]
+    \caption{The distribution of exercise in each category}\label{tbl:ch2-rawdata-dist}
+    \centering
+    \begin{tabular}{l c}
+        \toprule
+        Label          & Number of exercises \\
+        \midrule
+        三角函数       & 71                  \\
+        函数奇偶性     & 520                 \\
+        导数           & 750                 \\
+        平面向量       & 618                 \\
+        数列           & 746                 \\
+        逻辑与命题关系 & 526                 \\
+        集合           & 155                 \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=0.85\textwidth]{ch2-data-belonging.png}
+    \caption{The distribution of exercise in each category}\label{fig:ch2-data-belonging}
 \end{figure}
 
-% The experimental data in this thesis comes from high school math test questions in an online education platform database. The original data totals 2195, and 1357 test questions are obtained after the semi-automatic screening. The original labeled knowledge points are 166 items of original tags. After the mathematical knowledge point map is constructed and replaced, 61 tags are obtained.
-\subsubsection{Data Prepartion}
-%本节数据获取的方式为爬虫，因此获得的原始数据为大量非结构化的带有不规范数学符号的习题，这些符号难以被BERT模型处理，会带来误差，因此在预处理的过程中，会将无法识别的字符进行替换。另外还有大量的无意义文本，此外，由于部分习题知识点标注不全，因此需要人工协助标注知识点。
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=0.85\textwidth]{ch2-data-lendis.png}
+    \caption{The distribution of exercise text length}\label{fig:ch2-data-lendis}
+\end{figure}
+
+%另外，对于各个类别，可以分析类别间的互相关性，绘制出热力图如图所示。
+In addition, for each category, the inter-correlation between the categories can be analyzed and a heat map can be drawn as shown in \figname{\ref{fig:ch2-data-heatmap}}. The results show that some categories in the processed dataset have direct positive correlations and others have negative correlations.
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=0.85\textwidth]{ch2-data-heatmap.png}
+    \caption{The relation heatmap between different categories}\label{fig:ch2-data-heatmap}
+\end{figure}
+
+
+% \subsubsection{Data Prepartion}
+% %本节数据获取的方式为爬虫，因此获得的原始数据为大量非结构化的带有不规范数学符号的习题，这些符号难以被BERT模型处理，会带来误差，因此在预处理的过程中，会将无法识别的字符进行替换。另外还有大量的无意义文本，此外，由于部分习题知识点标注不全，因此需要人工协助标注知识点。
 \subsection{Baseline}
 % In the algorithm, the binary relation method (BR), the multi-label KN algorithm (ML-KNN) are selected as the comparison algorithm, and the experimental training set test set division ratio, which is 1:1.
 % 目前，已经有一些进行文本标签标注的算法模型，为了验证本文提出算法的有效性，将与下列的算法进行比较，作为baseline指标。
-At present, there are already some algorithm models for labeling text. To verify the effectiveness of the algorithm proposed in this thesis, the following baseline models will be set as comparisons.
+The study in this section is actually a text multi-label classification task, so several of the more popular text classification models are used as baseline models. At present, there are already some algorithm models for labeling text. To verify the effectiveness of the algorithm proposed in this thesis, the following baseline models will be set as comparisons.
 \begin{itemize}
-    \item Naive Bayes algorithm (NB): predict the labeling probability of a knowledge point based on the prior probability of text combination, and then convert the binary classification problem into a multi-label problem
-    \item Multi-label KNN (ML-KNN): Proposed by Zhang et al.~\cite{zhang2007ml}, it searches the k instances closest to the instance through the KNN algorithm, counts the number of each category in the k samples, uses the Naive Bayes algorithm to generate prediction outcomes for each label.
-    \item CNN+BERT\@: Use BERT to convert the test question text into an embedded vector, extract the test text information through CNN, and then output the multi-label prediction.
+    \item Multi-label Bi-LSTM+Attention:
+    \item Multi-label BERT\@: Use BERT to convert the test question text into an embedded vector, extract the test text information through CNN, and then output the multi-label prediction.
 \end{itemize}
 
 \subsection{Metrics}
@@ -382,17 +426,15 @@ According to the metrics proposed by Zhou et al.~\cite{zhang2013review}, for the
     \end{split}
 \end{align}
 
-
-
 %在混淆矩阵中，Precision为预测正确的正例数据占预测为正例数据的比例，Recall为预测为正例的数据占实际为正例数据的比例。F1值是精确率和召回率的调和均值，它是精确率和召回率的综合评价指标。其计算公式如下：
 
-In the confusion matrix, Precision \(\operatorname{P}\) is the proportion of data with correct predictions to the data that is predicted to be positive, and Recall \(\operatorname{R}\) is the proportions of data with predictions that are positive to the actual data. The \(\operatorname{F1}\) value is the harmonic mean value of precision rate and recall rate, and it is a comprehensive evaluation index of precision rate and recall rate. The calculation formula is as \eqname{\ref{fml:f1score}}:
+In the confusion matrix, Precision \(\operatorname{P}\) is the proportion of data with correct predictions to the data that is predicted to be positive, and Recall \(\operatorname{R}\) is the proportions of data with predictions that are positive to the actual data. The \(\operatorname{F1}\) score value is the harmonic mean value of precision rate and recall rate, and it is a comprehensive evaluation index of precision rate and recall rate. The calculation formula is as \eqname{\ref{fml:f1score}}.
 
 \begin{align}\label{fml:f1score}
     \begin{split}
         \operatorname{P}          & =\frac{\operatorname{TP}}{\operatorname{TP}+\operatorname{FP}}    \\
         \operatorname{R}          & =\frac{\operatorname{TP}}{\operatorname{TP}+\operatorname{FN}}    \\
-        \operatorname{F1}_{score} & = \frac{2}{\frac{1}{\operatorname{P}}+\frac{1}{\operatorname{R}}}
+        \operatorname{F1} & = \frac{2}{\frac{1}{\operatorname{P}}+\frac{1}{\operatorname{R}}}
     \end{split}
 \end{align}
 
@@ -401,8 +443,8 @@ In the confusion matrix, Precision \(\operatorname{P}\) is the proportion of dat
 Similarly, for the multi-label tagging problem, Macro F1 and Micro F1 can be used as the metrics. Micro-F1 first calculates the total number of TP, FN, and FP, and then calculates F1, while Macro-F1 calculates the F1 of each category separately and then averages (the weight of each category F1 is the same). The formula is \eqname{\ref{fml:f1-macro}} and \eqname{\ref{fml:f1-micro}}. The \(c\) is the total number of labels.
 
 \begin{align}
-    \operatorname{F1}_{macro} & =\frac{1}{c} \sum_{j=1}^{c} \operatorname{F1}_{score}(\operatorname{TP}_{j}, \operatorname{FP}_{j}, \operatorname{TN}_{j}, \operatorname{FN}_{j}) \label{fml:f1-macro}                                  \\
-    \operatorname{F1}_{micro} & =\operatorname{F1}_{score}(\sum_{j=1}^{c} \operatorname{TP}_{j}, \sum_{j=1}^{c} \operatorname{FP}_{j}, \sum_{j=1}^{c} \operatorname{TN}_{j}, \sum_{j=1}^{c} \operatorname{FN}_{j}) \label{fml:f1-micro}
+    \operatorname{F1}_{macro} & =\frac{1}{c} \sum_{j=1}^{c} \operatorname{F1}(\operatorname{TP}_{j}, \operatorname{FP}_{j}, \operatorname{TN}_{j}, \operatorname{FN}_{j}) \label{fml:f1-macro}                                  \\
+    \operatorname{F1}_{micro} & =\operatorname{F1}(\sum_{j=1}^{c} \operatorname{TP}_{j}, \sum_{j=1}^{c} \operatorname{FP}_{j}, \sum_{j=1}^{c} \operatorname{TN}_{j}, \sum_{j=1}^{c} \operatorname{FN}_{j}) \label{fml:f1-micro}
 \end{align}
 
 % 同样的，我们也可以基于样本统计一些指标。例如准确率，海明损失，查全率和F1值。准确率即预测标签完全正确的样本占总体样本的比例，海明损失为预测标签与真是标签的差距的度量指标，Precision和Recall分别代表真阳性样本占真样本的比例和真阳性样本占阳性样本的比例。它 们的计算公式为
@@ -464,13 +506,12 @@ There are many adjustable parameters of the model in BERT and GCN\@. Hyperparame
         \toprule
         Hyperparameter            & Value \\
         \midrule
-        Transformer Layers        & 12    \\
-        Dimension of hidden layer & 768   \\
+        Dimension of hidden layer & 64    \\
+        Max length                & 128   \\
         Optimizer                 & Adam  \\
-        Learning Rate             & 0.001 \\
-        LSTM dimension            & 150   \\
-        batch size                & 32    \\
-        Dropout                   & 0.3   \\
+        Learning rate             & 0.001 \\
+        Number of classes         & 7     \\
+        Batch size                & 32    \\
         \midrule
         \bottomrule
     \end{tabular}
@@ -483,6 +524,8 @@ There are many adjustable parameters of the model in BERT and GCN\@. Hyperparame
 % In this experiment, a GCN architecture is defined to learn the association between knowledge points. The architecture contains two GCN layers with dimensions of 512 and 1024, respectively. Each node uses 256-dimensional word2vec to train the label text to obtain the label embedding representation. The tag correlation threshold \(\tau \) is set to multiple values to determine the model performance.
 
 % The running environment is Ubuntu 20.04, TensorFlow 2.23, Python 3.8.6, and the hardware is equipped with a Tesla V100 computing card. For each Baseline model, five rounds of calculation are performed, the maximum positive deviation and the minimum negative deviation are discarded, and the average value is recorded.
+
+\subsection{Model Training}
 
 \subsection{Result and Analysis}
 %，对于提出的模型，将标签得到如下的对比实验结果。
@@ -512,7 +555,7 @@ There are many adjustable parameters of the model in BERT and GCN\@. Hyperparame
 % 	\end{tabular}
 % \end{table}
 
-The comparison experiment results are divided into the performance comparison of the horizontal baseline model (obtained in \tblname{\ref{tbl:bsline1}}-\ref{tbl:bsline4}).
+The comparison experiment results are divided into the performance comparison of the horizontal baseline model (obtained in \tblname{\ref{tbl:bsline1}}).
 
 \begin{table}[htbp!]
     \caption{Result comparison (\(\tau^{(KP)}=200 \))}\label{tbl:bsline1}
@@ -521,59 +564,56 @@ The comparison experiment results are divided into the performance comparison of
         \toprule
         Metrics  & \(\operatorname{F1}_{macro}\) & \(\operatorname{F1}_{micro}\) & \(\operatorname{Acc}_{ML}\) & \(\operatorname{HmLoss}\) & \(\operatorname{F1}_{ML}\) \\
         \midrule
-        NB       & 75.3                          & 74.2                          & 69.6                        & 18.2                      & 73.6                       \\
-        ML-KNN   & 77.1                          & 76.2                          & 73.2                        & 17.4                      & 76.3                       \\
-        CNN+BERT & 80.1                          & \textbf{79.9}                 & 76.9                        & 13.7                      & 79.5                       \\
         Proposed & \textbf{80.9}                 & 79.1                          & \textbf{77.3}               & \textbf{13.1}             & \textbf{80.7}              \\
         \bottomrule
     \end{tabular}
 \end{table}
 
-\begin{table}
-    \centering
-    \caption{Result comparison (\(\tau^{(KP)}=100 \))}\label{tbl:bsline2}
-    \begin{tabular}{cccccccc}
-        \toprule
-        Metrics  & \(\operatorname{F1}_{macro}\) & \(\operatorname{F1}_{micro}\) & \(\operatorname{Acc}_{ML}\) & \(\operatorname{HmLoss}\) & \(\operatorname{F1}_{ML}\) \\
-        \midrule
-        NB       & 71.2                          & 72.1                          & 67.2                        & 16.2                      & 71.8                       \\
-        ML-KNN   & 73.2                          & 72.3                          & 69.1                        & 15.9                      & 74.7                       \\
-        CNN+BERT & 74.4                          & 74.6                          & 72.3                        & 13.1                      & 75.1                       \\
-        Proposed & \textbf{75.5}                 & \textbf{75.7}                 & \textbf{73.1}               & \textbf{12.7}             & \textbf{74.9}              \\
-        \bottomrule
-    \end{tabular}
-\end{table}
+% \begin{table}
+%     \centering
+%     \caption{Result comparison (\(\tau^{(KP)}=100 \))}\label{tbl:bsline2}
+%     \begin{tabular}{cccccccc}
+%         \toprule
+%         Metrics  & \(\operatorname{F1}_{macro}\) & \(\operatorname{F1}_{micro}\) & \(\operatorname{Acc}_{ML}\) & \(\operatorname{HmLoss}\) & \(\operatorname{F1}_{ML}\) \\
+%         \midrule
+%         NB       & 71.2                          & 72.1                          & 67.2                        & 16.2                      & 71.8                       \\
+%         ML-KNN   & 73.2                          & 72.3                          & 69.1                        & 15.9                      & 74.7                       \\
+%         CNN+BERT & 74.4                          & 74.6                          & 72.3                        & 13.1                      & 75.1                       \\
+%         Proposed & \textbf{75.5}                 & \textbf{75.7}                 & \textbf{73.1}               & \textbf{12.7}             & \textbf{74.9}              \\
+%         \bottomrule
+%     \end{tabular}
+% \end{table}
 
-\begin{table}
-    \centering
-    \caption{Result comparison (\(\tau^{(KP)}=50 \))}\label{tbl:bsline3}
-    \begin{tabular}{cccccccc}
-        \toprule
-        Metrics      & \(\operatorname{F1}_{macro}\) & \(\operatorname{F1}_{micro}\) & \(\operatorname{Acc}_{ML}\) & \(\operatorname{HmLoss}\) & \(\operatorname{F1}_{ML}\) \\
-        \midrule
-        NB           & 52.3                          & 53.0                          & 42.1                        & 9.2                       & 51.9                       \\
-        ML-KNN       & 44.2                          & 43.9                          & 23.5                        & 10.1                      & 42.1                       \\
-        CNN+word2vec & 56.1                          & \textbf{57.3}                 & 46.2                        & 8.2                       & 56.5                       \\
-        CNN+BERT     & 56.2                          & 56.8                          & \textbf{47.0}               & \textbf{8.1}              & 56.1                       \\
-        Proposed     & \textbf{57.1}                 & 57.2                          & 45.2                        & 8.6                       & \textbf{57.5}              \\
-        \bottomrule
-    \end{tabular}
-\end{table}
+% \begin{table}
+%     \centering
+%     \caption{Result comparison (\(\tau^{(KP)}=50 \))}\label{tbl:bsline3}
+%     \begin{tabular}{cccccccc}
+%         \toprule
+%         Metrics      & \(\operatorname{F1}_{macro}\) & \(\operatorname{F1}_{micro}\) & \(\operatorname{Acc}_{ML}\) & \(\operatorname{HmLoss}\) & \(\operatorname{F1}_{ML}\) \\
+%         \midrule
+%         NB           & 52.3                          & 53.0                          & 42.1                        & 9.2                       & 51.9                       \\
+%         ML-KNN       & 44.2                          & 43.9                          & 23.5                        & 10.1                      & 42.1                       \\
+%         CNN+word2vec & 56.1                          & \textbf{57.3}                 & 46.2                        & 8.2                       & 56.5                       \\
+%         CNN+BERT     & 56.2                          & 56.8                          & \textbf{47.0}               & \textbf{8.1}              & 56.1                       \\
+%         Proposed     & \textbf{57.1}                 & 57.2                          & 45.2                        & 8.6                       & \textbf{57.5}              \\
+%         \bottomrule
+%     \end{tabular}
+% \end{table}
 
-\begin{table}
-    \centering
-    \caption{Result comparison (\(\tau^{(KP)}=10 \))}\label{tbl:bsline4}
-    \begin{tabular}{cccccccc}
-        \toprule
-        Metrics  & \(\operatorname{F1}_{macro}\) & \(\operatorname{F1}_{micro}\) & \(\operatorname{Acc}_{ML}\) & \(\operatorname{HmLoss}\) & \(\operatorname{F1}_{ML}\) \\
-        \midrule
-        NB       & 36.5                          & 37.1                          & 26.1                        & 4.2                       & 36.5                       \\
-        ML-KNN   & 30.1                          & 32.1                          & 29.1                        & 3.6                       & 32.5                       \\
-        CNN+BERT & 36.9                          & \textbf{38.6}                 & \textbf{38.6}               & \textbf{3.5}              & 37.5                       \\
-        Proposed & \textbf{37.1}                 & 38.3                          & 35.4                        & 3.8                       & \textbf{38.6}              \\
-        \bottomrule
-    \end{tabular}
-\end{table}
+% \begin{table}
+%     \centering
+%     \caption{Result comparison (\(\tau^{(KP)}=10 \))}\label{tbl:bsline4}
+%     \begin{tabular}{cccccccc}
+%         \toprule
+%         Metrics  & \(\operatorname{F1}_{macro}\) & \(\operatorname{F1}_{micro}\) & \(\operatorname{Acc}_{ML}\) & \(\operatorname{HmLoss}\) & \(\operatorname{F1}_{ML}\) \\
+%         \midrule
+%         NB       & 36.5                          & 37.1                          & 26.1                        & 4.2                       & 36.5                       \\
+%         ML-KNN   & 30.1                          & 32.1                          & 29.1                        & 3.6                       & 32.5                       \\
+%         CNN+BERT & 36.9                          & \textbf{38.6}                 & \textbf{38.6}               & \textbf{3.5}              & 37.5                       \\
+%         Proposed & \textbf{37.1}                 & 38.3                          & 35.4                        & 3.8                       & \textbf{38.6}              \\
+%         \bottomrule
+%     \end{tabular}
+% \end{table}
 
 %从表中可以看出，本文提出的模型在出现频次较高的习题训练机上的性能表现强于Baseline模型。随着知识点出现频率的降低，分类的难度增大，所有模型都出现了性能退化现象。其中的原因是模型对于出现较少的标签无法进行有效的信息抓取，从而产生的误差增大。总体而言，在F1-Score参数和较为严格的子集准确率指标上，本文提出的模型都取得了最优或较优的性能表现。当习题标签频次出现次数非常低时，几乎所有的模型都无法取得较好的结果，这是因为由于习题标签的频次分布不均匀，少量冷门标签无法很好地标注，导致模型训练出现了过拟合现象从而影响标注表现。为了解决该问题，可以通过用更大和知识点出现频次较为平均的习题集作为训练集来优化模型预测性能表现。
 
