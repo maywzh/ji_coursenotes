@@ -1,4 +1,3 @@
-
 from sklearn.metrics import classification_report, confusion_matrix
 import time
 from torch._C import ParameterDict
@@ -30,11 +29,12 @@ max_length = 256
 hidden_size = 128
 tokenizer = None
 batch_size = 32
-n_epochs = 20
+n_epochs = 5
 embed_size = 100
-lr = 0.001
+lr = 0.005
 model_path = "BiLSTM.pt"
 use_gpu = True
+num_labels = 7
 
 tokenizer = PreTrainedTokenizerFast.from_pretrained('hfl/chinese-bert-wwm')
 tokenizer.add_special_tokens({'pad_token': '[PAD]'})
@@ -65,19 +65,35 @@ X_test = prepare_set(test_df['exercise_text'].values.tolist())
 
 cols_target = train_df.columns[1:].tolist()
 
+keywords = {
+    "函数奇偶性": "奇函数偶函数奇偶",
+    "三角函数": "正弦余弦三角函数",
+    "逻辑与命题关系": "命题充分必要充要",
+    "集合": "集合并集交集子集空集韦恩图",
+    "导数": "导数切线极值单调递单调区间",
+    "平面向量": "向量",
+    "数列": "数列"
+}
+
+kcols_target = [keywords[k] for k in cols_target]
+
+
 device = torch.device('cuda' if torch.cuda.is_available()
                       and use_gpu else 'cpu')
 
 labels_pre = prepare_set(cols_target)
 
 labels_bemb = torch.tensor(labels_pre, dtype=torch.long).to(device)
+klabels_bemb = torch.tensor(prepare_set(
+    kcols_target), dtype=torch.long).to(device)
 
-y_train = train_df_cpy[cols_target].values
-y_dev = dev_df_cpy[cols_target].values
-y_test = test_df[cols_target].values
+y_train = train_df_cpy[cols_target].values  # 0,0,1,0,0,1,0
+y_dev = dev_df_cpy[cols_target].values  # 0,0,1,0,0,1,0
+y_test = test_df[cols_target].values  # 0,0,1,0,0,1,0
 
 
-x_train_torch = torch.tensor(X_train, dtype=torch.long).to(device)
+x_train_torch = torch.tensor(X_train, dtype=torch.long).to(
+    device)  # bert(exercisetext)
 x_dev_torch = torch.tensor(X_dev, dtype=torch.long).to(device)
 x_test_torch = torch.tensor(X_test, dtype=torch.long).to(device)
 
@@ -105,6 +121,8 @@ test_data = TensorDataset(x_test_torch, y_test_torch)
 test_sampler = SequentialSampler(test_data)
 test_dataloader = DataLoader(
     test_data, sampler=test_sampler, batch_size=batch_size)
+
+adj = torch.Tensor(np.identity(num_labels))
 
 
 class Attention(nn.Module):
@@ -142,7 +160,7 @@ class GraphConvolution(nn.Module):
         super(GraphConvolution, self).__init__()
         self.in_features = in_features
         self.out_features = out_features
-        self.weight = ParameterDict(torch.Tensor(in_features, out_features))
+        self.weight = Parameter(torch.Tensor(in_features, out_features))
         #self.embed_size = embed_size
         #self.max_features= max_features
         #self.embedding = nn.Embedding(max_features, embed_size)
@@ -152,8 +170,8 @@ class GraphConvolution(nn.Module):
             self.register_parameter('bias', None)
         self.reset_parameters()
         self.adj = adj
-        self.fc1 = nn.Linear(in_features, out_features)
-        self.fc2 = nn.Linear(out_features, out_features)
+        #self.fc1 = nn.Linear(in_features, out_features)
+        #self.fc2 = nn.Linear(out_features, out_features)
 
     def reset_parameters(self):
         stdv = 1. / math.sqrt(self.weight.size(1))
@@ -192,10 +210,10 @@ class Model(nn.Module):
 
         self.linear1 = nn.Linear(hidden_size * 6, hidden_size * 6)
         self.linear2 = nn.Linear(hidden_size * 6, hidden_size * 6)
-
         self.linear_out = nn.Linear(hidden_size * 6, 1)
         self.linear_aux_out = nn.Linear(hidden_size * 6, num_classes)
-        self.graph = GraphConvolution(max_length, hidden_size*6)
+        self.graph = GraphConvolution(max_length, hidden_size*6, adj)
+        self.predict = nn.Linear(num_classes, num_classes)
         self.emb_labels = emb_labels
 
     def forward(self, x, step_len):
@@ -257,4 +275,90 @@ class Model(nn.Module):
 #         out = torch.cat([result, aux_result], 1)
 #         print(f"out : {out.shape}")
 #         return out, weights
+        aux_result = F.relu(self.predict(aux_result))
         return aux_result, weights
+
+
+def train_model(model, loss_fn, lr=0.001, batch_size=32, n_epochs=10, max_length=64):
+    param_lrs = [{'params': param, 'lr': lr} for param in model.parameters()]
+    optimizer = torch.optim.Adam(param_lrs, lr=lr)
+    scheduler = torch.optim.lr_scheduler.LambdaLR(
+        optimizer, lambda epoch: 0.6 ** epoch)
+
+    training_loss = []
+    validation_loss = []
+
+    best_loss = float("inf")
+    for epoch in range(n_epochs):
+        start_time = time.time()
+
+        model.train()
+        avg_loss = 0
+
+        for data in tqdm(train_dataloader, disable=False):
+            x_batch = data[:-1]
+            y_batch = data[-1]
+
+            y_pred, _ = model(*x_batch, max_length)
+
+            loss = nn.BCEWithLogitsLoss()(y_pred, y_batch)
+            optimizer.zero_grad()
+            loss.backward()
+            optimizer.step()
+            avg_loss += loss.item() / len(train_dataloader)
+
+        training_loss.append(avg_loss)
+        model.eval()
+        print(f'... Validating ... ')
+        avg_val_loss = 0
+        for val_data in tqdm(dev_dataloader, disable=False):
+            x_batch = val_data[:-1]
+            y_batch = val_data[-1]
+
+            y_pred, _ = model(*x_batch, max_length)
+
+            val_loss = nn.BCEWithLogitsLoss()(y_pred, y_batch)
+            avg_val_loss += val_loss.item() / len(dev_dataloader)
+
+        elapsed_time = time.time() - start_time
+        validation_loss.append(avg_val_loss)
+        if avg_val_loss < best_loss:
+            print('saving the best model so far')
+            best_loss = avg_val_loss
+            torch.save(model.state_dict(), model_path)
+        print(f'Epoch {epoch + 1}/{n_epochs}\t training_loss={avg_loss:.4f} \t validation_loss={avg_val_loss: 4f} \t time={elapsed_time:.2f}s')
+        scheduler.step()
+    return training_loss, validation_loss
+
+
+def evaluate(model):
+    # Create the DataLoader for dev set.
+    model.eval()
+    preds = np.zeros((1, num_labels))
+    with torch.no_grad():
+        for tst_data in tqdm(test_dataloader, disable=False):
+            x_batch = tst_data[:-1]
+            y_batch_labels = tst_data[-1].detach().cpu().numpy()
+
+            y_pred, _ = model(*x_batch, max_length)
+
+            y_pred_labels = (torch.sigmoid(
+                y_pred).detach().cpu().numpy() > 0.5)
+
+            correct_labels = (y_pred_labels == y_batch_labels)
+            preds += correct_labels.sum(axis=0)
+
+    return preds
+
+
+model = Model(hidden_size=hidden_size,
+              embed_size=embed_size,
+              max_features=tokenizer.vocab_size,
+              num_classes=num_labels,
+              max_length=max_length, emb_labels=labels_bemb)
+model.to(device)
+train_model(model=model, loss_fn=None, lr=lr, batch_size=batch_size,
+            n_epochs=n_epochs, max_length=max_length)
+true_positives = evaluate(model)
+for i, acc in enumerate((true_positives / test_df.shape[0])[0]):
+    print(f"{cols_target[i]} accuracy is {acc*100:.2f}%")
