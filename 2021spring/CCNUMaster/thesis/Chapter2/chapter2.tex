@@ -25,6 +25,7 @@ One of the critical problems in building a test recommendation system is recomme
 
 \section{Research Contribution}
 
+This chapter proposes a multi-knowledge point label classification method for exercises, which uses the textual information described by the title of the exercise to identify the knowledge points related to the exercise, essentially a text classification task. The proposed method is divided into two parts: a bidirectional LSTM textual information representation network using an attention-based mechanism and a multi-knowledge point labeled classifier generation network based on a graph convolutional network propagation mechanism. Both the exercises and labels utilize textual information as representations, and they are generated through the text module.
 
 %本章提出了一种习题的多知识点标签分类方法。该方法分为利用Attentional双向LSTM进行文本信息表征模块和基于GCN网络传播机制的多知识点标签分类器生成模块两个部分。习题和标签都利用文本信息来作为表征，它们通过文本模块来生成。
 
@@ -37,7 +38,16 @@ One of the critical problems in building a test recommendation system is recomme
 In this chapter, a multi-knowledge point labeling classification method for exercises is proposed. The method is divided into textual information characterization using Attentional bidirectional LSTM and multi-knowledge point labeling classifier generation using the GCN embedding learning method. Finally, the classifier is used to perform the knowledge point labeling tasks on the exercises. The knowledge point labels are mined for topic recommendation and analysis reports. It requires refining the topic's knowledge point association, i.e., several corresponding knowledge point tags for the topic. There will also be dependencies between the knowledge points and build a complete knowledge map of knowledge points for generating student learning reports. The first problem is a knowledge point mining task using the topic text, which is also a classification task. To be more specific, it is a hierarchical classification task based on the topic's short text information. The most basic natural language processing (NLP) technologies and machine learning should be used in this task. By learning a large amount of manually labeled topic text and knowledge point labeling results (also called training corpus) - obtaining the features of the topic text through NLP techniques and obtaining the classification model through machine learning. The system can do knowledge point classification automatically. In this definition, the object to be classified is a topic (including stem, answer, paraphrase, etc.), and the result is a set of knowledge point labels. The input to the learning system is a set of training exercises, i.e., \(n\) questions that have been labeled with their corresponding knowledge labels; the learning system trains the given classification model based on the training data. In the prediction phase, the exercises' input to be labeled is used to output a set of predicted labeling results for the exercises' knowledge points.
 
 \section{Proposed Model}
-%在本节中，提出了一个基于图神经网络的模型用于进行试题-知识点关联和知识点知识图谱的建立。该模型大致分为两个部分，第一个部分用一个基于图卷积神经网络半监督学习和文本挖掘嵌入学习的算法来实现的试题-知识点关联模块，用于实现试题知识点标注和关联。第二部分考虑到高中数学的知识的体系化，结合先验领域知识，用改进的R-GCN算法来构建高中数学知识点知识图谱。
+%本章提出了一种习题的多知识点标签分类方法，它利用习题的题目描述的文本信息来识别习题相关的知识点，本质上是一种文本分类任务。提出的方法分为利用基于注意力机制的双向LSTM文本信息表征网络和基于图卷积网络传播机制的多知识点标签分类器生成网络两个部分。在文本信息表征网络中，习题和知识点文本都是作为输入向量，输出的习题文本作为最终的习题信息表征。而知识点文本向量则进一步在标签生成器网络中进行图卷积网络传播学习，以嵌入知识点间的相互关系，最终习题表征向量与输出的知识点分类进行乘积计算来获取习题的知识点标签。
+
+%本章的主要创新点在于用图网络的节点信息传播机制来表征学习知识点间的关系。从而让模型可以通过较容易分类的知识点联想到隐藏的相关知识点。
+
+
+
+This chapter proposes a multi-knowledge point label classification method for exercises, which uses the textual information described by the exercise text to identify the knowledge points related to the exercise, essentially a text classification task. The proposed method is divided into two parts: a bidirectional LSTM textual information representation network using an attention-based mechanism and a multi-knowledge point labeled classifier generation network based on a graph convolutional network propagation mechanism. In the text information representation network, both the exercise and knowledge point texts are used as input vectors, and the output exercise text is used as the final exercise information representation. In contrast, the knowledge point text vector is further learned by graph convolutional network propagation in the label generator network to embed the interrelationships among knowledge points. The final exercise representation vector is calculated by multiplying with the output knowledge point classification to obtain the exercises' knowledge point labels.
+
+This chapter's main contribution is characterizing the relationships between knowledge points using graph networks' node information propagation mechanism, enabling the model to associate hidden related knowledge points through the more easily classified knowledge points.
+
 
 % In this section, a graph neural network-based model is proposed for test question-knowledge point association and knowledge mapping of knowledge points. The architecture has two segments. The first one is an exercise-knowledge point association module implemented with a semi-supervised learning algorithm based on GCNs and text mining embedding learning for test knowledge point labeling and association. The second part considers the systematization of high school mathematics knowledge and combines a priori domain knowledge with an improved R-GCN algorithm to construct a knowledge graph of high school mathematics knowledge points.
 
@@ -165,7 +175,7 @@ However, when the sequence is long, the problem of long dependencies arises. For
 \end{figure}
 
 %单向LSTM也有一个固有的缺陷，它只能捕获\(t\)时刻以前的序列状态信息，即只能捕获之前序列输入。双向LSTM通过将反向序列输入LSTM并与正向LSTM序列进行聚合，可以捕获双向的语义信息，同时对双向的依赖建模。
-One-way LSTM also has an inherent drawback that it can only capture the sequence state information before \(t\) moment, i.e., it can only capture the previous sequence input. The bidirectional LSTM (Bi-LSTM)~\cite{graves2005framewise} can capture semantic information in both directions by feeding the reverse sequence into the LSTM and aggregating it with the forward LSTM sequence, while modeling the dependencies in both directions. The Bi-LSTM output can be obtained by inputting the positive sequence and the reverse sequence input sequence into two sets of LSTM networks and perform element-wise addition. The output of positive-order LSTM is \(\overrightarrow{h_t}\), the output of reverse-order LSTM is \(\overleftarrow{h_t}\), \(\bigoplus \) means sequence concatenation. The output of Bi-LSTM is shown in \figname{\ref{fml:ch2-bilstm-output}}.
+One-way LSTM also has an inherent drawback that it can only capture the sequence state information before \(t\) moment, i.e., it can only capture the previous sequence input. The bidirectional LSTM (Bi-LSTM)~\cite{graves2005framewise} can capture semantic information in both directions by feeding the reverse sequence into the LSTM and aggregating it with the forward LSTM sequence while modeling the dependencies in both directions. The Bi-LSTM output can be obtained by inputting the positive sequence and the reverse sequence input sequence into two sets of LSTM networks and perform element-wise addition. The output of positive-order LSTM is \(\overrightarrow{h_t}\), the output of reverse-order LSTM is \(\overleftarrow{h_t}\), \(\bigoplus \) means sequence concatenation. The output of Bi-LSTM is shown in \figname{\ref{fml:ch2-bilstm-output}}.
 \begin{align}\label{fml:ch2-bilstm-output}
     \begin{split}
         \overrightarrow{h_t} & = \overrightarrow{LSTM}(e_t)                       \\
@@ -351,7 +361,7 @@ Crawlers obtain the data in this section, so the original data obtained is a lar
 \subsubsection{Data Analysis}
 Since there are many images in the original set of exercises that cannot be identified, this question screens out irrelevant image URL information. Also, this model does not consider textual information such as formulas and mathematical symbols, so only Chinese text will be screened out. Samples with too low text length will be removed.
 
-In this experiment, a few of the more representative categories were selected to construct the dataset, and a total of 7 categories of knowledge points were selected, within which two categories are correlating. After deduplication and removal of invalid data, 3969 pieces of data were finally obtained. The filtered data are shown in the \tblname{\ref{tbl:ch2-rawdata}} and the distribution of the number of dependent exercises for each category is shown in the \tblname{\ref{tbl:ch2-rawdata-dist}} and \figname{\ref{fig:ch2-data-belonging}}. The distribution of length of exercise texts is shown in \figname{\ref{fig:ch2-data-lendis}}. The results show that the text lengths of most samples are concentrated in the interval range of 20-100, so values in this range can be considered when choosing the sequence length parameter for the model. In addition, the category distribution has a certain degree of non-average-ness, and therefore classification metrics such as F1 Score should be used to exclude such effects.
+In this experiment, a few of the more representative categories were selected to construct the dataset, and a total of 7 categories of knowledge points were selected, within which two categories are correlating. After deduplication and removal of invalid data, 3969 pieces of data were finally obtained. The filtered data are shown in the \tblname{\ref{tbl:ch2-rawdata}} and the distribution of the number of dependent exercises for each category is shown in the \tblname{\ref{tbl:ch2-rawdata-dist}} and \figname{\ref{fig:ch2-data-belonging}}. The distribution of length of exercise texts is shown in \figname{\ref{fig:ch2-data-lendis}}. The results show that most samples' text lengths are concentrated in the interval range of 20-100, so values in this range can be considered when choosing the sequence length parameter for the model. Also, the category distribution has a certain degree of non-average-ness, and therefore classification metrics such as the F1 Score should be used to exclude such effects.
 
 \begin{table}[htb]
     \caption{The filtered data examples}\label{tbl:ch2-rawdata}
@@ -413,10 +423,12 @@ In addition, for each category, the inter-correlation between the categories can
 \subsection{Baseline}
 % In the algorithm, the binary relation method (BR), the multi-label KN algorithm (ML-KNN) are selected as the comparison algorithm, and the experimental training set test set division ratio, which is 1:1.
 % 目前，已经有一些进行文本标签标注的算法模型，为了验证本文提出算法的有效性，将与下列的算法进行比较，作为baseline指标。
-This section's study focus on a text multi-label classification task, so several of the more popular text classification models are used as baseline models. In order to verify the advancements of the proposed model, some currently popular text classification models are selected experimentally and the performance is compared with the proposed model on the selected experimental evaluation metrics and the same dataset. At present, there are already some algorithm models for labeling text. To verify the effectiveness of the algorithm proposed in this thesis, the following baseline models will be set as comparisons.
+This section's study focuses on a text multi-label classification task, so several of the more popular text classification models are used as baseline models. To verify the advancements of the proposed model, some currently popular text classification models are selected experimentally, and the performance is compared with the proposed model on the selected experimental evaluation metrics and the same dataset. At present, there are already some algorithm models for labeling text. To verify the effectiveness of the algorithm proposed in this thesis, the following baseline models will be set as comparisons.
 \begin{itemize}
-    \item Bi-LSTM+Attention~\cite{zhou2016attention}: the model consists of an Embedding layer, a bi-directional LSTM layer and an Attention layer. The text is passed through the Embedding layer to generate the Embedding vector, the LSTM to compute the higher-order sentence vector, the Attention layer to weight the sentence vector, and the final output layer to output the predicted labels.
-    \item BERT+RCNN\@: Use BERT as the text sequence encoder and
+    \item Bi-LSTM+Attention~\cite{zhou2016attention}: the model consists of an Embedding layer, a bi-directional LSTM layer, and an Attention layer. The text is passed through the Embedding layer to generate the Embedding vector, the LSTM to compute the higher-order sentence vector, the Attention layer to weight the sentence vector, and the final output layer to output the predicted labels.
+    \item fastText~\cite{joulin-etal-2017-bag}: the model is proposed by Facebook in 2017. The fastText accelerated training and can be applied to text classification tasks, and it contains input, hidden and output layers. The method is actually a weighted sum of the word vectors of the sentences as sentence vectors, using softmax classification.
+    \item TextCNN~\cite{guo2019improving}: Kim et al.\ adapted the CNN to the text classification task by improving it in 2014~\cite{kim-2014-convolutional}. It contains parts such as convolutional layer, max-pooling layer and output layer. The principle is to extract higher-order features of text by multiple convolutional kernels, and it can introduce pre-trained word vectors to improve the performance.
+
 \end{itemize}
 
 \subsection{Metrics}
@@ -473,7 +485,7 @@ Similarly, the statistic of some indicators based on samples can be obtained. Fo
 The problem addressed by this model is the labeling of related knowledge points, so the performance of classifying exercises with related knowledge points should be evaluated in the experiment. Therefore this model is trained and will be applied on multi-knowledge point exercises for accuracy, AUC, and multi-classification metrics and compared with the baseline model.
 
 %本实验将训练集和测试集按照3:7的比例划分，并取训练集的1/10作为验证集。
-In this experiment, the training and test sets are splited from original dataset by the ratio of 3:7, and one-tenth of the training set is taken as the validation set. All steps of this experiment are run on a stable cloud server environment to ensure the consistency of the experimental environment. The running environment are shown in \tblname{{\ref{tbl:ch2-exp-env}}}. Furthermore, there are many adjustable hyperparameters within the model, several critical ones of which are shown in \tblname{\ref{tbl:ch2-hpsetting}}.
+In this experiment, the training and test sets are split from the original dataset by the ratio of 3:7, and one-tenth of the training set is taken as the validation set. All steps of this experiment are run on a stable cloud server environment to ensure the experimental environment's consistency. The running environment are shown in \tblname{{\ref{tbl:ch2-exp-env}}}. Furthermore, there are many adjustable hyperparameters within the model, several critical ones of which are shown in \tblname{\ref{tbl:ch2-hpsetting}}.
 
 % The distribution of the number of exercise knowledge points in this data set is shown in the figure. The number of questions involved in different knowledge points is different. The set of questions involved in knowledge points \(j\) is defined as \(\mathbf{E}_j\). Remember the threshold of the number of occurrences of the knowledge point label \(\tau^{(KP)} \), then the knowledge points of the exercises can be divided according to the frequency of occurrence, i.e., \( \{j|\mathbf{E}_j|>\tau^{(KP)}\} \) and \( \{j||\mathbf{E}_j|\leq\tau^{(KP)} \} \). According to the different thresholds, the model's ability to classify knowledge points frequently and appear sparse can be tested separately.
 
@@ -559,7 +571,7 @@ The training and validation loss plot are shown in \figname{\ref{fig:ch2-trainin
 \end{figure}
 
 \subsection{Result and Analysis}
-In the experimental comparison for each of the other baseline models three experiments were conducted, and the average of the experimental results was taken as the performance parameter of the baseline model and compared with the proposed model. The comparison experiment results are divided into the performance comparison of the baseline models shown in \tblname{\ref{tbl:ch2-result-bsline1}}. The results show that the proposed model outperforms the baseline model in all the multi-label classification metrics, so the present model achieves the intended design goal. Further, the classification details of the model for each category are shown in \tblname{\ref{tbl:ch2-result-detail}}.
+In the experimental comparison for each of the other baseline models, three experiments were conducted, and the average of the experimental results was taken as the performance parameter of the baseline model and compared with the proposed model. The comparison experiment results are divided into the performance comparison of the baseline models shown in \tblname{\ref{tbl:ch2-result-bsline1}}. The results show that the proposed model outperforms the baseline model in all the multi-label classification metrics, so the present model achieves the intended design goal. Further, the classification details of the model for each category are shown in \tblname{\ref{tbl:ch2-result-detail}}.
 
 \begin{table}[htbp!]
     \caption{Result comparison}\label{tbl:ch2-result-bsline1}
@@ -569,12 +581,14 @@ In the experimental comparison for each of the other baseline models three exper
         Metrics          & \(\operatorname{F1}_{macro}\) & \(\operatorname{F1}_{micro}\) & \(\operatorname{Acc}_{ML}\) & \(\operatorname{F1}_{ML}\) \\
         \midrule
         BiLSTM+Attention & 0.824                         & 0.924                         & 0.874                       & 0.926                      \\
+        fastText         & 0.846                         & 0.922                         & 0.854                       & 0.916                      \\
+        TextCNN          & 0.761                         & 0.923                         & 0.857                       & 0.917                      \\
         Proposed         & \textbf{0.912}                & \textbf{0.932}                & \textbf{0.888}              & \textbf{0.937}             \\
         \bottomrule
     \end{tabular}
 \end{table}
 
-As can be seen from the \tblname{\ref{tbl:ch2-result-detail}}, the performance of the models proposed in this paper is stronger for exercises that occur more frequently than those that occur less frequently. As the frequency of knowledge points decreases and the difficulty of classification increases, the model shows a degradation of performance. This is because the model is prone to overfitting when the sample size of the exercises is small, which can lead to the degradation of the model prediction performance. The problem can be solved by increasing the sample size and optimizing the data quality.
+As can be seen from the \tblname{\ref{tbl:ch2-result-detail}}, the performance of the models proposed in this paper is stronger for exercises that occur more frequently than those that occur less frequently. As the frequency of knowledge points decreases and the difficulty of classification increases, the model shows performance degradation. This is because the model is prone to overfitting when the sample size of the exercises is small, leading to the degradation of the model prediction performance. The problem can be solved by increasing the sample size and optimizing the data quality.
 
 \begin{table}[htbp!]
     \caption{Classification report of proposed model}\label{tbl:ch2-result-detail}
@@ -591,10 +605,10 @@ As can be seen from the \tblname{\ref{tbl:ch2-result-detail}}, the performance o
         逻辑与命题关系 & 0.958     & 0.883  & 0.919    & 180     \\
         集合           & 0.907     & 0.867  & 0.886    & 45      \\
         \midrule
-        micro avg      & 0.951     & 0.915  & 0.932    & 1137    \\
-        macro avg      & 0.946     & 0.884  & 0.912    & 1137    \\
-        weighted avg   & 0.951     & 0.915  & 0.932    & 1137    \\
-        samples avg    & 0.951     & 0.935  & 0.937    & 1137    \\
+        Micro avg      & 0.951     & 0.915  & 0.932    & 1137    \\
+        Macro avg      & 0.946     & 0.884  & 0.912    & 1137    \\
+        Weighted avg   & 0.951     & 0.915  & 0.932    & 1137    \\
+        Samples avg    & 0.951     & 0.935  & 0.937    & 1137    \\
         \bottomrule
     \end{tabular}
 \end{table}
