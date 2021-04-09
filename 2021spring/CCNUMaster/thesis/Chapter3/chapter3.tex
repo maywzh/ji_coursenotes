@@ -396,7 +396,7 @@ To measure the ROC curve's steepness, Area Under Curve (AUC) can be a suitable s
 
 \subsection{Experiment Settings}
 %本实验采用KFold方法分割测试集和验证集，取\(K=5\)。原始数据经过处理，会将每个学生的做题序列进行隔离，超过预定最长序列长度的学生会被分割成若干个不超过最长长度的序列。而实验可以采用不同的知识追踪对象进行交叉验证实验，可以有效衡量模型的预测性能。
-This experiment uses the KFold method to partition the test and validation sets, taking \(K=5\). The raw data are processed to segregate the sequence of questions done by each student, and students who exceed the predetermined longest sequence length are split into several sequences that do not exceed the longest length. Moreover, the experiments can use different knowledge tracking objects for cross-validation experiments, which can effectively measure the model's prediction performance.
+This experiment uses the KFold method to partition the test and validation sets, taking \(K=5\). The raw data are processed to segregate the sequence of questions done by each student, and students who exceed the predetermined longest sequence length are split into several sequences that do not exceed the longest length. Moreover, the experiments can use different knowledge tracing objects for cross-validation experiments, which can effectively measure the model's prediction performance.
 %本实验主要运行在深度学习服务器上，运行环境见表.
 
 This experiment runs on a dedicated GPU computing server, and the running environment is shown in \tblname{\ref{tbl:ch3-exp-env}}.
@@ -469,7 +469,7 @@ The experiments were conducted a total of three times, and the average training 
 The results show that the model's prediction performance can converge stably after about 150 epochs of training.
 \subsection{Result and Analysis}
 %实验结果见表\cite{\ref{tbl:ch3-performance}}，相比于其他模型，提出的模型的性能在关键指标accuracy和AUC取得了最优的指标。有两点原因，一是因为模型考虑了用户的额外特征，因此引入了新的影响因素，二是模型考虑了潜在概念之间的模型，并利用图状结构来表征这种联系，从而为模型引入了高阶的知识点关系特征。综上所述，模型为知识追踪任务引入了新的解释特征，因此在模型的最终性能指标上取得了较大的提升。
-The experimental results are presented in \tblname{\ref{tbl:ch3-performance}}, and the performance of the proposed model achieves optimal metrics in key indicators Accuracy and AUC compared to other models. There are two reasons for this, one is because the model considers additional features of the user and therefore introduces new influencing factors, and the other is that the model considers the model between potential concepts and uses graph-like structures to characterize such connections, thus introducing higher-order knowledge point relationship features to the model. In summary, the model introduces new explanatory features for the knowledge tracking task and therefore achieves a large improvement in the model's final performance metrics.
+The experimental results are presented in \tblname{\ref{tbl:ch3-performance}}, and the performance of the proposed model achieves optimal metrics in key indicators Accuracy and AUC compared to other models. There are two reasons for this, one is because the model considers additional features of the user and therefore introduces new influencing factors, and the other is that the model considers the model between potential concepts and uses graph-like structures to characterize such connections, thus introducing higher-order knowledge point relationship features to the model. In summary, the model introduces new explanatory features for the knowledge tracing task and therefore achieves a large improvement in the model's final performance metrics.
 
 \begin{table}[htb]
     \centering
@@ -501,4 +501,4 @@ The main contributions of this section are as follows.
 \end{enumerate}
 
 %在实验阶段，首先对原始数据集进行数据清洗、格式转换，然后对数据集进行特征相关性分析，目标-特征相关性分析，选取最佳的学生答题特征作为额外的输入特征。然后与一系列baseline知识追踪模型进行性能对比。实验显示，提出的模型在各项指标上都优于基线模型。
-In the experimental phase, the original dataset is first cleaned and formatted with data, and then the dataset is then analyzed with feature correlation analysis and target-feature correlation analysis to select the best student answer features as additional input features. Then the performance is compared with a series of baseline knowledge tracking models. The experiments show that the proposed model outperforms the baseline model in all metrics.
+In the experimental phase, the original dataset is first cleaned and formatted with data, and then the dataset is then analyzed with feature correlation analysis and target-feature correlation analysis to select the best student answer features as additional input features. Then the performance is compared with a series of baseline knowledge tracing models. The experiments show that the proposed model outperforms the baseline model in all metrics.
