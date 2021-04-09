@@ -6,7 +6,7 @@ In this article, an exercise recommendation system based on graph neural network
 
 %在知识点标注模块中，采用了图卷积神经网络来训练标签标注分类器。通过Bi-LSTM来挖掘习题文本信息，将习题文本嵌入作为标签分类器组的输入，输出一组标签的分类结果。经过实验验证，该模型对于高中数学习题具有良好的分类效果，对于现有的模型性能上有一定提升。在未来的工作中，可以考虑用Transformer来取代Bi-LSTM模型或者用BERT来训练习题文本嵌入来达到更精确的分类效果。
 
-In the knowledge point annotation module, a graph convolutional neural network is used to train the label annotation classifier. Use Bi-LSTM to mine the exercise text information, embed the exercise text as the label classifier group's input, and output a set of label classification results. Experiments show that the model has a good classification effect for high school math learning problems and has a specific improvement in existing models' performance. In future work, a Transformer can be applied to replace the Bi-LSTM model or BERT to train exercise text embedding to achieve more accurate classification results.
+In the knowledge point labeling module, a graph convolutional neural network is used to train the label labeling classifier. Use Bi-LSTM to mine the exercise text information, embed the exercise text as the label classifier group's input, and output a set of label classification results. Experiments show that the model has a good classification effect for high school math learning problems and has a specific improvement in existing models' performance. In future work, a Transformer can be applied to replace the Bi-LSTM model or BERT to train exercise text embedding to achieve more accurate classification results.
 
 %在知识追踪模块中，采用了图注意力网络来进行习题知识关系嵌入学习，将嵌入向量通过基于Transformer的Encoder模型来输出一个知识状态向量，再将习题嵌入向量与知识状态向量作为基于Transformer的Decoder模型的输入，输出对于下一道习题的答题情况预测。经过实验验证，该模型对于知识关系简单与知识关系复杂的数据集都具有较好的预测性能。后续可以考虑采用不同的图神经网络模型来增加学习效率，或者采用更多的习题信息来学习习题知识嵌入。
 

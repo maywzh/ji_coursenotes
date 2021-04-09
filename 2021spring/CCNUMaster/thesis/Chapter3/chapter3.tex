@@ -423,7 +423,7 @@ This experiment runs on a dedicated GPU computing server, and the running enviro
 %1.BKT是一个知识追踪的经典模型，它基于隐马尔可夫模型（HMM），将学习者的知识状态建模为一组对应知识点掌握情况的二元变量。
 %2.DKT是第一个基于深度学习的知识追踪模型，它应用将学生的做题记录输入到LSTM中，可以捕获学生做题序列上近期做题记录的影响，将学生的做题顺序考虑进模型，DKT也初步考虑了知识点间的内在相关性。
 %3.GKT应用图神经网络到知识追踪任务上，利用图的特性，将知识点间的图状关联表征出来，从而更好地学习知识内在依赖关系，该模型能够学习出学生的隐藏知识状态,也具有较好的可解释性。
-In this experiment, baseline performance comparisons are made by comparing some classic models with new knowledge tracing models proposed recently. The following models participate in performance comparison.
+In this experiment, baseline performance comparisons are made by comparing some classic models with new knowledge tracing models proposed recently. The following models are evaluated in performance comparison.
 \begin{itemize}
     \item Deep knowledge tracing~\cite{piech2015deep}: DKT applies the input of students' doing records into LSTM and can capture the influence of recent doing records on students' doing sequences, taking students' doing sequences into account into the model; DKT also initially considers the intrinsic correlation between knowledge points.
     \item Dynamic key-value memory networks (DKVMN)~\cite{zhang2017dynamic}: DKVMN uses key-value pairs as the memory structure, which can avoid over better prediction performance relative to BKT, and DKT is achieved by using key-value pairs as the memory structure.
