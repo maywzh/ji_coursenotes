@@ -416,7 +416,7 @@ In addition, for each category, the inter-correlation between the categories can
 This section's study focus on a text multi-label classification task, so several of the more popular text classification models are used as baseline models. In order to verify the advancements of the proposed model, some currently popular text classification models are selected experimentally and the performance is compared with the proposed model on the selected experimental evaluation metrics and the same dataset. At present, there are already some algorithm models for labeling text. To verify the effectiveness of the algorithm proposed in this thesis, the following baseline models will be set as comparisons.
 \begin{itemize}
     \item Bi-LSTM+Attention~\cite{zhou2016attention}: the model consists of an Embedding layer, a bi-directional LSTM layer and an Attention layer. The text is passed through the Embedding layer to generate the Embedding vector, the LSTM to compute the higher-order sentence vector, the Attention layer to weight the sentence vector, and the final output layer to output the predicted labels.
-    \item BERT\@: Use BERT
+    \item BERT+RCNN\@: Use BERT as the text sequence encoder and
 \end{itemize}
 
 \subsection{Metrics}

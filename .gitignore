@@ -544,3 +544,4 @@ GitHub.sublime-settings
 **/pretrained_model/*
 **/.idea/*
 *.pt
+*.npy
