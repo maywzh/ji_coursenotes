@@ -120,7 +120,7 @@ class ExerciseDataset(Dataset):
         """ get one sample"""
         sample = dict()
         sample['sentence'] = self.embeddings[self.x[idx].astype(
-            int)].astype(np.float32)
+            np.int32)].astype(np.float32)
         if self.phase == 'Train':
             sample['label'] = self.y[idx].astype(np.float32)
 
@@ -129,7 +129,7 @@ class ExerciseDataset(Dataset):
 
 def main():
     # train
-    dir_data = '/Users/maywzh/Workspace/ji_coursenotes/2021spring/CCNUMaster/exp/chapter2/toxic_comment_classification-master/data'
+    dir_data = '../data'
     sen_len = 500
     data_set = ExerciseDataset(
         dir_data=dir_data, sentence_length=sen_len, phase='Train')

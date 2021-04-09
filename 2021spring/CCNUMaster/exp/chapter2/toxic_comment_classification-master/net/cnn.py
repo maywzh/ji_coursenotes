@@ -15,13 +15,15 @@ from torch.nn.init import xavier_normal
 def conv(batch_norm, c_in, c_out, ks, sd=1, pad=0):
     if batch_norm:
         return nn.Sequential(
-            nn.Conv2d(c_in, c_out, kernel_size=ks, stride=sd, padding=pad, bias=False),
+            nn.Conv2d(c_in, c_out, kernel_size=ks,
+                      stride=sd, padding=pad, bias=False),
             nn.BatchNorm2d(c_out),
             nn.ReLU(),
         )
     else:
         return nn.Sequential(
-            nn.Conv2d(c_in, c_out, kernel_size=ks, stride=sd, padding=pad, bias=True),
+            nn.Conv2d(c_in, c_out, kernel_size=ks,
+                      stride=sd, padding=pad, bias=True),
             nn.ReLU(),
         )
 
