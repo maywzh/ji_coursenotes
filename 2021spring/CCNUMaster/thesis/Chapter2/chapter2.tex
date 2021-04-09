@@ -44,7 +44,7 @@ In this chapter, a multi-knowledge point labeling classification method for exer
 \subsection{Algorithm Overview}
 %本节的任务是构造一个挖掘习题-知识点关系的模型和一个挖掘知识点之间关联的模型。建立习题-知识点关系即对习题进行知识点标注，习题的知识点是理解习题和求解习题所用到的知识概念的集合。所以准确描述一道试题的知识点，对于后续的知识追踪和推荐过程十分重要。目前已经存在的基础分类方式有专家标注和机器学习两种方式。前者即教育专家结合自己的专业知识对试题进行知识点标注，但当题量或题目复杂度较高时，人工标注存在工作量大，主观度高和标注不完善等问题。另外考虑到知识点之间的关联，人工标注也存在无法考虑到知识内联关系。另一种方式则是用基于规则的自动化标注的方法，它通过文本模式匹配等非智能方式来进行知识点关键词匹配。但有许多习题往往并不具有显式的知识点文本，因此该方法的正确率不够理想。此外，一个习题往往具有多个知识点，因此实际上知识点挖掘是一个多标签分类问题~\cite{tsoumakas2007multi,zhang2013review,liu2020emerging}。本章也会对``如何有效建模知识点间的关系''来进行讨论并提出一种基于图神经网络的多标签分类模型。
 
-This section aims to construct a model for mining the exercise-knowledge point relationship and mining the association between knowledge points. Establishing an exercise-knowledge point relationship means labeling the knowledge points of an exercise and collecting knowledge concepts to understand and solve the exercise. Therefore, accurately describing a test question's knowledge points is essential for the subsequent knowledge tracking and recommendation process. The two basic classification approaches that already exist are expert labeling and machine learning. The former means that education experts combine their professional knowledge to label knowledge points of test questions. However, when the number of questions or complexity of questions is high, the manual labeling has high workload, high subjectivity, and imperfect labeling. Also, considering the association between knowledge points, the manual labeling has the problem of not taking into account the inline knowledge relationship. Another way is to use the rule-based automated labeling method, which performs knowledge keyword matching by non-intelligent means such as text pattern matching. However, many exercises often do not have explicit knowledge point texts, so this correctness rate is not satisfactory. Also, an exercise often has multiple knowledge points, so in effect, knowledge point mining is a multi-label classification problem~\cite{tsoumakas2007multi,zhang2013review,liu2020emerging}. This chapter also discusses ``how to effectively model the relationships between knowledge points'' and proposes a multi-label classification model based on graph neural networks.
+This section aims to construct a model for mining the exercise-knowledge point relationship and mining the association between knowledge points. Establishing an exercise-knowledge point relationship means labeling the knowledge points of an exercise and collecting knowledge concepts to understand and solve the exercise. Therefore, accurately describing a test question's knowledge points is essential for the subsequent knowledge tracking and recommendation process. The two basic classification approaches that already exist are expert labeling and machine learning. The former means that education experts combine their professional knowledge to label knowledge points of test questions. However, when the number of questions or complexity of questions is high, manual labeling has a high workload, high subjectivity, and imperfect labeling. Also, considering the association between knowledge points, the manual labeling has the problem of not taking into account the inline knowledge relationship. Another way is to use the rule-based automated labeling method, which performs knowledge keyword matching by non-intelligent means such as text pattern matching. However, many exercises often do not have explicit knowledge point texts, so this correctness rate is not satisfactory. Also, an exercise often has multiple knowledge points, so in effect, knowledge point mining is a multi-label classification problem~\cite{tsoumakas2007multi,zhang2013review,liu2020emerging}. This chapter also discusses ``how to effectively model the relationships between knowledge points'' and proposes a multi-label classification model based on graph neural networks.
 
 
 %在2019年，提出了一种多标签图像分类模型，受该模型启发，本章提出了一个基于注意力机制习题文本特征提取和基于图神经网络知识点关系挖掘的多知识点标注模型，它通过数据驱动的方式建立知识点关系图描述知识点间的关联关系，对知识点分别建立分类器，然后对习题的文本特征进行多标签分类。其主要架构图如下。
@@ -165,8 +165,8 @@ However, when the sequence is long, the problem of long dependencies arises. For
 \end{figure}
 
 %单向LSTM也有一个固有的缺陷，它只能捕获\(t\)时刻以前的序列状态信息，即只能捕获之前序列输入。双向LSTM通过将反向序列输入LSTM并与正向LSTM序列进行聚合，可以捕获双向的语义信息，同时对双向的依赖建模。
-One-way LSTM also has an inherent drawback that it can only capture the sequence state information before \(t\) moment, i.e., it can only capture the previous sequence input. The bidirectional LSTM (Bi-LSTM)~\cite{graves2005framewise} can capture semantic information in both directions by feeding the reverse sequence into the LSTM and aggregating it with the forward LSTM sequence, while modeling the dependencies in both directions. The Bi-LSTM output can be obtained by inputting the positive sequence and the reverse sequence input sequence into two sets of LSTM networks and perform element-wise addition. The output of positive-order LSTM is \(\overrightarrow{h_t}\), the output of reverse-order LSTM is \(\overleftarrow{h_t}\), \(\bigoplus \) means sequence concatenation. The output of Bi-LSTM is:
-\begin{align}
+One-way LSTM also has an inherent drawback that it can only capture the sequence state information before \(t\) moment, i.e., it can only capture the previous sequence input. The bidirectional LSTM (Bi-LSTM)~\cite{graves2005framewise} can capture semantic information in both directions by feeding the reverse sequence into the LSTM and aggregating it with the forward LSTM sequence, while modeling the dependencies in both directions. The Bi-LSTM output can be obtained by inputting the positive sequence and the reverse sequence input sequence into two sets of LSTM networks and perform element-wise addition. The output of positive-order LSTM is \(\overrightarrow{h_t}\), the output of reverse-order LSTM is \(\overleftarrow{h_t}\), \(\bigoplus \) means sequence concatenation. The output of Bi-LSTM is shown in \figname{\ref{fml:ch2-bilstm-output}}.
+\begin{align}\label{fml:ch2-bilstm-output}
     \begin{split}
         \overrightarrow{h_t} & = \overrightarrow{LSTM}(e_t)                       \\
         \overleftarrow{h_t}  & = \overleftarrow{LSTM}(e_t)                        \\
@@ -181,7 +181,7 @@ The Bi-LSTM Structure is like \figname{\ref{fig:ch2-model-bilstm}}.
     \caption{Structure of Bi-LSTM}\label{fig:ch2-model-bilstm}
 \end{figure}
 
-Here, the Bi-LSTM output a bidirectional sequence as the concatenation of positive-order and reverse-order LSTM output sequence.
+Here, the Bi-LSTM output a bidirectional sequence as the concatenation of positive-order and reverse-order LSTM output sequence. It is actually a higher-order representation of the sentence vector of the exercise text, and the model can also be stackable with multiple Bi-LSTM layers to characterize the deep sentence sense vector~\cite{jang2020bi}.
 
 
 
@@ -273,7 +273,7 @@ The node propagation of GCN in this section is~\eqname{\ref{fml:ch2-gcn2}}, wher
 \end{figure}
 
 %在本模型中，每个节点都是知识点的表征，在此可以通过知识点文本表征向量来进行表征。通过对相关知识点的图传播学习，可以使相关知识点的表征产生融合，进而提升模型识别对于相关知识点的联想学习性能。
-In this model, each node is a representation of a knowledge point, where it can be characterized by a vector of knowledge point text representations. The graph propagation learning of related knowledge points can produce fusion of related knowledge point representations, which in turn improves the associative learning performance of model recognition for related knowledge points.
+In this model, each node is a representation of a knowledge point, where it can be characterized by a vector of knowledge point text representations. The graph propagation learning of related knowledge points can produce the fusion of related knowledge point representations, which in turn improves the associative learning performance of model recognition for related knowledge points.
 \subsubsection{Design of Correlation Matrix}
 %在GCN中，相关矩阵\(A\)表征了图节点之间的关系，GCN信息传播计算也是基于\(A\)进行的。因此，设计相关矩阵\(A\)是GCN模型的关键步骤。在该模型中，采用常用的数据关联规则挖掘算法Apriori算法，通过知识点共现次数统计来计算关联。 
 
@@ -322,13 +322,13 @@ In this thesis, a learnable stacked GCN-based model is proposed. The knowledge p
 \subsection{Multi-label Recognition}
 %  For the input layer, the input is \(r\in \mathbb{R}^{T \times d^{(k)}}\), where \(d^{(k)}\) is the number of dimensions represented by the embedding of the knowledge point object. Each GCN layer 1 takes the node representation from the previous layer \(H^{(l)}\) as input and outputs a new node representation \(H^{(l+1)}\). The output layer of the last layer is \(C\), where \(d_r\) represents the dimension of the title text. 
 
-From the stacked GCN network, the object classifiers \(C=\{c_1,c_2,\ldots,c_{N^{(k)}}\} \) can be learned, where \(N^{(k)}\) represents the number of knowledge points. Finally, the label prediction vector \(\hat{y}\) can be obtained by the dot product of the learned classifier and the title text representation \(r\):
-\begin{align}
+From the stacked GCN network, the object classifiers \(C=\{c_1,c_2,\ldots,c_{N^{(k)}}\} \) can be learned, where \(N^{(k)}\) represents the number of knowledge points. Finally, the label prediction vector \(\hat{y}\) can be obtained by the dot product of the learned classifier and the title text representation \(r\) as shown in \eqname{\ref{fml:ch2-classifier-mul}}.
+\begin{align}\label{fml:ch2-classifier-mul}
     \hat{y} = C\times r
 \end{align}
 
-Through manual labeling, the real knowledge point labels of the exercises can be obtained: \(y\in \mathbb{R}^C\), \(y_i\in \{0,1\} \), \(y_i=0\) means that the exercise does not have knowledge points The label of \(i\), on the contrary, \(y_i=1\) means that the exercise has a label of knowledge point \(i\). The loss function \(\mathbf{L}\) can be written as:
-\begin{align}
+Through manual labeling, the real knowledge point labels of the exercises can be obtained: \(y\in \mathbb{R}^C\), \(y_i\in \{0,1\} \), \(y_i=0\) means that the exercise does not have knowledge points The label of \(i\), on the contrary, \(y_i=1\) means that the exercise has a label of knowledge point \(i\). The loss function \(\mathbf{L}\) can be written as~\eqname{\ref{fml:ch2-lossfunction}}.
+\begin{align}\label{fml:ch2-lossfunction}
     \mathbf{L}=\sum_{i=1}^{T} y_i \log (\text{sigmoid}(\hat{y}_i))+(1-y_i) \log (1-\text{sigmoid}(\hat{y}_i))
 \end{align}
 
@@ -351,7 +351,7 @@ Crawlers obtain the data in this section, so the original data obtained is a lar
 \subsubsection{Data Analysis}
 Since there are many images in the original set of exercises that cannot be identified, this question screens out irrelevant image URL information. Also, this model does not consider textual information such as formulas and mathematical symbols, so only Chinese text will be screened out. Samples with too low text length will be removed.
 
-In this experiment, a few of the more representative categories were selected to construct the dataset, and a total of 7 categories of knowledge points were selected, within which two categories are correlating. After deduplication and removal of invalid data, 3969 pieces of data were finally obtained. The filtered data are shown in the \tblname{\ref{tbl:ch2-rawdata}} and the distribution of the number of dependent exercises for each category is shown in the \tblname{\ref{tbl:ch2-rawdata-dist}} and \figname{\ref{fig:ch2-data-belonging}}. The distribution of length of exercise texts is shown in \figname{\ref{fig:ch2-data-lendis}}
+In this experiment, a few of the more representative categories were selected to construct the dataset, and a total of 7 categories of knowledge points were selected, within which two categories are correlating. After deduplication and removal of invalid data, 3969 pieces of data were finally obtained. The filtered data are shown in the \tblname{\ref{tbl:ch2-rawdata}} and the distribution of the number of dependent exercises for each category is shown in the \tblname{\ref{tbl:ch2-rawdata-dist}} and \figname{\ref{fig:ch2-data-belonging}}. The distribution of length of exercise texts is shown in \figname{\ref{fig:ch2-data-lendis}}. The results show that the text lengths of most samples are concentrated in the interval range of 20-100, so values in this range can be considered when choosing the sequence length parameter for the model. In addition, the category distribution has a certain degree of non-average-ness, and therefore classification metrics such as F1 Score should be used to exclude such effects.
 
 \begin{table}[htb]
     \caption{The filtered data examples}\label{tbl:ch2-rawdata}
@@ -413,10 +413,10 @@ In addition, for each category, the inter-correlation between the categories can
 \subsection{Baseline}
 % In the algorithm, the binary relation method (BR), the multi-label KN algorithm (ML-KNN) are selected as the comparison algorithm, and the experimental training set test set division ratio, which is 1:1.
 % 目前，已经有一些进行文本标签标注的算法模型，为了验证本文提出算法的有效性，将与下列的算法进行比较，作为baseline指标。
-The study in this section is a text multi-label classification task, so several of the more popular text classification models are used as baseline models. At present, there are already some algorithm models for labeling text. To verify the effectiveness of the algorithm proposed in this thesis, the following baseline models will be set as comparisons.
+This section's study focus on a text multi-label classification task, so several of the more popular text classification models are used as baseline models. In order to verify the advancements of the proposed model, some currently popular text classification models are selected experimentally and the performance is compared with the proposed model on the selected experimental evaluation metrics and the same dataset. At present, there are already some algorithm models for labeling text. To verify the effectiveness of the algorithm proposed in this thesis, the following baseline models will be set as comparisons.
 \begin{itemize}
-    \item Bi-LSTM+Attention~\cite{zhou2016attention}:
-    \item Multi-label BERT\@: Use BERT to convert the test question text into an embedded vector, extract the test text information through CNN, and then output the multi-label prediction.
+    \item Bi-LSTM+Attention~\cite{zhou2016attention}: the model consists of an Embedding layer, a bi-directional LSTM layer and an Attention layer. The text is passed through the Embedding layer to generate the Embedding vector, the LSTM to compute the higher-order sentence vector, the Attention layer to weight the sentence vector, and the final output layer to output the predicted labels.
+    \item BERT\@: Use BERT
 \end{itemize}
 
 \subsection{Metrics}
@@ -473,7 +473,7 @@ Similarly, the statistic of some indicators based on samples can be obtained. Fo
 The problem addressed by this model is the labeling of related knowledge points, so the performance of classifying exercises with related knowledge points should be evaluated in the experiment. Therefore this model is trained and will be applied on multi-knowledge point exercises for accuracy, AUC, and multi-classification metrics and compared with the baseline model.
 
 %本实验将训练集和测试集按照3:7的比例划分，并取训练集的1/10作为验证集。
-In this experiment, the training and test sets are divided in the ratio of \(3:7\), and one tenth of the training set is taken as the validation set. The running environment are shown in \tblname{{\ref{tbl:ch2-exp-env}}}. Furthermore, there are many adjustable hyperparameters within the model, several critical ones of which are shown in \tblname{\ref{tbl:ch2-hpsetting}}.
+In this experiment, the training and test sets are splited from original dataset by the ratio of 3:7, and one-tenth of the training set is taken as the validation set. All steps of this experiment are run on a stable cloud server environment to ensure the consistency of the experimental environment. The running environment are shown in \tblname{{\ref{tbl:ch2-exp-env}}}. Furthermore, there are many adjustable hyperparameters within the model, several critical ones of which are shown in \tblname{\ref{tbl:ch2-hpsetting}}.
 
 % The distribution of the number of exercise knowledge points in this data set is shown in the figure. The number of questions involved in different knowledge points is different. The set of questions involved in knowledge points \(j\) is defined as \(\mathbf{E}_j\). Remember the threshold of the number of occurrences of the knowledge point label \(\tau^{(KP)} \), then the knowledge points of the exercises can be divided according to the frequency of occurrence, i.e., \( \{j|\mathbf{E}_j|>\tau^{(KP)}\} \) and \( \{j||\mathbf{E}_j|\leq\tau^{(KP)} \} \). According to the different thresholds, the model's ability to classify knowledge points frequently and appear sparse can be tested separately.
 
@@ -515,6 +515,7 @@ In this experiment, the training and test sets are divided in the ratio of \(3:7
 \end{table}
 
 
+
 \begin{table}[htb]
     \caption{Hyperparameter settings of recommendation model}\label{tbl:ch2-hpsetting}
     \centering
@@ -544,7 +545,7 @@ In this experiment, the training and test sets are divided in the ratio of \(3:7
 
 \subsection{Model Training}
 %训练的损失函数图和准确率图如图所示。在训练的过程中，当遇到更好的验证准确率时，将会保留模型参数，当训练结束好保存的模型即是最优模型，它将会应用于测试集进行模型性能验证。
-The training and validation loss plot are shown in \figname{\ref{fig:ch2-training-loss}} and the accuracy plots are shown in \figname{\ref{fig:ch2-training-acc}}. During the training process, when better validation accuracy is encountered, the model parameters will be preserved, and when the training is finished the saved model is the optimal model, which will be applied to the test set for model performance validation. According to the training graph, it can be concluded that the model converges after about 15 epochs of training.
+The training and validation loss plot are shown in \figname{\ref{fig:ch2-training-loss}} and the accuracy plots are shown in \figname{\ref{fig:ch2-training-acc}}. During the training process, when better validation accuracy is encountered, the model parameters will be preserved, and when the training is finished, the saved model is the optimal model, which will be applied to the test set for model performance validation. According to the training graph, it can be concluded that the model converges after about 15 epochs of training.
 \begin{figure}[htb]
     \centering
     \includegraphics[width=0.85\textwidth]{ch2-training-loss.png}
@@ -558,12 +559,12 @@ The training and validation loss plot are shown in \figname{\ref{fig:ch2-trainin
 \end{figure}
 
 \subsection{Result and Analysis}
-In the experimental comparison for each of the other baseline models three experiments were conducted and the average of the experimental results was taken as the performance parameter of the baseline model and compared with the proposed model. The comparison experiment results are divided into the performance comparison of the horizontal baseline model (shown in \tblname{\ref{tbl:bsline1}}).
+In the experimental comparison for each of the other baseline models three experiments were conducted, and the average of the experimental results was taken as the performance parameter of the baseline model and compared with the proposed model. The comparison experiment results are divided into the performance comparison of the baseline models shown in \tblname{\ref{tbl:ch2-result-bsline1}}. The results show that the proposed model outperforms the baseline model in all the multi-label classification metrics, so the present model achieves the intended design goal. Further, the classification details of the model for each category are shown in \tblname{\ref{tbl:ch2-result-detail}}.
 
 \begin{table}[htbp!]
-    \caption{Result comparison}\label{tbl:bsline1}
+    \caption{Result comparison}\label{tbl:ch2-result-bsline1}
     \centering
-    \begin{tabular}{cccccccc}
+    \begin{tabular}{ccccc}
         \toprule
         Metrics          & \(\operatorname{F1}_{macro}\) & \(\operatorname{F1}_{micro}\) & \(\operatorname{Acc}_{ML}\) & \(\operatorname{F1}_{ML}\) \\
         \midrule
@@ -572,6 +573,33 @@ In the experimental comparison for each of the other baseline models three exper
         \bottomrule
     \end{tabular}
 \end{table}
+
+As can be seen from the \tblname{\ref{tbl:ch2-result-detail}}, the performance of the models proposed in this paper is stronger for exercises that occur more frequently than those that occur less frequently. As the frequency of knowledge points decreases and the difficulty of classification increases, the model shows a degradation of performance. This is because the model is prone to overfitting when the sample size of the exercises is small, which can lead to the degradation of the model prediction performance. The problem can be solved by increasing the sample size and optimizing the data quality.
+
+\begin{table}[htbp!]
+    \caption{Classification report of proposed model}\label{tbl:ch2-result-detail}
+    \centering
+    \begin{tabular}{ccccc}
+        \toprule
+        Class          & Precision & Recall & F1 Score & Support \\
+        \midrule
+        三角函数       & 0.957     & 0.710  & 0.815    & 31      \\
+        函数奇偶性     & 0.946     & 0.930  & 0.938    & 187     \\
+        导数           & 0.918     & 0.866  & 0.892    & 247     \\
+        平面向量       & 0.942     & 0.961  & 0.951    & 204     \\
+        数列           & 0.996     & 0.971  & 0.983    & 243     \\
+        逻辑与命题关系 & 0.958     & 0.883  & 0.919    & 180     \\
+        集合           & 0.907     & 0.867  & 0.886    & 45      \\
+        \midrule
+        micro avg      & 0.951     & 0.915  & 0.932    & 1137    \\
+        macro avg      & 0.946     & 0.884  & 0.912    & 1137    \\
+        weighted avg   & 0.951     & 0.915  & 0.932    & 1137    \\
+        samples avg    & 0.951     & 0.935  & 0.937    & 1137    \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+
 
 % \begin{table}
 %     \centering
@@ -621,7 +649,7 @@ In the experimental comparison for each of the other baseline models three exper
 
 %从表中可以看出，本文提出的模型在出现频次较高的习题训练机上的性能表现强于Baseline模型。随着知识点出现频率的降低，分类的难度增大，所有模型都出现了性能退化现象。其中的原因是模型对于出现较少的标签无法进行有效的信息抓取，从而产生的误差增大。总体而言，在F1-Score参数和较为严格的子集准确率指标上，本文提出的模型都取得了最优或较优的性能表现。当习题标签频次出现次数非常低时，几乎所有的模型都无法取得较好的结果，这是因为由于习题标签的频次分布不均匀，少量冷门标签无法很好地标注，导致模型训练出现了过拟合现象从而影响标注表现。为了解决该问题，可以通过用更大和知识点出现频次较为平均的习题集作为训练集来优化模型预测性能表现。
 
-It can be seen from the table that the performance of the model proposed in this thesis is stronger than the baseline model on the exercise training machine with a higher frequency. As the frequency of knowledge points decreases, classification difficulty increases, and performance degradation occurs in all models. The reason is that the model cannot effectively capture information for fewer tags, resulting in increased errors. In general, the model proposed in this thesis has achieved the best or better performance in terms of F1-Score parameters and stricter subset accuracy indicators. When the problem labels' frequency is shallow, almost all models cannot achieve good results. This is because due to the uneven frequency distribution of the problem labels, a small number of unpopular labels cannot be well labeled, resulting in over-fitting in model training. This phenomenon affects labeling performance. In order to solve this problem, the model prediction performance can be optimized by using a larger set of exercises with a more average frequency of knowledge points than the training set.
+% It can be seen from the table that the performance of the model proposed in this thesis is stronger than the baseline model on the exercise training machine with a higher frequency. As the frequency of knowledge points decreases, classification difficulty increases and performance degradation occurs in all models. The reason is that the model cannot effectively capture information for fewer tags, resulting in increased errors. In general, the model proposed in this thesis has achieved the best or better performance in terms of F1-Score parameters and stricter subset accuracy indicators. When the problem labels' frequency is shallow, almost all models cannot achieve good results. This is because due to the uneven frequency distribution of the problem labels, a small number of unpopular labels cannot be well labeled, resulting in over-fitting in model training. This phenomenon affects labeling performance. In order to solve this problem, the model prediction performance can be optimized by using a larger set of exercises with a more average frequency of knowledge points than the training set.
 
 % From the experimental results, it can be seen that, compared with the binary relation method, the multi-label KNN algorithm, and the classifier chain method, the multi-knowledge point labeling method based on ensemble learning proposed in this thesis has achieved better results under different knowledge point labels. In multi-label classification, the evaluation of more stringent indicators—subset accuracy-this thesis's method is always significantly better than the other three methods. Screening the base classifiers with relatively good performance and integrating their results through the majority voting method compensated for each base classifier's disadvantages and obtained good results. However, as the tag frequency threshold decreases, the number of knowledge points gradually increases, and the difficulty of multi-label classification becomes more and more difficult. One of the reasons is that the knowledge points actually contained in a test question is not completely consistent with the knowledge points that the teacher investigates. As shown in Table 7, in the first three questions, there is no ``arithmetic sequence'' in the original manually labeled knowledge points, but the content of the test questions contains the term ``arithmetic sequence''. Questions 4 and 5 The knowledge point is ``arithmetic sequence'', and there is also ``arithmetic sequence'' in the question stem. Therefore, when using the trained model to predict the first three questions, the ``arithmetic sequence'' will be marked as the knowledge point of this question. It is more difficult to further determine the knowledge points of examination questions and the knowledge points contained in the questions based on the existing data. The second reason is that due to the uneven distribution of knowledge points, many knowledge points do not have enough test data for learning, which makes it difficult to predict the knowledge points in the pre-test questions.
 

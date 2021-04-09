@@ -318,25 +318,25 @@ Next, each feature was plotted separately against the correctness of the answer,
 \begin{figure}[htb]
     \centering
     \includegraphics[width=0.85\textwidth]{ch3-jointplot-hc.png}
-    \caption[dis]{The joint-plot of hint\_count}\label{fig:ch3-jointplot-hc}
+    \caption{The joint plot of hint\_count}\label{fig:ch3-jointplot-hc}
 \end{figure}
 
 \begin{figure}[htb]
     \centering
     \includegraphics[width=0.85\textwidth]{ch3-jointplot-fc.png}
-    \caption{The joint-plot of first\_action}\label{fig:ch3-jointplot-fc}
+    \caption{The joint plot of first\_action}\label{fig:ch3-jointplot-fc}
 \end{figure}
 
 \begin{figure}[htb]
     \centering
     \includegraphics[width=0.85\textwidth]{ch3-jointplot-htc.png}
-    \caption[dis]{The joint-plot of hint\_total}\label{fig:ch3-jointplot-htc}
+    \caption{The joint plot of hint\_total}\label{fig:ch3-jointplot-htc}
 \end{figure}
 
 \begin{figure}[htb]
     \centering
     \includegraphics[width=0.85\textwidth]{ch3-jointplot-atc.png}
-    \caption{The joint-plot of attempt\_count}\label{fig:ch3-jointplot-atc}
+    \caption{The joint plot of attempt\_count}\label{fig:ch3-jointplot-atc}
 \end{figure}
 
 % \begin{figure}[htb]
@@ -344,7 +344,7 @@ Next, each feature was plotted separately against the correctness of the answer,
 %     \begin{subfigure}[b]{0.85\textwidth}
 %         \centering
 %         \includegraphics[width=0.9\textwidth]{ch3-jointplot-hc.png}
-%         \caption[dis]{The joint-plot of hint\_count}\label{fig:ch3-jointplot-hc}
+%         \caption{The joint-plot of hint\_count}\label{fig:ch3-jointplot-hc}
 %     \end{subfigure}
 %     \\
 %     \begin{subfigure}[b]{0.85\textwidth}
@@ -356,7 +356,7 @@ Next, each feature was plotted separately against the correctness of the answer,
 %     \begin{subfigure}[b]{0.85\textwidth}
 %         \centering
 %         \includegraphics[width=0.9\textwidth]{ch3-jointplot-htc.png}
-%         \caption[dis]{The joint-plot of hint\_total}\label{fig:ch3-jointplot-htc}
+%         \caption{The joint-plot of hint\_total}\label{fig:ch3-jointplot-htc}
 %     \end{subfigure}
 %     \\
 %     \begin{subfigure}[b]{0.85\textwidth}
@@ -427,8 +427,8 @@ In this experiment, baseline performance comparisons are made by comparing some 
 \begin{itemize}
     \item Deep knowledge tracing~\cite{piech2015deep}: DKT applies the input of students' doing records into LSTM and can capture the influence of recent doing records on students' doing sequences, taking students' doing sequences into account into the model; DKT also initially considers the intrinsic correlation between knowledge points.
     \item Dynamic key-value memory networks (DKVMN)~\cite{zhang2017dynamic}: DKVMN uses key-value pairs as the memory structure, which can avoid over better prediction performance relative to BKT, and DKT is achieved by using key-value pairs as the memory structure.
-    \item Self-attentive model for knowledge tracing (SAKT)~\cite{sakt2019}: The SAKT model takes into account the correlation between exercises in terms of potential knowledge points, and introduces the Transformer structure to calculate the attention between input sequences of exercises, so that the relevance of current exercises can be calculated based on previous exercises and reasonable predictions can be made.
-    \item Neural pedagogical agent (NPA)~\cite{Lee2019CreatingAN}: NPA applied Attention based Bi-LSTM model to knowledge tracing task, which takes into account the bidirectional information of the question-answering sequence, and the subsequent answer sequence interactions also correct the previous predictions.
+    \item Self-attentive model for knowledge tracing (SAKT)~\cite{sakt2019}: The SAKT model takes into account the correlation between exercises in terms of potential knowledge points and introduces the Transformer structure to calculate the Attention between input sequences of exercises so that the relevance of current exercises can be calculated based on previous exercises and reasonable predictions can be made.
+    \item Neural pedagogical agent (NPA)~\cite{Lee2019CreatingAN}: NPA applied Attention-based Bi-LSTM model to the knowledge tracing task, which takes into account the bidirectional information of the question-answering sequence, and the subsequent answer sequence interactions also correct the previous predictions.
 \end{itemize}
 
 \subsection{Model Training}
