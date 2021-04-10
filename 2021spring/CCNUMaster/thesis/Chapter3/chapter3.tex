@@ -83,7 +83,7 @@ In this model, students' answering behavior is introduced into the model as an a
 \end{align}
 
 %通过这种机制,模型引入了学生的个性化答题特征，从而可以实现对于习题知识点个性化权重计算。它充分利用了神经网络的特征表征能力，抽取出影响学生答题正确性的隐藏因素，从而提高模型整体的可靠性。
-This mechanism introduces students' personalized answering characteristics, thus enabling the calculation of personalized weights for the exercises' knowledge points. It makes full use of neural networks' feature characterization ability to extract the hidden factors that affect the correctness of students' answers, thus improving the overall reliability of the model.
+This mechanism introduces students' personalized answering characteristics, thus enabling the calculation of personalized weights for the exercises' knowledge points. It makes full use of neural networks' feature representing ability to extract the hidden factors that affect the correctness of students' answers, thus improving the overall reliability of the model.
 
 \subsection{Knowledge-Question Correlation Calculation}
 %在学生进行习题练习的过程中，一个习题与多个知识点相关，根据认知诊断理论\cite{chiu2018cognitive}，学生对于知识点的掌握程度与学生的内在学习能力决定了学生答题的正确性。与DKVMN类似，本模型用Key矩阵\(M^{(k)}\)来保存习题相关的所有潜在知识点。假设共有\(N^{(K)}\)个知识点，则\(M^{(k)}\in\mathbb{R}^{N^{(K)}}\times d_k\)，其中\(d_k\)为知识点表征向量的维度。

@@ -204,7 +204,8 @@ The general algorithm is as \algoname{\ref{alg:ch4-Rank}}:
 
 \section{Experiments}
 %本模型的核心思想是为学生查漏补缺，因此，在学生的知识状态一定的情况下，尽量给学生推荐对其知识掌握情况带来正向收益最大的习题。由于目前难以计算知识增益，因此，在实验阶段，应用知识追踪的公开数据集Skill-builder。通过估测模型对当前错题的预测概率来判定模型的推荐性能，这种方式将实验转换成了二分类任务。
-In the exercise recommendation system, the design principle is based on recommending as many error-prone exercises as possible given the student's state of knowledge. Therefore, in the experimental phase, a publicly available dataset for knowledge tracing is applied. The model's recommended performance is determined by estimating the model's prediction probability for the current mistaken question in a way that converts the experiment into a dichotomous task.
+In the exercise recommendation system, the design principle is based on recommending as many error-prone exercises as possible given the student's state of knowledge. Therefore, in the experimental phase, a publicly available dataset for knowledge tracing is applied. The model's recommended performance is determined by estimating the model's prediction probability for the current mistaken question in a way that converts the experiment into a dichotomous task. Since the matching phase is a rule-based model, it does not have an impact on the prediction performance of the subsequent models. In the experimental phase, the performance of the knowledge-tracking exercise recommendation model in the ranking phase is mainly evaluated.
+
 \subsection{Dataset}
 %考虑到本推荐系统需要立足于学生的知识状态针对习题进行推荐，而目前市面上并没有专用的基于知识掌握度的数学习题推荐数据集，因此我们基于知识追踪数据集进行推荐数据集生成。本实验用了知识追踪领域的专用数据集ASSISTment 2009，它是一个用于预测学生考试表现的数据集，它由一系列包含若干知识点标签的问题以及一些学生的答题记录组成。它在2009-2010年于线上教育平台上采集而成。经过数据过滤获得包含4,217个学生，110个知识点标签和约401,431次交互次数的数据集。经过对数据集的统计可以得出各个学生的知识点掌握情况和答题正确概率。如图所示。
 
@@ -218,13 +219,13 @@ Considering that this recommendation system needs to recommend exercises based o
 %本实验将基于两个方面来进行模型性能判定。
 %1. 推荐精准度判定：将知识追踪数据集的交互序列作为知识追踪模型的输入来训练模型。此时，运行推荐模型来生成一个习题推荐集合。记录学生\(s_i\)将序列中的时间\(t\)的习题\(e_{i,t}\)的推荐结果。如果知识追踪模型的对于习题\(e_{i,t}\)的预测概率低于一个判定阈值\(\tau\)时，表示该习题\(e_{i,t}\)对于学生\(s_i\)容易出错，因此应该被推荐。其混淆矩阵如下表
 
-The goal of the recommendation model proposed in this section is to present the user with exercises that best match the current state of knowledge, so the recommendation's accuracy is a key metric. To more intuitively show the knowledge enhancement effect of the recommendation algorithm on users, this experiment takes the interaction sequence of the knowledge tracking dataset as the input of the knowledge tracking model and outputs the probability \(p_{t}\) of answering correctly for these exercises. The real answering correctness is \(a_t\). When an exercise is predicted to be answered correctly by the model, the exercise will not be recommended; otherwise, the exercise should be recommended. This is a classical binary classification problem. The confusion matrix is shown below.
+The goal of the recommendation model proposed in this section is to present the user with exercises that best match the current state of knowledge, so the recommendation's accuracy is a crucial metric. To intuitively show the knowledge enhancement effect of the recommendation algorithm on users, this experiment takes the interaction sequence of the knowledge tracking dataset as the input of the knowledge tracking model. It outputs the probability \(p_{t}\) of answering correctly for these exercises. The actual answering correctness is \(a_t\). When an exercise is predicted to be answered correctly by the model, the exercise will not be recommended; otherwise, the exercise should be recommended. This is a classical binary classification problem. The confusion matrix is shown below.
 
 \begin{itemize}
-    \item True Positive(TP): \(p_{t}<0.5\) and \(a_t=0\)
-    \item False Positive(FP): \(p_{t} <0.5\) and \(a=1\)
-    \item False Negative(FN): \(p_{t}\geq 0.5\) and \(a_t=0\)
-    \item True Negative(TN): \(p_{t}\geq 0.5\) and \(a_t=1\)
+    \item True Positive (TP): \(p_{t}<0.5\) and \(a_t=0\)
+    \item False Positive (FP): \(p_{t} <0.5\) and \(a=1\)
+    \item False Negative (FN): \(p_{t}\geq 0.5\) and \(a_t=0\)
+    \item True Negative (TN): \(p_{t}\geq 0.5\) and \(a_t=1\)
 \end{itemize}
 
 As it is a classification problem, the Receiver Operator Characteristic Curve (ROC) curve can be used to determine the recommendation system's performance. Then, (Area Under Curve) AUC and Accuracy (ACC) metrics can be used to determine the model's performance.
@@ -311,12 +312,12 @@ The performance comparison result is shown in \tblname{\ref{tbl:ch4-exp-result}}
     \centering
     \begin{tabular}{cc c }
         \toprule
-        Model    & ACC    & AUC    \\
+        Model    & ACC             & AUC             \\
         \midrule
-        CF       & 0.6329 & 0.6627 \\
-        DKT      & 0.7324 & 0.7763 \\
+        CF       & 0.6329          & 0.6627          \\
+        DKT      & 0.7324          & 0.7763          \\
         \midrule
-        Proposed & 0.7989 & 0.7996 \\
+        Proposed & \textbf{0.7989} & \textbf{0.7996} \\
         \bottomrule
     \end{tabular}
 \end{table}

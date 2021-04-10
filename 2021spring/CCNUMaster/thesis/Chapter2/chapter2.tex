@@ -335,7 +335,7 @@ Through manual labeling, the real knowledge point labels of the exercises can be
 
 \section{Experiments}
 %本章提出了一个习题知识点多标签标注的模型，在本节中，先对数据集进行了介绍，接着介绍了一些Baseline性能的模型，然后结合多标签标注提出了对比的性能指标评估方案，最后给出对比结果和分析。This chapter proposes a multi-label labeling model for exercise knowledge points. 
-This section first introduces, preprocess, and analysis the dataset then introduces some baseline performance models, followed by the introduction of multi-label labeling metrics. Finally, comparison results and analysis are given.
+This section first introduces, preprocess, and analysis the dataset, then introduces some baseline performance models, followed by the introduction of multi-label labeling metrics. Finally, comparison results and analysis are given.
 \subsection{Dataset}
 %本文中的实验数据来自于在线网站tiku.21cnjy.com的带标签的高考数学考题以及模拟题（包含答案解析），通过爬虫爬取题干、答案解析等文本语料。其部分知识点关联模型可以表示为如下图结构。该数据集经过过滤和人工选择，共3374道试题，包含148个知识点，题均知识点为1.7个，其知识点分布如图所示。
 The experimental data are the labeled math examination questions and practicing exercises (including answer analysis) fetched from the online exercise website ``tiku.21cnjy.com''. The text corpus, such as exercise texts and answer analysis, are crawled through web crawlers. The raw data are roughly classified text records that contain a lot of repetitive redundancy and error information, so a data preprocessing process is needed to filter out the appropriate data. The knowledge graph of the original dataset is shown in the \figname{\ref{fig:ch2-model-knowledgenet}}.
