@@ -312,7 +312,7 @@ This model adopts the GCN structure because the parameter sharing of GCN for eac
 
 %在所提出的基于GCN的模型中，知识点标签用词嵌入来表示。知识点集 \(K={k_1,k_2,\ldots,k_T} \)，其中 \(T\)为知识点的总数。对于每一个单个知识点来说\(k_i\)，\(k_i \in mathbb{R}^{Ttimes d^{(k)}})，\(d^{(k)})是知识点对象的嵌入向量的维度。本文采用可学习的堆栈式GCN网络将这些知识点对象逐一转化为内部连接的知识点对象分类器\(C=[c_1,c_2,\ldots,c_n]\)，其中\(c_iin\mathbb {R}^{Ttimes d^{(r)}}\)，\(d^{(r)}\)是文本挖掘模块输出的文本表示向量\(r\)的维度。这些分类器和\(r\)可以用来计算每个标签的点积。
 
-In this thesis, a learnable stacked GCN-based model is proposed. The knowledge point labels are represented by knowledge label word embedding. Knowledge point set \(K=\{k_1,k_2,\ldots,k_{N^{(k)}}\} \), where \(N^{(k)}\) denotes the amount of knowledge points. For each single knowledge point \(k_i\), it is constrained that \(k_i \in \mathbb{R}^ {d^{(k)}}\), in which \(d^{(k)}\) is the dimensionality of the embedding vector of knowledge point object. The knowledge label word embedding set is the input of GCN, i.e., \(X = K\). The GCN is used to transform these knowledge point objects one by one into an internally connected knowledge point object classifier \(C=[c_1,c_2,\ldots,c_{N^{(k)}}\), where \(c_i \in \mathbb {R}^{d^{(r)}}\), \(d^{(r)}\) is the dimensionality of the text representation vector \(r\) output by the text mining module. These classifiers and \(r\) can be used to calculate the dot product of each label. The structure overview is proposed in \figname{\ref{fig:ch2-gcn-clsgen}}.
+In this thesis, a learnable stacked GCN-based model for knowledge relation representation is proposed. The knowledge point labels are represented by knowledge label word embedding. Knowledge point set \(K=\{k_1,k_2,\ldots,k_{N^{(k)}}\} \), where \(N^{(k)}\) denotes the amount of knowledge points. For each single knowledge point \(k_i\), it is constrained that \(k_i \in \mathbb{R}^ {d^{(k)}}\), in which \(d^{(k)}\) is the dimensionality of the embedding vector of knowledge point object. The knowledge label word embedding set is the input of GCN, i.e., \(X = K\). The GCN is used to transform these knowledge point objects one by one into an internally connected knowledge point object classifier \(C=[c_1,c_2,\ldots,c_{N^{(k)}}\), where \(c_i \in \mathbb {R}^{d^{(r)}}\), \(d^{(r)}\) is the dimensionality of the text representation vector \(r\) output by the text mining module. These classifiers and \(r\) can be used to calculate the dot product of each label. The structure overview is proposed in \figname{\ref{fig:ch2-gcn-clsgen}}.
 
 \begin{figure}[htbp!]
     \centering
@@ -334,11 +334,11 @@ Through manual labeling, the real knowledge point labels of the exercises can be
 \end{align}
 
 \section{Experiments}
-%本章提出了一个习题知识点多标签标注的模型，在本节中，先对数据集进行了介绍，接着介绍了一些Baseline性能的模型，然后结合多标签标注提出了对比的性能指标评估方案，最后给出对比结果和分析。
-This chapter proposes a multi-label labeling model for exercise knowledge points. This section first introduces the data set, then introduces some baseline performance models, and then combines the multi-label labeling to propose a comparative performance indicator evaluation plan. Finally,  comparison results and analysis are given.
+%本章提出了一个习题知识点多标签标注的模型，在本节中，先对数据集进行了介绍，接着介绍了一些Baseline性能的模型，然后结合多标签标注提出了对比的性能指标评估方案，最后给出对比结果和分析。This chapter proposes a multi-label labeling model for exercise knowledge points. 
+This section first introduces, preprocess and analysis the dataset, then introduces some baseline performance models, followed by introduction of multi-label labeling metrics. Finally, comparison results and analysis are given.
 \subsection{Dataset}
 %本文中的实验数据来自于在线网站tiku.21cnjy.com的带标签的高考数学考题以及模拟题（包含答案解析），通过爬虫爬取题干、答案解析等文本语料。其部分知识点关联模型可以表示为如下图结构。该数据集经过过滤和人工选择，共3374道试题，包含148个知识点，题均知识点为1.7个，其知识点分布如图所示。
-The experimental data are the labeled math examination questions and practicing exercises (including answer analysis) fetched from the online exercise website tiku.21cnjy.com. The text corpus, such as exercise texts and answer analysis, are crawled through web crawlers. The raw data are roughly classified text records that contain a lot of repetitive redundancy and error information, so a data preprocessing process is needed to filter out the appropriate data. The knowledge graph of the original dataset is shown in the \figname{\ref{fig:ch2-model-knowledgenet}}.
+The experimental data are the labeled math examination questions and practicing exercises (including answer analysis) fetched from the online exercise website ``tiku.21cnjy.com''. The text corpus, such as exercise texts and answer analysis, are crawled through web crawlers. The raw data are roughly classified text records that contain a lot of repetitive redundancy and error information, so a data preprocessing process is needed to filter out the appropriate data. The knowledge graph of the original dataset is shown in the \figname{\ref{fig:ch2-model-knowledgenet}}.
 \begin{figure}[htbp!]
     \centering
     \includegraphics[width=1.0\textwidth]{ch2-model-knowledgenet.pdf}
@@ -673,9 +673,9 @@ In the exercise recommendation system, there are a large number of exercises wit
 
 The contributions of this chapter are as follows:
 \begin{enumerate}
-    \item The relationship between knowledge points is modeled by a graph neural network, which can dig out the hidden knowledge point labels in the original text and provide the existing model with the latent knowledge point reasoning capability.
-    \item By designing the correlation function between the knowledge points, the dependence between the knowledge points is modeled based on knowledge points' co-existence.
-    \item Verified that the small size of the training sample may cause overfitting in training the multi-label classification model, resulting in performance degradation.
+    \item The relationship between knowledge points is modeled by a graph neural network, which can expose the hidden knowledge point labels in the original text and provide the existing model with the latent knowledge point reasoning capability.
+    \item By designing the correlation function between the knowledge points, the dependence between the knowledge points is modeled based on knowledge points' co-existence in the same exercise.
+    \item The proposed model achieved better performance than baseline models in multi knowledge labelling task.
 \end{enumerate}
 
 The labeling of exercise knowledge points is the first step of the recommendation system. The labeled exercises can be used as the input of the knowledge tracing model to track students' knowledge state and can also be used as the recommendation system's input feature to recommend exercises based on knowledge points.

@@ -495,10 +495,10 @@ In this section, an improved GKVMN model based on DKVMN is proposed, which adds 
 
 The main contributions of this section are as follows.
 \begin{enumerate}
-    \item the graph structure is used to characterize the relationship between the potential concepts of the exercises, taking into account the impact of the increase in mastery of the relevant knowledge points on the overall knowledge mastery. A graph propagation calculation is used to characterize the change in mastery of the relevant knowledge points.
+    \item the graph structure is used to characterize the relationship between the potential concepts of the exercises, taking into account the impact of the increase in mastery of the relevant knowledge points on the overall knowledge mastery. A graph propagation calculation is used to characterize the change in the mastery of the relevant knowledge points.
     \item additional student characteristics are introduced as inputs to the model, which adds more predictors to the model and takes into account the impact of various situations on the final correctness of the answers.
     \item the knowledge mastery proficiency of the model can be output explicitly, which improves the interpretability of the model.
 \end{enumerate}
 
 %在实验阶段，首先对原始数据集进行数据清洗、格式转换，然后对数据集进行特征相关性分析，目标-特征相关性分析，选取最佳的学生答题特征作为额外的输入特征。然后与一系列baseline知识追踪模型进行性能对比。实验显示，提出的模型在各项指标上都优于基线模型。
-In the experimental phase, the original dataset is first cleaned and formatted with data, and then the dataset is then analyzed with feature correlation analysis and target-feature correlation analysis to select the best student answer features as additional input features. Then the performance is compared with a series of baseline knowledge tracing models. The experiments show that the proposed model outperforms the baseline model in all metrics.
+In the experimental phase, the original dataset is first cleaned and formatted with data preprocessing methods. Then the dataset is analyzed with feature correlation analysis and target-feature correlation analysis to select the best student answer features as additional input features. Finally, the performance is compared with a series of baseline knowledge tracing models. The experiments show that the proposed model outperforms the baseline model in all metrics.
