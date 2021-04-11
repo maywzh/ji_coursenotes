@@ -19,7 +19,7 @@ class UTMTI(nn.Module):
 
     def forward(self, in_exercise, in_category, in_response, in_etime):
         first_block = True
-        exercies_ids = in_exercise
+        exercise_ids = in_exercise
         categories = in_category
         for n in range(self.n_encoder):
             if n >= 1:
@@ -34,10 +34,10 @@ class UTMTI(nn.Module):
         for n in range(self.n_decoder):
             if n >= 1:
                 first_block = False
-            dec = self.decoder[n](exercies_ids, encoder_output=in_exercise,
+            dec = self.decoder[n](exercise_ids, encoder_output=in_exercise,
                                   category=categories, first_block=first_block)
             in_exercise = dec
-            exercies_ids = dec
+            exercise_ids = dec
 
         return torch.sigmoid(self.fc(dec))
 
