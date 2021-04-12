@@ -13,7 +13,7 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--gpu', type=int, default=-1,
                         help='the gpu will be used, e.g "0,1,2,3"')
-    parser.add_argument('--max_iter', type=int, default=300,
+    parser.add_argument('--max_iter', type=int, default=200,
                         help='number of iterations')
     parser.add_argument('--decay_epoch', type=int,
                         default=20, help='number of iterations')
@@ -157,15 +157,19 @@ def main():
         if valid_auc > best_valid_auc:
             print('%3.4f to %3.4f' % (best_valid_auc, valid_auc))
             best_valid_auc = valid_auc
-    #         best_epoch = idx+1
-    #         best_valid_acc = valid_accuracy
-    #         best_valid_loss = valid_loss
-            # test_loss, test_accuracy, test_auc = test(model, params, optimizer, test_q_data, test_qa_data)
-            # print("test_auc: %.4f\ttest_accuracy: %.4f\ttest_loss: %.4f\t" % (test_auc, test_accuracy, test_loss))
+            best_epoch = idx+1
+            best_valid_acc = valid_accuracy
+            best_valid_loss = valid_loss
+            test_loss, test_accuracy, test_auc = test(
+                model, params, optimizer, test_q_data, test_qa_data)
+            print("test_auc: %.4f\ttest_accuracy: %.4f\ttest_loss: %.4f\t" %
+                  (test_auc, test_accuracy, test_loss))
 
-    # print("best outcome: best epoch: %.4f" % (best_epoch))
-    # print("valid_auc: %.4f\tvalid_accuracy: %.4f\tvalid_loss: %.4f\t" % (best_valid_auc, best_valid_acc, best_valid_loss))
-    # print("test_auc: %.4f\ttest_accuracy: %.4f\ttest_loss: %.4f\t" % (test_auc, test_accuracy, test_loss))
+    print("best outcome: best epoch: %.4f" % (best_epoch))
+    print("valid_auc: %.4f\tvalid_accuracy: %.4f\tvalid_loss: %.4f\t" %
+          (best_valid_auc, best_valid_acc, best_valid_loss))
+    print("test_auc: %.4f\ttest_accuracy: %.4f\ttest_loss: %.4f\t" %
+          (test_auc, test_accuracy, test_loss))
 
 
 if __name__ == "__main__":

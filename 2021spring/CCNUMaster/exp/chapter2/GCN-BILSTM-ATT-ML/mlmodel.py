@@ -26,10 +26,10 @@ dev_size = int(train_df.shape[0] * 0.10)
 max_length = 64
 hidden_size = 64
 batch_size = 32
-n_epochs = 4
+n_epochs = 15
 embed_size = 64
 lr = 0.001
-model_path = "BiLSTM_attention_BiRel.pt"
+model_path = "mlGCN.pt"
 use_gpu = True
 num_labels = 7
 tokenizer = PreTrainedTokenizerFast.from_pretrained('hfl/chinese-bert-wwm')
@@ -136,70 +136,21 @@ class Attention(nn.Module):
         return torch.sum(weighted_input, 1), torch.unsqueeze(a, -1)
 
 
-class BiLSTMWithAttention(nn.Module):
-    """the BiLSTM model refer to the image above to understand the structure of the model"""
-
-    def __init__(self, hidden_size, embed_size, max_features, num_classes, max_length):
-        super().__init__()
-        self.embedding = nn.Embedding(max_features, embed_size)
-        self.lstm1 = nn.LSTM(embed_size, hidden_size,
-                             bidirectional=True, batch_first=True)
-
-        self.lstm2 = nn.LSTM(hidden_size * 2, hidden_size,
-                             bidirectional=True, batch_first=True)
-
-        self.lstm_attention = Attention(hidden_size * 2)
-
-        self.linear1 = nn.Linear(hidden_size*6, hidden_size*6)
-        self.linear2 = nn.Linear(hidden_size*6, hidden_size*6)
-
-        self.linear_out = nn.Linear(hidden_size*6, 1)
-        self.linear_aux_out = nn.Linear(hidden_size*6, num_classes)
-
-    def forward(self, x, step_len):
-        h_embedding = self.embedding(x)
-        h_lstm1, _ = self.lstm1(h_embedding)
-        h_lstm2, _ = self.lstm2(h_lstm1)
-        # Attention layer
-        h_lstm_atten, weights = self.lstm_attention(h_lstm2, max_length)
-        # global average pooling
-        avg_pool = torch.mean(h_lstm2, 1)
-        # global max pooling
-        max_pool, _ = torch.max(h_lstm2, 1)
-        h_conc = torch.cat((h_lstm_atten, max_pool, avg_pool), 1)
-        h_conc_linear1 = F.relu(self.linear1(h_conc))
-        h_conc_linear2 = F.relu(self.linear2(h_conc))
-
-        hidden = h_conc + h_conc_linear1 + h_conc_linear2
-        result = self.linear_out(hidden)
-        aux_result = self.linear_aux_out(hidden)
-#         out = torch.cat([result, aux_result], 1)
-#         print(f"out : {out.shape}")
-#         return out, weights
-        return aux_result, weights
-
-
 class GraphConvolution(nn.Module):
     """
     Simple GCN layer, similar to https://arxiv.org/abs/1609.02907
     """
 
-    def __init__(self, in_features, out_features, adj, bias=False):
+    def __init__(self, in_features, out_features, bias=False):
         super(GraphConvolution, self).__init__()
         self.in_features = in_features
         self.out_features = out_features
         self.weight = Parameter(torch.Tensor(in_features, out_features))
-        # self.embed_size = embed_size
-        # self.max_features= max_features
-        # self.embedding = nn.Embedding(max_features, embed_size)
         if bias:
             self.bias = Parameter(torch.Tensor(1, 1, out_features))
         else:
             self.register_parameter('bias', None)
         self.reset_parameters()
-        self.adj = adj
-        # self.fc1 = nn.Linear(in_features, out_features)
-        # self.fc2 = nn.Linear(out_features, out_features)
 
     def reset_parameters(self):
         stdv = 1. / math.sqrt(self.weight.size(1))
@@ -207,9 +158,9 @@ class GraphConvolution(nn.Module):
         if self.bias is not None:
             self.bias.data.uniform_(-stdv, stdv)
 
-    def forward(self, input):
+    def forward(self, input, adj):
         support = torch.matmul(input, self.weight)
-        output = torch.matmul(self.adj, support)
+        output = torch.matmul(adj, support)
         if self.bias is not None:
             return output + self.bias
         else:
@@ -222,50 +173,6 @@ class GraphConvolution(nn.Module):
 
 
 class Model(nn.Module):
-    """the BiLSTM model refer to the image above to understand the structure of the model"""
-
-    def __init__(self, hidden_size, embed_size, max_features, num_classes, max_length, emb_labels):
-        super().__init__()
-        self.embedding = nn.Embedding(max_features, embed_size)
-        self.lstm1 = nn.LSTM(embed_size, hidden_size,
-                             bidirectional=True, batch_first=True)
-
-        self.lstm2 = nn.LSTM(hidden_size * 2, hidden_size,
-                             bidirectional=True, batch_first=True)
-
-        self.lstm_attention = Attention(hidden_size * 2)
-
-        self.linear1 = nn.Linear(hidden_size*6, hidden_size*6)
-        self.linear2 = nn.Linear(hidden_size*6, hidden_size*6)
-
-        self.linear_out = nn.Linear(hidden_size*6, 1)
-        self.linear_aux_out = nn.Linear(hidden_size*6, num_classes)
-        self.emb_labels = emb_labels
-
-    def forward(self, x, step_len):
-        h_embedding = self.embedding(x)
-        h_lstm1, _ = self.lstm1(h_embedding)
-        h_lstm2, _ = self.lstm2(h_lstm1)
-        # Attention layer
-        h_lstm_atten, weights = self.lstm_attention(h_lstm2, max_length)
-        # global average pooling
-        avg_pool = torch.mean(h_lstm2, 1)
-        # global max pooling
-        max_pool, _ = torch.max(h_lstm2, 1)
-        h_conc = torch.cat((h_lstm_atten, max_pool, avg_pool), 1)
-        h_conc_linear1 = F.relu(self.linear1(h_conc))
-        h_conc_linear2 = F.relu(self.linear2(h_conc))
-
-        hidden = h_conc + h_conc_linear1 + h_conc_linear2
-        result = self.linear_out(hidden)
-        aux_result = self.linear_aux_out(hidden)
-#         out = torch.cat([result, aux_result], 1)
-#         print(f"out : {out.shape}")
-#         return out, weights
-        return aux_result, weights
-
-
-class Model2(nn.Module):
     def __init__(self, hidden_size, embed_size, max_features, num_classes, max_length, emb_labels):
         super().__init__()
         self.embedding = nn.Embedding(max_features, embed_size)
@@ -284,8 +191,10 @@ class Model2(nn.Module):
         self.linear2 = nn.Linear(hidden_size * 6, hidden_size * 6)
         self.linear_out = nn.Linear(hidden_size * 6, 1)
         self.linear_aux_out = nn.Linear(hidden_size * 6, num_classes)
-        self.graph = GraphConvolution(max_length, hidden_size*6, adj)
         self.predict = nn.Linear(num_classes, num_classes)
+        self.gc1 = GraphConvolution(hidden_size * 6, hidden_size * 6)
+        self.gc2 = GraphConvolution(hidden_size * 6, hidden_size * 6)
+        self.relu = nn.LeakyReLU(0.2)
         self.emb_labels = emb_labels
 
     def forward(self, x, step_len):
@@ -333,21 +242,25 @@ class Model2(nn.Module):
 #         print(f"h_conc_linear1 : {h_conc_linear1.shape}")
         l_conc_linear2 = F.relu(self.linear2(l_conc))
 #         print(f"h_conc_linear2 : {h_conc_linear2.shape}")
-
         hidden = h_conc + h_conc_linear1 + h_conc_linear2
         l_hidden = l_conc + l_conc_linear1 + l_conc_linear2
         result = self.linear_out(hidden)
 #         print(f"result : {result.shape}")
-        # aux_result = self.linear_aux_out(hidden)
+        #aux_result = self.linear_aux_out(hidden)
         norm_hidden = hidden / hidden.norm(dim=-1, keepdim=True)
         norm_lhidden = l_hidden / l_hidden.norm(dim=-1, keepdim=True)
+
+        x = self.gc1(norm_lhidden, adj)
+        x = self.relu(x)
+        x = self.gc2(x, adj)
+
 #         label_rep = self.graph(self.emb_labels)
-        aux_result = torch.matmul(norm_hidden, norm_lhidden.transpose(0, 1))
+        aux_result = torch.matmul(norm_hidden, x.transpose(0, 1))
 #         print(f"aux_result : {aux_result.shape}")
 #         out = torch.cat([result, aux_result], 1)
 #         print(f"out : {out.shape}")
 #         return out, weights
-        # aux_result = F.relu(self.predict(aux_result))
+        #aux_result = F.leaky_relu(self.predict(aux_result))
         return aux_result, weights
 
 
@@ -378,7 +291,7 @@ def train_model(models, loss_fn, lr=lr, batch_size=batch_size, n_epochs=n_epochs
                 y_batch = data[-1][:, model_index].unsqueeze(1)
 
                 y_pred, _ = models[target_label]['model'](*x_batch, max_length)
-                print(model_index)
+                # print(model_index)
                 loss = nn.BCEWithLogitsLoss()(y_pred, y_batch)
                 models[target_label]['optimizer'].zero_grad()
                 loss.backward()
@@ -504,7 +417,6 @@ for col in cols_target:
                                  num_classes=1,
                                  max_length=max_length, emb_labels=labels_bemb)
 models_single_file = torch.load(model_path)
-model_path
 # putting each model into its corresponding key in the dictionary, and load them into the GPU
 for col in cols_target:
     models[col]['model'].load_state_dict(models_single_file[col])

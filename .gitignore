@@ -530,7 +530,7 @@ GitHub.sublime-settings
 
 *__latexindent_temp*.tex
 
-2021spring/CSCI991/thesis/thesis.pdf`
+2021spring/CSCI991/thesis/thesis.pdf
 2021spring/CSCI991/presentation/presentation.pdf
 2021spring/CCNUMaster/thesis/thesis.pdf
 2021spring/CCNUMaster/presentation/presentation.pdf
@@ -544,3 +544,6 @@ GitHub.sublime-settings
 **/pretrained_model/*
 **/.idea/*
 *.pt
+*.npy
+**/.virtual_documents
+**/checkpoints
