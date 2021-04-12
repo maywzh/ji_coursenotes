@@ -545,3 +545,4 @@ GitHub.sublime-settings
 **/.idea/*
 *.pt
 *.npy
+**/.virtual_documents
