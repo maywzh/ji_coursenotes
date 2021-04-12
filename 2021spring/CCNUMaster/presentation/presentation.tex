@@ -1,27 +1,6 @@
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Beamer Presentation
-% LaTeX Template
-% Version 1.0 (10/11/12)
-%
-% This template has been downloaded from:
-% http://www.LaTeXTemplates.com
-%
-% License:
-% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
-%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%----------------------------------------------------------------------------------------
-%	PACKAGES AND THEMES
-%----------------------------------------------------------------------------------------
-
 \documentclass{beamer}
 
 \mode<presentation> {
-
-% The Beamer class comes with a number of default slide themes
-% which change the colors and layouts of slides. Below this is a list
-% of all the themes, uncomment each in turn to see what they look like.
 
 \usetheme{default}
 %\usetheme{AnnArbor}
@@ -51,16 +30,12 @@
 %\usetheme{Szeged}
 %\usetheme{Warsaw}
 
-% As well as themes, the Beamer class has a number of color themes
-% for any slide theme. Uncomment each of these, in turn, to see how it
-% changes the colors of your current slide theme.
-
 %\usecolortheme{albatross}
 %\usecolortheme{beaver}
 %\usecolortheme{beetle}
 %\usecolortheme{crane}
 %\usecolortheme{dolphin}
-\usecolortheme{dove}
+%\usecolortheme{dove}
 %\usecolortheme{fly}
 %\usecolortheme{lily}
 %\usecolortheme{orchid}
@@ -69,6 +44,7 @@
 %\usecolortheme{seahorse}
 %\usecolortheme{whale}
 %\usecolortheme{wolverine}
+%\usecolortheme{structure}
 
 %\setbeamertemplate{footline} % To remove the footer line in all slides uncomment this line
 %\setbeamertemplate{footline}[page number] % To replace the footer line in all slides with a simple slide count uncomment this line
@@ -79,10 +55,83 @@
 \usepackage{bibentry}
 \usepackage{graphicx} % Allows including images
 \usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+\usepackage{url}
 
 \setmainfont{ArialMT}
 %\setbeamertemplate{frametitle}[default][center]
 
+% 加导航条
+%\useoutertheme[width=3\baselineskip,right]{sidebar}
+% 目录标数字
+\setbeamertemplate{section in toc}[sections numbered] 
+% 无序列表用实心点
+\setbeamertemplate{itemize item}{\(\bullet \)}
+% 设置每页标题格式
+% \setbeamertemplate{frametitle}
+%   {\vspace{-0.5cm}
+%    \insertframetitle
+%    \vspace{-0.5cm}}
+% 去掉下面没用的导航条
+%\setbeamertemplate{navigation symbols}{}
+% 设置页脚格式
+% \makeatother
+% \setbeamertemplate{footline}
+% {
+%   \leavevmode%
+%   \hbox{%
+%   \begin{beamercolorbox}[wd=.4\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}%
+%     \usebeamerfont{author in head/foot}\insertshortauthor
+%   \end{beamercolorbox}
+
+%   \begin{beamercolorbox}[wd=.6\paperwidth,ht=2.25ex,dp=1ex,center]{title in head/foot}%
+%     \usebeamerfont{title in head/foot}\insertshorttitle\hspace*{13em}
+%     \insertframenumber{} / \inserttotalframenumber\hspace*{0ex}
+%   \end{beamercolorbox}}
+
+%   \vskip0pt%
+% }
+% \makeatletter
+
+% 定义颜色
+\definecolor{alizarin}{rgb}{0.82, 0.1, 0.26} % 红色
+%\definecolor{DarkFern}{HTML}{407428} % 绿色
+%\colorlet{main}{DarkFern!100!white} % 第一种设置方法
+\colorlet{main}{red!70!black} % 第二种设置方法
+\definecolor{bistre}{rgb}{0.24, 0.17, 0.12} % 黑色
+\definecolor{mygrey}{rgb}{0.52, 0.52, 0.51} % 灰色
+%\colorlet{main}{green!50!black}
+\colorlet{text}{bistre!100!white}
+
+% 不同元素指定不同颜色，fg是本身颜色，bg是背景颜色，!num!改变数值提供渐变色
+\setbeamercolor{title}{fg=main}
+\setbeamercolor{frametitle}{fg=main}
+\setbeamercolor{section in toc}{fg=text}
+\setbeamercolor{normal text}{fg=text}
+\setbeamercolor{block title}{fg=main,bg=mygrey!14!white}
+\setbeamercolor{block body}{fg=black,bg=mygrey!10!white}
+%\setbeamercolor{block body}{fg=text}
+\setbeamercolor{qed symbol}{fg=main} % 证明结束后的框颜色
+\setbeamercolor{math text}{fg=black}
+% 设置页脚对应位置颜色
+% \setbeamercolor{author in head/foot}{fg=black, bg=mygrey!5!white}
+% \setbeamercolor{title in head/foot}{fg=black, bg=mygrey!5!white}
+\setbeamercolor{structure}{fg=main, bg=mygrey!10!white} % 设置sidebar颜色
+
+% 左右页间距的排版
+% \def\swidth{2.3cm}
+% \setbeamersize{sidebar width right=\swidth}
+% \setbeamersize{sidebar width left=\swidth}
+% \setbeamerfont{title in sidebar}{size=\scriptsize}
+% \setbeamerfont{section in sidebar}{size=\tiny}
+
+% \setbeamertemplate{frametitle}
+% {\begin{beamercolorbox}[wd=\paperwidth]{frametitle}
+%       \strut\hspace{0.5em}\insertframetitle\strut
+%       \hfill
+%       \raisebox{-2mm}{\includegraphics[width=1cm]{figures/JI-logo.png}}
+%     \end{beamercolorbox}
+% }
+\setbeamertemplate{bibliography item}[text] %参考文献图标改普通
 %----------------------------------------------------------------------------------------
 %	TITLE PAGE
 %----------------------------------------------------------------------------------------
@@ -101,7 +150,7 @@ University of Wollongong \\ % Your institution for the title page
 \begin{document}
 
 \begin{frame}
-  \titlepage % Print the title page as the first slide
+  \titlepage\ % Print the title page as the first slide
 \end{frame}
 
 \begin{frame}
@@ -114,181 +163,392 @@ University of Wollongong \\ % Your institution for the title page
 %----------------------------------------------------------------------------------------
 
 %------------------------------------------------
-\section{Introduction} % Sections can be created in order to organize your presentation into discrete blocks, all sections and subsecti ons are automatically printed in the table of contents as an overview of the talk
+\section{Introduction}
 %------------------------------------------------
-
-\subsection{Research Topic}
+\subsection{Research Background}
 \begin{frame}
-  \frametitle{Background}
+  \frametitle{Research Background}
   \begin{itemize}
     \item Knowledge State Monitoring
     \item Learning Resource Recommendation
-    \item High School Math
+    \item High School Math (Chinese)
   \end{itemize}
 \end{frame}
 
 %------------------------------------------------
+\subsection{Existing Problems}
 \begin{frame}
-  \frametitle{Problems}
-  \begin{itemize}
-    \item Disorganized exercise corpus lacking knowledge tags
-    \item Hard to evaluate the knowledge mastery status
-    \item Difficult to find appropriate exercise for improving knowledge mastery
-  \end{itemize}
+  \frametitle{Existing Problems}
+  \begin{description}
+    \item[Inappropriate Recommendation] Exercise recommendation is not based on knowledge mastery
+    \item[Disorganized exercise] Labelling knowledge for exercises lacking knowledge tags
+    \item[Knowledge evaluation] The difficulty for obtaining knowledge mastery proficiency of the student
+    \item[Exercise recommendation] How to recommend appropriate exercises according to their knowledge status
+  \end{description}
 \end{frame}
 %------------------------------------------------
+\subsection{Research Cores}
 \begin{frame}
-  \frametitle{Core of Research}
-  \begin{block}{Exercise Labelling}
-
+  \frametitle{Research Cores}
+  \begin{block}{Exercise knowledge labeling}
+    A multi-knowledge point labeling algorithm for high school mathematics exercises based on bidirectional LSTM (Bi-LSTM)~\cite{chen2017improving} and graph convolutional neural network (GCN)~\cite{kipf2016semi}.
   \end{block}
-  \begin{block}{}
-    Hard to evaluate the knowledge mastery status
+  \begin{block}{Knowledge tracing}
+    A knowledge tracing model based on Transformer~\cite{vaswani2017attention} architecture with graph attention network embedding.
   \end{block}
-  \begin{block}{}
-    Difficult to find appropriate exercise for improving knowledge mastery
+  \begin{block}{Exercise recommendation}
+    A mathematical exercise recommendation model based on Matching-Ranking~\cite{segev2009context} algorithm.
   \end{block}
-  \begin{alertblock}{aaaa}
-    sdfsdfsad
-  \end{alertblock}
 \end{frame}
 %------------------------------------------------
-\subsection{Research Content}
+\section{Proposed Model}
+%------------------------------------------------
+\subsection{Exercise Knowledge Labelling}
 \begin{frame}
-  \frametitle{Knowledge Tagging}
+  \frametitle{Exercise Knowledge Labelling}
+  \framesubtitle{Architecture}
   \begin{figure}
-    \includegraphics[width=1.0\textwidth]{figures/atari.png}
+    \includegraphics[height=0.8\textheight]{figures/ch2-model-architecture.pdf}
+    \caption{Model architecture}\label{fig:ch2-archi}
+  \end{figure}
+\end{frame}
+
+% \begin{frame}
+%   \frametitle{Exercise Knowledge Labelling}
+%   \framesubtitle{Details}
+%   \begin{columns}[c] % The "c" option specifies centered vertical alignment while the "t" option is used for top vertical alignment
+%     \column{.45\textwidth} % Left column and width
+%     \textbf{Modules}
+%     \begin{enumerate}
+%       \item \textbf{BERT~\cite{devlin2019bert} Embedding Layer}
+%       \item Attentional Bi-LSTM Text Representation
+%       \item GCN-based Classifiers
+%     \end{enumerate}
+%     \column{.5\textwidth} % Right column and width
+%     \begin{figure}
+%       \includegraphics[width=1.0\textwidth]{figures/ch2-bert-model.pdf}
+%     \end{figure}
+%   \end{columns}
+%   Thanks for opensource pre-trained Chinese language models from Cui et.al.~\cite{wwmbertgithub,chinese-bert-wwm}.
+% \end{frame}
+
+% \begin{frame}
+%   \frametitle{Exercise Knowledge Labelling}
+%   \framesubtitle{Details}
+%   \begin{columns}[c] % The "c" option specifies centered vertical alignment while the "t" option is used for top vertical alignment
+%     \column{.45\textwidth} % Left column and width
+%     \textbf{Modules}
+%     \begin{enumerate}
+%       \item BERT~\cite{devlin2019bert} Embedding Layer
+%       \item \textbf{Attentional Bi-LSTM Text Representation}
+%       \item GCN-based Classifiers
+%     \end{enumerate}
+%     \column{.5\textwidth} % Right column and width
+%     \begin{figure}
+%       \includegraphics[width=1.0\textwidth]{figures/ch2-model-bilstm.pdf}
+%     \end{figure}
+%   \end{columns}
+% \end{frame}
+
+% \begin{frame}
+%   \frametitle{Exercise Knowledge Labelling}
+%   \framesubtitle{Details}
+%   \begin{columns}[c] % The "c" option specifies centered vertical alignment while the "t" option is used for top vertical alignment
+%     \column{.45\textwidth} % Left column and width
+%     \textbf{Modules}
+%     \begin{enumerate}
+%       \item BERT~\cite{devlin2019bert} Embedding Layer
+%       \item Attentional Bi-LSTM Text Representation
+%       \item \textbf{GCN-based Classifiers}
+%     \end{enumerate}
+%     \column{.5\textwidth} % Right column and width
+%     \begin{figure}
+%       \includegraphics[width=1.0\textwidth]{figures/ch2-gcn-ov.pdf}
+%     \end{figure}
+%   \end{columns}
+% \end{frame}
+
+%------------------------------------------------
+\subsection{Knowledge Tracing}
+
+\begin{frame}
+  \frametitle{Knowledge Tracing}
+  \framesubtitle{Problem}
+  \begin{figure}
+    \includegraphics[width=1.0\textwidth]{figures/ch3-model-ktdes.pdf}
+  \end{figure}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Knowledge Tracing}
+  \framesubtitle{Detail}
+  \begin{figure}
+    \includegraphics[width=0.9\textwidth]{figures/ch3-gat-kq.pdf}
+
+  \end{figure}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Knowledge Tracing}
+  \framesubtitle{Detail}
+  \begin{figure}
+    \includegraphics[width=0.9\textwidth]{figures/ch3-gat.pdf}
+
+  \end{figure}
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Knowledge Tracing}
+  \framesubtitle{Architecture}
+  \begin{figure}
+    \includegraphics[height=0.7\textheight]{figures/ch3-ov.pdf}
+  \end{figure}
+\end{frame}
+
+
+
+% \begin{frame}
+%   \frametitle{Knowledge Tracing}
+%   \framesubtitle{Detail}
+
+% \end{frame}
+
+
+\subsection{Exercise Recommendation}
+\begin{frame}
+  \frametitle{Exercise Recommendation}
+  \framesubtitle{Architecture}
+  \begin{figure}
+    \includegraphics[width=0.9\textwidth]{figures/ch4-ov.pdf}
+    \caption{Recommendation Architecture}
+  \end{figure}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Exercise Recommendation}
+  \framesubtitle{Detail}
+  \begin{figure}
+    \includegraphics[height=0.7\textheight]{figures/ch4-matching.pdf}
+    \caption{Matching Phase}
+  \end{figure}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Exercise Recommendation}
+  \framesubtitle{Detail}
+  \begin{figure}
+    \includegraphics[width=0.9\textwidth]{figures/ch4-ranking.pdf}
+    \caption{Ranking Phase}
   \end{figure}
 \end{frame}
 
 %------------------------------------------------
-
+\section{Experiment Design}
+\subsection{Exercise Knowledge Labelling}
 \begin{frame}
-  \frametitle{Knowledge Tracing}
-
-\end{frame}
-
-%------------------------------------------------
-
-\begin{frame}
-  \frametitle{Exercise Recommendation}
-  \begin{block}{Block 1}
-    content
-  \end{block}
-
-  \begin{block}{Block 2}
-    content
-  \end{block}
-
-  \begin{block}{Block 3}
-    content
-  \end{block}
-\end{frame}
-
-%------------------------------------------------
-\section{Proposed Model}
-%------------------------------------------------
-\begin{frame}
-  \
-\end{frame}
-
-
-
-
-\begin{frame}
-  \frametitle{Exercise Knowledge Tagging}
-  \begin{columns}[c] % The "c" option specifies centered vertical alignment while the "t" option is used for top vertical alignment
-
-    \column{.45\textwidth} % Left column and width
-    \textbf{Heading}
-    \begin{enumerate}
-      \item Statement
-      \item Explanation
-      \item Example Table~\ref{tbl:t1}
-    \end{enumerate}
-
-    \column{.5\textwidth} % Right column and width
-
-
-  \end{columns}
-\end{frame}
-
-%------------------------------------------------
-\begin{frame}
-  \frametitle{Table}
-  \begin{table}
-    \caption{Table caption}\label{tbl:t1}
-    \begin{tabular}{l l l}
+  \frametitle{Experiment Design}
+  \framesubtitle{Exercise Knowledge Labelling}
+  \begin{itemize}
+    \item Compared with several baseline models
+    \item The number of occurrences of the knowledge point label \(\tau^{(KP)} \)
+  \end{itemize}
+  \begin{table}[htbp!]
+    \centering
+    \caption{Setting of Experiment}\label{tbl:ch2-ex1}
+    \begin{tabular}{cccc}%{cp{2cm}<{\centering}p{2cm}<{\centering}p{2cm}<{\centering}}
       \toprule
-      \textbf{Treatments} & \textbf{Response 1} & \textbf{Response 2} \\
+      \text{\(\tau^{(KP)} \)} & \(|\mathbf{L}_{\tau^{(KP)}}|\) & \(|\mathbf{E}_{\tau^{(KP)}}| \) & \(\overline{L}\) \\
       \midrule
-      Treatment 1         & 0.0003262           & 0.562               \\
-      Treatment 2         & 0.0015681           & 0.910               \\
-      Treatment 3         & 0.0009271           & 0.296               \\
+      200                     & 2                              & 463                             & 1.21             \\
+      100                     & 22                             & 1376                            & 1.55             \\
+      50                      & 29                             & 2237                            & 1.42             \\
+      10                      & 57                             & 3158                            & 1.35             \\
       \bottomrule
     \end{tabular}
   \end{table}
 \end{frame}
 
-%------------------------------------------------
+\begin{frame}
+  \frametitle{Experiment Design}
+  \framesubtitle{Knowledge Tracing}
+  \begin{block}{Basic Method}
+    Compare with other KT baseline models BKT~\cite{yudelson2013individualized}、DKT~\cite{piech2015deep}、DKVMN~\cite{chen2017improving} and GKT~\cite{nakagawa2019graph}
+  \end{block}
+  \begin{table}[htbp!]
+    \centering
+    \caption{Dataset Statistics}\label{tbl:ch2-tb1}
+    \scalebox{0.7}{
+      \begin{tabular}{ccccc}
+        \toprule
+        Dataset   & \#students & \#exercises & \#knowledge points & \#interactions \\
+        \midrule
+        ASSIST15  & 19,917     & 102,396     & 100                & 709K           \\
+        ASSIST17  & 1,709      & 4,117       & 102                & 943K           \\
+        STATICS11 & 333        & 1,223       & 156                & 189K           \\
+        \bottomrule
+      \end{tabular}}
+  \end{table}
+\end{frame}
 
 \begin{frame}
-  \frametitle{Theorem}
-  \begin{theorem}[Mass-energy equivalence]
-    \(E = mc^2\)
-  \end{theorem}
+  \frametitle{Experiment Design}
+  \framesubtitle{Exercise Recommendation}
+  \begin{itemize}
+    \item Compared with conventional Collaborative Filtering and Random Recommendation
+    \item Using adapted KT dataset for testing
+    \item Check if the selected exercise is in the final recommendation list
+  \end{itemize}
 \end{frame}
 
-%------------------------------------------------
 
-\begin{frame}[fragile] % Need to use the fragile option when verbatim is used in the slide
-  \frametitle{Verbatim}
-  \begin{example}[Theorem Slide Code]
-    \begin{verbatim}
+\section{Result and Analysis}
 \begin{frame}
-\frametitle{Theorem}
-\begin{theorem}[Mass--energy equivalence]
-$E = mc^2$
-\end{theorem}
-\end{frame}\end{verbatim}
-  \end{example}
+  \frametitle{Result}
+  \framesubtitle{Exercise Knowledge Labeling}
+  \begin{table}[htbp!]
+    \caption{Result comparison (\(\tau^{(KP)}=200 \))}\label{tbl:bsline1}
+    \centering
+    \scalebox{0.7}{
+      \begin{tabular}{cccccccc}
+        \toprule
+        Metrics      & \(\operatorname{F1}_{macro}\) & \(\operatorname{F1}_{micro}\) & \(\operatorname{Acc}_{ML}\) & \(\operatorname{HmLoss}\) & \(\operatorname{F1}_{ML}\) \\
+        \midrule
+        NB           & 75.3                          & 74.2                          & 69.6                        & 18.2                      & 73.6                       \\
+        ML-KNN       & 77.1                          & 76.2                          & 73.2                        & 17.4                      & 76.3                       \\
+        CNN+word2vec & 79.5                          & 78.4                          & 76.6                        & 14.2                      & 79.6                       \\
+        CNN+BERT     & 80.1                          & \textbf{79.9}                 & 76.9                        & 13.7                      & 79.5                       \\
+        Proposed     & \textbf{80.9}                 & 79.1                          & \textbf{77.3}               & \textbf{13.1}             & \textbf{80.7}              \\
+        \bottomrule
+      \end{tabular}}
+  \end{table}
+  \begin{table}
+    \centering
+    \caption{Result comparison (\(\tau^{(KP)}=100 \))}\label{tbl:bsline2}
+    \scalebox{0.7}{
+      \begin{tabular}{cccccccc}
+        \toprule
+        Metrics      & \(\operatorname{F1}_{macro}\) & \(\operatorname{F1}_{micro}\) & \(\operatorname{Acc}_{ML}\) & \(\operatorname{HmLoss}\) & \(\operatorname{F1}_{ML}\) \\
+        \midrule
+        NB           & 71.2                          & 72.1                          & 67.2                        & 16.2                      & 71.8                       \\
+        ML-KNN       & 73.2                          & 72.3                          & 69.1                        & 15.9                      & 74.7                       \\
+        CNN+word2vec & 74.3                          & 74.4                          & 72.3                        & 13.2                      & 75.2                       \\
+        CNN+BERT     & 74.4                          & 74.6                          & 72.3                        & 13.1                      & 75.1                       \\
+        Proposed     & \textbf{75.5}                 & \textbf{75.7}                 & \textbf{73.1}               & \textbf{12.7}             & \textbf{74.9}              \\
+        \bottomrule
+      \end{tabular}}
+  \end{table}
 \end{frame}
 
-%------------------------------------------------
-\section{Result}
 \begin{frame}
-  \frametitle{Figure}
-  Uncomment the code on this slide to include your own image from the same directory as the template .TeX file.
-  %\begin{figure}
-  %\includegraphics[width=0.8\linewidth]{test}
-  %\end{figure}
+  \frametitle{Result}
+  \framesubtitle{Exercise Knowledge Labeling}
+  \begin{table}
+    \centering
+    \caption{Result comparison (\(\tau^{(KP)}=50 \))}\label{tbl:bsline3}
+    \scalebox{0.7}{
+      \begin{tabular}{cccccccc}
+        \toprule
+        Metrics      & \(\operatorname{F1}_{macro}\) & \(\operatorname{F1}_{micro}\) & \(\operatorname{Acc}_{ML}\) & \(\operatorname{HmLoss}\) & \(\operatorname{F1}_{ML}\) \\
+        \midrule
+        NB           & 52.3                          & 53.0                          & 42.1                        & 9.2                       & 51.9                       \\
+        ML-KNN       & 44.2                          & 43.9                          & 23.5                        & 10.1                      & 42.1                       \\
+        CNN+word2vec & 56.1                          & \textbf{57.3}                 & 46.2                        & 8.2                       & 56.5                       \\
+        CNN+BERT     & 56.2                          & 56.8                          & \textbf{47.0}               & \textbf{8.1}              & 56.1                       \\
+        Proposed     & \textbf{57.1}                 & 57.2                          & 45.2                        & 8.6                       & \textbf{57.5}              \\
+        \bottomrule
+      \end{tabular}}
+  \end{table}
+
+  \begin{table}
+    \centering
+    \caption{Result comparison (\(\tau^{(KP)}=10 \))}\label{tbl:bsline4}
+    \scalebox{0.7}{
+      \begin{tabular}{cccccccc}
+        \toprule
+        Metrics      & \(\operatorname{F1}_{macro}\) & \(\operatorname{F1}_{micro}\) & \(\operatorname{Acc}_{ML}\) & \(\operatorname{HmLoss}\) & \(\operatorname{F1}_{ML}\) \\
+        \midrule
+        NB           & 36.5                          & 37.1                          & 26.1                        & 4.2                       & 36.5                       \\
+        ML-KNN       & 30.1                          & 32.1                          & 29.1                        & 3.6                       & 32.5                       \\
+        CNN+word2vec & 36.7                          & 38.2                          & 37.5                        & 3.5                       & 37.2                       \\
+        CNN+BERT     & 36.9                          & \textbf{38.6}                 & \textbf{38.6}               & \textbf{3.5}              & 37.5                       \\
+        Proposed     & \textbf{37.1}                 & 38.3                          & 35.4                        & 3.8                       & \textbf{38.6}              \\
+        \bottomrule
+      \end{tabular}}
+  \end{table}
 \end{frame}
-
-%------------------------------------------------
-
-\begin{frame}[fragile] % Need to use the fragile option when verbatim is used in the slide
-  \frametitle{Citation}
-  An example of the \verb|\cite| command to cite within the presentation:\\~
-
-  This statement requires citation~\cite{shamir2010learning}.
-\end{frame}
-
-%------------------------------------------------
 
 % \begin{frame}
-%     \frametitle{References}
-%     \footnotesize{
-%         \begin{thebibliography}{99} % Beamer does not support BibTeX so references must be inserted manually as below
-%             \bibitem[Smith, 2012]{p1} John Smith (2012)
-%             \newblock Title of the publication
-%             \newblock \emph{Journal Name} 12(3), 45 -- 678.
-%         \end{thebibliography}
-%     }
+%   \frametitle{Result}
+%   \framesubtitle{Exercise Recommendation}
+%   \begin{figure}
+%     \includegraphics[width=0.9\textwidth]{figures/ch2_fg1.png}
+%   \end{figure}
 % \end{frame}
 
+\begin{frame}
+  \frametitle{Result}
+  \framesubtitle{Knowledge Tracing}
+  \begin{table}[htbp!]
+    \centering
+    \caption{AUC results (\%) over three datasets}\label{tbl:ch3-tb2}
+    \begin{tabular}{cccc}
+      \toprule
+      Model    & ASSIST15                    & ASSIST17                   & STATICS11                  \\
+      \midrule
+      BKT      & \(62.01\pm 0.03 \)          & \(65.30\pm 0.01\)          & \(64.21\pm 0.01\)          \\
+      DKT      & \(70.83\pm 0.03 \)          & \(72.66\pm 0.01\)          & \(72.46\pm 0.06\)          \\
+      DKVMN    & \(71.06\pm 0.03 \)          & \(72.78\pm 0.02\)          & \(72.67\pm 0.03\)          \\
+      GKT      & \(72.12\pm 0.02 \)          & \(72.85\pm 0.01\)          & \(72.57\pm 0.01\)          \\
+      \midrule
+      Proposed & \(\mathbf{72.62\pm 0.02} \) & \(\mathbf{72.89\pm 0.02}\) & \(\mathbf{72.73\pm 0.02}\) \\
+      \bottomrule
+    \end{tabular}
+  \end{table}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Result and Analysis}
+  \framesubtitle{Exercise Recommendation}
+  a given judgment threshold \(\tau \) and the output probability \(p\) of KT and the judgment of error-prone of one exercise \(O\) satisfy:
+  \begin{align}
+    O =\{\begin{array}{ll}
+      1, & \text{ if } \tau<p      \\
+      0, & \text{ if } \tau \geq p
+    \end{array}\notag\
+  \end{align}
+  \begin{table}[htbp!]
+    \caption{Recommendation Experiment Result}\label{table:ch4-exp-result}
+    \centering
+    \begin{tabular}{c c c}
+      \toprule
+      Model                    & ACC    & AUC    \\
+      \midrule
+      CF                       & 0.5375 & 0.5239 \\
+      Random                   & 0.5073 & 0.5012 \\
+      \midrule
+      Proposed \((\tau=0.45)\) & 0.6542 & 0.6878 \\
+      Proposed \((\tau=0.50)\) & 0.6839 & 0.7375 \\
+      Proposed \((\tau=0.55)\) & 0.6657 & 0.7039 \\
+      \bottomrule
+    \end{tabular}
+  \end{table}
+\end{frame}
+
+
+\section{Conclusion}
+\begin{frame}
+  \frametitle{Conclusion}
+  \begin{itemize}
+    \item The three modules of the proposed model satisfy the requirements of the design
+    \item The proposed model achieves better performance compared with baseline models.
+  \end{itemize}
+\end{frame}
+%------------------------------------------------
+
 \begin{frame}[allowframebreaks]{References}
-  %\bibliographystyle{plain}
-  \bibliographystyle{amsalpha}
+  \bibliographystyle{plain}
+  %\bibliographystyle{amsalpha}
   %\bibliography{mybeamer} also works
   \bibliography{./ref.bib}
 \end{frame}
