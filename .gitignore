@@ -546,3 +546,4 @@ GitHub.sublime-settings
 *.pt
 *.npy
 **/.virtual_documents
+**/checkpoints
