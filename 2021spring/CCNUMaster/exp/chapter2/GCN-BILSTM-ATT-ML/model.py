@@ -14,6 +14,7 @@ import re
 from torch.nn import Parameter
 import math
 from matplotlib import pyplot as plt
+from sklearn.metrics import *
 
 
 train_df = pd.read_csv('./data/train.csv')
@@ -25,19 +26,20 @@ train_df_cpy = train_df[dev_size:]
 dev_df_cpy = train_df[:dev_size]
 test_df_cpy = test_df
 
-max_length = 256
+max_length = 64
 hidden_size = 128
 tokenizer = None
 batch_size = 32
-n_epochs = 5
+n_epochs = 20
 embed_size = 100
-lr = 0.005
+lr = 0.001
 model_path = "BiLSTM.pt"
 use_gpu = True
 num_labels = 7
 
 tokenizer = PreTrainedTokenizerFast.from_pretrained('hfl/chinese-bert-wwm')
 tokenizer.add_special_tokens({'pad_token': '[PAD]'})
+adj = torch.Tensor(np.identity(num_labels))
 
 
 def prepare_set(dataset, max_length=max_length):
@@ -156,22 +158,16 @@ class GraphConvolution(nn.Module):
     Simple GCN layer, similar to https://arxiv.org/abs/1609.02907
     """
 
-    def __init__(self, in_features, out_features, adj, bias=False):
+    def __init__(self, in_features, out_features, bias=False):
         super(GraphConvolution, self).__init__()
         self.in_features = in_features
         self.out_features = out_features
         self.weight = Parameter(torch.Tensor(in_features, out_features))
-        #self.embed_size = embed_size
-        #self.max_features= max_features
-        #self.embedding = nn.Embedding(max_features, embed_size)
         if bias:
             self.bias = Parameter(torch.Tensor(1, 1, out_features))
         else:
             self.register_parameter('bias', None)
         self.reset_parameters()
-        self.adj = adj
-        #self.fc1 = nn.Linear(in_features, out_features)
-        #self.fc2 = nn.Linear(out_features, out_features)
 
     def reset_parameters(self):
         stdv = 1. / math.sqrt(self.weight.size(1))
@@ -179,9 +175,9 @@ class GraphConvolution(nn.Module):
         if self.bias is not None:
             self.bias.data.uniform_(-stdv, stdv)
 
-    def forward(self, input):
+    def forward(self, input, adj):
         support = torch.matmul(input, self.weight)
-        output = torch.matmul(self.adj, support)
+        output = torch.matmul(adj, support)
         if self.bias is not None:
             return output + self.bias
         else:
@@ -212,8 +208,10 @@ class Model(nn.Module):
         self.linear2 = nn.Linear(hidden_size * 6, hidden_size * 6)
         self.linear_out = nn.Linear(hidden_size * 6, 1)
         self.linear_aux_out = nn.Linear(hidden_size * 6, num_classes)
-        self.graph = GraphConvolution(max_length, hidden_size*6, adj)
         self.predict = nn.Linear(num_classes, num_classes)
+        self.gc1 = GraphConvolution(hidden_size * 6, hidden_size * 6)
+        self.gc2 = GraphConvolution(hidden_size * 6, hidden_size * 6)
+        self.relu = nn.LeakyReLU(0.2)
         self.emb_labels = emb_labels
 
     def forward(self, x, step_len):
@@ -261,7 +259,6 @@ class Model(nn.Module):
 #         print(f"h_conc_linear1 : {h_conc_linear1.shape}")
         l_conc_linear2 = F.relu(self.linear2(l_conc))
 #         print(f"h_conc_linear2 : {h_conc_linear2.shape}")
-
         hidden = h_conc + h_conc_linear1 + h_conc_linear2
         l_hidden = l_conc + l_conc_linear1 + l_conc_linear2
         result = self.linear_out(hidden)
@@ -269,13 +266,18 @@ class Model(nn.Module):
         #aux_result = self.linear_aux_out(hidden)
         norm_hidden = hidden / hidden.norm(dim=-1, keepdim=True)
         norm_lhidden = l_hidden / l_hidden.norm(dim=-1, keepdim=True)
+
+        x = self.gc1(norm_lhidden, adj)
+        x = self.relu(x)
+        x = self.gc2(x, adj)
+
 #         label_rep = self.graph(self.emb_labels)
-        aux_result = torch.matmul(norm_hidden, norm_lhidden.transpose(0, 1))
+        aux_result = torch.matmul(norm_hidden, x.transpose(0, 1))
 #         print(f"aux_result : {aux_result.shape}")
 #         out = torch.cat([result, aux_result], 1)
 #         print(f"out : {out.shape}")
 #         return out, weights
-        aux_result = F.relu(self.predict(aux_result))
+        #aux_result = F.leaky_relu(self.predict(aux_result))
         return aux_result, weights
 
 
@@ -287,26 +289,47 @@ def train_model(model, loss_fn, lr=0.001, batch_size=32, n_epochs=10, max_length
 
     training_loss = []
     validation_loss = []
-
+    training_acc = []
+    validation_acc = []
     best_loss = float("inf")
+
     for epoch in range(n_epochs):
         start_time = time.time()
-
+        training_res = []
+        validataion_res = []
         model.train()
         avg_loss = 0
-
+        y_train_preds = []
+        y_train_batchs = []
+        y_valid_preds = []
+        y_valid_batchs = []
         for data in tqdm(train_dataloader, disable=False):
             x_batch = data[:-1]
             y_batch = data[-1]
-
+            y_batch_labels = y_batch.detach().cpu().numpy()
+#             if y_trues.shape[0] == 1:
+#                 y_trues = y_batch_labels
+#             else:
+#                 print(y_trues, y_batch_labels)
+#                 y_trues = np.concatenate(y_trues, np.array(y_batch_labels))
+            y_train_batchs += y_batch_labels.tolist()
             y_pred, _ = model(*x_batch, max_length)
+            y_pred_labels = (torch.sigmoid(
+                y_pred).detach().cpu().numpy() > 0.5)
 
+#             if y_preds.shape[0] == 1:
+#                 y_preds = y_pred_labels
+#             else:
+#                 y_preds = np.concatenate(y_preds, y_pred_labels)
+
+            y_train_preds += y_pred_labels.tolist()
             loss = nn.BCEWithLogitsLoss()(y_pred, y_batch)
             optimizer.zero_grad()
             loss.backward()
             optimizer.step()
             avg_loss += loss.item() / len(train_dataloader)
-
+        tacc = accuracy_score(y_train_batchs, y_train_preds)
+        training_acc.append(tacc)
         training_loss.append(avg_loss)
         model.eval()
         print(f'... Validating ... ')
@@ -314,51 +337,67 @@ def train_model(model, loss_fn, lr=0.001, batch_size=32, n_epochs=10, max_length
         for val_data in tqdm(dev_dataloader, disable=False):
             x_batch = val_data[:-1]
             y_batch = val_data[-1]
-
+            y_batch_labels = y_batch.detach().cpu().numpy()
+            y_valid_batchs += y_batch_labels.tolist()
+#             if y_trues_v.shape[0] == 1:
+#                 y_trues_v = y_batch_labels
+#             else:
+#                 y_trues_v = np.concatenate(y_trues_v, y_batch_labels)
             y_pred, _ = model(*x_batch, max_length)
+            y_pred_labels = (torch.sigmoid(
+                y_pred).detach().cpu().numpy() > 0.5)
+            y_valid_preds += y_pred_labels.tolist()
+#             if y_preds_v.shape[0] == 1:
+#                 y_preds_v = y_pred_labels
+#             else:
+#                 y_preds_v = np.concatenate(y_preds_v, y_pred_labels)
 
             val_loss = nn.BCEWithLogitsLoss()(y_pred, y_batch)
             avg_val_loss += val_loss.item() / len(dev_dataloader)
-
+        vacc = accuracy_score(y_valid_batchs, y_valid_preds)
+        validation_acc.append(vacc)
         elapsed_time = time.time() - start_time
         validation_loss.append(avg_val_loss)
         if avg_val_loss < best_loss:
             print('saving the best model so far')
             best_loss = avg_val_loss
             torch.save(model.state_dict(), model_path)
-        print(f'Epoch {epoch + 1}/{n_epochs}\t training_loss={avg_loss:.4f} \t validation_loss={avg_val_loss: 4f} \t time={elapsed_time:.2f}s')
+        print(f'Epoch {epoch + 1}/{n_epochs}\t training_loss={avg_loss:.4f} \t validation_loss={avg_val_loss: 4f} \t train_epoch_acc={tacc: 4f} \t valid_epoch_acc={vacc: 4f} \t time={elapsed_time:.2f}s')
         scheduler.step()
-    return training_loss, validation_loss
+    return training_loss, validation_loss, training_acc, validation_acc
 
 
 def evaluate(model):
     # Create the DataLoader for dev set.
     model.eval()
     preds = np.zeros((1, num_labels))
+    y_test_preds = []
+    y_test_trues = []
     with torch.no_grad():
         for tst_data in tqdm(test_dataloader, disable=False):
             x_batch = tst_data[:-1]
             y_batch_labels = tst_data[-1].detach().cpu().numpy()
-
+            y_test_trues += y_batch_labels.tolist()
             y_pred, _ = model(*x_batch, max_length)
 
             y_pred_labels = (torch.sigmoid(
                 y_pred).detach().cpu().numpy() > 0.5)
-
+            y_test_preds += y_pred_labels.tolist()
             correct_labels = (y_pred_labels == y_batch_labels)
             preds += correct_labels.sum(axis=0)
 
-    return preds
+    return preds, y_test_preds, y_test_trues
 
 
 model = Model(hidden_size=hidden_size,
               embed_size=embed_size,
               max_features=tokenizer.vocab_size,
               num_classes=num_labels,
-              max_length=max_length, emb_labels=labels_bemb)
+              max_length=max_length, emb_labels=klabels_bemb)
 model.to(device)
-train_model(model=model, loss_fn=None, lr=lr, batch_size=batch_size,
-            n_epochs=n_epochs, max_length=max_length)
-true_positives = evaluate(model)
+trainloss, vloss, training_acc, validation_acc = train_model(model=model, loss_fn=None, lr=lr, batch_size=batch_size,
+                                                             n_epochs=n_epochs, max_length=max_length)
+
+true_positives, y_test_preds, y_test_trues = evaluate(model)
 for i, acc in enumerate((true_positives / test_df.shape[0])[0]):
     print(f"{cols_target[i]} accuracy is {acc*100:.2f}%")
