@@ -410,7 +410,7 @@ class GKVMN(nn.Module):
         self.memory_value = nn.Parameter(memory_value.data)
         return self.memory_value
 
-    def graph_propagation(self, memory_value):
-        memory_value = self.graph(self.adj_matrix, memory_value)
-        self.memory_value = nn.Parameter(memory_value.data)
+    def graph_propagation(self):
+        O = self.graph(self.adj_matrix, self.memory_value)
+        self.memory_value = nn.Parameter(O.data)
         return self.memory_value

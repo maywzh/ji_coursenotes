@@ -1,6 +1,6 @@
 import torch
 import torch.nn as nn
-from memory import DKVMN
+from memory import DKVMN, GKVMN
 import numpy as np
 import utils as utils
 
@@ -142,10 +142,10 @@ class MODEL(nn.Module):
         return loss, torch.sigmoid(filtered_pred), filtered_target
 
 
-class MODEL_BH(nn.Module):
+class MODEL_GBH(nn.Module):
     def __init__(self, n_question, batch_size, q_embed_dim, qa_embed_dim,
                  memory_size, memory_key_state_dim, memory_value_state_dim, final_fc_dim, student_num=None, gpu=-1):
-        super(MODEL_BH, self).__init__()
+        super(MODEL_GBH, self).__init__()
         self.n_question = n_question
         self.batch_size = batch_size
         self.q_embed_dim = q_embed_dim  # 问题emb维度d_k
@@ -176,7 +176,7 @@ class MODEL_BH(nn.Module):
             self.memory_size, self.memory_value_state_dim))
         nn.init.kaiming_normal_(self.init_memory_value)
         # 写过程
-        self.mem = DKVMN(memory_size=self.memory_size,
+        self.mem = GKVMN(memory_size=self.memory_size,
                          memory_key_state_dim=self.memory_key_state_dim,
                          memory_value_state_dim=self.memory_value_state_dim, init_memory_key=self.init_memory_key, gpu=self.gpu)
         #
@@ -281,7 +281,7 @@ class MODEL_BH(nn.Module):
             qa = slice_qa_embed_data[i].squeeze(1)
             new_memory_value = self.mem.write(
                 correlation_weight, qa, if_memory_write)
-
+            new_memory_value = self.mem.graph_propagation()
             # read_content_embed = torch.tanh(self.read_embed_linear(torch.cat([read_content, q], 1)))
             # pred = self.predict_linear(read_content_embed)
             # predict_logs.append(pred)
