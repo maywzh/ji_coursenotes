@@ -321,7 +321,7 @@ class MODEL_BH(nn.Module):
 
 class MODEL_GBH(nn.Module):
     def __init__(self, n_question, batch_size, q_embed_dim, qa_embed_dim,
-                 memory_size, memory_key_state_dim, memory_value_state_dim, final_fc_dim, student_num=None, gpu=-1):
+                 memory_size, memory_key_state_dim, memory_value_state_dim, final_fc_dim, student_num=None, GP=False, gpu=-1):
         super(MODEL_GBH, self).__init__()
         self.n_question = n_question
         self.batch_size = batch_size
@@ -366,6 +366,7 @@ class MODEL_GBH(nn.Module):
         # embed 问题与回答 : output Shape(self.qa_embed_dim)
         self.qa_embed = nn.Embedding(
             2 * self.n_question + 1, self.qa_embed_dim, padding_idx=0)
+        self.GP = GP
         # self.encode_behavior_fc = nn.Linear(
         #     self.q_embed_dim+self.seqlen, self.q_embed_dim, bias=True)
 
@@ -459,7 +460,8 @@ class MODEL_GBH(nn.Module):
             new_memory_value = self.mem.write(
                 correlation_weight, qa, if_memory_write)
             # Graph Propagation
-            new_memory_value = self.mem.graph_propagation()
+            if self.GP:
+                new_memory_value = self.mem.graph_propagation()
             # read_content_embed = torch.tanh(self.read_embed_linear(torch.cat([read_content, q], 1)))
             # pred = self.predict_linear(read_content_embed)
             # predict_logs.append(pred)

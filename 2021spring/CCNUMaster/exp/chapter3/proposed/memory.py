@@ -12,9 +12,7 @@ def preprocess_adj(A):
     :return:
     '''
     I = np.eye(A.shape[0])
-    A_hat = I  # add self-loops
-
-    #D_hat_diag = A_hat
+    A_hat = A + I  # add self-loops
     D_hat_diag = np.sum(A_hat, axis=1)
     D_hat_diag_inv_sqrt = np.power(D_hat_diag, -0.5)
     D_hat_diag_inv_sqrt[np.isinf(D_hat_diag_inv_sqrt)] = 0.
@@ -375,8 +373,8 @@ class GKVMN(nn.Module):
         # self.memory_value = self.init_memory_value
         self.memory_value = None
         self.gpu = gpu
-        self.adj_matrix = adj_matrix if adj_matrix != None else torch.eye(
-            memory_size)
+        self.adj_matrix = adj_matrix if adj_matrix != None else torch.zeros(
+            memory_size, memory_size)
         self.graph = GCN1Layer(memory_value_state_dim, memory_value_state_dim)
 
     def init_value_memory(self, memory_value):

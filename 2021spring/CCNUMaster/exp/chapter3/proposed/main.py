@@ -110,6 +110,7 @@ def main():
     # q_data_shuffled = train_q_data[shuffle_index]
     # qa_data_shuffled = train_qa_data[shuffle_index]
     if params.use_additional_feature:
+        print("Run proposed model")
         all_data = dat.get_processed_data_with_bh(data_path)
         train_q_data, train_qa_data, train_bh1_data, train_bh2_data, train_bh3_data, train_bh4_data, valid_q_data, valid_qa_data, valid_bh1_data, valid_bh2_data, valid_bh3_data, valid_bh4_data = all_data[
             0]
