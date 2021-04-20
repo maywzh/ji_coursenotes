@@ -1,10 +1,10 @@
 '''
 Author       : maywzh
 Date         : 2021-04-19 17:13:17
-LastEditTime : 2021-04-19 20:47:04
+LastEditTime : 2021-04-19 23:39:45
 LastEditors  : maywzh
 Description  : 
-FilePath     : /ji_coursenotes/2021spring/CCNUMaster/exp/chapter4/DeepKnowledgeTracing-DKT-Pytorch-master/DKT/KnowledgeTracing/Constant/Constants.py
+FilePath     : /ji_coursenotes/2021spring/CCNUMaster/exp/chapter4/DKT/Constants.py
 License      : 
 Copyright (c) 2017 maywzh.
 
@@ -20,7 +20,7 @@ datasets = {
     'assist2009': 'assist2009',
     'assist2015': 'assist2015',
     'assist2017': 'assist2017',
-    'static2011': 'static2011',
+    'static2011': 'STATICS',
     'kddcup2010': 'kddcup2010',
     'synthetic': 'synthetic'
 }
@@ -40,8 +40,8 @@ NUM_OF_QUESTIONS = numbers['static2011']
 # the max step of RNN model
 MAX_STEP = 50
 BATCH_SIZE = 64
-LR = 0.002
-EPOCH = 1000
+LR = 0.001
+EPOCH = 200
 # input dimension
 INPUT = NUM_OF_QUESTIONS * 2
 # embedding dimension

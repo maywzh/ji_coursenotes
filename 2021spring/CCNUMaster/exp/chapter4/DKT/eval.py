@@ -1,7 +1,7 @@
 '''
 Author       : maywzh
 Date         : 2021-04-19 17:13:17
-LastEditTime : 2021-04-19 21:44:19
+LastEditTime : 2021-04-19 23:18:12
 LastEditors  : maywzh
 Description  : 
 FilePath     : /ji_coursenotes/2021spring/CCNUMaster/exp/chapter4/DKT/eval.py
@@ -35,9 +35,10 @@ def performance(ground_truth, prediction):
     ).numpy(), torch.round(prediction).detach().numpy())
     precision = metrics.precision_score(
         ground_truth.detach().numpy(), torch.round(prediction).detach().numpy())
-
+    accuracy = metrics.accuracy_score(
+        ground_truth.detach().numpy(), torch.round(prediction).detach().numpy())
     print('auc:' + str(auc) + ' f1: ' + str(f1) + ' recall: ' +
-          str(recall) + ' precision: ' + str(precision) + '\n')
+          str(recall) + ' precision: ' + str(precision) + ' accuracy: ' + str(accuracy) + '\n')
 
 
 class lossFunc(nn.Module):
