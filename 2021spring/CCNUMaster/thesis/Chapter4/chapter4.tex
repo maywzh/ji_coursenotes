@@ -231,7 +231,7 @@ The goal of the recommendation model proposed in this section is to present the 
 As it is a classification problem, the Receiver Operator Characteristic Curve (ROC) curve can be used to determine the recommendation system's performance. Then, (Area Under Curve) AUC and Accuracy (ACC) metrics can be used to determine the model's performance.
 
 
-\subsection{Experiment Setting}
+\subsection{Experiment Settings}
 %对于一个答题序列，由知识追踪模型输出对于每个习题的回答正确概率，则该模型可以被视作二分类。
 For a sequence of answers, the knowledge tracing model proposed in the previous chapter outputs the probability of correct answers for each exercise, and then the model can be treated as a dichotomous classification. Therefore, a knowledge tracing model is experimentally trained and used as a predictor when the model converges. The sequence of student's answer records is input and the probability of a student's correct answer at the moment \(t\) is output.
 %原始数据集为一个固定的答题序列，为了衡量推荐效果，可以将当前时间戳\(t\)的回答习题\(q_t\)作为标定项，检查该习题是否存在于最终推荐结果中。由上一节的排序模型得出的最终推荐的输出为一个容量为\(K\)的列表，可以通过判定预测用户会答错的习题是否在该列表中的方法来判定模型的推荐效果。
@@ -279,6 +279,16 @@ To ensure the environment's consistency, this thesis runs on a cloud server with
     \end{tabular}
 \end{table}
 
+\subsection{Baselines}
+%作为对比，将目前较为热门的协同过滤推荐算法与随机推荐算法作为Baseline模型，协同过滤算法省略了matching阶段，直接寻找相似用户的习题作为推荐集合。而随机推荐算法则直接在习题库中随机选择习题进行推荐。
+
+As a comparison, the more popular Collaborative Filtering (CF) recommendation algorithm and some other knowledge tracing models are chosen as the baseline model for overall comparison.
+\begin{itemize}
+    \item Collaborative filtering (CF): As a technique widely used in recommendation systems, this technique recommends the same recommendation items to similar users by analyzing the similarity between users, and in this system, the similarity is calculated by using the overall correct answer rate of students.
+    \item Deep knowledge tracing (DKT): The original DKT model is applied to the recommender system as a knowledge tracking module, which is a model that uses an RNN structure for the knowledge tracking task.
+\end{itemize}
+
+
 
 \subsection{Model Training}
 %
@@ -295,16 +305,6 @@ The model is deployed to the cloud server and run, with a training time of about
     \includegraphics[width=0.85\textwidth]{ch4-train-acc.png}
     \caption{The training accuracy plot}\label{fig:ch4-train-acc}
 \end{figure}
-
-
-\subsection{Baseline}
-%作为对比，将目前较为热门的协同过滤推荐算法与随机推荐算法作为Baseline模型，协同过滤算法省略了matching阶段，直接寻找相似用户的习题作为推荐集合。而随机推荐算法则直接在习题库中随机选择习题进行推荐。
-
-As a comparison, the more popular Collaborative Filtering (CF) recommendation algorithm and some other knowledge tracing models are chosen as the baseline model for overall comparison.
-\begin{itemize}
-    \item Collaborative filtering (CF): As a technique widely used in recommendation systems, this technique recommends the same recommendation items to similar users by analyzing the similarity between users, and in this system, the similarity is calculated by using the overall correct answer rate of students.
-    \item Deep knowledge tracing (DKT): The original DKT model is applied to the recommender system as a knowledge tracking module, which is a model that uses an RNN structure for the knowledge tracking task.
-\end{itemize}
 
 
 

@@ -409,18 +409,6 @@ In addition, for each category, the inter-correlation between the categories can
 \end{figure}
 
 
-% \subsubsection{Data Prepartion}
-% %本节数据获取的方式为爬虫，因此获得的原始数据为大量非结构化的带有不规范数学符号的习题，这些符号难以被BERT模型处理，会带来误差，因此在预处理的过程中，会将无法识别的字符进行替换。另外还有大量的无意义文本，此外，由于部分习题知识点标注不全，因此需要人工协助标注知识点。
-\subsection{Baseline}
-% In the algorithm, the binary relation method (BR), the multi-label KN algorithm (ML-KNN) are selected as the comparison algorithm, and the experimental training set test set division ratio, which is 1:1.
-% 目前，已经有一些进行文本标签标注的算法模型，为了验证本文提出算法的有效性，将与下列的算法进行比较，作为baseline指标。
-This section's study focuses on a multi-label text classification task, so several more popular text classification models are used as baseline models. Some existing text classification models are selected experimentally to compare with the proposed model, and the performance is compared with the proposed model on the selected experimental evaluation metrics and the same dataset. At present, there are already some algorithm models for labeling text. To verify the effectiveness of the algorithm proposed in this thesis, the following baseline models will be set as comparisons.
-\begin{itemize}
-    \item Bi-LSTM+Attention~\cite{zhou2016attention}: the model consists of an Embedding layer, a bi-directional LSTM layer, and an Attention layer. The text is passed through the Embedding layer to generate the Embedding vector, the LSTM to compute the higher-order sentence vector, the Attention layer to weight the sentence vector, and the final output layer to output the predicted labels.
-    \item fastText~\cite{joulin-etal-2017-bag}: Facebook proposes the fastText model in 2017. The fastText accelerated training and can be applied to text classification tasks, and it contains input, hidden, and output layers. The method is actually a weighted sum of the word vectors of the sentences as sentence vectors, using softmax classification.
-    \item TextCNN~\cite{guo2019improving}: Kim et al.\ adapted the CNN to the text classification task by improving it in 2014~\cite{kim-2014-convolutional}. It contains parts such as the convolutional layer, max-pooling layer, and output layer. The principle is to extract higher-order features of text by multiple convolutional kernels, and it can introduce pre-trained word vectors to improve the performance.
-
-\end{itemize}
 
 \subsection{Metrics}
 %相比于传统学习问题，对多标签数据的标注十分困难，多标签意味着巨大的分类成本。本节的任务中，需要对试题进行多知识点标注，实际上是一个多标签分类问题，则样本维度、数据量、标签维度都会影响标注效果。本节利用了基于标签的评测方法来对提出的试题知识点标注模型进行性能评估。
@@ -546,6 +534,20 @@ In this experiment, the training and test sets are split from the original datas
 
 % The running environment is Ubuntu 20.04, TensorFlow 2.23, Python 3.8.6, and the hardware is equipped with a Tesla V100 computing card. For each Baseline model, five rounds of calculation are performed, the maximum positive deviation and the minimum negative deviation are discarded, and the average value is recorded.
 
+
+% \subsubsection{Data Prepartion}
+% %本节数据获取的方式为爬虫，因此获得的原始数据为大量非结构化的带有不规范数学符号的习题，这些符号难以被BERT模型处理，会带来误差，因此在预处理的过程中，会将无法识别的字符进行替换。另外还有大量的无意义文本，此外，由于部分习题知识点标注不全，因此需要人工协助标注知识点。
+\subsection{Baselines}
+% In the algorithm, the binary relation method (BR), the multi-label KN algorithm (ML-KNN) are selected as the comparison algorithm, and the experimental training set test set division ratio, which is 1:1.
+% 目前，已经有一些进行文本标签标注的算法模型，为了验证本文提出算法的有效性，将与下列的算法进行比较，作为baseline指标。
+This section's study focuses on a multi-label text classification task, so several more popular text classification models are used as baseline models. Some existing text classification models are selected experimentally to compare with the proposed model, and the performance is compared with the proposed model on the selected experimental evaluation metrics and the same dataset. At present, there are already some algorithm models for labeling text. To verify the effectiveness of the algorithm proposed in this thesis, the following baseline models will be set as comparisons.
+\begin{itemize}
+    \item Bi-LSTM+Attention~\cite{zhou2016attention}: the model consists of an Embedding layer, a bi-directional LSTM layer, and an Attention layer. The text is passed through the Embedding layer to generate the Embedding vector, the LSTM to compute the higher-order sentence vector, the Attention layer to weight the sentence vector, and the final output layer to output the predicted labels.
+    \item fastText~\cite{joulin-etal-2017-bag}: Facebook proposes the fastText model in 2017. The fastText accelerated training and can be applied to text classification tasks, and it contains input, hidden, and output layers. The method is actually a weighted sum of the word vectors of the sentences as sentence vectors, using softmax classification.
+    \item TextCNN~\cite{guo2019improving}: Kim et al.\ adapted the CNN to the text classification task by improving it in 2014~\cite{kim-2014-convolutional}. It contains parts such as the convolutional layer, max-pooling layer, and output layer. The principle is to extract higher-order features of text by multiple convolutional kernels, and it can introduce pre-trained word vectors to improve the performance.
+
+\end{itemize}
+
 \subsection{Model Training}
 %训练的损失函数图和准确率图如图所示。在训练的过程中，当遇到更好的验证准确率时，将会保留模型参数，当训练结束好保存的模型即是最优模型，它将会应用于测试集进行模型性能验证。
 The training and validation loss plot are shown in \figname{\ref{fig:ch2-training-loss}} and the accuracy plots are shown in \figname{\ref{fig:ch2-training-acc}}. During the training process, when better validation accuracy is encountered, the model parameters will be preserved, and when the training is finished, the saved model is the optimal model, which will be applied to the test set for model performance validation. According to the training graph, it can be concluded that the model converges after about 15 epochs of training.
@@ -569,12 +571,12 @@ In the experimental comparison for each of the other baseline models, three expe
     \centering
     \begin{tabular}{ccccc}
         \toprule
-        Metrics          & \(\operatorname{F1}_{macro}\) & \(\operatorname{F1}_{micro}\) & \(\operatorname{Acc}_{ML}\) & \(\operatorname{F1}_{ML}\) \\
+        Metrics           & \(\operatorname{F1}_{macro}\) & \(\operatorname{F1}_{micro}\) & \(\operatorname{Acc}_{ML}\) & \(\operatorname{F1}_{ML}\) \\
         \midrule
-        BiLSTM+Attention & 0.824                         & 0.924                         & 0.874                       & 0.926                      \\
-        fastText         & 0.846                         & 0.922                         & 0.854                       & 0.916                      \\
-        TextCNN          & 0.761                         & 0.923                         & 0.857                       & 0.917                      \\
-        Proposed         & \textbf{0.912}                & \textbf{0.932}                & \textbf{0.888}              & \textbf{0.937}             \\
+        BiLSTM+Attention  & 0.824                         & 0.924                         & 0.874                       & 0.926                      \\
+        fastText          & 0.846                         & 0.922                         & 0.854                       & 0.916                      \\
+        TextCNN           & 0.761                         & 0.923                         & 0.857                       & 0.917                      \\
+        \textbf{Proposed} & \textbf{0.912}                & \textbf{0.932}                & \textbf{0.888}              & \textbf{0.937}             \\
         \bottomrule
     \end{tabular}
 \end{table}
