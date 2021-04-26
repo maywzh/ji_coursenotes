@@ -239,8 +239,7 @@ For a sequence of answers, the knowledge tracing model proposed in the previous 
 % The original data set is a fixed sequence of question-answering interaction. To measure the recommendation performance, the exercise \(q_t\) answered in timestamp \(t\) can act as the calibration item to check whether it is in the final recommendation result under the simultaneous state. The final recommendation output obtained by the ranking model in the previous section is a list with a capacity of \(K\), and the recommendation effect of the model can be determined by determining whether the exercises that predict the user will answer wrongly are in the list.
 
 %本文的运行在环境如下表所示。在本实验的配置中，选择75\%的交互记录作为训练集，另外25\%作为测试数据。测试运行5次取平均值。实验取了三种不同的\(\tau \)作为习题正确率判断阈值。在推荐模型的召回阶段和排序阶段选取的超参数如表所示。
-
-To ensure the environment's consistency, this thesis runs on a cloud server with the running environment shown in the \tblname{\ref{tbl:ch4-exp-env}}. In this experiment's configuration, 75\% of the interaction records are selected as the training set and the remaining 25\% as the test dataset. Run the model 5 times and take the average value. The hyperparameter settings of the recommendation model are shown in \tblname{\ref{tbl:ch4-hpsetting}}.
+This experiment runs on a cloud server with the running environment shown in the \tblname{\ref{tbl:ch4-exp-env}} for running consistency. In this experiment's configuration, 75\% of the interaction records are selected as the training set and the remaining 25\% as the test dataset. Run the model 5 times and take the average value. The hyperparameter settings of the recommendation model are shown in \tblname{\ref{tbl:ch4-hpsetting}}.
 
 \begin{table}[htbp!]
     \caption{Experiment running environment}\label{tbl:ch4-exp-env}
@@ -324,18 +323,19 @@ The performance comparison result is shown in \tblname{\ref{tbl:ch4-exp-result}}
 \end{figure}
 
 \begin{table}[htb]
-    \caption{Recommendation experiment result}\label{tbl:ch4-exp-result}
+    \caption{Performance comparison between baseline and proposed models}\label{tbl:ch4-exp-result}
     \centering
-    \begin{tabular}{cc c }
-        \toprule
-        Model    & ACC             & AUC             \\
-        \midrule
-        CF       & 0.6329          & 0.6627          \\
-        DKT      & 0.7741          & 0.7906          \\
-        \midrule
-        Proposed & \textbf{0.7997} & \textbf{0.7923} \\
-        \bottomrule
-    \end{tabular}
+    \setlength{\tabcolsep}{7mm}{
+        \begin{tabular}{cc c }
+            \toprule
+            Model    & ACC             & AUC             \\
+            \midrule
+            CF       & 0.6329          & 0.6627          \\
+            DKT      & 0.7741          & 0.7906          \\
+            \midrule
+            Proposed & \textbf{0.7997} & \textbf{0.7923} \\
+            \bottomrule
+        \end{tabular}}
 \end{table}
 %经过对比，我们发现，基于知识追踪模型进行的习题推荐，在ACC和AUC指标上都大幅超越Baseline算法，这说明了提出的模型可以有效筛选出对于学生知识状态增益较大的习题集合，从而实现基于学生的学习状态进行自适应习题推荐。
 The results show that the proposed model exceeds the baseline model in the accuracy indexes of recommendations, i.e., AUC and Accuracy, and the absolute recommendation accuracy is also higher. It can be seen that the proposed model has good classification performance, i.e., the ability to recommend error-prone questions from the exercises, indicating that the proposed model can effectively filter out the set of exercises with greater gain for students' knowledge state, thus realizing adaptive exercise recommendation based on students' learning state.
