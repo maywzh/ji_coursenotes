@@ -51,7 +51,7 @@ In the knowledge tracing task, since the knowledge point representations contain
 
 \begin{figure}[htbp!]
     \centering
-    \includegraphics[width=0.9\textwidth]{ch3-dkvmn-model.pdf}
+    \includegraphics[width=1.0\textwidth]{ch3-dkvmn-model.pdf}
     \caption{The original dynamic key-value memory network model}\label{fig:ch3-dkvmn-model}
 \end{figure}
 
@@ -66,7 +66,7 @@ The key point of this section is the knowledge tracing of students. In this thes
 
 \begin{figure}[htbp!]
     \centering
-    \includegraphics[width=0.9\textwidth]{ch3-gkvmn-model.pdf}
+    \includegraphics[width=1.0\textwidth]{ch3-gkvmn-model.pdf}
     \caption{The graph key-value memory network architecture}\label{fig:ch3-gkvmn-model}
 \end{figure}
 
@@ -341,25 +341,25 @@ Next, each feature was plotted separately against the correctness of the answer,
 %     \centering
 %     \begin{subfigure}[b]{0.85\textwidth}
 %         \centering
-%         \includegraphics[width=0.9\textwidth]{ch3-jointplot-hc.png}
+%         \includegraphics[width=0.85\textwidth]{ch3-jointplot-hc.png}
 %         \caption{The joint-plot of hint\_count}\label{fig:ch3-jointplot-hc}
 %     \end{subfigure}
 %     \\
 %     \begin{subfigure}[b]{0.85\textwidth}
 %         \centering
-%         \includegraphics[width=0.9\textwidth]{ch3-jointplot-fc.png}
+%         \includegraphics[width=0.85\textwidth]{ch3-jointplot-fc.png}
 %         \caption{The joint-plot of first\_action}\label{fig:ch3-jointplot-fc}
 %     \end{subfigure}
 %     \\
 %     \begin{subfigure}[b]{0.85\textwidth}
 %         \centering
-%         \includegraphics[width=0.9\textwidth]{ch3-jointplot-htc.png}
+%         \includegraphics[width=0.85\textwidth]{ch3-jointplot-htc.png}
 %         \caption{The joint-plot of hint\_total}\label{fig:ch3-jointplot-htc}
 %     \end{subfigure}
 %     \\
 %     \begin{subfigure}[b]{0.85\textwidth}
 %         \centering
-%         \includegraphics[width=0.9\textwidth]{ch3-jointplot-atc.png}
+%         \includegraphics[width=0.85\textwidth]{ch3-jointplot-atc.png}
 %         \caption{The joint-plot of attempt\_count}\label{fig:ch3-jointplot-atc}
 %     \end{subfigure}
 %     \caption{The joint-plots between input features and target feature}\label{fig:ch3-jointplots}
@@ -370,9 +370,9 @@ After the above analysis, the above four features can be used as additional inpu
 \subsection{Metrics}
 %知识追踪本质上是一个分类问题，在机器学习领域中，常用的分类指标有Accuracy，Precision，Recall，F1 Score，AUC等。在二分类问题中，有如图\figname{\ref{fig:ch3-conmat}}的混淆矩阵，则这些分类指标的公式可以写作
 Knowledge tracing is essentially a classification problem, where the commonly used classification metrics are Accuracy, Precision, Recall, F1 Score, etc. In the binary classification problem, there is the confusion matrix as shown in \figname{\ref{fig:ch3-conmat}}.
-\begin{figure}[htbp!]
+\begin{figure}[htb]
     \centering
-    \includegraphics[width=0.85\textwidth]{ch3-conmat.pdf}
+    \includegraphics[width=0.60\textwidth]{ch3-conmat-model.pdf}
     \caption{The confusion matrix}\label{fig:ch3-conmat}
 \end{figure}
 
@@ -453,13 +453,13 @@ This model requires some predefined training parameters, and after parameter adj
 The experiments were conducted a total of three times, and the average training output was selected for training data plotting to obtain the loss training plot and the model performance training plot, as shown in \figname{\ref{fig:ch3-train-loss}} and \figname{\ref{fig:ch3-train-acc}}. It can be seen that the model basically converges after about 150 epochs.
 \begin{figure}[htb]
     \centering
-    \includegraphics[width=0.9\textwidth]{ch3-train-loss.png}
+    \includegraphics[width=0.85\textwidth]{ch3-train-loss.png}
     \caption{The training process of proposed model}\label{fig:ch3-train-loss}
 \end{figure}
 
 \begin{figure}[htb]
     \centering
-    \includegraphics[width=0.9\textwidth]{ch3-train-acc.png}
+    \includegraphics[width=0.85\textwidth]{ch3-train-acc.png}
     \caption{The training acc/auc of proposed model}\label{fig:ch3-train-acc}
 \end{figure}
 %结果显示，经过约150个epoch的训练，模型的预测性能可以稳定收敛。

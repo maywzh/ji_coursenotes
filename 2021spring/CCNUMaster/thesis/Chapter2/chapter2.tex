@@ -59,10 +59,10 @@ This section aims to construct a model for mining the exercise-knowledge point r
 
 In 2019, a multi-label image classification model was proposed~\cite{chen2019multi}. Inspired by this model, this chapter proposes a multi-knowledge point labeling model based on attention mechanism exercise description text feature extraction and graph convolutional neural network (GCN) based knowledge point relationship mining, which builds a knowledge point relationship graph to describe the association relationship between knowledge points by a data-driven approach, builds classifiers for knowledge points separately, and then performs multi-label classification. Its main architecture diagram is shown in \figname{\ref{fig:ch2-modelarchitecture}}.
 
-\begin{figure}[htb]
+\begin{figure}[htbp!]
     \centering
     \includegraphics[width=1.0\textwidth]{ch2-ov.pdf}
-    \caption{Structure of the knowledge labeling model}\label{fig:ch2-modelarchitecture}
+    \caption{Structure of the proposed knowledge labeling model}\label{fig:ch2-modelarchitecture}
 \end{figure}
 
 %从结构上我们可以看到，模型中一般有两部分，其中
@@ -93,7 +93,7 @@ The preprocessing stage mainly includes word separation, cleaning, and regulariz
 
 \begin{figure}[htbp!]
     \centering
-    \includegraphics[width=1.0\textwidth]{ch2-model-preprocessing.pdf}
+    \includegraphics[width=0.8\textwidth]{ch2-preprocessing.pdf}
     \caption{Example of preprocessing}\label{fig:ch2-model-preprocessing}
 \end{figure}
 
@@ -120,7 +120,7 @@ In the exercise description text, there will be some combinations of words, i.e.
 
 \begin{figure}[htbp!]
     \centering
-    \includegraphics[width=0.8\textwidth]{ch2-bert-wwm.pdf}
+    \includegraphics[width=0.75\textwidth]{ch2-bert-wwm.pdf}
     \caption{Whole word mask}\label{fig:ch2-bert-wwm}
 \end{figure}
 
@@ -130,7 +130,7 @@ WWM processes some words of the original sequence of exercise description text w
 
 \begin{figure}[htb]
     \centering
-    \includegraphics[width=0.7\textwidth]{ch2-bert-model.pdf}
+    \includegraphics[width=0.65\textwidth]{ch2-bert-model.pdf}
     \caption{BERT-based embedding}\label{fig:ch2-bert-model}
 \end{figure}
 
@@ -147,20 +147,19 @@ RNNs are well equipped to solve various types of problems and tasks in serialize
 \end{align}
 
 
-\begin{figure}[htbp!]
+\begin{figure}[htb]
     \centering
     \includegraphics[width=1.0\textwidth]{ch2-rnn-model.pdf}
-    \caption{Naive RNN unit}\label{fig:ch2-rnn-model}
+    \caption{The Original RNN}\label{fig:ch2-rnn-model}
 \end{figure}
 
 %但是，当序列较长时，就会出现长依赖性的问题。例如，对于一个序列，当前的状态依赖于离当前状态很远的一个状态，随着时间间隔的增加，RNNs学习这个状态的能力会大大降低。LSTM是作为针对RNN的这种缺陷的一种解决方案被提出来，它运用门控机制来实现长期记忆。解决RNN的梯度爆炸或梯度消失等问题。在捕捉序列信息方面也具有良好的性能。其结构如图所示，表示\(t\)时刻的一个LSTM单元内的计算细节。其中，\(\sigma\)为激活函数，\(c_t\)为单元状态表征，\(f_t\)为遗忘门控计算，\(i_t\)为输入门控计算，\(o_t\)为输出门控计算，\(h_t\)为隐藏状态表征。通过由门控控制的遗忘机制，可以有效建模对于远距离序列单元信息。
 
 However, when the sequence is long, the problem of long dependencies arises. For example, for a sequence, the current state depends on a state far away from the current state, and as the time interval increases, the ability of RNNs to learn state representation is greatly reduced. Long short-term memory (LSTM)~\cite{lstm1997, lindemann2020survey}, as a solution to overcome shortcomings of RNN, which uses a gating mechanism to achieve long-term memory. It solves the problems such as gradient explosion or gradient disappearance of RNN. It also has a good performance in capturing sequence information. The general model of LSTM is like \figname{\ref{fig:ch2-lstm-model}}, which represents the computational details within an LSTM cell at the moment of \(t\). Among them, \(\sigma\) is the activation function, \(c_t\) is the cell state representation, \(f_t\) is the forgetting gating calculation, \(i_t\) is the input gating calculation, \(o_t\) is the output gating calculation, and \(h_t\) is the hidden state representation. The forgetting mechanism controlled by gating can be effectively modeled for long-range sequential unitary information.
 
-\begin{figure}[htbp!]
+\begin{figure}[htb]
     \centering
-    \includegraphics[width=1.0\textwidth]{ch2-lstm-model.pdf}
-    %\includegraphics[width=1.0\textwidth]{ch2-fig8.png}
+    \includegraphics[width=0.8\textwidth]{ch2-lstm-model.pdf}
     \caption{Structure of LSTM unit}\label{fig:ch2-lstm-model}
 \end{figure}
 
@@ -199,7 +198,7 @@ Human attention is a mechanism for quickly screening high-value information from
 
 \begin{figure}[htb]
     \centering
-    \includegraphics[width=0.7\textwidth]{ch2-model-attmodel.pdf}
+    \includegraphics[width=0.55\textwidth]{ch2-att-model.pdf}
     \caption{The essential idea of attention mechanism}\label{fig:ch2-model-attmodel}
 \end{figure}
 
@@ -233,7 +232,7 @@ In high school mathematics, knowledge points have more complex interrelationship
 
 \begin{figure}[htbp!]
     \centering
-    \includegraphics[width=0.8\textwidth]{ch2-gcn-ov.pdf}
+    \includegraphics[width=0.9\textwidth]{ch2-gcn-model.pdf}
     \caption{The overview of structure}\label{fig:ch2-gcn-ov}
 \end{figure}
 
@@ -316,7 +315,7 @@ In this thesis, a learnable stacked GCN-based model for knowledge relation repre
 
 \begin{figure}[htbp!]
     \centering
-    \includegraphics[width=1.0\linewidth]{ch2-gcn-clsgen.pdf}
+    \includegraphics[width=1.0\linewidth]{ch2-gcncls-model.pdf}
     \caption{The structure of GCN-based classifier generator}\label{fig:ch2-gcn-clsgen}
 \end{figure}
 
@@ -335,13 +334,13 @@ Through manual labeling, the real knowledge point labels of the exercises can be
 
 \section{Experiments}
 %本章提出了一个习题知识点多标签标注的模型，在本节中，先对数据集进行了介绍，接着介绍了一些Baseline性能的模型，然后结合多标签标注提出了对比的性能指标评估方案，最后给出对比结果和分析。This chapter proposes a multi-label labeling model for exercise knowledge points. 
-This section first introduces, preprocess, and analysis the dataset, then introduces some baseline performance models, followed by the introduction of multi-label labeling metrics. Finally, comparison results and analysis are given.
+This section first introduces, preprocess, and analysis the original data, and then introduces some baseline performance models, followed by the introduction of multi-label labeling metrics. Finally, comparison results and analysis are given.
 \subsection{Dataset}
 %本文中的实验数据来自于在线网站tiku.21cnjy.com的带标签的高考数学考题以及模拟题（包含答案解析），通过爬虫爬取题干、答案解析等文本语料。其部分知识点关联模型可以表示为如下图结构。该数据集经过过滤和人工选择，共3374道试题，包含148个知识点，题均知识点为1.7个，其知识点分布如图所示。
 The experimental data are the labeled math examination questions and practicing exercises (including answer analysis) fetched from the online exercise website ``tiku.21cnjy.com''. The text corpus, such as exercise texts and answer analysis, are crawled through web crawlers. The raw data are roughly classified text records that contain a lot of repetitive redundancy and error information, so a data preprocessing process is needed to filter out the appropriate data. The knowledge graph of the original dataset is shown in the \figname{\ref{fig:ch2-model-knowledgenet}}.
 \begin{figure}[htbp!]
     \centering
-    \includegraphics[width=1.0\textwidth]{ch2-model-knowledgenet.pdf}
+    \includegraphics[width=1.0\textwidth]{ch2-knowledgenet.pdf}
     \caption{Knowledge point relation graph of original dataset}\label{fig:ch2-model-knowledgenet}
 \end{figure}
 
@@ -543,7 +542,7 @@ In this experiment, the training and test sets are split from the original datas
 This section's study focuses on a multi-label text classification task, so several more popular text classification models are used as baseline models. Some existing text classification models are selected experimentally to compare with the proposed model, and the performance is compared with the proposed model on the selected experimental evaluation metrics and the same dataset. There are already some algorithm models for labeling text, which are set as the baseline models for comparison to verify the effectiveness of the proposed algorithm.
 \begin{itemize}
     \item Bi-LSTM+Attention~\cite{zhou2016attention}: the model consists of an Embedding layer, a bi-directional LSTM layer, and an Attention layer. The text is passed through the Embedding layer to generate the Embedding vector, the LSTM to compute the higher-order sentence vector, the Attention layer to weight the sentence vector, and the final output layer to output the predicted labels.
-    \item fastText~\cite{joulin-etal-2017-bag}: Facebook proposes the fastText model in 2017. The fastText accelerated training and can be applied to text classification tasks, and it contains input, hidden, and output layers. The method is actually a weighted sum of the word vectors of the sentences as sentence vectors, using softmax classification.
+    \item fastText~\cite{joulin-etal-2017-bag}: Facebook proposes the fastText model in 2017. The fastText accelerated training and can be applied to text classification tasks, and it contains input, hidden, and output layers. The method is a weighted sum of the word vectors of the sentences as sentence vectors, using softmax classification.
     \item TextCNN~\cite{guo2019improving}: Kim et al.\ adapted the CNN to the text classification task by improving it in 2014~\cite{kim-2014-convolutional}. It contains parts such as the convolutional layer, max-pooling layer, and output layer. The principle is to extract higher-order features of text by multiple convolutional kernels, and it can introduce pre-trained word vectors to improve the performance.
 
 \end{itemize}
