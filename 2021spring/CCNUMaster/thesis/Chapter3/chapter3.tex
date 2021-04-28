@@ -35,7 +35,7 @@ The mathematical representation of the knowledge tracing task is an interactive 
 \begin{figure}[htbp!]
     \centering
     \includegraphics[width=0.9\textwidth]{ch3-kt-model.pdf}
-    \caption{The knowledge tracing procedure}\label{fig:ch3-model-ktdes}
+    \caption{The knowledge tracing modelling.}\label{fig:ch3-model-ktdes}
 \end{figure}
 
 \subsection{Dynamic Key-Value Memory Networks}
@@ -52,22 +52,22 @@ In the knowledge tracing task, since the knowledge point representations contain
 \begin{figure}[htbp!]
     \centering
     \includegraphics[width=1.0\textwidth]{ch3-dkvmn-model.pdf}
-    \caption{The original dynamic key-value memory network model}\label{fig:ch3-dkvmn-model}
+    \caption{The architecture of original dynamic key-value memory network model.}\label{fig:ch3-dkvmn-model}
 \end{figure}
 
-In the reading process, the model weights and calculates the weight vector \(w_t\) with the knowledge point mastery matrix \(M^{(v)}\) to obtain the user's mastery representation vector \(r_t\) for the knowledge point. And \(r_t\) is spliced with the current exercise embedding vector \(k_t\), and \(f_t\) is derived after the full-linked activation layer loses \(Tanh(\cdot)\), which indicates the user's mastery of the exercise. The \(f_t\) goes through a final \(Sigmoid(\cdot)\) activation function to output a predicted probability of answering the exercise correctly \(p_t\). During the writing process, the current actual response performance will impact the student's knowledge acquisition status, which is a re-evaluation process. The current interaction record \(x_t=(q_t,a_t)\) will be used as the input to the model. Its embedding representation \(v_t\) will be used to compute the knowledge reduction vector \(e_t\) and the knowledge increase vector \(a_t\), and the reduction and increase vectors will be weighted with \(w_t\) and act on \(M^{(v)}\) thus realizing the change for the student's knowledge state. The training process is performed by minimizing the cross-entropy loss of \(p_t\) with the true label \(a_t\) of the correctness of the answers to the exercises. The whole model is microscopic and thus can be trained efficiently using stochastic gradient descent.
+In the reading process, the model weights and calculates the weight vector \(w_t\) with the knowledge point mastery matrix \(M^{(v)}\) to obtain the user's mastery representation vector \(r_t\) for the knowledge point. And \(r_t\) is spliced with the current exercise embedding vector \(k_t\), and \(f_t\) is derived after the full-linked activation layer loses \(Tanh(\cdot)\), which indicates the user's mastery of the exercise. The \(f_t\) goes through a final \(Sigmoid(\cdot)\) activation function to output a predicted probability of answering the exercise correctly \(p_t\). During the writing process, the current actual response performance will impact the student's knowledge acquisition status, which is a re-evaluation process. The current interaction record \(x_t=(q_t,a_t)\) will be used as the input to the model. Its embedding representation \(v_t\) will be used to compute the knowledge reduction vector \(e_t\) and the knowledge increase vector \(a_t\), and the reduction and increase vectors will be weighted with \(w_t\) and act on \(M^{(v)}\) thus realizing the change for the student's knowledge state. The training process is performed by minimizing the cross-entropy loss of \(p_t\) with the true label \(a_t\) and the predicting label to the exercises. The whole model is microscopic and thus can be trained efficiently using stochastic gradient descent.
 
 \section{Proposed Model}
 
 \subsection{Algorithm Overview}
 %本节的关键点是对学生的知识追踪，本文提出了一种针对DKVMN的改进型知识追踪网络模型，它在原模型的基础上增加了额外的用户答题特征，并通过图网络来改进知识点掌握度表征存储模块，从而为模型增加知识点间关系表征能力。本模型依然具有习题-知识点关联度计算、读取过程、写入过程和知识网络传播过程和预测过程等多个子模块。其模型框架如图。
 
-The key point of this section is the knowledge tracing of students. In this thesis, an improved knowledge tracing network model for DKVMN was proposed, which adds additional user answer features to the original model and improves the knowledge point mastery representation storage module by graph networks, thus adding inter-knowledge point relationship representation capability to the model. The model still has several sub-modules such as exercise-knowledge point association degree calculation, reading process, writing process and knowledge network propagation process, and prediction process. Its model framework is shown in \figname{\ref{fig:ch3-gkvmn-model}}.
+The key point of this section is the knowledge tracing of students. In this thesis, an improved knowledge tracing network model for DKVMN was proposed, which adds additional user answer features to the original model and improves the knowledge point mastery memory by graph networks, thus adding inter-knowledge point relationship representation capability to the model. The model still has several sub-modules such as exercise-knowledge point association degree calculation, reading process, writing process and knowledge network propagation process, and prediction process. Its model framework is shown in \figname{\ref{fig:ch3-gkvmn-model}}.
 
 \begin{figure}[htbp!]
     \centering
     \includegraphics[width=1.0\textwidth]{ch3-gkvmn-model.pdf}
-    \caption{The graph key-value memory network architecture}\label{fig:ch3-gkvmn-model}
+    \caption{The architecture of proposed graph-based key-value memory network architecture with behavior feature.}\label{fig:ch3-gkvmn-model}
 \end{figure}
 
 \subsection{Student Behavior Capturing}
@@ -93,7 +93,7 @@ In the process of students' exercise practice, an exercise question is associate
 \begin{figure}[htbp!]
     \centering
     \includegraphics[width=\textwidth]{ch3-kq-relation.pdf}
-    \caption{Relation between exercise question and knowledge points}\label{fig:ch3-kq-relationgraph}
+    \caption{The relation between exercise question and latent knowledge points.}\label{fig:ch3-kq-relationgraph}
 \end{figure}
 %在\eqname{\ref{fml:sbcap}}中，已经获取了融合学生个性化信息的习题表征向量\(c_t\)，其中\(c_t\in\mathbb{R}^{d_k}\)，对于第\(i\)个知识点概念，习题与知识点\(i\)的相关度\(w_t(i)\)的计算公式为\eqname{\ref{fml:ch3-corkq}}，其中\(\sigma(\cdot)\)为softmax函数。
 
@@ -298,7 +298,7 @@ First, column correlation analysis can be performed on the original data source 
 \begin{figure}[htb]
     \centering
     \includegraphics[width=0.85\textwidth]{ch3-dataset-heatmap.pdf}
-    \caption{The heat map of original dataset ASSISTment 2009}\label{fig:ch3-dataset-heatmap}
+    \caption{The heat map of features in ASSISTment 2009 dataset.}\label{fig:ch3-dataset-heatmap}
 \end{figure}
 
 %然后，结合热力图，分别对筛选出来的特征绘制互相关性图与分布图，得到. 由此可见，这些特征存在一定的互相关性。
@@ -306,7 +306,7 @@ Then, combined with the heat map, the mutual correlation map and distribution ma
 \begin{figure}[htbp!]
     \centering
     \includegraphics[width=1.0\textwidth]{ch3-dataset-corrplot.png}
-    \caption{The correlation plot between features and correctness}\label{fig:ch3-dataset-corrplot}
+    \caption{The correlation plot between features and correctness.}\label{fig:ch3-dataset-corrplot}
 \end{figure}
 
 
@@ -316,25 +316,25 @@ Next, each feature was plotted separately against the correctness of the answer,
 \begin{figure}[htb]
     \centering
     \includegraphics[width=0.85\textwidth]{ch3-jointplot-hc.png}
-    \caption{The joint plot of hint\_count}\label{fig:ch3-jointplot-hc}
+    \caption{The joint plot of hint\_count feature.}\label{fig:ch3-jointplot-hc}
 \end{figure}
 
 \begin{figure}[htb]
     \centering
     \includegraphics[width=0.85\textwidth]{ch3-jointplot-fc.png}
-    \caption{The joint plot of first\_action}\label{fig:ch3-jointplot-fc}
+    \caption{The joint plot of first\_action feature.}\label{fig:ch3-jointplot-fc}
 \end{figure}
 
 \begin{figure}[htb]
     \centering
     \includegraphics[width=0.85\textwidth]{ch3-jointplot-htc.png}
-    \caption{The joint plot of hint\_total}\label{fig:ch3-jointplot-htc}
+    \caption{The joint plot of hint\_total feature.}\label{fig:ch3-jointplot-htc}
 \end{figure}
 
 \begin{figure}[htb]
     \centering
     \includegraphics[width=0.85\textwidth]{ch3-jointplot-atc.png}
-    \caption{The joint plot of attempt\_count}\label{fig:ch3-jointplot-atc}
+    \caption{The joint plot of attempt\_count feature.}\label{fig:ch3-jointplot-atc}
 \end{figure}
 
 % \begin{figure}[htb]
@@ -373,7 +373,7 @@ Knowledge tracing is essentially a classification problem, where the commonly us
 \begin{figure}[htb]
     \centering
     \includegraphics[width=0.60\textwidth]{ch3-conmat-model.pdf}
-    \caption{The confusion matrix}\label{fig:ch3-conmat}
+    \caption{The confusion matrix.}\label{fig:ch3-conmat}
 \end{figure}
 
 Then, the formula for these classification indicators can be represented as \eqname{\ref{fml:ch3-conmat}}. The TP, TN, FP, FN represent true positive, true negative, false positive, and false negative. Although the accuracy can determine the correct overall rate, the imbalance between positive and negative sample sizes can lead to high accuracy rates that do not fully measure the system's recognition performance for both categories. Additionally, Precision represents the proportion of true positive samples predicted as positive samples, which measures the accuracy of prediction of positive sample results, and Recall represents the bi l of true positive samples identified correctly. When Precision and Recall are plotted against each other, a P-R curve can be obtained. As Recall increases, Precision decreases overall, so a trade-off between the two is required. The F1 is a comprehensive indicator for weighing Precision and Recall.
@@ -399,7 +399,7 @@ This experiment uses the KFold method to partition the test and validation sets,
 
 This experiment runs on a dedicated GPU computing server, and the running environment is shown in \tblname{\ref{tbl:ch3-exp-env}}.
 \begin{table}[htbp!]
-    \caption{Experiment running environment}\label{tbl:ch3-exp-env}
+    \caption{The experiment running environment.}\label{tbl:ch3-exp-env}
     \centering
     \begin{tabular}{l c}
         \toprule
@@ -433,7 +433,7 @@ In this experiment, performance comparisons over baseline models are made by com
 %本模型需要预定义一些训练参数，经过参数调整，得到如表\figname{\ref{tbl:ch3-hpsetting}}所示的参数组合
 This model requires some predefined training parameters, and after parameter adjustment, the parameter combinations shown in \tblname{\ref{tbl:ch3-hpsetting}} are obtained.
 \begin{table}[htbp!]
-    \caption{Hyperparameter settings of proposed model}\label{tbl:ch3-hpsetting}
+    \caption{The hyperparameter settings of proposed model.}\label{tbl:ch3-hpsetting}
     \centering
     \begin{tabular}{l l c}
         \toprule
@@ -454,13 +454,13 @@ The experiments were conducted a total of three times, and the average training 
 \begin{figure}[htb]
     \centering
     \includegraphics[width=0.85\textwidth]{ch3-train-loss.png}
-    \caption{The training process of proposed model}\label{fig:ch3-train-loss}
+    \caption{The training loss variation graph of proposed model.}\label{fig:ch3-train-loss}
 \end{figure}
 
 \begin{figure}[htb]
     \centering
     \includegraphics[width=0.85\textwidth]{ch3-train-acc.png}
-    \caption{The training acc/auc of proposed model}\label{fig:ch3-train-acc}
+    \caption{The training accuracy and AUC variation graph of proposed model.}\label{fig:ch3-train-acc}
 \end{figure}
 %结果显示，经过约150个epoch的训练，模型的预测性能可以稳定收敛。
 
@@ -471,7 +471,7 @@ The experimental results are presented in \tblname{\ref{tbl:ch3-performance}}, a
 
 \begin{table}[htb]
     \centering
-    \caption{Performance comparison between baseline and proposed models}\label{tbl:ch3-performance}
+    \caption{The performance comparison between baseline and proposed models.}\label{tbl:ch3-performance}
     \begin{tabular}{cccc}
         \toprule
         Model    & ACC (\%)                    & AUC (\%)                   & Training time (sec) \\

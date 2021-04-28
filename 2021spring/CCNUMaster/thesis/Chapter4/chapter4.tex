@@ -48,7 +48,7 @@ The structure of the recommendation system is like \figname{\ref{fig:ch4-model-a
 \begin{figure}[htbp!]
     \centering
     \includegraphics[width=1.0\textwidth]{ch4-ov.pdf}
-    \caption{The architecture of recommendation system}\label{fig:ch4-model-architecture}
+    \caption{The architecture of recommendation system.}\label{fig:ch4-model-architecture}
 \end{figure}
 
 \subsection{Matching Phase}
@@ -71,7 +71,7 @@ This section proposes a multiplex exercise matching model for producing a candid
 \begin{figure}[htbp!]
     \centering
     \includegraphics[width=1.0\textwidth]{ch4-matching-model.pdf}
-    \caption{The multiplex matching method}\label{fig:ch4-matching}
+    \caption{The procedure of multiplex matching method.}\label{fig:ch4-matching}
 \end{figure}
 
 \subsubsection{Student-Exercise Collaborative Filtering Based Matching Strategy}
@@ -105,7 +105,7 @@ The exercise \(E_j\) of in students exercise set \(\mathbf{E}_i\) recommendation
 
 The general algorithm is as \algoname{\ref{alg:ch4-CF}}:
 \begin{algorithm}[htbp!]
-    \caption{Student-exercise collaborative filtering algorithm}\label{alg:ch4-CF}
+    \caption{The student-exercise collaborative filtering algorithm.}\label{alg:ch4-CF}
     \begin{algorithmic}[1]
         \REQUIRE~\\
         \(u\): The target student;\\
@@ -190,7 +190,7 @@ The knowledge tracing model outputs a prediction of the correct probability of a
 \begin{figure}[htbp!]
     \centering
     \includegraphics[width=1.0\textwidth]{ch4-ranking-model.pdf}
-    \caption{The ranking method}\label{fig:ch4-model-ranking}
+    \caption{The procedure of ranking method.}\label{fig:ch4-model-ranking}
 \end{figure}
 
 %将候选集习题分别输入知识追踪模型得到预测值，即答对习题的概率，按照从小到大的顺序进行排序，筛选出前\(K^{(RANK)}\)项作为推荐习题列表。\(K^{(RANK)}\)为一个可调的超参数，它对于推荐结果影响较大，决定一道习题是否出现于最终的推荐列表中。当\(K^{(RANK)}\)较大时，推荐的准确率会更高，但是推荐效率会降低。在实际应用中，应当综合考虑学生的知识掌握水平与实际应用场景，设定合理的\(K^{(RANK)}\)值。
@@ -199,7 +199,7 @@ The last step of the model is to input the candidate's exercises into the knowle
 
 The general algorithm is as \algoname{\ref{alg:ch4-Rank}}:
 \begin{algorithm}[htbp!]
-    \caption{Recommendation ranking algorithm}\label{alg:ch4-Rank}
+    \caption{The recommendation ranking algorithm}\label{alg:ch4-Rank}
     \begin{algorithmic}[1]
         \REQUIRE~~\\
         \(\mathbf{E}^{(Candidate)}=\{e_1,e_2,\ldots,e_n\} \): The candidate exercises set of size \(n\); \\
@@ -252,7 +252,7 @@ For a sequence of answers, the knowledge tracing model proposed in the previous 
 This experiment runs on a cloud server with the running environment shown in the \tblname{\ref{tbl:ch4-exp-env}} for running consistency. In this experiment's configuration, 75\% of the interaction records are selected as the training set and the remaining 25\% as the test dataset. Run the model 5 times and take the average value. The hyperparameter settings of the recommendation model are shown in \tblname{\ref{tbl:ch4-hpsetting}}.
 
 \begin{table}[htbp!]
-    \caption{Experiment running environment}\label{tbl:ch4-exp-env}
+    \caption{The experiment running environment.}\label{tbl:ch4-exp-env}
     \centering
     \begin{tabular}{l c}
         \toprule
@@ -270,7 +270,7 @@ This experiment runs on a cloud server with the running environment shown in the
 \end{table}
 
 \begin{table}[htb]
-    \caption{Hyperparameter settings of recommendation matching model}\label{tbl:ch4-hpsetting}
+    \caption{The hyperparameter settings of recommendation matching model}\label{tbl:ch4-hpsetting}
     \centering
     \begin{tabular}{l c c}
         \toprule
@@ -306,25 +306,25 @@ The model is deployed to the cloud server and run, with a training time of about
 \begin{figure}[htbp!]
     \centering
     \includegraphics[width=0.85\textwidth]{ch4-train-loss.png}
-    \caption{The training loss plot}\label{fig:ch4-train-loss}
+    \caption{The training loss variation graph of proposed model.}\label{fig:ch4-train-loss}
 \end{figure}
 
 \begin{figure}[htbp!]
     \centering
     \includegraphics[width=0.85\textwidth]{ch4-train-acc.png}
-    \caption{The training accuracy plot}\label{fig:ch4-train-acc}
+    \caption{The training accuracy and AUC variation graph of proposed model.}\label{fig:ch4-train-acc}
 \end{figure}
 
 \begin{figure}[htbp!]
     \centering
     \includegraphics[width=0.85\textwidth]{ch4-pr.png}
-    \caption{Precision-Recall Curve of proposed recommendation matching model}\label{fig:ch4-pr-res}
+    \caption{The P-R Curve of proposed model.}\label{fig:ch4-pr-res}
 \end{figure}
 
 \begin{figure}[htbp!]
     \centering
     \includegraphics[width=0.85\textwidth]{ch4-roc.png}
-    \caption{ROC Curve of proposed recommendation matching model}\label{fig:ch4-roc-curve}
+    \caption{The ROC Curve of proposed model.}\label{fig:ch4-roc-curve}
 \end{figure}
 
 \subsection{Result and Analysis}

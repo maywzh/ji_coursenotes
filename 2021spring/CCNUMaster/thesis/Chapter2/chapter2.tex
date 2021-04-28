@@ -62,7 +62,7 @@ In 2019, a multi-label image classification model was proposed~\cite{chen2019mul
 \begin{figure}[htbp!]
     \centering
     \includegraphics[width=1.0\textwidth]{ch2-ov.pdf}
-    \caption{Structure of the proposed knowledge labeling model}\label{fig:ch2-modelarchitecture}
+    \caption{The architecture of the proposed knowledge labeling model. The left part is the text representation module, consisting of the Bi-LSTM layer and attention layer, generating one exercise text vector. The right part is the GCN-based knowledge label classifier generator, producing classifiers for knowledge labeling. The outputted labels are the product of the classifier vectors and the text representing vector.}\label{fig:ch2-modelarchitecture}
 \end{figure}
 
 %从结构上我们可以看到，模型中一般有两部分，其中
@@ -94,7 +94,7 @@ The preprocessing stage mainly includes word separation, cleaning, and regulariz
 \begin{figure}[htbp!]
     \centering
     \includegraphics[width=0.8\textwidth]{ch2-preprocessing.pdf}
-    \caption{Example of preprocessing}\label{fig:ch2-model-preprocessing}
+    \caption{The procedure of preprocessing. The text is first segmented into a list of words, in which the irrelevant words are then cleaned. The words are finally re-merged into one sentence.}\label{fig:ch2-model-preprocessing}
 \end{figure}
 
 % - 分词。相对于其他表音语言如英语、西班牙语，中文语言预处理需要额外的分词步骤。在汉语中的词与词之间不存在自然分隔，因此需要人为对句子按照词义进行分割。选择合适的汉语分词算法可以为后续的处理奠定基础，提高整体模型性能。目前，汉语分词主要分为基于词典规则匹配和基于统计模型的两种算法。与前者相比，后者具有更好的泛化能力和学习能力。它用于先验规则之外的分词，如歧义词和未注册词表现较好。在该模型中，采用了目前流行的jieba分词，实现了基于Trie书结构的词条图扫描，利用阶段规划和HMM模型等算法，找到基于词频的最大分词分组和合并，实现了未来登录词的识别。用户还可以自定义停字和用户字典，实现专有名词识别。
@@ -121,7 +121,7 @@ In the exercise description text, there will be some combinations of words, i.e.
 \begin{figure}[htbp!]
     \centering
     \includegraphics[width=0.75\textwidth]{ch2-bert-wwm.pdf}
-    \caption{Whole word mask}\label{fig:ch2-bert-wwm}
+    \caption{The difference between single word mask and whole word mask.}\label{fig:ch2-bert-wwm}
 \end{figure}
 
 %将经过分词处理得到的习题文本词原始序列的部分词进行WWM处理，在序列的开头添加标记[CLS]，句子间用[SEP]分隔符标示。经过训练，输出词embedding向量。每个词的输出embedding由三个部分组成，即token embedding、segment embedding和position embedding，它们从不同的角度对词进行嵌入信息表征。随后，将词嵌入向量输入BERT的特征提取双向Transformer层，可以获得包含深度语义特征的特征序列表征向量。整体架构如图所示。
@@ -131,7 +131,7 @@ WWM processes some words of the original sequence of exercise description text w
 \begin{figure}[htb]
     \centering
     \includegraphics[width=0.65\textwidth]{ch2-bert-model.pdf}
-    \caption{BERT-based embedding}\label{fig:ch2-bert-model}
+    \caption{The BERT-based encoding. The inputted texts are encoded by a whole word mask BERT model, and then fed into the Bi-LSTM layer.}\label{fig:ch2-bert-model}
 \end{figure}
 
 \subsubsection{Bidirectional LSTM Layer}
@@ -150,7 +150,7 @@ RNNs are well equipped to solve various types of problems and tasks in serialize
 \begin{figure}[htb]
     \centering
     \includegraphics[width=1.0\textwidth]{ch2-rnn-model.pdf}
-    \caption{The Original RNN}\label{fig:ch2-rnn-model}
+    \caption{The original RNN model.}\label{fig:ch2-rnn-model}
 \end{figure}
 
 %但是，当序列较长时，就会出现长依赖性的问题。例如，对于一个序列，当前的状态依赖于离当前状态很远的一个状态，随着时间间隔的增加，RNNs学习这个状态的能力会大大降低。LSTM是作为针对RNN的这种缺陷的一种解决方案被提出来，它运用门控机制来实现长期记忆。解决RNN的梯度爆炸或梯度消失等问题。在捕捉序列信息方面也具有良好的性能。其结构如图所示，表示\(t\)时刻的一个LSTM单元内的计算细节。其中，\(\sigma\)为激活函数，\(c_t\)为单元状态表征，\(f_t\)为遗忘门控计算，\(i_t\)为输入门控计算，\(o_t\)为输出门控计算，\(h_t\)为隐藏状态表征。通过由门控控制的遗忘机制，可以有效建模对于远距离序列单元信息。
@@ -160,7 +160,7 @@ However, when the sequence is long, the problem of long dependencies arises. For
 \begin{figure}[htb]
     \centering
     \includegraphics[width=0.8\textwidth]{ch2-lstm-model.pdf}
-    \caption{Structure of LSTM unit}\label{fig:ch2-lstm-model}
+    \caption{The architecture of LSTM unit.}\label{fig:ch2-lstm-model}
 \end{figure}
 
 %单向LSTM也有一个固有的缺陷，它只能捕获\(t\)时刻以前的序列状态信息，即只能捕获之前序列输入。双向LSTM通过将反向序列输入LSTM并与正向LSTM序列进行聚合，可以捕获双向的语义信息，同时对双向的依赖建模。
@@ -177,7 +177,7 @@ The Bi-LSTM Structure is like \figname{\ref{fig:ch2-model-bilstm}}.
 \begin{figure}[htb]
     \centering
     \includegraphics[width=.9\textwidth]{ch2-bilstm-model.pdf}
-    \caption{Structure of Bi-LSTM}\label{fig:ch2-model-bilstm}
+    \caption{The architecture of Bi-LSTM layer.}\label{fig:ch2-model-bilstm}
 \end{figure}
 
 Here, the Bi-LSTM output a bidirectional sequence as the concatenation of positive-order and reverse-order LSTM output sequence. It is a higher-order representation of the exercise text's sentence vector, and the model can also be stackable with multiple Bi-LSTM layers to characterize the deep sentence sense vector~\cite{jang2020bi}.
@@ -199,7 +199,7 @@ Human attention is a mechanism for quickly screening high-value information from
 \begin{figure}[htb]
     \centering
     \includegraphics[width=0.55\textwidth]{ch2-att-model.pdf}
-    \caption{The essential idea of attention mechanism}\label{fig:ch2-model-attmodel}
+    \caption{The attention mechanism.}\label{fig:ch2-model-attmodel}
 \end{figure}
 
 
@@ -233,7 +233,7 @@ In high school mathematics, knowledge points have more complex interrelationship
 \begin{figure}[htbp!]
     \centering
     \includegraphics[width=0.9\textwidth]{ch2-gcn-model.pdf}
-    \caption{The overview of structure}\label{fig:ch2-gcn-ov}
+    \caption{The architecture of GCN classifier generator.}\label{fig:ch2-gcn-ov}
 \end{figure}
 
 
@@ -268,7 +268,7 @@ The node propagation of GCN in this section is~\eqname{\ref{fml:ch2-gcn2}}, wher
 \begin{figure}[htbp!]
     \centering
     \includegraphics[width=1.0\linewidth]{ch2-gcn-modelov.pdf}
-    \caption{The GCN training process}\label{fig:ch2-gcn-explain}
+    \caption{The training process of GCN.}\label{fig:ch2-gcn-explain}
 \end{figure}
 
 %在本模型中，每个节点都是知识点的表征，在此可以通过知识点文本表征向量来进行表征。通过对相关知识点的图传播学习，可以使相关知识点的表征产生融合，进而提升模型识别对于相关知识点的联想学习性能。
@@ -341,7 +341,7 @@ The experimental data are the labeled math examination questions and practicing 
 \begin{figure}[htbp!]
     \centering
     \includegraphics[width=1.0\textwidth]{ch2-knowledgenet.pdf}
-    \caption{Knowledge point relation graph of original dataset}\label{fig:ch2-model-knowledgenet}
+    \caption{The knowledge point relation graph of original dataset.}\label{fig:ch2-model-knowledgenet}
 \end{figure}
 
 \subsubsection{Data Preprocess}
@@ -354,7 +354,7 @@ Since there are many images in the original set of exercises that cannot be iden
 In this experiment, a few of the more representative categories were selected to construct the dataset, and a total of 7 categories of knowledge points were selected, within which two categories are correlating. After deduplication and removal of invalid data, 3969 pieces of data were finally obtained. The filtered data are shown in the \tblname{\ref{tbl:ch2-rawdata}} and the distribution of the number of dependent exercises for each category is shown in the \tblname{\ref{tbl:ch2-rawdata-dist}} and \figname{\ref{fig:ch2-data-belonging}}. The distribution of length of exercise texts is shown in \figname{\ref{fig:ch2-data-lendis}}. The results show that most samples' text lengths are concentrated in the interval range of 20\-100, so values in this range can be considered when choosing the model's sequence length parameter. Also, the category distribution has a certain degree of non-average-ness. Classification metrics such as the F1 score should be used to exclude such effects.
 
 \begin{table}[htb]
-    \caption{The filtered data examples}\label{tbl:ch2-rawdata}
+    \caption{The processed data examples.}\label{tbl:ch2-rawdata}
     \centering
     \begin{tabular}{l c}
         \toprule
@@ -370,7 +370,7 @@ In this experiment, a few of the more representative categories were selected to
 \end{table}
 
 \begin{table}[htb]
-    \caption{The distribution of exercise in each category}\label{tbl:ch2-rawdata-dist}
+    \caption{The distribution of exercise in each category.}\label{tbl:ch2-rawdata-dist}
     \centering
     \begin{tabular}{l c}
         \toprule
@@ -390,13 +390,13 @@ In this experiment, a few of the more representative categories were selected to
 \begin{figure}[htb]
     \centering
     \includegraphics[width=0.85\textwidth]{ch2-data-belonging.png}
-    \caption{The distribution of exercise in each category}\label{fig:ch2-data-belonging}
+    \caption{The distribution of exercise in each category.}\label{fig:ch2-data-belonging}
 \end{figure}
 
 \begin{figure}[htb]
     \centering
     \includegraphics[width=0.85\textwidth]{ch2-data-lendis.png}
-    \caption{The distribution of exercise text length}\label{fig:ch2-data-lendis}
+    \caption{The distribution of exercise text length.}\label{fig:ch2-data-lendis}
 \end{figure}
 
 %另外，对于各个类别，可以分析类别间的互相关性，绘制出热力图如图所示。
@@ -404,14 +404,14 @@ In addition, for each category, the inter-correlation between the categories can
 \begin{figure}[htb]
     \centering
     \includegraphics[width=1.0\textwidth]{ch2-data-heatmap.png}
-    \caption{The relation heatmap between different categories}\label{fig:ch2-data-heatmap}
+    \caption{The relation heatmap between different categories.}\label{fig:ch2-data-heatmap}
 \end{figure}
 
 
 
 \subsection{Metrics}
 %相比于传统学习问题，对多标签数据的标注十分困难，多标签意味着巨大的分类成本。本节的任务中，需要对试题进行多知识点标注，实际上是一个多标签分类问题，则样本维度、数据量、标签维度都会影响标注效果。本节利用了基于标签的评测方法来对提出的试题知识点标注模型进行性能评估。
-Compared with common text classification problems, it is hard to label multi-label data, and multi-label means huge classification cost~\cite{zhang2013review}. In the tasks in this section, the test questions need to be labeled with multiple knowledge points. It is a multi-label classification problem. The sample dimension, data volume, and label dimension will all affect the labeling effect. This section uses label-based metrics to evaluate the performance of the proposed test knowledge point labeling model.
+Compared with common text classification problems, it is hard to label multi-label data, and multi-label means huge classification cost~\cite{zhang2013review}. In the tasks in this section, the test questions need to be labeled with multiple knowledge points. The performance of a multi-label classification task will be affected by the factors such as sample dimension, data volume, and label dimension. Therefore, this section applies label-based metrics to evaluate the performance of the proposed knowledge point labeling model.
 
 %关于多标签分类，考虑到习题的标签之间的关系，本文使用了基于标签的指标来进行模型评估。该指标对每个标签分别进行混淆矩阵指标计算计算出True Positive，False Positive，True Negative和False Negative的样本值。然后计算F1指标值，以此进行多标签指标评估。
 
@@ -487,7 +487,7 @@ In this experiment, the training and test sets are split from the original datas
 
 
 \begin{table}[htb]
-    \caption{Experiment running environment}\label{tbl:ch2-exp-env}
+    \caption{The experiment running environment.}\label{tbl:ch2-exp-env}
     \centering
     \begin{tabular}{l c}
         \toprule
@@ -507,7 +507,7 @@ In this experiment, the training and test sets are split from the original datas
 
 
 \begin{table}[htb]
-    \caption{Hyperparameter settings of recommendation model}\label{tbl:ch2-hpsetting}
+    \caption{The hyperparameter settings.}\label{tbl:ch2-hpsetting}
     \centering
     \begin{tabular}{l c c}
         \toprule
@@ -553,20 +553,20 @@ The training and validation loss plot are shown in \figname{\ref{fig:ch2-trainin
 \begin{figure}[htb]
     \centering
     \includegraphics[width=0.85\textwidth]{ch2-training-loss.png}
-    \caption{The training and validation loss plot of model}\label{fig:ch2-training-loss}
+    \caption{The training and validation loss plot of model.}\label{fig:ch2-training-loss}
 \end{figure}
 
 \begin{figure}[htb]
     \centering
     \includegraphics[width=0.85\textwidth]{ch2-training-acc.png}
-    \caption{The training and validation acc plot of model}\label{fig:ch2-training-acc}
+    \caption{The training and validation acc plot of model.}\label{fig:ch2-training-acc}
 \end{figure}
 
 \subsection{Result and Analysis}
 In the experimental comparison for each of the other baseline models, three experiments were conducted, and the average of the experimental results was taken as the performance parameter of the baseline model and compared with the proposed model. The comparison experiment results are divided into the performance comparison of the baseline models shown in \tblname{\ref{tbl:ch2-result-bsline1}}. The results show that the proposed model outperforms the baseline model in all the multi-label classification metrics, so the present model achieves the intended design goal. Further, the classification details of the model for each category are shown in \tblname{\ref{tbl:ch2-result-detail}}.
 
 \begin{table}[htbp!]
-    \caption{Performance comparison between baseline and proposed models}\label{tbl:ch2-result-bsline1}
+    \caption{The performance comparison between baseline and proposed models.}\label{tbl:ch2-result-bsline1}
     \centering
     \begin{tabular}{ccccc}
         \toprule
@@ -583,7 +583,7 @@ In the experimental comparison for each of the other baseline models, three expe
 As can be seen from the \tblname{\ref{tbl:ch2-result-detail}}, the performance of the models proposed in this chapter is better for exercises that occur more frequently than those that occur less frequently. As the frequency of knowledge points decreases and the difficulty of classification increases, the model shows performance degradation. This is because the model is prone to overfitting when the exercises' sample size is small, leading to the degradation of the model prediction performance. The problem can be solved by increasing the sample size and optimizing the data quality.
 
 \begin{table}[htbp!]
-    \caption{Classification report of proposed model}\label{tbl:ch2-result-detail}
+    \caption{The multi-label classification performance of proposed model.}\label{tbl:ch2-result-detail}
     \centering
     \begin{tabular}{ccccc}
         \toprule
@@ -676,8 +676,8 @@ The contributions of this chapter are as follows:
 \begin{enumerate}
     \item The relationship between knowledge points is modeled by a graph neural network, which can expose the hidden knowledge point labels in the original text and provide the existing model with the latent knowledge point reasoning capability.
     \item By designing the correlation function between the knowledge points, the dependence between the knowledge points is modeled based on knowledge points' co-existence in the same exercise.
-    \item The proposed model achieved better performance than baseline models in multi knowledge labeling task.
+    \item The proposed model achieved better performance than baseline models in multi knowledge labeling tasks.
 \end{enumerate}
 
-The labeling of exercise knowledge points is the first step of the recommendation system. The labeled exercises can be used as the input of the knowledge tracing model to track students' knowledge state and can also be adopted as the recommendation system's input feature to recommend exercises based on knowledge points.
+The labeling of exercise knowledge points is the first step of the recommendation system. The labeled exercises can be used as the input of the knowledge tracing model to track students' knowledge state and be adopted as the recommendation system's input feature to recommend exercises based on knowledge points.
 
