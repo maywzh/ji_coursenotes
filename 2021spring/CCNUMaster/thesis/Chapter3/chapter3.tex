@@ -35,7 +35,7 @@ The mathematical representation of the knowledge tracing task is an interactive 
 \begin{figure}[htbp!]
     \centering
     \includegraphics[width=0.9\textwidth]{ch3-kt-model.pdf}
-    \caption{The knowledge tracing pattern}\label{fig:ch3-model-ktdes}
+    \caption{The knowledge tracing procedure}\label{fig:ch3-model-ktdes}
 \end{figure}
 
 \subsection{Dynamic Key-Value Memory Networks}
@@ -73,7 +73,7 @@ The key point of this section is the knowledge tracing of students. In this thes
 \subsection{Student Behavior Capturing}
 %在本文中，提出了一种利用DNN来捕捉学生答题特征表征的机制，它与习题特征向量共同形成cross-feature向量，该向量用于后续的习题知识点权重向量计算，它将用户的答题行为特征（例如：是否hint、答题时间、尝试次数）向量\(b_1^t,b_2^t,\ldots,\b_N^t\)输入一个基于多层感知机的特征提取网络中，输出一个对于用户答题能力表征向量\(c_t\)。该向量与原始习题表示向量\(q_t\)进行特征交叉，生成融合用户特征的习题表征向量。具体过程如公式\eqname{\ref{fml:sbcap}}。
 
-In this model, students' answering behavior is introduced into the model as an additional feature, forming a cross-feature with the exercise representation vector through the feature crossing layer. The cross-feature vector is then adapted to the subsequent calculation of the exercise-knowledge point weight vector, integrating the user's answer behavior features (e.g., hint number, overlapping time, number of attempts) vector \(b_1^t,b_2^t,\ldots,b_N^t\) into a multilayer perceptron based feature extraction network and outputs a vector \(c_t\) for the user is answering ability representation. This vector is feature-crossed with the original exercise representation vector \(q_t\) to generate an exercise representation vector that incorporates user-related features. The specific process is shown in \eqname{\ref{fml:ch3-sbcap}}. The \(\| \) represents concatenation.
+In this model, students' answering behavior is introduced into the model as an additional feature, forming a cross-feature with the exercise representation vector through the feature crossing layer. The cross-feature vector is then adapted to the subsequent calculation of the exercise-knowledge point weight vector, integrating the user's answer behavior features (e.g., hint number, overlapping time, number of attempts) vector \(b_1^t,b_2^t,\ldots,b_N^t\) into a multilayer perceptron based feature extraction network and outputs a vector \(c_t\) for the user is answering ability representation. This vector is feature-crossed with the original exercise representation vector \(q_t\) to generate an exercise representation vector that incorporates user-related features. The specific process is shown in \eqname{\ref{fml:ch3-sbcap}}. The \(|| \) represents concatenation.
 
 \begin{align}\label{fml:ch3-sbcap}
     \begin{split}
@@ -179,7 +179,7 @@ Finally, changes in each knowledge point have an impact on neighboring knowledge
 
 %由此可见，知识点的邻接矩阵是图传播的关键，本文提出了基于统计的方式来计算知识点邻接矩阵\(A\)，即当知识点\(i,j\)共现次数超过某一阈值时，将\(i，j\)知识点设置为相关。如公式\eqname{\ref{fml:ch3-confidence}}所示。
 
-It can be seen that the adjacency matrix of knowledge points is the key to graph propagation, and this thesis proposes a statistical-based approach to calculate the knowledge point adjacency matrix \(A\), i.e., when the number of co-occurrences of knowledge points \(i,j\) exceeds a certain threshold, \(i,j\) knowledge points are set to be relevant. As shown in equation \eqname{\ref{fml:ch3-confidence}}, the \(P_{ij}\) represents the probability that exercise \(i\) and exercise \(j\) exist in one exercise.
+It can be seen that the adjacency matrix of knowledge points is the key to graph propagation. Thus this thesis proposes a statistical-based approach to calculate the knowledge point adjacency matrix \(A\). When the number of co-occurrences of knowledge points \(i,j\) exceeds a certain threshold, \(i,j\) knowledge points are set to be relevant. As shown in equation \eqname{\ref{fml:ch3-confidence}}, the \(P_{ij}\) represents the probability that exercise \(i\) and exercise \(j\) exist in one exercise.
 \begin{align}\label{fml:ch3-confidence}
     A_{ij}=\{\begin{array}{ll}
         0, & \text{ if } P_{ij}<\tau^{(k)}      \\
@@ -490,7 +490,7 @@ The experimental results are presented in \tblname{\ref{tbl:ch3-performance}}, a
 As for the model training time consumption, this model will have a reduced training efficiency compared to the original DKVMN model because of the additional graph information propagation process. To improving training efficiency, the graph propagation can be considered to be computed by means of matrix operations, which can make full use of the parallel computing capability of computing devices.
 
 \section{Summary}
-In this section, an improved GKVMN model based on DKVMN is proposed, which adds the ability to characterize the relationships between knowledge points to the model by transforming the storage module that integrate the exercises' potential concepts to a graph structure. On the other hand, the model introduces the student's answer characteristics to introduce more influencing factors, thus enhancing the model's predictive capability. Besides, the value storage memory slots of the model can be used as the student's knowledge point mastery representation, which can explicitly output the student's mastery of potential concepts, thus adding more recommended input features for the subsequent exercise recommendation.
+In this section, an improved model based on DKVMN is proposed, which adds the ability to characterize the relationships between knowledge points to the model by transforming the storage module that integrate the exercises' potential concepts to a graph structure. On the other hand, the model introduces the student's answer characteristics to introduce more influencing factors, thus enhancing the model's predictive capability. Besides, the value storage memory slots of the model can be used as the student's knowledge point mastery representation, which can explicitly output the student's mastery of potential concepts, thus adding more recommended input features for the subsequent exercise recommendation.
 
 The main contributions of this section are as follows.
 \begin{enumerate}
