@@ -77,52 +77,61 @@ This section proposes a multiplex exercise matching model for producing a candid
 \subsubsection{Student-Exercise Collaborative Filtering Based Matching Strategy}
 %协同过滤是multiplex matching中的其中一个匹配策略，对于数学习题来说，由于习题已经经过知识点标注，因此可以根据知识点重合程度来计算相似度。同时，对于学生，在知识追踪阶段获取了学生的知识状态表征向量，因此也可以根据该向量计算学生的知识掌握相似度。本节提出一个基于Student-Exercise两阶段的协同过滤算法，该算法先计算学生的相似度，获取相关的习题，再根据这些习题计算相似的习题加入候选集，经过该方法计算的习题集相对而言较为完备，防止出现经过由于相似用户较少而出现的推荐项目稀疏的问题。
 
-%传统基于用户的协同过滤根据模型选择的用户特征计算用户间的相似度，依据相似度来判定用户的状态相似度，并将相似度最高的前几名用户作为该用户的最近邻居用户。邻居用户集合的构建是协同过滤算法重要前提和基础。对于相似用户的计算方法，目前大多数个性化推荐系统主要采用的有：余弦相似性、修正的余弦相似性、皮尔森相关系数~\cite{Novotn__2018}，其中余弦相似性是计算两名用户评分向量在向量空间模型中的向量夹角的余弦值，用评分向量夹角的余弦值大小表示用户间的相似性。而修正的余弦相似性主要是解决用户受自身或者其它因素影响导致评分数据不稳定的问题，相较于余弦相似性计算用户间的相似度，修正的余弦相似性计算由于考虑因素较多所以更为准确一些。因为余弦相似度计算方法过于粗糙，未考虑到用户受自身或者其它因素影响因素对用户间相似性的影响，所以更多的基于用户的协同过滤推荐系统选择采用修正的余弦相似性方法计算用户间的相似度。其公式如下所示。其中\(\mathbf{S}^u=(S^u_1,S^u_2,\ldots,S^u_n)\)、\(\mathbf{S}^v=(S^v_1,S^v_2,\ldots,S^v_n)\)分别代表由知识追踪模型输出的用户\(u\)、\(v\)的的知识状态表征向量。
+%传统基于用户的协同过滤根据模型选择的用户特征计算用户间的相似度，依据相似度来判定用户的状态相似度，并将相似度最高的前几名用户作为该用户的最近邻居用户。邻居用户集合的构建是协同过滤算法重要前提和基础。对于相似用户的计算方法，目前大多数个性化推荐系统主要采用的有：余弦相似性、修正的余弦相似性、皮尔森相关系数~\cite{Novotn__2018}，其中余弦相似性是计算两名用户评分向量在向量空间模型中的向量夹角的余弦值，用评分向量夹角的余弦值大小表示用户间的相似性。而修正的余弦相似性主要是解决用户受自身或者其它因素影响导致评分数据不稳定的问题，相较于余弦相似性计算用户间的相似度，修正的余弦相似性计算由于考虑因素较多所以更为准确一些。因为余弦相似度计算方法过于粗糙，未考虑到用户受自身或者其它因素影响因素对用户间相似性的影响，所以更多的基于用户的协同过滤推荐系统选择采用修正的余弦相似性方法计算用户间的相似度。其公式如下所示。其中\(\mathbf{S}^u=(M^u_1,M^u_2,\ldots,M^u_n)\)、\(\mathbf{S}^v=(M^v_1,M^v_2,\ldots,M^v_n)\)分别代表由知识追踪模型输出的用户\(u\)、\(v\)的的知识状态表征向量。
 
 %计算出学生的相似度之后，可以设定一个相似度阈值\(\tau_{simu}\)作为相似学生的筛选标准。对于用户\(u\)，所有的相似用户\(\mathbf{U}_{sim}={i|sim(u,i)>\tau_{simu}}\)。为了获取相似的习题，选择\(\mathbf{U}_{sim}\)中的用户的错题集或者收集题集。将用户\(i\)的错题集合和收藏习题集合分别表示为\(\mathbf{E}_{i}^err\)和\(\mathbf{E}_{i}^fav\)。最终将符合要求的相似用户的错题集合和收藏习题集合进行归并和去重，即得到目标习题集合。
 
 Collaborative filtering is one of the matching strategies in multiplex matching. For math learning questions, because the exercises have been labeled with knowledge points, the similarity can be calculated according to the overlap of the knowledge points. Simultaneously, for students, the student's knowledge state representation vector is obtained in the knowledge tracing stage, so the students' knowledge mastery similarity can also be calculated based on this vector. This section proposes a two-stage collaborative filtering algorithm based on Student-Exercise. The algorithm first calculates students' similarity, obtains related exercises, and then calculates similar exercises based on these exercises and adds them to the candidate set. The exercise set calculated by this method is relatively The language is relatively complete to prevent sparse recommendation items that appear due to fewer similar users.
 
-Traditional user-based collaborative filtering calculates the similarity between users, determining the similarity of the user's state according to the similarity, and uses the top users with the highest similarity as the user's nearest neighbors. The construction of the neighbor user set is an important premise and foundation of the collaborative filtering algorithm. For similar users' calculation methods, most of the current personalized recommendation systems mainly use cosine similarity, modified cosine similarity, and correlation similarity. Cosine similarity is to calculate the cosine value of the angle between the two users' rating vectors in the vector space model, and the cosine value of the angle between the rating vectors is used to express the similarity between users. The modified cosine similarity is mainly to solve the problem that users are affected by their own or other factors, and the scoring data is unstable. Compared with the cosine similarity calculation of the similarity between users, the modified cosine similarity calculation is more important because of more considerations. Be more accurate. Because the cosine similarity calculation method is too rough and does not consider the user's influence or other factors on the similarity between users, more user-based collaborative filtering recommendation systems choose to use the modified cosine similarity method to calculate the user-to-user similarity. The similarity. The formula is~\ref{fml:ch4-user_similarity}, where \(\mathbf{S}^u=(S^u_1,S^u_2,\ldots,S^u_n)\), \(\mathbf{S}^v=(S^v_1,S^v_2,\ldots, S^v_n)\) represent the representation vectors of the knowledge state of users \(u\) and \(v\) output by the knowledge tracing model, respectively.
+Traditional user-based collaborative filtering calculates the similarity between users, determining the similarity of the user's state according to the similarity, and uses the top users with the highest similarity as the user's nearest neighbors. The construction of the neighbor user set is an important premise and foundation of the collaborative filtering algorithm. For similar users' calculation methods, most of the current personalized recommendation systems mainly use cosine similarity, modified cosine similarity, and correlation similarity. Cosine similarity is to calculate the cosine value of the angle between the two users' rating vectors in the vector space model, and the cosine value of the angle between the rating vectors is used to express the similarity between users. The modified cosine similarity is mainly to solve the problem that users are affected by their own or other factors, and the scoring data is unstable. Compared with the cosine similarity calculation of the similarity between users, the modified cosine similarity calculation is more important because of more considerations. Be more accurate. Because the cosine similarity calculation method is too rough and does not consider the user's influence or other factors on the similarity between users, more user-based collaborative filtering recommendation systems choose to use the modified cosine similarity method to calculate the user-to-user similarity. The similarity. The formula is~\ref{fml:ch4-user_similarity}, where \(\mathbf{M}^u=(M^u_1,M^u_2,\ldots,M^u_n)\), \(\mathbf{M}^v=(M^v_1,M^v_2,\ldots, M^v_n)\) represent the representation vectors of the knowledge mastery state of users \(u\) and \(v\) output by the knowledge tracing model, respectively.
 
 \begin{align}\label{fml:ch4-user_similarity}
     \begin{split}
-        sim(u, v) & =\frac{\mathbf{S}^u \cdot \mathbf{S}^v}{|\mathbf{S}^u|\cdot |\mathbf{S}^v}                                                                 \\
-        & =\frac{\sum\limits_{i = 1}^{n}{S^u_i\cdot S^v_i}}{\sqrt{\sum\limits_{i = 1}^{n}{{S^u_i}^2}}\cdot\sqrt{\sum\limits_{i = 1}^{n}{{S^v_i}^2}}}
+        sim(u, v) & =\frac{\mathbf{M}^u \cdot \mathbf{M}^v}{|\mathbf{M}^u|\cdot |\mathbf{M}^v}                                                                 \\
+        & =\frac{\sum\limits_{i = 1}^{n}{M^u_i\cdot M^v_i}}{\sqrt{\sum\limits_{i = 1}^{n}{{M^u_i}^2}}\cdot\sqrt{\sum\limits_{i = 1}^{n}{{M^v_i}^2}}}
     \end{split}
 \end{align}
 
-After the similarity of students is obtained, a similarity threshold \(\tau^{simuser}\) can be set as the screening criterion for similar students. For user \(u\), the similar user set can be denoted as \(\mathbf{U}_{sim}\), the calculation of which is formula~\ref{fml:ch4-simuserset}. In order to obtain similar exercises, select the user's mistaken exercise set or favorites exercise set in \(\mathbf{U}_{sim}\). Denote Aggregation of the mistaken exercise set and favorites exercise set of the user \(i\) as \(\mathbf{E}_{i}\). Finally, the set of wrong questions and the set of favorite exercises of similar users that meet the requirements are merged and deduplicated to obtain the target exercises.
+After the similarity of students is obtained, a similarity threshold \(\tau^{simuser}\) can be set as the screening criterion for similar students. For user \(u\), the similar user set can be denoted as \(\mathbf{U}_{sim}\), the calculation of which is formula~\ref{fml:ch4-simuserset}. In order to obtain similar exercises, select the user's mistaken exercise set, or favorites exercise set in \(\mathbf{U}_{sim}\). Denote Aggregation of the mistaken exercise set and favorites exercise set of the user \(i\) as \(\mathbf{E}_{i}\). Finally, the set of wrong questions and the set of favorite exercises of similar users that meet the requirements are merged and deduplicated to obtain the target exercises.
 
 \begin{align}
-    \mathbf{U}_{sim} & =\{i|sim(u,i)>\tau^{simuser}\}  \label{fml:ch4-simuserset}
+    \mathbf{U}_{sim} & =\{i|sim(u,i)\geq\tau^{simuser}\}  \label{fml:ch4-simuserset}
 \end{align}
 
-The exercise \(E_j\) of in students exercise set \(\mathbf{E}_i\) recommendation score denoted as \(S^{(UCF)}\) is defined by formula~\ref{fml:ch4-ucfscore}. The strategy weight is denoted as \(w^{(UCF)}\).
+The recommendation score of exercises in student \(j\)'s exercise set \(\mathbf{E}_j\) for student \(i\) denoted as \(S^{(UCF)}_{i,j}\) is defined in formula~\ref{fml:ch4-ucfscore}, where the strategy weight is denoted as \(w^{(UCF)}\).
 \begin{align}\label{fml:ch4-ucfscore}
-    S^{(UCF)}_{i,j} = sim(u,i)
+    S^{(UCF)}_{i,j} = w^{(UCF)} sim(i,j)
 \end{align}
 
 The general algorithm is as \algoname{\ref{alg:ch4-CF}}:
 \begin{algorithm}[htbp!]
     \caption{The student-exercise collaborative filtering algorithm.}\label{alg:ch4-CF}
     \begin{algorithmic}[1]
-        \REQUIRE~\\
+        \REQUIRE
         \(u\): The target student;\\
         \(\tau^{simuser}\): The similarity threshold;\\
-        \(\mathbf{S}=\{\mathbf{S}^1,\mathbf{S}^2,\ldots,\mathbf{S}^N\} \): The student knowledge state representing matrix for all \(N\) students;\\
-        \( \mathbf{E}=\{\mathbf{E}_1,\mathbf{E}_2,\ldots,\mathbf{E}_N\} \): The mistaken/favorite exercise sets of all students;
-        \ENSURE~The output exercise set \(\mathbf{E}^{(UCF)} \) \\
-        \STATE~\algostage{1}{Compute the similarity between users}
-        \STATE~Compute the similarity \(S^{(UCF)}_{u}\) between \(u\) and other users based on \eqname{\ref{fml:ch4-user_similarity}} and \eqname{\ref{fml:ch4-ucfscore}};\\
-
-        \STATE~\algostage{2}{Filter out similar users}
-
-        \STATE~Generate the similar user set \(\mathbf{U}_{sim}\) based on \eqname{\ref{fml:ch4-simuserset}};\\
-        \STATE~\algostage{3}{Aggregate exercise set}
-        \STATE~Aggregate the mistaken/favorites exercise set of similar users based on following equation:
-        \[\mathbf{E}^{(UCF)}\leftarrow\sum\limits_{i \in \mathbf{U}_{sim}}{\mathbf{E}_{i}}
-        \]
+        \(\mathbf{M}=\{\mathbf{M}^1,\mathbf{M}^2,\ldots,\mathbf{M}^N\} \): The knowledge mastery matrix for all \(N\) students;\\
+        \( \mathbf{E}=\{\mathbf{E}_1,\mathbf{E}_2,\ldots,\mathbf{E}_N\} \): The mistaken or favorite exercise sets of all \(N\) students;\\
+        \ENSURE The output exercise set \(\mathbf{E}^{(UCF)} \).
+        \STATE \algostage{1}{Compute the users' similarity.}
+        % \STATE~Compute the similarity \(S^{(UCF)}_{u}\) between \(u\) and other users based on \eqname{\ref{fml:ch4-user_similarity}} and \eqname{\ref{fml:ch4-ucfscore}};\\
+        \STATE Initialize the similarity vector \(\mathcal{S}\) of user \(u\);
+        \FOR{\(i \in [1,N]\)}
+        \STATE Compute \(sim(u,i)\) based on \eqname{\ref{fml:ch4-user_similarity}};
+        \STATE \(\mathcal{S}_i \leftarrow sim(u,i)\);
+        \ENDFOR
+        \STATE \algostage{2}{Filter out similar users.}
+        \STATE Initialize the similar user set \(\mathbf{U}_{sim}\)
+        \FOR{\(i \in [1,N]\)}
+        \IF{\(\mathcal{S}_i\geq\tau^{simuser}\) and \(i\neq u\)}
+        \STATE \(\mathbf{U}_{sim} \leftarrow \mathbf{U}_{sim}\cup \{i\} \)
+        \ENDIF
+        \ENDFOR
+        \STATE \algostage{3}{Aggregate exercise set of similar users.}
+        \STATE Initialize the similar exercise set \(\mathbf{E}^{(UCF)}\);
+        \FOR{\(i \in \mathbf{U}_{sim}\)}
+        \STATE \(\mathbf{E}^{(UCF)} \leftarrow \mathbf{E}^{(UCF)} \cup \mathbf{E}_i\)
+        \ENDFOR
         \RETURN~\(\mathbf{E}^{(UCF)} \);%算法的返回值
     \end{algorithmic}
 \end{algorithm}
@@ -201,14 +210,23 @@ The general algorithm is as \algoname{\ref{alg:ch4-Rank}}:
 \begin{algorithm}[htbp!]
     \caption{The recommendation ranking algorithm}\label{alg:ch4-Rank}
     \begin{algorithmic}[1]
-        \REQUIRE~~\\
-        \(\mathbf{E}^{(Candidate)}=\{e_1,e_2,\ldots,e_n\} \): The candidate exercises set of size \(n\); \\
+        \REQUIRE
         \(K^{(RANK)}\): The recommendation exercise set size;\\
-        \ENSURE~The ranked recommendation exercise list \(\mathbf{E}^{(RANK)} \) \\ %算法的输出：Output
-        \STATE~Input each exercises \(e_i \in \mathbf{E}^{(RANK)} \) to knowledge tracing module to predict the probability \(p_i\) of correct answering;\\
-        \STATE~Generate a ranked exercise list \(L\) by sorting \(e_i\) with \(p_i\) in descending order;\\
-        \STATE~Set the top \(K^{(RANK)}\) items of \(L\) as \(\mathbf{E}^{(RANK)} \): \(\mathbf{E}^{(RANK)} \) \gets~\(L[1:K^{(RANK)}]\);
-        \RETURN~\(\mathbf{E}^{(RANK)} \); %算法的返回值
+        \(\mathbf{E}^{(Candidate)}=\{e_1,e_2,\ldots,e_n\} \): The candidate exercises set of size \(n\); \\
+        \(\mathbf{F}\): The trained knowledge tracing model;\\
+        \(\mathbf{b}=\{b_1,b_2,\ldots,b_n\}\): The answering behavior sequence of user \(u\);
+        \ENSURE~The final ranked recommendation exercise list \(\mathbf{E}^{(RANK)} \). %算法的输出：Output
+        \STATE \algostage{1}{Predicting correctness of exercise.}
+        \STATE Initialize the predicting correctness probability vector \(\mathbf{p}=\{p_1,p_2,\ldots,p_n\}\);
+        \FOR{\(e_i\ \in \mathbf{E}^{(Candidate)}\)}
+        \STATE \(p_i \leftarrow F(e_i)\)
+        \ENDFOR
+        \STATE \algostage{2}{Sort the exercise by correctness probability.}
+        \STATE Initialize the ranked exercise list \(\mathbf{L}\);
+        \STATE \(\mathbf{L} \leftarrow Sort(\mathbf{E}^{(Candidate)}, \mathbf{p})\)
+        \STATE \algostage{3}{Generate the final ranked exercise set.}
+        \STATE \(\mathbf{E}^{(RANK)} \leftarrow L[1:K^{(RANK)}]\)
+        \RETURN \(\mathbf{E}^{(RANK)} \); %算法的返回值
     \end{algorithmic}
 \end{algorithm}
 

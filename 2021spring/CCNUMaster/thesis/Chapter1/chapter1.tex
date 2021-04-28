@@ -7,7 +7,7 @@
 \ifpdf
     \graphicspath{{Chapter1/Figs/Raster/}{Chapter1/Figs/PDF/}{Chapter1/Figs/}}
 \else
-    \graphicspath{{Chapter1/Figs/Vector/}{Chapter1/Figs/}}
+    \graphicspath{{Chapter1/Figs/Vector/}{Chapter1/Figs/}{Chapter1/Figs/PDF/}}
 \fi
 
 
@@ -105,7 +105,14 @@ Chapter 3 of this thesis proposed an improved knowledge tracing model for DKVMN,
 
 Chapter 4 of this thesis proposed a recommendation system model consists of two phases: matching and ranking. In the matching phase of the model, multiple candidate exercise subsets are generated separately by a multiplex-matching algorithm and then merged into the weighted ranking candidate exercises' final set. In the model's ranking phase, the candidate set exercises are used as the input to the knowledge tracing model, and then the exercises that are predicted to be mistaken would be collected and prioritized to generate a list of recommended exercises.
 
-Chapter 5 of this thesis presents the conclusions and future directions for improving each part of the model.
+Chapter 5 of this thesis presents the conclusions and future directions for improving each part of the model. The overview structure of the thesis is shown in \figurename{\ref{fig:ch1-ov}}.
+\begin{figure}[htbp!]
+    \centering
+    \includegraphics[width=0.75\textwidth]{ch1-architecture.pdf}
+    \caption{The structure of the thesis.}\label{fig:ch1-ov}
+\end{figure}
+
+
 
 % \nomenclature[z-DEM]{DEM}{Discrete Element Method}
 % \nomenclature[z-FEM]{FEM}{Finite Element Method}
