@@ -48,7 +48,7 @@ The structure of the recommendation system is like \figname{\ref{fig:ch4-model-a
 \begin{figure}[htbp!]
     \centering
     \includegraphics[width=1.0\textwidth]{ch4-ov.pdf}
-    \caption{The architecture of recommendation system.}\label{fig:ch4-model-architecture}
+    \caption{The architecture of recommendation system. The items in the exercise corpus will first be filtered out and added to the candidate set in the matching stage. Then the exercise in the candidate set will be ranked in the ranking stage to generate final recommended exercises.}\label{fig:ch4-model-architecture}
 \end{figure}
 
 \subsection{Matching Phase}
@@ -331,7 +331,7 @@ The model is deployed to the cloud server and run, with a training time of about
 
 The performance comparison result is shown in \tblname{\ref{tbl:ch4-exp-result}}.
 \begin{table}[htb]
-    \caption{Performance comparison between baseline and proposed models}\label{tbl:ch4-exp-result}
+    \caption{The performance comparison between baseline and proposed models.}\label{tbl:ch4-exp-result}
     \centering
     \setlength{\tabcolsep}{7mm}{
         \begin{tabular}{cc c }

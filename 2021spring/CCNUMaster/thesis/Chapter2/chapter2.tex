@@ -62,7 +62,7 @@ In 2019, a multi-label image classification model was proposed~\cite{chen2019mul
 \begin{figure}[htbp!]
     \centering
     \includegraphics[width=1.0\textwidth]{ch2-ov.pdf}
-    \caption{The architecture of the proposed knowledge labeling model. The left part is the text representation module, consisting of the Bi-LSTM layer and attention layer, generating one exercise text vector. The right part is the GCN-based knowledge label classifier generator, producing classifiers for knowledge labeling. The outputted labels are the product of the classifier vectors and the text representing vector.}\label{fig:ch2-modelarchitecture}
+    \caption{The architecture of the proposed knowledge labeling model. The left part is the text representation module, consisting of the Bi-LSTM layer and attention layer, generating one exercise text vector. The right part is the \(L\)-layer GCN-based knowledge label classifier generator, producing \(T\) classifiers for knowledge labeling, where \(T\) is the number of knowledge points. The outputted labels are the product of the classifier vectors and the text representing vector.}\label{fig:ch2-modelarchitecture}
 \end{figure}
 
 %从结构上我们可以看到，模型中一般有两部分，其中
@@ -94,9 +94,9 @@ The preprocessing stage mainly includes word separation, cleaning, and regulariz
 \begin{figure}[htbp!]
     \centering
     \includegraphics[width=0.8\textwidth]{ch2-preprocessing.pdf}
-    \caption{The procedure of preprocessing. The text is first segmented into a list of words, in which the irrelevant words are then cleaned. The words are finally re-merged into one sentence.}\label{fig:ch2-model-preprocessing}
+    \caption{The procedure of preprocessing.}\label{fig:ch2-model-preprocessing}
 \end{figure}
-
+%The text is first segmented into a list of words, in which the irrelevant words are then cleaned. The words are finally re-merged into one sentence.
 % - 分词。相对于其他表音语言如英语、西班牙语，中文语言预处理需要额外的分词步骤。在汉语中的词与词之间不存在自然分隔，因此需要人为对句子按照词义进行分割。选择合适的汉语分词算法可以为后续的处理奠定基础，提高整体模型性能。目前，汉语分词主要分为基于词典规则匹配和基于统计模型的两种算法。与前者相比，后者具有更好的泛化能力和学习能力。它用于先验规则之外的分词，如歧义词和未注册词表现较好。在该模型中，采用了目前流行的jieba分词，实现了基于Trie书结构的词条图扫描，利用阶段规划和HMM模型等算法，找到基于词频的最大分词分组和合并，实现了未来登录词的识别。用户还可以自定义停字和用户字典，实现专有名词识别。
 % - 清理。语料库清理：保留语料库中的有用数据，删除噪声数据。常见的清洗方法包括：人工重删、对齐、删除和标注。对于句子中不需要的词，即停顿词，它们的存在不影响句子的意思。在文本中，会有大量的功能词、代词或没有特定含义的动词和名词。这些词对文本分析没有帮助，所以这些停顿词可以去掉。对于习题文本，有很多数学表达式、符号等，考虑到很多习题中的这些表达式不是文本格式，必须采用OCR技术将数学表达式从图片预处理成文本。因此，在中文文本足够的情况下，可以考虑将数学表达式过滤掉，以减少计算负荷。
 
