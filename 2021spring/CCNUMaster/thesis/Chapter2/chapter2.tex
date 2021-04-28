@@ -57,7 +57,7 @@ This section aims to construct a model for mining the exercise-knowledge point r
 
 %在2019年，提出了一种多标签图像分类模型，受该模型启发，本章提出了一个基于注意力机制习题文本特征提取和基于图神经网络知识点关系挖掘的多知识点标注模型，它通过数据驱动的方式建立知识点关系图描述知识点间的关联关系，对知识点分别建立分类器，然后对习题的文本特征进行多标签分类。其主要架构图如下。
 
-In 2019, a multi-label image classification model was proposed~\cite{chen2019multi}. Inspired by this model, this chapter proposes a multi-knowledge point labeling model based on attention mechanism exercise description text feature extraction and graph convolutional neural network (GCN) based knowledge point relationship mining, which builds a knowledge point relationship graph to describe the association relationship between knowledge points by a data-driven approach, builds classifiers for knowledge points separately, and then performs multi-label classification. Its main architecture diagram is shown in \figname{\ref{fig:ch2-modelarchitecture}}.
+In 2019, a multi-label image classification model was proposed~\cite{chen2019multi}. Inspired by this model, this chapter proposes a multi-knowledge point labeling model. The model is based on two-part, of which one is attention-based bidirectional LSTM for text representation, the other is graph convolutional neural network (GCN) based knowledge point relationship mining. The GCN builds a knowledge point relationship graph to describe the association relationship between knowledge points by a data-driven approach, generates classifiers for knowledge points separately, and then performs multi-label classification. Its main architecture diagram is shown in \figname{\ref{fig:ch2-modelarchitecture}}.
 
 \begin{figure}[htbp!]
     \centering
