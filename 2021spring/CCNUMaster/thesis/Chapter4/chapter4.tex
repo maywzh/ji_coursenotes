@@ -12,7 +12,7 @@
 
 %本章的目的是基于前两个章节所挖掘出的习题知识点和知识状态进行习题推荐，其核心是基于学生的知识状态，寻找出对学生当前知识掌握度改善最大的习题进行推荐。习题推荐以查漏补缺为目的,因此获取学生的知识状态和习题涉及的知识点是本章前提。但是目前的习题库往往过于庞大，因此，从海量的习题推荐资源中直接应用推荐算法会出现效率较低的情况，不利于商业化大规模部署。在匹配阶段，根据用户特征，从海量的习题库中，快速筛选出一部分潜在适合的习题作为粗筛集合。在排序阶段，将提出的推荐模型应用于粗筛习题集，输出一个按照优先级排序的推荐习题集列表。
 
-With the rapid development of today's technology, the amount of data is increasing day by day, and folks increasingly feel helpless in the face of massive amounts of data. It is precisely to solve the problem of information overload that people propose the recommendation engine technology. The recommendation system sends the recommendation algorithm to the recommendation algorithm through the user's historical behavior or the user's interest preferences or demographic characteristics. Then the recommendation system uses the recommendation algorithm to generate a list of items that the user may be interested in.\ At the same time, the user is passive to the search engine. At present, personalized recommendation technology is widely used in various industries. It significantly saves the cost for users to obtain information, and it also facilitates information providers to push targeted information to users. Therefore, it dramatically accelerates social information exchange efficiency, promoting media and developing industries based on information exchange, such as entertainment and education. In the education field, the application of the recommendation system is still at a relatively primitive stage.
+With the rapid development of today's technology, the amount of data is increasing day by day, and folks increasingly feel helpless in the face of massive amounts of data. It is precisely to solve the problem of information overload that people propose the recommendation engine technology. The recommendation system sends the recommendation algorithm to the recommendation algorithm through the user's historical behavior or the user's interest preferences or demographic characteristics. Then the recommendation system uses the recommendation algorithm to generate a list of items that the user may be interested in. At the same time, the user is passive to the search engine. At present, personalized recommendation technology is widely used in various industries. It significantly saves the cost for users to obtain information, and it also facilitates information providers to push targeted information to users. Therefore, it dramatically accelerates social information exchange efficiency, promoting media and developing industries based on information exchange, such as entertainment and education. In the education field, the application of the recommendation system is still at a relatively primitive stage.
 
 In many cases, it still relies on manual screening of educational resources for a recommendation. This recommendation method is inefficient, poorly effective, and cannot cover all of them due to cost reasons. With the successful application of the recommendation system technology and the further maturity of the education industry, the resistance to intelligent technology in the education resource recommendation system implemented manually in the past decreases. In the context of the country's promotion of intelligent education, precise teaching, and intelligent learning, a mature and practical self-adaptive exercise recommendation system has become the education industry's expectation. This chapter proposes an exercise recommendation model based on students' knowledge mastery to improve education and teaching.
 
@@ -60,7 +60,7 @@ The structure of the recommendation system is like \figname{\ref{fig:ch4-model-a
 
 The first stage of this recommendation model is matching. The purpose of the matching stage is to quickly filter out a set of the candidate recommended exercises while ensuring a certain degree of accuracy. There are multiple strategies for matching to deal with different application scenarios. For example, compared with news recommendation algorithms, the exercises and the user's knowledge state are more regularized vector data. It is relatively simple to calculate the similarity of exercises, users, and exercise-user cross-features. Accordingly, similarity matching can be used to apply collaborative filtering. The strategy matches recommended items. The user's historical answers to wrong exercises and statistically easy to answer exercises are of great significance for students to check their knowledge's completeness and correct their misunderstandings. Therefore, screening exercises with a higher mistaken rate can also be used as a matching strategy. Different adaptive parameters or algorithms can be applied to control the candidate problem's size to adapt to the original dataset and the recommended system deployment environment in the matching stage.
 
-With different matching strategies, the corresponding recommendation focuses are also different. On the one hand, different matching strategies will lead to different recommendation results and ignore part of the recommendation results. For example, if the most popular exercises are emphasized, exercises with the most answering records will be regarded as the matching results. If the exercises that are likely to be mistakenly answered are emphasized, the correctness rate will be regarded as the matching factor. The exercises with a lower correctness rate will be the matching result. If the recommendation based on the same interest is emphasized, collaborative filtering will be used as the matching result. Adopting a certain matching strategy alone often has certain drawbacks. For example, using popularity as a matching strategy will make unpopular exercises almost impossible to be matched, resulting in an imbalance in the recommendation probability. Using the mistaken rate as a matching strategy will fail to match all students' knowledge mastery proficiency. Therefore, a single matching strategy will lose a lot of recommendation information.
+With different matching strategies, the corresponding recommendation focuses are also different. On the one hand, different matching strategies will lead to different recommendation results and ignore part of the recommendation results. For example, if the most popular exercises are emphasized, exercises with the most answering records will be regarded as matching results. If the exercises that are likely to be mistakenly answered are emphasized, the correctness rate will be regarded as the matching factor. The exercises with a lower correctness rate will be the matching result. If the recommendation based on the same interest is emphasized, collaborative filtering will be used as the matching result. Adopting a certain matching strategy alone often has certain drawbacks. For example, using popularity as a matching strategy will make unpopular exercises almost impossible to be matched, resulting in an imbalance in the recommendation probability. Using the mistaken rate as a matching strategy will fail to match all students' knowledge mastery proficiency. Therefore, a single matching strategy will lose a lot of recommendation information.
 
 On the other hand, when designing the matching layer, the two indicators of ``calculation speed'' and ``matching rate'' are contradictory. The matching strategy needs to be simplified as much as possible when the calculation speed is increased. As a result, the matching rate is unsatisfactory.
 
@@ -92,7 +92,7 @@ Traditional user-based collaborative filtering calculates the similarity between
     \end{split}
 \end{align}
 
-After the similarity of students is obtained, a similarity threshold \(\tau^{simuser}\) can be set as the screening criterion for similar students. For user \(u\), the similar user set can be denoted as \(\mathbf{U}_{sim}\), the calculation of which is formula~\ref{fml:ch4-simuserset}. In order to obtain similar exercises, select the user's mistaken exercise set, or favorites exercise set in \(\mathbf{U}_{sim}\). Denote Aggregation of the mistaken exercise set and favorites exercise set of the user \(i\) as \(\mathbf{E}_{i}\). Finally, the set of wrong questions and the set of favorite exercises of similar users that meet the requirements are merged and deduplicated to obtain the target exercises.
+After the similarity of students is obtained, a similarity threshold \(\tau^{simuser}\) can be set as the screening criterion for similar students. For user \(u\), the similar user set can be denoted as \(\mathbf{U}_{sim}\), the calculation of which is formula~\ref{fml:ch4-simuserset}. In order to obtain similar exercises, select the user's mistaken exercise set or favorites exercise set in \(\mathbf{U}_{sim}\). Denote Aggregation of the mistaken exercise set and favorites exercise set of the user \(i\) as \(\mathbf{E}_{i}\). Finally, the set of wrong questions and the set of favorite exercises of similar users that meet the requirements are merged and deduplicated to obtain the target exercises.
 
 \begin{align}
     \mathbf{U}_{sim} & =\{i|sim(u,i)\geq\tau^{simuser}\}  \label{fml:ch4-simuserset}
@@ -107,32 +107,32 @@ The general algorithm is as \algoname{\ref{alg:ch4-CF}}:
 \begin{algorithm}[htbp!]
     \caption{The student-exercise collaborative filtering algorithm.}\label{alg:ch4-CF}
     \begin{algorithmic}[1]
-        \REQUIRE
+        \REQUIRE{}
         \(u\): The target student;\\
         \(\tau^{simuser}\): The similarity threshold;\\
         \(\mathbf{M}=\{\mathbf{M}^1,\mathbf{M}^2,\ldots,\mathbf{M}^N\} \): The knowledge mastery matrix for all \(N\) students;\\
         \( \mathbf{E}=\{\mathbf{E}_1,\mathbf{E}_2,\ldots,\mathbf{E}_N\} \): The mistaken or favorite exercise sets of all \(N\) students;\\
-        \ENSURE The output exercise set \(\mathbf{E}^{(UCF)} \).
-        \STATE \algostage{1}{Compute the users' similarity.}
+        \ENSURE{}The output exercise set \(\mathbf{E}^{(UCF)} \).
+        \STATE{}\algostage{1}{Compute the users' similarity.}
         % \STATE~Compute the similarity \(S^{(UCF)}_{u}\) between \(u\) and other users based on \eqname{\ref{fml:ch4-user_similarity}} and \eqname{\ref{fml:ch4-ucfscore}};\\
-        \STATE Initialize the similarity vector \(\mathcal{S}\) of user \(u\);
+        \STATE{}Initialize the similarity vector \(\mathcal{S}\) of user \(u\);
         \FOR{\(i \in [1,N]\)}
-        \STATE Compute \(sim(u,i)\) based on \eqname{\ref{fml:ch4-user_similarity}};
-        \STATE \(\mathcal{S}_i \leftarrow sim(u,i)\);
-        \ENDFOR
-        \STATE \algostage{2}{Filter out similar users.}
-        \STATE Initialize the similar user set \(\mathbf{U}_{sim}\)
+        \STATE{}Compute \(sim(u,i)\) based on \eqname{\ref{fml:ch4-user_similarity}};
+        \STATE{}\(\mathcal{S}_i \leftarrow sim(u,i)\);
+        \ENDFOR{}
+        \STATE{}\algostage{2}{Filter out similar users.}
+        \STATE{}Initialize the similar user set \(\mathbf{U}_{sim}\)
         \FOR{\(i \in [1,N]\)}
-        \IF{\(\mathcal{S}_i\geq\tau^{simuser}\) and \(i\neq u\)}
-        \STATE \(\mathbf{U}_{sim} \leftarrow \mathbf{U}_{sim}\cup \{i\} \)
-        \ENDIF
-        \ENDFOR
-        \STATE \algostage{3}{Aggregate exercise set of similar users.}
-        \STATE Initialize the similar exercise set \(\mathbf{E}^{(UCF)}\);
+        \IF{\(\mathcal{S}_i\geq\tau^{simuser}\) \AND \(i\neq u\)}
+        \STATE{}\(\mathbf{U}_{sim} \leftarrow \mathbf{U}_{sim}\cup \{i\} \)
+        \ENDIF{}
+        \ENDFOR{}
+        \STATE{}\algostage{3}{Aggregate exercise set of similar users.}
+        \STATE{}Initialize the similar exercise set \(\mathbf{E}^{(UCF)}\);
         \FOR{\(i \in \mathbf{U}_{sim}\)}
-        \STATE \(\mathbf{E}^{(UCF)} \leftarrow \mathbf{E}^{(UCF)} \cup \mathbf{E}_i\)
-        \ENDFOR
-        \RETURN~\(\mathbf{E}^{(UCF)} \);%算法的返回值
+        \STATE{}\(\mathbf{E}^{(UCF)} \leftarrow \mathbf{E}^{(UCF)} \cup \mathbf{E}_i\)
+        \ENDFOR{}
+        \RETURN{}\(\mathbf{E}^{(UCF)} \);%算法的返回值
     \end{algorithmic}
 \end{algorithm}
 
@@ -210,23 +210,23 @@ The general algorithm is as \algoname{\ref{alg:ch4-Rank}}:
 \begin{algorithm}[htbp!]
     \caption{The recommendation ranking algorithm}\label{alg:ch4-Rank}
     \begin{algorithmic}[1]
-        \REQUIRE
+        \REQUIRE{}
         \(K^{(RANK)}\): The recommendation exercise set size;\\
         \(\mathbf{E}^{(Candidate)}=\{e_1,e_2,\ldots,e_n\} \): The candidate exercises set of size \(n\); \\
         \(\mathbf{F}\): The trained knowledge tracing model;\\
-        \(\mathbf{b}=\{b_1,b_2,\ldots,b_n\}\): The answering behavior sequence of user \(u\);
+        \(\mathbf{b}=\{b_1,b_2,\ldots,b_n\} \): The answering behavior sequence of user \(u\);
         \ENSURE~The final ranked recommendation exercise list \(\mathbf{E}^{(RANK)} \). %算法的输出：Output
-        \STATE \algostage{1}{Predicting correctness of exercise.}
-        \STATE Initialize the predicting correctness probability vector \(\mathbf{p}=\{p_1,p_2,\ldots,p_n\}\);
+        \STATE{}\algostage{1}{Predicting correctness of exercise.}
+        \STATE{}Initialize the predicting correctness probability vector \(\mathbf{p}=\{p_1,p_2,\ldots,p_n\} \);
         \FOR{\(e_i\ \in \mathbf{E}^{(Candidate)}\)}
-        \STATE \(p_i \leftarrow F(e_i)\)
-        \ENDFOR
-        \STATE \algostage{2}{Sort the exercise by correctness probability.}
-        \STATE Initialize the ranked exercise list \(\mathbf{L}\);
-        \STATE \(\mathbf{L} \leftarrow Sort(\mathbf{E}^{(Candidate)}, \mathbf{p})\)
-        \STATE \algostage{3}{Generate the final ranked exercise set.}
-        \STATE \(\mathbf{E}^{(RANK)} \leftarrow L[1:K^{(RANK)}]\)
-        \RETURN \(\mathbf{E}^{(RANK)} \); %算法的返回值
+        \STATE{}\(p_i \leftarrow F(e_i)\)
+        \ENDFOR{}
+        \STATE{}\algostage{2}{Sort the exercise by correctness probability.}
+        \STATE{}Initialize the ranked exercise list \(\mathbf{L}\);
+        \STATE{}\(\mathbf{L} \leftarrow \operatorname{Sort}(\mathbf{E}^{(Candidate)}, \mathbf{p})\)
+        \STATE{}\algostage{3}{Generate the final ranked exercise set.}
+        \STATE{}\(\mathbf{E}^{(RANK)} \leftarrow L[1:K^{(RANK)}]\)
+        \RETURN{}\(\mathbf{E}^{(RANK)} \); %算法的返回值
     \end{algorithmic}
 \end{algorithm}
 
@@ -377,7 +377,7 @@ The results show that the proposed model exceeds the baseline model in the accur
 %1.将多路召回策略应用于习题的Matching阶段，从而可以利用相对小的计算负载来快速筛选出候选习题集，所有的习题在不同的策略中有不同的推荐分，按照推荐分从高到低的顺序，取前若干个习题作为候选集合。对于不同的策略，可以动态调节它们的权重，来实现对于推荐侧重点的人工控制。
 %2.将习题输出前一章提出的知识追踪模型，将模型输出的习题正确率作为习题的推荐分依据。这种机制将学生最可能答错的习题推荐给学生，从而加强学生对于知识掌握水平较低的知识点的理解。
 
-In this chapter, a two-stage Matching-Ranking based mathematical exercise recommendation model is proposed. The Matching model in the first stage is a multiplexed exercise recommendation matching model. It employs multiple sub-matching strategies, such as collaborative filtering, popularity, user preferences, to produce exercise recommendation candidate sets separately. Then, these candidate sets are weighted and merged in the merging stage to produce a final exercise recommendation candidate set. In the ranking phase, each exercise in the set of exercise candidates obtained in the Matching phase is input to the knowledge tracing exercise for correctness prediction, and the most error-prone exercises are used as the recommendation item with the highest priority. The recommended set of exercises is generated according to this strategy.
+In this chapter, a two-stage Matching-Ranking based mathematical exercise recommendation model is proposed. The Matching model in the first stage is a multiplexed exercise recommendation matching model. It employs multiple sub-matching strategies, such as collaborative filtering, popularity, user preferences, to produce exercise recommendation candidates separately. Then, these candidate sets are weighted and merged in the merging stage to produce a final exercise recommendation candidate set. In the ranking phase, each exercise in the set of exercise candidates obtained in the Matching phase is input to the knowledge tracing exercise for correctness prediction, and the most error-prone exercises are used as the recommendation item with the highest priority. The recommended set of exercises is generated according to this strategy.
 
 In summary, the main contribution of this chapter is：
 \begin{enumerate}
