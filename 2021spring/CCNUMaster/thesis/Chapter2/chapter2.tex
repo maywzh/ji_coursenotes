@@ -605,61 +605,6 @@ As can be seen from the \tblname{\ref{tbl:ch2-result-detail}}, the performance o
     \end{tabular}
 \end{table}
 
-
-
-% \begin{table}
-%     \centering
-%     \caption{Result comparison (\(\tau^{(KP)}=100 \))}\label{tbl:bsline2}
-%     \begin{tabular}{cccccccc}
-%         \toprule
-%         Metrics  & \(\operatorname{F1}_{macro}\) & \(\operatorname{F1}_{micro}\) & \(\operatorname{Acc}_{ML}\) & \(\operatorname{HmLoss}\) & \(\operatorname{F1}_{ML}\) \\
-%         \midrule
-%         NB       & 71.2                          & 72.1                          & 67.2                        & 16.2                      & 71.8                       \\
-%         ML-KNN   & 73.2                          & 72.3                          & 69.1                        & 15.9                      & 74.7                       \\
-%         CNN+BERT & 74.4                          & 74.6                          & 72.3                        & 13.1                      & 75.1                       \\
-%         Proposed & \textbf{75.5}                 & \textbf{75.7}                 & \textbf{73.1}               & \textbf{12.7}             & \textbf{74.9}              \\
-%         \bottomrule
-%     \end{tabular}
-% \end{table}
-
-% \begin{table}
-%     \centering
-%     \caption{Result comparison (\(\tau^{(KP)}=50 \))}\label{tbl:bsline3}
-%     \begin{tabular}{cccccccc}
-%         \toprule
-%         Metrics      & \(\operatorname{F1}_{macro}\) & \(\operatorname{F1}_{micro}\) & \(\operatorname{Acc}_{ML}\) & \(\operatorname{HmLoss}\) & \(\operatorname{F1}_{ML}\) \\
-%         \midrule
-%         NB           & 52.3                          & 53.0                          & 42.1                        & 9.2                       & 51.9                       \\
-%         ML-KNN       & 44.2                          & 43.9                          & 23.5                        & 10.1                      & 42.1                       \\
-%         CNN+word2vec & 56.1                          & \textbf{57.3}                 & 46.2                        & 8.2                       & 56.5                       \\
-%         CNN+BERT     & 56.2                          & 56.8                          & \textbf{47.0}               & \textbf{8.1}              & 56.1                       \\
-%         Proposed     & \textbf{57.1}                 & 57.2                          & 45.2                        & 8.6                       & \textbf{57.5}              \\
-%         \bottomrule
-%     \end{tabular}
-% \end{table}
-
-% \begin{table}
-%     \centering
-%     \caption{Result comparison (\(\tau^{(KP)}=10 \))}\label{tbl:bsline4}
-%     \begin{tabular}{cccccccc}
-%         \toprule
-%         Metrics  & \(\operatorname{F1}_{macro}\) & \(\operatorname{F1}_{micro}\) & \(\operatorname{Acc}_{ML}\) & \(\operatorname{HmLoss}\) & \(\operatorname{F1}_{ML}\) \\
-%         \midrule
-%         NB       & 36.5                          & 37.1                          & 26.1                        & 4.2                       & 36.5                       \\
-%         ML-KNN   & 30.1                          & 32.1                          & 29.1                        & 3.6                       & 32.5                       \\
-%         CNN+BERT & 36.9                          & \textbf{38.6}                 & \textbf{38.6}               & \textbf{3.5}              & 37.5                       \\
-%         Proposed & \textbf{37.1}                 & 38.3                          & 35.4                        & 3.8                       & \textbf{38.6}              \\
-%         \bottomrule
-%     \end{tabular}
-% \end{table}
-
-%从表中可以看出，本文提出的模型在出现频次较高的习题训练机上的性能表现强于Baseline模型。随着知识点出现频率的降低，分类的难度增大，所有模型都出现了性能退化现象。其中的原因是模型对于出现较少的标签无法进行有效的信息抓取，从而产生的误差增大。总体而言，在F1-Score参数和较为严格的子集准确率指标上，本文提出的模型都取得了最优或较优的性能表现。当习题标签频次出现次数非常低时，几乎所有的模型都无法取得较好的结果，这是因为由于习题标签的频次分布不均匀，少量冷门标签无法很好地标注，导致模型训练出现了过拟合现象从而影响标注表现。为了解决该问题，可以通过用更大和知识点出现频次较为平均的习题集作为训练集来优化模型预测性能表现。
-
-% It can be seen from the table that the performance of the model proposed in this thesis is stronger than the baseline model on the exercise training machine with a higher frequency. As the frequency of knowledge points decreases, classification difficulty increases and performance degradation occurs in all models. The reason is that the model cannot effectively capture information for fewer tags, resulting in increased errors. In general, the model proposed in this thesis has achieved the best or better performance in terms of F1-Score parameters and stricter subset accuracy indicators. When the problem labels' frequency is shallow, almost all models cannot achieve good results. This is because due to the uneven frequency distribution of the problem labels, a small number of unpopular labels cannot be well labeled, resulting in over-fitting in model training. This phenomenon affects labeling performance. In order to solve this problem, the model prediction performance can be optimized by using a larger set of exercises with a more average frequency of knowledge points than the training set.
-
-% From the experimental results, it can be seen that, compared with the binary relation method, the multi-label KNN algorithm, and the classifier chain method, the multi-knowledge point labeling method based on ensemble learning proposed in this thesis has achieved better results under different knowledge point labels. In multi-label classification, the evaluation of more stringent indicators—subset accuracy-this thesis's method is always significantly better than the other three methods. Screening the base classifiers with relatively good performance and integrating their results through the majority voting method compensated for each base classifier's disadvantages and obtained good results. However, as the tag frequency threshold decreases, the number of knowledge points gradually increases, and the difficulty of multi-label classification becomes more and more difficult. One of the reasons is that the knowledge points actually contained in a test question is not completely consistent with the knowledge points that the teacher investigates. As shown in Table 7, in the first three questions, there is no ``arithmetic sequence'' in the original manually labeled knowledge points, but the content of the test questions contains the term ``arithmetic sequence''. Questions 4 and 5 The knowledge point is ``arithmetic sequence'', and there is also ``arithmetic sequence'' in the question stem. Therefore, when using the trained model to predict the first three questions, the ``arithmetic sequence'' will be marked as the knowledge point of this question. It is more difficult to further determine the knowledge points of examination questions and the knowledge points contained in the questions based on the existing data. The second reason is that due to the uneven distribution of knowledge points, many knowledge points do not have enough test data for learning, which makes it difficult to predict the knowledge points in the pre-test questions.
-
-
 \section{Summary}
 %在习题推荐系统中，有数量众多的知识点标签缺失的习题，为了满足自适应学习系统的要求，需要对习题进行知识点标注，但人工标注成本较高，效率较低。因此, 自动标注试题知识点成为了亟待解决的问题。本章提出了一个基于图卷积神经网络和基于注意力机制的Bi-LSTM文本挖掘模型的习题多知识点标注模型。经过对实验数据集的验证，取得了相对现有模型的较好的知识点标注效果。
 
