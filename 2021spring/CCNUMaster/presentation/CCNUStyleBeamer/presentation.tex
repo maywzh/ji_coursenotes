@@ -99,7 +99,7 @@
 	\end{block}
 \end{frame}
 %------------------------------------------------
-\section{Proposed Model}
+\section{Model and Algorithm Detail}
 %------------------------------------------------
 \subsection{Exercise Knowledge Labelling}
 \begin{frame}
@@ -200,7 +200,7 @@
 \end{frame}
 
 %------------------------------------------------
-\section{Experiment Design}
+\section{Experiment and Result Analysis}
 \subsection{Exercise Knowledge Labelling}
 \begin{frame}
 	\frametitle{Experiment Design}
@@ -212,41 +212,7 @@
 \end{frame}
 
 \begin{frame}
-	\frametitle{Experiment Design}
-	\framesubtitle{Knowledge Tracing}
-	\begin{block}{Basic Method}
-		Compare with other KT baseline models BKT~\cite{yudelson2013individualized}、DKT~\cite{piech2015deep}、DKVMN~\cite{chen2017improving} and GKT~\cite{nakagawa2019graph}
-	\end{block}
-	\begin{table}[htbp!]
-		\centering
-		\caption{Dataset Statistics}\label{tbl:ch2-tb1}
-		\scalebox{0.7}{
-			\begin{tabular}{ccccc}
-				\toprule
-				Dataset   & \#students & \#exercises & \#knowledge points & \#interactions \\
-				\midrule
-				ASSIST15  & 19,917     & 102,396     & 100                & 709K           \\
-				ASSIST17  & 1,709      & 4,117       & 102                & 943K           \\
-				STATICS11 & 333        & 1,223       & 156                & 189K           \\
-				\bottomrule
-			\end{tabular}}
-	\end{table}
-\end{frame}
-
-\begin{frame}
-	\frametitle{Experiment Design}
-	\framesubtitle{Exercise Recommendation}
-	\begin{itemize}
-		\item Compared with conventional Collaborative Filtering and Random Recommendation
-		\item Using adapted KT dataset for testing
-		\item Check if the selected exercise is in the final recommendation list
-	\end{itemize}
-\end{frame}
-
-
-\section{Result and Analysis}
-\begin{frame}
-	\frametitle{Result}
+	\frametitle{Result Analysis}
 	\framesubtitle{Exercise Knowledge Labeling}
 	\begin{table}[htbp!]
 		\caption{The performance comparison between baseline and proposed knowledge labelling models.}\label{tbl:ch2-result-bsline1}
@@ -264,8 +230,10 @@
 	\end{table}
 \end{frame}
 
+
+
 \begin{frame}
-	\frametitle{Result}
+	\frametitle{Result Analysis}
 	\framesubtitle{Exercise Knowledge Labeling}
 	\begin{table}[htbp!]
 		\caption{The multi-label classification performance of proposed model.}\label{tbl:ch2-result-detail}
@@ -291,9 +259,32 @@
 	\end{table}
 \end{frame}
 
+\subsection{Knowledge Tracing}
+\begin{frame}
+	\frametitle{Experiment Design}
+	\framesubtitle{Knowledge Tracing}
+	\begin{block}{Basic Method}
+		Compare with other KT baseline models BKT~\cite{yudelson2013individualized}, DKT~\cite{piech2015deep}, DKVMN~\cite{chen2017improving} and GKT~\cite{nakagawa2019graph}
+	\end{block}
+	\begin{table}[htbp!]
+		\centering
+		\caption{Dataset Statistics}\label{tbl:ch2-tb1}
+		\scalebox{0.7}{
+			\begin{tabular}{ccccc}
+				\toprule
+				Dataset   & \#students & \#exercises & \#knowledge points & \#interactions \\
+				\midrule
+				ASSIST15  & 19,917     & 102,396     & 100                & 709K           \\
+				ASSIST17  & 1,709      & 4,117       & 102                & 943K           \\
+				STATICS11 & 333        & 1,223       & 156                & 189K           \\
+				\bottomrule
+			\end{tabular}}
+	\end{table}
+\end{frame}
+
 
 \begin{frame}
-	\frametitle{Result}
+	\frametitle{Result Analysis}
 	\framesubtitle{Knowledge Tracing}
 	\begin{table}[htb]
 		\centering
@@ -313,8 +304,21 @@
 	\end{table}
 \end{frame}
 
+
+\subsection{Exercise Recommendation}
 \begin{frame}
-	\frametitle{Result and Analysis}
+	\frametitle{Experiment Design}
+	\framesubtitle{Exercise Recommendation}
+	\begin{itemize}
+		\item Compared with conventional Collaborative Filtering and Random Recommendation
+		\item Using adapted KT dataset for testing
+		\item Check if the selected exercise is in the final recommendation list
+	\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{Result Analysis}
 	\framesubtitle{Exercise Recommendation}
 	\begin{table}[htb]
 		\caption{The performance comparison between baseline and proposed recommendation models.}\label{tbl:ch4-exp-result}
