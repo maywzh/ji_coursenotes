@@ -15,8 +15,8 @@
 \usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
 \usepackage{url}
 \usepackage{makecell}
-\usepackage[timeinterval=2.0, timeduration=2.0, timedeath=0,
-fillcolorwarningsecond=white!60!yellow,timewarningfirst=900,timewarningsecond=1080]{tdclock}
+\usepackage[font=HelvI,timeinterval=1,timeduration=20,colorwarningfirst=green,colorwarningsecond=red, timewarningfirst=25,timewarningsecond=75]{tdclock}
+
 %% 上文引用的包可按实际情况自行增删
 %%%%%%%%%%%%%%%%%%	
 
@@ -45,10 +45,10 @@ fillcolorwarningsecond=white!60!yellow,timewarningfirst=900,timewarningsecond=10
   Central China Normal University Wollongong Joint Institute}
 %%%%----机构信息
 
-\date[\today]{
+\date[\initclock \cronominutes\timeseparator\cronoseconds]{
   \today}
 %%%%----日期信息
-  
+\setbeamertemplate{bibliography item}[text] %参考文献图标改普通
 \begin{document}
 
 \begin{frame}
@@ -70,7 +70,7 @@ fillcolorwarningsecond=white!60!yellow,timewarningfirst=900,timewarningsecond=10
 	\frametitle{Research Background}
 	\framesubtitle{Objectives}
 	\begin{itemize}
-		\item Knowledge State Monitoring
+		\item Knowledge State Monitoring\note{sdfsdfs}
 		\item Learning Resource Recommendation
 		\item High School Math (Chinese)
 	\end{itemize}
