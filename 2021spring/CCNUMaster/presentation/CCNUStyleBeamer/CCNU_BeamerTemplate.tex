@@ -1,6 +1,6 @@
 %# -*- coding:utf-8 -*-
 \documentclass[10pt,aspectratio=43,mathserif]{beamer}		
-%设置为 Beamer 文档类型，设置字体为 10pt，长宽比为16:9，数学字体为 serif 风格
+%设置为 Beamer 文档类型，设置字体为 10pt，长宽比为4:3，数学字体为 serif 风格
 
 %%%%-----导入宏包-----%%%%
 \usepackage{ccnu}			%导入 CCNU 模板宏包
@@ -27,21 +27,19 @@
 %%%%%%%%%%%%%%%%%%%%%
 
 %%%%----首页信息设置----%%%%
-\title[Exercise Recommendation Based on GNN]{Research on High School Math Exercise Recommendation Based on Graph Neural Network}
+\title[High School Math Exercise Recommendation Based on GNN]{Research on High School Math Exercise Recommendation Based on Graph Neural Network}
 %\subtitle{——这里是副标题}			
 %%%%----标题设置
 
 
 \author[Wangzhihui Mei]{
   Wangzhihui Mei \\\medskip
-  {\small \url{maywzh@gmail.com}} \\
-  {\small \url{https://maywzh.com/}}\\\medskip
   Supervisor: Zhifeng Wang%
   }
 %%%%----个人信息设置
   
 \institute[CCNU-UOW JI]{
-  Central China Normal University Wollongong Joint Institude}
+  Central China Normal University Wollongong Joint Institute}
 %%%%----机构信息
 
 \date[\today]{
@@ -97,7 +95,7 @@
 		An improved graph-based DKVMN~\cite{zhang2017dynamic} knowledge tracing model to evaluate the knowledge proficiency of students.
 	\end{block}
 	\begin{block}{Exercise recommendation}
-		A mathematical exercise recommendation model based on Matching-Ranking~\cite{segev2009context} algorithm.
+		A mathematical exercise recommendation model based on Matching-Ranking~\cite{segev2009context}.
 	\end{block}
 \end{frame}
 %------------------------------------------------
@@ -116,7 +114,7 @@
 
 \begin{frame}
 	\frametitle{Exercise Knowledge Labelling}
-	\framesubtitle{Detail - GCN-based Classifier Generator}
+	\framesubtitle{GCN-based Classifier Generator}
 	\begin{figure}
 		\centering
 		\includegraphics[width=1.0\textwidth]{figures/ch2-gcnclsgen-model.pdf}
@@ -129,11 +127,11 @@
 
 \begin{frame}
 	\frametitle{Knowledge Tracing}
-	\framesubtitle{Problem Description - Knowledge Tracing}
+	\framesubtitle{Problem Description}
 	\begin{figure}
 		\centering
 		\includegraphics[width=1.0\textwidth]{figures/ch3-model-ktdes.pdf}
-		\caption{Knowledge tracing modelling}
+		\caption{Knowledge tracing modeling}
 	\end{figure}
 \end{frame}
 
@@ -153,7 +151,7 @@
 
 \begin{frame}
 	\frametitle{Knowledge Tracing}
-	\framesubtitle{Detail - Relation Modelling}
+	\framesubtitle{Question-Knowledge Relation Modelling}
 	\begin{figure}
 		\centering
 		\includegraphics[width=0.94\textwidth]{figures/ch3-gat-kq.pdf}
@@ -183,7 +181,7 @@
 
 \begin{frame}
 	\frametitle{Exercise Recommendation}
-	\framesubtitle{Detail - The Matching Phase}
+	\framesubtitle{Matching Phase}
 	\begin{figure}
 		\centering
 		\includegraphics[height=0.7\textheight]{figures/ch4-matching-model.pdf}
@@ -193,7 +191,7 @@
 
 \begin{frame}
 	\frametitle{Exercise Recommendation}
-	\framesubtitle{Detail - The Ranking Phase}
+	\framesubtitle{Ranking Phase}
 	\begin{figure}
 		\centering
 		\includegraphics[width=1.0\textwidth]{figures/ch4-ranking-model.pdf}
