@@ -528,6 +528,9 @@ GitHub.sublime-settings
 
 .vscode
 
+formula.pdf
+formula.svg
+
 *__latexindent_temp*.tex
 
 2021spring/CSCI991/thesis/thesis.pdf
