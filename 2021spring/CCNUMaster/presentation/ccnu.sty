@@ -41,10 +41,11 @@
 %%%
 %%% Tweak definitions of inner theme to match personal preferences (MODIFY THESE)
 %%%
+%%%%----日期信息
 
 % Itemize items: default (triangle), circle, square, ball
-\setbeamertemplate{itemize items}[circle]
-
+%\setbeamertemplate{itemize items}[circle]
+\setbeamertemplate{itemize item}{\(\bullet \)}
 % Enumerate items: default, circle, square, ball
 \setbeamertemplate{enumerate items}[circle]
 
@@ -60,6 +61,10 @@
 % Part page:
 \setbeamertemplate{part page}[default][colsep=-4bp,rounded=true]
 
+% Reference page:
+\setbeamertemplate{bibliography item}[text] %参考文献图标改普通
+
+
 % Navigation symbols:
 % \setbeamertemplate{navigation symbols}{}
 
@@ -74,10 +79,11 @@
 
 % Colors
 %\usecolortheme[RGB={182,11,45}]{structure}
-\usecolortheme[RGB={0,98,109}]{structure}
+\usecolortheme[RGB={0,98,109}]{structure} %CCNU Main Color
 
 \setbeamercolor{frametitle}{parent=subsection in head/foot}
 \setbeamercolor{frametitle right}{parent=section in head/foot}
+%\setbeamercolor{frametitle right}{bg=white}
 
 
 \pgfdeclarehorizontalshading[frametitle.bg,frametitle right.bg]{beamer@frametitleshade}{\paperheight}{%
@@ -99,15 +105,15 @@
     \usebeamerfont{author in head/foot}\insertshortauthor
   \end{beamercolorbox}%
   \begin{beamercolorbox}[wd=.17\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}%
-    \usebeamerfont{author in head/foot}\insertshortdate
+    \usebeamerfont{author in head/foot}\insertshortinstitute
   % \begin{beamercolorbox}[wd=.17\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}%
   %   \usebeamerfont{author in head/foot}\insertshortdate
   \end{beamercolorbox}%
-  \begin{beamercolorbox}[wd=.595\paperwidth,ht=2.25ex,dp=1ex,center]{title in head/foot}%
+  \begin{beamercolorbox}[wd=.610\paperwidth,ht=2.25ex,dp=1ex,center]{title in head/foot}%
     \usebeamerfont{title in head/foot}\insertshorttitle
   \end{beamercolorbox}%
-   \begin{beamercolorbox}[wd=0.065\paperwidth,ht=2.25ex,dp=1ex,right]{title in head/foot}%
-    \insertframenumber{} / \inserttotalframenumber\hspace*{2ex}
+   \begin{beamercolorbox}[wd=0.050\paperwidth,ht=2.25ex,dp=1ex,right]{title in head/foot}%
+    \insertframenumber{}/\inserttotalframenumber\hspace*{2ex}
   \end{beamercolorbox}}%
   \vskip0pt%
 }

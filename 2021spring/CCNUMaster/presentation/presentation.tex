@@ -15,8 +15,8 @@
 \usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
 \usepackage{url}
 \usepackage{makecell}
-\usepackage[font=HelvI,timeinterval=1,timeduration=20,colorwarningfirst=green,colorwarningsecond=red, timewarningfirst=25,timewarningsecond=75]{tdclock}
-
+% \usepackage[timeinterval=1,timeduration=20,colorwarningfirst=green,colorwarningsecond=red, timewarningfirst=25,timewarningsecond=75]{tdclock}
+% \usepackage[font=Times,timeinterval=1,timeduration=2,colorwarningfirst=yellow,colorwarningsecond=red,timewarningfirst=20,timewarningsecond=30]{tdclock}
 %% 上文引用的包可按实际情况自行增删
 %%%%%%%%%%%%%%%%%%	
 
@@ -24,8 +24,8 @@
 \beamertemplateballitem		%设置 Beamer 主题
 
 %%%%------------------------%%%%%
-\catcode`\。=\active         %或者=13
-\newcommand{。}{．}				
+%\catcode`\。=\active         %或者=13
+%\newcommand{。}{．}				
 %将正文中的“。”号转换为“.”。中文标点国家规范建议科技文献中的句号用圆点替代
 %%%%%%%%%%%%%%%%%%%%%
 
@@ -37,23 +37,20 @@
 
 \author[Wangzhihui Mei]{
   Wangzhihui Mei \\\medskip
-  Supervisor: Zhifeng Wang%
-  }
+  Supervisor: Zhifeng Wang}
 %%%%----个人信息设置
   
 \institute[CCNU-UOW JI]{
   Central China Normal University Wollongong Joint Institute}
 %%%%----机构信息
 
-\date[\initclock \cronominutes\timeseparator\cronoseconds]{
+\date[\today]{
   \today}
-%%%%----日期信息
-\setbeamertemplate{bibliography item}[text] %参考文献图标改普通
+
 \begin{document}
 
 \begin{frame}
 	\titlepage
-	\initclock
 \end{frame}				%生成标题页
 
 \section{Outline}
@@ -213,6 +210,12 @@
 		\item Compare with several baseline models: BiLSTM+Attention~\cite{zhou2016attention}, fastText~\cite{joulin-etal-2017-bag}, TextCNN~\cite{guo2019improving}
 		\item Evaluate the multi-label classification performance: \(\operatorname{F1_{macro}}\), \(\operatorname{F1_{micro}}\), \(\operatorname{ACC}_{ML}\) and \(\operatorname{F1}_{ML}\)
 	\end{itemize}
+	\begin{align}
+		\operatorname{F1}_{macro} & =\frac{1}{c} \sum_{j=1}^{c} \operatorname{F1}(\operatorname{TP}_{j}, \operatorname{FP}_{j}, \operatorname{TN}_{j}, \operatorname{FN}_{j})\notag                                   \\
+		\operatorname{F1}_{micro} & =\operatorname{F1}(\sum_{j=1}^{c} \operatorname{TP}_{j}, \sum_{j=1}^{c} \operatorname{FP}_{j}, \sum_{j=1}^{c} \operatorname{TN}_{j}, \sum_{j=1}^{c} \operatorname{FN}_{j})\notag  \\
+		\operatorname{ACC}_{ML}   & =\frac{1}{n} |\{i|Y_i=\tilde{Y}_i\}| \notag                                                                                                                                       \\
+		\operatorname{F1}_{ML}    & =\frac{2 \cdot \operatorname{Precision} \cdot \operatorname{Recall}}{\operatorname{Precision}+\operatorname{Recall}} \notag                                                      
+	\end{align}
 \end{frame}
 
 \begin{frame}
