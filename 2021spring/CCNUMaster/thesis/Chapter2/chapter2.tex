@@ -450,9 +450,9 @@ Similarly, for the multi-label tagging problem, Macro F1 and Micro F1 can be use
 \end{align}
 
 % 同样的，我们也可以基于样本统计一些指标。例如准确率，海明损失，查全率和F1值。准确率即预测标签完全正确的样本占总体样本的比例，海明损失为预测标签与真是标签的差距的度量指标，Precision和Recall分别代表真阳性样本占真样本的比例和真阳性样本占阳性样本的比例。它 们的计算公式为
-Similarly, the statistic of some indicators based on samples can be obtained. For example, the multi-label accuracy rate \(\operatorname{Acc}_{ML}\), multi-label precision rate \(\operatorname{Precision_{ML}}\), multi-label recall rate \(\operatorname{Recall_{ML}}\) and \(\operatorname{F1}_{ML}\) can be calculated. Accuracy is the proportion of samples with completely correct predicted labels in the overall sample. Hamming loss is a measure of the difference between the predicted label and the true label. Precision and Recall represent the proportion of true positive samples in true samples and the proportion of true positive samples in positive samples proportion. Their calculation formulas are \eqname{\ref{fml:subaccuracy}}-{\ref{fml:f1scoreh}}.
+Similarly, the statistic of some indicators based on samples can be obtained. For example, the multi-label accuracy rate \(\operatorname{ACC}_{ML}\), multi-label precision rate \(\operatorname{Precision_{ML}}\), multi-label recall rate \(\operatorname{Recall_{ML}}\) and \(\operatorname{F1}_{ML}\) can be calculated. Accuracy is the proportion of samples with completely correct predicted labels in the overall sample. Hamming loss is a measure of the difference between the predicted label and the true label. Precision and Recall represent the proportion of true positive samples in true samples and the proportion of true positive samples in positive samples proportion. Their calculation formulas are \eqname{\ref{fml:subaccuracy}}-{\ref{fml:f1scoreh}}.
 \begin{align}
-    \operatorname{Acc}_{ML}       & =\frac{1}{n} |\{i|Y_i=\tilde{Y}_i\}| \label{fml:subaccuracy}                                                                              \\
+    \operatorname{ACC}_{ML}       & =\frac{1}{n} |\{i|Y_i=\tilde{Y}_i\}| \label{fml:subaccuracy}                                                                              \\
     \operatorname{Precision_{ML}} & =\frac{1}{n} \sum_{i=1}^{n} \frac{|Y_{i} \cap \tilde{Y}_i|}{|\tilde{Y}_i|} \label{fml:Precisionh}                                         \\
     \operatorname{Recall_{ML}}    & =\frac{1}{n} \sum_{i=1}^{n} \frac{|Y_{i} \cap \tilde{Y}_i|}{|Y_{i}|}    \label{fml:Recallh}                                               \\
     \operatorname{F1}_{ML}        & =\frac{2 \cdot \operatorname{Precision} \cdot \operatorname{Recall}}{\operatorname{Precision}+\operatorname{Recall}} \label{fml:f1scoreh}
@@ -570,7 +570,7 @@ In the experimental comparison for each of the other baseline models, three expe
     \centering
     \begin{tabular}{ccccc}
         \toprule
-        Metrics           & \(\operatorname{F1}_{macro}\) & \(\operatorname{F1}_{micro}\) & \(\operatorname{Acc}_{ML}\) & \(\operatorname{F1}_{ML}\) \\
+        Metrics           & \(\operatorname{F1}_{macro}\) & \(\operatorname{F1}_{micro}\) & \(\operatorname{ACC}_{ML}\) & \(\operatorname{F1}_{ML}\) \\
         \midrule
         BiLSTM+Attention  & 0.824                         & 0.924                         & 0.874                       & 0.926                      \\
         fastText          & 0.846                         & 0.922                         & 0.854                       & 0.916                      \\
@@ -580,7 +580,7 @@ In the experimental comparison for each of the other baseline models, three expe
     \end{tabular}
 \end{table}
 
-As can be seen from the \tblname{\ref{tbl:ch2-result-detail}}, the performance of the models proposed in this chapter is better for exercises that occur more frequently than those that occur less frequently. As the frequency of knowledge points decreases and the difficulty of classification increases, the model shows performance degradation. This is because the model is prone to overfitting when the exercises' sample size is small, leading to the degradation of the model prediction performance. The problem can be solved by increasing the sample size and optimizing the data quality.
+As can be seen from the \tblname{\ref{tbl:ch2-result-detail}}, the performance of the models proposed in this chapter is better for exercises that occur more frequently than those that occur less frequently. As the frequency of knowledge points decreases and the difficulty of classification increases, the model shows performance degradation. The reason for the degradation is that the model is likely to overfitting when the exercises' sample size is small, leading to the degradation of the model prediction performance. The problem can be solved by increasing the sample size and optimizing the data quality.
 
 \begin{table}[htbp!]
     \caption{The multi-label classification performance of proposed model.}\label{tbl:ch2-result-detail}
