@@ -27,9 +27,6 @@ High school mathematics is a relatively tricky subject at the high school level.
 
 %********************************** %Second Section  *************************************
 \section{Related Works}
-
-
-
 %本文的研究课题为高中数学习题推荐系统，
 
 %如wang等人提出结合神经网络的认知诊断模型NeuralCD，在预测精度和可解释性上均有所提升。一种流行的方法是是通过认知诊断的方式来对学生的知识掌握状态进行评估，然后基于学生的知识状态来进行对应的习题推荐。
@@ -85,6 +82,10 @@ Moreover, the Dynamic Key-Value Memory Networks (DKVMN) for knowledge tracing mo
 In the early days of the Internet, users often searched for the content of interest. However, with the massive growth of Internet information, it has become difficult to search for suitable content. Therefore, it is based on pushing users the information they are interested in. Recommendation system technology was developed. At present, the recommendation system has been widely used on the Internet, and it has brought considerable benefits to both service providers and users. In the field of education, for most students, the existing exercise database is too large, so students often experience information tragedy in the process of extracurricular exercises. The learning efficiency is relatively low. Therefore, a system for adaptive exercise recommendation based on students' knowledge status is necessary and important~\cite{huang2019exploring}.
 
 There are several types of algorithms in recommendation systems: collaborative filtering, content-based recommendation models, and so on. The core idea of a collaborative filtering algorithm is to divide users into groups based on similar interests, and according to this principle, to find users with similar interests to the recommended person and recommend the content that the group is interested in the user. The collaborative filtering algorithm integrates similar users' evaluation of recommended items to form a prediction model of users' interest in the item. Collaborative filtering is one of the most widely used and successful recommendation algorithms. Collaborative filtering can be further subdivided into two types: user-based model and item-based model~\cite{Juan_2019}. The former focuses on finding similar users, i.e., recommendation subjects, and then recommending them through the content of interest to similar recommendation subjects. In contrast, the latter focuses on finding similar items, i.e., recommendation items, and filtering out the most similar recommendation items as recommendation results by calculating the item similarity. In collaborative filtering, the calculation of similarity is a key issue. There are already similarity algorithms such as Jaccard coefficient~\cite{leeJ2020accardcf}, cognitive similarity~\cite{cogsim2020}, Kullback-Leibler divergence based similarity~\cite{kldsim2019}, etc. Collaborative filtering often has a ``cold boot'' problem~\cite{fu2019collaborative}, i.e., when there are fewer similar users or entries, a large performance degradation occurs. Therefore, random recommendations or other content recommendation methods can be used in the recommendation model's starting phase. On the other hand, the content-based recommendation model performs interest pattern mining based on the characteristics of the user's interest entries, which essentially builds a model for calculating the degree of interest in an item, and the method does not depend on other users. However, the model is prone to the problem of duplicate recommendations and thus requires an additional step for de-duplication operations~\cite{gopalan2014content}.
+
+\subsection{Exercise Recommendation in Education}
+
+
 
 %********************************** % Third Section  *************************************
 \section{Research Objectives and Content}  %Section - 1.3

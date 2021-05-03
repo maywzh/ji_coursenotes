@@ -1,0 +1,16 @@
+% ************************** Thesis Abstract *****************************
+% Use `abstract' as an option in the document class to print only the titlepage and the abstract.
+
+%Please list 3-5 keywords, and replace them with "keyword1", "keyword2", "keyword3",...
+\begin{abstract}{Graph neural network}{Knowledge point labeling}{Knowledge tracing}{Exercise recommendation}{}
+    %高中数学习题推荐系统是一种自适应学习系统，它应用于高中数学学科中，通过跟踪评估学生的知识掌握水平来为学生提供最合适的习题，可以解决人工教育无法解决的个体性知识评估和学习资源推荐。本文立足于这个研究背景，提出一种基于知识追踪的习题推荐系统，它包含三个模块，分别是作为习题库预处理部分的习题知识点标注模块，作为系统核心部分的知识追踪模块，以及最终的习题推荐模块。在习题知识点标注模块中，一种结合图神经网络和基于注意力机制的双向LSTM模块的新型网络架构被提出来用于习题知识点抽取，通过与现有的文本分类模型进行对比，在抽取隐藏知识点和多知识点分类指标上都取得了更强的性能。在知识追踪部分，结合图神经网络的网络传播特性，对DKVMN知识追踪模型进行了改进，并引入学生的个性化答题特征，提出了GKVMN模型。经过与baseline模型对比，提出的模型在多个性能指标上超过了其他模型。在习题推荐模块中，一种基于matching和ranking两阶段的推荐系统模型被提出，它在matching阶段结合多种matching策略来生成候选推荐习题集，在ranking阶段结合知识追踪模块生成的学生知识状态熟练度来为生成的习题排序。通过与传统的推荐算法进行对比，并设计对比指标，结果显示了提出的推荐系统模型具备自适应学习的能力。
+    There are difficulties in evaluating students' learning status in high school Math education and recommending appropriate learning resources. High school mathematics exercise recommendation system as an adaptive learning system is intended to solve this problem by tracking students' knowledge mastery proficiency and recommending appropriate practicing exercises.
+
+    Based on this research background, a knowledge-tracing-based exercise recommendation system is designed and proposed. It consists of three modules: the exercise knowledge point labeling module as the pre-processing part, the knowledge tracing module as the core, and the exercise recommendation module as the functional part.
+    \begin{enumerate}
+        \item In the exercise knowledge point labeling model, a new network combining graph neural network and attention-based bidirectional LSTM layer is proposed for knowledge point labeling of exercise, which achieves better performance in classifying hidden knowledge points and knowledge point with complicated relations in experiments comparing with several baseline models.
+        \item In the knowledge tracing module, an improved model for the DKVMN knowledge tracing network is proposed, adapting the node information propagation mechanism of graph neural networks into the network's memory structure and integrating students' answering behaviors as an extra feature. The experiments showed that the proposed model outperforms original DKVMN models and other baseline models in specific metrics.
+        \item In the exercise recommendation module, a recommendation model based on matching and ranking is proposed. The model applies different matching strategies to generate candidate recommendation sets and then uses the knowledge mastery proficiency output from the knowledge tracking model to rank recommended exercises. Several experiments are performed to validate the effectiveness of the model.
+    \end{enumerate}
+    After theoretical derivation and experimental verification, the proposed model meets the expected objectives and design requirements.
+\end{abstract}
