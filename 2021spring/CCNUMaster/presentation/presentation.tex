@@ -1,4 +1,5 @@
-%# -*- coding:utf-8 -*-
+% !TeX program = xelatex
+% !BIB program = bibtex
 \documentclass[10pt,aspectratio=43,mathserif]{beamer}		
 %设置为 Beamer 文档类型，设置字体为 10pt，长宽比为4:3，数学字体为 serif 风格
 
@@ -228,10 +229,10 @@
 		\item Evaluate the multi-label classification performance: \(\operatorname{F1_{macro}}\), \(\operatorname{F1_{micro}}\), \(\operatorname{ACC}_{ML}\) and \(\operatorname{F1}_{ML}\)
 	\end{itemize}
 	\begin{align}
-		\operatorname{F1}_{macro} & =\frac{1}{c} \sum_{j=1}^{c} \operatorname{F1}(\operatorname{TP}_{j}, \operatorname{FP}_{j}, \operatorname{TN}_{j}, \operatorname{FN}_{j})\notag                                   \\
-		\operatorname{F1}_{micro} & =\operatorname{F1}(\sum_{j=1}^{c} \operatorname{TP}_{j}, \sum_{j=1}^{c} \operatorname{FP}_{j}, \sum_{j=1}^{c} \operatorname{TN}_{j}, \sum_{j=1}^{c} \operatorname{FN}_{j})\notag  \\
-		\operatorname{ACC}_{ML}   & =\frac{1}{n} |\{i|Y_i=\tilde{Y}_i\}| \notag                                                                                                                                       \\
-		\operatorname{F1}_{ML}    & =\frac{2 \cdot \operatorname{Precision} \cdot \operatorname{Recall}}{\operatorname{Precision}+\operatorname{Recall}} \notag                                                      
+		\operatorname{F1}_{macro} & =\frac{1}{c} \sum_{j=1}^{c} \operatorname{F1}(\operatorname{TP}_{j}, \operatorname{FP}_{j}, \operatorname{TN}_{j}, \operatorname{FN}_{j})\notag                                  \\
+		\operatorname{F1}_{micro} & =\operatorname{F1}(\sum_{j=1}^{c} \operatorname{TP}_{j}, \sum_{j=1}^{c} \operatorname{FP}_{j}, \sum_{j=1}^{c} \operatorname{TN}_{j}, \sum_{j=1}^{c} \operatorname{FN}_{j})\notag \\
+		\operatorname{ACC}_{ML}   & =\frac{1}{n} |\{i|Y_i=\tilde{Y}_i\}| \notag                                                                                                                                      \\
+		\operatorname{F1}_{ML}    & =\frac{2 \cdot \operatorname{Precision} \cdot \operatorname{Recall}}{\operatorname{Precision}+\operatorname{Recall}} \notag
 	\end{align}
 \end{frame}
 
