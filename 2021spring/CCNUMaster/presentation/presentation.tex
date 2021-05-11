@@ -64,29 +64,14 @@
 %------------------------------------------------
 \subsection{Research Background}
 
-\subsubsection{Existing Problems}
 \begin{frame}
 	\frametitle{Research Background}
-	\framesubtitle{Existing Problems}
 	\begin{description}
 		\item[Inappropriate Recommendation] Exercise recommendation is not based on knowledge mastery
 		\item[Disorganized exercise] Labelling knowledge for exercises lacking knowledge tags
 		\item[Knowledge evaluation] The difficulty for obtaining knowledge mastery proficiency of the student
-		\item[Exercise recommendation] How to recommend appropriate exercises according to their knowledge status
+		\item[Exercise recommendation] Recommend appropriate exercises according to their knowledge status
 	\end{description}
-\end{frame}
-
-
-\subsubsection{Objectives}
-\begin{frame}
-	\frametitle{Research Background}
-	\framesubtitle{Objectives}
-	Design a recommendation system based on a knowledge tracing model with the following features:
-	\begin{itemize}
-		\item Dedicated for High School Math Exercise
-		\item Knowledge State Monitoring
-		\item Learning Resource Recommendation
-	\end{itemize}
 \end{frame}
 
 \subsection{Related Works}
@@ -101,14 +86,24 @@
 	\end{itemize}
 \end{frame}
 
-
-
-%------------------------------------------------
-
-%------------------------------------------------
-\subsection{Research Cores}
+\subsection{Research Objectives}
 \begin{frame}
-	\frametitle{Research Cores}
+	\frametitle{Research Objectives}
+	Design a recommendation system dedicated to high school Math exercise with the following features:
+	\begin{itemize}
+		\item Knowledge labelling for exercises
+		\item Knowledge mastery proficiency tracking
+		\item Exercise recommendation
+	\end{itemize}
+\end{frame}
+
+
+%------------------------------------------------
+
+%------------------------------------------------
+\subsection{Research Contribution}
+\begin{frame}
+	\frametitle{Research Contribution}
 	\begin{block}{Exercise knowledge labeling}
 		A multi-knowledge point labeling algorithm for high school mathematics exercises based on bidirectional LSTM (Bi-LSTM)~\cite{chen2017improving} and graph convolutional neural network (GCN)~\cite{kipf2016semi}.
 	\end{block}
@@ -116,7 +111,7 @@
 		An improved graph-based DKVMN~\cite{zhang2017dynamic} knowledge tracing model to evaluate the knowledge proficiency of students.
 	\end{block}
 	\begin{block}{Exercise recommendation}
-		A mathematical exercise recommendation model based on Matching-Ranking stages~\cite{segev2009context}.
+		A mathematical exercise recommendation model of Matching-Ranking stages~\cite{segev2009context} based on knowledge mastery evaluation.
 	\end{block}
 \end{frame}
 %------------------------------------------------
@@ -359,6 +354,7 @@
 			\end{tabular}}
 	\end{table}
 \end{frame}
+
 
 
 \section{Conclusion and Future}
