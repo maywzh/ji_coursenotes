@@ -98,7 +98,13 @@ In the recommendation system, Compared with CF and random recommendation, the mo
 
 
 
+## Conclusion
+
 All right, that's all, I would like to thank my supervisor for his guidance and assistance. Hope for your criticism and correction.
+
+
+
+## Future
 
 
 
