@@ -6,6 +6,7 @@
 \documentclass[a4paper,12pt,times,numbered,print,index]{Classes/PhDThesisPSnPDF}
 \usepackage{xeCJK}
 \usepackage{indentfirst}
+\usepackage{pdfpages}
 
 % ******************************************************************************
 % ******************************* Class Options ********************************
@@ -82,7 +83,7 @@
 
 % ********************************** Preamble **********************************
 % Preamble: Contains packages and user-defined commands and settings
-%\let\cleardoublepage\clearpage
+\let\cleardoublepage\clearpage
 \input{Preamble/preamble}
 
 % ************************ Thesis Information & Meta-data **********************
@@ -93,6 +94,8 @@
 % To printout only the titlepage and the abstract with the PhD title and the
 % author name for submission to the Student Registry, use the `abstract' option in
 % the document class.
+
+
 
 \ifdefineAbstract
  \pagestyle{empty}
@@ -118,6 +121,7 @@
   \maketitle
 \end{titlepage}
 
+\includepdf[pages={1}]{declaration.pdf} 
 
 
 \include{Declaration/declaration}
